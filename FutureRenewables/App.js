@@ -1,35 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React from 'react';
+import { createAppContainer, createStackNavigator, createBottomTabNavigator } from 'react-navigation'; // Version can be specified in package.json
+import HomeScreen from './src/components/HomeScreen';
+import SignUpScreen from './src/components/SignUpScreen';
+import LoginScreen from './src/components/LoginScreen';
+import SmsVerifyScreen from './src/components/SmsVerifyScreen';
+import FeedScreen from './src/components/FeedScreen';
 
-import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+const RootStack = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+    },
+    SignUp: {
+      screen: SignUpScreen,
+    },
+    Login: {
+      screen: LoginScreen,
+    },
+    SmsCode: {
+      screen: SmsVerifyScreen,
+    },
+    Feed: {
+      screen: FeedScreen,
+    },
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
 
-type Props = {};
-export default class App extends Component<Props> {
+const AppContainer = createAppContainer(RootStack);
+
+export default class App extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Future Renewables</Text>
-      </View>
-    );
+    return <AppContainer />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
