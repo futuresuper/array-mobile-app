@@ -19,26 +19,30 @@ export default class Card extends React.Component {
 
 const styles = StyleSheet.create({
   textAboveImage: {
+    fontFamily: 'Lato',
+    fontWeight: '300',
     padding: 12,
     fontSize: 14
   },
   textHeadline: {
+    fontFamily: 'Lato',
+    fontWeight: '700',
     paddingHorizontal: 12,
     paddingTop: 12,
     paddingBottom: 4,
     fontSize: 24
   },
   textBelowImage: {
+    fontFamily: 'Lato',
+    fontWeight: '300',
     paddingHorizontal: 12,
     paddingBottom: 12,
     fontSize: 14
   },
+  image: {
+    width: '100%',
+  },
   card: {
-    margin: 10,
     backgroundColor: 'white',
-    borderRadius: 4,
-    shadowOffset:{  width: 2,  height: 2,  },
-    shadowColor: 'black',
-    shadowOpacity: 0.2,
   },
 });

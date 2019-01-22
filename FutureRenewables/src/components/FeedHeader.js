@@ -1,22 +1,40 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import Video from 'react-native-video';
 
 export default class FeedHeader extends React.Component {
   render() {
     const { itemContents } = this.props;
     return (
       <View style={styles.header}>
-        <Text style={styles.balance}>$84,536</Text>
+        <Video
+          source={require('../images/solarFlyover.mp4')}
+          ref={ref => this.player = ref}
+          resizeMode="cover"
+          repeat
+          style={styles.backgroundVideo}
+        />
+        <Text style={styles.balance}>$84,536.20</Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  backgroundVideo: {
+    flex: 1,
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
   balance: {
+    fontFamily: 'Lato',
     fontSize: 48,
-    fontWeight: '700',
-    color: 'black',
+    fontWeight: '900',
+    color: 'white',
   },
   header: {
     width: '100%',

@@ -8,8 +8,8 @@ export default class FeedItem extends React.Component {
     const { itemContents } = this.props;
     return (
       <View>
-        { itemContents == 'a' && <FeedHeader /> }
-        <Card />
+        { itemContents.cardType == 'header' && <FeedHeader /> }
+        { itemContents.cardType == 'update' && <Card /> }
       </View>
     );
   }

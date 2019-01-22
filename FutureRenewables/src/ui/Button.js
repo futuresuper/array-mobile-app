@@ -4,9 +4,14 @@ import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 export default class Button extends React.Component {
 
   render() {
+    const buttonColor = this.props.secondary ? '#CCCCCC' : '#FCCD3B';
     return (
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonBackground} onPress={() => this.props.navigation.navigate(this.props.targetPage)}>
+        <TouchableOpacity
+          style={[styles.buttonBackground, { backgroundColor: buttonColor }]}
+          onPress={() => this.props.onPress()}
+        >
+        {/*<TouchableOpacity style={styles.buttonBackground} onPress={() => this.props.navigation.navigate(this.props.targetPage)}>*/}
           <Text style={styles.buttonText}>
             {this.props.text}
           </Text>
@@ -30,6 +35,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
+    fontFamily: 'Lato',
     fontSize: 20,
     color: 'black',
     margin: 14,

@@ -11,10 +11,26 @@ export default class FeedScreen extends React.Component {
     return (
       <View style={styles.list}>
         <FlatList
-          data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}]}
+          data={[
+            {
+              key: 'a',
+              cardType: 'header',
+            },
+            {
+              key: 'b',
+              cardType: 'update',
+              category: 'news',
+            },
+            {
+              key: 'c',
+            },
+            {
+              key: 'd',
+            }
+          ]}
           renderItem={({ item }) => (
             <FeedItem
-              itemContents={item.key}
+              itemContents={item}
             />
           )}
         />
