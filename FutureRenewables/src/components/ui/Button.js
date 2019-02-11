@@ -1,17 +1,17 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+const styleSettings = require('../../styles/styleSettings.json');
 
 export default class Button extends React.Component {
 
   render() {
-    const buttonColor = this.props.secondary ? '#CCCCCC' : '#FCCD3B';
+    const buttonColor = this.props.secondary ? styleSettings.color.secondary : styleSettings.color.primary;
     return (
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[styles.buttonBackground, { backgroundColor: buttonColor }]}
           onPress={() => this.props.onPress()}
         >
-        {/*<TouchableOpacity style={styles.buttonBackground} onPress={() => this.props.navigation.navigate(this.props.targetPage)}>*/}
           <Text style={styles.buttonText}>
             {this.props.text}
           </Text>
@@ -19,25 +19,25 @@ export default class Button extends React.Component {
       </View>
     )
   }
+
 }
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    flexDirection: 'row',
-    width: '100%',
+    width: "100%",
+    flexDirection: "row",
   },
   buttonBackground: {
-    backgroundColor: '#FCCD3B',
-    borderRadius: 8,
+    borderRadius: styleSettings.radius,
     marginBottom: 16,
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   buttonText: {
-    fontFamily: 'Lato',
+    fontFamily: styleSettings.font,
     fontSize: 20,
-    color: 'black',
+    color: "black",
     margin: 14,
   },
 });

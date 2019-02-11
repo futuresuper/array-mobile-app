@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
-import Button from '../ui/Button';
+import Button from './ui/Button';
 
 export default class SmsVerifyScreen extends React.Component {
 

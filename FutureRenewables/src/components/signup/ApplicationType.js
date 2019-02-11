@@ -1,29 +1,27 @@
 import React from 'react';
 import { Image, View, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
-import Button from '../../ui/Button';
+import Button from '../ui/Button';
+const styleSettings = require('../../styles/styleSettings.json');
+import globalStyles from '../../styles/Style';
+import flowNext from './flows/flowNavigation.js';
+
 
 export default class ApplicationType extends React.Component {
 
-    constructor(props) {
-      super(props);
-      this.state = {
-        smsCode: ''
-      };
-    }
-
-    static navigationOptions = {
-      title: 'Application Type',
-    }
-
-    handlePress(type) {
-      console.log("Pressed Button: " + type);
+    handlePress(applicationType) {
+      const nextPage = flowNext("individual","ApplicationType");
+      this.props.navigation.navigate(nextPage,{
+        applicationType: applicationType,
+        lastPage: "ApplicationType",
+        currentPage: nextPage,
+      });
     }
 
     render() {
       return (
-        <View style={styles.container}>
+        <View style={globalStyles.signUpFormContainer}>
           <View>
-            <Text style={styles.h2}>
+            <Text style={globalStyles.formHeading}>
               What sort of account would you like to set up?
             </Text>
           </View>
@@ -42,40 +40,20 @@ export default class ApplicationType extends React.Component {
               onPress={() => this.handlePress("adultForChild")}
               secondary
             />
-            <View style={{ height: 100 }} />
+            <Button
+              text="Company / Partnership"
+              onPress={() => this.handlePress("companyPartnership")}
+              secondary
+            />
+            <Button
+              text="SMSF / Trust / Super Fund"
+              onPress={() => this.handlePress("smsfTrustSuperFund")}
+              secondary
+            />
+            <View style={{ height: styleSettings.keyboardAvoidingHeight }} />
           </KeyboardAvoidingView>
         </View>
       );
     }
 
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#F9F9F9',
-    justifyContent: 'space-between',
-  },
-  input: {
-    fontFamily: 'Lato',
-    height: 40,
-    backgroundColor: "white",
-    color: "black",
-    paddingHorizontal: 20,
-    marginBottom: 20,
-    textAlign: 'center',
-    borderWidth: 1,
-    borderColor: "#979797",
-    borderRadius: 4,
-  },
-  h2: {
-    fontFamily: 'Lato',
-    fontSize: 17,
-    fontWeight: "900",
-    textAlign: 'center',
-    marginHorizontal: 20,
-    marginTop: 60,
-    marginBottom: 20,
-  },
-});
+};

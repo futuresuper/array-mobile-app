@@ -1,8 +1,8 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, Image } from 'react-native';
-import Button from '../ui/Button';
+import { View, Text, StyleSheet } from 'react-native';
+import Button from './ui/Button';
 import Video from 'react-native-video';
-
+const styleSettings = require('../styles/styleSettings.json');
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -13,7 +13,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Video
-          source={require('../images/solarTechnician.mp4')}
+          source={require('../assets/video/solarTechnician.mp4')}
           ref={ref => this.player = ref}
           resizeMode="cover"
           repeat
@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: '#F9F9F9',
+    backgroundColor: styleSettings.color.light,
     paddingBottom: 60,
   },
   h1: {
-    fontFamily: 'Lato',
-    fontSize: 28,
+    fontFamily: styleSettings.font,
+    fontSize: styleSettings.fontSize.h1,
     color: "white",
     textAlign: 'center',
     margin: 28,

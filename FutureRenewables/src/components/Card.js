@@ -8,7 +8,7 @@ export default class Card extends React.Component {
         <Text style={styles.textAboveImage}>Text above the image</Text>
         <Image
           style={styles.image}
-          source={require('../images/solarHeart.png')}
+          source={require('../assets/images/solarHeart.png')}
         />
         <Text style={styles.textHeadline}>Headline</Text>
         <Text style={styles.textBelowImage}>Text below the image</Text>

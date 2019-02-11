@@ -8,7 +8,7 @@ export default class FeedHeader extends React.Component {
     return (
       <View style={styles.header}>
         <Video
-          source={require('../images/solarFlyover.mp4')}
+          source={require('../assets/video/solarFlyover.mp4')}
           ref={ref => this.player = ref}
           resizeMode="cover"
           repeat
