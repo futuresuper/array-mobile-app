@@ -1,0 +1,47 @@
+{
+    "globals": {
+        "alert": false,
+        "console": false,
+        "__DEV__": false,
+        "Reactotron": false
+    },
+    "parser": "babel-eslint",
+    "plugins": [
+        "react",
+        "react-native"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        }
+    },
+    "extends" : [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "airbnb-base"
+    ],
+    "rules" : {
+        "react/prop-types": ["error", {
+            "ignore": [
+                "navigation",
+                "screenProps",
+                "children",
+                "hocs"
+            ]
+        }],
+        "no-underscore-dangle": ["error", {
+            "allowAfterThis": true
+        }],
+        "import/no-extraneous-dependencies" : "off",
+        "arrow-body-style" : "warn",
+        "linebreak-style": 0,
+        "import/no-unresolved": "off",
+        "properties": "never",
+        "no-alert": "off",
+        "no-console": "off",
+        "camelcase": 0,
+        "max-len": ["error", { "code": 150 }]
+    }
+}
+  
