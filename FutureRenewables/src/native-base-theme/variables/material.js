@@ -11,6 +11,8 @@ const platformStyle = "material";
 const isIphoneX =
 platform === "ios" && (deviceHeight === 812 || deviceWidth === 812 || deviceHeight === 896 || deviceWidth === 896);
 
+import { styleConstants } from 'src/Styles';
+
 export default {
   platformStyle,
   platform,
@@ -34,7 +36,7 @@ export default {
   badgePadding: 0,
 
   // Button
-  btnFontFamily: "Roboto",
+  btnFontFamily: styleConstants.fontFamily,
   btnDisabledBg: "#b5b5b5",
   buttonPadding: 6,
   get btnPrimaryBg() {
@@ -68,7 +70,7 @@ export default {
     return this.inverseTextColor;
   },
   get btnTextSize() {
-    return this.fontSizeBase - 1;
+    return this.fontSizeBase + 4;
   },
   get btnTextSizeLarge() {
     return this.fontSizeBase * 1.5;
@@ -105,7 +107,7 @@ export default {
   checkboxTickColor: "#fff",
 
   // Color
-  brandPrimary: "#3F51B5",
+  brandPrimary: styleConstants.color.primary,
   brandInfo: "#62B1F6",
   brandSuccess: "#5cb85c",
   brandDanger: "#d9534f",
@@ -114,7 +116,7 @@ export default {
   brandLight: "#f4f4f4",
 
   //Container
-  containerBgColor: "#fff",
+  containerBgColor: styleConstants.color.light,
 
   //Date Picker
   datePickerTextColor: "#000",
@@ -122,7 +124,7 @@ export default {
 
   // Font
   DefaultFontSize: 16,
-  fontFamily: "Roboto",
+  fontFamily: styleConstants.fontFamily,
   fontSizeBase: 15,
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
@@ -176,7 +178,7 @@ export default {
 
   // InputGroup
   inputFontSize: 17,
-  inputBorderColor: "#D9D5DC",
+  inputBorderColor: "#979797",
   inputSuccessBorderColor: "#2b8339",
   inputErrorBorderColor: "#ed2f2f",
   inputHeightBase: 50,
@@ -184,7 +186,7 @@ export default {
     return this.textColor;
   },
   get inputColorPlaceholder() {
-    return "#575757";
+    return "gray";
   },
 
   // Line Height
@@ -241,7 +243,7 @@ export default {
 
   // Text
   textColor: "#000",
-  inverseTextColor: "#fff",
+  inverseTextColor: "#000",
   noteFontSize: 14,
   get defaultTextColor() {
     return this.textColor;
@@ -255,7 +257,7 @@ export default {
   titleFontColor: "#FFF",
 
   // Other
-  borderRadiusBase: 2,
+  borderRadiusBase: styleConstants.radius,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
   contentPadding: 10,
   dropdownLinkColor: "#414142",

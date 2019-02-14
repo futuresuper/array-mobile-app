@@ -1,5 +1,7 @@
-import StyleConstants from './StyleConstants';
+import styleConstants from './styleConstants';
+import styleGlobal from './styleGlobal';
 
 export {
-  StyleConstants,
+  styleConstants,
+  styleGlobal,
 };

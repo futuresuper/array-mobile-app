@@ -7,6 +7,7 @@ export default (variables /*: * */ = variable) => {
     color: variables.textColor,
     fontSize: variables.fontSizeH1,
     lineHeight: variables.lineHeightH1,
+    fontFamily: variables.fontFamily,
   };
 
   return h1Theme;

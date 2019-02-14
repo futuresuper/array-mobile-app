@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import {
   Home,
+  SignUpLogin,
   Settings,
   Example,
 } from 'src/Screens';
@@ -14,23 +15,25 @@ import {
 
 const drawerRoutes = {
   home: {
-    title: '-',
     screen: Home,
-    // params: {
-    //   title: '--',
-    //   noHeader: false,
-    // },
+    params: {
+      noHeader: true,
+    },
   },
-  example: {
-    title: 'example',
-    screen: Example,
+  SignUpLogin: {
+    screen: SignUpLogin,
+    params: {
+      title: 'Sign Up or Login',
+    },
+  },
+  settings: {
+    screen: Settings,
   },
 };
 
 const drawerModalRoutes = {
-  settings: {
-    title: 'Settings',
-    screen: Settings,
+  example: {
+    screen: Example,
   },
 };
 

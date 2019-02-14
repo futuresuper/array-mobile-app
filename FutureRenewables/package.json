@@ -12,6 +12,7 @@
     "react": "16.6.3",
     "react-native": "0.58.4",
     "react-native-gesture-handler": "^1.0.15",
+    "react-native-video": "^4.3.1",
     "react-navigation": "^3.2.1",
     "react-navigation-redux-helpers": "^3.0.0",
     "react-redux": "^6.0.0",
@@ -41,5 +42,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./src/assets/fonts/"
+    ]
   }
 }

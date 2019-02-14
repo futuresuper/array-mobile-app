@@ -146,6 +146,7 @@ export default (variables /*: * */ = variable) => {
         borderColor: variables.inputErrorBorderColor
       },
       borderWidth: variables.borderWidth * 2,
+      borderRadius: 4,
       borderColor: variables.inputBorderColor
     },
     ".rounded": {
@@ -230,7 +231,7 @@ export default (variables /*: * */ = variable) => {
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderColor: variables.inputBorderColor,
-    backgroundColor: "transparent",
+    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 2

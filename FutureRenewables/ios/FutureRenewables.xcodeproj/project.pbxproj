@@ -58,6 +58,17 @@
 		5B68F3C1E48F4AA59789CBB5 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D7F5E75FFBC47F38F3FFD36 /* rubicon-icon-font.ttf */; };
 		C820CCD59E7D4D078FE8713F /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B0E65665A914AC1AB1A9A6E /* SimpleLineIcons.ttf */; };
 		47975B9FF3744E79B4E92DEB /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 654C537C9D464A96B4F5DB5A /* Zocial.ttf */; };
+		122C8F5FF55A4E09ACD1DAA9 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB73478916E94C84A036D607 /* libRCTVideo.a */; };
+		F6D7D793B8E24B278AED82CD /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE3FA77931C145C78364B653 /* Lato-Black.ttf */; };
+		137BEAE0D2C84D34AEAC85A6 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0A0C8C5857C40E483235DBD /* Lato-BlackItalic.ttf */; };
+		D75707E3E65A4649AA215B93 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C555514613142BD9A437A56 /* Lato-Bold.ttf */; };
+		3E29D978DB174C3BA2ADA0DE /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1ABE23AFA608474381F3F1F4 /* Lato-BoldItalic.ttf */; };
+		CFBA555F9F11446E99F27E24 /* Lato-Hairline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC211676AB6B43669FD44831 /* Lato-Hairline.ttf */; };
+		CD35B785B48645289AD85AF1 /* Lato-HairlineItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0BCAB08CB954F9F9119F95B /* Lato-HairlineItalic.ttf */; };
+		7B9873D9B03F4577B34E36D2 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1284FA342374D09A36769C5 /* Lato-Italic.ttf */; };
+		AA5D4BA644834202B67764F7 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8172548845743C881848BD0 /* Lato-Light.ttf */; };
+		1C682DC8EEF24AEF9734D493 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B0F55A912FB4F13BE298BA9 /* Lato-LightItalic.ttf */; };
+		51C5E9B6F2FE4EE3A6E17F85 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BC98D6426604AD2A2B4ED2F /* Lato-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -385,6 +396,18 @@
 		4D7F5E75FFBC47F38F3FFD36 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		5B0E65665A914AC1AB1A9A6E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		654C537C9D464A96B4F5DB5A /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EC57C554E83E446984403B16 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; name = "RCTVideo.xcodeproj"; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		BB73478916E94C84A036D607 /* libRCTVideo.a */ = {isa = PBXFileReference; name = "libRCTVideo.a"; path = "libRCTVideo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		BE3FA77931C145C78364B653 /* Lato-Black.ttf */ = {isa = PBXFileReference; name = "Lato-Black.ttf"; path = "../src/assets/fonts/Lato-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F0A0C8C5857C40E483235DBD /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; name = "Lato-BlackItalic.ttf"; path = "../src/assets/fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4C555514613142BD9A437A56 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../src/assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1ABE23AFA608474381F3F1F4 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Lato-BoldItalic.ttf"; path = "../src/assets/fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EC211676AB6B43669FD44831 /* Lato-Hairline.ttf */ = {isa = PBXFileReference; name = "Lato-Hairline.ttf"; path = "../src/assets/fonts/Lato-Hairline.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B0BCAB08CB954F9F9119F95B /* Lato-HairlineItalic.ttf */ = {isa = PBXFileReference; name = "Lato-HairlineItalic.ttf"; path = "../src/assets/fonts/Lato-HairlineItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C1284FA342374D09A36769C5 /* Lato-Italic.ttf */ = {isa = PBXFileReference; name = "Lato-Italic.ttf"; path = "../src/assets/fonts/Lato-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B8172548845743C881848BD0 /* Lato-Light.ttf */ = {isa = PBXFileReference; name = "Lato-Light.ttf"; path = "../src/assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6B0F55A912FB4F13BE298BA9 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; name = "Lato-LightItalic.ttf"; path = "../src/assets/fonts/Lato-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8BC98D6426604AD2A2B4ED2F /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +437,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				591BDCE33FCA46F8BE67C2FA /* libRNGestureHandler.a in Frameworks */,
+				122C8F5FF55A4E09ACD1DAA9 /* libRCTVideo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +628,7 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				17536D052D9A4A5680947351 /* RNGestureHandler.xcodeproj */,
+				EC57C554E83E446984403B16 /* RCTVideo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -673,6 +698,16 @@
 				4D7F5E75FFBC47F38F3FFD36 /* rubicon-icon-font.ttf */,
 				5B0E65665A914AC1AB1A9A6E /* SimpleLineIcons.ttf */,
 				654C537C9D464A96B4F5DB5A /* Zocial.ttf */,
+				BE3FA77931C145C78364B653 /* Lato-Black.ttf */,
+				F0A0C8C5857C40E483235DBD /* Lato-BlackItalic.ttf */,
+				4C555514613142BD9A437A56 /* Lato-Bold.ttf */,
+				1ABE23AFA608474381F3F1F4 /* Lato-BoldItalic.ttf */,
+				EC211676AB6B43669FD44831 /* Lato-Hairline.ttf */,
+				B0BCAB08CB954F9F9119F95B /* Lato-HairlineItalic.ttf */,
+				C1284FA342374D09A36769C5 /* Lato-Italic.ttf */,
+				B8172548845743C881848BD0 /* Lato-Light.ttf */,
+				6B0F55A912FB4F13BE298BA9 /* Lato-LightItalic.ttf */,
+				8BC98D6426604AD2A2B4ED2F /* Lato-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1142,6 +1177,16 @@
 				5B68F3C1E48F4AA59789CBB5 /* rubicon-icon-font.ttf in Resources */,
 				C820CCD59E7D4D078FE8713F /* SimpleLineIcons.ttf in Resources */,
 				47975B9FF3744E79B4E92DEB /* Zocial.ttf in Resources */,
+				F6D7D793B8E24B278AED82CD /* Lato-Black.ttf in Resources */,
+				137BEAE0D2C84D34AEAC85A6 /* Lato-BlackItalic.ttf in Resources */,
+				D75707E3E65A4649AA215B93 /* Lato-Bold.ttf in Resources */,
+				3E29D978DB174C3BA2ADA0DE /* Lato-BoldItalic.ttf in Resources */,
+				CFBA555F9F11446E99F27E24 /* Lato-Hairline.ttf in Resources */,
+				CD35B785B48645289AD85AF1 /* Lato-HairlineItalic.ttf in Resources */,
+				7B9873D9B03F4577B34E36D2 /* Lato-Italic.ttf in Resources */,
+				AA5D4BA644834202B67764F7 /* Lato-Light.ttf in Resources */,
+				1C682DC8EEF24AEF9734D493 /* Lato-LightItalic.ttf in Resources */,
+				51C5E9B6F2FE4EE3A6E17F85 /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1277,10 +1322,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 				);
 			};
 			name = Debug;
@@ -1303,10 +1350,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 				);
 			};
 			name = Release;
@@ -1330,6 +1379,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 				);
 			};
 			name = Debug;
@@ -1352,6 +1402,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 				);
 			};
 			name = Release;
@@ -1382,10 +1433,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 				);
 			};
 			name = Debug;
@@ -1416,10 +1469,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 				);
 			};
 			name = Release;
@@ -1449,10 +1504,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 				);
 			};
 			name = Debug;
@@ -1482,10 +1539,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 				);
 			};
 			name = Release;
