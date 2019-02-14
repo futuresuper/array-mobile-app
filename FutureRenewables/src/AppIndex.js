@@ -24,8 +24,8 @@ import {
   navGetParam,
 } from 'src/Common/Helpers';
 
+import Api from 'src/Common/Api';
 import Spinner from 'src/Components/Spinner';
-// import StyleBase from 'src/styles/StyleBase';
 import { AppWithNavigationState } from 'src/Navigation/AppNavigator';
 import navigateTo from 'src/Redux/actions/sideBarNav';
 import { routeBack } from 'src/Redux/actions/navigationCard';
@@ -101,6 +101,14 @@ class AppIndex extends Component {
               size={'large'}
             />
 
+            <Api
+              ref={(c) => {
+                if (c) Api.ApiInstance = c;
+              }}
+              spinnerShow={this.spinnerShow}
+              spinnerHide={this.spinnerHide}
+            />
+
 
             <AppWithNavigationState
               navigation={{
@@ -109,6 +117,7 @@ class AppIndex extends Component {
                 navigateTo: this.navigateTo,
                 spinnerShow: this.spinnerShow,
                 spinnerHide: this.spinnerHide,
+                Api,
               }}
             />
           </Container>

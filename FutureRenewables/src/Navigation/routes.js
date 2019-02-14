@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {
   Home,
   SignUpLogin,
+  SmsCode,
   Settings,
   Example,
 } from 'src/Screens';
@@ -24,6 +25,12 @@ const drawerRoutes = {
     screen: SignUpLogin,
     params: {
       title: 'Sign Up or Login',
+    },
+  },
+  SmsCode: {
+    screen: SmsCode,
+    params: {
+      title: 'SMS code',
     },
   },
   settings: {

@@ -13,18 +13,14 @@ import {
   Button,
   Input,
   Item,
-  Col,
-  Row,
 } from 'native-base';
 
-// import styles from './styles';
 import {
   styleGlobal,
   styleConstants,
 } from 'src/Styles';
 
 class SignUpLogin extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -59,32 +55,22 @@ class SignUpLogin extends Component {
     }
   }
 
-  async getSms() {
-    console.log('!!!');
-    return false;
-    const formattedMobile = this.formatAndValidateMobile(this.state.mobile);
-      const url = "https://api.staging.futurerenewablesfund.com.au/api/v1/send/sms?mobile=" + formattedMobile;
-      try {
-         let response = await fetch(url,
-            {
-               method: "POST",
-               headers: {
-                 "Accept": "application/json",
-                 "Content-Type": "application/json"
-                }
-            }
-          );
-          if (response.status >= 200 && response.status < 300) {
-              console.log("SMS sent");
-              console.log(response);
-              this.props.navigation.navigate('SmsCode', {mobile: this.state.mobile} );
-          } else {
-            console.log("There was a problem:");
-            console.log(response);
-          }
-      } catch (errors) {
-           console.log("errors: " + errors);
-      }
+  getSms() {
+    const { Api, toast, navigateTo } = this.props.screenProps;
+    const { mobile } = this.state;
+    const formattedMobile = this.formatAndValidateMobile(mobile);
+
+    if (!formattedMobile) return false;
+
+    Api.post('send/sms', { mobile: formattedMobile })
+      .then(() => {
+        navigateTo('SmsCode', { mobile });
+      })
+      .catch((err) => {
+        toast(err.message);
+      });
+
+    return true;
   }
 
   handleChange(mobile) {
@@ -107,7 +93,7 @@ class SignUpLogin extends Component {
               Please enter your mobile number
             </Text>
 
-            <Item regular error={ inpErr }>
+            <Item regular error={inpErr}>
               <Input
                 returnKeyType="next"
                 keyboardType="numeric"
@@ -131,7 +117,6 @@ class SignUpLogin extends Component {
             </Button>
             <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
           </KeyboardAvoidingView>
-
 
       </Content>
     );

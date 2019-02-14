@@ -3,7 +3,8 @@
         "alert": false,
         "console": false,
         "__DEV__": false,
-        "Reactotron": false
+        "Reactotron": false,
+        "fetch": false
     },
     "parser": "babel-eslint",
     "plugins": [
