@@ -2,35 +2,39 @@ import { connect } from 'react-redux';
 import {
   createStackNavigator,
   createSwitchNavigator,
+  createAppContainer,
 } from 'react-navigation';
 
 import {
   createReduxContainer,
 } from 'react-navigation-redux-helpers';
 
-import DrawerNavigation from './DrawerNavigator';
+import {
+  SignStack,
+  MainStack,
+  MainModalStack,
+} from './StackNavigator';
+
 // eslint-disable-next-line no-unused-vars
 import { navReduxMiddleware } from './navMiddlewareListener';
 
 
 const initialRoute = () => {
-  const init_screen = 'drawerStack';
+  const init_screen = 'SignStack';
 
   return init_screen;
 };
 
-const AppNavigator = createSwitchNavigator(
+const AppNavigator = createAppContainer(createSwitchNavigator(
   {
-    drawerStack: {
-      screen: DrawerNavigation,
-    },
+    SignStack,
+    MainStack,
+    // MainModalStack,
   },
   {
     initialRouteName: initialRoute(),
-    headerMode: 'none',
   },
-);
-
+));
 
 const mapStateToProps = (state, props) => ({
   state: state.navigationCard,

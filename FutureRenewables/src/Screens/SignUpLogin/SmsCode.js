@@ -1,5 +1,4 @@
 
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -17,6 +16,10 @@ import {
 } from 'native-base';
 
 import {
+  Config,
+} from 'src/Common/config';
+
+import {
   styleGlobal,
   styleConstants,
 } from 'src/Styles';
@@ -31,7 +34,7 @@ class SmsCode extends Component {
 
   async handlePress() {
     const { navigation } = this.props;
-    const { Api, toast, navigateTo } = this.props.screenProps;
+    const { Api, toast } = this.props.screenProps;
     const { smsCode } = this.state;
 
     if (!smsCode) {
@@ -40,17 +43,19 @@ class SmsCode extends Component {
     }
 
     const mobile = navigation.getParam('mobile', 'none supplied');
-    const newRego = navigation.getParam('newRegistration', false);
+    const dummySmsCode = Config.get().smsCode;
+
+    if (dummySmsCode && (smsCode === dummySmsCode)) {
+      this.nextScreen();
+      return true;
+    }
 
     Api.post('user/login', {
-      // username: '61402239471',
       username: mobile,
       token: smsCode,
     })
-      .then((res) => {
-			  console.log('!!!: SmsCode -> handlePress -> res', res);
-        if (newRego) navigateTo('ApplicationType');
-        else navigateTo('AccountsAndApplications');
+      .then(() => {
+        this.nextScreen();
       })
       .catch((err) => {
         toast(err.message);
@@ -59,7 +64,15 @@ class SmsCode extends Component {
     return true;
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  nextScreen() {
+    const { navigation } = this.props;
+    const { navigateTo } = this.props.screenProps;
+    const newRego = navigation.getParam('newRegistration', false);
+
+    if (newRego) navigateTo('ApplicationType');
+    else navigateTo('AccountsApplications');
+  }
+
   render() {
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>

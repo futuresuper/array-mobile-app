@@ -42,6 +42,9 @@ export default {
   get btnPrimaryBg() {
     return this.brandPrimary;
   },
+  get btnSecondaryBg() {
+    return styleConstants.color.secondary;
+  },
   get btnPrimaryColor() {
     return this.inverseTextColor;
   },

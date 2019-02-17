@@ -5,7 +5,11 @@ import {
   Home,
   SignUpLogin,
   SmsCode,
-  Settings,
+  AccountsApplications,
+  Feed,
+  ApplicationType,
+  Name,
+  HomeAddress,
   Example,
 } from 'src/Screens';
 
@@ -14,8 +18,28 @@ import {
   drawerOptions,
 } from './navigationOptions';
 
-const drawerRoutes = {
-  home: {
+const formatRoutes = (routesInp) => {
+  const routes = routesInp;
+
+  Object.keys(routes).forEach((key) => {
+    const item = routes[key];
+    const { params } = item;
+    let navigationOptions;
+
+    if (params && !_.isNil(params.noHeader) && params.noHeader) {
+      navigationOptions = noHeader;
+    } else {
+      navigationOptions = drawerOptions;
+    }
+
+    routes[key].navigationOptions = navigationOptions;
+  });
+
+  return routes;
+};
+
+const signRoutes = formatRoutes({
+  Home: {
     screen: Home,
     params: {
       noHeader: true,
@@ -33,32 +57,40 @@ const drawerRoutes = {
       title: 'SMS code',
     },
   },
-  settings: {
-    screen: Settings,
-  },
-};
+});
 
-const drawerModalRoutes = {
+const mainRoutes = formatRoutes({
+  AccountsApplications: {
+    screen: AccountsApplications,
+    params: {
+      title: 'Accounts and Applications',
+    },
+  },
+  Feed: {
+    screen: Feed,
+    params: {
+      noHeader: true,
+    },
+  },
+  ApplicationType: {
+    screen: ApplicationType,
+  },
+  Name: {
+    screen: Name,
+  },
+  HomeAddress: {
+    screen: HomeAddress,
+  },
+});
+
+const mainModalRoutes = {
   example: {
     screen: Example,
   },
 };
 
-Object.keys(drawerRoutes).forEach((key) => {
-  const item = drawerRoutes[key];
-  const { params } = item;
-  let navigationOptions;
-
-  if (params && !_.isNil(params.noHeader) && params.noHeader) {
-    navigationOptions = noHeader;
-  } else {
-    navigationOptions = drawerOptions;
-  }
-
-  drawerRoutes[key].navigationOptions = navigationOptions;
-});
-
 export {
-  drawerRoutes,
-  drawerModalRoutes,
+  signRoutes,
+  mainRoutes,
+  mainModalRoutes,
 };

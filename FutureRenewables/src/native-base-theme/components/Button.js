@@ -190,6 +190,13 @@ export default (variables /*: * */ = variable) => {
       backgroundColor: variables.btnPrimaryBg
     },
 
+    ".secondary": {
+      ".bordered": {
+        ...primaryCommon
+      },
+      backgroundColor: variables.btnSecondaryBg
+    },
+
     ".success": {
       ".bordered": {
         ...successCommon
@@ -372,6 +379,9 @@ export default (variables /*: * */ = variable) => {
           lineHeight: null
         }
       }
+    },
+    ".marginVertical": {
+      marginVertical: 8
     },
 
     paddingVertical: variables.buttonPadding,
