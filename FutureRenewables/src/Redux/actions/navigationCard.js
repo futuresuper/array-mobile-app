@@ -16,3 +16,11 @@ export function routeBack(back_screen = null, params = null) {
     },
   };
 }
+
+export function routeReset(route, params = null) {
+  return {
+    type: 'ROUTE_RESET',
+    route_name: route,
+    params,
+  };
+}

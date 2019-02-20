@@ -1,6 +1,6 @@
 
 import { AppNavigator } from 'src/Navigation/AppNavigator';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
 import _ from 'lodash';
 
 export default function (state, action) {
@@ -9,6 +9,16 @@ export default function (state, action) {
   switch (action.type) {
     case 'ROUTE_PUSH': {
       res = AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName: action.route_name, params: action.params }), state);
+
+      return res;
+    }
+    case 'ROUTE_RESET': {
+      res = AppNavigator.router.getStateForAction(StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: action.route_name }),
+        ],
+      }), state);
 
       return res;
     }

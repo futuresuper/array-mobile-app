@@ -76,7 +76,7 @@ class AccountsApplications extends Component {
                 style={styles.accountCard}
                 onPress={() => {
                   if (item.status === 'active') navigateTo('Feed');
-                  else navigateTo('ApplicationType');
+                  else navigateTo('ApplicationType', { routeReset: false });
                 }}
               >
                 <Text>Account Name: {item.account_name}</Text>

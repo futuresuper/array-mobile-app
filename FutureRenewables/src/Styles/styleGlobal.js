@@ -21,4 +21,7 @@ export default {
   textCenter: {
     textAlign: 'center',
   },
+  colorWhite: {
+    color: 'white',
+  },
 };

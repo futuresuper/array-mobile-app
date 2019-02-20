@@ -9,6 +9,8 @@ import {
   Feed,
   ApplicationType,
   Name,
+  Email,
+  DateOfBirth,
   HomeAddress,
   Example,
 } from 'src/Screens';
@@ -74,9 +76,18 @@ const mainRoutes = formatRoutes({
   },
   ApplicationType: {
     screen: ApplicationType,
+    params: {
+      routeReset: true,
+    },
   },
   Name: {
     screen: Name,
+  },
+  Email: {
+    screen: Email,
+  },
+  DateOfBirth: {
+    screen: DateOfBirth,
   },
   HomeAddress: {
     screen: HomeAddress,
@@ -89,7 +100,40 @@ const mainModalRoutes = {
   },
 };
 
+const routes = {
+  signRoutes,
+  mainRoutes,
+  mainModalRoutes,
+};
+
+const getRouteInfo = (findScreenKey) => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const keyRoute in routes) {
+    if ({}.hasOwnProperty.call(routes, keyRoute)) {
+      const routeInfo = routes[keyRoute];
+
+      // eslint-disable-next-line no-restricted-syntax
+      for (const keyScreen in routeInfo) {
+        if ({}.hasOwnProperty.call(routeInfo, keyScreen)) {
+          let screenInfo = routeInfo[keyScreen];
+
+          if (findScreenKey === keyScreen) {
+            screenInfo = _.omit(screenInfo, ['screen', 'navigationOptions']);
+            if (!screenInfo.params) screenInfo.params = {};
+
+            return screenInfo;
+          }
+        }
+      }
+    }
+  }
+
+  return null;
+};
+
 export {
+  routes,
+  getRouteInfo,
   signRoutes,
   mainRoutes,
   mainModalRoutes,

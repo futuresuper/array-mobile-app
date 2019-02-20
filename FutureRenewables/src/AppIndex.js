@@ -48,7 +48,7 @@ class AppIndex extends Component {
     this.Spinner.hide();
   }
 
-  navigateTo(route_name, params = null) {
+  navigateTo(route_name, params = {}) {
     this.props.navigateTo(route_name, params);
   }
 
@@ -75,7 +75,6 @@ class AppIndex extends Component {
   }
 
   componentDidMount() {
-    console.log('APPINDEX');
     BackHandler.addEventListener('hardwareBackPress', () => {
       this.routeBack();
 

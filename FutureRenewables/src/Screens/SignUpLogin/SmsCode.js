@@ -19,6 +19,8 @@ import {
   Config,
 } from 'src/Common/config';
 
+import ListLinks from 'src/Components/ListLinks';
+
 import {
   styleGlobal,
   styleConstants,
@@ -103,6 +105,19 @@ class SmsCode extends Component {
             <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
           </KeyboardAvoidingView>
 
+          <ListLinks
+            navigateTo={this.props.screenProps.navigateTo}
+            data={[
+              {
+                name: 'ApplicationType',
+                screen: 'ApplicationType',
+              },
+              {
+                name: 'Accounts',
+                screen: 'AccountsApplications',
+              },
+            ]}
+          />
       </Content>
     );
   }

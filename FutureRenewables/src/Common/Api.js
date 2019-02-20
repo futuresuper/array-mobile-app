@@ -5,6 +5,8 @@ import {
   Platform,
 } from 'react-native';
 
+import axios from 'axios';
+
 import { Config } from 'src/Common/config';
 
 const UNAUTHORIZED = 401;
@@ -26,35 +28,68 @@ class Api extends Component {
   }
 
   fetchProc(urlInp, params, method, spinner = true) {
-    const { spinnerHide, spinnerShow } = this.props;
-    const options = { method };
-    const url = `${Config.get().apiUrl}${urlInp}`;
+    return new Promise((resolve, reject) => {
+      const { spinnerHide, spinnerShow } = this.props;
+      const options = {
+        timeout: 5000,
+        method,
+      };
+      options.url = `${Config.get().apiUrl}${urlInp}`;
 
-    if (params) {
-      options.body = JSON.stringify(params);
-      options.headers = Api.headers();
-    }
-
-    if (spinner) spinnerShow();
-
-    return fetch(url, options).then((resp) => {
-      if (spinner) spinnerHide();
-
-      const contentType = resp.headers.get('content-type') || '';
-      const result = contentType.includes('json') ? resp.json() : resp.text();
-
-      if (resp.ok) {
-        return result;
+      if (params) {
+        options.data = params;
+        options.headers = Api.headers();
       }
 
-      // logout action
-      // if (resp.status === UNAUTHORIZED) {
-      // }
+      if (spinner) spinnerShow();
 
-      return result.then((err) => {
-        throw err;
-      });
+      axios(options)
+        .then((resp) => {
+          if (spinner) spinnerHide();
+
+          console.log('!!!resp', { resp });
+          // const contentType = resp.headers.get('content-type') || '';
+          // const result = contentType.includes('json') ? resp.json() : resp.text();
+
+          // if (resp.ok) {
+          //   return result;
+          // }
+
+          // logout action
+          // if (resp.status === UNAUTHORIZED) {
+          // }
+
+          // return result.then((err) => {
+          //   throw err;
+          // });
+          // return resp;
+          resolve(resp);
+        })
+        .catch((err) => {
+          if (spinner) spinnerHide();
+
+          reject(err);
+        });
     });
+
+    // return fetch(url, options).then((resp) => {
+    //   if (spinner) spinnerHide();
+
+    //   const contentType = resp.headers.get('content-type') || '';
+    //   const result = contentType.includes('json') ? resp.json() : resp.text();
+
+    //   if (resp.ok) {
+    //     return result;
+    //   }
+
+    //   // logout action
+    //   // if (resp.status === UNAUTHORIZED) {
+    //   // }
+
+    //   return result.then((err) => {
+    //     throw err;
+    //   });
+    // });
   }
 
   static post(...args) {

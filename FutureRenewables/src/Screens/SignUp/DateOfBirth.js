@@ -1,45 +1,67 @@
 import React from 'react';
-import { Image, View, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
-import Button from '../ui/Button';
-const styleSettings = require('../../styles/styleSettings.json');
-import globalStyles from '../../styles/Style';
-import flowNext from './flows/flowNavigation.js';
+import { connect } from 'react-redux';
+import {
+  View,
+  KeyboardAvoidingView,
+} from 'react-native';
+import {
+  Content,
+  Button,
+  Item,
+  Input,
+  Text,
+} from 'native-base';
 
-export default class DateOfBirth extends React.Component {
+import {
+  styleGlobal,
+  styleConstants,
+} from 'src/Styles';
 
-    handlePress() {
-      this.goToNextPage();
-    }
+class DateOfBirth extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',
+      submitted: false,
+      errors: '',
+    };
+  }
 
-    render() {
-      return (
-        <View style={globalStyles.signUpFormContainer}>
-          <View>
-            <Text style={globalStyles.formHeading}>
-              Date of Birth
-            </Text>
-          </View>
-          <KeyboardAvoidingView behavior="padding">
-            <Button
-              text="Next"
-              onPress={() => this.handlePress()}
+  handlePress() {
+    const { navigateTo } = this.props.screenProps;
+    navigateTo('HomeAddress');
+  }
+
+  render() {
+    return (
+      <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
+        <View>
+          <Text style={styleGlobal.formHeading}>
+            Date of Birth
+          </Text>
+
+          <Item regular error={false} marginBottom>
+            <Input
+              returnKeyType="next"
+              placeholder="DD/MM/YYYY"
+              textCenter
+              autoCorrect={false}
+              onChangeText={(value) => { this.setState({ value }); }}
             />
-            <View style={{ height: styleSettings.keyboardAvoidingHeight }} />
-          </KeyboardAvoidingView>
+          </Item>
         </View>
-      );
-    }
-
-    goToNextPage() {
-      const applicationType = this.props.navigation.getParam("applicationType");
-      const currentPage = this.props.navigation.getParam("currentPage");
-      const lastPage = this.props.navigation.getParam("lastPage");
-      const nextPage = flowNext(applicationType,currentPage);
-      this.props.navigation.navigate(nextPage,{
-        applicationType: applicationType,
-        lastPage: currentPage,
-        currentPage: nextPage,
-      });
-    }
-
+        <KeyboardAvoidingView behavior="padding">
+          <Button
+            onPress={() => this.handlePress()}
+          >
+            <Text>Next</Text>
+          </Button>
+          <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
+        </KeyboardAvoidingView>
+      </Content>
+    );
+  }
 };
+
+
+export default connect()(DateOfBirth);

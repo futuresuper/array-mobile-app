@@ -16,17 +16,19 @@ import {
   styleConstants,
 } from 'src/Styles';
 
-import flowNext from './flows/flowNavigation';
-
 class ApplicationType extends Component {
   handlePress(applicationType) {
     const { navigateTo } = this.props.screenProps;
-    const nextPage = flowNext('individual', 'ApplicationType');
-    navigateTo(nextPage, {
-      applicationType,
-      lastPage: 'ApplicationType',
-      currentPage: nextPage,
-    });
+
+    switch (applicationType) {
+      case 'individual': {
+        navigateTo('Name');
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   }
 
   render() {
@@ -39,9 +41,17 @@ class ApplicationType extends Component {
         </View>
         <KeyboardAvoidingView behavior="padding">
           <Button
+            onPress={() => this.handlePress('featArtinst')}
+            block
+            dark
+            marginVert
+          >
+            <Text style={styleGlobal.colorWhite}>FEAT Artist</Text>
+          </Button>
+          <Button
             onPress={() => this.handlePress('individual')}
             block
-            marginVertical
+            marginVert
           >
             <Text>Individual</Text>
           </Button>
@@ -49,7 +59,7 @@ class ApplicationType extends Component {
             onPress={() => this.handlePress('joint')}
             block
             secondary
-            marginVertical
+            marginVert
           >
             <Text>Joint</Text>
           </Button>
@@ -57,7 +67,7 @@ class ApplicationType extends Component {
             onPress={() => this.handlePress('adultForChild')}
             block
             secondary
-            marginVertical
+            marginVert
           >
             <Text>Adult for child</Text>
           </Button>
@@ -65,7 +75,7 @@ class ApplicationType extends Component {
             onPress={() => this.handlePress('companyPartnership')}
             block
             secondary
-            marginVertical
+            marginVert
           >
             <Text>Company / Partnership</Text>
           </Button>
@@ -73,7 +83,7 @@ class ApplicationType extends Component {
             onPress={() => this.handlePress('smsfTrustSuperFund')}
             block
             secondary
-            marginVertical
+            marginVert
           >
             <Text>SMSF / Trust / Super Fund</Text>
           </Button>
@@ -82,7 +92,6 @@ class ApplicationType extends Component {
       </Content>
     );
   }
-
 }
 
 export default connect()(ApplicationType);

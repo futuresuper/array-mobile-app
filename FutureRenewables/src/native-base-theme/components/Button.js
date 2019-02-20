@@ -7,13 +7,13 @@ export default (variables /*: * */ = variable) => {
   const platform = variables.platform;
   const darkCommon = {
     "NativeBase.Text": {
-      color: variables.brandDark
+      color: "white"
     },
     "NativeBase.Icon": {
-      color: variables.brandDark
+      color: "white"
     },
     "NativeBase.IconNB": {
-      color: variables.brandDark
+      color: "white"
     }
   };
   const lightCommon = {
@@ -29,13 +29,13 @@ export default (variables /*: * */ = variable) => {
   };
   const primaryCommon = {
     "NativeBase.Text": {
-      color: variables.btnPrimaryBg
+      color: "black"
     },
     "NativeBase.Icon": {
-      color: variables.btnPrimaryBg
+      color: "black"
     },
     "NativeBase.IconNB": {
-      color: variables.btnPrimaryBg
+      color: "black"
     }
   };
   const successCommon = {
@@ -380,7 +380,7 @@ export default (variables /*: * */ = variable) => {
         }
       }
     },
-    ".marginVertical": {
+    ".marginVert": {
       marginVertical: 8
     },
 
