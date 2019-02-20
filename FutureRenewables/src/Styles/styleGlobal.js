@@ -1,4 +1,6 @@
 
+import styleConstants from './styleConstants';
+
 export default {
   formHeading: {
     fontSize: 17,
@@ -23,5 +25,49 @@ export default {
   },
   colorWhite: {
     color: 'white',
+  },
+  colorGray: {
+    color: styleConstants.color.gray,
+  },
+  mV10: {
+    marginVertical: 10,
+  },
+  mV20: {
+    marginVertical: 20,
+  },
+  mB10: {
+    marginBottom: 10,
+  },
+  mB20: {
+    marginBottom: 20,
+  },
+  mT10: {
+    marginTop: 10,
+  },
+  mT20: {
+    marginTop: 20,
+  },
+  padding5: {
+    padding: 5,
+  },
+  border: {
+    borderWidth: 1,
+  },
+  borderRight: {
+    borderRightWidth: 1,
+  },
+  borderBottom: {
+    borderBottomWidth: 1,
+  },
+  borderLRB: {
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+  },
+  flexNull: {
+    flex: null,
+  },
+  flex: {
+    flex: 1,
   },
 };

@@ -46,28 +46,10 @@ class Api extends Component {
       axios(options)
         .then((resp) => {
           if (spinner) spinnerHide();
-
-          console.log('!!!resp', { resp });
-          // const contentType = resp.headers.get('content-type') || '';
-          // const result = contentType.includes('json') ? resp.json() : resp.text();
-
-          // if (resp.ok) {
-          //   return result;
-          // }
-
-          // logout action
-          // if (resp.status === UNAUTHORIZED) {
-          // }
-
-          // return result.then((err) => {
-          //   throw err;
-          // });
-          // return resp;
-          resolve(resp);
+          resolve(resp.data);
         })
         .catch((err) => {
           if (spinner) spinnerHide();
-
           reject(err);
         });
     });

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import {
@@ -17,41 +18,22 @@ import {
   styleConstants,
 } from 'src/Styles';
 
-class DateOfBirth extends React.Component {
+class InitialInvestmentAmount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      submitted: false,
-      errors: '',
     };
   }
 
   handlePress() {
     const { navigateTo } = this.props.screenProps;
-    navigateTo('HomeAddress');
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  addItemEvery(strInp, item, every) {
-    let str = strInp;
-
-    for (let i = 0; i < str.length; i += 1) {
-      if (!(i % (every + 1))) {
-        str = str.substring(0, i) + item + str.substring(i);
-      }
-    }
-
-    return str.substring(1);
+    navigateTo('RegularInvestmentAmount');
   }
 
   onChangeInput(e) {
-    let value = e.replace(/\/+/g, '');
-    const firstFourChars = this.addItemEvery(value.substring(0, 5), '/', 2);
-    value = firstFourChars + value.substring(5, value.length);
-
     this.setState({
-      value,
+      value: e,
     });
   }
 
@@ -60,14 +42,14 @@ class DateOfBirth extends React.Component {
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
           <Text style={styleGlobal.formHeading}>
-            Date of Birth
+            Initial Investment Amount
           </Text>
 
           <Item regular error={false} marginBottom>
             <Input
               returnKeyType="next"
               keyboardType="numeric"
-              placeholder="DD/MM/YYYY"
+              placeholder="Investment Amount"
               textCenter
               autoCorrect={false}
               onChangeText={(e) => { this.onChangeInput(e); }}
@@ -75,6 +57,7 @@ class DateOfBirth extends React.Component {
             />
           </Item>
         </View>
+
         <KeyboardAvoidingView behavior="padding">
           <Button
             onPress={() => this.handlePress()}
@@ -87,7 +70,6 @@ class DateOfBirth extends React.Component {
       </Content>
     );
   }
-};
+}
 
-
-export default connect()(DateOfBirth);
+export default connect()(InitialInvestmentAmount);

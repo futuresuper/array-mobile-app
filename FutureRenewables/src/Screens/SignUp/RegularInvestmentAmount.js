@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import {
@@ -10,6 +11,7 @@ import {
   Item,
   Input,
   Text,
+  Segment,
 } from 'native-base';
 
 import {
@@ -17,41 +19,28 @@ import {
   styleConstants,
 } from 'src/Styles';
 
-class DateOfBirth extends React.Component {
+import styles from './styles';
+
+class RegularInvestmentAmount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      submitted: false,
-      errors: '',
     };
   }
 
   handlePress() {
     const { navigateTo } = this.props.screenProps;
-    navigateTo('HomeAddress');
+    navigateTo('BankAccount');
   }
 
   // eslint-disable-next-line class-methods-use-this
-  addItemEvery(strInp, item, every) {
-    let str = strInp;
-
-    for (let i = 0; i < str.length; i += 1) {
-      if (!(i % (every + 1))) {
-        str = str.substring(0, i) + item + str.substring(i);
-      }
-    }
-
-    return str.substring(1);
+  noRegularInvestment() {
   }
 
   onChangeInput(e) {
-    let value = e.replace(/\/+/g, '');
-    const firstFourChars = this.addItemEvery(value.substring(0, 5), '/', 2);
-    value = firstFourChars + value.substring(5, value.length);
-
     this.setState({
-      value,
+      value: e,
     });
   }
 
@@ -60,14 +49,29 @@ class DateOfBirth extends React.Component {
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
           <Text style={styleGlobal.formHeading}>
-            Date of Birth
+            Regular Investment Amount
           </Text>
+
+          <Text style={[styleGlobal.textCenter, styleGlobal.colorGray]}>
+            Set up an automatic direct debit into your account, from your bank account
+          </Text>
+
+          <Segment style={styles.segment}>
+              <Button first active style={[styles.segmentButton, styles.segmentButtonActive]}>
+                <Text style={styles.segmentButtonTextActive} >Weekly</Text>
+              </Button>
+              <Button active style={styles.segmentButton}>
+                <Text>Fortnightly</Text>
+              </Button>
+              <Button last active style={styles.segmentButton}>
+                <Text>Monthly</Text>
+              </Button>
+          </Segment>
 
           <Item regular error={false} marginBottom>
             <Input
               returnKeyType="next"
-              keyboardType="numeric"
-              placeholder="DD/MM/YYYY"
+              placeholder="Regular Investment Amount"
               textCenter
               autoCorrect={false}
               onChangeText={(e) => { this.onChangeInput(e); }}
@@ -75,6 +79,7 @@ class DateOfBirth extends React.Component {
             />
           </Item>
         </View>
+
         <KeyboardAvoidingView behavior="padding">
           <Button
             onPress={() => this.handlePress()}
@@ -82,12 +87,21 @@ class DateOfBirth extends React.Component {
           >
             <Text>Next</Text>
           </Button>
+
+          <Button
+            onPress={() => this.noRegularInvestment()}
+            block
+            secondary
+            style={styleGlobal.mT10}
+          >
+            <Text>No Regular Investment</Text>
+          </Button>
+
           <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
         </KeyboardAvoidingView>
       </Content>
     );
   }
-};
+}
 
-
-export default connect()(DateOfBirth);
+export default connect()(RegularInvestmentAmount);

@@ -9,6 +9,8 @@ import {
   Content,
   Button,
   Text,
+  Item,
+  Input,
 } from 'native-base';
 
 import {
@@ -16,37 +18,66 @@ import {
   styleConstants,
 } from 'src/Styles';
 
-import flowNext from './flows/flowNavigation';
+import styles from './styles';
 
 class HomeAddress extends React.Component {
-  handlePress() {
-    this.goToNextPage();
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',
+    };
   }
 
-  goToNextPage() {
-    const applicationType = this.props.navigation.getParam('applicationType');
-    const currentPage = this.props.navigation.getParam('currentPage');
-    const nextPage = flowNext(applicationType, currentPage);
-    this.props.navigation.navigate(nextPage, {
-      applicationType,
-      lastPage: currentPage,
-      currentPage: nextPage,
+  handlePress() {
+    const { navigateTo } = this.props.screenProps;
+    navigateTo('InitialInvestmentAmount');
+  }
+
+  onChangeInput(e) {
+    this.setState({
+      value: e,
     });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  addAddressManually() {
+    alert('ok');
   }
 
   render() {
     return (
-      <Content padder>
+      <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
           <Text style={styleGlobal.formHeading}>
             Your Home Address
           </Text>
+
+          <Item regular error={false} marginBottom>
+            <Input
+              returnKeyType="next"
+              textCenter
+              autoCorrect={false}
+              onChangeText={(e) => { this.onChangeInput(e); }}
+              value={this.state.value}
+            />
+          </Item>
         </View>
         <KeyboardAvoidingView behavior="padding">
           <Button
-            text="Next"
             onPress={() => this.handlePress()}
-          />
+            block
+          >
+            <Text>Next</Text>
+          </Button>
+
+          <Button
+            onPress={() => this.addAddressManually()}
+            transparent
+            block
+          >
+            <Text style={styles.addAddressManually}>Add address manually</Text>
+          </Button>
+
           <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
         </KeyboardAvoidingView>
       </Content>

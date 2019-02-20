@@ -8,6 +8,8 @@ export default Object.freeze({
     dark: '#000000',
     danger: 'red',
     success: 'green',
+    gray: 'gray',
+    lightGreen: '#6FCE1C',
   },
   fontFamily: 'Lato',
   fontSize: {

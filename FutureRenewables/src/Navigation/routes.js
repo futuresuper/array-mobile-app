@@ -12,6 +12,10 @@ import {
   Email,
   DateOfBirth,
   HomeAddress,
+  InitialInvestmentAmount,
+  RegularInvestmentAmount,
+  BankAccount,
+  DirectDebitAuth,
   Example,
 } from 'src/Screens';
 
@@ -91,6 +95,18 @@ const mainRoutes = formatRoutes({
   },
   HomeAddress: {
     screen: HomeAddress,
+  },
+  InitialInvestmentAmount: {
+    screen: InitialInvestmentAmount,
+  },
+  RegularInvestmentAmount: {
+    screen: RegularInvestmentAmount,
+  },
+  BankAccount: {
+    screen: BankAccount,
+  },
+  DirectDebitAuth: {
+    screen: DirectDebitAuth,
   },
 });
 

@@ -222,12 +222,12 @@ export default {
   },
 
   // Segment
-  segmentBackgroundColor: "#3F51B5",
-  segmentActiveBackgroundColor: "#fff",
-  segmentTextColor: "#fff",
-  segmentActiveTextColor: "#3F51B5",
-  segmentBorderColor: "#fff",
-  segmentBorderColorMain: "#3F51B5",
+  segmentBackgroundColor: styleConstants.color.secondary,
+  segmentActiveBackgroundColor: styleConstants.color.secondary,
+  segmentTextColor: styleConstants.color.gray,
+  segmentActiveTextColor: styleConstants.color.gray,
+  segmentBorderColor: "#b7b7b7",
+  segmentBorderColorMain: "#b7b7b7",
 
   // Spinner
   defaultSpinnerColor: "#45D56E",
