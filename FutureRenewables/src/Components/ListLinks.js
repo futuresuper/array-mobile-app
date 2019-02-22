@@ -11,6 +11,7 @@ import {
   Icon,
   Col,
   Grid,
+  View as ViewNB,
 } from 'native-base';
 
 class ListLinks extends Component {
@@ -28,16 +29,24 @@ class ListLinks extends Component {
   }
 
   render() {
-    const { navigateTo, data } = this.props;
+    const { absolute, navigateTo, data } = this.props;
     const { visible } = this.state;
 
     if (!visible) return null;
 
     return (
       <View
-        style={{
-          position: 'absolute', bottom: 10, right: 0, left: 0,
-        }}
+        style={[
+          {
+            borderWidth: 1,
+            right: 0,
+            left: 0,
+          },
+          absolute ? {
+            position: 'absolute',
+            bottom: 10,
+          } : {},
+        ]}
       >
         <Grid>
           <Col style={{ flex: 0.2 }}>
@@ -67,9 +76,14 @@ class ListLinks extends Component {
   }
 }
 
+ListLinks.defaultProps = {
+  absolute: false,
+};
+
 ListLinks.propTypes = {
   data: PropTypes.array.isRequired,
   navigateTo: PropTypes.func.isRequired,
+  absolute: PropTypes.bool,
 };
 
 export default ListLinks;

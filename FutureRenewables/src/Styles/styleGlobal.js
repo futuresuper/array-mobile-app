@@ -41,14 +41,23 @@ export default {
   mB20: {
     marginBottom: 20,
   },
+  mB30: {
+    marginBottom: 30,
+  },
   mT10: {
     marginTop: 10,
   },
   mT20: {
     marginTop: 20,
   },
-  padding5: {
+  p5: {
     padding: 5,
+  },
+  p10: {
+    padding: 10,
+  },
+  p20: {
+    padding: 20,
   },
   border: {
     borderWidth: 1,
@@ -69,5 +78,8 @@ export default {
   },
   flex: {
     flex: 1,
+  },
+  backgroundDefault: {
+    backgroundColor: styleConstants.color.light,
   },
 };

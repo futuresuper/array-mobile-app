@@ -16,6 +16,13 @@ import {
   RegularInvestmentAmount,
   BankAccount,
   DirectDebitAuth,
+  SourceOfFunds,
+  PurposeOfInvestment,
+  OsTaxResident,
+  TaxFileNumber,
+  MultiPartyNextSteps,
+  JointInvestorDetails,
+  FinalConfirmation,
   Example,
 } from 'src/Screens';
 
@@ -107,6 +114,27 @@ const mainRoutes = formatRoutes({
   },
   DirectDebitAuth: {
     screen: DirectDebitAuth,
+  },
+  SourceOfFunds: {
+    screen: SourceOfFunds,
+  },
+  PurposeOfInvestment: {
+    screen: PurposeOfInvestment,
+  },
+  OsTaxResident: {
+    screen: OsTaxResident,
+  },
+  TaxFileNumber: {
+    screen: TaxFileNumber,
+  },
+  MultiPartyNextSteps: {
+    screen: MultiPartyNextSteps,
+  },
+  JointInvestorDetails: {
+    screen: JointInvestorDetails,
+  },
+  FinalConfirmation: {
+    screen: FinalConfirmation,
   },
 });
 

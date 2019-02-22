@@ -11,12 +11,12 @@ import {
   Row,
   Col,
   Grid,
-  CheckBox,
 } from 'native-base';
+
+import CheckBox from 'src/Components/CheckBox';
 
 import {
   styleGlobal,
-  styleConstants,
 } from 'src/Styles';
 
 import styles from './styles';
@@ -31,7 +31,7 @@ class DirectDebitAuth extends React.Component {
 
   handlePress() {
     const { navigateTo } = this.props.screenProps;
-    navigateTo('DateOfBirth');
+    navigateTo('SourceOfFunds');
   }
 
   onChangeInput(e) {
@@ -83,15 +83,15 @@ class DirectDebitAuth extends React.Component {
           </Text>
 
           <Grid>
-            <Col style={{ width: null }}>
+            <Col style={styles.checkBoxCol}>
               <CheckBox
                 checked={this.state.checked}
                 onPress={() => { this.setState({ checked: !this.state.checked }); }}
-                style={{ width: 50, height: 50 }}
               />
             </Col>
             <Col>
-              <Text style={{}}>I / We authorise Ezidebit Pty Ltd ACN 096 902 813 (User ID No 165969, 303909, 301203, 234040, 234072, 428198)
+              <Text style={styles.textAgree}>I / We authorise Ezidebit Pty Ltd ACN 096 902 813
+              (User ID No 165969, 303909, 301203, 234040, 234072, 428198)
               to debit my/our account at the Financial Institution identified above through the Bulk Electronic Clearing System (BECS),
               in accordance with this Direct Debit Request and as per the Ezidebit DDR Service Agreement.
               I / We authorise these payments to be debited at intervals and amounts as directed by Future Super for the Future Renewables Fund,

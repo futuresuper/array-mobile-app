@@ -106,6 +106,7 @@ class SmsCode extends Component {
           </KeyboardAvoidingView>
 
           <ListLinks
+            absolute
             navigateTo={this.props.screenProps.navigateTo}
             data={[
               {

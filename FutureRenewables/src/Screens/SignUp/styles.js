@@ -33,4 +33,21 @@ export default {
   colRightStyle: {
     padding: 5,
   },
+  checkBoxCol: {
+    width: 65,
+  },
+  textAgree: {
+    color: styleConstants.color.gray,
+    fontSize: 12,
+  },
+  finalConfFooter: {
+    borderTopWidth: 1,
+    borderColor: styleConstants.color.gray,
+    backgroundColor: styleConstants.color.light,
+    height: null,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
 };
