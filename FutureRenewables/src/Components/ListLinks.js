@@ -11,7 +11,6 @@ import {
   Icon,
   Col,
   Grid,
-  View as ViewNB,
 } from 'native-base';
 
 class ListLinks extends Component {
@@ -51,24 +50,25 @@ class ListLinks extends Component {
         <Grid>
           <Col style={{ flex: 0.2 }}>
             <Button
-             small
-             transparent
-             onPress={() => this.hide()}
+              small
+              transparent
+              onPress={() => this.hide()}
             >
-              <Icon name={'close'} />
+              <Icon name="close" />
             </Button>
           </Col>
           <Col style={{ flex: 0.8 }}>
-          {data.map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => {
-                navigateTo(item.screen);
-              }}
-            >
-              <Text style={{ color: 'black' }}>{item.name}</Text>
-            </TouchableOpacity>
-          ))}
+            {data.map((item, index) => (
+              <TouchableOpacity
+                key={index.toString()}
+                onPress={() => {
+                  const params = item.params || {};
+                  navigateTo(item.screen, params);
+                }}
+              >
+                <Text style={{ color: 'black' }}>{item.name}</Text>
+              </TouchableOpacity>
+            ))}
           </Col>
         </Grid>
       </View>

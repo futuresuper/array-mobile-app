@@ -9,7 +9,8 @@
     "parser": "babel-eslint",
     "plugins": [
         "react",
-        "react-native"
+        "react-native",
+        "jsx-a11y"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -18,9 +19,7 @@
         }
     },
     "extends" : [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "airbnb-base"
+        "airbnb"
     ],
     "rules" : {
         "react/prop-types": ["error", {
@@ -32,8 +31,10 @@
             ]
         }],
         "no-underscore-dangle": ["error", {
-            "allowAfterThis": true
+                "allowAfterThis": true
         }],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "import/extensions": ["error", "ignorePackages", { "js": "never" }],
         "import/no-extraneous-dependencies" : "off",
         "arrow-body-style" : "warn",
         "linebreak-style": 0,
@@ -45,3 +46,4 @@
         "max-len": ["error", { "code": 150 }]
     }
 }
+  

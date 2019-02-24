@@ -15,6 +15,18 @@ import TaxFileNumber from './TaxFileNumber';
 import MultiPartyNextSteps from './MultiPartyNextSteps';
 import JointInvestorDetails from './JointInvestorDetails';
 import FinalConfirmation from './FinalConfirmation';
+import JoinSuper from './JoinSuper';
+import Accounts from './Accounts';
+import FeatApplicationType from './FeatApplicationType';
+import JointNames from './JointNames';
+import ChildsName from './ChildsName';
+import AdultForChildAppType from './AdultForChildAppType';
+import PaperApp from './PaperApp';
+import EntityIsFinancialInstitution from './EntityIsFinancialInstitution';
+import AbnOrAcn from './AbnOrAcn';
+import SoleTraderConfirmation from './SoleTraderConfirmation';
+import EntityContactDetails from './EntityContactDetails';
+import CompanyDirectors from './CompanyDirectors';
 
 export {
   ApplicationType,
@@ -33,4 +45,16 @@ export {
   MultiPartyNextSteps,
   JointInvestorDetails,
   FinalConfirmation,
+  JoinSuper,
+  Accounts,
+  FeatApplicationType,
+  JointNames,
+  ChildsName,
+  AdultForChildAppType,
+  PaperApp,
+  EntityIsFinancialInstitution,
+  AbnOrAcn,
+  SoleTraderConfirmation,
+  EntityContactDetails,
+  CompanyDirectors,
 };

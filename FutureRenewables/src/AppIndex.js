@@ -40,6 +40,14 @@ class AppIndex extends Component {
     this.spinnerHide = this.spinnerHide.bind(this);
   }
 
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.routeBack();
+
+      return true;
+    });
+  }
+
   spinnerShow(config) {
     this.Spinner.show(config);
   }
@@ -49,7 +57,8 @@ class AppIndex extends Component {
   }
 
   navigateTo(route_name, params = {}) {
-    this.props.navigateTo(route_name, params);
+    const { navigateToConnect } = this.props;
+    navigateToConnect(route_name, params);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -62,7 +71,7 @@ class AppIndex extends Component {
   }
 
   routeBack(inp_back_screen = null, inp_params = null) {
-    const { navigation } = this.props;
+    const { navigation, routeBackConnect } = this.props;
     let back_screen;
 
     if (!_.isNil(inp_back_screen)) {
@@ -71,15 +80,7 @@ class AppIndex extends Component {
       back_screen = navGetParam(navigation, 'back_screen');
     }
 
-    this.props.routeBack(back_screen, inp_params);
-  }
-
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      this.routeBack();
-
-      return true;
-    });
+    routeBackConnect(back_screen, inp_params);
   }
 
   render() {
@@ -96,8 +97,8 @@ class AppIndex extends Component {
                 this.Spinner = c;
               }}
               textStyle={{ color: '#FFF' }}
-              overlayColor={'rgba(0,0,0,0.5)'}
-              size={'large'}
+              overlayColor="rgba(0,0,0,0.5)"
+              size="large"
             />
 
             <Api
@@ -128,18 +129,18 @@ class AppIndex extends Component {
 }
 
 AppIndex.propTypes = {
-  navigateTo: PropTypes.func,
+  navigateToConnect: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     key: PropTypes.string,
     routes: PropTypes.array,
-  }),
-  routeBack: PropTypes.func,
+  }).isRequired,
+  routeBackConnect: PropTypes.func.isRequired,
 };
 
 function bindAction(dispatch) {
   return {
-    navigateTo: (route, params) => dispatch(navigateTo(route, params)),
-    routeBack: (back_screen, params) => dispatch(routeBack(back_screen, params)),
+    navigateToConnect: (route, params) => dispatch(navigateTo(route, params)),
+    routeBackConnect: (back_screen, params) => dispatch(routeBack(back_screen, params)),
   };
 }
 

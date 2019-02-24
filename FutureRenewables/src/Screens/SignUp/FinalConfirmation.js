@@ -52,18 +52,19 @@ class FinalConfirmation extends React.Component {
     };
   }
 
-  handlePress() {
-    const { navigateTo } = this.props.screenProps;
-    navigateTo('JoinSuper');
-  }
-
   onTick(type) {
+    const { ticks } = this.state;
     this.setState({
       ticks: {
-        ...this.state.ticks,
-        [type]: !this.state.ticks[type],
+        ...ticks,
+        [type]: !ticks[type],
       },
     });
+  }
+
+  handlePress() {
+    const { screenProps } = this.props;
+    screenProps.navigateTo('JoinSuper');
   }
 
   render() {
@@ -81,8 +82,10 @@ class FinalConfirmation extends React.Component {
                 <CheckBox checked={ticks.one} onPress={() => this.onTick('one')} />
               </Col>
               <Col>
-                <Text style={styles.textAgree}>I/we have read and understood the PDS to which this Application Form applies,
-                including any supplemental information</Text>
+                <Text style={styles.textAgree}>
+                I/we have read and understood the PDS to which this Application Form applies,
+                including any supplemental information
+                </Text>
               </Col>
             </Row>
             <Row style={styleGlobal.mV20}>
@@ -90,8 +93,10 @@ class FinalConfirmation extends React.Component {
                 <CheckBox checked={ticks.two} onPress={() => this.onTick('two')} />
               </Col>
               <Col>
-                <Text style={styles.textAgree}>I/we agree to receiving all communications electronically,
-                and I/we wish to receive updates and information about future investment opportunities from Future Super</Text>
+                <Text style={styles.textAgree}>
+                I/we agree to receiving all communications electronically,
+                and I/we wish to receive updates and information about future investment opportunities from Future Super
+                </Text>
               </Col>
             </Row>
             <Row>

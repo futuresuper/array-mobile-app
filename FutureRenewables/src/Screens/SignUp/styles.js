@@ -49,5 +49,16 @@ export default {
     paddingRight: 20,
     paddingTop: 20,
     paddingBottom: 20,
+    shadowColor: null,
+    shadowOffset: null,
+    shadowRadius: null,
+    shadowOpacity: null,
+    elevation: 0,
+  },
+  solarFarmCircle: {
+    alignSelf: 'center',
+    marginVertical: 20,
+    height: 150,
+    width: 150,
   },
 };

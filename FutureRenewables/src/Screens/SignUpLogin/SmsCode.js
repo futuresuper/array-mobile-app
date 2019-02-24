@@ -35,8 +35,8 @@ class SmsCode extends Component {
   }
 
   async handlePress() {
-    const { navigation } = this.props;
-    const { Api, toast } = this.props.screenProps;
+    const { navigation, screenProps } = this.props;
+    const { Api, toast } = screenProps;
     const { smsCode } = this.state;
 
     if (!smsCode) {
@@ -67,8 +67,8 @@ class SmsCode extends Component {
   }
 
   nextScreen() {
-    const { navigation } = this.props;
-    const { navigateTo } = this.props.screenProps;
+    const { navigation, screenProps } = this.props;
+    const { navigateTo } = screenProps;
     const newRego = navigation.getParam('newRegistration', false);
 
     if (newRego) navigateTo('ApplicationType');
@@ -76,49 +76,52 @@ class SmsCode extends Component {
   }
 
   render() {
+    const { screenProps } = this.props;
+    const { navigateTo } = screenProps;
+
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
-          <View>
-            <Text style={styleGlobal.formHeading}>
-              Enter your SMS code
-            </Text>
+        <View>
+          <Text style={styleGlobal.formHeading}>
+            Enter your SMS code
+          </Text>
 
-            <Item regular error={false}>
-              <Input
-                returnKeyType="next"
-                keyboardType="numeric"
-                placeholder="XXXXXX"
-                style={styleGlobal.textCenter}
-                onChangeText={(smsCode) => { this.setState({ smsCode }); }}
-              />
-            </Item>
+          <Item regular error={false}>
+            <Input
+              returnKeyType="next"
+              keyboardType="numeric"
+              placeholder="XXXXXX"
+              style={styleGlobal.textCenter}
+              onChangeText={(smsCode) => { this.setState({ smsCode }); }}
+            />
+          </Item>
 
-          </View>
+        </View>
 
-          <KeyboardAvoidingView behavior="padding">
-            <Button
-              onPress={this.handlePress.bind(this)}
-              block
-            >
-              <Text>Go</Text>
-            </Button>
-            <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
-          </KeyboardAvoidingView>
+        <KeyboardAvoidingView behavior="padding">
+          <Button
+            onPress={() => this.handlePress()}
+            block
+          >
+            <Text>Go</Text>
+          </Button>
+          <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
+        </KeyboardAvoidingView>
 
-          <ListLinks
-            absolute
-            navigateTo={this.props.screenProps.navigateTo}
-            data={[
-              {
-                name: 'ApplicationType',
-                screen: 'ApplicationType',
-              },
-              {
-                name: 'Accounts',
-                screen: 'AccountsApplications',
-              },
-            ]}
-          />
+        <ListLinks
+          absolute
+          navigateTo={navigateTo}
+          data={[
+            {
+              name: 'ApplicationType',
+              screen: 'ApplicationType',
+            },
+            {
+              name: 'Accounts',
+              screen: 'Accounts',
+            },
+          ]}
+        />
       </Content>
     );
   }

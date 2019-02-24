@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import {
@@ -17,17 +18,18 @@ import {
   styleConstants,
 } from 'src/Styles';
 
-class Email extends React.Component {
+class CompanyDirectors extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      form: {
+      },
     };
   }
 
   handlePress() {
     const { screenProps } = this.props;
-    screenProps.navigateTo('DateOfBirth');
+    screenProps.navigateTo('EntityAddress', { type: 'company' });
   }
 
   render() {
@@ -37,13 +39,13 @@ class Email extends React.Component {
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
           <Text style={styleGlobal.formHeading}>
-            Your Email Address
+          Company Directors
           </Text>
 
           <Item regular error={false} marginBottom>
             <Input
               returnKeyType="next"
-              placeholder="Email Address"
+              placeholder=""
               textCenter
               autoCorrect={false}
               onChangeText={(e) => { this.setState({ value: e }); }}
@@ -66,4 +68,4 @@ class Email extends React.Component {
   }
 }
 
-export default connect()(Email);
+export default connect()(CompanyDirectors);

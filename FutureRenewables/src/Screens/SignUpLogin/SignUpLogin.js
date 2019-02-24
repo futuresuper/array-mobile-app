@@ -30,11 +30,30 @@ class SignUpLogin extends Component {
     };
   }
 
+  getSms() {
+    const { screenProps } = this.props;
+    const { Api, toast, navigateTo } = screenProps;
+    const { mobile } = this.state;
+    const formattedMobile = this.formatAndValidateMobile(mobile);
+
+    if (!formattedMobile) return false;
+
+    Api.post('send/sms', { mobile: formattedMobile })
+      .then(() => {
+        navigateTo('SmsCode', { mobile });
+      })
+      .catch((err) => {
+        toast(err.message);
+      });
+
+    return true;
+  }
+
   formatAndValidateMobile(strPre) {
     const str = strPre.replace(/[^0-9]+/g, '');
-    if (str[0] === '6' && str.length === 11) {
+    if (str[0] === '6' && str.length === 10) {
       this.setState({ errors: '' });
-      return str;
+      return `1${str}`;
     // eslint-disable-next-line no-else-return
     } else if (str[0] === '0' && str[1] === '4' && str.length === 10) {
       this.setState({ errors: '' });
@@ -55,26 +74,9 @@ class SignUpLogin extends Component {
     }
   }
 
-  getSms() {
-    const { Api, toast, navigateTo } = this.props.screenProps;
-    const { mobile } = this.state;
-    const formattedMobile = this.formatAndValidateMobile(mobile);
-
-    if (!formattedMobile) return false;
-
-    Api.post('send/sms', { mobile: formattedMobile })
-      .then(() => {
-        navigateTo('SmsCode', { mobile });
-      })
-      .catch((err) => {
-        toast(err.message);
-      });
-
-    return true;
-  }
-
   handleChange(mobile) {
-    if (this.state.submitted) {
+    const { submitted } = this.state;
+    if (submitted) {
       this.formatAndValidateMobile(mobile);
     }
 
@@ -88,35 +90,35 @@ class SignUpLogin extends Component {
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
 
-          <View>
-            <Text style={styleGlobal.formHeading}>
-              Please enter your mobile number
-            </Text>
+        <View>
+          <Text style={styleGlobal.formHeading}>
+            Please enter your mobile number
+          </Text>
 
-            <Item regular error={inpErr}>
-              <Input
-                returnKeyType="next"
-                keyboardType="numeric"
-                placeholder="0407 123 456"
-                style={styleGlobal.textCenter}
-                onChangeText={(mobile) => { this.handleChange(mobile); }}
-              />
-            </Item>
+          <Item regular error={inpErr}>
+            <Input
+              returnKeyType="next"
+              keyboardType="numeric"
+              placeholder="0407 123 456"
+              style={styleGlobal.textCenter}
+              onChangeText={(mobile) => { this.handleChange(mobile); }}
+            />
+          </Item>
 
-            <Text style={styleGlobal.formError}>
-              {errors}
-            </Text>
-          </View>
+          <Text style={styleGlobal.formError}>
+            {errors}
+          </Text>
+        </View>
 
-          <KeyboardAvoidingView behavior="padding">
-            <Button
-              onPress={this.getSms.bind(this)}
-              block
-            >
-              <Text>Get SMS</Text>
-            </Button>
-            <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
-          </KeyboardAvoidingView>
+        <KeyboardAvoidingView behavior="padding">
+          <Button
+            onPress={() => this.getSms()}
+            block
+          >
+            <Text>Get SMS</Text>
+          </Button>
+          <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
+        </KeyboardAvoidingView>
 
       </Content>
     );

@@ -5,7 +5,6 @@ import {
   Home,
   SignUpLogin,
   SmsCode,
-  AccountsApplications,
   Feed,
   ApplicationType,
   Name,
@@ -23,6 +22,18 @@ import {
   MultiPartyNextSteps,
   JointInvestorDetails,
   FinalConfirmation,
+  JoinSuper,
+  Accounts,
+  FeatApplicationType,
+  JointNames,
+  ChildsName,
+  AdultForChildAppType,
+  PaperApp,
+  EntityIsFinancialInstitution,
+  AbnOrAcn,
+  SoleTraderConfirmation,
+  EntityContactDetails,
+  CompanyDirectors,
   Example,
 } from 'src/Screens';
 
@@ -73,22 +84,19 @@ const signRoutes = formatRoutes({
 });
 
 const mainRoutes = formatRoutes({
-  AccountsApplications: {
-    screen: AccountsApplications,
+  Accounts: {
+    screen: Accounts,
+  },
+  ApplicationType: {
+    screen: ApplicationType,
     params: {
-      title: 'Accounts and Applications',
+      routeReset: true,
     },
   },
   Feed: {
     screen: Feed,
     params: {
       noHeader: true,
-    },
-  },
-  ApplicationType: {
-    screen: ApplicationType,
-    params: {
-      routeReset: true,
     },
   },
   Name: {
@@ -135,6 +143,39 @@ const mainRoutes = formatRoutes({
   },
   FinalConfirmation: {
     screen: FinalConfirmation,
+  },
+  JoinSuper: {
+    screen: JoinSuper,
+  },
+  FeatApplicationType: {
+    screen: FeatApplicationType,
+  },
+  JointNames: {
+    screen: JointNames,
+  },
+  ChildsName: {
+    screen: ChildsName,
+  },
+  AdultForChildAppType: {
+    screen: AdultForChildAppType,
+  },
+  PaperApp: {
+    screen: PaperApp,
+  },
+  EntityIsFinancialInstitution: {
+    screen: EntityIsFinancialInstitution,
+  },
+  AbnOrAcn: {
+    screen: AbnOrAcn,
+  },
+  SoleTraderConfirmation: {
+    screen: SoleTraderConfirmation,
+  },
+  EntityContactDetails: {
+    screen: EntityContactDetails,
+  },
+  CompanyDirectors: {
+    screen: CompanyDirectors,
   },
 });
 

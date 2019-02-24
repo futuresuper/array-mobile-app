@@ -18,11 +18,31 @@ import {
 
 class ApplicationType extends Component {
   handlePress(applicationType) {
-    const { navigateTo } = this.props.screenProps;
+    const { screenProps } = this.props;
 
     switch (applicationType) {
+      case 'featArtist': {
+        screenProps.navigateTo('FeatApplicationType');
+        break;
+      }
       case 'individual': {
-        navigateTo('Name');
+        screenProps.navigateTo('Name');
+        break;
+      }
+      case 'joint': {
+        screenProps.navigateTo('JointNames');
+        break;
+      }
+      case 'adultForChild': {
+        screenProps.navigateTo('ChildsName');
+        break;
+      }
+      case 'companyPartnership': {
+        screenProps.navigateTo('EntityIsFinancialInstitution');
+        break;
+      }
+      case 'smsfTrustSuperFund': {
+        screenProps.navigateTo('PaperApp');
         break;
       }
       default: {
@@ -41,7 +61,7 @@ class ApplicationType extends Component {
         </View>
         <KeyboardAvoidingView behavior="padding">
           <Button
-            onPress={() => this.handlePress('featArtinst')}
+            onPress={() => this.handlePress('featArtist')}
             block
             dark
             marginVert

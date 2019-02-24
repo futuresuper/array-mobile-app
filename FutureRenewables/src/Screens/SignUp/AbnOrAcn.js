@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import {
@@ -17,7 +18,9 @@ import {
   styleConstants,
 } from 'src/Styles';
 
-class Email extends React.Component {
+import ListLinks from 'src/Components/ListLinks';
+
+class AbnOrAcn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,25 +28,25 @@ class Email extends React.Component {
     };
   }
 
+  // eslint-disable-next-line class-methods-use-this
   handlePress() {
-    const { screenProps } = this.props;
-    screenProps.navigateTo('DateOfBirth');
   }
 
   render() {
+    const { screenProps } = this.props;
     const { value } = this.state;
 
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
           <Text style={styleGlobal.formHeading}>
-            Your Email Address
+          ABN or ACN
           </Text>
 
           <Item regular error={false} marginBottom>
             <Input
               returnKeyType="next"
-              placeholder="Email Address"
+              placeholder="ABN or ACN"
               textCenter
               autoCorrect={false}
               onChangeText={(e) => { this.setState({ value: e }); }}
@@ -57,13 +60,34 @@ class Email extends React.Component {
             onPress={() => this.handlePress()}
             block
           >
-            <Text>Next</Text>
+            <Text>Search</Text>
           </Button>
           <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
         </KeyboardAvoidingView>
+
+        <ListLinks
+          absolute
+          navigateTo={screenProps.navigateTo}
+          data={[
+            {
+              name: 'Sole Trader',
+              screen: 'SoleTraderConfirmation',
+            },
+            {
+              name: 'Company',
+              screen: 'EntityContactDetails',
+              params: { type: 'company' },
+            },
+            {
+              name: 'Partnership',
+              screen: 'EntityContactDetails',
+              params: { type: 'partnership' },
+            },
+          ]}
+        />
       </Content>
     );
   }
 }
 
-export default connect()(Email);
+export default connect()(AbnOrAcn);

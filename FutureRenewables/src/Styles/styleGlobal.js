@@ -16,12 +16,29 @@ export default {
     marginHorizontal: 20,
     paddingTop: 20,
   },
+  textDescription: {
+    color: styleConstants.color.gray,
+    textAlign: 'center',
+  },
+  textDescriptionBold: {
+    color: styleConstants.color.dark,
+    fontWeight: '900',
+    textAlign: 'center',
+  },
   spaceBetween: {
     flex: 1,
     justifyContent: 'space-between',
   },
+  center: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
   textCenter: {
     textAlign: 'center',
+  },
+  textBold: {
+    fontWeight: '900',
   },
   colorWhite: {
     color: 'white',
@@ -34,6 +51,18 @@ export default {
   },
   mV20: {
     marginVertical: 20,
+  },
+  mV30: {
+    marginVertical: 30,
+  },
+  mH10: {
+    marginHorizontal: 10,
+  },
+  mH20: {
+    marginHorizontal: 20,
+  },
+  mH30: {
+    marginHorizontal: 30,
   },
   mB10: {
     marginBottom: 10,

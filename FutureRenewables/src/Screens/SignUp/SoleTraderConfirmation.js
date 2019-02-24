@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import {
@@ -7,8 +8,6 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
 
@@ -17,39 +16,25 @@ import {
   styleConstants,
 } from 'src/Styles';
 
-class Email extends React.Component {
+class SoleTraderConfirmation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
     };
   }
 
   handlePress() {
     const { screenProps } = this.props;
-    screenProps.navigateTo('DateOfBirth');
+    screenProps.navigateTo('Name');
   }
 
   render() {
-    const { value } = this.state;
-
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
           <Text style={styleGlobal.formHeading}>
-            Your Email Address
+          SoleTraderConfirmation
           </Text>
-
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Email Address"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.setState({ value: e }); }}
-              value={value}
-            />
-          </Item>
         </View>
 
         <KeyboardAvoidingView behavior="padding">
@@ -66,4 +51,4 @@ class Email extends React.Component {
   }
 }
 
-export default connect()(Email);
+export default connect()(SoleTraderConfirmation);
