@@ -61,4 +61,10 @@ export default {
     height: 150,
     width: 150,
   },
+  addMoreButton: {
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: styleConstants.color.gray,
+    marginTop: 20,
+  },
 };

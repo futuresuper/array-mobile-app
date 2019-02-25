@@ -1,6 +1,9 @@
 // @flow
 
 import variable from "./../variables/platform";
+import {
+  styleConstants,
+} from 'src/Styles';
 
 export default (variables /*: * */ = variable) => {
   const platformStyle = variables.platformStyle;
@@ -80,6 +83,17 @@ export default (variables /*: * */ = variable) => {
     },
     "NativeBase.IconNB": {
       color: variables.btnDangerBg
+    }
+  };
+  const grayCommon = {
+    "NativeBase.Text": {
+      color: styleConstants.color.gray
+    },
+    "NativeBase.Icon": {
+      color: styleConstants.color.gray
+    },
+    "NativeBase.IconNB": {
+      color: styleConstants.color.gray
     }
   };
   const buttonTheme = {
@@ -225,6 +239,13 @@ export default (variables /*: * */ = variable) => {
       backgroundColor: variables.btnDangerBg
     },
 
+    ".gray": {
+      ".bordered": {
+        ...grayCommon
+      },
+      backgroundColor: 'transparent',
+    },
+
     ".block": {
       justifyContent: "center",
       alignSelf: "stretch"
@@ -275,6 +296,10 @@ export default (variables /*: * */ = variable) => {
       },
       ".light": {
         ...lightCommon,
+        backgroundColor: null
+      },
+      ".gray": {
+        ...grayCommon,
         backgroundColor: null
       },
       ".disabled": {

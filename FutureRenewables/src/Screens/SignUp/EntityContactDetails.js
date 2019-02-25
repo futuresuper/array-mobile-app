@@ -16,6 +16,8 @@ import {
   styleConstants,
 } from 'src/Styles';
 
+import constants from './constants';
+
 class EntityContactDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -27,10 +29,10 @@ class EntityContactDetails extends React.Component {
     const { screenProps, navigation } = this.props;
     const type = navigation.getParam('type');
 
-    if (type === 'company') {
+    if (type === constants.COMPANY) {
       screenProps.navigateTo('CompanyDirectors');
     } else if (type === 'partnership') {
-      screenProps.navigateTo('EntityAdress');
+      screenProps.navigateTo('EntityAddress');
     }
   }
 

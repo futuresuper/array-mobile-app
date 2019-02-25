@@ -34,4 +34,5 @@ export default Object.freeze({
     backgroundColor: 'white',
   },
   keyboardAvoidingHeight: 100,
+  inputHeightBase: 50,
 });

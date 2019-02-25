@@ -1,16 +1,16 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import {
   View,
   KeyboardAvoidingView,
 } from 'react-native';
-
 import {
   Content,
   Button,
-  Text,
   Item,
   Input,
+  Text,
 } from 'native-base';
 
 import {
@@ -20,7 +20,7 @@ import {
 
 import styles from './styles';
 
-class HomeAddress extends React.Component {
+class EntityAddress extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,12 +36,12 @@ class HomeAddress extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   addAddressManually() {
-    alert('ok');
   }
 
   handlePress() {
-    const { screenProps } = this.props;
-    screenProps.navigateTo('InitialInvestmentAmount');
+    const { screenProps, navigation } = this.props;
+    const type = navigation.getParam('type');
+    screenProps.navigateTo('EntityOverseasTaxStatus', { type });
   }
 
   render() {
@@ -51,7 +51,7 @@ class HomeAddress extends React.Component {
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
           <Text style={styleGlobal.formHeading}>
-            Your Home Address
+          Company Registered Address
           </Text>
 
           <Item regular error={false} marginBottom>
@@ -87,4 +87,4 @@ class HomeAddress extends React.Component {
   }
 }
 
-export default connect()(HomeAddress);
+export default connect()(EntityAddress);

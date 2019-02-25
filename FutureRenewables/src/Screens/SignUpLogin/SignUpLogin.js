@@ -20,6 +20,8 @@ import {
   styleConstants,
 } from 'src/Styles';
 
+import ListLinks from 'src/Components/ListLinks';
+
 class SignUpLogin extends Component {
   constructor(props) {
     super(props);
@@ -54,6 +56,9 @@ class SignUpLogin extends Component {
     if (str[0] === '6' && str.length === 10) {
       this.setState({ errors: '' });
       return `1${str}`;
+    } if (str[0] === '6' && str.length === 11) {
+      this.setState({ errors: '' });
+      return str;
     // eslint-disable-next-line no-else-return
     } else if (str[0] === '0' && str[1] === '4' && str.length === 10) {
       this.setState({ errors: '' });
@@ -84,6 +89,7 @@ class SignUpLogin extends Component {
   }
 
   render() {
+    const { screenProps } = this.props;
     const { errors, submitted } = this.state;
     const inpErr = (submitted && (errors !== ''));
 
@@ -119,6 +125,17 @@ class SignUpLogin extends Component {
           </Button>
           <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
         </KeyboardAvoidingView>
+
+        <ListLinks
+          absolute
+          navigateTo={screenProps.navigateTo}
+          data={[
+            {
+              name: 'SmsCode',
+              screen: 'SmsCode',
+            },
+          ]}
+        />
 
       </Content>
     );

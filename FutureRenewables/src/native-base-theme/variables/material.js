@@ -184,7 +184,7 @@ export default {
   inputBorderColor: "#979797",
   inputSuccessBorderColor: "#2b8339",
   inputErrorBorderColor: "#ed2f2f",
-  inputHeightBase: 50,
+  inputHeightBase: styleConstants.inputHeightBase,
   get inputColor() {
     return this.textColor;
   },

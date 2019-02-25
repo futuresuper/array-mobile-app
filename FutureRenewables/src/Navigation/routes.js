@@ -34,6 +34,11 @@ import {
   SoleTraderConfirmation,
   EntityContactDetails,
   CompanyDirectors,
+  EntityAddress,
+  EntityOverseasTaxStatus,
+  EntityTaxFileNumber,
+  BeneficialOwners,
+  Partners,
   Example,
 } from 'src/Screens';
 
@@ -176,6 +181,21 @@ const mainRoutes = formatRoutes({
   },
   CompanyDirectors: {
     screen: CompanyDirectors,
+  },
+  EntityAddress: {
+    screen: EntityAddress,
+  },
+  EntityOverseasTaxStatus: {
+    screen: EntityOverseasTaxStatus,
+  },
+  EntityTaxFileNumber: {
+    screen: EntityTaxFileNumber,
+  },
+  BeneficialOwners: {
+    screen: BeneficialOwners,
+  },
+  Partners: {
+    screen: Partners,
   },
 });
 

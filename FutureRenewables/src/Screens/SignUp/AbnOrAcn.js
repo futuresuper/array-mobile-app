@@ -19,6 +19,7 @@ import {
 } from 'src/Styles';
 
 import ListLinks from 'src/Components/ListLinks';
+import constants from './constants';
 
 class AbnOrAcn extends React.Component {
   constructor(props) {
@@ -76,12 +77,12 @@ class AbnOrAcn extends React.Component {
             {
               name: 'Company',
               screen: 'EntityContactDetails',
-              params: { type: 'company' },
+              params: { type: constants.COMPANY },
             },
             {
               name: 'Partnership',
               screen: 'EntityContactDetails',
-              params: { type: 'partnership' },
+              params: { type: constants.PARTNERSHIP },
             },
           ]}
         />

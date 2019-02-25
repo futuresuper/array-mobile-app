@@ -27,6 +27,11 @@ import AbnOrAcn from './AbnOrAcn';
 import SoleTraderConfirmation from './SoleTraderConfirmation';
 import EntityContactDetails from './EntityContactDetails';
 import CompanyDirectors from './CompanyDirectors';
+import EntityAddress from './EntityAddress';
+import EntityOverseasTaxStatus from './EntityOverseasTaxStatus';
+import EntityTaxFileNumber from './EntityTaxFileNumber';
+import BeneficialOwners from './BeneficialOwners';
+import Partners from './Partners';
 
 export {
   ApplicationType,
@@ -57,4 +62,9 @@ export {
   SoleTraderConfirmation,
   EntityContactDetails,
   CompanyDirectors,
+  EntityAddress,
+  EntityOverseasTaxStatus,
+  EntityTaxFileNumber,
+  BeneficialOwners,
+  Partners,
 };

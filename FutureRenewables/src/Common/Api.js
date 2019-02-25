@@ -27,6 +27,10 @@ class Api extends Component {
     return this.ApiInstance.fetchProc(...args);
   }
 
+  static post(...args) {
+    return this.ApiInstance.fetchProc(...args, 'POST');
+  }
+
   fetchProc(urlInp, params, method, spinner = true) {
     return new Promise((resolve, reject) => {
       const { spinnerHide, spinnerShow } = this.props;
@@ -50,7 +54,7 @@ class Api extends Component {
         })
         .catch((err) => {
           if (spinner) spinnerHide();
-          reject(err);
+          reject(err.response.data);
         });
     });
 
@@ -72,10 +76,6 @@ class Api extends Component {
     //     throw err;
     //   });
     // });
-  }
-
-  static post(...args) {
-    return this.ApiInstance.fetchProc(...args, 'POST');
   }
 
   // eslint-disable-next-line class-methods-use-this

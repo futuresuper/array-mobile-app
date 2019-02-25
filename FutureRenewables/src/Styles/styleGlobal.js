@@ -79,6 +79,45 @@ export default {
   mT20: {
     marginTop: 20,
   },
+  mL0: {
+    marginLeft: 0,
+  },
+  mL10: {
+    marginLeft: 10,
+  },
+  mL20: {
+    marginLeft: 20,
+  },
+  mL30: {
+    marginLeft: 30,
+  },
+  mR10: {
+    marginRight: 10,
+  },
+  mR20: {
+    marginRight: 20,
+  },
+  mR30: {
+    marginRight: 30,
+  },
+  pL10: {
+    paddingLeft: 10,
+  },
+  pL20: {
+    paddingLeft: 20,
+  },
+  pL30: {
+    paddingLeft: 30,
+  },
+  pR10: {
+    paddingRight: 10,
+  },
+  pR20: {
+    paddingRight: 20,
+  },
+  pR30: {
+    paddingRight: 30,
+  },
   p5: {
     padding: 5,
   },
@@ -110,5 +149,8 @@ export default {
   },
   backgroundDefault: {
     backgroundColor: styleConstants.color.light,
+  },
+  inputHeightBase: {
+    height: styleConstants.inputHeightBase,
   },
 };
