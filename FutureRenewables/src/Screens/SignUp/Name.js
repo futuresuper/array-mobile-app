@@ -13,6 +13,8 @@ import {
   Text,
 } from 'native-base';
 
+import composeHoc from 'src/Common/Hocs';
+
 import {
   styleGlobal,
   styleConstants,
@@ -22,19 +24,58 @@ class Name extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-      submitted: false,
-      errors: '',
+      form: {
+        firstName: {
+          value: '',
+          // validations: [
+          //   'required',
+          // ],
+        },
+        lastName: {
+          value: '',
+          validations: [
+            'email',
+            'required',
+          ],
+        },
+      },
     };
   }
 
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
+  onFormChangeInput(e, key) {
+    const { form } = this.state;
+    this.setState({
+      form: {
+        ...form,
+        [key]: {
+          ...form[key],
+          value: e,
+        },
+      },
+    });
+  }
+
   handlePress() {
-    const { navigateTo } = this.props.screenProps;
-    navigateTo('Email');
+    const { screenProps, hocs } = this.props;
+
+    hocs.formIsValid();
+    // navigateTo('Email');
+
+    // this.props.hocs.hz();
   }
 
   render() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+    console.log('!!!', { hocs });
+
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
@@ -42,29 +83,28 @@ class Name extends React.Component {
             Your name
           </Text>
 
-          <Item regular error={false} marginBottom>
+          <Item regular error={(form && form.firstName.error) || false} marginBottom>
             <Input
               returnKeyType="next"
               placeholder="First Name"
               textCenter
               autoCorrect={false}
-              onChangeText={(firstName) => { this.setState({ firstName }); }}
+              onChangeText={(e) => { hocs.handleInput(e, 'firstName'); }}
+              value={(form && form.firstName.value) || ''}
             />
           </Item>
 
-          <Item regular error={false}>
+          <Item regular error={(form && form.lastName.error) || false}>
             <Input
               returnKeyType="next"
               placeholder="Last Name"
               textCenter
-             autoCorrect={false}
-              onChangeText={(lastName) => { this.setState({ lastName }); }}
+              autoCorrect={false}
+              onChangeText={(e) => { hocs.handleInput(e, 'lastName'); }}
+              value={(form && form.lastName.value) || ''}
             />
           </Item>
 
-          <Text style={styleGlobal.formError}>
-            {this.state.errors}
-          </Text>
         </View>
         <KeyboardAvoidingView behavior="padding">
           <Button
@@ -80,4 +120,8 @@ class Name extends React.Component {
   }
 }
 
-export default connect()(Name);
+const res = composeHoc([
+  'FormHoc',
+])(Name);
+
+export default connect()(res);
