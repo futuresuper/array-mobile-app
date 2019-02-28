@@ -8,8 +8,6 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
 
@@ -18,26 +16,43 @@ import {
   styleConstants,
 } from 'src/Styles';
 
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
+
 class InitialInvestmentAmount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      form: {
+        field: {
+          validations: ['required'],
+        },
+      },
     };
   }
 
-  handlePress() {
-    const { navigateTo } = this.props.screenProps;
-    navigateTo('RegularInvestmentAmount');
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
   }
 
-  onChangeInput(e) {
-    this.setState({
-      value: e,
-    });
+  handlePress() {
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('RegularInvestmentAmount');
+    }
   }
 
   render() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
@@ -45,17 +60,16 @@ class InitialInvestmentAmount extends React.Component {
             Initial Investment Amount
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              keyboardType="numeric"
-              placeholder="Investment Amount"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e); }}
-              value={this.state.value}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="field"
+            placeholder="Investment Amount"
+            onChangeText={hocs.handleInput}
+            keyboardType="numeric"
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
         </View>
 
         <KeyboardAvoidingView behavior="padding">
@@ -72,4 +86,8 @@ class InitialInvestmentAmount extends React.Component {
   }
 }
 
-export default connect()(InitialInvestmentAmount);
+const res = composeHoc([
+  'FormHoc',
+])(InitialInvestmentAmount);
+
+export default connect()(res);

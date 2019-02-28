@@ -183,7 +183,7 @@ export default {
   inputFontSize: 17,
   inputBorderColor: "#979797",
   inputSuccessBorderColor: "#2b8339",
-  inputErrorBorderColor: "#ed2f2f",
+  inputErrorBorderColor: styleConstants.color.errorBorder,
   inputHeightBase: styleConstants.inputHeightBase,
   get inputColor() {
     return this.textColor;

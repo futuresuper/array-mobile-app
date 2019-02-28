@@ -10,6 +10,7 @@ export default Object.freeze({
     success: 'green',
     gray: 'gray',
     lightGreen: '#6FCE1C',
+    errorBorder: '#ed2f2f',
   },
   fontFamily: 'Lato',
   fontSize: {

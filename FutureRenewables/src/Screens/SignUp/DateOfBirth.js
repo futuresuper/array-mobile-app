@@ -7,8 +7,6 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
 
@@ -17,19 +15,40 @@ import {
   styleConstants,
 } from 'src/Styles';
 
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
+
 class DateOfBirth extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
-      submitted: false,
-      errors: '',
+      form: {
+        date: {
+          validations: [
+            'required',
+            'date',
+          ],
+        },
+      },
     };
   }
 
-  handlePress() {
-    const { navigateTo } = this.props.screenProps;
-    navigateTo('HomeAddress');
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
+  handleInput = (e, formKey) => {
+    const { hocs } = this.props;
+    let value = e.replace(/\/+/g, '');
+    const firstFourChars = this.addItemEvery(value.substring(0, 5), '/', 2);
+    value = firstFourChars + value.substring(5, value.length);
+
+    hocs.handleInput(value, formKey);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -45,17 +64,19 @@ class DateOfBirth extends React.Component {
     return str.substring(1);
   }
 
-  onChangeInput(e) {
-    let value = e.replace(/\/+/g, '');
-    const firstFourChars = this.addItemEvery(value.substring(0, 5), '/', 2);
-    value = firstFourChars + value.substring(5, value.length);
+  handlePress() {
+    const { screenProps, hocs } = this.props;
 
-    this.setState({
-      value,
-    });
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('HomeAddress');
+    }
   }
 
   render() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
@@ -63,17 +84,13 @@ class DateOfBirth extends React.Component {
             Date of Birth
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              keyboardType="numeric"
-              placeholder="DD/MM/YYYY"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e); }}
-              value={this.state.value}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="date"
+            placeholder="DD/MM/YYYY"
+            onChangeText={this.handleInput}
+            keyboardType="numeric"
+          />
         </View>
         <KeyboardAvoidingView behavior="padding">
           <Button
@@ -87,7 +104,10 @@ class DateOfBirth extends React.Component {
       </Content>
     );
   }
-};
+}
 
+const res = composeHoc([
+  'FormHoc',
+])(DateOfBirth);
 
-export default connect()(DateOfBirth);
+export default connect()(res);

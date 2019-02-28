@@ -3,32 +3,48 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
 
 import {
   styleGlobal,
-  styleConstants,
 } from 'src/Styles';
+
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
 
 class JointNames extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       form: {
-        yourFirstName: '',
-        yourLastName: '',
-        otherInvestorFirstName: '',
-        otherInvestorLastName: '',
+        yourFirstName: {
+          validations: ['required'],
+        },
+        yourLastName: {
+          validations: ['required'],
+        },
+        otherInvestorFirstName: {
+          validations: ['required'],
+        },
+        otherInvestorLastName: {
+          validations: ['required'],
+        },
       },
     };
+  }
+
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
   }
 
   onChangeInput(e, inputKey) {
@@ -43,12 +59,17 @@ class JointNames extends React.Component {
   }
 
   handlePress() {
-    const { screenProps } = this.props;
-    screenProps.navigateTo('Email');
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('Email');
+    }
   }
 
   render() {
-    const { form } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
 
     return (
       <Content padder>
@@ -57,49 +78,46 @@ class JointNames extends React.Component {
           Joint Account - Your Names
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Your First Name"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'yourFirstName'); }}
-              value={form.yourFirstName}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="yourFirstName"
+            placeholder="Your First Name"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Your Last Name"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'yourLastName'); }}
-              value={form.yourLastName}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="yourLastName"
+            placeholder="Your Last Name"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
 
-          <Item regular error={false} marginBottom style={styleGlobal.mT20}>
-            <Input
-              returnKeyType="next"
-              placeholder="Other Investor First Name"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'otherInvestorFirstName'); }}
-              value={form.otherInvestorFirstName}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="otherInvestorFirstName"
+            placeholder="Other Investor First Name"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+              style: styleGlobal.mT20,
+            }}
+          />
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Other Investor Last Name"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'otherInvestorLastName'); }}
-              value={form.otherInvestorLastName}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="otherInvestorLastName"
+            placeholder="Other Investor Last Name"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
 
           <Button
             onPress={() => this.handlePress()}
@@ -114,4 +132,8 @@ class JointNames extends React.Component {
   }
 }
 
-export default connect()(JointNames);
+const res = composeHoc([
+  'FormHoc',
+])(JointNames);
+
+export default connect()(res);

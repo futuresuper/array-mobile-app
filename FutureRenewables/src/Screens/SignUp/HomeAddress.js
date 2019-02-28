@@ -9,8 +9,6 @@ import {
   Content,
   Button,
   Text,
-  Item,
-  Input,
 } from 'native-base';
 
 import {
@@ -18,20 +16,30 @@ import {
   styleConstants,
 } from 'src/Styles';
 
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
+
 import styles from './styles';
 
 class HomeAddress extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      form: {
+        address: {
+          validations: ['required'],
+        },
+      },
     };
   }
 
-  onChangeInput(e) {
-    this.setState({
-      value: e,
-    });
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -40,12 +48,17 @@ class HomeAddress extends React.Component {
   }
 
   handlePress() {
-    const { screenProps } = this.props;
-    screenProps.navigateTo('InitialInvestmentAmount');
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('InitialInvestmentAmount');
+    }
   }
 
   render() {
-    const { value } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
 
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
@@ -54,15 +67,11 @@ class HomeAddress extends React.Component {
             Your Home Address
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e); }}
-              value={value}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="address"
+            onChangeText={hocs.handleInput}
+          />
         </View>
         <KeyboardAvoidingView behavior="padding">
           <Button
@@ -87,4 +96,8 @@ class HomeAddress extends React.Component {
   }
 }
 
-export default connect()(HomeAddress);
+const res = composeHoc([
+  'FormHoc',
+])(HomeAddress);
+
+export default connect()(res);

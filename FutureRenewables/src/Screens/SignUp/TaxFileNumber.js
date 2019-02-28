@@ -8,8 +8,6 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
 
@@ -20,19 +18,39 @@ import {
 
 import ListLinks from 'src/Components/ListLinks';
 
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
+
 class TaxFileNumber extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      form: {
+        field: {
+          validations: ['required'],
+        },
+      },
     };
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
   handlePress() {
+    const { hocs } = this.props;
+    hocs.formIsValid();
   }
 
   render() {
+    const { hocs, screenProps } = this.props;
+    const { form } = hocs;
+
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
@@ -40,15 +58,12 @@ class TaxFileNumber extends React.Component {
             Your Tax File Number (TFN)
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Tax File Number"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(value) => { this.setState({ value }); }}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="field"
+            placeholder="Tax File Number"
+            onChangeText={hocs.handleInput}
+          />
         </View>
 
         <KeyboardAvoidingView behavior="padding">
@@ -72,7 +87,7 @@ class TaxFileNumber extends React.Component {
 
         <ListLinks
           absolute
-          navigateTo={this.props.screenProps.navigateTo}
+          navigateTo={screenProps.navigateTo}
           data={[
             {
               name: 'Individual or Sole Trader',
@@ -89,4 +104,8 @@ class TaxFileNumber extends React.Component {
   }
 }
 
-export default connect()(TaxFileNumber);
+const res = composeHoc([
+  'FormHoc',
+])(TaxFileNumber);
+
+export default connect()(res);

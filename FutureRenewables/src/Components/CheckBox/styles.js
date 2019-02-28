@@ -14,6 +14,9 @@ export default {
     paddingLeft: 10,
     paddingBottom: 5,
   },
+  containerError: {
+    borderColor: styleConstants.color.errorBorder,
+  },
   icon: {
     fontSize: 37,
     lineHeight: 36,

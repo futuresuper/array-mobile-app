@@ -13,11 +13,16 @@ import {
   Grid,
 } from 'native-base';
 
-import CheckBox from 'src/Components/CheckBox';
+// import CheckBox from 'src/Components/CheckBox';
 
 import {
   styleGlobal,
 } from 'src/Styles';
+
+import composeHoc from 'src/Common/Hocs';
+import {
+  CheckBox,
+} from 'src/Components/Form';
 
 import styles from './styles';
 
@@ -25,22 +30,34 @@ class DirectDebitAuth extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: true,
+      form: {
+        field: {
+          validations: ['required'],
+        },
+      },
     };
   }
 
-  handlePress() {
-    const { navigateTo } = this.props.screenProps;
-    navigateTo('SourceOfFunds');
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
   }
 
-  onChangeInput(e) {
-    this.setState({
-      value: e,
-    });
+  handlePress() {
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('SourceOfFunds');
+    }
   }
 
   render() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
     return (
       <Content padder>
         <View style={styleGlobal.flex}>
@@ -84,18 +101,25 @@ class DirectDebitAuth extends React.Component {
 
           <Grid>
             <Col style={styles.checkBoxCol}>
-              <CheckBox
+              {/* <CheckBox
                 checked={this.state.checked}
                 onPress={() => { this.setState({ checked: !this.state.checked }); }}
+              /> */}
+              <CheckBox
+                formData={form}
+                formKey="field"
+                onPress={hocs.handleCheckBox}
               />
             </Col>
             <Col>
-              <Text style={styles.textAgree}>I / We authorise Ezidebit Pty Ltd ACN 096 902 813
+              <Text style={styles.textAgree}>
+              I / We authorise Ezidebit Pty Ltd ACN 096 902 813
               (User ID No 165969, 303909, 301203, 234040, 234072, 428198)
               to debit my/our account at the Financial Institution identified above through the Bulk Electronic Clearing System (BECS),
               in accordance with this Direct Debit Request and as per the Ezidebit DDR Service Agreement.
               I / We authorise these payments to be debited at intervals and amounts as directed by Future Super for the Future Renewables Fund,
-              as per the Terms and Conditions of the Future Super agreement and subsequent agreements.</Text>
+              as per the Terms and Conditions of the Future Super agreement and subsequent agreements.
+              </Text>
             </Col>
           </Grid>
 
@@ -114,4 +138,8 @@ class DirectDebitAuth extends React.Component {
   }
 }
 
-export default connect()(DirectDebitAuth);
+const res = composeHoc([
+  'FormHoc',
+])(DirectDebitAuth);
+
+export default connect()(res);

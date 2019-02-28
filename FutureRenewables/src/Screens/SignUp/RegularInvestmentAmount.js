@@ -8,8 +8,6 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
   Segment,
 } from 'native-base';
@@ -19,32 +17,49 @@ import {
   styleConstants,
 } from 'src/Styles';
 
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
+
 import styles from './styles';
 
 class RegularInvestmentAmount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      form: {
+        field: {
+          validations: ['required'],
+        },
+      },
     };
   }
 
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
   handlePress() {
-    const { navigateTo } = this.props.screenProps;
-    navigateTo('BankAccount');
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('BankAccount');
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this
   noRegularInvestment() {
   }
 
-  onChangeInput(e) {
-    this.setState({
-      value: e,
-    });
-  }
-
   render() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
@@ -57,27 +72,23 @@ class RegularInvestmentAmount extends React.Component {
           </Text>
 
           <Segment style={styles.segment}>
-              <Button first active style={[styles.segmentButton, styles.segmentButtonActive]}>
-                <Text style={styles.segmentButtonTextActive} >Weekly</Text>
-              </Button>
-              <Button active style={styles.segmentButton}>
-                <Text>Fortnightly</Text>
-              </Button>
-              <Button last active style={styles.segmentButton}>
-                <Text>Monthly</Text>
-              </Button>
+            <Button first active style={[styles.segmentButton, styles.segmentButtonActive]}>
+              <Text style={styles.segmentButtonTextActive} >Weekly</Text>
+            </Button>
+            <Button active style={styles.segmentButton}>
+              <Text>Fortnightly</Text>
+            </Button>
+            <Button last active style={styles.segmentButton}>
+              <Text>Monthly</Text>
+            </Button>
           </Segment>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Regular Investment Amount"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e); }}
-              value={this.state.value}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="field"
+            placeholder="Regular Investment Amount"
+            onChangeText={hocs.handleInput}
+          />
         </View>
 
         <KeyboardAvoidingView behavior="padding">
@@ -104,4 +115,8 @@ class RegularInvestmentAmount extends React.Component {
   }
 }
 
-export default connect()(RegularInvestmentAmount);
+const res = composeHoc([
+  'FormHoc',
+])(RegularInvestmentAmount);
+
+export default connect()(res);

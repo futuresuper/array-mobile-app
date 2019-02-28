@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   TouchableOpacity,
@@ -10,25 +10,34 @@ import {
 
 import styles from './styles';
 
-class CheckBox extends Component {
-  render() {
-    return (
-      <TouchableOpacity
-        style={styles.container}
-        onPress={this.props.onPress}
-      >
-        <Icon
-          style={[styles.icon, { color: this.props.checked === true ? 'green' : 'transparent' }]}
-          name={'md-checkmark'}
-        />
-      </TouchableOpacity>
-    );
-  }
-}
+const CheckBox = ({ onPress, checked, error }) => (
+  <TouchableOpacity
+    style={[
+      styles.container,
+      (error ? styles.containerError : {}),
+    ]}
+    onPress={onPress}
+  >
+    <Icon
+      style={[
+        styles.icon,
+        { color: checked === true ? 'green' : 'transparent' },
+      ]}
+      name="md-checkmark"
+    />
+  </TouchableOpacity>
+);
+
+CheckBox.defaultProps = {
+  onPress: () => null,
+  checked: false,
+  error: false,
+};
 
 CheckBox.propTypes = {
-  checked: PropTypes.bool,
   onPress: PropTypes.func,
+  checked: PropTypes.bool,
+  error: PropTypes.bool,
 };
 
 export default CheckBox;

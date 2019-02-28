@@ -8,8 +8,6 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
 
@@ -18,33 +16,49 @@ import {
   styleConstants,
 } from 'src/Styles';
 
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
+
 class BankAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       form: {
-        accountName: '',
-        bsb: '',
-        accountNumber: '',
+        accountName: {
+          validations: ['required'],
+        },
+        bsb: {
+          validations: ['required'],
+        },
+        accountNumber: {
+          validations: ['required'],
+        },
       },
     };
   }
 
-  handlePress() {
-    const { navigateTo } = this.props.screenProps;
-    navigateTo('DirectDebitAuth');
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
   }
 
-  onChangeInput(e, inputKey) {
-    this.setState({
-      form: {
-        ...this.state.form,
-        [inputKey]: e,
-      },
-    });
+  handlePress() {
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('DirectDebitAuth');
+    }
   }
 
   render() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
@@ -60,38 +74,35 @@ class BankAccount extends React.Component {
             We’ll also pay any withdrawals to this account.
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Account Name"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'accountName'); }}
-              value={this.state.form.accountName}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="accountName"
+            placeholder="Account Name"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="BSB"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'bsb'); }}
-              value={this.state.form.bsb}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="bsb"
+            placeholder="BSB"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Account Number"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'accountNumber'); }}
-              value={this.state.form.accountNumber}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="accountNumber"
+            placeholder="Account Number"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
 
         </View>
 
@@ -109,4 +120,8 @@ class BankAccount extends React.Component {
   }
 }
 
-export default connect()(BankAccount);
+const res = composeHoc([
+  'FormHoc',
+])(BankAccount);
+
+export default connect()(res);

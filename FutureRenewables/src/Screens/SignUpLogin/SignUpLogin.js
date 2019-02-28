@@ -42,7 +42,7 @@ class SignUpLogin extends Component {
 
     Api.post('send/sms', { mobile: formattedMobile })
       .then(() => {
-        navigateTo('SmsCode', { mobile });
+        navigateTo('SmsCode', { mobile: formattedMobile });
       })
       .catch((err) => {
         toast(err.message);
@@ -53,7 +53,12 @@ class SignUpLogin extends Component {
 
   formatAndValidateMobile(strPre) {
     const str = strPre.replace(/[^0-9]+/g, '');
-    if (str[0] === '6' && str.length === 10) {
+    if (
+      (str[0] === '7' && str.length === 10)
+      || (str[0] === '6' && str.length === 10)
+      || (str[0] === '5' && str.length === 10)
+      || (str[0] === '4' && str.length === 10)
+    ) {
       this.setState({ errors: '' });
       return `1${str}`;
     } if (str[0] === '6' && str.length === 11) {

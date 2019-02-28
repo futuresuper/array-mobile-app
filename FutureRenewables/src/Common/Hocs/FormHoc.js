@@ -7,8 +7,10 @@ import {
 import CopyModuleHoc from './CopyModuleHoc';
 
 const errorMessages = {
+  invalid: 'not a valid value',
   required: 'field is required',
   email: 'must be a valid email address',
+  date: 'not a valid date',
 };
 
 const fromKeys = {
@@ -97,7 +99,11 @@ export default function FormHoc(WrappedComponent) {
     handleSubmit = () => {
     }
 
-    handleInput = (value, formKey, dataKey = null) => {
+    handleCheckBox = (formKey, dataKey = null) => {
+      this.handleInput(null, formKey, dataKey, 'checkbox');
+    }
+
+    handleInput = (value, formKey, dataKey = null, typeItem = 'input') => {
       const { form } = this.state;
       const formIsArray = (Array.isArray(form));
       let inputItem;
@@ -106,7 +112,13 @@ export default function FormHoc(WrappedComponent) {
       } else {
         inputItem = form[formKey];
       }
-      inputItem.value = value;
+
+      if (typeItem === 'checkbox') {
+        const checkedValue = !!inputItem.value;
+        inputItem.value = !checkedValue;
+      } else {
+        inputItem.value = value;
+      }
 
       const validation = this.checkValidation(inputItem);
 
@@ -165,27 +177,40 @@ export default function FormHoc(WrappedComponent) {
 
       for (let i = 0; i < validations.length; i += 1) {
         const validation = validations[i];
+        const validationIsFunction = (typeof validation === 'function');
         let isValid = true;
 
-        switch (validation) {
-          case 'required': {
-            if (!value) {
-              isValid = false;
+        if (validationIsFunction) {
+          res.errorMessage = errorMessages.invalid;
+          isValid = validation(value);
+        } else {
+          res.errorMessage = errorMessages[validation] || errorMessages.invalid;
+
+          switch (validation) {
+            case 'required': {
+              if (!value) {
+                isValid = false;
+              }
+              break;
             }
-            break;
-          }
-          case 'email': {
-            isValid = isEmail(value);
-            break;
-          }
-          default: {
-            isValid = true;
+            case 'email': {
+              isValid = isEmail(value);
+              break;
+            }
+            case 'date': {
+              isValid = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+              isValid = !!isValid;
+
+              break;
+            }
+            default: {
+              isValid = true;
+            }
           }
         }
 
         if (!isValid) {
           res.error = true;
-          res.errorMessage = errorMessages[validation];
 
           return res;
         }
@@ -205,6 +230,7 @@ export default function FormHoc(WrappedComponent) {
             form,
             handleSubmit: this.handleSubmit,
             handleInput: this.handleInput,
+            handleCheckBox: this.handleCheckBox,
             setForm: this.setForm,
             formGetVal: this.formGetVal,
             formIsValid: this.formIsValid,

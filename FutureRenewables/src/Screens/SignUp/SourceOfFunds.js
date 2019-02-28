@@ -22,8 +22,8 @@ class SourceOfFunds extends React.Component {
   }
 
   handlePress(type) {
-    const { navigateTo } = this.props.screenProps;
-    navigateTo('PurposeOfInvestment', { type });
+    const { screenProps } = this.props;
+    screenProps.navigateTo('PurposeOfInvestment', { type });
   }
 
   render() {

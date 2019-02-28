@@ -19,8 +19,11 @@ import {
   styleGlobal,
 } from 'src/Styles';
 
-import CheckBox from 'src/Components/CheckBox';
 import ListText from 'src/Components/ListText';
+import composeHoc from 'src/Common/Hocs';
+import {
+  CheckBox,
+} from 'src/Components/Form';
 
 import styles from './styles';
 
@@ -44,31 +47,39 @@ class FinalConfirmation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ticks: {
-        one: false,
-        two: false,
-        three: false,
+      form: {
+        one: {
+          validations: ['required'],
+        },
+        two: {
+          validations: ['required'],
+        },
+        three: {
+          validations: ['required'],
+        },
       },
     };
   }
 
-  onTick(type) {
-    const { ticks } = this.state;
-    this.setState({
-      ticks: {
-        ...ticks,
-        [type]: !ticks[type],
-      },
-    });
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
   }
 
   handlePress() {
-    const { screenProps } = this.props;
-    screenProps.navigateTo('JoinSuper');
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('JoinSuper');
+    }
   }
 
   render() {
-    const { ticks } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
 
     return (
       <View style={[styleGlobal.flex, styleGlobal.backgroundDefault, styleGlobal.p10]}>
@@ -79,7 +90,11 @@ class FinalConfirmation extends React.Component {
           <Grid>
             <Row>
               <Col style={styles.checkBoxCol}>
-                <CheckBox checked={ticks.one} onPress={() => this.onTick('one')} />
+                <CheckBox
+                  formData={form}
+                  formKey="one"
+                  onPress={hocs.handleCheckBox}
+                />
               </Col>
               <Col>
                 <Text style={styles.textAgree}>
@@ -90,7 +105,11 @@ class FinalConfirmation extends React.Component {
             </Row>
             <Row style={styleGlobal.mV20}>
               <Col style={styles.checkBoxCol}>
-                <CheckBox checked={ticks.two} onPress={() => this.onTick('two')} />
+                <CheckBox
+                  formData={form}
+                  formKey="two"
+                  onPress={hocs.handleCheckBox}
+                />
               </Col>
               <Col>
                 <Text style={styles.textAgree}>
@@ -101,7 +120,11 @@ class FinalConfirmation extends React.Component {
             </Row>
             <Row>
               <Col style={styles.checkBoxCol}>
-                <CheckBox checked={ticks.three} onPress={() => this.onTick('three')} />
+                <CheckBox
+                  formData={form}
+                  formKey="three"
+                  onPress={hocs.handleCheckBox}
+                />
               </Col>
               <Col>
                 <Text style={[styles.textAgree, styleGlobal.mB10]}>I/we make the following declarations:</Text>
@@ -129,4 +152,8 @@ class FinalConfirmation extends React.Component {
   }
 }
 
-export default connect()(FinalConfirmation);
+const res = composeHoc([
+  'FormHoc',
+])(FinalConfirmation);
+
+export default connect()(res);
