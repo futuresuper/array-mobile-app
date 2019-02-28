@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
+import {
+  isEmail,
+} from 'src/Common/Helpers';
 import CopyModuleHoc from './CopyModuleHoc';
 
 const errorMessages = {
@@ -26,19 +29,110 @@ export default function FormHoc(WrappedComponent) {
     }
 
     setForm = (formInp) => {
-      const form = _.mapValues(formInp, (itemInp) => {
-        let item = itemInp;
-        item = { ...fromKeys, ...item };
-        return item;
-      });
+      let form;
+      if (Array.isArray(formInp)) {
+        form = formInp.map((formItem) => {
+          const formTmp = _.mapValues(formItem, (itemInp) => {
+            let item = itemInp;
+            item = { ...fromKeys, ...item };
+            return item;
+          });
+
+          return formTmp;
+        });
+      } else {
+        form = _.mapValues(formInp, (itemInp) => {
+          let item = itemInp;
+          item = { ...fromKeys, ...item };
+          return item;
+        });
+      }
 
       this.setState({
         form,
       });
     }
 
-    formIsValid = () => {
+    addFormItem = (data) => {
       const { form } = this.state;
+      const formIsArray = (Array.isArray(form));
+      if (!formIsArray) return;
+
+      form.push(data);
+
+      this.setState(form);
+    }
+
+    formIsValid = (showToast = true) => {
+      const { screenProps } = this.props;
+      let { form } = this.state;
+      const formIsArray = (Array.isArray(form));
+      let res = true;
+
+      if (formIsArray) {
+        for (let i = 0; i < form.length; i += 1) {
+          const formTmp = form[i];
+          const itemValid = this.formItemIsValid(formTmp);
+
+          form[i] = itemValid.form;
+          if (!itemValid.isValid) res = false;
+        }
+      } else {
+        const itemValid = this.formItemIsValid(form);
+        ({ form } = itemValid);
+        res = itemValid.isValid;
+      }
+
+      if (!res) {
+        this.setState({
+          form,
+        });
+
+        if (showToast) screenProps.toastDanger('Please enter valid values');
+      }
+
+      return res;
+    }
+
+    handleSubmit = () => {
+    }
+
+    handleInput = (value, formKey, dataKey = null) => {
+      const { form } = this.state;
+      const formIsArray = (Array.isArray(form));
+      let inputItem;
+      if (formIsArray) {
+        inputItem = form[dataKey][formKey];
+      } else {
+        inputItem = form[formKey];
+      }
+      inputItem.value = value;
+
+      const validation = this.checkValidation(inputItem);
+
+      if (formIsArray) {
+        form[dataKey][formKey] = {
+          ...inputItem,
+          ...validation,
+        };
+      } else {
+        form[formKey] = {
+          ...inputItem,
+          ...validation,
+        };
+      }
+
+      this.setState({
+        form,
+      });
+    }
+
+    formItemIsValid(formInp) {
+      const form = formInp;
+      const res = {
+        isValid: true,
+        form,
+      };
 
       _.forOwn(form, (item, key) => {
         if (
@@ -46,52 +140,42 @@ export default function FormHoc(WrappedComponent) {
           && Array.isArray(item.validations)
           && item.validations.length
         ) {
-          const isValid = this.inputIsValid(item);
-					console.log('!!!: Def -> formIsValid -> isValid', isValid);
+          const validation = this.checkValidation(item);
+          if (validation.error) {
+            res.form[key] = {
+              ...form[key],
+              ...validation,
+            };
+
+            res.isValid = false;
+          }
         }
       });
 
-    }
-
-    handleSubmit = () => {
-      console.log('!!!z', this.state);
-    }
-
-    handleInput = (e, key) => {
-      const { form } = this.state;
-      this.setState({
-        form: {
-          ...form,
-          [key]: {
-            ...form[key],
-            value: e,
-          },
-        },
-      });
+      return res;
     }
 
     // eslint-disable-next-line class-methods-use-this
-    inputIsValid(item) {
+    checkValidation(item) {
       const { validations, value } = item;
-      let res = {
-        error: true,
+      const res = {
+        error: false,
         errorMessage: '',
       };
 
       for (let i = 0; i < validations.length; i += 1) {
         const validation = validations[i];
-        let isValid;
+        let isValid = true;
 
         switch (validation) {
           case 'required': {
             if (!value) {
-              res.error = false;
-              res.errorMessage = errorMessages[validation];
+              isValid = false;
             }
             break;
           }
           case 'email': {
-            isValid = false;
+            isValid = isEmail(value);
             break;
           }
           default: {
@@ -99,9 +183,12 @@ export default function FormHoc(WrappedComponent) {
           }
         }
 
-        console.log('!!!', validation,':', isValid);
+        if (!isValid) {
+          res.error = true;
+          res.errorMessage = errorMessages[validation];
 
-        // return false;
+          return res;
+        }
       }
 
       return res;
@@ -121,6 +208,7 @@ export default function FormHoc(WrappedComponent) {
             setForm: this.setForm,
             formGetVal: this.formGetVal,
             formIsValid: this.formIsValid,
+            addFormItem: this.addFormItem,
           }}
           {...passThroughtProps}
         />

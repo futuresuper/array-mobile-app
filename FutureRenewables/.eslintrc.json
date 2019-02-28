@@ -35,6 +35,7 @@
         }],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "import/extensions": ["error", "ignorePackages", { "js": "never" }],
+        "react/forbid-prop-types": [1, { "forbid": ["any"] }],
         "import/no-extraneous-dependencies" : "off",
         "arrow-body-style" : "warn",
         "linebreak-style": 0,
@@ -43,7 +44,7 @@
         "no-alert": "off",
         "no-console": "off",
         "camelcase": 0,
-        "max-len": ["error", { "code": 150 }]
+        "max-len": ["error", { "code": 170 }]
     }
-}
+  }
   

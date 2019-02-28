@@ -7,15 +7,18 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
   Grid,
   Col,
   Row,
   Icon,
 } from 'native-base';
+import _ from 'lodash';
 
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
 import {
   styleGlobal,
 } from 'src/Styles';
@@ -31,9 +34,11 @@ class CompanyDirectors extends React.Component {
     this.formState = {
       firstName: {
         value: '',
+        validations: ['required'],
       },
-      secondName: {
+      lastName: {
         value: '',
+        validations: ['required'],
       },
     };
 
@@ -42,24 +47,31 @@ class CompanyDirectors extends React.Component {
     };
   }
 
-  onChangeInput(e, inputKey) {
+  componentDidMount() {
+    const { hocs } = this.props;
     const { form } = this.state;
+
+    hocs.setForm(form);
   }
 
   handlePress() {
-    const { screenProps } = this.props;
-    screenProps.navigateTo('EntityAddress', { type: constants.COMPANY });
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('EntityAddress', { type: constants.COMPANY });
+    }
   }
 
   addMore() {
-    const { form } = this.state;
-    form.push(this.formState);
-
-    this.setState(form);
+    const { hocs } = this.props;
+    const formState = _.cloneDeep(this.formState);
+    hocs.addFormItem(formState);
   }
 
   render() {
-    const { form } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
 
     return (
       <Content padder>
@@ -73,32 +85,26 @@ class CompanyDirectors extends React.Component {
           </Text>
 
           <Grid>
-            {form.map((item, key) => {
+            {form && form.map((item, key) => {
               return (
                 <Row key={key.toString()} style={[styleGlobal.inputHeightBase, styleGlobal.mB10]}>
                   <Col style={styleGlobal.pR10}>
-                    <Item regular error={false} style={styleGlobal.mL0}>
-                      <Input
-                        returnKeyType="next"
-                        placeholder="First Name"
-                        textCenter
-                        autoCorrect={false}
-                        onChangeText={(e) => { this.onChangeInput(e, 'firstName'); }}
-                        // value={item.firstName.value}
-                      />
-                    </Item>
+                    <Input
+                      formData={item}
+                      dataKey={key}
+                      formKey="firstName"
+                      placeholder="First Name"
+                      onChangeText={hocs.handleInput}
+                    />
                   </Col>
                   <Col>
-                    <Item regular error={false}>
-                      <Input
-                        returnKeyType="next"
-                        placeholder="Last Name"
-                        textCenter
-                        autoCorrect={false}
-                        onChangeText={(e) => { this.onChangeInput(e, 'secondName'); }}
-                        // value={item.secondName.value}
-                      />
-                    </Item>
+                    <Input
+                      formData={item}
+                      dataKey={key}
+                      formKey="lastName"
+                      placeholder="Last Name"
+                      onChangeText={hocs.handleInput}
+                    />
                   </Col>
                 </Row>
               );
@@ -134,4 +140,7 @@ class CompanyDirectors extends React.Component {
   }
 }
 
-export default connect()(CompanyDirectors);
+const res = composeHoc([
+  'FormHoc',
+])(CompanyDirectors);
+export default connect()(res);

@@ -7,10 +7,13 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
+
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
 
 import {
   styleGlobal,
@@ -21,17 +24,36 @@ class Email extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      form: {
+        emailAddress: {
+          validations: [
+            'required',
+            'email',
+          ],
+        },
+      },
     };
   }
 
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
   handlePress() {
-    const { screenProps } = this.props;
-    screenProps.navigateTo('DateOfBirth');
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('DateOfBirth');
+    }
   }
 
   render() {
-    const { value } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
 
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
@@ -40,16 +62,12 @@ class Email extends React.Component {
             Your Email Address
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Email Address"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.setState({ value: e }); }}
-              value={value}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="emailAddress"
+            placeholder="Email Address"
+            onChangeText={hocs.handleInput}
+          />
         </View>
 
         <KeyboardAvoidingView behavior="padding">
@@ -66,4 +84,9 @@ class Email extends React.Component {
   }
 }
 
-export default connect()(Email);
+
+const res = composeHoc([
+  'FormHoc',
+])(Email);
+
+export default connect()(res);

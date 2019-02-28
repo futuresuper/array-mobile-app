@@ -62,12 +62,17 @@ class AppIndex extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  toast(text) {
+  toast(text, type = 'default') {
     Toast.show({
       text,
-      position: 'bottom',
+      position: 'top',
       duration: 3000,
+      type,
     });
+  }
+
+  toastDanger(text) {
+    this.toast(text, 'danger');
   }
 
   routeBack(inp_back_screen = null, inp_params = null) {
@@ -113,6 +118,7 @@ class AppIndex extends Component {
             <AppWithNavigationState
               navigation={{
                 toast: this.toast,
+                toastDanger: this.toastDanger,
                 routeBack: this.routeBack,
                 navigateTo: this.navigateTo,
                 spinnerShow: this.spinnerShow,
