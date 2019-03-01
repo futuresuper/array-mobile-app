@@ -4,7 +4,7 @@ import { AppRegistry } from 'react-native';
 import './ReactotronConfig';
 import { Provider } from 'react-redux';
 import { name as appName } from '../app.json';
-import store from './store';
+import store from './Redux/store';
 
 import AppIndex from './AppIndex';
 

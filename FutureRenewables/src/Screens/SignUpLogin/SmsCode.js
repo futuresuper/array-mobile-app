@@ -16,6 +16,9 @@ import {
 } from 'native-base';
 
 import {
+  loginSuccess,
+} from 'src/Redux/Auth';
+import {
   Config,
 } from 'src/Common/config';
 
@@ -35,7 +38,7 @@ class SmsCode extends Component {
   }
 
   async handlePress() {
-    const { navigation, screenProps } = this.props;
+    const { navigation, screenProps, loginSuccess } = this.props;
     const { Api, toast } = screenProps;
     const { smsCode } = this.state;
 
@@ -55,13 +58,12 @@ class SmsCode extends Component {
     Api.post('user/login', {
       username: mobile,
       token: smsCode,
-    })
-      .then(() => {
-        this.nextScreen();
-      })
-      .catch((err) => {
-        toast(err.message);
-      });
+    }, (res) => {
+      loginSuccess(res.data);
+      this.nextScreen();
+    }, (err) => {
+      toast(err.message);
+    });
 
     return true;
   }
@@ -127,4 +129,8 @@ class SmsCode extends Component {
   }
 }
 
-export default connect()(SmsCode);
+const mapDispatchToProps = {
+  loginSuccess,
+};
+
+export default connect(null, mapDispatchToProps)(SmsCode);

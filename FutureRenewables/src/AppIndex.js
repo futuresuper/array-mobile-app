@@ -27,8 +27,10 @@ import {
 import Api from 'src/Common/Api';
 import Spinner from 'src/Components/Spinner';
 import { AppWithNavigationState } from 'src/Navigation/AppNavigator';
-import navigateTo from 'src/Redux/actions/sideBarNav';
-import { routeBack } from 'src/Redux/actions/navigationCard';
+import {
+  navigateTo,
+  routeBack,
+} from 'src/Redux/Nav';
 
 class AppIndex extends Component {
   constructor(props, context) {

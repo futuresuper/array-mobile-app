@@ -27,11 +27,12 @@ class Api extends Component {
     return this.ApiInstance.fetchProc(...args);
   }
 
-  static post(...args) {
-    return this.ApiInstance.fetchProc(...args, 'POST');
+  static post(urlInp, params, onSuccess = null, onError = null, spinner = true) {
+    return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'POST');
   }
 
-  fetchProc(urlInp, params, method, spinner = true) {
+  // eslint-disable-next-line class-methods-use-this
+  fetchProc(urlInp, params, onSuccess = null, onError = null, spinner = true, method = 'POST') {
     return new Promise((resolve, reject) => {
       const { spinnerHide, spinnerShow } = this.props;
       const options = {
@@ -50,10 +51,14 @@ class Api extends Component {
       axios(options)
         .then((resp) => {
           if (spinner) spinnerHide();
+
+          if (onSuccess) onSuccess(resp.data);
           resolve(resp.data);
         })
         .catch((err) => {
           if (spinner) spinnerHide();
+
+          if (onError) onError(err.response.data);
           reject(err.response.data);
         });
     });
