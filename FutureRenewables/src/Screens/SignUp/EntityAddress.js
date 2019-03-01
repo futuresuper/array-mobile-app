@@ -8,10 +8,13 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
+
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
 
 import {
   styleGlobal,
@@ -24,14 +27,19 @@ class EntityAddress extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      form: {
+        field: {
+          validations: ['required'],
+        },
+      },
     };
   }
 
-  onChangeInput(e) {
-    this.setState({
-      value: e,
-    });
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -39,13 +47,18 @@ class EntityAddress extends React.Component {
   }
 
   handlePress() {
-    const { screenProps, navigation } = this.props;
+    const { screenProps, hocs, navigation } = this.props;
     const type = navigation.getParam('type');
-    screenProps.navigateTo('EntityOverseasTaxStatus', { type });
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('EntityOverseasTaxStatus', { type });
+    }
   }
 
   render() {
-    const { value } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
 
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
@@ -54,15 +67,14 @@ class EntityAddress extends React.Component {
           Company Registered Address
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e); }}
-              value={value}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="field"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
         </View>
         <KeyboardAvoidingView behavior="padding">
           <Button
@@ -87,4 +99,8 @@ class EntityAddress extends React.Component {
   }
 }
 
-export default connect()(EntityAddress);
+const res = composeHoc([
+  'FormHoc',
+])(EntityAddress);
+
+export default connect()(res);

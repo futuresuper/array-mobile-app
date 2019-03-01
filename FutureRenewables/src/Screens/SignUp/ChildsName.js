@@ -8,8 +8,6 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
 
@@ -18,35 +16,45 @@ import {
   styleConstants,
 } from 'src/Styles';
 
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
+
 class ChildsName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       form: {
-        childFirstName: '',
-        childLastName: '',
+        childFirstName: {
+          validations: ['required'],
+        },
+        childLastName: {
+          validations: ['required'],
+        },
       },
     };
   }
 
-  onChangeInput(e, inputKey) {
+  componentDidMount() {
+    const { hocs } = this.props;
     const { form } = this.state;
 
-    this.setState({
-      form: {
-        ...form,
-        [inputKey]: e,
-      },
-    });
+    hocs.setForm(form);
   }
 
   handlePress() {
-    const { screenProps } = this.props;
-    screenProps.navigateTo('AdultForChildAppType');
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo('AdultForChildAppType');
+    }
   }
 
   render() {
-    const { form } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
 
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
@@ -60,27 +68,25 @@ class ChildsName extends React.Component {
             however the adult who signs up for the account is the account owner.
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Child's First Name"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'childFirstName'); }}
-              value={form.childFirstName}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="childFirstName"
+            placeholder="Child's First Name"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Child's Last Name"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'childLastName'); }}
-              value={form.childLastName}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="childLastName"
+            placeholder="Child's Last Name"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
 
           <Text style={[styleGlobal.textDescription, styleGlobal.mT20]}>
             For the rest of this application, please enter your own details (not your child&apos;s)
@@ -102,4 +108,8 @@ class ChildsName extends React.Component {
   }
 }
 
-export default connect()(ChildsName);
+const res = composeHoc([
+  'FormHoc',
+])(ChildsName);
+
+export default connect()(res);

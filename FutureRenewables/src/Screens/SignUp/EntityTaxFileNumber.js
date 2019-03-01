@@ -8,10 +8,13 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
+
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
 
 import {
   styleGlobal,
@@ -26,39 +29,36 @@ class EntityTaxFileNumber extends React.Component {
     this.state = {
       form: {
         tfn: {
-          value: '',
+          validations: ['required'],
         },
       },
     };
   }
 
-  onChangeInput(e, inputKey) {
+  componentDidMount() {
+    const { hocs } = this.props;
     const { form } = this.state;
 
-    this.setState({
-      form: {
-        ...form,
-        [inputKey]: {
-          ...form[inputKey],
-          value: e,
-        },
-      },
-    });
+    hocs.setForm(form);
   }
 
   handlePress() {
-    const { screenProps, navigation } = this.props;
+    const { screenProps, hocs, navigation } = this.props;
     const type = navigation.getParam('type');
 
-    if (type === constants.COMPANY) {
-      screenProps.navigateTo('BeneficialOwners');
-    } else {
-      screenProps.navigateTo('Partners');
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      if (type === constants.COMPANY) {
+        screenProps.navigateTo('BeneficialOwners');
+      } else {
+        screenProps.navigateTo('Partners');
+      }
     }
   }
 
   render() {
-    const { form } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
 
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
@@ -67,16 +67,15 @@ class EntityTaxFileNumber extends React.Component {
           Company Tax File Number (TFN)
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="Company Tax File Number"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.onChangeInput(e, 'tfn'); }}
-              value={form.tfn.value}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="tfn"
+            placeholder="Company Tax File Number"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
         </View>
 
         <KeyboardAvoidingView behavior="padding">
@@ -101,4 +100,8 @@ class EntityTaxFileNumber extends React.Component {
   }
 }
 
-export default connect()(EntityTaxFileNumber);
+const res = composeHoc([
+  'FormHoc',
+])(EntityTaxFileNumber);
+
+export default connect()(res);

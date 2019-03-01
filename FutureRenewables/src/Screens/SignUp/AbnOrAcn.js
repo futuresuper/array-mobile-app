@@ -8,8 +8,6 @@ import {
 import {
   Content,
   Button,
-  Item,
-  Input,
   Text,
 } from 'native-base';
 
@@ -18,6 +16,11 @@ import {
   styleConstants,
 } from 'src/Styles';
 
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+} from 'src/Components/Form';
+
 import ListLinks from 'src/Components/ListLinks';
 import constants from './constants';
 
@@ -25,17 +28,31 @@ class AbnOrAcn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      form: {
+        field: {
+          validations: ['required'],
+        },
+      },
     };
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
   handlePress() {
+    const { hocs } = this.props;
+    hocs.formIsValid();
   }
 
   render() {
     const { screenProps } = this.props;
-    const { value } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
+
 
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
@@ -44,16 +61,15 @@ class AbnOrAcn extends React.Component {
           ABN or ACN
           </Text>
 
-          <Item regular error={false} marginBottom>
-            <Input
-              returnKeyType="next"
-              placeholder="ABN or ACN"
-              textCenter
-              autoCorrect={false}
-              onChangeText={(e) => { this.setState({ value: e }); }}
-              value={value}
-            />
-          </Item>
+          <Input
+            formData={form}
+            formKey="field"
+            placeholder="ABN or ACN"
+            onChangeText={hocs.handleInput}
+            itemProps={{
+              marginBottom: true,
+            }}
+          />
         </View>
 
         <KeyboardAvoidingView behavior="padding">
@@ -91,4 +107,8 @@ class AbnOrAcn extends React.Component {
   }
 }
 
-export default connect()(AbnOrAcn);
+const res = composeHoc([
+  'FormHoc',
+])(AbnOrAcn);
+
+export default connect()(res);

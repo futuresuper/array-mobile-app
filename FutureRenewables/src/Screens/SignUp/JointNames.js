@@ -47,17 +47,6 @@ class JointNames extends React.Component {
     hocs.setForm(form);
   }
 
-  onChangeInput(e, inputKey) {
-    const { form } = this.state;
-
-    this.setState({
-      form: {
-        ...form,
-        [inputKey]: e,
-      },
-    });
-  }
-
   handlePress() {
     const { screenProps, hocs } = this.props;
 
