@@ -33,6 +33,7 @@ class HomeAddress extends React.Component {
           validations: ['required'],
         },
       },
+      autoAddress: '',
     };
   }
 
@@ -41,6 +42,14 @@ class HomeAddress extends React.Component {
     const { form } = this.state;
 
     hocs.setForm(form);
+  }
+
+  onChangeText(e) {
+    console.log('!!!.', { e });
+
+    this.setState({
+      autoAddress: e,
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -53,7 +62,7 @@ class HomeAddress extends React.Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      // screenProps.navigateTo('InitialInvestmentAmount');
+      screenProps.navigateTo('InitialInvestmentAmount');
     }
   }
 
@@ -62,7 +71,7 @@ class HomeAddress extends React.Component {
     const { form } = hocs;
 
     return (
-      <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
+      <Content padder bounces={false} contentContainerStyle={styleGlobal.spaceBetween}>
         <View>
           <Text style={styleGlobal.formHeading}>
             Your Home Address
@@ -75,6 +84,7 @@ class HomeAddress extends React.Component {
           />
 
           <Autocomplete
+            onChangeText={(e) => { this.onChangeText(e); }}
           />
         </View>
         <KeyboardAvoidingView behavior="padding">

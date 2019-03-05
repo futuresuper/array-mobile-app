@@ -45,6 +45,12 @@ export default {
     left: 0,
     right: 0,
   },
+  listItem: {
+    padding: 13,
+  },
+  listItemText: {
+    fontSize: 18,
+  },
   input: {
     backgroundColor: 'white',
     height: 40,
