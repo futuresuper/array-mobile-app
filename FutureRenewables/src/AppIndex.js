@@ -109,11 +109,12 @@ class AppIndex extends Component {
             />
 
             <Api
-              ref={(c) => {
+              setRef={(c) => {
                 if (c) Api.ApiInstance = c;
               }}
               spinnerShow={this.spinnerShow}
               spinnerHide={this.spinnerHide}
+              navigateTo={this.navigateTo}
             />
 
 

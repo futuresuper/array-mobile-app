@@ -10,16 +10,15 @@ if (__DEV__) {
     .use(reactotronRedux())
     .use(openInEditor());
 
-  // const nativeLog = console.log;
-  // console.log = (...args) => {
-  //   nativeLog(...args);
+  const nativeLog = console.log;
+  console.log = (...args) => {
+    nativeLog(...args);
 
-  //   Reactotron.display({
-  //     name: 'LOG',
-  //     important: true,
-  //     value: args,
-  //     preview: args.length ? JSON.stringify(args) : args[0],
-  //   });
-  // };
-
+    Reactotron.display({
+      name: 'LOG',
+      important: true,
+      value: args,
+      preview: args.length ? JSON.stringify(args) : args[0],
+    });
+  };
 }

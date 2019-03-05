@@ -8,3 +8,10 @@ export function loginSuccess(data) {
     payload: data,
   };
 }
+
+export function tokenReset(data) {
+  return {
+    type: types.TOKEN_RESET,
+    payload: data,
+  };
+}

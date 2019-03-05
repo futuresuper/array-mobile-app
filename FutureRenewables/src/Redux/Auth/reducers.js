@@ -18,11 +18,15 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       token: {
-        ...this.state.token,
-        payload,
+        ...state.token,
+        ...payload,
       },
     };
   },
+  [types.TOKEN_RESET]: state => ({
+    ...state,
+    token: initialState,
+  }),
 };
 
 const AuthReducer = (state = initialState, action) => {

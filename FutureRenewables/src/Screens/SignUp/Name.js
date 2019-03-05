@@ -55,6 +55,14 @@ class Name extends React.Component {
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
       screenProps.navigateTo('Email');
+
+      // screenProps.Api.get('users/current', null,
+      //   (res) => {
+      //     console.log('!!!', { res });
+      //   }, (err) => {
+      //     console.log('!!!', { err });
+      //   });
+
     }
   }
 

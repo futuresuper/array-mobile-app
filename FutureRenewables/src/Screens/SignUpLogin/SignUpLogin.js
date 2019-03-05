@@ -58,6 +58,8 @@ class SignUpLogin extends Component {
       || (str[0] === '6' && str.length === 10)
       || (str[0] === '5' && str.length === 10)
       || (str[0] === '4' && str.length === 10)
+      || (str[0] === '3' && str.length === 10)
+      || (str[0] === '2' && str.length === 10)
     ) {
       this.setState({ errors: '' });
       return `1${str}`;

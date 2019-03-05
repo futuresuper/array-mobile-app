@@ -7,6 +7,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
+import PropTypes from 'prop-types';
+
 import {
   Content,
   Text,
@@ -37,8 +39,8 @@ class SmsCode extends Component {
     };
   }
 
-  async handlePress() {
-    const { navigation, screenProps, loginSuccess } = this.props;
+  handlePress() {
+    const { navigation, screenProps, loginSuccessConnect } = this.props;
     const { Api, toast } = screenProps;
     const { smsCode } = this.state;
 
@@ -59,7 +61,7 @@ class SmsCode extends Component {
       username: mobile,
       token: smsCode,
     }, (res) => {
-      loginSuccess(res.data);
+      loginSuccessConnect(res.data);
       this.nextScreen();
     }, (err) => {
       toast(err.message);
@@ -74,7 +76,7 @@ class SmsCode extends Component {
     const newRego = navigation.getParam('newRegistration', false);
 
     if (newRego) navigateTo('ApplicationType');
-    else navigateTo('AccountsApplications');
+    else navigateTo('Accounts');
   }
 
   render() {
@@ -129,8 +131,12 @@ class SmsCode extends Component {
   }
 }
 
+SmsCode.propTypes = {
+  loginSuccessConnect: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = {
-  loginSuccess,
+  loginSuccessConnect: loginSuccess,
 };
 
 export default connect(null, mapDispatchToProps)(SmsCode);
