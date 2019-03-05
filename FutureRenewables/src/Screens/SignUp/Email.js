@@ -66,6 +66,8 @@ class Email extends React.Component {
             formData={form}
             formKey="emailAddress"
             placeholder="Email Address"
+            autoCapitalize="none"
+            keyboardType="email-address"
             onChangeText={hocs.handleInput}
           />
         </View>
