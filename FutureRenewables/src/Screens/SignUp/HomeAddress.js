@@ -20,6 +20,7 @@ import composeHoc from 'src/Common/Hocs';
 import {
   Input,
 } from 'src/Components/Form';
+import Autocomplete from 'src/Components/Autocomplete';
 
 import styles from './styles';
 
@@ -52,7 +53,7 @@ class HomeAddress extends React.Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      screenProps.navigateTo('InitialInvestmentAmount');
+      // screenProps.navigateTo('InitialInvestmentAmount');
     }
   }
 
@@ -71,6 +72,9 @@ class HomeAddress extends React.Component {
             formData={form}
             formKey="address"
             onChangeText={hocs.handleInput}
+          />
+
+          <Autocomplete
           />
         </View>
         <KeyboardAvoidingView behavior="padding">
