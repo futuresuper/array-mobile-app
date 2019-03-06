@@ -18,30 +18,23 @@ import kleber from 'src/Common/Kleber';
 
 import styles from './styles';
 
-class Autocomplete extends Component {
+class Kleber extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      list: [
-        {
-          AddressLine: 'adline',
-          Locality: 'loc',
-        },
-        {
-          AddressLine: 'adline',
-          Locality: 'loc',
-        },
-      ],
+      list: [],
       loading: false,
     };
   }
 
   onChangeText(e) {
-    const { onChangeText } = this.props;
+    const { inputProps } = this.props;
     const strLength = e.length;
 
-    onChangeText(e);
+    if (inputProps.onChangeText) {
+      inputProps.onChangeText(e, inputProps.formKey, inputProps.dataKey);
+    }
 
     if (strLength > 3) {
       kleber.request(e).then((res) => {
@@ -56,12 +49,23 @@ class Autocomplete extends Component {
     }
   }
 
-  blur() {
-    console.log('!!!blur', {  });
+  onPressItem = (item) => {
+    const { onPressItem } = this.props;
+    this.inputBlur();
+    onPressItem(item);
   }
 
-  focus() {
-    console.log('!!!focus', {  });
+  onBlur = () => {
+    this.setState({
+      list: [],
+    });
+  }
+
+  inputBlur() {
+    const { textInput } = this;
+    if (textInput) {
+      textInput.blur();
+    }
   }
 
   renderItem = ({ item }) => {
@@ -74,9 +78,11 @@ class Autocomplete extends Component {
     return (
       <TouchableOpacity
         style={styles.listItem}
-        onPress={() => {}}
+        onPress={() => { this.onPressItem(item); }}
       >
-        <Text style={styles.listItemText}>{item.AddressLine}</Text>
+        <Text style={styles.listItemText}>
+          {`${item.AddressLine}, ${item.Locality}, ${item.Postcode}`}
+        </Text>
       </TouchableOpacity>
     );
   }
@@ -87,15 +93,21 @@ class Autocomplete extends Component {
     return (
       <FlatList
         data={list}
-        keyExtractor={(item, key) => `'${key}`}
+        keyExtractor={(item, key) => `${key}`}
         renderItem={this.renderItem}
         contentContainerStyle={styles.list}
+        bounces={false}
         ListEmptyComponent={null}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator
       />
     );
   }
 
   render() {
+    const { inputProps } = this.props;
+    const { list } = this.state;
+
     return (
       <View style={[styles.container]}>
         <View>
@@ -104,25 +116,36 @@ class Autocomplete extends Component {
               this.textInput = ref;
             }}
             textCenter={false}
+            // value={null}
+            onBlur={this.onBlur}
+            {...inputProps}
             onChangeText={(e) => { this.onChangeText(e); }}
-            value={null}
           />
         </View>
-        <View>
-          {this.renderResultList()}
-        </View>
+        {(list.length > 0)
+          && (
+            <View
+              style={styles.listContainer}
+              onStartShouldSetResponderCapture={() => false}
+            >
+              {this.renderResultList()}
+            </View>
+          )
+        }
       </View>
     );
   }
 }
 
 
-Autocomplete.defaultProps = {
-  list: [],
+Kleber.defaultProps = {
+  onPressItem: () => null,
+  inputProps: {},
 };
 
-Autocomplete.propTypes = {
-  list: PropTypes.array,
+Kleber.propTypes = {
+  onPressItem: PropTypes.func,
+  inputProps: PropTypes.object,
 };
 
-export default Autocomplete;
+export default Kleber;

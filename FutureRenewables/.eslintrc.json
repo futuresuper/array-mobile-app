@@ -31,7 +31,10 @@
             ]
         }],
         "no-underscore-dangle": ["error", {
-                "allowAfterThis": true
+            "allowAfterThis": true,
+            "allow": [
+                "_root"
+            ]
         }],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "import/extensions": ["error", "ignorePackages", { "js": "never" }],

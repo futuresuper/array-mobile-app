@@ -65,11 +65,14 @@ export default function FormHoc(WrappedComponent) {
       this.setState(form);
     }
 
-    formIsValid = (showToast = true) => {
+    formIsValid = (dataKey = null, showToast = true) => {
       const { screenProps } = this.props;
-      let { form } = this.state;
-      const formIsArray = (Array.isArray(form));
+      const { form: formOrig } = this.state;
       let res = true;
+      let form;
+      if (!_.isNil(dataKey)) form = formOrig[dataKey];
+      else form = formOrig;
+      const formIsArray = (Array.isArray(form));
 
       if (formIsArray) {
         for (let i = 0; i < form.length; i += 1) {
@@ -86,8 +89,16 @@ export default function FormHoc(WrappedComponent) {
       }
 
       if (!res) {
+        let formNew;
+        if (!_.isNil(dataKey)) {
+          formNew = formOrig;
+          formNew[dataKey] = form;
+        } else {
+          formNew = form;
+        }
+
         this.setState({
-          form,
+          form: formNew,
         });
 
         if (showToast) screenProps.toastDanger('Please enter valid values');

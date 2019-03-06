@@ -7,7 +7,7 @@ export default {
     fontWeight: '900',
     textAlign: 'center',
     marginHorizontal: 20,
-    marginTop: 30,
+    marginTop: 20,
     marginBottom: 20,
   },
   formError: {

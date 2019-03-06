@@ -14,6 +14,20 @@ class Input extends Component {
     }
   }
 
+  blur() {
+    const { textInput } = this;
+    if (textInput) {
+      textInput._root.blur();
+    }
+  }
+
+  focus() {
+    const { textInput } = this;
+    if (textInput) {
+      textInput._root.focus();
+    }
+  }
+
   render() {
     const {
       formData,
@@ -29,6 +43,7 @@ class Input extends Component {
         {...itemProps}
       >
         <InputNB
+          ref={(ref) => { this.textInput = ref; }}
           returnKeyType="next"
           textCenter
           autoCorrect={false}
