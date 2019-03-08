@@ -15,7 +15,10 @@ const errorMessages = {
 
 const fromKeys = {
   value: '',
+  valueDisplay: null,
   validations: [],
+  normalize: null,
+  format: null,
   error: false,
   errorMessage: '',
 };
@@ -117,6 +120,8 @@ export default function FormHoc(WrappedComponent) {
     handleInput = (value, formKey, dataKey = null, typeItem = 'input') => {
       const { form } = this.state;
       const formIsArray = (Array.isArray(form));
+      let normalize = false;
+      let format = false;
       let inputItem;
       if (formIsArray) {
         inputItem = form[dataKey][formKey];
@@ -129,6 +134,27 @@ export default function FormHoc(WrappedComponent) {
         inputItem.value = !checkedValue;
       } else {
         inputItem.value = value;
+      }
+
+      if (
+        inputItem.normalize
+        && (typeof inputItem.normalize === 'function')
+      ) {
+        normalize = true;
+        inputItem.value = inputItem.normalize(inputItem.value) || '';
+      }
+
+      if (
+        inputItem.format
+        && (typeof inputItem.format === 'function')
+      ) {
+        const valueFormat = inputItem.format(inputItem.value);
+
+        if (normalize) {
+          inputItem.valueDisplay = !_.isNil(valueFormat) ? valueFormat : inputItem.valueDisplay;
+        } else {
+          inputItem.value = !_.isNil(valueFormat) ? valueFormat : inputItem.value;
+        }
       }
 
       const validation = this.checkValidation(inputItem);

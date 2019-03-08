@@ -5,6 +5,7 @@ import {
   Item,
   Input as InputNB,
 } from 'native-base';
+import _ from 'lodash';
 
 class Input extends Component {
   onChangeText(e) {
@@ -36,6 +37,18 @@ class Input extends Component {
       value,
     } = this.props;
 
+    // console.log('!!!', formData);
+    let formValue;
+    if (
+      formData
+    ) {
+      if (!_.isNil(formData[formKey].valueDisplay)) {
+        formValue = formData[formKey].valueDisplay;
+      } else if (formData[formKey].value) {
+        formValue = formData[formKey].value;
+      }
+    }
+
     return (
       <Item
         regular
@@ -49,7 +62,7 @@ class Input extends Component {
           autoCorrect={false}
           {...this.props}
           onChangeText={(e) => { this.onChangeText(e); }}
-          value={(formData && formData[formKey].value) || value}
+          value={formValue || value}
         />
       </Item>
     );

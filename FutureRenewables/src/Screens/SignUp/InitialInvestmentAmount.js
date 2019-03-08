@@ -27,7 +27,12 @@ class InitialInvestmentAmount extends React.Component {
     this.state = {
       form: {
         field: {
-          validations: ['required'],
+          validations: [
+            'required',
+            // this.validationRule,
+          ],
+          normalize: this.normalizeAmount,
+          format: this.formatField,
         },
       },
     };
@@ -38,6 +43,29 @@ class InitialInvestmentAmount extends React.Component {
     const { form } = this.state;
 
     hocs.setForm(form);
+  }
+
+  formatField = (inputInp) => {
+    let input = inputInp;
+
+    if (Number.isNaN(parseInt(input[input.length - 1], 10))) {
+      input = input.slice(0, -1);
+    } else {
+      const convertedInput = new Intl.NumberFormat().format(input);
+      input = `$${convertedInput}`;
+    }
+
+    return input;
+  }
+
+  normalizeAmount = (valueInp) => {
+    let value = valueInp;
+
+    if (value) {
+      value = value.replace(/[^0-9]/g, '');
+    }
+
+    return value;
   }
 
   handlePress() {
