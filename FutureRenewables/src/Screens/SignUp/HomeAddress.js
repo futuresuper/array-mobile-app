@@ -10,6 +10,8 @@ import {
   Text,
 } from 'native-base';
 
+import _ from 'lodash';
+
 import {
   styleGlobal,
 } from 'src/Styles';
@@ -72,34 +74,65 @@ class HomeAddress extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   onPressListItem = (item) => {
-    let { form } = this.state;
-    console.log('!!!??', { item });
-    this.initManualForm();
+    const { hocs } = this.props;
+    const { form } = this.state;
+    const {
+      // AddressLine,
+      Country,
+      // CountryCode,
+      Postcode,
+      // Locality,
+      // RecordId,
+      State,
+    } = item;
 
     const formValues = {
       unitNumber: {
-        value: '1111',
+        value: '',
       },
       streetNumber: {
-        value: '2222',
+        value: '',
+      },
+      streetName: {
+        value: '',
+      },
+      streetType: {
+        value: '',
+      },
+      suburb: {
+        value: '',
+      },
+      state: {
+        value: State,
+      },
+      postcode: {
+        value: Postcode,
+      },
+      country: {
+        value: Country,
       },
     };
 
-    form = {
+    form[1] = _.merge(form[1], formValues);
 
-    }
-    console.log('!!!', { form });
+    hocs.setForm(form);
+    this.initManualForm();
+  }
 
+  addAddressManually() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    form[1].country.value = 'Australia';
+
+    hocs.setForm(form);
+    this.initManualForm();
   }
 
   initManualForm() {
     this.setState({
       showManualForm: true,
     });
-  }
-
-  addAddressManually() {
-    this.initManualForm();
   }
 
   handlePress() {
@@ -116,9 +149,7 @@ class HomeAddress extends React.Component {
   render() {
     const { hocs } = this.props;
     const { form } = hocs;
-    // const formAddress = form[0];
     const { showManualForm } = this.state;
-    // console.log('!!!', { formAddress });
 
     return (
       <Content padder bounces={false}>

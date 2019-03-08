@@ -14,7 +14,7 @@ export default {
   },
   listContainer: {
     ...border,
-    maxHeight: 200,
+    maxHeight: 350,
     borderTopWidth: 0,
     borderLeftWidth: 1,
     borderRightWidth: 1,

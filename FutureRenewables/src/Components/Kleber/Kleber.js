@@ -36,7 +36,7 @@ class Kleber extends Component {
       inputProps.onChangeText(e, inputProps.formKey, inputProps.dataKey);
     }
 
-    if (strLength > 3) {
+    if (strLength > 4) {
       kleber.request(e).then((res) => {
         this.setState({
           list: res,

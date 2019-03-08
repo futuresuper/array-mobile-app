@@ -87,7 +87,6 @@ class Api extends Component {
         })
         .catch((err) => {
           if (spinner) spinnerHide();
-          console.log('!!!api', err);
           let resp = {
             message: 'unknown error',
           };
