@@ -13,7 +13,39 @@ class Kleber {
     this.kieberKey = Config.get().kieberKey;
   }
 
-  getParams() {
+  // eslint-disable-next-line class-methods-use-this
+  requestRetrieveAddress(recordId) {
+    const params = {
+      Method: 'DataTools.Capture.Address.Predictive.AuPaf.RetrieveAddress',
+      RequestKey: this.kieberKey,
+      RecordId: recordId,
+      OutputFormat: 'json',
+    };
+
+    return new Promise((resolve) => {
+      axios.get(this.url, {
+        timeout: 5000,
+        params,
+      })
+        .then((res) => {
+          let data = null;
+          if (
+            (res.status === 200)
+            && (res.data.DtResponse.Result.length)
+          ) {
+            // eslint-disable-next-line prefer-destructuring
+            data = res.data.DtResponse.Result[0];
+          }
+
+          resolve(data);
+        })
+        .catch(() => {
+          resolve(null);
+        });
+    });
+  }
+
+  getParamsSearchAddress() {
     const res = {
       Method: 'DataTools.Capture.Address.Predictive.AuNzPaf.SearchAddress',
       RequestKey: this.kieberKey,
@@ -28,8 +60,8 @@ class Kleber {
     return res;
   }
 
-  request(addressLine) {
-    const params = this.getParams();
+  requestSearchAddress(addressLine) {
+    const params = this.getParamsSearchAddress();
     params.AddressLine = addressLine;
 
     this.abort();

@@ -37,7 +37,7 @@ class Kleber extends Component {
     }
 
     if (strLength > 4) {
-      kleber.request(e).then((res) => {
+      kleber.requestSearchAddress(e).then((res) => {
         this.setState({
           list: res,
         });

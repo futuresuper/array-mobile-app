@@ -21,6 +21,7 @@ import {
   Input,
 } from 'src/Components/Form';
 import Kleber from 'src/Components/Kleber';
+import KleberApi from 'src/Common/Kleber';
 
 import styles from './styles';
 
@@ -72,11 +73,11 @@ class HomeAddress extends React.Component {
     hocs.setForm(form);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   onPressListItem = (item) => {
     const { hocs } = this.props;
     const { form } = this.state;
     const {
+      RecordId,
       // AddressLine,
       Country,
       // CountryCode,
@@ -87,21 +88,6 @@ class HomeAddress extends React.Component {
     } = item;
 
     const formValues = {
-      unitNumber: {
-        value: '',
-      },
-      streetNumber: {
-        value: '',
-      },
-      streetName: {
-        value: '',
-      },
-      streetType: {
-        value: '',
-      },
-      suburb: {
-        value: '',
-      },
       state: {
         value: State,
       },
@@ -117,6 +103,46 @@ class HomeAddress extends React.Component {
 
     hocs.setForm(form);
     this.initManualForm();
+
+    this.retrieveAddress(RecordId);
+  }
+
+  retrieveAddress(recordId) {
+    const { form } = this.state;
+    const { hocs } = this.props;
+
+    KleberApi.requestRetrieveAddress(recordId).then((res) => {
+      if (!res) return;
+
+      const {
+        UnitNumber,
+        StreetNumber1,
+        StreetName,
+        StreetType,
+      } = res;
+
+      const formValues = {
+        unitNumber: {
+          value: UnitNumber,
+        },
+        streetNumber: {
+          value: StreetNumber1,
+        },
+        streetName: {
+          value: StreetName,
+        },
+        streetType: {
+          value: StreetType,
+        },
+        suburb: {
+          value: '',
+        },
+      };
+
+      form[1] = _.merge(form[1], formValues);
+
+      hocs.setForm(form);
+    });
   }
 
   addAddressManually() {
