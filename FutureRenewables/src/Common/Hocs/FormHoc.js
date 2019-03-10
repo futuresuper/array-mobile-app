@@ -120,8 +120,6 @@ export default function FormHoc(WrappedComponent) {
     handleInput = (value, formKey, dataKey = null, typeItem = 'input') => {
       const { form } = this.state;
       const formIsArray = (Array.isArray(form));
-      let normalize = false;
-      let format = false;
       let inputItem;
       if (formIsArray) {
         inputItem = form[dataKey][formKey];
@@ -136,12 +134,12 @@ export default function FormHoc(WrappedComponent) {
         inputItem.value = value;
       }
 
+
       if (
         inputItem.normalize
         && (typeof inputItem.normalize === 'function')
       ) {
-        normalize = true;
-        inputItem.value = inputItem.normalize(inputItem.value) || '';
+        inputItem.value = inputItem.normalize(value) || fromKeys.value;
       }
 
       if (
@@ -149,12 +147,7 @@ export default function FormHoc(WrappedComponent) {
         && (typeof inputItem.format === 'function')
       ) {
         const valueFormat = inputItem.format(inputItem.value);
-
-        if (normalize) {
-          inputItem.valueDisplay = !_.isNil(valueFormat) ? valueFormat : inputItem.valueDisplay;
-        } else {
-          inputItem.value = !_.isNil(valueFormat) ? valueFormat : inputItem.value;
-        }
+        inputItem.valueDisplay = !_.isNil(valueFormat) ? valueFormat : fromKeys.valueDisplay;
       }
 
       const validation = this.checkValidation(inputItem);

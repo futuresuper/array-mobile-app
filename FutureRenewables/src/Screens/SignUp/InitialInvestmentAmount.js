@@ -29,7 +29,7 @@ class InitialInvestmentAmount extends React.Component {
         field: {
           validations: [
             'required',
-            // this.validationRule,
+            this.validationRule,
           ],
           normalize: this.normalizeAmount,
           format: this.formatField,
@@ -66,6 +66,15 @@ class InitialInvestmentAmount extends React.Component {
     }
 
     return value;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  validationRule(value) {
+    if (value < 5 || value > 1000000) {
+      return false;
+    }
+
+    return true;
   }
 
   handlePress() {
