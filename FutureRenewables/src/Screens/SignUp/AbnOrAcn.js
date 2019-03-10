@@ -17,6 +17,7 @@ import {
 } from 'src/Styles';
 
 import composeHoc from 'src/Common/Hocs';
+import KleberAPI from 'src/Common/Kleber';
 import {
   Input,
 } from 'src/Components/Form';
@@ -30,7 +31,10 @@ class AbnOrAcn extends React.Component {
     this.state = {
       form: {
         field: {
-          validations: ['required'],
+          validations: [
+            'required',
+            [this.validRule, 'Please Enter a valid ABN or ACN'],
+          ],
         },
       },
     };
@@ -43,9 +47,35 @@ class AbnOrAcn extends React.Component {
     hocs.setForm(form);
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  validRule(value) {
+    const valueLength = value.length;
+    const isNum = /^\d*$/.test(value);
+
+    if (
+      isNum
+      && (
+        (valueLength === 9)
+        || (valueLength === 11)
+      )
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
   handlePress() {
     const { hocs } = this.props;
-    hocs.formIsValid();
+    const formIsValid = hocs.formIsValid({
+      fieldError: true,
+    });
+
+    if (!formIsValid) return;
+
+    KleberAPI.requestVerifyAbn().then((res) => {
+      console.log('!!!', { res });
+    });
   }
 
   render() {
@@ -66,6 +96,7 @@ class AbnOrAcn extends React.Component {
             formKey="field"
             placeholder="ABN or ACN"
             onChangeText={hocs.handleInput}
+            keyboardType="numeric"
             itemProps={{
               marginBottom: true,
             }}

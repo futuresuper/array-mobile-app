@@ -68,7 +68,13 @@ export default function FormHoc(WrappedComponent) {
       this.setState(form);
     }
 
-    formIsValid = (dataKey = null, showToast = true) => {
+    formIsValid = (dataKeyInp = null, showToastInp = true) => {
+      const options = this.formIsValidOptions(dataKeyInp, showToastInp);
+      const {
+        dataKey,
+        showToast,
+        fieldError,
+      } = options;
       const { screenProps } = this.props;
       const { form: formOrig } = this.state;
       let res = true;
@@ -104,7 +110,13 @@ export default function FormHoc(WrappedComponent) {
           form: formNew,
         });
 
-        if (showToast) screenProps.toastDanger('Please enter valid values');
+        if (showToast) {
+          if (fieldError && !formIsArray) {
+            screenProps.toastDanger(form[Object.keys(form)[0]].errorMessage);
+          } else {
+            screenProps.toastDanger('Please enter valid values');
+          }
+        }
       }
 
       return res;
@@ -169,6 +181,30 @@ export default function FormHoc(WrappedComponent) {
       });
     }
 
+    // eslint-disable-next-line class-methods-use-this
+    formIsValidOptions(dataKey = null, showToast = true) {
+      let options = {
+        dataKey: null,
+        showToast: true,
+        fieldError: false,
+      };
+
+      if (typeof dataKey !== 'object') {
+        options = {
+          ...options,
+          dataKey,
+          showToast,
+        };
+      } else {
+        options = {
+          ...options,
+          ...dataKey,
+        };
+      }
+
+      return options;
+    }
+
     formItemIsValid(formInp) {
       const form = formInp;
       const res = {
@@ -206,15 +242,26 @@ export default function FormHoc(WrappedComponent) {
       };
 
       for (let i = 0; i < validations.length; i += 1) {
-        const validation = validations[i];
-        const validationIsFunction = (typeof validation === 'function');
+        let errorMessage;
+        let validation;
         let isValid = true;
+        const validationItem = validations[i];
+        const validationIsArray = Array.isArray(validationItem);
+
+        if (validationIsArray) {
+          [validation, errorMessage] = validationItem;
+        } else {
+          validation = validationItem;
+        }
+
+        const validationIsFunction = (typeof validation === 'function');
 
         if (validationIsFunction) {
-          res.errorMessage = errorMessages.invalid;
+          res.errorMessage = errorMessage || errorMessages.invalid;
+
           isValid = validation(value);
         } else {
-          res.errorMessage = errorMessages[validation] || errorMessages.invalid;
+          res.errorMessage = errorMessage || errorMessages[validation] || errorMessages.invalid;
 
           switch (validation) {
             case 'required': {
