@@ -40,6 +40,20 @@ class Kleber {
     });
   }
 
+  requestVerifyAcn(ASIC, onSuccess = null, onError = null) {
+    const params = this.getParams({
+      Method: 'DataTools.Verify.AsicNumber.AuAbr.VerifyAsicNumber',
+      AuthenticationGuid: 'a4ebd32f-2cef-4389-9ae2-288b3b7a9ee2',
+      ASIC,
+    });
+
+    this.request(params).then((res) => {
+      onSuccess(res);
+    }).catch((err) => {
+      onError(err);
+    });
+  }
+
   // eslint-disable-next-line class-methods-use-this
   requestRetrieveAddress(recordId) {
     const params = this.getParams({

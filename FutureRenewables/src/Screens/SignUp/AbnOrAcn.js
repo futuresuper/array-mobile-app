@@ -21,6 +21,7 @@ import KleberAPI from 'src/Common/Kleber';
 import {
   Input,
 } from 'src/Components/Form';
+import TextLink from 'src/Components/TextLink';
 
 import ListLinks from 'src/Components/ListLinks';
 import constants from './constants';
@@ -37,6 +38,8 @@ class AbnOrAcn extends React.Component {
           ],
         },
       },
+      searchMode: true,
+      abnAcnInfo: null,
     };
   }
 
@@ -45,6 +48,23 @@ class AbnOrAcn extends React.Component {
     const { form } = this.state;
 
     hocs.setForm(form);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  onNext() {
+    const { screenProps } = this.props;
+    screenProps.Api.get('entities', {}, (res) => {
+      console.log('!!!', { res });
+    }, () => {
+      console.log('!!!err', {  });
+    });
+  }
+
+  showNext(data) {
+    this.setState({
+      searchMode: false,
+      abnAcnInfo: data,
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -65,34 +85,99 @@ class AbnOrAcn extends React.Component {
     return false;
   }
 
+  alert(text) {
+    const { screenProps } = this.props;
+    const contactUs = <TextLink url="https://www.futurerenewablesfund.com.au/contact">contact us</TextLink>;
+
+    screenProps.alert({
+      title: 'Alert',
+      body:
+      (
+        <Text>
+          {text}
+          {contactUs}
+        </Text>
+      ),
+    });
+  }
+
   handlePress() {
+    const { searchMode } = this.state;
+
+    if (searchMode) {
+      this.searchAnbAcn();
+    } else {
+      this.onNext();
+    }
+  }
+
+  searchAnbAcn() {
     const { hocs, screenProps } = this.props;
     const formIsValid = hocs.formIsValid({
       fieldError: true,
     });
     const formValue = hocs.form.field.value;
+    const formValueLength = hocs.form.field.value.length;
 
     if (!formIsValid) return;
 
-    KleberAPI.requestVerifyAbn(formValue, (res) => {
+    const onSuccess = (res) => {
+      screenProps.spinnerHide();
       const data = res.Result[0];
       const status = data.EntityStatusCode;
 
-      if (status !== 'Active') {
+      data.ApplicationType = '';
+      data.isCompany = false;
+      data.isSoleTrader = false;
+      data.isPartnership = false;
 
-        //screenProps.toast('Sorry, it looks like that ABN or ACN is not active. If this doesn’t seem right, please ​contact us.');
+      if (status !== 'Active') {
+        this.alert('Sorry, it looks like that ABN or ACN is not active. If this doesn’t seem right, please ');
       } else {
+        switch (data.EntityTypeCode) {
+          case 'PRV': {
+            data.ApplicationType = 'Company';
+            data.isCompany = true;
+            this.showNext(data);
+            break;
+          }
+          case 'IND': {
+            data.ApplicationType = 'Sole Trader';
+            data.isSoleTrader = true;
+            this.showNext(data);
+            break;
+          }
+          case 'TraderPTR': {
+            data.ApplicationType = 'Partnership';
+            data.isPartnership = true;
+            this.showNext(data);
+            break;
+          }
+          default: {
+            this.alert('Sorry, we don’t accept online applications for that entity type. Please ');
+          }
+        }
       }
-    }, () => {
-      screenProps.toast('Sorry, we weren’t able to validate that ABN or ACN. If this doesn’t seem right, please ​contact us');
-    });
+    };
+
+    const onError = () => {
+      screenProps.spinnerHide();
+      this.alert('Sorry, we weren’t able to validate that ABN or ACN. If this doesn’t seem right, please ');
+    };
+
+    if (formValueLength === 11) {
+      screenProps.spinnerShow();
+      KleberAPI.requestVerifyAbn(formValue, onSuccess, onError);
+    } if (formValueLength === 9) {
+      screenProps.spinnerShow();
+      KleberAPI.requestVerifyAcn(formValue, onSuccess, onError);
+    }
   }
 
   render() {
-    const { screenProps } = this.props;
-    const { hocs } = this.props;
+    const { hocs, screenProps } = this.props;
     const { form } = hocs;
-
+    const { searchMode, abnAcnInfo } = this.state;
 
     return (
       <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
@@ -111,6 +196,18 @@ class AbnOrAcn extends React.Component {
               marginBottom: true,
             }}
           />
+
+          {abnAcnInfo
+            && (
+              <View style={styleGlobal.center}>
+                <Text style={styleGlobal.mT10}>Business Name:</Text>
+                <Text style={styleGlobal.textBold}>{abnAcnInfo.BusinessNameOrganisationName}</Text>
+                <Text style={styleGlobal.mT10}>Business Type:</Text>
+                <Text style={styleGlobal.textBold}>{abnAcnInfo.ApplicationType}</Text>
+              </View>
+            )
+          }
+
         </View>
 
         <KeyboardAvoidingView behavior="padding">
@@ -118,7 +215,7 @@ class AbnOrAcn extends React.Component {
             onPress={() => this.handlePress()}
             block
           >
-            <Text>Search</Text>
+            <Text>{ searchMode ? 'Search' : 'Next' }</Text>
           </Button>
           <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
         </KeyboardAvoidingView>

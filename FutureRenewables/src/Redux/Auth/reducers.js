@@ -25,7 +25,7 @@ const ACTION_HANDLERS = {
   },
   [types.TOKEN_RESET]: state => ({
     ...state,
-    token: initialState,
+    ...initialState,
   }),
 };
 

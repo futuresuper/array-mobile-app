@@ -26,6 +26,7 @@ import {
 
 import Api from 'src/Common/Api';
 import Spinner from 'src/Components/Spinner';
+import Alert from 'src/Components/Alert';
 import { AppWithNavigationState } from 'src/Navigation/AppNavigator';
 import {
   navigateTo,
@@ -77,6 +78,10 @@ class AppIndex extends Component {
     this.toast(text, 'danger');
   }
 
+  alert = (options) => {
+    this.AlertComp.showDialog(options);
+  }
+
   routeBack(inp_back_screen = null, inp_params = null) {
     const { navigation, routeBackConnect } = this.props;
     let back_screen;
@@ -108,6 +113,12 @@ class AppIndex extends Component {
               size="large"
             />
 
+            <Alert
+              ref={(c) => {
+                this.AlertComp = c;
+              }}
+            />
+
             <Api
               setRef={(c) => {
                 if (c) Api.ApiInstance = c;
@@ -126,6 +137,7 @@ class AppIndex extends Component {
                 navigateTo: this.navigateTo,
                 spinnerShow: this.spinnerShow,
                 spinnerHide: this.spinnerHide,
+                alert: this.alert,
                 Api,
               }}
             />

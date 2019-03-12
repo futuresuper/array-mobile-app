@@ -51,9 +51,8 @@ class Api extends Component {
     ownProps.setRef(null);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   fetchProc = (urlInp, params, onSuccess = null, onError = null, spinner = true, method = 'POST') => {
-    return new Promise((resolve, reject) => {
+    const proc = (resolve = null, reject = null) => {
       const {
         spinnerHide,
         spinnerShow,
@@ -83,7 +82,7 @@ class Api extends Component {
           if (spinner) spinnerHide();
 
           if (onSuccess) onSuccess(resp.data);
-          else resolve(resp.data);
+          else if (resolve) resolve(resp.data);
         })
         .catch((err) => {
           if (spinner) spinnerHide();
@@ -107,9 +106,16 @@ class Api extends Component {
           }
 
           if (onError) onError(resp);
-          else reject(resp);
+          else if (reject) reject(resp);
         });
-    });
+    };
+
+    if (onSuccess) {
+      proc();
+      return true;
+    }
+
+    return new Promise(proc);
 
     // return fetch(url, options).then((resp) => {
     //   if (spinner) spinnerHide();
