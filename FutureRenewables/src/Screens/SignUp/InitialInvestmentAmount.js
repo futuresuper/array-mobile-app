@@ -21,6 +21,11 @@ import {
   Input,
 } from 'src/Components/Form';
 
+import {
+  formatAmountDollar,
+  normalizeAmount,
+} from 'src/Common/Helpers';
+
 class InitialInvestmentAmount extends React.Component {
   constructor(props) {
     super(props);
@@ -31,8 +36,8 @@ class InitialInvestmentAmount extends React.Component {
             'required',
             this.validationRule,
           ],
-          normalize: this.normalizeAmount,
-          format: this.formatField,
+          normalize: normalizeAmount,
+          format: formatAmountDollar,
         },
       },
     };
@@ -43,29 +48,6 @@ class InitialInvestmentAmount extends React.Component {
     const { form } = this.state;
 
     hocs.setForm(form);
-  }
-
-  formatField = (inputInp) => {
-    let input = inputInp;
-
-    if (Number.isNaN(parseInt(input[input.length - 1], 10))) {
-      input = input.slice(0, -1);
-    } else {
-      const convertedInput = new Intl.NumberFormat().format(input);
-      input = `$${convertedInput}`;
-    }
-
-    return input;
-  }
-
-  normalizeAmount = (valueInp) => {
-    let value = valueInp;
-
-    if (value) {
-      value = value.replace(/[^0-9]/g, '');
-    }
-
-    return value;
   }
 
   // eslint-disable-next-line class-methods-use-this

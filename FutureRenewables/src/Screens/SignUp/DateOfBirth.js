@@ -10,6 +10,8 @@ import {
   Text,
 } from 'native-base';
 
+import moment from 'src/Common/moment';
+
 import {
   styleGlobal,
   styleConstants,
@@ -29,6 +31,7 @@ class DateOfBirth extends React.Component {
           validations: [
             'required',
             'date',
+            [this.isDateValid, 'You must be over 18 years old to invest'],
           ],
         },
       },
@@ -52,6 +55,17 @@ class DateOfBirth extends React.Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
+  isDateValid(value) {
+    let res = false;
+    const date = moment(value, 'DD/MM/YYYY');
+    if (date.isValid()) {
+      res = new Date(date.year() + 18, date.format('M'), date.format('D')) <= new Date();
+    }
+
+    return res;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
   addItemEvery(strInp, item, every) {
     let str = strInp;
 
@@ -67,7 +81,9 @@ class DateOfBirth extends React.Component {
   handlePress() {
     const { screenProps, hocs } = this.props;
 
-    const formIsValid = hocs.formIsValid();
+    const formIsValid = hocs.formIsValid({
+      fieldError: true,
+    });
     if (formIsValid) {
       screenProps.navigateTo('HomeAddress');
     }

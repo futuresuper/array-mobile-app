@@ -56,7 +56,7 @@ class AbnOrAcn extends React.Component {
     screenProps.Api.get('entities', {}, (res) => {
       console.log('!!!', { res });
     }, () => {
-      console.log('!!!err', {  });
+      console.log('!!!err', { });
     });
   }
 

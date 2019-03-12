@@ -58,6 +58,25 @@ export default function FormHoc(WrappedComponent) {
       });
     }
 
+    setFormValue = (value, field, dataKey = null) => {
+      const { form } = this.state;
+      const formIsArray = (Array.isArray(form));
+      if (formIsArray) {
+        if (dataKey && form[dataKey]) {
+          form[dataKey][field].value = value;
+        }
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (form[field]) {
+          form[field].value = value;
+        }
+      }
+
+      this.setState({
+        form,
+      });
+    }
+
     addFormItem = (data) => {
       const { form } = this.state;
       const formIsArray = (Array.isArray(form));
@@ -309,6 +328,7 @@ export default function FormHoc(WrappedComponent) {
             handleInput: this.handleInput,
             handleCheckBox: this.handleCheckBox,
             setForm: this.setForm,
+            setFormValue: this.setFormValue,
             formGetVal: this.formGetVal,
             formIsValid: this.formIsValid,
             addFormItem: this.addFormItem,

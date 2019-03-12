@@ -67,3 +67,26 @@ export function isEmail(email) {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+
+export const normalizeAmount = (valueInp) => {
+  let value = valueInp;
+
+  if (value) {
+    value = value.replace(/[^0-9]/g, '');
+  }
+
+  return value;
+};
+
+export const formatAmountDollar = (inputInp) => {
+  let input = inputInp;
+
+  if (Number.isNaN(parseInt(input[input.length - 1], 10))) {
+    input = input.slice(0, -1);
+  } else {
+    const convertedInput = new Intl.NumberFormat().format(input);
+    input = `$${convertedInput}`;
+  }
+
+  return input;
+};
