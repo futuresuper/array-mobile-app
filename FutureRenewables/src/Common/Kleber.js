@@ -7,6 +7,7 @@ class Kleber {
   CancelToken = null;
   source = null;
   kleberKey = null;
+  kleberGUID = null;
   url = 'http://kleber.datatoolscloud.net.au/KleberWebService/DtKleberService.svc/ProcessQueryStringRequest';
   axiosOptions = {
     timeout: 5000,
@@ -14,6 +15,7 @@ class Kleber {
 
   constructor() {
     this.kleberKey = Config.get().kleberKey;
+    this.kleberGUID = Config.get().kleberGUID;
   }
 
   getParams(params) {
@@ -29,7 +31,7 @@ class Kleber {
   requestVerifyAbn(ABN, onSuccess = null, onError = null) {
     const params = this.getParams({
       Method: 'DataTools.Verify.AustralianBusinessNumber.AuAbr.VerifyAbn',
-      AuthenticationGuid: 'a4ebd32f-2cef-4389-9ae2-288b3b7a9ee2',
+      AuthenticationGuid: this.kleberGUID,
       ABN,
     });
 
@@ -43,7 +45,7 @@ class Kleber {
   requestVerifyAcn(ASIC, onSuccess = null, onError = null) {
     const params = this.getParams({
       Method: 'DataTools.Verify.AsicNumber.AuAbr.VerifyAsicNumber',
-      AuthenticationGuid: 'a4ebd32f-2cef-4389-9ae2-288b3b7a9ee2',
+      AuthenticationGuid: this.kleberGUID,
       ASIC,
     });
 

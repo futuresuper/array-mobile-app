@@ -82,7 +82,7 @@ class HomeAddress extends React.Component {
       Country,
       // CountryCode,
       Postcode,
-      // Locality,
+      Locality,
       // RecordId,
       State,
     } = item;
@@ -96,6 +96,9 @@ class HomeAddress extends React.Component {
       },
       country: {
         value: Country,
+      },
+      suburb: {
+        value: Locality,
       },
     };
 
@@ -133,9 +136,6 @@ class HomeAddress extends React.Component {
         },
         streetType: {
           value: StreetType,
-        },
-        suburb: {
-          value: '',
         },
       };
 
