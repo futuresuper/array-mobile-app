@@ -6,19 +6,19 @@ import { Config } from 'src/Common/config';
 class Kleber {
   CancelToken = null;
   source = null;
-  kieberKey = null;
+  kleberKey = null;
   url = 'http://kleber.datatoolscloud.net.au/KleberWebService/DtKleberService.svc/ProcessQueryStringRequest';
   axiosOptions = {
     timeout: 5000,
   }
 
   constructor() {
-    this.kieberKey = Config.get().kieberKey;
+    this.kleberKey = Config.get().kleberKey;
   }
 
   getParams(params) {
     const res = {
-      RequestKey: this.kieberKey,
+      RequestKey: this.kleberKey,
       OutputFormat: 'json',
       ...params,
     };
@@ -26,12 +26,18 @@ class Kleber {
     return res;
   }
 
-  requestVerifyAbn() {
+  requestVerifyAbn(ABN, onSuccess = null, onError = null) {
     const params = this.getParams({
       Method: 'DataTools.Verify.AustralianBusinessNumber.AuAbr.VerifyAbn',
+      AuthenticationGuid: 'a4ebd32f-2cef-4389-9ae2-288b3b7a9ee2',
+      ABN,
     });
 
-    return this.request(params);
+    this.request(params).then((res) => {
+      onSuccess(res);
+    }).catch((err) => {
+      onError(err);
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -110,21 +116,35 @@ class Kleber {
       ...optionsInp,
     };
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       axios.get(this.url, {
         ...options,
         params,
       })
         .then((res) => {
           let data = null;
-          if (res.status === 200) {
+          if (
+            (res.status === 200)
+          ) {
             data = res.data.DtResponse;
+
+            if (res.data.DtResponse.ErrorMessage) {
+              reject(res.data.DtResponse.ErrorMessage);
+            } else {
+              resolve(data);
+            }
+          }
+        })
+        .catch((err) => {
+          let res = 'request error';
+
+          // eslint-disable-next-line no-underscore-dangle
+          if (err.request && err.request._response) {
+            // eslint-disable-next-line no-underscore-dangle
+            res = err.request._response;
           }
 
-          resolve(data);
-        })
-        .catch(() => {
-          resolve(null);
+          reject(res);
         });
     });
   }

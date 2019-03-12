@@ -66,15 +66,25 @@ class AbnOrAcn extends React.Component {
   }
 
   handlePress() {
-    const { hocs } = this.props;
+    const { hocs, screenProps } = this.props;
     const formIsValid = hocs.formIsValid({
       fieldError: true,
     });
+    const formValue = hocs.form.field.value;
 
     if (!formIsValid) return;
 
-    KleberAPI.requestVerifyAbn().then((res) => {
-      console.log('!!!', { res });
+    KleberAPI.requestVerifyAbn(formValue, (res) => {
+      const data = res.Result[0];
+      const status = data.EntityStatusCode;
+
+      if (status !== 'Active') {
+
+        //screenProps.toast('Sorry, it looks like that ABN or ACN is not active. If this doesn’t seem right, please ​contact us.');
+      } else {
+      }
+    }, () => {
+      screenProps.toast('Sorry, we weren’t able to validate that ABN or ACN. If this doesn’t seem right, please ​contact us');
     });
   }
 
