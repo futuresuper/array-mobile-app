@@ -18,7 +18,8 @@ import {
 } from 'native-base';
 
 import {
-  loginSuccess,
+  tokenSave,
+  userDataSave,
 } from 'src/Redux/Auth';
 import {
   Config,
@@ -40,7 +41,12 @@ class SmsCode extends Component {
   }
 
   handlePress() {
-    const { navigation, screenProps, loginSuccessConnect } = this.props;
+    const {
+      navigation,
+      screenProps,
+      tokenSaveConnect,
+      userDataSaveConnect,
+    } = this.props;
     const { Api, toast } = screenProps;
     const { smsCode } = this.state;
 
@@ -61,10 +67,11 @@ class SmsCode extends Component {
       username: mobile,
       token: smsCode,
     }, (res) => {
-      loginSuccessConnect(res.data);
-      this.nextScreen();
-    }, (err) => {
-      toast(err.message);
+      tokenSaveConnect(res.data);
+      Api.get('users/current', {}, (userData) => {
+        userDataSaveConnect(userData);
+        this.nextScreen();
+      });
     });
 
     return true;
@@ -132,11 +139,13 @@ class SmsCode extends Component {
 }
 
 SmsCode.propTypes = {
-  loginSuccessConnect: PropTypes.func.isRequired,
+  tokenSaveConnect: PropTypes.func.isRequired,
+  userDataSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  loginSuccessConnect: loginSuccess,
+  tokenSaveConnect: tokenSave,
+  userDataSaveConnect: userDataSave,
 };
 
 export default connect(null, mapDispatchToProps)(SmsCode);

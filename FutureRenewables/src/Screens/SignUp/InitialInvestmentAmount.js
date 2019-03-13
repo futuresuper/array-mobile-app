@@ -61,9 +61,16 @@ class InitialInvestmentAmount extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
+    const userInfo = screenProps.userInfo();
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
+      const amount = hocs.form.field.value;
+
+      screenProps.Api.put(`accounts/${userInfo.id}`, {
+        initial_investment_amount: amount,
+      }, () => {
+      });
       screenProps.navigateTo('RegularInvestmentAmount');
     }
   }

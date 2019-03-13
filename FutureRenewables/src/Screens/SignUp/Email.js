@@ -44,9 +44,16 @@ class Email extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
+    const userInfo = screenProps.userInfo();
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
+      const email = hocs.form.emailAddress.value;
+
+      screenProps.Api.put(`users/${userInfo.id}`, {
+        email,
+      }, () => {
+      });
       screenProps.navigateTo('DateOfBirth');
     }
   }

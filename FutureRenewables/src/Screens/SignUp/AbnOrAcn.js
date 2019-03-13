@@ -53,10 +53,11 @@ class AbnOrAcn extends React.Component {
   // eslint-disable-next-line class-methods-use-this
   onNext() {
     const { screenProps } = this.props;
-    screenProps.Api.get('entities', {}, (res) => {
+    screenProps.Api.post('entities', {
+      type: 'Company',
+      Entity_name: 'hz',
+    }, (res) => {
       console.log('!!!', { res });
-    }, () => {
-      console.log('!!!err', { });
     });
   }
 

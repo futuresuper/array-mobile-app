@@ -12,10 +12,14 @@ import axios from 'axios';
 
 import { Config } from 'src/Common/config';
 import {
-  tokenReset,
+  authReset,
 } from 'src/Redux/Auth';
 
 const UNAUTHORIZED = 401;
+const apiError = {
+  unknown: 'unknown error',
+  unauthenticated: 'Unauthenticated',
+};
 
 class Api extends Component {
   static headers() {
@@ -31,6 +35,10 @@ class Api extends Component {
 
   static fetch(...args) {
     return this.ApiInstance.fetchProc(...args);
+  }
+
+  static put(urlInp, params, onSuccess = null, onError = null, spinner = true) {
+    return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'PUT');
   }
 
   static post(urlInp, params, onSuccess = null, onError = null, spinner = true) {
@@ -58,7 +66,8 @@ class Api extends Component {
         spinnerShow,
         token,
         navigateTo,
-        tokenResetConnect,
+        authResetConnect,
+        toast,
       } = this.props;
       const options = {
         timeout: 5000,
@@ -87,7 +96,8 @@ class Api extends Component {
         .catch((err) => {
           if (spinner) spinnerHide();
           let resp = {
-            message: 'unknown error',
+            message: '',
+            err,
           };
 
           if (err.response && err.response.data) {
@@ -97,16 +107,25 @@ class Api extends Component {
             resp.message = err.request._response;
           }
 
+          if (!resp.message) {
+            resp.message = apiError.unknown;
+          }
+
           if (
             err.request
             && (err.request.status === UNAUTHORIZED)
           ) {
-            tokenResetConnect();
+            authResetConnect();
             navigateTo('SignUpLogin');
+
+            resp.message = apiError.unauthenticated;
           }
 
           if (onError) onError(resp);
           else if (reject) reject(resp);
+          else {
+            toast(resp.message);
+          }
         });
     };
 
@@ -147,7 +166,8 @@ Api.propTypes = {
   spinnerShow: PropTypes.func.isRequired,
   spinnerHide: PropTypes.func.isRequired,
   navigateTo: PropTypes.func.isRequired,
-  tokenResetConnect: PropTypes.func.isRequired,
+  authResetConnect: PropTypes.func.isRequired,
+  toast: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   ownProps: PropTypes.any.isRequired,
   token: PropTypes.object.isRequired,
@@ -159,7 +179,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  tokenResetConnect: tokenReset,
+  authResetConnect: authReset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Api);

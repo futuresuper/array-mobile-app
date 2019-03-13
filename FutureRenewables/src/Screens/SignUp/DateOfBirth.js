@@ -80,11 +80,18 @@ class DateOfBirth extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
+    const userInfo = screenProps.userInfo();
 
     const formIsValid = hocs.formIsValid({
       fieldError: true,
     });
     if (formIsValid) {
+      const birthDate = hocs.form.date.value;
+
+      screenProps.Api.put(`users/${userInfo.id}`, {
+        birth_date: birthDate,
+      }, () => {
+      });
       screenProps.navigateTo('HomeAddress');
     }
   }

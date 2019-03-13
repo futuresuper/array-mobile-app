@@ -12,7 +12,7 @@ const initialState = {
 };
 
 const ACTION_HANDLERS = {
-  [types.LOGIN_SUCCESS]: (state, action) => {
+  [types.TOKEN_SAVE]: (state, action) => {
     const { payload } = action;
 
     return {
@@ -23,9 +23,13 @@ const ACTION_HANDLERS = {
       },
     };
   },
-  [types.TOKEN_RESET]: state => ({
+  [types.AUTH_RESET]: state => ({
     ...state,
     ...initialState,
+  }),
+  [types.USER_DATA_SAVE]: (state, action) => ({
+    ...state,
+    user: action.payload,
   }),
 };
 

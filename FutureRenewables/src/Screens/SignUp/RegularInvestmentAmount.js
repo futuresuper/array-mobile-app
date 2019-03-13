@@ -69,9 +69,16 @@ class RegularInvestmentAmount extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
+    const userInfo = screenProps.userInfo();
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
+      const amount = hocs.form.field.value;
+
+      screenProps.Api.put(`accounts/${userInfo.id}`, {
+        regular_investment_amount: amount,
+      }, () => {
+      });
       screenProps.navigateTo('BankAccount');
     }
   }

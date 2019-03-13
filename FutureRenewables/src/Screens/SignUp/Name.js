@@ -51,18 +51,19 @@ class Name extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
+    const userInfo = screenProps.userInfo();
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
+      const firstName = hocs.form.firstName.value;
+      const lastName = hocs.form.lastName.value;
+
+      screenProps.Api.put(`users/${userInfo.id}`, {
+        first_name: firstName,
+        last_name: lastName,
+      }, () => {
+      });
       screenProps.navigateTo('Email');
-
-      // screenProps.Api.get('users/current', null,
-      //   (res) => {
-      //     console.log('!!!', { res });
-      //   }, (err) => {
-      //     console.log('!!!', { err });
-      //   });
-
     }
   }
 

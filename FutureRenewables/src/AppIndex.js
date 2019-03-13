@@ -82,6 +82,11 @@ class AppIndex extends Component {
     this.AlertComp.showDialog(options);
   }
 
+  userInfo = () => {
+    const { auth } = this.props;
+    return auth.user || {};
+  }
+
   routeBack(inp_back_screen = null, inp_params = null) {
     const { navigation, routeBackConnect } = this.props;
     let back_screen;
@@ -126,6 +131,8 @@ class AppIndex extends Component {
               spinnerShow={this.spinnerShow}
               spinnerHide={this.spinnerHide}
               navigateTo={this.navigateTo}
+              toast={this.toast}
+              toastDanger={this.toastDanger}
             />
 
 
@@ -138,6 +145,7 @@ class AppIndex extends Component {
                 spinnerShow: this.spinnerShow,
                 spinnerHide: this.spinnerHide,
                 alert: this.alert,
+                userInfo: this.userInfo,
                 Api,
               }}
             />
@@ -156,6 +164,7 @@ AppIndex.propTypes = {
     routes: PropTypes.array,
   }).isRequired,
   routeBackConnect: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 function bindAction(dispatch) {
@@ -167,6 +176,7 @@ function bindAction(dispatch) {
 
 const mapStateToProps = state => ({
   navigation: state.navigationCard,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, bindAction)(AppIndex);
