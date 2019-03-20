@@ -39,6 +39,8 @@ import {
   EntityTaxFileNumber,
   BeneficialOwners,
   Partners,
+  TabHome,
+  TabActivity,
   Example,
 } from 'src/Screens';
 
@@ -205,10 +207,20 @@ const mainModalRoutes = {
   },
 };
 
+const tabRoutes = {
+  TabHome: {
+    screen: TabHome,
+  },
+  TabActivity: {
+    screen: TabActivity,
+  },
+};
+
 const routes = {
   signRoutes,
   mainRoutes,
   mainModalRoutes,
+  tabRoutes,
 };
 
 const getRouteInfo = (findScreenKey) => {
@@ -242,4 +254,5 @@ export {
   signRoutes,
   mainRoutes,
   mainModalRoutes,
+  tabRoutes,
 };

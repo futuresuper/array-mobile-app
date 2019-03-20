@@ -4,4 +4,6 @@ export * from './AccountsApplications';
 export * from './Feed';
 export * from './SignUp';
 export * from './Settings';
+export * from './TabHome';
+export * from './TabActivity';
 export * from './Example';

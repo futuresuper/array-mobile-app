@@ -1,13 +1,19 @@
 
 import {
   createStackNavigator,
+  createBottomTabNavigator,
 } from 'react-navigation';
 
 import {
   signRoutes,
   mainRoutes,
   mainModalRoutes,
+  tabRoutes,
 } from './routes';
+
+import {
+  tabBarOptions,
+} from './navigationOptions';
 
 export const MainModalStack = createStackNavigator(
   mainModalRoutes,
@@ -29,4 +35,20 @@ export const SignStack = createStackNavigator(
   {
     headerMode: 'float',
   },
+);
+
+const TabBar = createBottomTabNavigator(
+  tabRoutes,
+  tabBarOptions,
+);
+
+export const TabStack = createStackNavigator(
+  {
+    TabBar: {
+      screen: TabBar,
+    },
+  },
+  // {
+  //   headerMode: 'none',
+  // },
 );

@@ -13,6 +13,7 @@ import {
   SignStack,
   MainStack,
   MainModalStack,
+  TabStack,
 } from './StackNavigator';
 
 // eslint-disable-next-line no-unused-vars
@@ -20,7 +21,7 @@ import { navReduxMiddleware } from './navMiddlewareListener';
 
 
 const initialRoute = () => {
-  const init_screen = 'SignStack';
+  const init_screen = 'TabStack';
 
   return init_screen;
 };
@@ -30,6 +31,7 @@ const AppNavigator = createAppContainer(createSwitchNavigator(
     SignStack,
     MainStack,
     // MainModalStack,
+    TabStack,
   },
   {
     initialRouteName: initialRoute(),
