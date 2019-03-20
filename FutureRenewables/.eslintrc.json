@@ -1,54 +1,53 @@
 {
-    "globals": {
-        "alert": false,
-        "console": false,
-        "__DEV__": false,
-        "Reactotron": false,
-        "fetch": false
-    },
-    "parser": "babel-eslint",
-    "plugins": [
-        "react",
-        "react-native",
-        "jsx-a11y"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true,
-            "modules": true
-        }
-    },
-    "extends" : [
-        "airbnb"
-    ],
-    "rules" : {
-        "react/prop-types": ["error", {
-            "ignore": [
-                "navigation",
-                "screenProps",
-                "children",
-                "hocs"
-            ]
-        }],
-        "no-underscore-dangle": ["error", {
-            "allowAfterThis": true,
-            "allow": [
-                "_root"
-            ]
-        }],
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "import/extensions": ["error", "ignorePackages", { "js": "never" }],
-        "react/forbid-prop-types": [1, { "forbid": ["any"] }],
-        "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
-        "import/no-extraneous-dependencies" : "off",
-        "arrow-body-style" : "warn",
-        "linebreak-style": 0,
-        "import/no-unresolved": "off",
-        "properties": "never",
-        "no-alert": "off",
-        "no-console": "off",
-        "camelcase": 0,
-        "max-len": ["error", { "code": 170 }]
+  "globals": {
+    "alert": false,
+    "console": false,
+    "__DEV__": false,
+    "Reactotron": false,
+    "fetch": false
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "react-native",
+    "jsx-a11y"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
     }
+  },
+  "extends" : [
+    "airbnb"
+  ],
+  "rules" : {
+    "react/prop-types": ["error", {
+        "ignore": [
+            "navigation",
+            "screenProps",
+            "children",
+            "hocs"
+        ]
+    }],
+    "no-underscore-dangle": ["error", {
+      "allowAfterThis": true,
+      "allow": [
+        "_root"
+      ]
+    }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/extensions": ["error", "ignorePackages", { "js": "never" }],
+    "react/forbid-prop-types": [1, { "forbid": ["any"] }],
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "import/no-extraneous-dependencies" : "off",
+    "arrow-body-style" : "warn",
+    "linebreak-style": 0,
+    "import/no-unresolved": "off",
+    "properties": "never",
+    "no-alert": "off",
+    "no-console": "off",
+    "camelcase": 0,
+    "max-len": ["error", { "code": 170 }]
+  }
 }
-  
