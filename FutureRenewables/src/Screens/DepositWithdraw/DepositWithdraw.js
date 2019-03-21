@@ -7,18 +7,24 @@ import {
 } from 'react-native';
 
 import {
+  Button,
   Text,
   Content,
 } from 'native-base';
 
-class TabHome extends Component {
+import {
+  styleGlobal,
+} from 'src/Styles';
+
+// eslint-disable-next-line react/prefer-stateless-function
+class DepositWithdraw extends Component {
   render() {
     return (
       <Content>
-        <Text>Home tab</Text>
+        <Text>deposit</Text>
       </Content>
     );
   }
 }
 
-export default connect()(TabHome);
+export default connect()(DepositWithdraw);

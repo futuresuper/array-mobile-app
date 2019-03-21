@@ -96,6 +96,17 @@ export default (variables /*: * */ = variable) => {
       color: styleConstants.color.gray
     }
   };
+  const gray4Common = {
+    "NativeBase.Text": {
+      color: styleConstants.color.white
+    },
+    "NativeBase.Icon": {
+      color: styleConstants.color.white
+    },
+    "NativeBase.IconNB": {
+      color: styleConstants.color.white
+    }
+  };
   const buttonTheme = {
     ".disabled": {
       ".transparent": {
@@ -244,6 +255,19 @@ export default (variables /*: * */ = variable) => {
         ...grayCommon
       },
       backgroundColor: 'transparent',
+    },
+
+    ".gray4": {
+      ".bordered": {
+        ...gray4Common
+      },
+      "NativeBase.Text": {
+        color: styleConstants.color.white,
+      },
+      "NativeBase.Icon": {
+        color: styleConstants.color.white,
+      },
+      backgroundColor: styleConstants.color.gray4,
     },
 
     ".block": {

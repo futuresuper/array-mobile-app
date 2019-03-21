@@ -9,10 +9,12 @@ import {
   mainRoutes,
   mainModalRoutes,
   tabRoutes,
+  tabModalRoutes,
 } from './routes';
 
 import {
   tabBarOptions,
+  tabModalOptions,
 } from './navigationOptions';
 
 export const MainModalStack = createStackNavigator(
@@ -42,13 +44,27 @@ const TabBar = createBottomTabNavigator(
   tabBarOptions,
 );
 
+const TabModal = createBottomTabNavigator(
+  tabModalRoutes,
+  {
+    mode: 'modal',
+    headerMode: 'none',
+    ...tabBarOptions,
+    ...tabModalOptions,
+  },
+);
+
 export const TabStack = createStackNavigator(
   {
     TabBar: {
       screen: TabBar,
     },
+    TabModal: {
+      screen: TabModal,
+    },
   },
-  // {
-  //   headerMode: 'none',
-  // },
+  {
+    mode: 'modal',
+    // headerMode: 'none',
+  },
 );

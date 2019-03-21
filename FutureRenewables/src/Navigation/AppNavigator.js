@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  createStackNavigator,
+  // createStackNavigator,
   createSwitchNavigator,
   createAppContainer,
 } from 'react-navigation';
@@ -12,7 +12,7 @@ import {
 import {
   SignStack,
   MainStack,
-  MainModalStack,
+  // MainModalStack,
   TabStack,
 } from './StackNavigator';
 

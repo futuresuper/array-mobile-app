@@ -119,7 +119,7 @@ export default {
   brandLight: "#f4f4f4",
 
   //Container
-  containerBgColor: styleConstants.color.light,
+  containerBgColor: styleConstants.containerBgColor,
 
   //Date Picker
   datePickerTextColor: "#000",
@@ -141,7 +141,7 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: "#3F51B5",
+  footerDefaultBg: styleConstants.color.light,
   footerPaddingBottom: 0,
 
   // FooterTab

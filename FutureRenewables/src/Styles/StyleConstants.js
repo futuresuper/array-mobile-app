@@ -1,6 +1,7 @@
 
 export default Object.freeze({
   mainColor: 'green',
+  containerBgColor: '#F0F0F0',
   color: {
     primary: '#FCCD3B',
     secondary: '#CCCCCC',
@@ -9,8 +10,13 @@ export default Object.freeze({
     danger: 'red',
     success: 'green',
     gray: 'gray',
+    gray2: '#E8E9E8',
+    gray3: '#6A6A6A',
+    gray4: '#5C5C5C',
+    gray5: '#CFCFCF',
     lightGreen: '#6FCE1C',
     errorBorder: '#ed2f2f',
+    white: 'white',
   },
   fontFamily: 'Lato',
   fontSize: {

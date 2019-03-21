@@ -34,6 +34,11 @@ export default {
     alignContent: 'center',
     alignItems: 'center',
   },
+  right: {
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    alignContent: 'flex-end',
+  },
   textCenter: {
     textAlign: 'center',
   },
@@ -45,6 +50,9 @@ export default {
   },
   colorGray: {
     color: styleConstants.color.gray,
+  },
+  colorGray3: {
+    color: styleConstants.color.gray3,
   },
   mV10: {
     marginVertical: 10,
@@ -99,6 +107,9 @@ export default {
   },
   mR30: {
     marginRight: 30,
+  },
+  pL0: {
+    paddingLeft: 0,
   },
   pL10: {
     paddingLeft: 10,

@@ -1,23 +1,17 @@
 
 import React from 'react';
-import {
-  StatusBar,
-} from 'react-native';
-
-import _ from 'lodash';
 
 import {
-  Button,
-  Icon,
-  View,
   Text,
-  Footer,
-  FooterTab,
 } from 'native-base';
 
+import TabBar from 'src/Components/TabBar';
+import CloseButton from 'src/Components/CloseButton';
+import {
+  styleConstants,
+} from 'src/Styles';
 
-// eslint-disable-next-line import/prefer-default-export
-export const drawerOptions = ({ navigation, screenProps }) => {
+export const drawerOptions = ({ navigation }) => {
   const { state } = navigation;
   const params = state.params || {};
   const title = params.title || '';
@@ -34,42 +28,27 @@ export const noHeader = () => ({
 });
 
 export const tabBarOptions = {
-  tabBarComponent: (props) => {
-    const { state } = props.navigation;
-    const { routeName } = state.routes[state.index];
-
-    console.log('!!!', routeName);
-
-    return (
-      <Footer>
-        <FooterTab>
-          <Button
-            active={routeName === ''}
-          >
-            <Text>123</Text>
-          </Button>
-          <Button
-            onPress={() => {
-              props.navigation.navigate('TabActivity');
-            }}
-          >
-            <Text>123</Text>
-          </Button>
-        </FooterTab>
-      </Footer>
-    );
-  },
+  tabBarComponent: props => <TabBar {...props} />,
   tabBarPosition: 'bottom',
-  // tabBarOptions: {
-  //   activeTintColor: '#3CC8F7',
-  //   inactiveTintColor: '#9B9B9B',
-  //   // showLabel: false,
-  //   // showIcon: true,
-  //   indicatorStyle: {
-  //     backgroundColor: '#3CC8F7',
-  //   },
-  //   style: {
-  //     backgroundColor: 'black',
-  //   },
-  // },
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: styleConstants.containerBgColor,
+      borderBottomWidth: 0,
+      elevation: 0,
+      height: 0,
+      paddingBottom: 20,
+    },
+  },
+};
+
+export const tabModalOptions = {
+  navigationOptions: ({ screenProps }) => ({
+    headerLeft: null,
+    headerRight: <CloseButton onPress={() => { screenProps.routeBack(); }} />,
+    headerStyle: {
+      backgroundColor: styleConstants.containerBgColor,
+      borderBottomWidth: 0,
+      elevation: 0,
+    },
+  }),
 };

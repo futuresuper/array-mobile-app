@@ -1,4 +1,5 @@
 
+import { View, Animated, Easing } from 'react-native';
 import _ from 'lodash';
 
 import {
@@ -41,6 +42,8 @@ import {
   Partners,
   TabHome,
   TabActivity,
+  DepositWithdraw,
+  TabFarms,
   Example,
 } from 'src/Screens';
 
@@ -48,6 +51,8 @@ import {
   noHeader,
   drawerOptions,
 } from './navigationOptions';
+
+import routeNames from './routeNames';
 
 const formatRoutes = (routesInp) => {
   const routes = routesInp;
@@ -208,11 +213,20 @@ const mainModalRoutes = {
 };
 
 const tabRoutes = {
-  TabHome: {
+  [routeNames.TAB_HOME]: {
     screen: TabHome,
   },
-  TabActivity: {
+  [routeNames.TAB_ACTIVITY]: {
     screen: TabActivity,
+  },
+  [routeNames.TAB_FARMS]: {
+    screen: TabFarms,
+  },
+};
+
+const tabModalRoutes = {
+  [routeNames.DEPOSIT_WITHDRAW]: {
+    screen: DepositWithdraw,
   },
 };
 
@@ -255,4 +269,5 @@ export {
   mainRoutes,
   mainModalRoutes,
   tabRoutes,
+  tabModalRoutes,
 };

@@ -6,4 +6,6 @@ export * from './SignUp';
 export * from './Settings';
 export * from './TabHome';
 export * from './TabActivity';
+export * from './TabFarms';
+export * from './DepositWithdraw';
 export * from './Example';
