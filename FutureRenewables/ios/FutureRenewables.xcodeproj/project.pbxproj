@@ -69,6 +69,7 @@
 		AA5D4BA644834202B67764F7 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8172548845743C881848BD0 /* Lato-Light.ttf */; };
 		1C682DC8EEF24AEF9734D493 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B0F55A912FB4F13BE298BA9 /* Lato-LightItalic.ttf */; };
 		51C5E9B6F2FE4EE3A6E17F85 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BC98D6426604AD2A2B4ED2F /* Lato-Regular.ttf */; };
+		95FB4681DB284053919C8799 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C125413333E4B228E2BD4AE /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -408,6 +409,8 @@
 		B8172548845743C881848BD0 /* Lato-Light.ttf */ = {isa = PBXFileReference; name = "Lato-Light.ttf"; path = "../src/assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		6B0F55A912FB4F13BE298BA9 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; name = "Lato-LightItalic.ttf"; path = "../src/assets/fonts/Lato-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		8BC98D6426604AD2A2B4ED2F /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		97F9CC107FD64F8B816C0C87 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; name = "AirMaps.xcodeproj"; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		0C125413333E4B228E2BD4AE /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +441,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				591BDCE33FCA46F8BE67C2FA /* libRNGestureHandler.a in Frameworks */,
 				122C8F5FF55A4E09ACD1DAA9 /* libRCTVideo.a in Frameworks */,
+				95FB4681DB284053919C8799 /* libAirMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +633,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				17536D052D9A4A5680947351 /* RNGestureHandler.xcodeproj */,
 				EC57C554E83E446984403B16 /* RCTVideo.xcodeproj */,
+				97F9CC107FD64F8B816C0C87 /* AirMaps.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1323,11 +1328,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 				);
 			};
 			name = Debug;
@@ -1351,11 +1358,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 				);
 			};
 			name = Release;
@@ -1380,6 +1389,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 				);
 			};
 			name = Debug;
@@ -1403,6 +1413,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 				);
 			};
 			name = Release;
@@ -1434,11 +1445,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 				);
 			};
 			name = Debug;
@@ -1470,11 +1483,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 				);
 			};
 			name = Release;
@@ -1505,11 +1520,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 				);
 			};
 			name = Debug;
@@ -1540,11 +1557,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 				);
 			};
 			name = Release;
