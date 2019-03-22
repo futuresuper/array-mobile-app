@@ -1,5 +1,4 @@
 
-import { View, Animated, Easing } from 'react-native';
 import _ from 'lodash';
 
 import {
@@ -221,6 +220,9 @@ const tabRoutes = {
   },
   [routeNames.TAB_FARMS]: {
     screen: TabFarms,
+    params: {
+      noHeader: true,
+    },
   },
 };
 

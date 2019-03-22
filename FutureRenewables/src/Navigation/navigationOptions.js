@@ -30,14 +30,23 @@ export const noHeader = () => ({
 export const tabBarOptions = {
   tabBarComponent: props => <TabBar {...props} />,
   tabBarPosition: 'bottom',
-  navigationOptions: {
-    headerStyle: {
-      backgroundColor: styleConstants.containerBgColor,
-      borderBottomWidth: 0,
-      elevation: 0,
-      height: 0,
-      paddingBottom: 20,
-    },
+  navigationOptions: (props) => {
+    const { navigation } = props;
+    const { state } = navigation;
+    const currentRoute = state.routes[state.index];
+    const params = currentRoute.params || {};
+    const header = params.noHeader ? null : undefined;
+
+    return {
+      headerStyle: {
+        backgroundColor: styleConstants.containerBgColor,
+        borderBottomWidth: 0,
+        elevation: 0,
+        height: 0,
+        paddingBottom: 20,
+      },
+      header,
+    };
   },
 };
 

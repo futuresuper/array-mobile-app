@@ -138,6 +138,9 @@ export default {
   p20: {
     padding: 20,
   },
+  p30: {
+    padding: 30,
+  },
   border: {
     borderWidth: 1,
   },
@@ -163,5 +166,15 @@ export default {
   },
   inputHeightBase: {
     height: styleConstants.inputHeightBase,
+  },
+  absoluteFillObject: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  postitionAbsolute: {
+    postion: 'absolute',
   },
 };
