@@ -1,7 +1,8 @@
 
 import DepositWithdraw from './DepositWithdraw';
+import DepositWithdrawDone from './DepositWithdrawDone';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   DepositWithdraw,
+  DepositWithdrawDone,
 };

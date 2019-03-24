@@ -5,4 +5,6 @@ export default {
   TAB_FARMS: 'TabFarms',
   TAB_PROFILE: 'TabProfile',
   DEPOSIT_WITHDRAW: 'DepositWithdraw',
+  DEPOSIT_WITHDRAW_DONE: 'DepositWithdrawDone',
+  SOLAR_FARM: 'SolarFarm',
 };

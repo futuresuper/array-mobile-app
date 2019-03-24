@@ -1,10 +1,6 @@
 
 import React from 'react';
 
-import {
-  Text,
-} from 'native-base';
-
 import TabBar from 'src/Components/TabBar';
 import CloseButton from 'src/Components/CloseButton';
 import {

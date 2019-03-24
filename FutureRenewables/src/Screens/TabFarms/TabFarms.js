@@ -12,14 +12,12 @@ import {
   Text,
   Icon,
   H1,
-  H2,
   H3,
   Card,
   CardItem,
   Left,
   Right,
   Body,
-  Thumbnail,
 } from 'native-base';
 
 import MapView from 'react-native-maps';
@@ -27,7 +25,7 @@ import MapView from 'react-native-maps';
 import {
   routeNames,
 } from 'src/Navigation';
-
+import CircularProgress from 'src/Components/CircularProgress';
 import solarHeart from 'src/assets/images/solarHeart.png';
 
 import {
@@ -36,6 +34,7 @@ import {
 
 import {
   sg,
+  sc,
 } from 'src/Styles';
 
 import styles from './styles';
@@ -121,8 +120,8 @@ class TabFarms extends Component {
 
     const midX = (minX + maxX) / 2;
     const midY = (minY + maxY) / 2;
-    const deltaX = (maxX - minX) + 2;
-    const deltaY = (maxY - minY) + 2;
+    const deltaX = (maxX - minX) + 10;
+    const deltaY = (maxY - minY) + 5;
 
     this.setState({
       startPosition: {
@@ -133,6 +132,29 @@ class TabFarms extends Component {
       },
       activeFarmId,
     });
+  }
+
+  activateFarm = (item) => {
+
+    this._mapView.animateToRegion({
+      ...item.coordinate,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+
+    if (this.activeFarmTimeoutId) {
+      clearTimeout(this.activeFarmTimeoutId);
+    }
+    this.activeFarmTimeoutId = setTimeout(() => {
+      this.setState({
+        startPosition: {
+          ...item.coordinate,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+        activeFarmId: item.id,
+      });
+    }, 500);
   }
 
   renderMarker = (item) => {
@@ -156,7 +178,7 @@ class TabFarms extends Component {
         <CardItem
           button
           onPress={() => {
-            console.log('!!!', {  });
+            this.activateFarm(item);
           }}
           style={styles.farmCardItem}
         >
@@ -176,7 +198,14 @@ class TabFarms extends Component {
             </Text>
           </Body>
           <Right style={styles.farmCardRight}>
-            <Text>333</Text>
+            <CircularProgress
+              percent={item.completed}
+              radius={15}
+              borderWidth={3}
+              color={sc.color.dark}
+              shadowColor={sc.color.gray2}
+              bgColor={sc.color.white}
+          />
           </Right>
         </CardItem>
       </Card>
@@ -184,11 +213,15 @@ class TabFarms extends Component {
   }
 
   render() {
+    const { screenProps } = this.props;
     const { farms, startPosition } = this.state;
 
     return (
       <View style={sg.flex}>
         <MapView
+          ref={(ref) => {
+            if (ref) this._mapView = ref;
+          }}
           style={sg.absoluteFillObject}
           region={startPosition}
         >
@@ -196,6 +229,9 @@ class TabFarms extends Component {
             <MapView.Marker
               key={index.toString()}
               coordinate={item.coordinate}
+              onPress={() => {
+                screenProps.navigateTo(routeNames.SOLAR_FARM);
+              }}
             >
               {this.renderMarker(item)}
             </MapView.Marker>
@@ -216,6 +252,7 @@ class TabFarms extends Component {
             keyExtractor={item => item.id.toString()}
             renderItem={this.renderFarmCard}
             horizontal
+            showsHorizontalScrollIndicator={false}
           />
         </View>
       </View>

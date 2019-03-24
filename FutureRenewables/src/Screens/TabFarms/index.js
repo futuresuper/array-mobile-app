@@ -1,7 +1,8 @@
 
 import TabFarms from './TabFarms';
+import SolarFarm from './SolarFarm';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   TabFarms,
+  SolarFarm,
 };

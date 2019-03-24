@@ -43,6 +43,8 @@ import {
   TabActivity,
   DepositWithdraw,
   TabFarms,
+  SolarFarm,
+  DepositWithdrawDone,
   Example,
 } from 'src/Screens';
 
@@ -232,11 +234,21 @@ const tabModalRoutes = {
   },
 };
 
+const tabCardRoutes = {
+  [routeNames.SOLAR_FARM]: {
+    screen: SolarFarm,
+  },
+  [routeNames.DEPOSIT_WITHDRAW_DONE]: {
+    screen: DepositWithdrawDone,
+  },
+};
+
 const routes = {
   signRoutes,
   mainRoutes,
   mainModalRoutes,
   tabRoutes,
+  tabCardRoutes,
 };
 
 const getRouteInfo = (findScreenKey) => {
@@ -272,4 +284,5 @@ export {
   mainModalRoutes,
   tabRoutes,
   tabModalRoutes,
+  tabCardRoutes,
 };

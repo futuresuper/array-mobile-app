@@ -10,6 +10,7 @@ import {
   mainModalRoutes,
   tabRoutes,
   tabModalRoutes,
+  tabCardRoutes,
 } from './routes';
 
 import {
@@ -54,7 +55,7 @@ const TabModal = createBottomTabNavigator(
   },
 );
 
-export const TabStack = createStackNavigator(
+const TabWithModal = createStackNavigator(
   {
     TabBar: {
       screen: TabBar,
@@ -65,6 +66,27 @@ export const TabStack = createStackNavigator(
   },
   {
     mode: 'modal',
-    // headerMode: 'none',
+  },
+);
+
+const TabCards = createBottomTabNavigator(
+  tabCardRoutes,
+  {
+    mode: 'card',
+    ...tabBarOptions,
+  },
+);
+
+export const TabStack = createStackNavigator(
+  {
+    TabWithModal: {
+      screen: TabWithModal,
+    },
+    TabCards: {
+      screen: TabCards,
+    },
+  },
+  {
+    headerMode: 'none',
   },
 );
