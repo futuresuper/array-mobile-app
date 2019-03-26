@@ -84,8 +84,14 @@ export default {
   mT10: {
     marginTop: 10,
   },
-  mT20: {
+  mT0: {
     marginTop: 20,
+  },
+  mT30: {
+    marginTop: 30,
+  },
+  mT40: {
+    marginTop: 40,
   },
   mL0: {
     marginLeft: 0,
@@ -107,6 +113,18 @@ export default {
   },
   mR30: {
     marginRight: 30,
+  },
+  pT0: {
+    paddingTop: 0,
+  },
+  pT10: {
+    paddingTop: 10,
+  },
+  pT20: {
+    paddingTop: 20,
+  },
+  pT30: {
+    paddingTop: 30,
   },
   pL0: {
     paddingLeft: 0,
@@ -140,6 +158,36 @@ export default {
   },
   p30: {
     padding: 30,
+  },
+  width10: {
+    width: 10,
+  },
+  width20: {
+    width: 20,
+  },
+  width30: {
+    width: 30,
+  },
+  width40: {
+    width: 40,
+  },
+  width50: {
+    width: 50,
+  },
+  width60: {
+    width: 60,
+  },
+  width70: {
+    width: 70,
+  },
+  width80: {
+    width: 80,
+  },
+  width90: {
+    width: 90,
+  },
+  width100: {
+    width: 100,
   },
   border: {
     borderWidth: 1,
@@ -176,5 +224,8 @@ export default {
   },
   postitionAbsolute: {
     postion: 'absolute',
+  },
+  tabFooterPadding: {
+    paddingBottom: 80,
   },
 };

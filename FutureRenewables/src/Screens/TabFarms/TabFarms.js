@@ -135,7 +135,6 @@ class TabFarms extends Component {
   }
 
   activateFarm = (item) => {
-
     this._mapView.animateToRegion({
       ...item.coordinate,
       latitudeDelta: 0.0922,
@@ -172,45 +171,43 @@ class TabFarms extends Component {
     );
   }
 
-  renderFarmCard = ({ item }) => {
-    return (
-      <Card style={styles.farmCardBl}>
-        <CardItem
-          button
-          onPress={() => {
-            this.activateFarm(item);
-          }}
-          style={styles.farmCardItem}
-        >
-          <Left>
-            <Image
-              resizeMode="cover"
-              source={solarHeart}
-              style={styles.farmCardImage}
-            />
-          </Left>
-          <Body style={styles.farmCardBody}>
-            <H3>{item.title}</H3>
-            <Text style={styles.farmCardTextDescription}>{item.description}</Text>
-            <Text style={styles.farmCardTextComplete}>
-              {item.completed}
-              % Completed
-            </Text>
-          </Body>
-          <Right style={styles.farmCardRight}>
-            <CircularProgress
-              percent={item.completed}
-              radius={15}
-              borderWidth={3}
-              color={sc.color.dark}
-              shadowColor={sc.color.gray2}
-              bgColor={sc.color.white}
+  renderFarmCard = ({ item }) => (
+    <Card style={styles.farmCardBl}>
+      <CardItem
+        button
+        onPress={() => {
+          this.activateFarm(item);
+        }}
+        style={styles.farmCardItem}
+      >
+        <Left>
+          <Image
+            resizeMode="cover"
+            source={solarHeart}
+            style={styles.farmCardImage}
           />
-          </Right>
-        </CardItem>
-      </Card>
-    );
-  }
+        </Left>
+        <Body style={styles.farmCardBody}>
+          <H3>{item.title}</H3>
+          <Text style={styles.farmCardTextDescription}>{item.description}</Text>
+          <Text style={styles.farmCardTextComplete}>
+            {item.completed}
+            % Completed
+          </Text>
+        </Body>
+        <Right style={styles.farmCardRight}>
+          <CircularProgress
+            percent={item.completed}
+            radius={15}
+            borderWidth={3}
+            color={sc.color.dark}
+            shadowColor={sc.color.gray2}
+            bgColor={sc.color.white}
+          />
+        </Right>
+      </CardItem>
+    </Card>
+  )
 
   render() {
     const { screenProps } = this.props;
@@ -230,7 +227,7 @@ class TabFarms extends Component {
               key={index.toString()}
               coordinate={item.coordinate}
               onPress={() => {
-                screenProps.navigateTo(routeNames.SOLAR_FARM);
+                screenProps.navigateTo(routeNames.SOLAR_FARM, { item });
               }}
             >
               {this.renderMarker(item)}
