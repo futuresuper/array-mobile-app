@@ -24,6 +24,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 import BackButton from 'src/Components/BackButton';
+import WeatherWidget from 'src/Components/WeatherWidget';
 
 import {
   sg,
@@ -94,11 +95,13 @@ class SolarFarm extends Component {
             </View>
 
             <Row>
-              <Col>
+              <Col style={sg.pL5}>
                 <BackButton {...this.props} style={sg.pT0} />
               </Col>
-              <Col>
-                <Text>asd</Text>
+              <Col style={styles.solarFarmWeatherWidgetBl}>
+                <WeatherWidget
+                  coordinate={item.coordinate}
+                />
               </Col>
             </Row>
             <Row>
@@ -140,8 +143,6 @@ class SolarFarm extends Component {
           </Col>
         </Grid>
 
-
-
         <FlatList
           data={photos}
           keyExtractor={person => person.id.toString()}
@@ -150,7 +151,6 @@ class SolarFarm extends Component {
           showsHorizontalScrollIndicator={false}
           style={styles.photosBl}
         />
-
 
       </Content>
     );

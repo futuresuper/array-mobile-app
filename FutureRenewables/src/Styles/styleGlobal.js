@@ -39,6 +39,9 @@ export default {
     justifyContent: 'flex-end',
     alignContent: 'flex-end',
   },
+  jCCenter: {
+    justifyContent: 'center',
+  },
   textCenter: {
     textAlign: 'center',
   },
@@ -81,6 +84,9 @@ export default {
   mB30: {
     marginBottom: 30,
   },
+  mT5: {
+    marginTop: 5,
+  },
   mT10: {
     marginTop: 10,
   },
@@ -95,6 +101,9 @@ export default {
   },
   mL0: {
     marginLeft: 0,
+  },
+  mL5: {
+    marginLeft: 5,
   },
   mL10: {
     marginLeft: 10,
@@ -128,6 +137,9 @@ export default {
   },
   pL0: {
     paddingLeft: 0,
+  },
+  pL5: {
+    paddingLeft: 5,
   },
   pL10: {
     paddingLeft: 10,

@@ -126,4 +126,10 @@ export default {
   solarFarmPhotoPosition: {
     color: sc.color.gray,
   },
+  solarFarmWeatherWidgetBl: {
+    alignItems: 'flex-end',
+    paddingRight: 20,
+    justifyContent: 'center',
+    height: 60,
+  },
 };

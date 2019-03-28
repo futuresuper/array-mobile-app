@@ -120,6 +120,7 @@ class TabFarms extends Component {
 
     const midX = (minX + maxX) / 2;
     const midY = (minY + maxY) / 2;
+
     const deltaX = (maxX - minX) + 10;
     const deltaY = (maxY - minY) + 5;
 
@@ -237,10 +238,6 @@ class TabFarms extends Component {
 
         <View style={[sg.postitionAbsolute, sg.center, (isIOS ? sg.p30 : sg.p20)]}>
           <H1 style={sg.textBold}>Solar farms</H1>
-          <Text style={[sg.textCenter, sg.mT10]}>
-            Your money goes directly to helping build solar farms across Australia.
-            Find out more about them and see the impact your invetment has.
-          </Text>
         </View>
 
         <View style={styles.farmCardsBl}>
