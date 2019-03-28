@@ -11,55 +11,51 @@ import {
   Text,
   Content,
   Icon,
-  Grid,
-  Row,
-  Col,
   H1,
-  Badge,
 } from 'native-base';
 
 import Br from 'src/Components/Br';
-import {
-  routeNames,
-} from 'src/Navigation';
 
 import {
   styleGlobal,
 } from 'src/Styles';
-
 import styles from './styles';
+import Perfomance from './Perfomance';
 
+
+// eslint-disable-next-line react/prefer-stateless-function
 class TabActivity extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activity: [
-        {
-          type: 'Deposit',
-          date: '29 Fed',
-          status: 1,
-          amount: '+$20.00',
-        },
-        {
-          type: 'Deposit',
-          date: '19 Fed',
-          status: 2,
-          amount: '+$20.00',
-        },
-        {
-          type: 'Deposit',
-          date: '09 Fed',
-          status: 3,
-          amount: '+$0.50',
-        },
-      ],
+      segment: {
+        isPerfomance: true,
+        isInvestment: false,
+      },
     };
   }
 
+  setPerfomanceSegment = () => {
+    this.setState({
+      segment: {
+        isPerfomance: true,
+        isInvestment: false,
+      },
+    });
+  }
+
+  setInvestmentSegment = () => {
+    this.setState({
+      segment: {
+        isPerfomance: false,
+        isInvestment: true,
+      },
+    });
+  }
+
   render() {
-    const { screenProps } = this.props;
-    const { activity } = this.state;
+    const { segment } = this.state;
 
     return (
       <Content padder>
@@ -67,107 +63,37 @@ class TabActivity extends Component {
           <Button
             transparent
             iconRight
+            style={styleGlobal.mB10}
           >
-            <Text style={styleGlobal.pL0}>Grace</Text>
-            <Icon name="ios-arrow-down" style={{ fontSize: 18 }} />
+            <Text style={styles.title}>Grace</Text>
+            <Icon name="ios-arrow-down" style={styles.titleIcon} />
           </Button>
 
-          <H1>$12,208,40</H1>
+          <H1 style={styles.mainAmount}>$1,978</H1>
         </View>
 
         <View style={[styleGlobal.mT30, styleGlobal.row]}>
           <Button
             transparent
+            onPress={this.setPerfomanceSegment}
           >
-            <Text style={styleGlobal.pL0}>My Perfomance</Text>
+            <Text style={[styleGlobal.pL0, (segment.isPerfomance ? {} : styleGlobal.colorGray)]}>Perfomance</Text>
           </Button>
 
           <Button
             transparent
+            onPress={this.setInvestmentSegment}
           >
-            <Text style={[styleGlobal.pL0, styleGlobal.colorGray]}>My Investment</Text>
+            <Text style={[styleGlobal.pL0, (segment.isInvestment ? {} : styleGlobal.colorGray)]}>Investment</Text>
           </Button>
         </View>
 
         <Br style={[styleGlobal.mB20]} />
 
-        <View style={styleGlobal.mT2012}>
-          <Text style={styleGlobal.colorGray3}>
-            Since you&apos;ve joined, you&apos;ve made
-            <Text style={styleGlobal.textBold}> $600 </Text>
-            and your account is up
-            <Text style={styleGlobal.textBold}> 4.6% </Text>
-            .
-            {'\n'}
-            Sweeet.
-          </Text>
-        </View>
-
-        <View>
-          <Button
-            iconRight
-            block
-            gray4
-            style={styleGlobal.mV30}
-            onPress={() => {
-              screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW);
-            }}
-          >
-            <Text>Deposit</Text>
-            <Icon name="add" />
-          </Button>
-        </View>
-
-        <View>
-          <H1>Activity</H1>
-        </View>
-
-        <View style={styleGlobal.mV20}>
-          <Grid>
-            {activity.map((item, index) => {
-              const rowStyle = (index === 0) ? styles.activityRowFirst : {};
-              const styleCols = {
-                type: {},
-                date: {},
-                status: {},
-                amount: {},
-              };
-              let status;
-
-              if (item.status === 1) {
-                status = 'Upcoming';
-                styleCols.type = styles.activityColTextGray;
-                styleCols.date = styles.activityColTextGray;
-                styleCols.status = styles.activityColTextGray;
-                styleCols.amount = styles.activityColTextGray;
-              } else if (item.status === 2) {
-                status = 'Pending';
-                styleCols.status = styles.activityColTextGray;
-                styleCols.amount = styles.activityColTextGray;
-              }
-
-              return (
-                <Row key={index.toString()} style={[styles.activityRow, rowStyle]}>
-                  <Col style={[styles.activityCol]}>
-                    <Text style={[styles.activityColText, styleCols.type]}>{item.type}</Text>
-                  </Col>
-                  <Col style={[styles.activityCol]}>
-                    <Text style={[styles.activityColText, styleCols.date]}>{item.date}</Text>
-                  </Col>
-                  <Col style={[styles.activityCol]}>
-                    {(status)
-                      ? <Text style={[styles.activityColText, styleCols.status]}>{status}</Text>
-                      : <Badge style={styles.activityBadge}><Icon name="md-checkmark" style={styles.activityBadgeIcon} /></Badge>
-                    }
-                  </Col>
-                  <Col style={[styles.activityCol, styleGlobal.right]}>
-                    <Text style={[styles.activityColText, styleCols.amount]}>{item.amount}</Text>
-                  </Col>
-                </Row>
-              );
-            })}
-          </Grid>
-        </View>
+        {segment.isPerfomance
+          ? <Perfomance {...this.props} />
+          : null
+        }
 
       </Content>
     );

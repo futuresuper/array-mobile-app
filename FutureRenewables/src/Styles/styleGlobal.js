@@ -90,6 +90,12 @@ export default {
   mB30: {
     marginBottom: 30,
   },
+  mB40: {
+    marginBottom: 40,
+  },
+  mB50: {
+    marginBottom: 50,
+  },
   mT0: {
     marginTop: 20,
   },
@@ -143,6 +149,24 @@ export default {
   },
   pT30: {
     paddingTop: 30,
+  },
+  pB0: {
+    paddingBottom: 0,
+  },
+  pB10: {
+    paddingBottom: 10,
+  },
+  pB20: {
+    paddingBottom: 20,
+  },
+  pB30: {
+    paddingBottom: 30,
+  },
+  pB40: {
+    paddingBottom: 40,
+  },
+  pB50: {
+    paddingBottom: 50,
   },
   pL0: {
     paddingLeft: 0,
