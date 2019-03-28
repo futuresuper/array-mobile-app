@@ -42,6 +42,12 @@ export default {
   jCCenter: {
     justifyContent: 'center',
   },
+  jCSpaceBetween: {
+    justifyContent: 'space-between',
+  },
+  row: {
+    flexDirection: 'row',
+  },
   textCenter: {
     textAlign: 'center',
   },
@@ -84,14 +90,17 @@ export default {
   mB30: {
     marginBottom: 30,
   },
+  mT0: {
+    marginTop: 20,
+  },
   mT5: {
     marginTop: 5,
   },
   mT10: {
     marginTop: 10,
   },
-  mT0: {
-    marginTop: 20,
+  mT20: {
+    marginTop: 10,
   },
   mT30: {
     marginTop: 30,

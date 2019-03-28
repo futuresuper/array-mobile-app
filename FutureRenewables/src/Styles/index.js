@@ -1,8 +1,8 @@
-import styleConstants from './styleConstants';
-import styleGlobal from './styleGlobal';
+import sc from './styleConstants';
+import sg from './styleGlobal';
 
-const sg = styleGlobal;
-const sc = styleConstants;
+const styleGlobal = sg;
+const styleConstants = sc;
 
 export {
   styleConstants,

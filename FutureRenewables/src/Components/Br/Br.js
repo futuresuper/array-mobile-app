@@ -28,7 +28,10 @@ Br.defaultProps = {
 
 Br.propTypes = {
   width: PropTypes.number,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
 };
 
 export default Br;

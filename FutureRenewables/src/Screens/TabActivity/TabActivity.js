@@ -67,16 +67,29 @@ class TabActivity extends Component {
           <Button
             transparent
             iconRight
-            style={{ marginLeft: 0 }}
           >
-            <Text style={styleGlobal.pL0}>Account name</Text>
+            <Text style={styleGlobal.pL0}>Grace</Text>
             <Icon name="ios-arrow-down" style={{ fontSize: 18 }} />
           </Button>
 
           <H1>$12,208,40</H1>
         </View>
 
-        <Br style={styleGlobal.mV20} />
+        <View style={[styleGlobal.mT30, styleGlobal.row]}>
+          <Button
+            transparent
+          >
+            <Text style={styleGlobal.pL0}>My Perfomance</Text>
+          </Button>
+
+          <Button
+            transparent
+          >
+            <Text style={[styleGlobal.pL0, styleGlobal.colorGray]}>My Investment</Text>
+          </Button>
+        </View>
+
+        <Br style={[styleGlobal.mB20]} />
 
         <View style={styleGlobal.mT2012}>
           <Text style={styleGlobal.colorGray3}>

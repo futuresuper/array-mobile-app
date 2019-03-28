@@ -45,6 +45,7 @@ import {
   TabFarms,
   SolarFarm,
   DepositWithdrawDone,
+  TabProfile,
   Example,
 } from 'src/Screens';
 
@@ -225,6 +226,9 @@ const tabRoutes = {
     params: {
       noHeader: true,
     },
+  },
+  [routeNames.TAB_PROFILE]: {
+    screen: TabProfile,
   },
 };
 
