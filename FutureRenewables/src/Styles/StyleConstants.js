@@ -1,19 +1,20 @@
 
 export default Object.freeze({
   mainColor: 'green',
-  containerBgColor: '#F0F0F0',
+  containerBgColor: '#F3F3F3',
   color: {
     primary: '#FCCD3B',
     secondary: '#CCCCCC',
-    light: '#F9F9F9',
+    light: '#FAFAFA',
     dark: '#000000',
     danger: 'red',
     success: 'green',
-    gray: 'gray',
+    gray: '#919191',
     gray2: '#E8E9E8',
     gray3: '#6A6A6A',
     gray4: '#5C5C5C',
     gray5: '#CFCFCF',
+    gray6: '#D8D8D8',
     lightGreen: '#6FCE1C',
     errorBorder: '#ed2f2f',
     white: 'white',

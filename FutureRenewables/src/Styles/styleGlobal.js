@@ -63,6 +63,9 @@ export default {
   colorGray3: {
     color: styleConstants.color.gray3,
   },
+  mV0: {
+    marginVertical: 0,
+  },
   mV10: {
     marginVertical: 10,
   },
@@ -97,7 +100,7 @@ export default {
     marginBottom: 50,
   },
   mT0: {
-    marginTop: 20,
+    marginTop: 0,
   },
   mT5: {
     marginTop: 5,
@@ -234,6 +237,9 @@ export default {
   width100: {
     width: 100,
   },
+  heightNull: {
+    height: null,
+  },
   border: {
     borderWidth: 1,
   },
@@ -272,5 +278,14 @@ export default {
   },
   tabFooterPadding: {
     paddingBottom: 80,
+  },
+  pickerItemText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  pickerItemText2: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: styleConstants.color.gray,
   },
 };

@@ -181,7 +181,7 @@ export default {
 
   // InputGroup
   inputFontSize: 17,
-  inputBorderColor: "#979797",
+  inputBorderColor: styleConstants.color.gray6,
   inputSuccessBorderColor: "#2b8339",
   inputErrorBorderColor: styleConstants.color.errorBorder,
   inputHeightBase: styleConstants.inputHeightBase,
@@ -189,7 +189,7 @@ export default {
     return this.textColor;
   },
   get inputColorPlaceholder() {
-    return "gray";
+    return styleConstants.color.dark;
   },
 
   // Line Height

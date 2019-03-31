@@ -2,6 +2,9 @@
 
 import { Platform } from "react-native";
 
+import {
+  sc,
+} from 'src/Styles';
 import variable from "./../variables/platform";
 
 export default (variables /*: * */ = variable) => {
@@ -234,7 +237,7 @@ export default (variables /*: * */ = variable) => {
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderColor: variables.inputBorderColor,
-    backgroundColor: "white",
+    backgroundColor: sc.containerBgColor,
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 2

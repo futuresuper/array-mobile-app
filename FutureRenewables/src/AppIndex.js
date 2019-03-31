@@ -51,17 +51,13 @@ class AppIndex extends Component {
     });
   }
 
-  spinnerShow(config) {
-    this.Spinner.show(config);
+  userInfo = () => {
+    const { auth } = this.props;
+    return auth.user || {};
   }
 
-  spinnerHide() {
-    this.Spinner.hide();
-  }
-
-  navigateTo(route_name, params = {}) {
-    const { navigateToConnect } = this.props;
-    navigateToConnect(route_name, params);
+  alert = (options) => {
+    this.AlertComp.showDialog(options);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -78,13 +74,17 @@ class AppIndex extends Component {
     this.toast(text, 'danger');
   }
 
-  alert = (options) => {
-    this.AlertComp.showDialog(options);
+  navigateTo(route_name, params = {}) {
+    const { navigateToConnect } = this.props;
+    navigateToConnect(route_name, params);
   }
 
-  userInfo = () => {
-    const { auth } = this.props;
-    return auth.user || {};
+  spinnerShow(config) {
+    this.Spinner.show(config);
+  }
+
+  spinnerHide() {
+    this.Spinner.hide();
   }
 
   routeBack(inp_back_screen = null, inp_params = null) {
