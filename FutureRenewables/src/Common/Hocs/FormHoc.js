@@ -16,6 +16,7 @@ const errorMessages = {
 const fromKeys = {
   value: '',
   valueDisplay: null,
+  title: null,
   validations: [],
   normalize: null,
   format: null,
@@ -58,17 +59,17 @@ export default function FormHoc(WrappedComponent) {
       });
     }
 
-    setFormValue = (value, field, dataKey = null) => {
+    setFormFieldValue = (value, field, dataKey = null, fieldProp = 'value') => {
       const { form } = this.state;
       const formIsArray = (Array.isArray(form));
       if (formIsArray) {
         if (dataKey && form[dataKey]) {
-          form[dataKey][field].value = value;
+          form[dataKey][field][fieldProp] = value;
         }
       } else {
         // eslint-disable-next-line no-lonely-if
         if (form[field]) {
-          form[field].value = value;
+          form[field][fieldProp] = value;
         }
       }
 
@@ -76,6 +77,14 @@ export default function FormHoc(WrappedComponent) {
         form,
       });
     }
+
+    setFormValue = (value, field, dataKey = null) => {
+      this.setFormFieldValue(value, field, dataKey);
+    };
+
+    setFormTitle = (value, field, dataKey = null) => {
+      this.setFormFieldValue(value, field, dataKey, 'title');
+    };
 
     addFormItem = (data) => {
       const { form } = this.state;
@@ -142,6 +151,10 @@ export default function FormHoc(WrappedComponent) {
     }
 
     handleSubmit = () => {
+    }
+
+    handlePicker = (value, formKey, dataKey = null) => {
+      this.handleInput(value, formKey, dataKey);
     }
 
     handleCheckBox = (formKey, dataKey = null) => {
@@ -316,7 +329,7 @@ export default function FormHoc(WrappedComponent) {
     }
 
     render() {
-      const { hocs, ...passThroughtProps } = this.props;
+      const { hocs, forwardedRef, ...passThroughtProps } = this.props;
       const { form } = this.state;
 
       return (
@@ -327,13 +340,16 @@ export default function FormHoc(WrappedComponent) {
             handleSubmit: this.handleSubmit,
             handleInput: this.handleInput,
             handleCheckBox: this.handleCheckBox,
+            handlePicker: this.handlePicker,
             setForm: this.setForm,
             setFormValue: this.setFormValue,
+            setFormTitle: this.setFormTitle,
             formGetVal: this.formGetVal,
             formIsValid: this.formIsValid,
             addFormItem: this.addFormItem,
           }}
           {...passThroughtProps}
+          ref={forwardedRef}
         />
       );
     }
@@ -341,5 +357,6 @@ export default function FormHoc(WrappedComponent) {
 
   Def = CopyModuleHoc(Def, WrappedComponent);
 
-  return Def;
+  // eslint-disable-next-line react/no-multi-comp
+  return React.forwardRef((props, ref) => <Def {...props} forwardedRef={ref} />);
 }

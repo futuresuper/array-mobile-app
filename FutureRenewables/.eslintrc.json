@@ -27,7 +27,8 @@
             "navigation",
             "screenProps",
             "children",
-            "hocs"
+            "hocs",
+            "forwardedRef"
         ]
     }],
     "no-underscore-dangle": ["error", {

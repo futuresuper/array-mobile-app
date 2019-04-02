@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 
 import {
   View,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
 } from 'react-native';
 
 import {
@@ -50,18 +48,25 @@ class DepositWithdraw extends Component {
     });
   }
 
+  onNext = () => {
+    const { segment } = this.state;
+    if (segment.isDeposit) {
+      this.Deposit.onNext();
+    }
+  }
+
   render() {
     const { segment } = this.state;
 
     return (
-      <Content padder>
+      <Content padder contentContainerStyle={[sg.flexGrow, sg.pB80]}>
         <View style={[sg.row]}>
           <Button
             transparent
             onPress={this.segmentDeposit}
             style={[sg.mT0, sg.pT0, sg.heightNull]}
           >
-            <Text style={[sg.pT0, sg.pL0, (segment.isDeposit ? {} : sg.colorGray)]}>Perfomance</Text>
+            <Text style={[sg.pT0, sg.pL0, (segment.isDeposit ? {} : sg.colorGray)]}>Deposit</Text>
           </Button>
 
           <Button
@@ -69,11 +74,33 @@ class DepositWithdraw extends Component {
             onPress={this.segmentWithdraw}
             style={[sg.mT0, sg.pT0, sg.heightNull]}
           >
-            <Text style={[sg.pL0, (segment.isWithdraw ? {} : sg.colorGray)]}>Investment</Text>
+            <Text style={[sg.pL0, (segment.isWithdraw ? {} : sg.colorGray)]}>Withdraw</Text>
           </Button>
         </View>
 
-        <Deposit />
+        {segment.isDeposit
+          ? (
+            <Deposit
+              ref={(ref) => {
+                if (ref) this.Deposit = ref;
+              }}
+              {...this.props}
+            />
+          )
+          : (
+            <Text>w</Text>
+          )
+        }
+
+        <View style={[sg.footerBl, sg.p30]}>
+          <Button
+            gray4
+            block
+            onPress={this.onNext}
+          >
+            <Text>Next</Text>
+          </Button>
+        </View>
       </Content>
     );
   }

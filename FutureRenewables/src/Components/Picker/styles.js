@@ -8,12 +8,20 @@ import {
 } from 'src/Styles';
 
 export default {
+  container: {
+    marginTop: 5,
+    marginBottom: 13,
+  },
+  label: {
+    marginBottom: 10,
+    marginTop: 15,
+  },
   titleBl: {
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
   },
   icon: {
     fontSize: 20,

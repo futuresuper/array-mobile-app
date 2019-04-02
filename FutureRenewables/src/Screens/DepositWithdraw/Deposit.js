@@ -2,32 +2,58 @@
 import React, { Component } from 'react';
 import {
   View,
-  TouchableOpacity,
 } from 'react-native';
 import {
-  Button,
   Text,
-  Form,
   Item,
-  Label,
-  Input,
   Icon,
-  Row,
-  Col,
 } from 'native-base';
 
-import Picker from 'src/Components/Picker';
+import composeHoc from 'src/Common/Hocs';
+import {
+  Input,
+  Picker,
+} from 'src/Components/Form';
+import {
+  routeNames,
+} from 'src/Navigation';
 
 import {
   sg,
 } from 'src/Styles';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class Deposit extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      form: {
+        amount: {
+          validations: [
+            'required',
+          ],
+        },
+        from: {
+          validations: [
+            'required',
+          ],
+        },
+        frequency: {
+          validations: [
+            'required',
+          ],
+        },
+      },
+      frequencyList: [
+        {
+          name: 'Monthly',
+          value: 'month',
+        },
+        {
+          name: 'Annual',
+          value: 'annual',
+        },
+      ],
       accountList: [
         {
           name: 'ING Account',
@@ -35,18 +61,36 @@ class Deposit extends Component {
         },
         {
           name: 'ING Account',
-          number: 'BSB 92300 Acc 0981928',
+          number: 'BSB 92300 Acc 222',
         },
         {
           name: 'ING Account',
-          number: 'BSB 92300 Acc 0981928',
+          number: 'BSB 92300 Acc 333',
         },
       ],
     };
   }
 
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
+  onNext = () => {
+    const { hocs, screenProps } = this.props;
+    const formIsValid = hocs.formIsValid();
+
+    if (formIsValid) {
+      screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW_DONE);
+    }
+  }
+
   render() {
-    let { accountList } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
+    let { accountList, frequencyList } = this.state;
 
     accountList = accountList.concat([{
       id: 'custom',
@@ -55,30 +99,32 @@ class Deposit extends Component {
 
     return (
       <View>
-        <Item>
-          <Icon type="FontAwesome" name="dollar" style={{fontSize: 15}} />
-          <Input />
-        </Item>
-        <Item>
-          <Col>
-            <Label>123</Label>
-            <Row>
-              <Text>123</Text>
-              <Icon type="FontAwesome" name="dollar" style={{fontSize: 15}} />
-            </Row>
-          </Col>
-        </Item>
+        <Input
+          formData={form}
+          formKey="amount"
+          onChangeText={hocs.handleInput}
+          keyboardType="numeric"
+          iconLeft={{
+            type: 'FontAwesome',
+            name: 'dollar',
+          }}
+        />
 
         <Item>
           <Picker
-            label="asd"
-            title="asdss"
+            formData={form}
+            formKey="from"
+            label="From"
+            title="My ING account"
             list={accountList}
             renderItem={({ item }) => {
-
               if (item.id === 'custom') {
                 return (
-                  <View style={[sg.row, sg.jCSpaceBetween]}>
+                  <View
+                    style={[sg.row, sg.jCSpaceBetween]}
+                    onPress={() => {
+                    }}
+                  >
                     <Text style={sg.pickerItemText}>{item.name}</Text>
                     <Icon name="add" />
                   </View>
@@ -92,14 +138,45 @@ class Deposit extends Component {
                 </View>
               );
             }}
-            onPressItem={() => {
-              console.log('!!!222', {  });
+            onPressItem={({ item }, formKey, dataKey) => {
+              hocs.handlePicker(item.number, formKey, dataKey);
+              hocs.setFormTitle(item.number, formKey, dataKey);
             }}
           />
         </Item>
+
+        <Item>
+          <Picker
+            formData={form}
+            formKey="frequency"
+            label="Frequency"
+            title="Frequence"
+            list={frequencyList}
+            renderItem={({ item }) => (
+              <View>
+                <Text style={sg.pickerItemText}>{item.name}</Text>
+              </View>
+            )}
+            onInit={(formKey, dataKey) => {
+              const item = frequencyList[0];
+
+              hocs.handlePicker(item.value, formKey, dataKey);
+              hocs.setFormTitle(item.name, formKey, dataKey);
+            }}
+            onPressItem={({ item }, formKey, dataKey) => {
+              hocs.handlePicker(item.value, formKey, dataKey);
+              hocs.setFormTitle(item.name, formKey, dataKey);
+            }}
+          />
+        </Item>
+
       </View>
     );
   }
 }
 
-export default Deposit;
+const res = composeHoc([
+  'FormHoc',
+])(Deposit);
+
+export default res;

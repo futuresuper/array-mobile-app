@@ -55,7 +55,7 @@ export default (variables /*: * */ = variable) => {
         top: null,
         left: null,
         right: null,
-        paddingTop: 5,
+        paddingTop: 20,
         alignSelf: "flex-start",
         fontSize: variables.inputFontSize - 2
       },

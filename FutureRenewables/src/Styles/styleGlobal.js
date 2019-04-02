@@ -171,6 +171,21 @@ export default {
   pB50: {
     paddingBottom: 50,
   },
+  pB60: {
+    paddingBottom: 60,
+  },
+  pB70: {
+    paddingBottom: 70,
+  },
+  pB80: {
+    paddingBottom: 80,
+  },
+  pB90: {
+    paddingBottom: 90,
+  },
+  pB100: {
+    paddingBottom: 100,
+  },
   pL0: {
     paddingLeft: 0,
   },
@@ -260,11 +275,17 @@ export default {
   flex: {
     flex: 1,
   },
+  flexGrow: {
+    flexGrow: 1,
+  },
   backgroundDefault: {
     backgroundColor: styleConstants.color.light,
   },
   inputHeightBase: {
     height: styleConstants.inputHeightBase,
+  },
+  inputIcon: {
+    fontSize: 15,
   },
   absoluteFillObject: {
     position: 'absolute',
@@ -272,6 +293,12 @@ export default {
     bottom: 0,
     left: 0,
     right: 0,
+  },
+  footerBl: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   postitionAbsolute: {
     postion: 'absolute',

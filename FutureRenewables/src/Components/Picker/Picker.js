@@ -36,7 +36,14 @@ class Picker extends Component {
 
     this.state = {
       showList: false,
+      title: null,
     };
+  }
+
+  setTitle(title) {
+    this.setState({
+      title,
+    });
   }
 
   openList = () => {
@@ -121,7 +128,9 @@ class Picker extends Component {
     if (!Object.keys(TOUCHABLE_ELEMENTS).find(itemEl => res.type.displayName.includes(TOUCHABLE_ELEMENTS[itemEl]))) {
       res = (
         <TouchableOpacity
-          onPress={onPressItem}
+          onPress={() => {
+            onPressItem(...args);
+          }}
           style={styles.listItemTouch}
         >
           {res}
@@ -161,11 +170,12 @@ class Picker extends Component {
     } = this.props;
     const {
       showList,
+      title: titleState,
     } = this.state;
 
     return (
-      <Col>
-        {(label && (label !== '')) && <Label>{label}</Label>}
+      <Col style={styles.container}>
+        {(label && (label !== '')) && <Label style={styles.label}>{label}</Label>}
         <TouchableOpacity
           accessible
           style={styles.titleBl}
@@ -175,7 +185,7 @@ class Picker extends Component {
           }}
         >
           <Col>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title}>{titleState || title}</Text>
           </Col>
           <Icon name="ios-arrow-down" style={styles.icon} />
         </TouchableOpacity>
@@ -217,7 +227,7 @@ Picker.defaultProps = {
 
 Picker.propTypes = {
   label: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   list: PropTypes.array,
   renderItem: PropTypes.func,
   onPressItem: PropTypes.func,

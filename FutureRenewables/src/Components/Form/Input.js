@@ -4,8 +4,14 @@ import PropTypes from 'prop-types';
 import {
   Item,
   Input as InputNB,
+  Label,
+  Icon,
 } from 'native-base';
 import _ from 'lodash';
+
+import {
+  sg,
+} from 'src/Styles';
 
 class Input extends Component {
   onChangeText(e) {
@@ -29,12 +35,30 @@ class Input extends Component {
     }
   }
 
+  renderIconLeft = () => {
+    const { iconLeft } = this.props;
+    let res = null;
+
+    if (iconLeft.name) {
+      res = (
+        <Icon
+          type={iconLeft.type || undefined}
+          name={iconLeft.name}
+          style={[sg.inputIcon, iconLeft.style || {}]}
+        />
+      );
+    }
+
+    return res;
+  }
+
   render() {
     const {
       formData,
       formKey,
       itemProps,
       value,
+      label,
     } = this.props;
 
     // console.log('!!!', formData);
@@ -51,14 +75,17 @@ class Input extends Component {
 
     return (
       <Item
-        regular
+        // regular
+        stackedLabel={!!label}
         error={(formData && formData[formKey].error) || false}
         {...itemProps}
       >
+        {label && <Label>{label}</Label>}
+        {this.renderIconLeft()}
         <InputNB
           ref={(ref) => { this.textInput = ref; }}
           returnKeyType="next"
-          textCenter
+          // textCenter
           autoCorrect={false}
           {...this.props}
           onChangeText={(e) => { this.onChangeText(e); }}
@@ -76,6 +103,12 @@ Input.defaultProps = {
   itemProps: {},
   onChangeText: null,
   value: '',
+  label: null,
+  iconLeft: {
+    type: null,
+    name: null,
+    style: {},
+  },
 };
 
 Input.propTypes = {
@@ -85,6 +118,8 @@ Input.propTypes = {
   itemProps: PropTypes.object,
   onChangeText: PropTypes.func,
   value: PropTypes.string,
+  label: PropTypes.string,
+  iconLeft: PropTypes.object,
 };
 
 export default Input;
