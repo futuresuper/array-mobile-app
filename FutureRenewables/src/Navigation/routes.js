@@ -236,14 +236,20 @@ const tabModalRoutes = {
   [routeNames.DEPOSIT_WITHDRAW]: {
     screen: DepositWithdraw,
   },
+  [routeNames.DEPOSIT_WITHDRAW_DONE]: {
+    screen: DepositWithdrawDone,
+    params: {
+      backButton: true,
+    },
+  },
 };
 
 const tabCardRoutes = {
   [routeNames.SOLAR_FARM]: {
     screen: SolarFarm,
-  },
-  [routeNames.DEPOSIT_WITHDRAW_DONE]: {
-    screen: DepositWithdrawDone,
+    params: {
+      noHeader: true,
+    },
   },
 };
 

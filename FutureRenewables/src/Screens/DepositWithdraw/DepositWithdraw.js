@@ -17,6 +17,7 @@ import {
 } from 'src/Styles';
 
 import Deposit from './Deposit';
+import Withdraw from './Withdraw';
 
 class DepositWithdraw extends Component {
   constructor(props) {
@@ -52,6 +53,8 @@ class DepositWithdraw extends Component {
     const { segment } = this.state;
     if (segment.isDeposit) {
       this.Deposit.onNext();
+    } else {
+      this.Withdraw.onNext();
     }
   }
 
@@ -88,17 +91,31 @@ class DepositWithdraw extends Component {
             />
           )
           : (
-            <Text>w</Text>
+            <Withdraw
+              ref={(ref) => {
+                if (ref) this.Withdraw = ref;
+              }}
+              {...this.props}
+            />
           )
         }
 
         <View style={[sg.footerBl, sg.p30]}>
+          {segment.isWithdraw
+            && (
+              <Text style={[sg.colorGray, sg.mB20]}>
+                Just a reminder that withdrawals can take up to 30 days to reach your account.
+                <Text style={sg.textBold}> Why?</Text>
+              </Text>
+            )
+          }
+
           <Button
             gray4
             block
             onPress={this.onNext}
           >
-            <Text>Next</Text>
+            <Text>{segment.isDeposit ? 'Next' : 'Confirm'}</Text>
           </Button>
         </View>
       </Content>

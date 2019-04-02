@@ -3,9 +3,12 @@ import React from 'react';
 
 import TabBar from 'src/Components/TabBar';
 import CloseButton from 'src/Components/CloseButton';
+import BackButton from 'src/Components/BackButton';
 import {
   styleConstants,
 } from 'src/Styles';
+
+import routeNames from './routeNames';
 
 export const drawerOptions = ({ navigation }) => {
   const { state } = navigation;
@@ -47,13 +50,23 @@ export const tabBarOptions = {
 };
 
 export const tabModalOptions = {
-  navigationOptions: ({ screenProps }) => ({
-    headerLeft: null,
-    headerRight: <CloseButton onPress={() => { screenProps.routeBack(); }} />,
-    headerStyle: {
-      backgroundColor: styleConstants.containerBgColor,
-      borderBottomWidth: 0,
-      elevation: 0,
-    },
-  }),
+  navigationOptions: (props) => {
+    const { navigation, screenProps } = props;
+    const { state } = navigation;
+    const currentRoute = state.routes[state.index];
+    const params = currentRoute.params || {};
+    const header = params.noHeader ? null : undefined;
+    const backButton = params.backButton ? <BackButton {...props} /> : null;
+
+    return {
+      headerLeft: backButton,
+      headerRight: <CloseButton onPress={() => { screenProps.routeBack(routeNames.TAB_ACTIVITY); }} />,
+      headerStyle: {
+        backgroundColor: styleConstants.containerBgColor,
+        borderBottomWidth: 0,
+        elevation: 0,
+      },
+      header,
+    };
+  },
 };

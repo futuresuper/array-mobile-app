@@ -15,6 +15,10 @@ import {
 } from 'native-base';
 
 import Br from 'src/Components/Br';
+import {
+  composeHoc,
+  hocNames,
+} from 'src/Common/Hocs';
 
 import {
   styleGlobal,
@@ -34,6 +38,19 @@ class TabActivity extends Component {
         isInvestment: false,
       },
     };
+  }
+
+  componentDidMount() {
+    const { hocs } = this.props;
+
+    hocs.addListener('willFocus', this.onDidFocus);
+  }
+
+  onDidFocus = () => {
+    const { navigation } = this.props;
+    const depositMessage = navigation.getParam('depositMessage');
+
+    console.log('!!!', depositMessage);
   }
 
   setPerfomanceSegment = () => {
@@ -100,4 +117,8 @@ class TabActivity extends Component {
   }
 }
 
-export default connect()(TabActivity);
+const res = composeHoc([
+  hocNames.SUBSCRIPTION,
+])(TabActivity);
+
+export default connect()(res);

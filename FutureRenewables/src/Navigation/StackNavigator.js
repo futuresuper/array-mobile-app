@@ -69,13 +69,21 @@ const TabWithModal = createStackNavigator(
   },
 );
 
-const TabCards = createBottomTabNavigator(
+
+const TabCardsWithFooter = createBottomTabNavigator(
   tabCardRoutes,
   {
     mode: 'card',
     ...tabBarOptions,
+    ...tabModalOptions,
   },
 );
+
+const TabCards = createStackNavigator({
+  TabCardsWithFooter: {
+    screen: TabCardsWithFooter,
+  },
+});
 
 export const TabStack = createStackNavigator(
   {

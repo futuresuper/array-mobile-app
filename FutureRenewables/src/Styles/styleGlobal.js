@@ -63,6 +63,18 @@ export default {
   colorGray3: {
     color: styleConstants.color.gray3,
   },
+  m0: {
+    margin: 0,
+  },
+  m10: {
+    margin: 10,
+  },
+  m20: {
+    margin: 20,
+  },
+  m30: {
+    margin: 30,
+  },
   mV0: {
     marginVertical: 0,
   },
@@ -277,6 +289,9 @@ export default {
   },
   flexGrow: {
     flexGrow: 1,
+  },
+  fS23: {
+    fontSize: 23,
   },
   backgroundDefault: {
     backgroundColor: styleConstants.color.light,

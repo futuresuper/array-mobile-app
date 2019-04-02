@@ -2,15 +2,20 @@
 import {
   compose,
 } from 'redux';
+import hocNames from './hocNames';
 import FormHoc from './FormHoc';
+import SubscriptionHoc from './SubscriptionHoc';
 
 export default function composeHoc(data) {
   const list = [];
 
   data.forEach((item) => {
     switch (item) {
-      case 'FormHoc':
+      case hocNames.FORM:
         list.push(FormHoc);
+        break;
+      case hocNames.SUBSCRIPTION:
+        list.push(SubscriptionHoc);
         break;
       default:
         break;
@@ -25,5 +30,8 @@ export default function composeHoc(data) {
 }
 
 export {
+  composeHoc,
+  hocNames,
   FormHoc,
+  SubscriptionHoc,
 };
