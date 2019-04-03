@@ -112,9 +112,9 @@ export default {
   // Color
   brandPrimary: styleConstants.color.primary,
   brandInfo: "#62B1F6",
-  brandSuccess: "#5cb85c",
-  brandDanger: "#d9534f",
-  brandWarning: "#f0ad4e",
+  brandSuccess: styleConstants.color.success,
+  brandDanger: styleConstants.color.danger,
+  brandWarning: styleConstants.color.warning,
   brandDark: "#000",
   brandLight: "#f4f4f4",
 

@@ -15,16 +15,14 @@ import {
 } from 'native-base';
 
 import Br from 'src/Components/Br';
-import {
-  composeHoc,
-  hocNames,
-} from 'src/Common/Hocs';
 
 import {
   styleGlobal,
 } from 'src/Styles';
 import styles from './styles';
+
 import Perfomance from './Perfomance';
+import Investment from './Investment';
 
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -40,17 +38,15 @@ class TabActivity extends Component {
     };
   }
 
-  componentDidMount() {
-    const { hocs } = this.props;
-
-    hocs.addListener('willFocus', this.onDidFocus);
-  }
-
-  onDidFocus = () => {
-    const { navigation } = this.props;
+  componentDidUpdate() {
+    const { navigation, screenProps } = this.props;
     const depositMessage = navigation.getParam('depositMessage');
 
-    console.log('!!!', depositMessage);
+    if (navigation.isFocused() && depositMessage) {
+      screenProps.toast(depositMessage, {
+        iconName: 'ios-checkmark-circle',
+      });
+    }
   }
 
   setPerfomanceSegment = () => {
@@ -109,7 +105,7 @@ class TabActivity extends Component {
 
         {segment.isPerfomance
           ? <Perfomance {...this.props} />
-          : null
+          : <Investment {...this.props} />
         }
 
       </Content>
@@ -117,8 +113,4 @@ class TabActivity extends Component {
   }
 }
 
-const res = composeHoc([
-  hocNames.SUBSCRIPTION,
-])(TabActivity);
-
-export default connect()(res);
+export default connect()(TabActivity);

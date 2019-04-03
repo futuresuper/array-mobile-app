@@ -22,11 +22,15 @@ import {
 
 // eslint-disable-next-line react/prefer-stateless-function
 class DepositWithdrawDone extends Component {
-
   onConfirm = () => {
     const { screenProps } = this.props;
     screenProps.navigateTo(routeNames.TAB_ACTIVITY, {
-      depositMessage: 'asd',
+      depositMessage: (
+        <View style={[sg.row, sg.center]}>
+          <Text style={sg.fS15}>Deposit recieved.</Text>
+          <Text style={[sg.fS15, sg.colorGray7]}> Nice one Grace!</Text>
+        </View>
+      ),
     });
   }
 

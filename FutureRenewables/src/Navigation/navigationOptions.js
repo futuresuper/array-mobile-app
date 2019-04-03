@@ -56,7 +56,7 @@ export const tabModalOptions = {
     const currentRoute = state.routes[state.index];
     const params = currentRoute.params || {};
     const header = params.noHeader ? null : undefined;
-    const backButton = params.backButton ? <BackButton {...props} /> : null;
+    const backButton = params.backButton ? <BackButton {...props} style={{ alignSelf: 'center' }} /> : null;
 
     return {
       headerLeft: backButton,

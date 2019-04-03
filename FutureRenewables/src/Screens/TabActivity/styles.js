@@ -61,4 +61,11 @@ export default {
     fontSize: 25,
     fontWeight: '600',
   },
+  investFarmTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  investFarmProgress: {
+    fontSize: 40,
+  },
 };

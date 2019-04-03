@@ -63,6 +63,9 @@ export default {
   colorGray3: {
     color: styleConstants.color.gray3,
   },
+  colorGray7: {
+    color: styleConstants.color.gray7,
+  },
   m0: {
     margin: 0,
   },
@@ -264,6 +267,21 @@ export default {
   width100: {
     width: 100,
   },
+  width110: {
+    width: 110,
+  },
+  width120: {
+    width: 120,
+  },
+  width130: {
+    width: 130,
+  },
+  width140: {
+    width: 140,
+  },
+  width150: {
+    width: 150,
+  },
   heightNull: {
     height: null,
   },
@@ -290,11 +308,20 @@ export default {
   flexGrow: {
     flexGrow: 1,
   },
+  fS15: {
+    fontSize: 15,
+  },
   fS23: {
     fontSize: 23,
   },
   backgroundDefault: {
     backgroundColor: styleConstants.color.light,
+  },
+  bGGray8: {
+    backgroundColor: styleConstants.color.gray8,
+  },
+  bGWhite: {
+    backgroundColor: styleConstants.color.white,
   },
   inputHeightBase: {
     height: styleConstants.inputHeightBase,

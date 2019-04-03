@@ -12,10 +12,11 @@ import {
   Root,
   Container,
   StyleProvider,
-  Toast,
 } from 'native-base';
 
 import _ from 'lodash';
+
+import Toast from 'src/Components/Toast';
 
 import getTheme from 'src/native-base-theme/components';
 import material from 'src/native-base-theme/variables/material';
@@ -61,17 +62,24 @@ class AppIndex extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  toast(text, type = 'default') {
+  toast(text, configInp = {}) {
+    const config = {
+      type: 'default',
+      ...configInp,
+    };
+
     Toast.show({
       text,
       position: 'top',
       duration: 3000,
-      type,
+      ...config,
     });
   }
 
   toastDanger(text) {
-    this.toast(text, 'danger');
+    this.toast(text, {
+      type: 'danger',
+    });
   }
 
   navigateTo(route_name, params = {}) {
@@ -135,7 +143,6 @@ class AppIndex extends Component {
               toastDanger={this.toastDanger}
             />
 
-
             <AppWithNavigationState
               navigation={{
                 toast: this.toast,
@@ -147,6 +154,12 @@ class AppIndex extends Component {
                 alert: this.alert,
                 userInfo: this.userInfo,
                 Api,
+              }}
+            />
+
+            <Toast
+              ref={(c) => {
+                if (c) Toast.toastInstance = c;
               }}
             />
           </Container>

@@ -16,6 +16,8 @@ import {
   routeNames,
 } from 'src/Navigation';
 
+import TextQuestion from 'src/Components/TextQuestion';
+
 import {
   styleGlobal,
 } from 'src/Styles';
@@ -138,8 +140,7 @@ class Perfomance extends Component {
             </Col>
             <Col style={[styles.activityCol]}>
               <Row style={styleGlobal.mB10}>
-                <Text style={[styles.activityColText, styles.activityColTextGray]}>Status</Text>
-                <Icon type="EvilIcons" name="question" style={styleGlobal.colorGray} />
+                <TextQuestion text="Status" />
               </Row>
             </Col>
           </Grid>
