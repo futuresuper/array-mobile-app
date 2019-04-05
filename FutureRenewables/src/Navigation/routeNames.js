@@ -7,4 +7,6 @@ export default {
   DEPOSIT_WITHDRAW: 'DepositWithdraw',
   DEPOSIT_WITHDRAW_DONE: 'DepositWithdrawDone',
   SOLAR_FARM: 'SolarFarm',
+  MANAGE_ACCOUNTS: 'ManageAccounts',
+  MANAGE_ACCOUNT_DETAILS: 'ManageAccountDetails',
 };

@@ -22,13 +22,13 @@ export default {
     color: sc.color.dark,
   },
   logOut: {
-    alignSelf: 'center',
-    borderColor: sc.color.gray,
+    borderColor: sc.color.dark,
     marginTop: 30,
+    marginHorizontal: 20,
     padding: 40,
   },
   logOutText: {
-    color: sc.color.gray,
+    color: sc.color.dark,
     fontSize: 19,
   },
 };

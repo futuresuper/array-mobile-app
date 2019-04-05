@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   View,
   FlatList,
-  Image,
 } from 'react-native';
 
 import {
@@ -13,18 +12,12 @@ import {
   Content,
   Text,
   Icon,
-  H1,
-  H3,
-  Card,
-  CardItem,
+  H2,
   Left,
   Right,
-  Body,
   Thumbnail,
   Grid,
   Col,
-  Row,
-  Badge,
   List,
   ListItem,
 } from 'native-base';
@@ -37,8 +30,6 @@ import {
   routeNames,
 } from 'src/Navigation';
 
-import IconStat from 'src/Components/IconStat';
-
 import styles from './styles';
 
 class TabProfile extends Component {
@@ -47,13 +38,14 @@ class TabProfile extends Component {
 
     this.state = {
       user: {
-        name: 'Mel Gibson',
+        firstName: 'Mel',
+        secondName: 'Gibson',
         photo: 'http://www.gstatic.com/tv/thumb/persons/633/633_v9_bc.jpg',
       },
       listMenu: [
         {
           name: 'Manage accounts',
-          screen: routeNames.TAB_HOME,
+          screen: routeNames.MANAGE_ACCOUNTS,
         },
         {
           name: 'Personal details',
@@ -64,7 +56,7 @@ class TabProfile extends Component {
           screen: routeNames.TAB_HOME,
         },
         {
-          name: 'Support',
+          name: 'Talk to us',
           screen: routeNames.TAB_HOME,
         },
         {
@@ -72,7 +64,7 @@ class TabProfile extends Component {
           screen: routeNames.TAB_HOME,
         },
         {
-          name: 'Future Super',
+          name: 'Join Future Super',
           screen: routeNames.TAB_HOME,
         },
       ],
@@ -93,53 +85,22 @@ class TabProfile extends Component {
 
     return (
       <Content contentContainerStyle={sg.tabFooterPadding}>
-        <View style={sg.center}>
-          <Thumbnail source={{ uri: user.photo }} large />
-          <H1 style={sg.mT10}>{user.name}</H1>
 
-        </View>
+        <Grid style={sg.m20}>
+          <Col>
+            <H2>{user.firstName}</H2>
+            <H2 style={sg.mB10}>{user.secondName}</H2>
+            <Text style={[sg.colorGray, sg.fS15]}>Member since July&apos;19</Text>
+          </Col>
+          <Col style={[sg.jCCenter, sg.aIRight]}>
+            <Thumbnail source={{ uri: user.photo }} />
+          </Col>
+        </Grid>
 
 
         <View>
           <List>
             <ListItem />
-            <ListItem>
-              <Body style={styles.statBl}>
-
-                <Text style={styles.textSinceJoining}>Since joining, your investment has helped</Text>
-                <Grid>
-                  <Col style={styles.iconStatBl}>
-                    <IconStat
-                      value="2"
-                      description="Solar farms, to be built"
-                      icon={{
-                        type: 'FontAwesome5',
-                        name: 'solar-panel',
-                      }}
-                    />
-
-                    <IconStat
-                      value="12k"
-                      description="Homes to be powered"
-                      icon={{
-                        type: 'AntDesign',
-                        name: 'home',
-                      }}
-                    />
-
-                    <IconStat
-                      value="50t"
-                      description="Of carbon to be removed"
-                      icon={{
-                        type: 'Entypo',
-                        name: 'tree',
-                      }}
-                    />
-                  </Col>
-                </Grid>
-
-              </Body>
-            </ListItem>
             <FlatList
               data={listMenu}
               keyExtractor={(item, index) => index.toString()}
@@ -162,6 +123,7 @@ class TabProfile extends Component {
             style={styles.logOut}
             onPress={this.logOut}
             large
+            block
           >
             <Text style={styles.logOutText}>Log out</Text>
           </Button>

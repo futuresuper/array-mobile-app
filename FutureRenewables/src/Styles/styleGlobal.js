@@ -34,6 +34,15 @@ export default {
     alignContent: 'center',
     alignItems: 'center',
   },
+  aICenter: {
+    alignItems: 'center',
+  },
+  aIRight: {
+    alignItems: 'flex-end',
+  },
+  aSCenter: {
+    alignSelf: 'center',
+  },
   right: {
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
@@ -56,6 +65,9 @@ export default {
   },
   colorWhite: {
     color: 'white',
+  },
+  colorDark: {
+    color: styleConstants.color.dark,
   },
   colorGray: {
     color: styleConstants.color.gray,
@@ -305,11 +317,26 @@ export default {
   flex: {
     flex: 1,
   },
+  flex05: {
+    flex: 0.5,
+  },
   flexGrow: {
     flexGrow: 1,
   },
+  fS14: {
+    fontSize: 14,
+  },
   fS15: {
     fontSize: 15,
+  },
+  fS20: {
+    fontSize: 20,
+  },
+  fS21: {
+    fontSize: 21,
+  },
+  fS22: {
+    fontSize: 22,
   },
   fS23: {
     fontSize: 23,

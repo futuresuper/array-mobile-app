@@ -46,12 +46,15 @@ import {
   SolarFarm,
   DepositWithdrawDone,
   TabProfile,
+  ManageAccounts,
+  ManageAccountDetails,
   Example,
 } from 'src/Screens';
 
 import {
   noHeader,
   drawerOptions,
+  tabCardOptions,
 } from './navigationOptions';
 
 import routeNames from './routeNames';
@@ -250,6 +253,18 @@ const tabCardRoutes = {
     params: {
       noHeader: true,
     },
+  },
+  [routeNames.MANAGE_ACCOUNTS]: {
+    screen: ManageAccounts,
+    params: {
+      routeReset: true,
+      title: 'Manage Accounts',
+    },
+    ...tabCardOptions,
+  },
+  [routeNames.MANAGE_ACCOUNT_DETAILS]: {
+    screen: ManageAccountDetails,
+    ...tabCardOptions,
   },
 };
 

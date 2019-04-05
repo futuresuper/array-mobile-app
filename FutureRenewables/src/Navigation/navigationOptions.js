@@ -70,3 +70,21 @@ export const tabModalOptions = {
     };
   },
 };
+
+export const tabCardOptions = {
+  navigationOptions: (props) => {
+    const { navigation } = props;
+    const backButton = <BackButton {...props} />;
+    const title = navigation.getParam('title');
+
+    return {
+      headerLeft: backButton,
+      headerStyle: {
+        backgroundColor: styleConstants.containerBgColor,
+        borderBottomWidth: 0,
+        elevation: 0,
+      },
+      title,
+    };
+  },
+};

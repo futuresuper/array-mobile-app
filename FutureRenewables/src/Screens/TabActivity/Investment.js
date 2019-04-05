@@ -1,6 +1,9 @@
 
 import React, { Component } from 'react';
 import {
+  FlatList,
+} from 'react-native';
+import {
   Button,
   View,
   Text,
@@ -14,6 +17,9 @@ import {
   Badge,
   List,
   ListItem,
+  Body,
+  Left,
+  Right,
 } from 'native-base';
 
 import {
@@ -30,9 +36,45 @@ import styles from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Investment extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      farms: [
+        {
+          name: 'Brigalow',
+          type: 'Solar Farm',
+        },
+        {
+          name: 'Chinchilla',
+          type: 'Solar Farm',
+        },
+        {
+          name: 'Silent Hill',
+          type: 'Wind Farm',
+        },
+        {
+          name: 'Name goes here',
+          type: 'Solar Farm',
+        },
+        {
+          name: 'Name goes here',
+          type: 'Solar Farm',
+        },
+        {
+          name: 'Name goes here',
+          type: 'Solar Farm',
+        },
+      ],
+    };
+  }
+
   render() {
+    const { screenProps } = this.props;
+    const { farms } = this.state;
+
     return (
-      <View>
+      <View style={sg.mB10}>
         <Text>Let&apos;s break down where your money is going.</Text>
 
         <Grid style={[sg.bGWhite, sg.mV20]}>
@@ -59,7 +101,46 @@ class Investment extends Component {
         </Grid>
 
         <List>
-          <ListItem NoIndent />
+          <ListItem noIndent />
+
+          <ListItem noIndent>
+            <Left style={sg.aICenter}>
+              <Text>See all investments</Text>
+            </Left>
+            <Right>
+              <Icon name="ios-arrow-up" style={sg.colorDark} />
+            </Right>
+          </ListItem>
+
+          <FlatList
+            data={farms}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <ListItem noIndent>
+                <Left style={sg.aICenter}>
+                  <Text>{item.name}</Text>
+                  <Icon type="FontAwesome5" name="arrow-right" style={[sg.colorGray, sg.fS15, sg.mL10]} />
+                </Left>
+                <Right style={[sg.flex05]}>
+                  <Text style={sg.colorGray}>{item.type}</Text>
+                </Right>
+              </ListItem>
+            )}
+          />
+
+
+          <Button
+            iconRight
+            block
+            gray4
+            style={sg.mV30}
+            onPress={() => {
+              screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW);
+            }}
+          >
+            <Text>Deposit</Text>
+            <Icon name="add" />
+          </Button>
 
         </List>
 

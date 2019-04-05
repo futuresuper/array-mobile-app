@@ -1,7 +1,10 @@
 
 import TabProfile from './TabProfile';
+import ManageAccounts from './ManageAccounts';
+import ManageAccountDetails from './ManageAccountDetails';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   TabProfile,
+  ManageAccounts,
+  ManageAccountDetails,
 };
