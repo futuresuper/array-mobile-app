@@ -60,6 +60,9 @@ export default {
   jCSpaceBetween: {
     justifyContent: 'space-between',
   },
+  oFHidden: {
+    overflow: 'hidden',
+  },
   row: {
     flexDirection: 'row',
   },
@@ -78,11 +81,17 @@ export default {
   colorGray: {
     color: styleConstants.color.gray,
   },
+  colorGray2: {
+    color: styleConstants.color.gray2,
+  },
   colorGray3: {
     color: styleConstants.color.gray3,
   },
   colorGray7: {
     color: styleConstants.color.gray7,
+  },
+  colorGray10: {
+    color: styleConstants.color.gray10,
   },
   m0: {
     margin: 0,
@@ -182,6 +191,9 @@ export default {
   },
   pT0: {
     paddingTop: 0,
+  },
+  pT5: {
+    paddingTop: 5,
   },
   pT10: {
     paddingTop: 10,
@@ -338,6 +350,9 @@ export default {
   flexGrow: {
     flexGrow: 1,
   },
+  fS10: {
+    fontSize: 10,
+  },
   fS14: {
     fontSize: 14,
   },
@@ -355,6 +370,9 @@ export default {
   },
   fS23: {
     fontSize: 23,
+  },
+  fS30: {
+    fontSize: 30,
   },
   backgroundDefault: {
     backgroundColor: styleConstants.color.light,

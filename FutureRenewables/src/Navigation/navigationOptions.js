@@ -35,10 +35,11 @@ export const tabBarOptions = {
     const currentRoute = state.routes[state.index];
     const params = currentRoute.params || {};
     const header = params.noHeader ? null : undefined;
+    const backgroundColor = params.backgroundColor || styleConstants.containerBgColor;
 
     return {
       headerStyle: {
-        backgroundColor: styleConstants.containerBgColor,
+        backgroundColor,
         borderBottomWidth: 0,
         elevation: 0,
         height: 0,

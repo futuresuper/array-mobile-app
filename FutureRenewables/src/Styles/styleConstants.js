@@ -18,6 +18,8 @@ export default Object.freeze({
     gray6: '#D8D8D8',
     gray7: '#777777',
     gray8: '#DCDCDC',
+    gray9: '#F4F4F4',
+    gray10: '#BEBEBE',
     lightGreen: '#6FCE1C',
     errorBorder: '#ed2f2f',
     white: 'white',

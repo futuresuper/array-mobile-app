@@ -1,6 +1,6 @@
 
 import BottomInfo from './BottomInfo';
-import StatusInfo from './Info/StatusInfo';
+import StatusInfo from './StatusInfo/StatusInfo';
 
 export default BottomInfo;
 
