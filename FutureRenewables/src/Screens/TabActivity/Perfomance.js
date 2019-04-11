@@ -55,13 +55,13 @@ class Perfomance extends Component {
 
   btnPlus = () => {
     this.setState(prevState => ({
-      plusMinusValue: prevState.plusMinusValue + 1,
+      plusMinusValue: prevState.plusMinusValue + 5,
     }));
   }
 
   btnMinus = () => {
     this.setState(prevState => ({
-      plusMinusValue: prevState.plusMinusValue - 1,
+      plusMinusValue: prevState.plusMinusValue - 5,
     }));
   }
 

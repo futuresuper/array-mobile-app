@@ -17,6 +17,7 @@ import {
 import _ from 'lodash';
 
 import Toast from 'src/Components/Toast';
+import ModalBottomTip from 'src/Components/ModalBottomTip';
 
 import getTheme from 'src/native-base-theme/components';
 import material from 'src/native-base-theme/variables/material';
@@ -161,6 +162,9 @@ class AppIndex extends Component {
               ref={(c) => {
                 if (c) Toast.toastInstance = c;
               }}
+            />
+
+            <ModalBottomTip
             />
           </Container>
 
