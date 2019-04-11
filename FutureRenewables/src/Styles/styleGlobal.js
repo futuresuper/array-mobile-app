@@ -37,11 +37,17 @@ export default {
   aICenter: {
     alignItems: 'center',
   },
+  aITop: {
+    alignItems: 'flex-start',
+  },
   aIRight: {
     alignItems: 'flex-end',
   },
   aSCenter: {
     alignSelf: 'center',
+  },
+  aSTop: {
+    alignSelf: 'flex-start',
   },
   right: {
     alignItems: 'flex-end',
@@ -159,6 +165,12 @@ export default {
   mL30: {
     marginLeft: 30,
   },
+  mR0: {
+    marginRight: 0,
+  },
+  mR5: {
+    marginRight: 5,
+  },
   mR10: {
     marginRight: 10,
   },
@@ -227,6 +239,9 @@ export default {
   },
   pL30: {
     paddingLeft: 30,
+  },
+  pR0: {
+    paddingRight: 0,
   },
   pR10: {
     paddingRight: 10,

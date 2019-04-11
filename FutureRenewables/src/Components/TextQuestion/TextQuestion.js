@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Text,
@@ -15,12 +15,19 @@ import {
 
 import styles from './styles';
 
-const TextQuestion = ({ style, text }) => (
-  <View style={[sg.row, style]}>
-    <Text style={styles.text}>{text}</Text>
-    <Icon type="EvilIcons" name="question" style={sg.colorGray} />
-  </View>
-);
+const TextQuestion = (props) => {
+  const { style, text } = props;
+
+  return (
+    <TouchableOpacity
+      {...props}
+      style={[sg.row, style]}
+    >
+      <Text style={styles.text}>{text}</Text>
+      <Icon type="EvilIcons" name="question" style={sg.colorGray} />
+    </TouchableOpacity>
+  );
+};
 
 TextQuestion.defaultProps = {
   style: {},

@@ -9,7 +9,6 @@ import {
   Grid,
   Row,
   Col,
-  Badge,
 } from 'native-base';
 
 import {
@@ -17,6 +16,11 @@ import {
 } from 'src/Navigation';
 
 import TextQuestion from 'src/Components/TextQuestion';
+import {
+  BottomInfo,
+  StatusInfo,
+} from 'src/Components/BottomInfo';
+import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 
 import {
   styleGlobal,
@@ -140,7 +144,12 @@ class Perfomance extends Component {
             </Col>
             <Col style={[styles.activityCol]}>
               <Row style={styleGlobal.mB10}>
-                <TextQuestion text="Status" />
+                <TextQuestion
+                  text="Status"
+                  onPress={() => {
+                    BottomInfo.show(<StatusInfo />);
+                  }}
+                />
               </Row>
             </Col>
           </Grid>
@@ -178,7 +187,7 @@ class Perfomance extends Component {
                   <Col style={[styles.activityCol]}>
                     {(status)
                       ? <Text style={[styles.activityColText, styleCols.status]}>{status}</Text>
-                      : <Badge style={styles.activityBadge}><Icon name="md-checkmark" style={styles.activityBadgeIcon} /></Badge>
+                      : <BadgeCheckmark />
                     }
                   </Col>
                   <Col style={[styles.activityCol, styleGlobal.right]}>

@@ -33,16 +33,6 @@ export default {
   activityColTextGray: {
     color: styleConstants.color.gray,
   },
-  activityBadge: {
-    height: 20,
-    borderRadius: 10,
-    paddingLeft: 4,
-    paddingRight: 4,
-    backgroundColor: styleConstants.color.gray5,
-  },
-  activityBadgeIcon: {
-    fontSize: 15,
-  },
   plusMinusBl: {
     flexDirection: 'row',
     justifyContent: 'space-between',
