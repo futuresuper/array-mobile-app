@@ -444,4 +444,18 @@ export default {
   contentPadding: {
     padding: styleConstants.contentPadding,
   },
+  textUnderline: {
+    textDecorationLine: 'underline',
+  },
+  whatIsAccountBl: {
+    alignSelf: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: styleConstants.color.gray,
+    paddingTop: 15,
+  },
+  whatIsAccount: {
+    color: styleConstants.color.gray,
+    fontSize: 14,
+    paddingBottom: 3,
+  },
 };

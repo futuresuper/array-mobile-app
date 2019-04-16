@@ -75,24 +75,12 @@ class Perfomance extends Component {
 
     return (
       <View>
-        <View style={styleGlobal.mT2012}>
-          <Text style={styleGlobal.colorGray3}>
-            Since you&apos;ve joined, you&apos;ve made
-            <Text style={styleGlobal.textBold}> $600 </Text>
-            and your account is up
-            <Text style={styleGlobal.textBold}> 4.6% </Text>
-            .
-            {'\n'}
-            Sweeet.
-          </Text>
-        </View>
-
         <View>
           <Button
             iconRight
             block
             gray4
-            style={styleGlobal.mV30}
+            style={styleGlobal.mV20}
             onPress={() => {
               screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW);
             }}

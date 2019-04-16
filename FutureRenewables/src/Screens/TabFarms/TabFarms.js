@@ -157,6 +157,12 @@ class TabFarms extends Component {
     }, 500);
   }
 
+  navigateToFarm(item) {
+    const { screenProps } = this.props;
+
+    screenProps.navigateTo(routeNames.SOLAR_FARM, { item });
+  }
+
   renderMarker = (item) => {
     const { activeFarmId } = this.state;
     let iconStyle = {};
@@ -177,7 +183,7 @@ class TabFarms extends Component {
       <CardItem
         button
         onPress={() => {
-          this.activateFarm(item);
+          this.navigateToFarm(item);
         }}
         style={styles.farmCardItem}
       >
@@ -211,7 +217,6 @@ class TabFarms extends Component {
   )
 
   render() {
-    const { screenProps } = this.props;
     const { farms, startPosition } = this.state;
 
     return (
@@ -228,7 +233,7 @@ class TabFarms extends Component {
               key={index.toString()}
               coordinate={item.coordinate}
               onPress={() => {
-                screenProps.navigateTo(routeNames.SOLAR_FARM, { item });
+                this.navigateToFarm(item);
               }}
             >
               {this.renderMarker(item)}

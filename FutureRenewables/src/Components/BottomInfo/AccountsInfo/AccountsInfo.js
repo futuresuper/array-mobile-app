@@ -1,25 +1,28 @@
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   FlatList,
 } from 'react-native';
 import {
-  H2,
-  H3,
-  Text,
+  Button,
+  Icon,
   List,
   ListItem,
   Left,
   Right,
   Body,
   Thumbnail,
+  Text,
 } from 'native-base';
 
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 import {
   sg,
 } from 'src/Styles';
+
+import styles from './styles';
 
 class AccountsInfo extends Component {
   constructor(props) {
@@ -42,6 +45,7 @@ class AccountsInfo extends Component {
   }
 
   render() {
+    const { superAccount } = this.props;
     const { list } = this.state;
 
     return (
@@ -65,9 +69,46 @@ class AccountsInfo extends Component {
             )}
           />
         </List>
+
+        <View style={sg.mT30}>
+          <Button
+            gray4
+            block
+            iconRight
+          >
+            <Text>Add account</Text>
+            <Icon name="add" />
+          </Button>
+
+          {superAccount && (
+            <View>
+              <Button
+                transparent
+                bordered
+                dark
+                block
+                style={sg.mT10}
+              >
+                <Text>Future Super Account</Text>
+              </Button>
+
+              <View style={sg.whatIsAccountBl}>
+                <Text style={sg.whatIsAccount}>What&apos;s a Future Super Account?</Text>
+              </View>
+            </View>
+          )}
+        </View>
       </View>
     );
   }
 }
+
+AccountsInfo.defaultProps = {
+  superAccount: true,
+};
+
+AccountsInfo.propTypes = {
+  superAccount: PropTypes.bool,
+};
 
 export default AccountsInfo;

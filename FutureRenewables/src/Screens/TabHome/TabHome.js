@@ -6,6 +6,7 @@ import {
   View,
   Image,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -100,12 +101,22 @@ class TabHome extends Component {
     </Col>
   );
 
+  openArticle() {
+    const { screenProps } = this.props;
+    screenProps.navigateTo(routeNames.ARTICLE);
+  }
+
   // eslint-disable-next-line class-methods-use-this
   renderContentItemSmall(item) {
     const { timeAgo, actionPage, image } = item;
 
     return (
-      <CardItem button={!!actionPage}>
+      <CardItem
+        button={!!actionPage}
+        onPress={() => {
+          this.openArticle(item);
+        }}
+      >
         {image && (
           <Left style={[sg.mR10, sg.flexNull]}>
             <Image source={{ uri: item.image }} resizeMode="cover" style={styles.contentItemSmallImage} />
@@ -135,7 +146,12 @@ class TabHome extends Component {
   // eslint-disable-next-line class-methods-use-this
   renderContentItemLarge(item) {
     return (
-      <CardItem button>
+      <CardItem
+        button
+        onPress={() => {
+          this.openArticle(item);
+        }}
+      >
         <Left style={[sg.mR20, sg.flexNull]}>
           <Image source={{ uri: item.image }} resizeMode="cover" style={styles.contentItemLargeImage} />
         </Left>
@@ -194,7 +210,13 @@ class TabHome extends Component {
               <Grid>
                 <Row>
                   <Icon type="FontAwesome5" name="map-marker" style={[sg.fS14, sg.mR10]} />
-                  <Text style={sg.fS14}>Brigalow Solar Farm</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      screenProps.navigateTo(routeNames.SOLAR_FARM);
+                    }}
+                  >
+                    <Text style={sg.fS14}>Brigalow Solar Farm</Text>
+                  </TouchableOpacity>
                 </Row>
                 <Row style={[sg.pL20, sg.pT5]}>
                   <Text style={[sg.fS14, sg.colorGray3]}>1:40am local time</Text>
@@ -209,7 +231,7 @@ class TabHome extends Component {
                 iconRight
                 style={sg.mB10}
                 onPress={() => {
-                  BottomInfo.showAccouts();
+                  BottomInfo.showAccounts();
                 }}
               >
                 <Text style={styles.title}>Grace</Text>

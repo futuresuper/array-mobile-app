@@ -15,6 +15,7 @@ import {
 } from 'native-base';
 
 import Br from 'src/Components/Br';
+import BottomInfo from 'src/Components/BottomInfo';
 
 import {
   styleGlobal,
@@ -24,8 +25,6 @@ import styles from './styles';
 import Perfomance from './Perfomance';
 import Investment from './Investment';
 
-
-// eslint-disable-next-line react/prefer-stateless-function
 class TabActivity extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +65,11 @@ class TabActivity extends Component {
             transparent
             iconRight
             style={styleGlobal.mB10}
+            onPress={() => {
+              BottomInfo.showAccounts({
+                superAccount: false,
+              });
+            }}
           >
             <Text style={styles.title}>Grace</Text>
             <Icon name="ios-arrow-down" style={styles.titleIcon} />
@@ -92,10 +96,23 @@ class TabActivity extends Component {
 
         <Br style={[styleGlobal.mB20]} />
 
-        {segment.isPerfomance
-          ? <Perfomance {...this.props} />
-          : <Investment {...this.props} />
-        }
+        {segment.isPerfomance ? (
+          <View style={styleGlobal.mT2012}>
+            <Text style={styleGlobal.colorGray3}>
+              Since you&apos;ve joined, you&apos;ve made
+              <Text style={styleGlobal.textBold}> $600 </Text>
+              and your account is up
+              <Text style={styleGlobal.textBold}> 4.6% </Text>
+              .
+              {'\n'}
+              Sweeet.
+            </Text>
+          </View>
+        ) : (
+          <Investment {...this.props} />
+        )}
+
+        <Perfomance {...this.props} />
 
       </Content>
     );

@@ -58,4 +58,17 @@ export default {
   investFarmProgress: {
     fontSize: 40,
   },
+  allInvestHeader: {
+    borderColor: styleConstants.color.gray5,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    marginTop: 20,
+    marginBottom: 3,
+    paddingBottom: 10,
+    paddingLeft: 7,
+  },
+  investListItem: {
+    paddingLeft: 10,
+    paddingRigth: 20,
+  },
 };

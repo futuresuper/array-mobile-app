@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -24,12 +25,15 @@ import {
 } from 'native-base';
 
 import {
+  routeNames,
+} from 'src/Navigation';
+
+import BottomInfo from 'src/Components/BottomInfo';
+
+import {
   sg,
 } from 'src/Styles';
 
-import {
-  routeNames,
-} from 'src/Navigation';
 
 import styles from './styles';
 
@@ -60,7 +64,8 @@ class ManageAccounts extends Component {
   }
 
   openItem(item) {
-    console.log('!!!', { item });
+    const { screenProps } = this.props;
+    screenProps.navigateTo(routeNames.MANAGE_ACCOUNT_DETAILS);
   }
 
   renderItem = ({ item }) => (
@@ -106,6 +111,15 @@ class ManageAccounts extends Component {
           />
 
         </List>
+
+        <TouchableOpacity
+          style={sg.whatIsAccountBl}
+          onPress={() => {
+            BottomInfo.showFutureSuperAccount();
+          }}
+        >
+          <Text style={sg.whatIsAccount}>What&apos;s a future super Account?</Text>
+        </TouchableOpacity>
       </Content>
     );
   }

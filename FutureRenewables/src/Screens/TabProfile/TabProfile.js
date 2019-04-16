@@ -49,23 +49,23 @@ class TabProfile extends Component {
         },
         {
           name: 'Personal details',
-          screen: routeNames.TAB_HOME,
+          screen: routeNames.PERSONAL_DETAILS,
         },
         {
           name: 'Refer a friend',
-          screen: routeNames.TAB_HOME,
+          screen: routeNames.REFER_FRIEND,
         },
         {
           name: 'Talk to us',
-          screen: routeNames.TAB_HOME,
+          screen: routeNames.TALK_US,
         },
         {
           name: 'Withdraw',
-          screen: routeNames.TAB_HOME,
+          screen: routeNames.TAB_PROFILE,
         },
         {
           name: 'Join Future Super',
-          screen: routeNames.TAB_HOME,
+          screen: routeNames.JOIN_FUTURE_SUPER,
         },
       ],
     };

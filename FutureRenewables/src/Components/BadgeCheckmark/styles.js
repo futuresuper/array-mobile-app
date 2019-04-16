@@ -15,7 +15,7 @@ export default {
     width: 20,
     borderRadius: 10,
     paddingHorizontal: 4,
-    paddingTop: isIOSc ? 0 : 1,
+    paddingTop: isIOSc ? 0 : 2,
     backgroundColor: sc.color.gray5,
     alignSelf: 'flex-start',
     justifyContent: isIOSc ? 'center' : undefined,

@@ -48,6 +48,11 @@ import {
   TabProfile,
   ManageAccounts,
   ManageAccountDetails,
+  Article,
+  PersonalDetails,
+  ReferFriend,
+  TalkUs,
+  JoinFutureSuper,
   Example,
 } from 'src/Screens';
 
@@ -250,9 +255,16 @@ const tabModalRoutes = {
 const tabCardRoutes = {
   [routeNames.SOLAR_FARM]: {
     screen: SolarFarm,
-    params: {
-      noHeader: true,
+    navigationOptions: {
+      header: null,
     },
+  },
+  [routeNames.ARTICLE]: {
+    screen: Article,
+    params: {
+      routeReset: true,
+    },
+    ...tabCardOptions,
   },
   [routeNames.MANAGE_ACCOUNTS]: {
     screen: ManageAccounts,
@@ -264,6 +276,34 @@ const tabCardRoutes = {
   },
   [routeNames.MANAGE_ACCOUNT_DETAILS]: {
     screen: ManageAccountDetails,
+    ...tabCardOptions,
+  },
+  [routeNames.PERSONAL_DETAILS]: {
+    screen: PersonalDetails,
+    params: {
+      routeReset: true,
+    },
+    ...tabCardOptions,
+  },
+  [routeNames.REFER_FRIEND]: {
+    screen: ReferFriend,
+    params: {
+      routeReset: true,
+    },
+    ...tabCardOptions,
+  },
+  [routeNames.TALK_US]: {
+    screen: TalkUs,
+    params: {
+      routeReset: true,
+    },
+    ...tabCardOptions,
+  },
+  [routeNames.JOIN_FUTURE_SUPER]: {
+    screen: JoinFutureSuper,
+    params: {
+      routeReset: true,
+    },
     ...tabCardOptions,
   },
 };

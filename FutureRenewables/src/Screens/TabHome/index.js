@@ -1,7 +1,8 @@
 
 import TabHome from './TabHome';
+import Article from './Article';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   TabHome,
+  Article,
 };

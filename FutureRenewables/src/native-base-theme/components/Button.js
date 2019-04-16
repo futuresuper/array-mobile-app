@@ -134,7 +134,10 @@ export default (variables /*: * */ = variable) => {
         ...darkCommon,
         backgroundColor: "transparent",
         borderColor: variables.brandDark,
-        borderWidth: variables.borderWidth * 2
+        borderWidth: variables.borderWidth * 2,
+        "NativeBase.Text": {
+          color: variables.brandDark
+        },
       },
       ".light": {
         ...lightCommon,

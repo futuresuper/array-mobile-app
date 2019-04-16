@@ -32,6 +32,7 @@ import {
 
 import styles from './styles';
 
+// eslint-disable-next-line react/prefer-stateless-function
 class ManageAccountDetails extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +40,9 @@ class ManageAccountDetails extends Component {
 
   render() {
     return (
-      <Text>2222</Text>
+      <Content padder>
+        <Text>Account details/incomplete/edit</Text>
+      </Content>
     );
   }
 }
