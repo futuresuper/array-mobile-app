@@ -17,8 +17,16 @@ export default {
   },
   contentBl: {
     backgroundColor: sc.color.gray9,
-    padding: 10,
+    padding: sc.contentPadding,
     paddingTop: 30,
+  },
+  contentItemSmallImage: {
+    height: 45,
+    width: 45,
+  },
+  contentItemLargeImage: {
+    height: 125,
+    width: 125,
   },
   containerBg: {
     backgroundColor: sc.color.gray,

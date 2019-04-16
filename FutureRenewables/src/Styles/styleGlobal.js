@@ -40,6 +40,12 @@ export default {
   aITop: {
     alignItems: 'flex-start',
   },
+  aIStart: {
+    alignItems: 'flex-start',
+  },
+  aIEnd: {
+    alignItems: 'flex-end',
+  },
   aIRight: {
     alignItems: 'flex-end',
   },
@@ -48,6 +54,12 @@ export default {
   },
   aSTop: {
     alignSelf: 'flex-start',
+  },
+  aSStart: {
+    alignSelf: 'flex-start',
+  },
+  aSEnd: {
+    alignSelf: 'flex-end',
   },
   right: {
     alignItems: 'flex-end',
@@ -347,6 +359,9 @@ export default {
   flex05: {
     flex: 0.5,
   },
+  flex08: {
+    flex: 0.8,
+  },
   flexGrow: {
     flexGrow: 1,
   },
@@ -358,6 +373,15 @@ export default {
   },
   fS15: {
     fontSize: 15,
+  },
+  fS16: {
+    fontSize: 16,
+  },
+  fS17: {
+    fontSize: 17,
+  },
+  fS18: {
+    fontSize: 18,
   },
   fS20: {
     fontSize: 20,
@@ -416,5 +440,8 @@ export default {
     fontSize: 16,
     fontWeight: '600',
     color: styleConstants.color.gray,
+  },
+  contentPadding: {
+    padding: styleConstants.contentPadding,
   },
 };

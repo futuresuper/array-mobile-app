@@ -262,7 +262,7 @@ export default {
   // Other
   borderRadiusBase: styleConstants.radius,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
-  contentPadding: 10,
+  contentPadding: styleConstants.contentPadding,
   dropdownLinkColor: "#414142",
   inputLineHeight: 24,
   deviceWidth,

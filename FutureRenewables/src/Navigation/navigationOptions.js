@@ -52,7 +52,7 @@ export const tabBarOptions = {
 
 export const tabModalOptions = {
   navigationOptions: (props) => {
-    const { navigation, screenProps } = props;
+    const { navigation } = props;
     const { state } = navigation;
     const currentRoute = state.routes[state.index];
     const params = currentRoute.params || {};
@@ -61,7 +61,7 @@ export const tabModalOptions = {
 
     return {
       headerLeft: backButton,
-      headerRight: <CloseButton onPress={() => { screenProps.routeBack(routeNames.TAB_ACTIVITY); }} />,
+      headerRight: <CloseButton onPress={() => { navigation.popToTop(); }} />,
       headerStyle: {
         backgroundColor: styleConstants.containerBgColor,
         borderBottomWidth: 0,

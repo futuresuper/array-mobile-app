@@ -2,6 +2,7 @@
 export default Object.freeze({
   mainColor: 'green',
   containerBgColor: '#F3F3F3',
+  contentPadding: 10,
   color: {
     primary: '#FCCD3B',
     secondary: '#CCCCCC',

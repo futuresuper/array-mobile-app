@@ -38,17 +38,6 @@ class TabActivity extends Component {
     };
   }
 
-  componentDidUpdate() {
-    const { navigation, screenProps } = this.props;
-    const depositMessage = navigation.getParam('depositMessage');
-
-    if (navigation.isFocused() && depositMessage) {
-      screenProps.toast(depositMessage, {
-        iconName: 'ios-checkmark-circle',
-      });
-    }
-  }
-
   setPerfomanceSegment = () => {
     this.setState({
       segment: {

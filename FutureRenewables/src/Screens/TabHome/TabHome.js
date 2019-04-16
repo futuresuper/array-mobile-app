@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   Image,
+  FlatList,
 } from 'react-native';
 
 import {
@@ -14,15 +15,24 @@ import {
   Icon,
   H1,
   H2,
-  H3,
   Grid,
   Col,
   Row,
+  Card,
+  CardItem,
+  Body,
+  Left,
+  Right,
 } from 'native-base';
 
 import LinearGradient from 'react-native-linear-gradient';
 
+import BottomInfo from 'src/Components/BottomInfo';
 import Br from 'src/Components/Br';
+import {
+  routeNames,
+} from 'src/Navigation';
+
 import Glow from 'src/assets/images/Glow.png';
 
 import {
@@ -31,9 +41,49 @@ import {
 } from 'src/Styles';
 import styles from './styles';
 
+const cardTypeConst = {
+  SMALL: 1,
+  LARGE: 2,
+};
+
 class TabHome extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      list: [
+        {
+          cardType: cardTypeConst.SMALL,
+          headLine: 'This is a card with a user action',
+          subHead: 'subHead 2',
+          actionPage: 'hz',
+        },
+        {
+          cardType: cardTypeConst.SMALL,
+          headLine: 'Chinchilla Solar Farm currenntly 58MW',
+          subHead: 'subHead 2',
+        },
+        {
+          cardType: cardTypeConst.SMALL,
+          headLine: 'Vance Joy Just joined',
+          subHead: 'subHead 2',
+          image: 'https://subscribers-prod.s3.amazonaws.com/uploads/setting/modal_image/27736/1.2cC_instller.jpg',
+          timeAgo: '6 days ago',
+        },
+        {
+          cardType: cardTypeConst.LARGE,
+          headLine: 'Introducing FEAT. — bringing musicians and artists into Array',
+          subHead: 'Our Partner',
+          image: 'https://www.solarcostguide.com/guides/wp-content/uploads/2015/09/crazy-solar-panels.jpg',
+        },
+        {
+          cardType: cardTypeConst.LARGE,
+          headLine: 'Take a look at exactly where your money goes',
+          subHead: 'Behind the scenes',
+          image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1936&q=80',
+        },
+      ]
+    };
   }
 
   componentDidMount() {
@@ -50,7 +100,83 @@ class TabHome extends Component {
     </Col>
   );
 
+  // eslint-disable-next-line class-methods-use-this
+  renderContentItemSmall(item) {
+    const { timeAgo, actionPage, image } = item;
+
+    return (
+      <CardItem button={!!actionPage}>
+        {image && (
+          <Left style={[sg.mR10, sg.flexNull]}>
+            <Image source={{ uri: item.image }} resizeMode="cover" style={styles.contentItemSmallImage} />
+          </Left>
+        )}
+        <Body style={[sg.mL0]}>
+          <Row style={[sg.aICenter]}>
+            <Col>
+              <Text style={sg.fS15}>{item.headLine}</Text>
+            </Col>
+            {timeAgo && (
+              <Col style={[sg.aIRight, sg.flex08]}>
+                <Text style={[sg.fS14, sg.colorGray]}>{item.timeAgo}</Text>
+              </Col>
+            )}
+          </Row>
+        </Body>
+        {actionPage && (
+          <Right style={[sg.width30, sg.flexNull]}>
+            <Icon name="md-arrow-forward" />
+          </Right>
+        )}
+      </CardItem>
+    );
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  renderContentItemLarge(item) {
+    return (
+      <CardItem button>
+        <Left style={[sg.mR20, sg.flexNull]}>
+          <Image source={{ uri: item.image }} resizeMode="cover" style={styles.contentItemLargeImage} />
+        </Left>
+        <Body>
+          <Grid>
+            <Row>
+              <Text style={[sg.fS14, sg.colorGray3]}>{item.subHead}</Text>
+            </Row>
+            <Row>
+              <Text style={[sg.fS16]}>{item.headLine}</Text>
+            </Row>
+            <Row style={[sg.aIEnd]}>
+              <Text style={[sg.fS14, sg.colorGray3]}>Read more</Text>
+            </Row>
+          </Grid>
+        </Body>
+      </CardItem>
+    );
+  }
+
+  renderContentItem = ({ item }) => {
+    const { cardType } = item;
+    let cardItem = null;
+
+    if (cardType === cardTypeConst.SMALL) {
+      cardItem = this.renderContentItemSmall(item);
+    } else {
+      cardItem = this.renderContentItemLarge(item);
+    }
+
+    return (
+      <Card>
+        {cardItem}
+      </Card>
+    );
+  }
+
   render() {
+    const { screenProps } = this.props;
+    const { list } = this.state;
+
     return (
       <Content contentContainerStyle={[styles.containerBg]} bounces={false}>
 
@@ -62,7 +188,7 @@ class TabHome extends Component {
             style={styles.grow}
           />
 
-          <View style={sg.mH10}>
+          <View style={sg.contentPadding}>
 
             <View style={sg.mB40}>
               <Grid>
@@ -83,7 +209,7 @@ class TabHome extends Component {
                 iconRight
                 style={sg.mB10}
                 onPress={() => {
-                  this.props.screenProps.alert('ok');
+                  BottomInfo.showAccouts();
                 }}
               >
                 <Text style={styles.title}>Grace</Text>
@@ -96,6 +222,9 @@ class TabHome extends Component {
                 rounded
                 dark
                 style={sg.mT20}
+                onPress={() => {
+                  screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW);
+                }}
               >
                 <Icon name="add" />
               </Button>
@@ -118,7 +247,7 @@ class TabHome extends Component {
             <Text style={[sg.fS14, sg.colorGray7]}>Powered by 12k members</Text>
           </View>
 
-          <View style={sg.pT20}>
+          <View style={[sg.pT20, sg.pB20]}>
             <Br />
 
             <Grid style={sg.mV10}>
@@ -144,6 +273,11 @@ class TabHome extends Component {
 
           </View>
 
+          <FlatList
+            data={list}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={this.renderContentItem}
+          />
 
         </View>
 

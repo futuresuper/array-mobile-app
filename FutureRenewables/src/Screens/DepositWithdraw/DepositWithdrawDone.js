@@ -13,25 +13,24 @@ import {
 } from 'native-base';
 
 import {
-  routeNames,
-} from 'src/Navigation';
-
-import {
   sg,
 } from 'src/Styles';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class DepositWithdrawDone extends Component {
   onConfirm = () => {
-    const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.TAB_ACTIVITY, {
-      depositMessage: (
-        <View style={[sg.row, sg.center]}>
-          <Text style={sg.fS15}>Deposit recieved.</Text>
-          <Text style={[sg.fS15, sg.colorGray7]}> Nice one Grace!</Text>
-        </View>
-      ),
+    const { navigation, screenProps } = this.props;
+    const depositMessage = (
+      <View style={[sg.row, sg.center]}>
+        <Text style={sg.fS15}>Deposit recieved.</Text>
+        <Text style={[sg.fS15, sg.colorGray7]}> Nice one Grace!</Text>
+      </View>
+    );
+
+    screenProps.toast(depositMessage, {
+      iconName: 'ios-checkmark-circle',
     });
+
+    navigation.popToTop();
   }
 
   render() {
