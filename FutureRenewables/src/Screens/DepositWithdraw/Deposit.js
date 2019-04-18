@@ -90,7 +90,8 @@ class Deposit extends Component {
   render() {
     const { hocs } = this.props;
     const { form } = hocs;
-    let { accountList, frequencyList } = this.state;
+    const { frequencyList } = this.state;
+    let { accountList } = this.state;
 
     accountList = accountList.concat([{
       id: 'custom',

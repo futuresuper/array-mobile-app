@@ -31,10 +31,15 @@ export default {
     color: sc.color.dark,
     fontSize: 19,
   },
-  incApp: {
-    alignSelf: 'flex-start',
-    backgroundColor: 'white',
-    borderRadius: 11,
-    paddingVertical: 4,
+};
+
+export const manageAccounts = {
+  input: {
+    fontSize: 20,
+    lineHeight: 20,
+  },
+  inputLeftIcon: {
+    fontSize: 18,
+    paddingBottom: 7,
   },
 };

@@ -30,6 +30,7 @@ class Switch extends Component {
   render() {
     const {
       title,
+      titleStyle,
       label,
       labelGray,
       formData,
@@ -42,7 +43,7 @@ class Switch extends Component {
         <Grid style={[sg.mT20, sg.mB20]}>
           <Label style={[sg.formLabel, labelGray ? sg.colorGray : {}]}>{label}</Label>
           <Row style={[sg.jCSpaceBetween, sg.pL5, sg.mT10, sg.aICenter]}>
-            <Text style={[sg.fS22]}>{title}</Text>
+            <Text style={[sg.fS22, titleStyle]}>{title}</Text>
             <SwitchNB
               value={(formData && !_.isNil(formData[formKey].value)) ? !!formData[formKey].value : !!value}
               onValueChange={(...args) => { this.onPress(...args); }}
@@ -64,6 +65,7 @@ Switch.defaultProps = {
   title: null,
   onPress: null,
   value: false,
+  titleStyle: {},
 };
 
 Switch.propTypes = {
@@ -75,6 +77,7 @@ Switch.propTypes = {
   title: PropTypes.string,
   onPress: PropTypes.func,
   value: PropTypes.bool,
+  titleStyle: PropTypes.object,
 };
 
 export default Switch;

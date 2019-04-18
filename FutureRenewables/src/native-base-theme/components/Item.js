@@ -4,6 +4,7 @@ import { Platform } from "react-native";
 
 import {
   sc,
+  sg,
 } from 'src/Styles';
 import variable from "./../variables/platform";
 
@@ -42,7 +43,7 @@ export default (variables /*: * */ = variable) => {
         flex: 1,
         height: null,
         width: null,
-        fontSize: variables.inputFontSize
+        ...sg.formLabel,
       },
       "NativeBase.Input": {
         flex: 2,
@@ -57,7 +58,7 @@ export default (variables /*: * */ = variable) => {
         right: null,
         paddingTop: 20,
         alignSelf: "flex-start",
-        fontSize: variables.inputFontSize - 2
+        ...sg.formLabel,
       },
       "NativeBase.Icon": {
         marginTop: 36

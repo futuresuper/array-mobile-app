@@ -1,5 +1,9 @@
 // @flow
 
+import {
+  sg,
+} from 'src/Styles';
+
 import variable from "./../variables/platform";
 
 export default (variables /*: * */ = variable) => {
@@ -7,7 +11,7 @@ export default (variables /*: * */ = variable) => {
     ".focused": {
       width: 0
     },
-    fontSize: 17
+    ...sg.formLabel,
   };
 
   return labelTheme;

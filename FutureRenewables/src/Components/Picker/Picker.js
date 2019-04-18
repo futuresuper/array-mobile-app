@@ -171,6 +171,7 @@ class Picker extends Component {
       label,
       labelGray,
       title,
+      titleStyle,
       list,
     } = this.props;
     const {
@@ -180,7 +181,7 @@ class Picker extends Component {
 
     return (
       <Col style={styles.container}>
-        {(label && (label !== '')) && <Label style={[styles.label, (labelGray ? sg.colorGray : {})]}>{label}</Label>}
+        {(label && (label !== '')) && <Label style={[sg.formLabel, styles.label, (labelGray ? sg.colorGray : {})]}>{label}</Label>}
         <TouchableOpacity
           accessible
           style={styles.titleBl}
@@ -190,7 +191,7 @@ class Picker extends Component {
           }}
         >
           <Col>
-            <Text style={styles.title}>{titleState || title}</Text>
+            <Text style={[styles.title, titleStyle]}>{titleState || title}</Text>
           </Col>
           <Icon name="ios-arrow-down" style={styles.icon} />
         </TouchableOpacity>
@@ -227,6 +228,7 @@ Picker.defaultProps = {
   label: null,
   labelGray: false,
   title: '',
+  titleStyle: {},
   list: [],
   renderItem: () => null,
   onPressItem: () => null,
@@ -236,6 +238,7 @@ Picker.propTypes = {
   label: PropTypes.string,
   labelGray: PropTypes.bool,
   title: PropTypes.string,
+  titleStyle: PropTypes.object,
   list: PropTypes.array,
   renderItem: PropTypes.func,
   onPressItem: PropTypes.func,

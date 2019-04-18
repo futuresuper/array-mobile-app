@@ -45,7 +45,9 @@ const PickerIngAccount = (props) => {
   const { list } = props;
 
   return (
-    <Item>
+    <Item
+      style={sg.noBorder}
+    >
       <Picker
         list={list}
         renderItem={({ item }) => {

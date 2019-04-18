@@ -42,6 +42,7 @@ class Picker extends Component {
   onPressItem = (...args) => {
     const { onPressItem, formKey, dataKey } = this.props;
 
+    console.log('!!!asd', this.props);
     this.Picker.closeList();
     if (onPressItem) {
       onPressItem(...args, formKey, dataKey);
@@ -83,6 +84,7 @@ class Picker extends Component {
           title={titleText}
           list={list}
           renderItem={renderItem}
+          {...this.props}
           onPressItem={this.onPressItem}
         />
       </Item>

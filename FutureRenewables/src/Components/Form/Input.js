@@ -67,6 +67,7 @@ class Input extends Component {
       value,
       label,
       labelGray,
+      labelStyle,
       disabled,
     } = this.props;
 
@@ -90,7 +91,7 @@ class Input extends Component {
         style={disabled ? sg.noBorder : {}}
         {...itemProps}
       >
-        {label && <Label style={labelGray ? sg.colorGray : {}}>{label}</Label>}
+        {label && <Label style={[labelGray ? sg.colorGray : {}, labelStyle]}>{label}</Label>}
         <View style={sg.row}>
           {this.renderIconLeft()}
           <InputNB
@@ -117,6 +118,7 @@ Input.defaultProps = {
   value: '',
   label: null,
   labelGray: false,
+  labelStyle: {},
   iconLeft: {
     type: null,
     name: null,
@@ -134,6 +136,7 @@ Input.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   labelGray: PropTypes.bool,
+  labelStyle: PropTypes.object,
   iconLeft: PropTypes.object,
   disabled: PropTypes.bool,
 };

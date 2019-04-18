@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import {
   View,
-  FlatList,
 } from 'react-native';
 
 import {
@@ -12,17 +11,6 @@ import {
   Content,
   Text,
   Icon,
-  H2,
-  Left,
-  Right,
-  Thumbnail,
-  Grid,
-  Col,
-  List,
-  ListItem,
-  Item,
-  Label,
-  Row,
 } from 'native-base';
 
 import {
@@ -31,22 +19,16 @@ import {
 } from 'src/Common/Hocs';
 import {
   Input,
-  Picker,
-  CheckBox,
   Switch,
 } from 'src/Components/Form';
 import Br from 'src/Components/Br';
 import PickerIngAccount from 'src/Components/PickerIngAccount';
 
 import {
-  routeNames,
-} from 'src/Navigation';
-
-import {
   sg,
 } from 'src/Styles';
 
-import styles from './styles';
+import { manageAccounts as styles } from './styles';
 
 class ManageAccountDetails extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -58,25 +40,47 @@ class ManageAccountDetails extends Component {
 
     this.state = {
       isEdit: false,
-      details: {
-        nickname: 'Mel & Andrew',
-        balance: '$12,091.00',
-        bankAccount: 'ING Account 98018',
-        distributions: false,
-        regularInvestmentAmmount: '20',
-        admins: 'Jackie Chan, Bruce Lee',
-      },
+      details: {},
     };
   }
 
   componentDidMount() {
     const { navigation } = this.props;
-    const { details } = this.state;
+    const details = navigation.getParam('details');
 
     navigation.setParams({
       title: details.nickname,
-      headerRight: this.renderHeaderRight(),
     });
+
+    this.setState({
+      details,
+    }, () => {
+      this.displayHeaderRight();
+    });
+  }
+
+  onSave() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+    const { details } = this.state;
+
+    const formIsValid = hocs.formIsValid();
+
+    if (!formIsValid) {
+      return;
+    }
+
+    Object.keys(form).forEach((key) => {
+      const item = form[key];
+
+      details[key] = item.value;
+    });
+
+    this.setState({
+      details,
+    });
+
+    this.readMode();
   }
 
   setForm() {
@@ -90,7 +94,11 @@ class ManageAccountDetails extends Component {
         value,
       };
 
-      if (key !== 'distributions') {
+      if (![
+        'distributions',
+        'balance',
+        'complete',
+      ].includes(key)) {
         form[key].validations = [
           'required',
         ];
@@ -114,16 +122,28 @@ class ManageAccountDetails extends Component {
     this.setForm();
   }
 
-  readMode() {
+  displayHeaderRight() {
     const { navigation } = this.props;
+    const { details, isEdit } = this.state;
 
-    this.setState({
-      isEdit: false,
-    });
+    if (
+      !details.complete
+      || isEdit
+    ) {
+      return;
+    }
 
     navigation.setParams({
       headerRight: this.renderHeaderRight(),
     });
+  }
+
+  readMode() {
+    this.setState({
+      isEdit: false,
+    });
+
+    this.displayHeaderRight();
   }
 
   renderHeaderRight() {
@@ -142,7 +162,11 @@ class ManageAccountDetails extends Component {
 
   renderReadForm() {
     const { details } = this.state;
-    const regularInvestmentAmmount = `$${details.regularInvestmentAmmount} / month`;
+    let regularInvestmentAmmount = '-';
+
+    if (details.regularInvestmentAmmount) {
+      regularInvestmentAmmount = `$${details.regularInvestmentAmmount} / month`;
+    }
 
     return (
       <View>
@@ -150,21 +174,24 @@ class ManageAccountDetails extends Component {
           disabled
           label="Nickname"
           labelGray
-          value={details.nickname}
+          value={details.nickname || '-'}
+          style={styles.input}
         />
 
         <Input
           disabled
           label="Linked Bank Account"
           labelGray
-          value={details.bankAccount}
+          value={details.bankAccount || '-'}
+          style={styles.input}
         />
 
         <Input
           disabled
           label="Distributions"
           labelGray
-          value="Reinvested"
+          value={details.distributions ? 'Reinvested' : '-'}
+          style={styles.input}
         />
 
         <Input
@@ -172,14 +199,18 @@ class ManageAccountDetails extends Component {
           label="Regular investment ammount"
           labelGray
           value={regularInvestmentAmmount}
+          style={styles.input}
         />
 
-        <Input
-          disabled
-          label="Authorised admins"
-          labelGray
-          value={details.admins}
-        />
+        {details.complete && (
+          <Input
+            disabled
+            label="Authorised admins"
+            labelGray
+            value={details.admins}
+            style={styles.input}
+          />
+        )}
       </View>
     );
   }
@@ -192,7 +223,7 @@ class ManageAccountDetails extends Component {
           block
           style={[sg.mT40, sg.mB10]}
           onPress={() => {
-            this.readMode();
+            this.onSave();
           }}
         >
           <Text>Save</Text>
@@ -224,6 +255,7 @@ class ManageAccountDetails extends Component {
           label="Nickname"
           labelGray
           onChangeText={hocs.handleInput}
+          style={styles.input}
         />
 
         <PickerIngAccount
@@ -232,6 +264,7 @@ class ManageAccountDetails extends Component {
           label="Linked Bank Account"
           labelGray
           title={form.bankAccount.value}
+          titleStyle={styles.input}
           onPressItem={({ item }, formKey, dataKey) => {
             hocs.handlePicker(item.number, formKey, dataKey);
             hocs.setFormTitle(item.number, formKey, dataKey);
@@ -244,20 +277,23 @@ class ManageAccountDetails extends Component {
           label="Distributions"
           labelGray
           title="Reinvested"
+          titleStyle={styles.input}
           onPress={hocs.handleCheckBox}
         />
 
         <Input
           formData={form}
           formKey="regularInvestmentAmmount"
-          label="regularInvestmentAmmount"
+          label="Regular investment ammount"
           labelGray
           onChangeText={hocs.handleInput}
           keyboardType="numeric"
           iconLeft={{
             type: 'FontAwesome',
             name: 'dollar',
+            style: styles.inputLeftIcon,
           }}
+          style={styles.input}
         />
 
         <Input
@@ -265,9 +301,19 @@ class ManageAccountDetails extends Component {
           label="Authorised admins"
           labelGray
           value={form.admins.value}
+          style={styles.input}
         />
 
         {this.renderEditFormButtons()}
+      </View>
+    );
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  renderIncApp() {
+    return (
+      <View style={[sg.incAppBl, sg.aSCenter]}>
+        <Text style={[sg.fS14, sg.mH10]}>Incomplete application</Text>
       </View>
     );
   }
@@ -277,7 +323,10 @@ class ManageAccountDetails extends Component {
 
     return (
       <Content padder contentContainerStyle={sg.pT0}>
-        <Text style={sg.aSCenter}>{details.balance}</Text>
+        {details.complete
+          ? <Text style={sg.aSCenter}>{details.balance}</Text>
+          : this.renderIncApp()
+        }
 
         <Br style={[sg.mT20, sg.mB10]} />
 
@@ -287,6 +336,27 @@ class ManageAccountDetails extends Component {
             : this.renderReadForm()
           }
 
+          {!details.complete && !isEdit && (
+            <View>
+              <Button
+                gray4
+                block
+                style={sg.mV10}
+                onPress={() => {
+                  this.editMode();
+                }}
+              >
+                <Text>Resume Application</Text>
+              </Button>
+              <Button
+                bordered
+                dark
+                block
+              >
+                <Text>Delete application</Text>
+              </Button>
+            </View>
+          )}
         </View>
       </Content>
     );

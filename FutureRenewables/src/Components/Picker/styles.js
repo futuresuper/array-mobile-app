@@ -22,6 +22,7 @@ export default {
   },
   title: {
     fontSize: 25,
+    marginLeft: 2,
   },
   icon: {
     fontSize: 20,

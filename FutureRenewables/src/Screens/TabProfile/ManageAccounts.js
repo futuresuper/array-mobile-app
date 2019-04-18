@@ -13,12 +13,7 @@ import {
   Content,
   Text,
   Icon,
-  H1,
   H2,
-  H3,
-  Left,
-  Right,
-  Thumbnail,
   Grid,
   Row,
   Col,
@@ -37,10 +32,6 @@ import {
   sg,
 } from 'src/Styles';
 
-
-import styles from './styles';
-
-// eslint-disable-next-line react/prefer-stateless-function
 class ManageAccounts extends Component {
   constructor(props) {
     super(props);
@@ -48,19 +39,31 @@ class ManageAccounts extends Component {
     this.state = {
       accounts: [
         {
-          name: 'Grace',
+          nickname: 'Grace',
           balance: '$12,091.00',
           complete: true,
+          bankAccount: 'ING Account 98018',
+          distributions: true,
+          regularInvestmentAmmount: '20',
+          admins: 'Jackie Chan, Bruce Lee',
         },
         {
-          name: 'Grang of Youths',
+          nickname: 'Grang of Youths',
           balance: '$12,091.00',
           complete: true,
+          bankAccount: 'ING Account 98018',
+          distributions: true,
+          regularInvestmentAmmount: '20',
+          admins: 'Jackie Chan, Bruce Lee',
         },
         {
-          name: 'Grace',
+          nickname: 'Grace',
           balance: '',
           complete: false,
+          bankAccount: '',
+          distributions: false,
+          regularInvestmentAmmount: '',
+          admins: 'Jackie Chan, Bruce Lee',
         },
       ],
     };
@@ -68,13 +71,16 @@ class ManageAccounts extends Component {
 
   openItem(item) {
     const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.MANAGE_ACCOUNT_DETAILS);
+
+    screenProps.navigateTo(routeNames.MANAGE_ACCOUNT_DETAILS, {
+      details: item,
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
   renderIncApp() {
     return (
-      <View style={styles.incApp}>
+      <View style={sg.incAppBl}>
         <Text style={[sg.fS14]}>Incomplete application</Text>
       </View>
     );
@@ -96,7 +102,7 @@ class ManageAccounts extends Component {
           <Grid>
             <Row>
               <Col>
-                <Text style={[sg.mL0, sg.mB5, sg.fS22]}>{item.name}</Text>
+                <Text style={[sg.mL0, sg.mB5, sg.fS22]}>{item.nickname}</Text>
 
                 {complete && (
                   <Text style={[sg.mL0, sg.fS14]}>
@@ -173,4 +179,3 @@ class ManageAccounts extends Component {
 }
 
 export default connect()(ManageAccounts);
-

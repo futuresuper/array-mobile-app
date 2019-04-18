@@ -494,6 +494,13 @@ export default {
     paddingBottom: 3,
   },
   formLabel: {
-    fontSize: 15,
+    fontSize: 17,
+    lineHeight: 17,
+  },
+  incAppBl: {
+    alignSelf: 'flex-start',
+    backgroundColor: 'white',
+    borderRadius: 11,
+    paddingVertical: 4,
   },
 };
