@@ -17,6 +17,10 @@ import {
   Col,
 } from 'native-base';
 
+import {
+  sg,
+} from 'src/Styles';
+
 import styles from './styles';
 
 const TOUCHABLE_ELEMENTS = {
@@ -165,6 +169,7 @@ class Picker extends Component {
   render() {
     const {
       label,
+      labelGray,
       title,
       list,
     } = this.props;
@@ -175,7 +180,7 @@ class Picker extends Component {
 
     return (
       <Col style={styles.container}>
-        {(label && (label !== '')) && <Label style={styles.label}>{label}</Label>}
+        {(label && (label !== '')) && <Label style={[styles.label, (labelGray ? sg.colorGray : {})]}>{label}</Label>}
         <TouchableOpacity
           accessible
           style={styles.titleBl}
@@ -220,6 +225,8 @@ class Picker extends Component {
 
 Picker.defaultProps = {
   label: null,
+  labelGray: false,
+  title: '',
   list: [],
   renderItem: () => null,
   onPressItem: () => null,
@@ -227,6 +234,7 @@ Picker.defaultProps = {
 
 Picker.propTypes = {
   label: PropTypes.string,
+  labelGray: PropTypes.bool,
   title: PropTypes.string,
   list: PropTypes.array,
   renderItem: PropTypes.func,

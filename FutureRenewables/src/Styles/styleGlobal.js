@@ -138,6 +138,12 @@ export default {
   mH30: {
     marginHorizontal: 30,
   },
+  mB0: {
+    marginBottom: 0,
+  },
+  mB5: {
+    marginBottom: 5,
+  },
   mB10: {
     marginBottom: 10,
   },
@@ -163,7 +169,7 @@ export default {
     marginTop: 10,
   },
   mT20: {
-    marginTop: 10,
+    marginTop: 20,
   },
   mT30: {
     marginTop: 30,
@@ -248,6 +254,24 @@ export default {
   },
   pB100: {
     paddingBottom: 100,
+  },
+  pB200: {
+    paddingBottom: 200,
+  },
+  pB210: {
+    paddingBottom: 210,
+  },
+  pB220: {
+    paddingBottom: 220,
+  },
+  pB230: {
+    paddingBottom: 230,
+  },
+  pB240: {
+    paddingBottom: 240,
+  },
+  pB250: {
+    paddingBottom: 250,
   },
   pL0: {
     paddingLeft: 0,
@@ -339,6 +363,12 @@ export default {
   border: {
     borderWidth: 1,
   },
+  noBorder: {
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+  },
   borderRight: {
     borderRightWidth: 1,
   },
@@ -411,7 +441,12 @@ export default {
     height: styleConstants.inputHeightBase,
   },
   inputIcon: {
+    alignSelf: 'center',
     fontSize: 15,
+    marginTop: 0,
+  },
+  inputIconLabel: {
+    paddingBottom: 3,
   },
   absoluteFillObject: {
     position: 'absolute',
@@ -457,5 +492,8 @@ export default {
     color: styleConstants.color.gray,
     fontSize: 14,
     paddingBottom: 3,
+  },
+  formLabel: {
+    fontSize: 15,
   },
 };

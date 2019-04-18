@@ -54,6 +54,7 @@ class Picker extends Component {
       formData,
       formKey,
       label,
+      labelGray,
       title,
       list,
     } = this.props;
@@ -78,6 +79,7 @@ class Picker extends Component {
             if (ref) this.Picker = ref;
           }}
           label={label}
+          labelGray={labelGray}
           title={titleText}
           list={list}
           renderItem={renderItem}
@@ -93,6 +95,7 @@ Picker.defaultProps = {
   formKey: '',
   dataKey: null,
   label: null,
+  labelGray: false,
   title: null,
   list: [],
   onPressItem: null,
@@ -104,6 +107,7 @@ Picker.propTypes = {
   formKey: PropTypes.string,
   dataKey: PropTypes.number,
   label: PropTypes.string,
+  labelGray: PropTypes.bool,
   title: PropTypes.string,
   list: PropTypes.array,
   onPressItem: PropTypes.func,

@@ -75,7 +75,7 @@ export const tabModalOptions = {
 export const tabCardOptions = {
   navigationOptions: (props) => {
     const { navigation } = props;
-    const backButton = <BackButton {...props} />;
+    const backButton = <BackButton {...props} style={{ alignSelf: 'center' }} />;
     const title = navigation.getParam('title');
 
     return {

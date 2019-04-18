@@ -305,7 +305,13 @@ export default (variables /*: * */ = variable) => {
       ...primaryCommon,
       ".dark": {
         ...darkCommon,
-        backgroundColor: null
+        backgroundColor: null,
+        "NativeBase.Text": {
+          color: variables.brandDark
+        },
+        "NativeBase.Icon": {
+          color: variables.brandDark
+        },
       },
       ".danger": {
         ...dangerCommon,

@@ -355,8 +355,8 @@ export default function FormHoc(WrappedComponent) {
     }
   };
 
-  Def = CopyModuleHoc(Def, WrappedComponent);
-
   // eslint-disable-next-line react/no-multi-comp
-  return React.forwardRef((props, ref) => <Def {...props} forwardedRef={ref} />);
+  const DefRef = React.forwardRef((props, ref) => <Def {...props} forwardedRef={ref} />);
+
+  return CopyModuleHoc(DefRef, WrappedComponent);
 }

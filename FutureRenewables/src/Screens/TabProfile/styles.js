@@ -31,4 +31,10 @@ export default {
     color: sc.color.dark,
     fontSize: 19,
   },
+  incApp: {
+    alignSelf: 'flex-start',
+    backgroundColor: 'white',
+    borderRadius: 11,
+    paddingVertical: 4,
+  },
 };

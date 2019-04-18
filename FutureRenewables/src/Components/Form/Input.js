@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+  View,
+} from 'react-native';
+import {
   Item,
   Input as InputNB,
   Label,
@@ -35,16 +38,20 @@ class Input extends Component {
     }
   }
 
-  renderIconLeft = () => {
-    const { iconLeft } = this.props;
+  renderIconLeft() {
+    const { iconLeft, label } = this.props;
     let res = null;
 
     if (iconLeft.name) {
+      const iconStyle = [sg.inputIcon];
+      if (label) {
+        iconStyle.push(sg.inputIconLabel);
+      }
       res = (
         <Icon
           type={iconLeft.type || undefined}
           name={iconLeft.name}
-          style={[sg.inputIcon, iconLeft.style || {}]}
+          style={[...iconStyle, iconLeft.style || {}]}
         />
       );
     }
@@ -59,6 +66,8 @@ class Input extends Component {
       itemProps,
       value,
       label,
+      labelGray,
+      disabled,
     } = this.props;
 
     // console.log('!!!', formData);
@@ -78,19 +87,22 @@ class Input extends Component {
         // regular
         stackedLabel={!!label}
         error={(formData && formData[formKey].error) || false}
+        style={disabled ? sg.noBorder : {}}
         {...itemProps}
       >
-        {label && <Label>{label}</Label>}
-        {this.renderIconLeft()}
-        <InputNB
-          ref={(ref) => { this.textInput = ref; }}
-          returnKeyType="next"
-          // textCenter
-          autoCorrect={false}
-          {...this.props}
-          onChangeText={(e) => { this.onChangeText(e); }}
-          value={formValue || value}
-        />
+        {label && <Label style={labelGray ? sg.colorGray : {}}>{label}</Label>}
+        <View style={sg.row}>
+          {this.renderIconLeft()}
+          <InputNB
+            ref={(ref) => { this.textInput = ref; }}
+            returnKeyType="next"
+            // textCenter
+            autoCorrect={false}
+            {...this.props}
+            onChangeText={(e) => { this.onChangeText(e); }}
+            value={formValue || value}
+          />
+        </View>
       </Item>
     );
   }
@@ -104,11 +116,13 @@ Input.defaultProps = {
   onChangeText: null,
   value: '',
   label: null,
+  labelGray: false,
   iconLeft: {
     type: null,
     name: null,
     style: {},
   },
+  disabled: false,
 };
 
 Input.propTypes = {
@@ -119,7 +133,9 @@ Input.propTypes = {
   onChangeText: PropTypes.func,
   value: PropTypes.string,
   label: PropTypes.string,
+  labelGray: PropTypes.bool,
   iconLeft: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 export default Input;
