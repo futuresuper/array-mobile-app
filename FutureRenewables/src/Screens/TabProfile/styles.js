@@ -31,9 +31,6 @@ export default {
     color: sc.color.dark,
     fontSize: 19,
   },
-};
-
-export const manageAccounts = {
   input: {
     fontSize: 20,
     lineHeight: 20,
@@ -42,4 +39,7 @@ export const manageAccounts = {
     fontSize: 18,
     paddingBottom: 7,
   },
+};
+
+export const manageAccounts = {
 };

@@ -25,7 +25,7 @@ const fromKeys = {
 };
 
 export default function FormHoc(WrappedComponent) {
-  let Def = class Def extends Component {
+  const Def = class Def extends Component {
     constructor(props) {
       super(props);
 
@@ -54,9 +54,41 @@ export default function FormHoc(WrappedComponent) {
         });
       }
 
-      this.setState({
-        form,
+      return new Promise((resolve) => {
+        this.setState({
+          form,
+        }, resolve);
       });
+    }
+
+    setFormFromObject(data) {
+      const form = {};
+
+      Object.keys(data).forEach((key) => {
+        const value = data[key];
+
+        form[key] = {
+          value,
+          validations: [
+            'reduired',
+          ],
+        };
+      });
+
+      return this.setForm(form);
+    }
+
+    getFormAsObject = () => {
+      const { form } = this.state;
+      const res = {};
+
+      Object.keys(form).forEach((key) => {
+        const item = form[key];
+
+        res[key] = item.value;
+      });
+
+      return res;
     }
 
     setFormFieldValue = (value, field, dataKey = null, fieldProp = 'value') => {
@@ -213,6 +245,31 @@ export default function FormHoc(WrappedComponent) {
       });
     }
 
+    setFieldValidations = (formKey, validations) => {
+      const { form } = this.state;
+      const formIsArray = (Array.isArray(form));
+      if (formIsArray) {
+        return false;
+      }
+
+      if (_.isNil(form[formKey])) {
+        return false;
+      }
+
+      if (!Array.isArray(validations)) {
+        const err = `FormHoc.setFieldValidations, field "${formKey}": Wrong validation argument. Expected "Array" type`;
+        throw err;
+      }
+
+      form[formKey].validations = validations;
+
+      this.setState({
+        form,
+      });
+
+      return true;
+    }
+
     // eslint-disable-next-line class-methods-use-this
     formIsValidOptions(dataKey = null, showToast = true) {
       let options = {
@@ -342,11 +399,14 @@ export default function FormHoc(WrappedComponent) {
             handleCheckBox: this.handleCheckBox,
             handlePicker: this.handlePicker,
             setForm: this.setForm,
+            setFormFromObject: this.setFormFromObject,
             setFormValue: this.setFormValue,
             setFormTitle: this.setFormTitle,
+            getFormAsObject: this.getFormAsObject,
             formGetVal: this.formGetVal,
             formIsValid: this.formIsValid,
             addFormItem: this.addFormItem,
+            setFieldValidations: this.setFieldValidations,
           }}
           {...passThroughtProps}
           ref={forwardedRef}

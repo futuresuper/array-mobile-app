@@ -281,6 +281,7 @@ const tabCardRoutes = {
   [routeNames.PERSONAL_DETAILS]: {
     screen: PersonalDetails,
     params: {
+      title: 'Personal details',
       routeReset: true,
     },
     ...tabCardOptions,
@@ -302,6 +303,7 @@ const tabCardRoutes = {
   [routeNames.JOIN_FUTURE_SUPER]: {
     screen: JoinFutureSuper,
     params: {
+      title: 'Join Future Super',
       routeReset: true,
     },
     ...tabCardOptions,

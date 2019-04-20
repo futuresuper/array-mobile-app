@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Item,
@@ -15,6 +16,8 @@ import _ from 'lodash';
 import {
   sg,
 } from 'src/Styles';
+
+import { input as styles } from './styles';
 
 class Input extends Component {
   onChangeText(e) {
@@ -38,7 +41,7 @@ class Input extends Component {
     }
   }
 
-  renderIconLeft() {
+  renderInputIconLeft() {
     const { iconLeft, label } = this.props;
     let res = null;
 
@@ -59,6 +62,59 @@ class Input extends Component {
     return res;
   }
 
+  renderInputRightIcon() {
+    const { iconRight } = this.props;
+
+    if (!iconRight.name) {
+      return null;
+    }
+
+    const style = [styles.inputIconRight, iconRight.style || {}];
+    return (
+      <Icon
+        type={iconRight.type || undefined}
+        name={iconRight.name}
+        style={style}
+      />
+    );
+  }
+
+  renderLabel() {
+    const { label, labelStyle, labelGray } = this.props;
+
+    if (!label) {
+      return null;
+    }
+
+    const style = [styles.label, labelGray ? sg.colorGray : {}, labelStyle];
+
+    return (
+      <Label style={style}>{label}</Label>
+    );
+  }
+
+  renderHelpIcon() {
+    const { onLabelRightIcon } = this.props;
+
+    if (!onLabelRightIcon) {
+      return null;
+    }
+
+    const style = [styles.labelIconRight];
+
+    return (
+      <TouchableOpacity
+        onPress={onLabelRightIcon}
+      >
+        <Icon
+          type="EvilIcons"
+          name="question"
+          style={style}
+        />
+      </TouchableOpacity>
+    );
+  }
+
   render() {
     const {
       formData,
@@ -66,8 +122,6 @@ class Input extends Component {
       itemProps,
       value,
       label,
-      labelGray,
-      labelStyle,
       disabled,
     } = this.props;
 
@@ -90,10 +144,15 @@ class Input extends Component {
         error={(formData && formData[formKey].error) || false}
         style={disabled ? sg.noBorder : {}}
         {...itemProps}
+        iconLeft={false}
+        icon
       >
-        {label && <Label style={[labelGray ? sg.colorGray : {}, labelStyle]}>{label}</Label>}
-        <View style={sg.row}>
-          {this.renderIconLeft()}
+        <View style={styles.labelBl}>
+          {this.renderLabel()}
+          {this.renderHelpIcon()}
+        </View>
+        <View style={[sg.row, sg.aICenter]}>
+          {this.renderInputIconLeft()}
           <InputNB
             ref={(ref) => { this.textInput = ref; }}
             returnKeyType="next"
@@ -103,6 +162,7 @@ class Input extends Component {
             onChangeText={(e) => { this.onChangeText(e); }}
             value={formValue || value}
           />
+          {this.renderInputRightIcon()}
         </View>
       </Item>
     );
@@ -119,7 +179,13 @@ Input.defaultProps = {
   label: null,
   labelGray: false,
   labelStyle: {},
+  onLabelRightIcon: null,
   iconLeft: {
+    type: null,
+    name: null,
+    style: {},
+  },
+  iconRight: {
     type: null,
     name: null,
     style: {},
@@ -137,7 +203,9 @@ Input.propTypes = {
   label: PropTypes.string,
   labelGray: PropTypes.bool,
   labelStyle: PropTypes.object,
+  onLabelRightIcon: PropTypes.func,
   iconLeft: PropTypes.object,
+  iconRight: PropTypes.object,
   disabled: PropTypes.bool,
 };
 

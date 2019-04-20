@@ -10,7 +10,6 @@ import {
   Button,
   Content,
   Text,
-  Icon,
 } from 'native-base';
 
 import {
@@ -23,12 +22,13 @@ import {
 } from 'src/Components/Form';
 import Br from 'src/Components/Br';
 import PickerIngAccount from 'src/Components/PickerIngAccount';
+import EditButton from 'src/Components/EditButton';
 
 import {
   sg,
 } from 'src/Styles';
 
-import { manageAccounts as styles } from './styles';
+import styles from './styles';
 
 class ManageAccountDetails extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -141,22 +141,18 @@ class ManageAccountDetails extends Component {
   readMode() {
     this.setState({
       isEdit: false,
+    }, () => {
+      this.displayHeaderRight();
     });
-
-    this.displayHeaderRight();
   }
 
   renderHeaderRight() {
     return (
-      <Button
-        transparent
-        icon
+      <EditButton
         onPress={() => {
           this.editMode();
         }}
-      >
-        <Icon type="FontAwesome" name="edit" />
-      </Button>
+      />
     );
   }
 
@@ -302,6 +298,9 @@ class ManageAccountDetails extends Component {
           labelGray
           value={form.admins.value}
           style={styles.input}
+          onLabelRightIcon={() => {
+            alert('hello');
+          }}
         />
 
         {this.renderEditFormButtons()}
