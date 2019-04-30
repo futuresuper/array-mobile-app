@@ -1,20 +1,20 @@
-const content = {
+export const content = {
   impact: [
     {
-      "number": 9,
-      "text", "Solar farms owned"
+      number: 9,
+      text: 'Solar farms owned',
     },
     {
-      "number": 12,
-      "suffix": "k",
-      "text", "Homes powered"
+      number: 12,
+      suffix: 'k',
+      "text": "Homes powered"
     },
     {
       "number": 50,
       "suffix": "t",
-      "text", "Of carbon removed"
+      "text": "Of carbon removed"
     },
-  ]
+  ],
   latest: [
     {
       "cardType": "small",
@@ -26,9 +26,9 @@ const content = {
       "headline": "Take a look at exactly where your money goes",
       "subhead": "Behind the scenes",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJcp56MsQXfjPlXs5ef88YvJg4WLXr1LzU4Fyvr7SDrEJWmCgJbg",
-      "article": [
+      "article": {
         "image": {
-          "url": "https://onestepoffthegrid.com.au/wp-content/uploads/2018/12/rsz_solar_farm_sunset.jpg"
+          "url": "https://onestepoffthegrid.com.au/wp-content/uploads/2018/12/rsz_solar_farm_sunset.jpg",
           "description": "Chinchilla Solar Farm"
         },
         "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Habitant morbi tristique senectus et netus et. Arcu cursus euismod quis viverra. Ac auctor augue mauris augue. Nisi scelerisque eu ultrices vitae auctor eu augue. Venenatis a condimentum vitae sapien pellentesque habitant. Velit scelerisque in dictum non consectetur a erat.",
@@ -47,18 +47,18 @@ const content = {
           "url": "https://www.solar-trade.org.uk/wp-content/uploads/2015/03/Sunset-at-Chalcroft-Solar-Farm.jpg",
           "description": "Another solar farm"
         },
-      ]
+      }
     }
   ]
 }
 
 
-const users = {
+export const users = {
   andrew: {
     firstName: "Andrew",
     lastName: "Sellen",
     dateJoined: "2019-03-15",
-    profileImage: "https://media.licdn.com/dms/image/C5603AQFIBa4K4TCT4A/profile-displayphoto-shrink_200_200/0?e=1560988800&v=beta&t=HKxHAyjAlOKwQWKdFi42qonYBx4BaJzpbYRcypeMyC4"
+    profileImage: "https://media.licdn.com/dms/image/C5603AQFIBa4K4TCT4A/profile-displayphoto-shrink_200_200/0?e=1560988800&v=beta&t=HKxHAyjAlOKwQWKdFi42qonYBx4BaJzpbYRcypeMyC4",
     email: "andrewmsellen@gmail.com",
     residentialAddressUnitNumber: "4b",
     residentialAddressStreetNumber: "30",
@@ -95,11 +95,11 @@ const users = {
     "entities_linked_to": [
       {
         "entityId": 1,
-        "role": "owner"
+        "role": "owner",
         "admin": true,
         "type": "joint",
         "name": "Andrew and Melissa Sellen",
-        "accounts": [
+        "accounts": {
           "accountId": 2,
           "accountType": "joint",
           "accountNickName": "Andrew and Melissa Sellen",
@@ -109,7 +109,7 @@ const users = {
           "bankAccountBSB": "923 100",
           "bankAccountNumber": "123456789",
           "balanceDollars": 5067.12,
-        ]
+        }
       },
     ],
   },
@@ -117,7 +117,7 @@ const users = {
     firstName: "Olivia",
     lastName: "King",
     dateJoined: "2019-03-12",
-    profileImage: "https://media.licdn.com/dms/image/C5603AQFimW9SGIedDQ/profile-displayphoto-shrink_800_800/0?e=1560988800&v=beta&t=qaHmWU360GfkuwU2z-KJEPmBy-NeGbp5jBAg7-io3Is"
+    profileImage: "https://media.licdn.com/dms/image/C5603AQFimW9SGIedDQ/profile-displayphoto-shrink_800_800/0?e=1560988800&v=beta&t=qaHmWU360GfkuwU2z-KJEPmBy-NeGbp5jBAg7-io3Is",
     email: "liv@oliviaking.com",
     residentialAddressStreetNumber: "149",
     residenitalAddressStreet: "Pitt",
@@ -139,12 +139,12 @@ const users = {
         "balanceDollars": 201.65,
       }
     ]
-  }
+  },
   dan: {
     firstName: "Dan",
     lastName: "East",
     dateJoined: "2019-03-15",
-    profileImage: "https://media.licdn.com/dms/image/C4D03AQFfPiAo0r6iyg/profile-displayphoto-shrink_800_800/0?e=1560988800&v=beta&t=TYPR97EfA-28VyLh_a2CyDLqZZ7q8VY8kr4AB-ETepo"
+    profileImage: "https://media.licdn.com/dms/image/C4D03AQFfPiAo0r6iyg/profile-displayphoto-shrink_800_800/0?e=1560988800&v=beta&t=TYPR97EfA-28VyLh_a2CyDLqZZ7q8VY8kr4AB-ETepo",
     email: "dan@dan.com",
     residentialAddressStreetNumber: "7",
     residenitalAddressStreet: "Woodward",
@@ -157,11 +157,11 @@ const users = {
     "entities_linked_to": [
       {
         "entityId": 2,
-        "role": "owner"
+        "role": "owner",
         "admin": true,
         "type": "trust",
         "name": "Bebeje Pty Ltd",
-        "accounts": [
+        "accounts": {
           "accountId": 5,
           "accountType": "trust",
           "accountNickName": "Bebeje Pty Ltd",
@@ -170,7 +170,7 @@ const users = {
           "bankAccountBSB": "923 100",
           "bankAccountNumber": "123456789",
           "balanceDollars": 25307.95,
-        ]
+        },
       },
     ],
   },

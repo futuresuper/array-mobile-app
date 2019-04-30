@@ -37,14 +37,22 @@ import {
 import Glow from 'src/assets/images/Glow.png';
 
 import {
+  content as contentTest,
+} from 'src/assets/testdata/testData';
+
+import {
   sg,
   sc,
 } from 'src/Styles';
 import styles from './styles';
 
 const cardTypeConst = {
-  SMALL: 1,
-  LARGE: 2,
+  SMALL: 'small',
+  LARGE: 'large',
+};
+
+const actionToPageConst = {
+  desposit: 'Deposit',
 };
 
 class TabHome extends Component {
@@ -52,38 +60,39 @@ class TabHome extends Component {
     super(props);
 
     this.state = {
-      list: [
-        {
-          cardType: cardTypeConst.SMALL,
-          headLine: 'This is a card with a user action',
-          subHead: 'subHead 2',
-          actionPage: 'hz',
-        },
-        {
-          cardType: cardTypeConst.SMALL,
-          headLine: 'Chinchilla Solar Farm currenntly 58MW',
-          subHead: 'subHead 2',
-        },
-        {
-          cardType: cardTypeConst.SMALL,
-          headLine: 'Vance Joy Just joined',
-          subHead: 'subHead 2',
-          image: 'https://subscribers-prod.s3.amazonaws.com/uploads/setting/modal_image/27736/1.2cC_instller.jpg',
-          timeAgo: '6 days ago',
-        },
-        {
-          cardType: cardTypeConst.LARGE,
-          headLine: 'Introducing FEAT. — bringing musicians and artists into Array',
-          subHead: 'Our Partner',
-          image: 'https://www.solarcostguide.com/guides/wp-content/uploads/2015/09/crazy-solar-panels.jpg',
-        },
-        {
-          cardType: cardTypeConst.LARGE,
-          headLine: 'Take a look at exactly where your money goes',
-          subHead: 'Behind the scenes',
-          image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1936&q=80',
-        },
-      ]
+      content: contentTest,
+      // list: [
+      //   {
+      //     cardType: cardTypeConst.SMALL,
+      //     headLine: 'This is a card with a user action',
+      //     subHead: 'subHead 2',
+      //     actionPage: 'hz',
+      //   },
+      //   {
+      //     cardType: cardTypeConst.SMALL,
+      //     headLine: 'Chinchilla Solar Farm currenntly 58MW',
+      //     subHead: 'subHead 2',
+      //   },
+      //   {
+      //     cardType: cardTypeConst.SMALL,
+      //     headLine: 'Vance Joy Just joined',
+      //     subHead: 'subHead 2',
+      //     image: 'https://subscribers-prod.s3.amazonaws.com/uploads/setting/modal_image/27736/1.2cC_instller.jpg',
+      //     timeAgo: '6 days ago',
+      //   },
+      //   {
+      //     cardType: cardTypeConst.LARGE,
+      //     headLine: 'Introducing FEAT. — bringing musicians and artists into Array',
+      //     subHead: 'Our Partner',
+      //     image: 'https://www.solarcostguide.com/guides/wp-content/uploads/2015/09/crazy-solar-panels.jpg',
+      //   },
+      //   {
+      //     cardType: cardTypeConst.LARGE,
+      //     headLine: 'Take a look at exactly where your money goes',
+      //     subHead: 'Behind the scenes',
+      //     image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1936&q=80',
+      //   },
+      // ]
     };
   }
 
@@ -94,25 +103,37 @@ class TabHome extends Component {
     });
   }
 
-  renderImpactItem = (number, text) => (
-    <Col style={sg.aICenter}>
+  renderImpactItem = ({ number, text }, key) => (
+    <Col style={sg.aICenter} key={key}>
       <Text style={[sg.fS30, sg.textBold]}>{number}</Text>
       <Text style={[sg.textCenter, sg.fS15, sg.colorGray]}>{text}</Text>
     </Col>
   );
 
-  openArticle() {
+  openArticle(item) {
     const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.ARTICLE);
+    const { actionToPage } = item;
+
+    if (actionToPage) {
+      switch (actionToPage) {
+        case actionToPageConst.desposit:
+          screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW);
+          break;
+        default:
+          break;
+      }
+    } else {
+      console.log('!!!1', { item });
+      screenProps.navigateTo(routeNames.ARTICLE, { item });
+    }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   renderContentItemSmall(item) {
-    const { timeAgo, actionPage, image } = item;
+    const { timeAgo, actionToPage, image } = item;
 
     return (
       <CardItem
-        button={!!actionPage}
+        button={!!actionToPage}
         onPress={() => {
           this.openArticle(item);
         }}
@@ -125,7 +146,7 @@ class TabHome extends Component {
         <Body style={[sg.mL0]}>
           <Row style={[sg.aICenter]}>
             <Col>
-              <Text style={sg.fS15}>{item.headLine}</Text>
+              <Text style={sg.fS15}>{item.headline}</Text>
             </Col>
             {timeAgo && (
               <Col style={[sg.aIRight, sg.flex08]}>
@@ -134,7 +155,7 @@ class TabHome extends Component {
             )}
           </Row>
         </Body>
-        {actionPage && (
+        {actionToPage && (
           <Right style={[sg.width30, sg.flexNull]}>
             <Icon name="md-arrow-forward" />
           </Right>
@@ -158,10 +179,10 @@ class TabHome extends Component {
         <Body>
           <Grid>
             <Row>
-              <Text style={[sg.fS14, sg.colorGray3]}>{item.subHead}</Text>
+              <Text style={[sg.fS14, sg.colorGray3]}>{item.subhead}</Text>
             </Row>
             <Row>
-              <Text style={[sg.fS16]}>{item.headLine}</Text>
+              <Text style={[sg.fS16]}>{item.headline}</Text>
             </Row>
             <Row style={[sg.aIEnd]}>
               <Text style={[sg.fS14, sg.colorGray3]}>Read more</Text>
@@ -191,7 +212,7 @@ class TabHome extends Component {
 
   render() {
     const { screenProps } = this.props;
-    const { list } = this.state;
+    const { content } = this.state;
 
     return (
       <Content contentContainerStyle={[styles.containerBg]} bounces={false}>
@@ -273,9 +294,9 @@ class TabHome extends Component {
             <Br />
 
             <Grid style={sg.mV10}>
-              {this.renderImpactItem(9, 'Solar farms owned')}
-              {this.renderImpactItem('12k', 'Homes powered')}
-              {this.renderImpactItem('50t', 'Of carbon removed')}
+              {content.impact.map((item, index) => (
+                this.renderImpactItem(item, index)
+              ))}
             </Grid>
 
             <Grid>
@@ -296,7 +317,7 @@ class TabHome extends Component {
           </View>
 
           <FlatList
-            data={list}
+            data={content.latest}
             keyExtractor={(item, index) => index.toString()}
             renderItem={this.renderContentItem}
           />

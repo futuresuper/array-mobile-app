@@ -16,7 +16,7 @@ export default function (state, action) {
       res = AppNavigator.router.getStateForAction(StackActions.reset({
         index: 0,
         actions: [
-          NavigationActions.navigate({ routeName: action.route_name }),
+          NavigationActions.navigate({ routeName: action.route_name, params: action.params }),
         ],
       }), state);
 

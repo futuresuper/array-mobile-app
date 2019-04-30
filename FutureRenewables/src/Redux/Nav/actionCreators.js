@@ -21,7 +21,7 @@ export function routeBack(back_screen = null, params = null) {
   };
 }
 
-export function routeReset(route, params = null) {
+export function routeReset(route, params = {}) {
   return {
     type: 'ROUTE_RESET',
     route_name: route,
