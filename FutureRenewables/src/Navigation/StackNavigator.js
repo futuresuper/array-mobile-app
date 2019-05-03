@@ -11,6 +11,7 @@ import {
   tabRoutes,
   tabModalRoutes,
   tabCardRoutes,
+  tmpRoutes,
 } from './routes';
 
 import {
@@ -98,5 +99,12 @@ export const TabStack = createStackNavigator(
   },
   {
     headerMode: 'none',
+  },
+);
+
+export const TmpStack = createStackNavigator(
+  tmpRoutes,
+  {
+    headerMode: 'float',
   },
 );

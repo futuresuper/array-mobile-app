@@ -123,7 +123,6 @@ class TabHome extends Component {
           break;
       }
     } else {
-      console.log('!!!1', { item });
       screenProps.navigateTo(routeNames.ARTICLE, { item });
     }
   }

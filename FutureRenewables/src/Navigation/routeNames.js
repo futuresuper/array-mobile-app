@@ -1,5 +1,6 @@
 
 export default {
+  FIRST_PAGE: 'FirstPage',
   TAB_HOME: 'TabHome',
   TAB_ACTIVITY: 'TabActivity',
   TAB_FARMS: 'TabFarms',

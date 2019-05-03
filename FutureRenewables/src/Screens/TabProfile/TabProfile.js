@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   View,
@@ -23,12 +24,14 @@ import {
 } from 'native-base';
 
 import {
-  sg,
-} from 'src/Styles';
-
-import {
   routeNames,
 } from 'src/Navigation';
+
+import moment from 'src/Common/moment';
+
+import {
+  sg,
+} from 'src/Styles';
 
 import styles from './styles';
 
@@ -37,11 +40,6 @@ class TabProfile extends Component {
     super(props);
 
     this.state = {
-      user: {
-        firstName: 'Mel',
-        secondName: 'Gibson',
-        photo: 'http://www.gstatic.com/tv/thumb/persons/633/633_v9_bc.jpg',
-      },
       listMenu: [
         {
           name: 'Manage accounts',
@@ -77,11 +75,15 @@ class TabProfile extends Component {
   }
 
   logOut = () => {
-    console.log('!!!logout');
+    const { screenProps } = this.props;
+    screenProps.navigateTo(routeNames.FIRST_PAGE);
   }
 
   render() {
-    const { user, listMenu } = this.state;
+    const { user } = this.props;
+    const { listMenu } = this.state;
+
+    const memberSince = `${moment(user.dataJoined).format('MMMM')}'s ${user.dateJoined.split('-')[0].substring(2)}`;
 
     return (
       <Content contentContainerStyle={sg.tabFooterPadding}>
@@ -89,11 +91,11 @@ class TabProfile extends Component {
         <Grid style={sg.m20}>
           <Col>
             <H2>{user.firstName}</H2>
-            <H2 style={sg.mB10}>{user.secondName}</H2>
-            <Text style={[sg.colorGray, sg.fS15]}>Member since July&apos;19</Text>
+            <H2 style={sg.mB10}>{user.lastName}</H2>
+            <Text style={[sg.colorGray, sg.fS15]}>{`Member since ${memberSince}`}</Text>
           </Col>
           <Col style={[sg.jCCenter, sg.aIRight]}>
-            <Thumbnail source={{ uri: user.photo }} />
+            <Thumbnail source={{ uri: user.profileImage }} />
           </Col>
         </Grid>
 
@@ -133,4 +135,12 @@ class TabProfile extends Component {
   }
 }
 
-export default connect()(TabProfile);
+TabProfile.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps)(TabProfile);

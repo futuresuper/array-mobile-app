@@ -63,3 +63,10 @@ export default {
     justifyContent: 'space-between',
   },
 };
+
+export const article = {
+  image: {
+    width: '100%',
+    height: 180,
+  },
+};

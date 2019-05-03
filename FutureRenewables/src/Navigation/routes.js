@@ -56,6 +56,8 @@ import {
   Example,
 } from 'src/Screens';
 
+import FirstPage from 'src/Screens/FirstPage';
+
 import {
   noHeader,
   drawerOptions,
@@ -310,6 +312,12 @@ const tabCardRoutes = {
   },
 };
 
+const tmpRoutes = {
+  [routeNames.FIRST_PAGE]: {
+    screen: FirstPage,
+  },
+};
+
 const routes = {
   signRoutes,
   mainRoutes,
@@ -352,4 +360,5 @@ export {
   tabRoutes,
   tabModalRoutes,
   tabCardRoutes,
+  tmpRoutes,
 };

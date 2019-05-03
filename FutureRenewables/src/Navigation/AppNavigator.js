@@ -14,6 +14,7 @@ import {
   MainStack,
   // MainModalStack,
   TabStack,
+  TmpStack,
 } from './StackNavigator';
 
 // eslint-disable-next-line no-unused-vars
@@ -21,7 +22,7 @@ import { navReduxMiddleware } from './navMiddlewareListener';
 
 
 const initialRoute = () => {
-  const init_screen = 'TabStack';
+  const init_screen = 'TmpStack';
 
   return init_screen;
 };
@@ -32,6 +33,7 @@ const AppNavigator = createAppContainer(createSwitchNavigator(
     MainStack,
     // MainModalStack,
     TabStack,
+    TmpStack,
   },
   {
     initialRouteName: initialRoute(),

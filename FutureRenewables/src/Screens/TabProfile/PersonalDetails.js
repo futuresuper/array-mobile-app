@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   View,
 } from 'react-native';
@@ -37,18 +38,12 @@ class PersonalDetails extends Component {
 
     this.state = {
       isEdit: false,
-      details: {
-        name: 'Mel Gibson',
-        email: 'melgibson@gmail.com',
-        address: '124 Bodi Rd, Tomsk NSB 2000',
-        tfn: 'Supplied',
-        touchFaceId: true,
-        pin: '123',
-      },
+      details: props.screenProps.userInfo(),
     };
   }
 
   componentDidMount() {
+    this.setForm();
     this.displayHeaderRight();
   }
 
@@ -73,6 +68,12 @@ class PersonalDetails extends Component {
   setForm() {
     const { hocs } = this.props;
     const { details } = this.state;
+
+    details.address = details.residenitalAddressStreet;
+
+    details.tfn = 'Supplied';
+    details.touchFaceId = true;
+    details.pin = '123';
 
     hocs.setFormFromObject(details).then(() => {
       hocs.setFieldValidations('email', [
@@ -130,7 +131,13 @@ class PersonalDetails extends Component {
   }
 
   renderReadForm() {
+    const { hocs } = this.props;
+    const { form } = hocs;
     const { details } = this.state;
+
+    if (!form) {
+      return null;
+    }
 
     return (
       <View>
@@ -138,7 +145,7 @@ class PersonalDetails extends Component {
           disabled
           label="Name"
           labelGray
-          value={details.name}
+          value={`${form.firstName.value} ${details.lastName}`}
           style={styles.input}
         />
 
@@ -196,7 +203,7 @@ class PersonalDetails extends Component {
           disabled
           label="Name"
           labelGray
-          value={form.name.value}
+          value={`${form.firstName.value} ${form.lastName.value}`}
           style={styles.input}
           onLabelRightIcon={() => {
             alert('hello');

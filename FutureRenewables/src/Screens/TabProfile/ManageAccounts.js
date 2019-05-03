@@ -36,36 +36,40 @@ class ManageAccounts extends Component {
   constructor(props) {
     super(props);
 
+    const userInfo = props.screenProps.userInfo();
+    const accounts = userInfo.accounts || [];
+
     this.state = {
-      accounts: [
-        {
-          nickname: 'Grace',
-          balance: '$12,091.00',
-          complete: true,
-          bankAccount: 'ING Account 98018',
-          distributions: true,
-          regularInvestmentAmmount: '20',
-          admins: 'Jackie Chan, Bruce Lee',
-        },
-        {
-          nickname: 'Grang of Youths',
-          balance: '$12,091.00',
-          complete: true,
-          bankAccount: 'ING Account 98018',
-          distributions: true,
-          regularInvestmentAmmount: '20',
-          admins: 'Jackie Chan, Bruce Lee',
-        },
-        {
-          nickname: 'Grace',
-          balance: '',
-          complete: false,
-          bankAccount: '',
-          distributions: false,
-          regularInvestmentAmmount: '',
-          admins: 'Jackie Chan, Bruce Lee',
-        },
-      ],
+      // accounts: [
+      //   {
+      //     nickname: 'Grace',
+      //     balance: '$12,091.00',
+      //     complete: true,
+      //     bankAccount: 'ING Account 98018',
+      //     distributions: true,
+      //     regularInvestmentAmmount: '20',
+      //     admins: 'Jackie Chan, Bruce Lee',
+      //   },
+      //   {
+      //     nickname: 'Grang of Youths',
+      //     balance: '$12,091.00',
+      //     complete: true,
+      //     bankAccount: 'ING Account 98018',
+      //     distributions: true,
+      //     regularInvestmentAmmount: '20',
+      //     admins: 'Jackie Chan, Bruce Lee',
+      //   },
+      //   {
+      //     nickname: 'Grace',
+      //     balance: '',
+      //     complete: false,
+      //     bankAccount: '',
+      //     distributions: false,
+      //     regularInvestmentAmmount: '',
+      //     admins: 'Jackie Chan, Bruce Lee',
+      //   },
+      // ],
+      accounts,
     };
   }
 
@@ -102,12 +106,12 @@ class ManageAccounts extends Component {
           <Grid>
             <Row>
               <Col>
-                <Text style={[sg.mL0, sg.mB5, sg.fS22]}>{item.nickname}</Text>
+                <Text style={[sg.mL0, sg.mB5, sg.fS22]}>{item.accountNickName}</Text>
 
                 {complete && (
                   <Text style={[sg.mL0, sg.fS14]}>
                     Balance:&nbsp;
-                    <Text>{item.balance}</Text>
+                    <Text>{item.balanceDollars}</Text>
                   </Text>
                 )}
               </Col>
