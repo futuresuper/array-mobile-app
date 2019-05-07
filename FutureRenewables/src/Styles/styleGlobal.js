@@ -90,6 +90,15 @@ export default {
   colorDark: {
     color: styleConstants.color.dark,
   },
+  colorDark2: {
+    color: styleConstants.color.dark2,
+  },
+  colorDark3: {
+    color: styleConstants.color.dark3,
+  },
+  colorDark3alpha: {
+    color: styleConstants.color.dark3alpha,
+  },
   colorGray: {
     color: styleConstants.color.gray,
   },
@@ -104,6 +113,9 @@ export default {
   },
   colorGray10: {
     color: styleConstants.color.gray10,
+  },
+  colorGray11: {
+    color: styleConstants.color.gray11,
   },
   m0: {
     margin: 0,
@@ -171,11 +183,20 @@ export default {
   mT20: {
     marginTop: 20,
   },
+  mT25: {
+    marginTop: 25,
+  },
   mT30: {
     marginTop: 30,
   },
   mT40: {
     marginTop: 40,
+  },
+  mT50: {
+    marginTop: 50,
+  },
+  mT60: {
+    marginTop: 60,
   },
   mL0: {
     marginLeft: 0,
@@ -312,6 +333,18 @@ export default {
   p30: {
     padding: 30,
   },
+  pH10: {
+    paddingHorizontal: 10,
+  },
+  pH20: {
+    paddingHorizontal: 20,
+  },
+  pH30: {
+    paddingHorizontal: 30,
+  },
+  width100p: {
+    width: '100%',
+  },
   width10: {
     width: 10,
   },
@@ -398,6 +431,9 @@ export default {
   fS10: {
     fontSize: 10,
   },
+  fS11: {
+    fontSize: 11,
+  },
   fS14: {
     fontSize: 14,
   },
@@ -427,6 +463,9 @@ export default {
   },
   fS30: {
     fontSize: 30,
+  },
+  fS35: {
+    fontSize: 35,
   },
   backgroundDefault: {
     backgroundColor: styleConstants.color.light,
@@ -502,5 +541,32 @@ export default {
     backgroundColor: 'white',
     borderRadius: 11,
     paddingVertical: 4,
+  },
+  disclaimerBl: {
+    backgroundColor: styleConstants.color.dark,
+    paddingTop: 30,
+    paddingBottom: 40,
+    paddingHorizontal: 20,
+  },
+  disclaimer: {
+    color: 'white',
+  },
+  get disclaimerUnderline() {
+    return {
+      ...this.disclaimer,
+      textDecorationLine: 'underline',
+    };
+  },
+  get disclaimerBold() {
+    return {
+      ...this.disclaimer,
+      fontWeight: '600',
+    };
+  },
+  get disclaimerP() {
+    return {
+      ...this.disclaimer,
+      marginTop: 20,
+    };
   },
 };

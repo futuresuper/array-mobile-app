@@ -1,66 +1,12 @@
 
 import _ from 'lodash';
 
-import {
-  Home,
-  SignUpLogin,
-  SmsCode,
-  Feed,
-  ApplicationType,
-  Name,
-  Email,
-  DateOfBirth,
-  HomeAddress,
-  InitialInvestmentAmount,
-  RegularInvestmentAmount,
-  BankAccount,
-  DirectDebitAuth,
-  SourceOfFunds,
-  PurposeOfInvestment,
-  OsTaxResident,
-  TaxFileNumber,
-  MultiPartyNextSteps,
-  JointInvestorDetails,
-  FinalConfirmation,
-  JoinSuper,
-  Accounts,
-  FeatApplicationType,
-  JointNames,
-  ChildsName,
-  AdultForChildAppType,
-  PaperApp,
-  EntityIsFinancialInstitution,
-  AbnOrAcn,
-  SoleTraderConfirmation,
-  EntityContactDetails,
-  CompanyDirectors,
-  EntityAddress,
-  EntityOverseasTaxStatus,
-  EntityTaxFileNumber,
-  BeneficialOwners,
-  Partners,
-  TabHome,
-  TabActivity,
-  DepositWithdraw,
-  TabFarms,
-  SolarFarm,
-  DepositWithdrawDone,
-  TabProfile,
-  ManageAccounts,
-  ManageAccountDetails,
-  Article,
-  PersonalDetails,
-  ReferFriend,
-  TalkUs,
-  JoinFutureSuper,
-  Example,
-} from 'src/Screens';
-
+import * as screens from 'src/Screens';
 import FirstPage from 'src/Screens/FirstPage';
 
 import {
   noHeader,
-  drawerOptions,
+  signOptions,
   tabCardOptions,
 } from './navigationOptions';
 
@@ -77,7 +23,7 @@ const formatRoutes = (routesInp) => {
     if (params && !_.isNil(params.noHeader) && params.noHeader) {
       navigationOptions = noHeader;
     } else {
-      navigationOptions = drawerOptions;
+      navigationOptions = signOptions;
     }
 
     routes[key].navigationOptions = navigationOptions;
@@ -87,20 +33,23 @@ const formatRoutes = (routesInp) => {
 };
 
 const signRoutes = formatRoutes({
-  Home: {
-    screen: Home,
+  [routeNames.APP_LANDING]: {
+    screen: screens.AppLanding,
     params: {
       noHeader: true,
     },
   },
+  [routeNames.BUILD_YOUR_SAVING]: {
+    screen: screens.BuildYourSaving,
+  },
   SignUpLogin: {
-    screen: SignUpLogin,
+    screen: screens.SignUpLogin,
     params: {
       title: 'Sign Up or Login',
     },
   },
   SmsCode: {
-    screen: SmsCode,
+    screen: screens.SmsCode,
     params: {
       title: 'SMS code',
     },
@@ -109,145 +58,145 @@ const signRoutes = formatRoutes({
 
 const mainRoutes = formatRoutes({
   Accounts: {
-    screen: Accounts,
+    screen: screens.Accounts,
   },
   ApplicationType: {
-    screen: ApplicationType,
+    screen: screens.ApplicationType,
     params: {
       routeReset: true,
     },
   },
   Feed: {
-    screen: Feed,
+    screen: screens.Feed,
     params: {
       noHeader: true,
     },
   },
   Name: {
-    screen: Name,
+    screen: screens.Name,
   },
   Email: {
-    screen: Email,
+    screen: screens.Email,
   },
   DateOfBirth: {
-    screen: DateOfBirth,
+    screen: screens.DateOfBirth,
   },
   HomeAddress: {
-    screen: HomeAddress,
+    screen: screens.HomeAddress,
   },
   InitialInvestmentAmount: {
-    screen: InitialInvestmentAmount,
+    screen: screens.InitialInvestmentAmount,
   },
   RegularInvestmentAmount: {
-    screen: RegularInvestmentAmount,
+    screen: screens.RegularInvestmentAmount,
   },
   BankAccount: {
-    screen: BankAccount,
+    screen: screens.BankAccount,
   },
   DirectDebitAuth: {
-    screen: DirectDebitAuth,
+    screen: screens.DirectDebitAuth,
   },
   SourceOfFunds: {
-    screen: SourceOfFunds,
+    screen: screens.SourceOfFunds,
   },
   PurposeOfInvestment: {
-    screen: PurposeOfInvestment,
+    screen: screens.PurposeOfInvestment,
   },
   OsTaxResident: {
-    screen: OsTaxResident,
+    screen: screens.OsTaxResident,
   },
   TaxFileNumber: {
-    screen: TaxFileNumber,
+    screen: screens.TaxFileNumber,
   },
   MultiPartyNextSteps: {
-    screen: MultiPartyNextSteps,
+    screen: screens.MultiPartyNextSteps,
   },
   JointInvestorDetails: {
-    screen: JointInvestorDetails,
+    screen: screens.JointInvestorDetails,
   },
   FinalConfirmation: {
-    screen: FinalConfirmation,
+    screen: screens.FinalConfirmation,
   },
   JoinSuper: {
-    screen: JoinSuper,
+    screen: screens.JoinSuper,
   },
   FeatApplicationType: {
-    screen: FeatApplicationType,
+    screen: screens.FeatApplicationType,
   },
   JointNames: {
-    screen: JointNames,
+    screen: screens.JointNames,
   },
   ChildsName: {
-    screen: ChildsName,
+    screen: screens.ChildsName,
   },
   AdultForChildAppType: {
-    screen: AdultForChildAppType,
+    screen: screens.AdultForChildAppType,
   },
   PaperApp: {
-    screen: PaperApp,
+    screen: screens.PaperApp,
   },
   EntityIsFinancialInstitution: {
-    screen: EntityIsFinancialInstitution,
+    screen: screens.EntityIsFinancialInstitution,
   },
   AbnOrAcn: {
-    screen: AbnOrAcn,
+    screen: screens.AbnOrAcn,
   },
   SoleTraderConfirmation: {
-    screen: SoleTraderConfirmation,
+    screen: screens.SoleTraderConfirmation,
   },
   EntityContactDetails: {
-    screen: EntityContactDetails,
+    screen: screens.EntityContactDetails,
   },
   CompanyDirectors: {
-    screen: CompanyDirectors,
+    screen: screens.CompanyDirectors,
   },
   EntityAddress: {
-    screen: EntityAddress,
+    screen: screens.EntityAddress,
   },
   EntityOverseasTaxStatus: {
-    screen: EntityOverseasTaxStatus,
+    screen: screens.EntityOverseasTaxStatus,
   },
   EntityTaxFileNumber: {
-    screen: EntityTaxFileNumber,
+    screen: screens.EntityTaxFileNumber,
   },
   BeneficialOwners: {
-    screen: BeneficialOwners,
+    screen: screens.BeneficialOwners,
   },
   Partners: {
-    screen: Partners,
+    screen: screens.Partners,
   },
 });
 
 const mainModalRoutes = {
   example: {
-    screen: Example,
+    screen: screens.Example,
   },
 };
 
 const tabRoutes = {
   [routeNames.TAB_HOME]: {
-    screen: TabHome,
+    screen: screens.TabHome,
   },
   [routeNames.TAB_ACTIVITY]: {
-    screen: TabActivity,
+    screen: screens.TabActivity,
   },
   [routeNames.TAB_FARMS]: {
-    screen: TabFarms,
+    screen: screens.TabFarms,
     params: {
       noHeader: true,
     },
   },
   [routeNames.TAB_PROFILE]: {
-    screen: TabProfile,
+    screen: screens.TabProfile,
   },
 };
 
 const tabModalRoutes = {
   [routeNames.DEPOSIT_WITHDRAW]: {
-    screen: DepositWithdraw,
+    screen: screens.DepositWithdraw,
   },
   [routeNames.DEPOSIT_WITHDRAW_DONE]: {
-    screen: DepositWithdrawDone,
+    screen: screens.DepositWithdrawDone,
     params: {
       backButton: true,
     },
@@ -256,20 +205,20 @@ const tabModalRoutes = {
 
 const tabCardRoutes = {
   [routeNames.SOLAR_FARM]: {
-    screen: SolarFarm,
+    screen: screens.SolarFarm,
     navigationOptions: {
       header: null,
     },
   },
   [routeNames.ARTICLE]: {
-    screen: Article,
+    screen: screens.Article,
     params: {
       routeReset: true,
     },
     ...tabCardOptions,
   },
   [routeNames.MANAGE_ACCOUNTS]: {
-    screen: ManageAccounts,
+    screen: screens.ManageAccounts,
     params: {
       routeReset: true,
       title: 'Manage Accounts',
@@ -277,11 +226,11 @@ const tabCardRoutes = {
     ...tabCardOptions,
   },
   [routeNames.MANAGE_ACCOUNT_DETAILS]: {
-    screen: ManageAccountDetails,
+    screen: screens.ManageAccountDetails,
     ...tabCardOptions,
   },
   [routeNames.PERSONAL_DETAILS]: {
-    screen: PersonalDetails,
+    screen: screens.PersonalDetails,
     params: {
       title: 'Personal details',
       routeReset: true,
@@ -289,21 +238,21 @@ const tabCardRoutes = {
     ...tabCardOptions,
   },
   [routeNames.REFER_FRIEND]: {
-    screen: ReferFriend,
+    screen: screens.ReferFriend,
     params: {
       routeReset: true,
     },
     ...tabCardOptions,
   },
   [routeNames.TALK_US]: {
-    screen: TalkUs,
+    screen: screens.TalkUs,
     params: {
       routeReset: true,
     },
     ...tabCardOptions,
   },
   [routeNames.JOIN_FUTURE_SUPER]: {
-    screen: JoinFutureSuper,
+    screen: screens.JoinFutureSuper,
     params: {
       title: 'Join Future Super',
       routeReset: true,

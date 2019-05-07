@@ -1,5 +1,8 @@
 
 export default {
+  APP_LANDING: 'AppLanding',
+  BUILD_YOUR_SAVING: 'BuildYourSaving',
+  BUILD_YOUR_IMPACT: 'BuildYourImpact',
   FIRST_PAGE: 'FirstPage',
   TAB_HOME: 'TabHome',
   TAB_ACTIVITY: 'TabActivity',

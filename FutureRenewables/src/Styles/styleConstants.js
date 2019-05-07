@@ -1,13 +1,16 @@
 
 export default Object.freeze({
   mainColor: 'green',
-  containerBgColor: '#F3F3F3',
+  containerBgColor: '#F9F4EB',
   contentPadding: 10,
   color: {
-    primary: '#FCCD3B',
+    primary: '#FF615C',
     secondary: '#CCCCCC',
     light: '#FAFAFA',
     dark: '#000000',
+    dark2: '#1A1E5E',
+    dark3: '#2F2353',
+    dark3alpha: 'rgba(47,35,83, 56)',
     danger: '#d9534f',
     warning: '#f0ad4e',
     success: '#5cb85c',
@@ -21,6 +24,7 @@ export default Object.freeze({
     gray8: '#DCDCDC',
     gray9: '#F4F4F4',
     gray10: '#BEBEBE',
+    gray11: '#766B97',
     lightGreen: '#6FCE1C',
     errorBorder: '#ed2f2f',
     white: 'white',
@@ -40,7 +44,7 @@ export default Object.freeze({
     h4: 700,
     p: 300,
   },
-  radius: 8,
+  radius: 4,
   padding: {
     container: 20,
   },

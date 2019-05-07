@@ -10,15 +10,33 @@ import {
 
 import routeNames from './routeNames';
 
-export const drawerOptions = ({ navigation }) => {
+export const signOptions = (props) => {
+  const { navigation } = props;
   const { state } = navigation;
   const params = state.params || {};
   const title = params.title || '';
-  let headerLeft;
+  const backButton = (
+    <BackButton
+      {...props}
+      style={{ alignSelf: 'center' }}
+      icon={{
+        name: 'md-arrow-back',
+        style: {
+          fontSize: 30,
+          color: styleConstants.color.gray11,
+        },
+      }}
+    />
+  );
 
   return {
     title,
-    headerLeft,
+    headerLeft: backButton,
+    headerStyle: {
+      backgroundColor: styleConstants.containerBgColor,
+      borderBottomWidth: 0,
+      elevation: 0,
+    },
   };
 };
 

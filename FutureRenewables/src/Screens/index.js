@@ -1,4 +1,3 @@
-export * from './Home';
 export * from './SignUpLogin';
 export * from './AccountsApplications';
 export * from './Feed';
