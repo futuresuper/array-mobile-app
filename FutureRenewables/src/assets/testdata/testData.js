@@ -99,7 +99,7 @@ export const users = {
         "admin": true,
         "type": "joint",
         "name": "Andrew and Melissa Sellen",
-        "accounts": {
+        "accounts": [{
           "accountId": 2,
           "accountType": "joint",
           "accountNickName": "Andrew and Melissa Sellen",
@@ -109,7 +109,7 @@ export const users = {
           "bankAccountBSB": "923 100",
           "bankAccountNumber": "123456789",
           "balanceDollars": 5067.12,
-        }
+        }]
       },
     ],
   },
@@ -161,7 +161,7 @@ export const users = {
         "admin": true,
         "type": "trust",
         "name": "Bebeje Pty Ltd",
-        "accounts": {
+        "accounts": [{
           "accountId": 5,
           "accountType": "trust",
           "accountNickName": "Bebeje Pty Ltd",
@@ -170,7 +170,7 @@ export const users = {
           "bankAccountBSB": "923 100",
           "bankAccountNumber": "123456789",
           "balanceDollars": 25307.95,
-        },
+        }],
       },
     ],
   },

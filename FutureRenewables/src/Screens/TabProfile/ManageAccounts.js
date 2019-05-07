@@ -36,41 +36,32 @@ class ManageAccounts extends Component {
   constructor(props) {
     super(props);
 
-    const userInfo = props.screenProps.userInfo();
-    const accounts = userInfo.accounts || [];
-
     this.state = {
-      // accounts: [
-      //   {
-      //     nickname: 'Grace',
-      //     balance: '$12,091.00',
-      //     complete: true,
-      //     bankAccount: 'ING Account 98018',
-      //     distributions: true,
-      //     regularInvestmentAmmount: '20',
-      //     admins: 'Jackie Chan, Bruce Lee',
-      //   },
-      //   {
-      //     nickname: 'Grang of Youths',
-      //     balance: '$12,091.00',
-      //     complete: true,
-      //     bankAccount: 'ING Account 98018',
-      //     distributions: true,
-      //     regularInvestmentAmmount: '20',
-      //     admins: 'Jackie Chan, Bruce Lee',
-      //   },
-      //   {
-      //     nickname: 'Grace',
-      //     balance: '',
-      //     complete: false,
-      //     bankAccount: '',
-      //     distributions: false,
-      //     regularInvestmentAmmount: '',
-      //     admins: 'Jackie Chan, Bruce Lee',
-      //   },
-      // ],
-      accounts,
+      accounts: [],
     };
+  }
+
+  componentDidMount() {
+    this.setAccounts();
+  }
+
+  setAccounts() {
+    const { screenProps } = this.props;
+    const userInfo = screenProps.userInfo();
+
+    let accounts = userInfo.accounts || [];
+
+    if (userInfo.entities_linked_to && Array.isArray(userInfo.entities_linked_to)) {
+      userInfo.entities_linked_to.forEach((item) => {
+        if (item.accounts && Array.isArray(item.accounts)) {
+          accounts = [...accounts, ...item.accounts];
+        }
+      });
+    }
+
+    this.setState({
+      accounts,
+    });
   }
 
   openItem(item) {
@@ -91,7 +82,7 @@ class ManageAccounts extends Component {
   }
 
   renderItem({ item }) {
-    const { complete } = item;
+    const complete = true;
 
     return (
       <ListItem

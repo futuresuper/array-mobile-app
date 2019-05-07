@@ -49,12 +49,13 @@ class ManageAccountDetails extends Component {
     const details = navigation.getParam('details');
 
     navigation.setParams({
-      title: details.nickname,
+      title: details.accountNickName,
     });
 
     this.setState({
       details,
     }, () => {
+      this.setForm();
       this.displayHeaderRight();
     });
   }
@@ -87,6 +88,10 @@ class ManageAccountDetails extends Component {
     const { hocs } = this.props;
     const { details } = this.state;
 
+    details.distributions = true;
+    details.regularInvestmentAmmount = (details.monthlyInvestmentAmount || '').toString();
+    details.admins = '';
+
     const form = {};
     Object.keys(details).forEach((key) => {
       const value = details[key];
@@ -98,6 +103,7 @@ class ManageAccountDetails extends Component {
         'distributions',
         'balance',
         'complete',
+        'admins',
       ].includes(key)) {
         form[key].validations = [
           'required',
@@ -127,8 +133,8 @@ class ManageAccountDetails extends Component {
     const { details, isEdit } = this.state;
 
     if (
-      !details.complete
-      || isEdit
+      // !details.complete ||
+      isEdit
     ) {
       return;
     }
@@ -157,8 +163,14 @@ class ManageAccountDetails extends Component {
   }
 
   renderReadForm() {
+    const { hocs } = this.props;
+    const { form } = hocs;
     const { details } = this.state;
     let regularInvestmentAmmount = '-';
+
+    if (!form) {
+      return null;
+    }
 
     if (details.regularInvestmentAmmount) {
       regularInvestmentAmmount = `$${details.regularInvestmentAmmount} / month`;
@@ -170,7 +182,7 @@ class ManageAccountDetails extends Component {
           disabled
           label="Nickname"
           labelGray
-          value={details.nickname || '-'}
+          value={details.accountNickName || '-'}
           style={styles.input}
         />
 
@@ -178,7 +190,7 @@ class ManageAccountDetails extends Component {
           disabled
           label="Linked Bank Account"
           labelGray
-          value={details.bankAccount || '-'}
+          value={details.bankAccountName || '-'}
           style={styles.input}
         />
 
@@ -247,7 +259,7 @@ class ManageAccountDetails extends Component {
       <View>
         <Input
           formData={form}
-          formKey="nickname"
+          formKey="accountNickName"
           label="Nickname"
           labelGray
           onChangeText={hocs.handleInput}
@@ -256,10 +268,10 @@ class ManageAccountDetails extends Component {
 
         <PickerIngAccount
           formData={form}
-          formKey="bankAccount"
+          formKey="bankAccountName"
           label="Linked Bank Account"
           labelGray
-          title={form.bankAccount.value}
+          title={form.bankAccountName.value}
           titleStyle={styles.input}
           onPressItem={({ item }, formKey, dataKey) => {
             hocs.handlePicker(item.number, formKey, dataKey);
@@ -319,11 +331,17 @@ class ManageAccountDetails extends Component {
 
   render() {
     const { details, isEdit } = this.state;
+    const complete = true;
 
     return (
       <Content padder contentContainerStyle={sg.pT0}>
-        {details.complete
-          ? <Text style={sg.aSCenter}>{details.balance}</Text>
+        {complete
+          ? (
+            <Text style={sg.aSCenter}>
+              $
+              {details.balanceDollars}
+            </Text>
+          )
           : this.renderIncApp()
         }
 
@@ -335,7 +353,7 @@ class ManageAccountDetails extends Component {
             : this.renderReadForm()
           }
 
-          {!details.complete && !isEdit && (
+          {!complete && !isEdit && (
             <View>
               <Button
                 gray4
