@@ -18,13 +18,14 @@ import {
 } from 'src/Navigation';
 import Device from 'src/Common/device';
 
-import landingCircle from 'src/assets/images/landingCircle.png';
-import landingArray from 'src/assets/images/landingArray.png';
-import poweredBy from 'src/assets/images/poweredBy.png';
-
 import {
   sg,
 } from 'src/Styles';
+
+import landingCircle from './images/landingCircle.png';
+import landingArray from './images/landingArray.png';
+import poweredBy from './images/poweredBy.png';
+
 import { appLanding as styles } from './styles';
 
 class AppLanding extends Component {

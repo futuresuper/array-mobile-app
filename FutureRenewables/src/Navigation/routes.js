@@ -42,6 +42,14 @@ const signRoutes = formatRoutes({
   [routeNames.BUILD_YOUR_SAVING]: {
     screen: screens.BuildYourSaving,
   },
+  [routeNames.BUILD_YOUR_IMPACT]: {
+    screen: screens.BuildYourImpact,
+    params: {
+      headerStyle: {
+        backgroundColor: 'transparent',
+      },
+    },
+  },
   SignUpLogin: {
     screen: screens.SignUpLogin,
     params: {

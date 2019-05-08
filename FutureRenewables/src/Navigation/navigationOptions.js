@@ -15,6 +15,7 @@ export const signOptions = (props) => {
   const { state } = navigation;
   const params = state.params || {};
   const title = params.title || '';
+  const headerStyle = navigation.getParam('headerStyle', {});
   const backButton = (
     <BackButton
       {...props}
@@ -36,6 +37,7 @@ export const signOptions = (props) => {
       backgroundColor: styleConstants.containerBgColor,
       borderBottomWidth: 0,
       elevation: 0,
+      ...headerStyle,
     },
   };
 };

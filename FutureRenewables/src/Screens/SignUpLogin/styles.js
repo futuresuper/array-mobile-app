@@ -1,4 +1,6 @@
 
+import { Header } from 'react-navigation';
+
 import {
   isIOS,
 } from 'src/Common/Helpers';
@@ -10,6 +12,14 @@ import {
 const isIOSv = isIOS();
 
 export default {
+  imageHeader: {
+    backgroundColor: sc.containerBgColor,
+    position: 'absolute',
+    top: -Header.HEIGHT,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
 };
 
 export const appLanding = {
@@ -31,4 +41,8 @@ export const appLanding = {
     textAlign: 'center',
     width: 180,
   },
+};
+
+export const buildYourImpact = {
+
 };

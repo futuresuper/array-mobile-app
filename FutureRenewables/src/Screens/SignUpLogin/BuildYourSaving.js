@@ -21,9 +21,7 @@ import {
   sg,
 } from 'src/Styles';
 
-import buildYourSaving from 'src/assets/images/buildYourSaving.png';
-
-import styles from './styles';
+import buildYourSaving from './images/buildYourSaving.png';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class BuildYourSaving extends Component {
