@@ -3,11 +3,9 @@ import styleConstants from './styleConstants';
 
 export default {
   formHeading: {
-    fontSize: 17,
-    fontWeight: '900',
-    textAlign: 'center',
-    marginHorizontal: 20,
-    marginTop: 20,
+    color: styleConstants.color.dark3,
+    fontSize: 25,
+    fontWeight: '600',
     marginBottom: 20,
   },
   formError: {
@@ -141,6 +139,21 @@ export default {
   mV30: {
     marginVertical: 30,
   },
+  mV40: {
+    marginVertical: 40,
+  },
+  mV50: {
+    marginVertical: 50,
+  },
+  mV60: {
+    marginVertical: 60,
+  },
+  mV70: {
+    marginVertical: 70,
+  },
+  mV80: {
+    marginVertical: 80,
+  },
   mH10: {
     marginHorizontal: 10,
   },
@@ -198,6 +211,18 @@ export default {
   mT60: {
     marginTop: 60,
   },
+  mT70: {
+    marginTop: 70,
+  },
+  mT80: {
+    marginTop: 80,
+  },
+  mT90: {
+    marginTop: 90,
+  },
+  mT100: {
+    marginTop: 100,
+  },
   mL0: {
     marginLeft: 0,
   },
@@ -221,6 +246,9 @@ export default {
   },
   mR10: {
     marginRight: 10,
+  },
+  mR15: {
+    marginRight: 15,
   },
   mR20: {
     marginRight: 20,
@@ -342,6 +370,15 @@ export default {
   pH30: {
     paddingHorizontal: 30,
   },
+  pV10: {
+    paddingVertical: 10,
+  },
+  pV20: {
+    paddingVertical: 20,
+  },
+  pV30: {
+    paddingVertical: 30,
+  },
   width100p: {
     width: '100%',
   },
@@ -428,6 +465,9 @@ export default {
   flexGrow: {
     flexGrow: 1,
   },
+  flexGrowNull: {
+    flexGrow: null,
+  },
   fS10: {
     fontSize: 10,
   },
@@ -501,7 +541,11 @@ export default {
     bottom: 0,
   },
   postitionAbsolute: {
-    postion: 'absolute',
+    position: 'absolute',
+  },
+  postitionAbsoluteRight: {
+    position: 'absolute',
+    right: 0,
   },
   tabFooterPadding: {
     paddingBottom: 80,
@@ -568,5 +612,8 @@ export default {
       ...this.disclaimer,
       marginTop: 20,
     };
+  },
+  farmImage: {
+    borderRadius: 8,
   },
 };

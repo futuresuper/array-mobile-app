@@ -6,8 +6,29 @@ import {
   Icon,
 } from 'native-base';
 
+import {
+  sc,
+} from 'src/Styles';
+
+import styles from './styles';
+
+const iconSignUp = {
+  name: 'md-arrow-back',
+  style: {
+    fontSize: 30,
+    color: sc.color.gray11,
+  },
+};
+
 const BackButton = (props) => {
-  const { icon } = props;
+  const { signup, header } = props;
+  let { icon } = props;
+
+  if (signup) {
+    icon = iconSignUp;
+  }
+
+  const style = header ? {} : styles.outOfHeader;
 
   return (
     <Button
@@ -15,6 +36,7 @@ const BackButton = (props) => {
       onPress={() => {
         props.screenProps.routeBack();
       }}
+      style={style}
       {...props}
     >
       <Icon
@@ -23,7 +45,7 @@ const BackButton = (props) => {
         style={icon.style || {}}
       />
     </Button>
-  )
+  );
 };
 
 BackButton.defaultProps = {
@@ -32,10 +54,14 @@ BackButton.defaultProps = {
     name: 'ios-arrow-back',
     style: undefined,
   },
+  signup: false,
+  header: true,
 };
 
 BackButton.propTypes = {
   icon: PropTypes.object,
+  signup: PropTypes.bool,
+  header: PropTypes.bool,
 };
 
 export default BackButton;

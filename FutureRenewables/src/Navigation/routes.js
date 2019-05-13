@@ -45,22 +45,20 @@ const signRoutes = formatRoutes({
   [routeNames.BUILD_YOUR_IMPACT]: {
     screen: screens.BuildYourImpact,
     params: {
-      headerStyle: {
-        backgroundColor: 'transparent',
-      },
+      noHeader: true,
     },
   },
-  SignUpLogin: {
+  [routeNames.BUILD_MOVEMENT]: {
+    screen: screens.BuildMovement,
+    params: {
+      noHeader: true,
+    },
+  },
+  [routeNames.SIGN_UP_LOGIN]: {
     screen: screens.SignUpLogin,
-    params: {
-      title: 'Sign Up or Login',
-    },
   },
-  SmsCode: {
+  [routeNames.SMS_CODE]: {
     screen: screens.SmsCode,
-    params: {
-      title: 'SMS code',
-    },
   },
 });
 

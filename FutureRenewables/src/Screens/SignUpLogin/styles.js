@@ -1,6 +1,4 @@
 
-import { Header } from 'react-navigation';
-
 import {
   isIOS,
 } from 'src/Common/Helpers';
@@ -12,13 +10,11 @@ import {
 const isIOSv = isIOS();
 
 export default {
-  imageHeader: {
-    backgroundColor: sc.containerBgColor,
-    position: 'absolute',
-    top: -Header.HEIGHT,
-    left: 0,
-    right: 0,
-    alignItems: 'center',
+  header: {
+    color: sc.color.dark2,
+    fontSize: 35,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 };
 

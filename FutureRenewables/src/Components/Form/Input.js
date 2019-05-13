@@ -10,6 +10,7 @@ import {
   Input as InputNB,
   Label,
   Icon,
+  Text,
 } from 'native-base';
 import _ from 'lodash';
 
@@ -115,6 +116,18 @@ class Input extends Component {
     );
   }
 
+  renderHelper() {
+    const { helper } = this.props;
+
+    if (_.isEmpty(helper)) {
+      return null;
+    }
+
+    return (
+      <Text style={styles.helperBl}>{helper}</Text>
+    );
+  }
+
   render() {
     const {
       formData,
@@ -138,33 +151,36 @@ class Input extends Component {
     }
 
     return (
-      <Item
-        // regular
-        stackedLabel={!!label}
-        error={(formData && formData[formKey].error) || false}
-        style={disabled ? sg.noBorder : {}}
-        {...itemProps}
-        iconLeft={false}
-        icon
-      >
-        <View style={styles.labelBl}>
-          {this.renderLabel()}
-          {this.renderHelpIcon()}
-        </View>
-        <View style={[sg.row, sg.aICenter]}>
-          {this.renderInputIconLeft()}
-          <InputNB
-            ref={(ref) => { this.textInput = ref; }}
-            returnKeyType="next"
-            // textCenter
-            autoCorrect={false}
-            {...this.props}
-            onChangeText={(e) => { this.onChangeText(e); }}
-            value={formValue || value}
-          />
-          {this.renderInputRightIcon()}
-        </View>
-      </Item>
+      <View>
+        <Item
+          // regular
+          stackedLabel={!!label}
+          error={(formData && formData[formKey].error) || false}
+          style={disabled ? sg.noBorder : {}}
+          {...itemProps}
+          iconLeft={false}
+          icon
+        >
+          <View style={styles.labelBl}>
+            {this.renderLabel()}
+            {this.renderHelpIcon()}
+          </View>
+          <View style={[sg.row, sg.aICenter]}>
+            {this.renderInputIconLeft()}
+            <InputNB
+              ref={(ref) => { this.textInput = ref; }}
+              returnKeyType="next"
+              // textCenter
+              autoCorrect={false}
+              {...this.props}
+              onChangeText={(e) => { this.onChangeText(e); }}
+              value={formValue || value}
+            />
+            {this.renderInputRightIcon()}
+          </View>
+        </Item>
+        {this.renderHelper()}
+      </View>
     );
   }
 }
@@ -191,6 +207,7 @@ Input.defaultProps = {
     style: {},
   },
   disabled: false,
+  helper: '',
 };
 
 Input.propTypes = {
@@ -207,6 +224,7 @@ Input.propTypes = {
   iconLeft: PropTypes.object,
   iconRight: PropTypes.object,
   disabled: PropTypes.bool,
+  helper: PropTypes.string,
 };
 
 export default Input;

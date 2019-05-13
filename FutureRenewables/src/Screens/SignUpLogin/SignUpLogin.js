@@ -4,23 +4,30 @@ import { connect } from 'react-redux';
 
 import {
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
 
 import {
   Content,
   Text,
   Button,
-  Input,
-  Item,
 } from 'native-base';
+
+import {
+  Input,
+} from 'src/Components/Form';
 
 import {
   styleGlobal,
   styleConstants,
 } from 'src/Styles';
 
+import {
+  routeNames,
+} from 'src/Navigation';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import ListLinks from 'src/Components/ListLinks';
+
+import styles from './styles';
 
 class SignUpLogin extends Component {
   constructor(props) {
@@ -36,17 +43,18 @@ class SignUpLogin extends Component {
     const { screenProps } = this.props;
     const { Api, toast, navigateTo } = screenProps;
     const { mobile } = this.state;
-    const formattedMobile = this.formatAndValidateMobile(mobile);
+    let formattedMobile = this.formatAndValidateMobile(mobile);
 
     if (!formattedMobile) return false;
 
-    Api.post('send/sms', { mobile: formattedMobile })
-      .then(() => {
-        navigateTo('SmsCode', { mobile: formattedMobile });
-      })
-      .catch((err) => {
-        toast(err.message);
-      });
+    formattedMobile = `+${formattedMobile}`;
+    Api.signIn(formattedMobile).then((res) => {
+      console.log('!!!res111', { res });
+      navigateTo(routeNames.SMS_CODE, { mobile: formattedMobile });
+    }).catch((err) => {
+      console.log('!!!11', { err });
+      toast(err.message);
+    });
 
     return true;
   }
@@ -97,41 +105,41 @@ class SignUpLogin extends Component {
 
   render() {
     const { screenProps } = this.props;
-    const { errors, submitted } = this.state;
+    const { errors, submitted, mobile } = this.state;
     const inpErr = (submitted && (errors !== ''));
 
     return (
-      <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
+      <Content padder contentContainerStyle={[styleGlobal.flexGrow]}>
+        <View style={styleGlobal.spaceBetween}>
 
-        <View>
-          <Text style={styleGlobal.formHeading}>
-            Please enter your mobile number
-          </Text>
+          <View>
+            <Text style={styleGlobal.formHeading}>
+              Mobile Number
+            </Text>
 
-          <Item regular error={inpErr}>
             <Input
+              helper="Your mobile number"
               returnKeyType="next"
               keyboardType="numeric"
-              placeholder="0407 123 456"
-              style={styleGlobal.textCenter}
-              onChangeText={(mobile) => { this.handleChange(mobile); }}
+              value={mobile}
+              onChangeText={(e) => { this.handleChange(e); }}
             />
-          </Item>
 
-          <Text style={styleGlobal.formError}>
-            {errors}
-          </Text>
+            <Text style={styleGlobal.formError}>
+              {errors}
+            </Text>
+          </View>
+
+          <KeyboardAvoidingView>
+            <Button
+              onPress={() => this.getSms()}
+              block
+            >
+              <Text>Next</Text>
+            </Button>
+          </KeyboardAvoidingView>
+
         </View>
-
-        <KeyboardAvoidingView behavior="padding">
-          <Button
-            onPress={() => this.getSms()}
-            block
-          >
-            <Text>Get SMS</Text>
-          </Button>
-          <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
-        </KeyboardAvoidingView>
 
         <ListLinks
           absolute
@@ -139,7 +147,7 @@ class SignUpLogin extends Component {
           data={[
             {
               name: 'SmsCode',
-              screen: 'SmsCode',
+              screen: routeNames.SMS_CODE,
             },
           ]}
         />

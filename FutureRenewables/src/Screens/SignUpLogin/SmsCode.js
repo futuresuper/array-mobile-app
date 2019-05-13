@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import {
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -13,10 +12,12 @@ import {
   Content,
   Text,
   Button,
-  Input,
-  Item,
 } from 'native-base';
 
+import {
+  Input,
+} from 'src/Components/Form';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import {
   tokenSave,
   userDataSave,
@@ -87,37 +88,52 @@ class SmsCode extends Component {
   }
 
   render() {
+    let { mobile } = this.props;
     const { screenProps } = this.props;
     const { navigateTo } = screenProps;
+    const { smsCode } = this.state;
+
+    if (mobile) {
+      mobile = mobile.substr(-3);
+    }
 
     return (
-      <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
-        <View>
-          <Text style={styleGlobal.formHeading}>
-            Enter your SMS code
-          </Text>
+      <Content padder contentContainerStyle={styleGlobal.flexGrow}>
+        <View style={styleGlobal.spaceBetween}>
+          <View>
+            <Text style={styleGlobal.formHeading}>
+              Verify
+            </Text>
 
-          <Item regular error={false}>
+            <Text>
+              We&apos;ve just texted you a code to
+              <Text style={styleGlobal.textBold}>
+                &nbsp;xxx xxx&nbsp;
+                {mobile}
+              </Text>
+              &nbsp;
+              to verify your number
+            </Text>
+
             <Input
+              helper="Code"
               returnKeyType="next"
               keyboardType="numeric"
-              placeholder="XXXXXX"
-              style={styleGlobal.textCenter}
-              onChangeText={(smsCode) => { this.setState({ smsCode }); }}
+              value={smsCode}
+              onChangeText={(e) => { this.setState({ smsCode: e }); }}
             />
-          </Item>
 
+          </View>
+
+          <KeyboardAvoidingView>
+            <Button
+              onPress={() => this.handlePress()}
+              block
+            >
+              <Text>Go</Text>
+            </Button>
+          </KeyboardAvoidingView>
         </View>
-
-        <KeyboardAvoidingView behavior="padding">
-          <Button
-            onPress={() => this.handlePress()}
-            block
-          >
-            <Text>Go</Text>
-          </Button>
-          <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
-        </KeyboardAvoidingView>
 
         <ListLinks
           absolute
@@ -141,6 +157,15 @@ class SmsCode extends Component {
 SmsCode.propTypes = {
   tokenSaveConnect: PropTypes.func.isRequired,
   userDataSaveConnect: PropTypes.func.isRequired,
+  mobile: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const mobile = ownProps.navigation.getParam('mobile');
+
+  return {
+    mobile,
+  };
 };
 
 const mapDispatchToProps = {
@@ -148,4 +173,4 @@ const mapDispatchToProps = {
   userDataSaveConnect: userDataSave,
 };
 
-export default connect(null, mapDispatchToProps)(SmsCode);
+export default connect(mapStateToProps, mapDispatchToProps)(SmsCode);

@@ -8,8 +8,6 @@ import {
   styleConstants,
 } from 'src/Styles';
 
-import routeNames from './routeNames';
-
 export const signOptions = (props) => {
   const { navigation } = props;
   const { state } = navigation;
@@ -20,13 +18,7 @@ export const signOptions = (props) => {
     <BackButton
       {...props}
       style={{ alignSelf: 'center' }}
-      icon={{
-        name: 'md-arrow-back',
-        style: {
-          fontSize: 30,
-          color: styleConstants.color.gray11,
-        },
-      }}
+      signup
     />
   );
 

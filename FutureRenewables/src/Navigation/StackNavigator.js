@@ -37,7 +37,7 @@ export const MainStack = createStackNavigator(
 export const SignStack = createStackNavigator(
   signRoutes,
   {
-    headerMode: 'float',
+    headerMode: 'screen',
   },
 );
 

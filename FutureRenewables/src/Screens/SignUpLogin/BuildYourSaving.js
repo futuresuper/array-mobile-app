@@ -22,6 +22,7 @@ import {
 } from 'src/Styles';
 
 import buildYourSaving from './images/buildYourSaving.png';
+import styles from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class BuildYourSaving extends Component {
@@ -32,7 +33,7 @@ class BuildYourSaving extends Component {
       <Content contentContainerStyle={sg.flexGrow} bounces={false}>
         <View style={[sg.spaceBetween]}>
           <View style={sg.aICenter}>
-            <Text style={[sg.fS35, sg.textCenter, sg.colorDark2, sg.textBold, sg.mV10]}>
+            <Text style={[styles.header, sg.mV10]}>
               Build your
               {'\n'}
               saving

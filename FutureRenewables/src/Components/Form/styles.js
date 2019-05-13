@@ -26,4 +26,10 @@ export const input = {
     marginTop: 0,
     color: sc.color.gray,
   },
+  helperBl: {
+    fontSize: 14,
+    color: sc.color.gray11,
+    marginTop: 10,
+    marginLeft: 3,
+  },
 };

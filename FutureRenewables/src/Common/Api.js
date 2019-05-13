@@ -10,6 +10,9 @@ import {
 
 import axios from 'axios';
 
+// import Amplify from 'aws-amplify';
+
+import AwsAmplify from 'src/Common/AwsAmplify';
 import { Config } from 'src/Common/config';
 import {
   authReset,
@@ -20,6 +23,7 @@ const apiError = {
   unknown: 'unknown error',
   unauthenticated: 'Unauthenticated',
 };
+
 
 class Api extends Component {
   static headers() {
@@ -47,6 +51,38 @@ class Api extends Component {
 
   static get(urlInp, params, onSuccess = null, onError = null, spinner = true) {
     return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'GET');
+  }
+
+  static signIn(phoneNumber) {
+    this.ApiInstance.spinnerShow();
+
+    return new Promise((resolve, reject) => {
+      AwsAmplify.signIn(phoneNumber).then((res) => {
+        this.ApiInstance.spinnerHide();
+        resolve(res);
+      }).catch((err) => {
+        if (err.code && err.code === 'UserNotFoundException') {
+          AwsAmplify.signUp(phoneNumber, phoneNumber).then((res) => {
+            this.ApiInstance.spinnerHide();
+            resolve(res);
+          }).catch((errs) => {
+            this.ApiInstance.spinnerHide();
+            reject(errs);
+          });
+        } else {
+          this.ApiInstance.spinnerHide();
+          reject(err);
+        }
+      });
+    });
+  }
+
+  static answerCustomChallenge(phoneNumber, answer) {
+    AwsAmplify.answerCustomChallenge(phoneNumber, answer).then(res => {
+      console.log('!!!', { res });
+    }).catch(err => {
+      console.log('!!!', { err });
+    });
   }
 
   componentWillMount() {
@@ -154,6 +190,16 @@ class Api extends Component {
     //     throw err;
     //   });
     // });
+  }
+
+  spinnerShow() {
+    const { spinnerShow } = this.props;
+    spinnerShow();
+  }
+
+  spinnerHide() {
+    const { spinnerHide } = this.props;
+    spinnerHide();
   }
 
   // eslint-disable-next-line class-methods-use-this
