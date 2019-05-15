@@ -54,11 +54,29 @@ class AwsAmplify {
     await Auth.signUp(params);
   }
 
-  async answerCustomChallenge(phoneNumber, answer) {
+  async answerCustomChallenge(answer) {
     this.cognitoUser = await Auth.sendCustomChallengeAnswer(
-      phoneNumber,
+      this.cognitoUser,
       `${answer}`,
     );
+
+    const isAuthenticated = await this.isAuthenticated();
+
+    if (isAuthenticated) {
+      return this.cognitoUser;
+    }
+
+    return null;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async isAuthenticated() {
+    try {
+      await Auth.currentAuthenticatedUser();
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this

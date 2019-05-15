@@ -18,7 +18,6 @@ import {
 
 import {
   styleGlobal,
-  styleConstants,
 } from 'src/Styles';
 
 import {
@@ -26,8 +25,6 @@ import {
 } from 'src/Navigation';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import ListLinks from 'src/Components/ListLinks';
-
-import styles from './styles';
 
 class SignUpLogin extends Component {
   constructor(props) {
@@ -48,11 +45,9 @@ class SignUpLogin extends Component {
     if (!formattedMobile) return false;
 
     formattedMobile = `+${formattedMobile}`;
-    Api.signIn(formattedMobile).then((res) => {
-      console.log('!!!res111', { res });
+    Api.signIn(formattedMobile).then(() => {
       navigateTo(routeNames.SMS_CODE, { mobile: formattedMobile });
     }).catch((err) => {
-      console.log('!!!11', { err });
       toast(err.message);
     });
 
@@ -105,8 +100,7 @@ class SignUpLogin extends Component {
 
   render() {
     const { screenProps } = this.props;
-    const { errors, submitted, mobile } = this.state;
-    const inpErr = (submitted && (errors !== ''));
+    const { errors, mobile } = this.state;
 
     return (
       <Content padder contentContainerStyle={[styleGlobal.flexGrow]}>

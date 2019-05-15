@@ -8,12 +8,9 @@ import {
   Platform,
 } from 'react-native';
 
-import axios from 'axios';
-
-// import Amplify from 'aws-amplify';
+import { API } from 'aws-amplify';
 
 import AwsAmplify from 'src/Common/AwsAmplify';
-import { Config } from 'src/Common/config';
 import {
   authReset,
 } from 'src/Redux/Auth';
@@ -37,52 +34,63 @@ class Api extends Component {
 
   static ApiInstance;
 
-  static fetch(...args) {
-    return this.ApiInstance.fetchProc(...args);
+  static async signIn(phoneNumber, signUp = true) {
+    let signInErr;
+
+    this.ApiInstance.spinnerShow();
+
+    try {
+      await AwsAmplify.signIn(phoneNumber);
+    } catch (e) {
+      signInErr = e;
+    }
+
+    if (!signInErr) {
+      this.ApiInstance.spinnerHide();
+      return true;
+    }
+
+    if (signInErr.code !== 'UserNotFoundException') {
+      throw signInErr;
+    }
+
+    if (!signUp) {
+      this.ApiInstance.spinnerHide();
+
+      const signUpErr = 'Unknown error';
+      throw signUpErr;
+    }
+
+    await AwsAmplify.signUp(phoneNumber, phoneNumber);
+    const signin = await this.signIn(phoneNumber, false);
+    return signin;
   }
 
-  static put(urlInp, params, onSuccess = null, onError = null, spinner = true) {
-    return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'PUT');
-  }
-
-  static post(urlInp, params, onSuccess = null, onError = null, spinner = true) {
-    return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'POST');
-  }
-
-  static get(urlInp, params, onSuccess = null, onError = null, spinner = true) {
-    return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'GET');
-  }
-
-  static signIn(phoneNumber) {
+  static async answerCustomChallenge(answer) {
     this.ApiInstance.spinnerShow();
 
     return new Promise((resolve, reject) => {
-      AwsAmplify.signIn(phoneNumber).then((res) => {
-        this.ApiInstance.spinnerHide();
-        resolve(res);
-      }).catch((err) => {
-        if (err.code && err.code === 'UserNotFoundException') {
-          AwsAmplify.signUp(phoneNumber, phoneNumber).then((res) => {
-            this.ApiInstance.spinnerHide();
-            resolve(res);
-          }).catch((errs) => {
-            this.ApiInstance.spinnerHide();
-            reject(errs);
-          });
-        } else {
+      AwsAmplify.answerCustomChallenge(answer).then(resolve).catch(reject)
+        .finally(() => {
           this.ApiInstance.spinnerHide();
-          reject(err);
-        }
-      });
+        });
     });
   }
 
-  static answerCustomChallenge(phoneNumber, answer) {
-    AwsAmplify.answerCustomChallenge(phoneNumber, answer).then(res => {
-      console.log('!!!', { res });
-    }).catch(err => {
-      console.log('!!!', { err });
-    });
+  // static fetch(...args) {
+  //   return this.ApiInstance.fetchProc(...args);
+  // }
+
+  // static put(urlInp, params, onSuccess = null, onError = null, spinner = true) {
+  //   return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'PUT');
+  // }
+
+  // static get(urlInp, params, onSuccess = null, onError = null, spinner = true) {
+  //   return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'GET');
+  // }
+
+  static post(path, body, onSuccess = null, onError = null, spinner = true) {
+    return this.ApiInstance.proc(path, body, onSuccess, onError, 'post', spinner);
   }
 
   componentWillMount() {
@@ -95,101 +103,41 @@ class Api extends Component {
     ownProps.setRef(null);
   }
 
-  fetchProc = (urlInp, params, onSuccess = null, onError = null, spinner = true, method = 'POST') => {
-    const proc = (resolve = null, reject = null) => {
-      const {
-        spinnerHide,
-        spinnerShow,
-        token,
-        navigateTo,
-        authResetConnect,
-        toast,
-      } = this.props;
-      const options = {
-        timeout: 5000,
-        method,
-      };
-      options.url = `${Config.get().apiUrl}${urlInp}`;
-
-      if (params) {
-        options.data = params;
-      }
-      options.headers = Api.headers();
-
-      if (token && token.access_token) {
-        options.headers.Authorization = `Bearer ${token.access_token}`;
-      }
-
-      if (spinner) spinnerShow();
-
-      axios(options)
-        .then((resp) => {
-          if (spinner) spinnerHide();
-
-          if (onSuccess) onSuccess(resp.data);
-          else if (resolve) resolve(resp.data);
-        })
-        .catch((err) => {
-          if (spinner) spinnerHide();
-          let resp = {
-            message: '',
-            err,
-          };
-
-          if (err.response && err.response.data) {
-            resp = err.response.data;
-          } else {
-            // eslint-disable-next-line no-underscore-dangle
-            resp.message = err.request._response;
-          }
-
-          if (!resp.message) {
-            resp.message = apiError.unknown;
-          }
-
-          if (
-            err.request
-            && (err.request.status === UNAUTHORIZED)
-          ) {
-            authResetConnect();
-            navigateTo('SignUpLogin');
-
-            resp.message = apiError.unauthenticated;
-          }
-
-          if (onError) onError(resp);
-          else if (reject) reject(resp);
-          else {
-            toast(resp.message);
-          }
-        });
+  // eslint-disable-next-line class-methods-use-this
+  proc(path, body, onSuccess = null, onError = null, method, spinner = false) {
+    const { toast, navigateTo, authResetConnect } = this.props;
+    const apiName = 'array';
+    const options = {
+      body,
     };
 
-    if (onSuccess) {
-      proc();
-      return true;
+    if (spinner) {
+      this.spinnerShow();
     }
 
-    return new Promise(proc);
+    API[method](apiName, path, options).then((res) => {
+      this.spinnerHide();
 
-    // return fetch(url, options).then((resp) => {
-    //   if (spinner) spinnerHide();
+      if (onSuccess) {
+        onSuccess(res);
+      }
+    }).catch((err) => {
+      this.spinnerHide();
 
-    //   const contentType = resp.headers.get('content-type') || '';
-    //   const result = contentType.includes('json') ? resp.json() : resp.text();
-
-    //   if (resp.ok) {
-    //     return result;
-    //   }
-
-    //   // logout action
-    //   // if (resp.status === UNAUTHORIZED) {
-    //   // }
-
-    //   return result.then((err) => {
-    //     throw err;
-    //   });
-    // });
+      if (
+        err.request
+        && (err.request.status === UNAUTHORIZED)
+      ) {
+        authResetConnect();
+        navigateTo('SignUpLogin');
+        toast(apiError.unauthenticated);
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (onError) {
+          onError(err);
+        }
+      }
+    });
   }
 
   spinnerShow() {
@@ -216,11 +164,9 @@ Api.propTypes = {
   toast: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   ownProps: PropTypes.any.isRequired,
-  token: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  token: state.auth.token,
   ownProps,
 });
 

@@ -19,7 +19,6 @@ import {
 } from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import {
-  tokenSave,
   userDataSave,
 } from 'src/Redux/Auth';
 import {
@@ -30,7 +29,6 @@ import ListLinks from 'src/Components/ListLinks';
 
 import {
   styleGlobal,
-  styleConstants,
 } from 'src/Styles';
 
 class SmsCode extends Component {
@@ -43,10 +41,9 @@ class SmsCode extends Component {
 
   handlePress() {
     const {
-      navigation,
       screenProps,
-      tokenSaveConnect,
       userDataSaveConnect,
+      mobile,
     } = this.props;
     const { Api, toast } = screenProps;
     const { smsCode } = this.state;
@@ -56,7 +53,6 @@ class SmsCode extends Component {
       return false;
     }
 
-    const mobile = navigation.getParam('mobile', 'none supplied');
     const dummySmsCode = Config.get().smsCode;
 
     if (dummySmsCode && (smsCode === dummySmsCode)) {
@@ -64,15 +60,22 @@ class SmsCode extends Component {
       return true;
     }
 
-    Api.post('user/login', {
-      username: mobile,
-      token: smsCode,
-    }, (res) => {
-      tokenSaveConnect(res.data);
-      Api.get('users/current', {}, (userData) => {
-        userDataSaveConnect(userData);
-        this.nextScreen();
-      });
+    Api.answerCustomChallenge(smsCode).then((userData) => {
+      if (userData) {
+        Api.post('/user', {
+          mobile,
+          mobileVerified: true,
+        }, () => {
+          // userDataSaveConnect(userData);
+          this.nextScreen();
+        }, () => {
+          screenProps.toast('Unknown error');
+        });
+      } else {
+        screenProps.toast('Please enter the correct code');
+      }
+    }).catch(() => {
+      screenProps.toast('Unknown error.');
     });
 
     return true;
@@ -155,7 +158,6 @@ class SmsCode extends Component {
 }
 
 SmsCode.propTypes = {
-  tokenSaveConnect: PropTypes.func.isRequired,
   userDataSaveConnect: PropTypes.func.isRequired,
   mobile: PropTypes.string.isRequired,
 };
@@ -169,7 +171,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = {
-  tokenSaveConnect: tokenSave,
   userDataSaveConnect: userDataSave,
 };
 
