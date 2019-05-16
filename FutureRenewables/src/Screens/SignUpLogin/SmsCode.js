@@ -28,6 +28,10 @@ import {
 import ListLinks from 'src/Components/ListLinks';
 
 import {
+  routeNames,
+} from 'src/Navigation';
+
+import {
   styleGlobal,
 } from 'src/Styles';
 
@@ -82,18 +86,14 @@ class SmsCode extends Component {
   }
 
   nextScreen() {
-    const { navigation, screenProps } = this.props;
+    const { screenProps } = this.props;
     const { navigateTo } = screenProps;
-    const newRego = navigation.getParam('newRegistration', false);
 
-    if (newRego) navigateTo('ApplicationType');
-    else navigateTo('Accounts');
+    navigateTo(routeNames.ACCOUNT_TYPE);
   }
 
   render() {
     let { mobile } = this.props;
-    const { screenProps } = this.props;
-    const { navigateTo } = screenProps;
     const { smsCode } = this.state;
 
     if (mobile) {
@@ -140,18 +140,15 @@ class SmsCode extends Component {
 
         <ListLinks
           absolute
-          navigateTo={navigateTo}
+          navigateTo={this.props.screenProps.navigateTo}
           data={[
             {
-              name: 'ApplicationType',
-              screen: 'ApplicationType',
-            },
-            {
-              name: 'Accounts',
-              screen: 'Accounts',
+              name: 'AccountType',
+              screen: routeNames.ACCOUNT_TYPE,
             },
           ]}
         />
+
       </Content>
     );
   }

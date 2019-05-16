@@ -16,7 +16,6 @@ import MultiPartyNextSteps from './MultiPartyNextSteps';
 import JointInvestorDetails from './JointInvestorDetails';
 import FinalConfirmation from './FinalConfirmation';
 import JoinSuper from './JoinSuper';
-import Accounts from './Accounts';
 import FeatApplicationType from './FeatApplicationType';
 import JointNames from './JointNames';
 import ChildsName from './ChildsName';
@@ -51,7 +50,6 @@ export {
   JointInvestorDetails,
   FinalConfirmation,
   JoinSuper,
-  Accounts,
   FeatApplicationType,
   JointNames,
   ChildsName,

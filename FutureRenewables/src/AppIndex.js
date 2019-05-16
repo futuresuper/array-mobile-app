@@ -17,7 +17,7 @@ import {
 import _ from 'lodash';
 
 import Toast from 'src/Components/Toast';
-import BottomInfo from 'src/Components/BottomInfo';
+import BottomInfoModal from 'src/Components/BottomInfo';
 
 import getTheme from 'src/native-base-theme/components';
 import material from 'src/native-base-theme/variables/material';
@@ -164,7 +164,7 @@ class AppIndex extends Component {
               }}
             />
 
-            <BottomInfo />
+            <BottomInfoModal />
           </Container>
 
         </StyleProvider>

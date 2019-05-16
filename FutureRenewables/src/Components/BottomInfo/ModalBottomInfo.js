@@ -1,17 +1,11 @@
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
   View,
-  ScrollView,
-  // Modal,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import {
-  Text,
-  Grid,
-  Row,
-} from 'native-base';
+
+import BottomInfo from './BottomInfo';
 
 import {
   sg,
@@ -54,7 +48,7 @@ class ModalBottomInfo extends Component {
         onBackdropPress={this.hide}
         style={sg.m0}
       >
-        <View style={styles.container}>
+        <View style={[styles.container, styles.containerModal]}>
           <View style={styles.topLine} />
 
           <View style={sg.flex}>

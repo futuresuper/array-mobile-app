@@ -60,12 +60,12 @@ const signRoutes = formatRoutes({
   [routeNames.SMS_CODE]: {
     screen: screens.SmsCode,
   },
+  [routeNames.ACCOUNT_TYPE]: {
+    screen: screens.AccountType,
+  },
 });
 
 const mainRoutes = formatRoutes({
-  Accounts: {
-    screen: screens.Accounts,
-  },
   ApplicationType: {
     screen: screens.ApplicationType,
     params: {

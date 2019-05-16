@@ -6,6 +6,7 @@ export default {
   BUILD_MOVEMENT: 'BuildMovement',
   SIGN_UP_LOGIN: 'SignUpLogin',
   SMS_CODE: 'SmsCode',
+  ACCOUNT_TYPE: 'AccountType',
   FIRST_PAGE: 'FirstPage',
   TAB_HOME: 'TabHome',
   TAB_ACTIVITY: 'TabActivity',

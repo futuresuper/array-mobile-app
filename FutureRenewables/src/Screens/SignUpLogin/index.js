@@ -5,6 +5,7 @@ import BuildYourImpact from './BuildYourImpact';
 import BuildMovement from './BuildMovement';
 import SignUpLogin from './SignUpLogin';
 import SmsCode from './SmsCode';
+import AccountType from './AccountType';
 
 export {
   AppLanding,
@@ -13,4 +14,5 @@ export {
   BuildMovement,
   SignUpLogin,
   SmsCode,
+  AccountType,
 };
