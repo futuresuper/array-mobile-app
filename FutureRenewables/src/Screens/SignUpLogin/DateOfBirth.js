@@ -171,7 +171,7 @@ class DateOfBirth extends React.Component {
                   keyboardType="numeric"
                 />
               </Col>
-              <Col>
+              <Col style={styleGlobal.mH20}>
                 <Input
                   formData={form}
                   formKey="month"
