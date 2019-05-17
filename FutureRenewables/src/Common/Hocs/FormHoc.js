@@ -172,7 +172,10 @@ export default function FormHoc(WrappedComponent) {
 
         if (showToast) {
           if (fieldError && !formIsArray) {
-            screenProps.toastDanger(form[Object.keys(form)[0]].errorMessage);
+            const errorKeys = Object.keys(form).filter(item => form[item].error);
+            const { errorMessage } = form[errorKeys[0]];
+
+            screenProps.toastDanger(errorMessage);
           } else {
             screenProps.toastDanger('Please enter valid values');
           }

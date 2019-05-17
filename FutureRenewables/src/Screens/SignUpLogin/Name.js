@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
 
 import {
@@ -11,13 +10,17 @@ import {
   Text,
 } from 'native-base';
 
+import {
+  routeNames,
+} from 'src/Navigation';
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
 } from 'src/Components/Form';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
 import {
-  styleGlobal,
+  sg,
   styleConstants,
 } from 'src/Styles';
 
@@ -51,19 +54,20 @@ class Name extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
-    const userInfo = screenProps.userInfo();
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
       const firstName = hocs.form.firstName.value;
       const lastName = hocs.form.lastName.value;
 
-      screenProps.Api.put(`users/${userInfo.id}`, {
-        first_name: firstName,
-        last_name: lastName,
+      screenProps.Api.post('/user', {
+        firstName,
+        lastName,
       }, () => {
+        screenProps.navigateTo(routeNames.EMAIL);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
       });
-      screenProps.navigateTo('Email');
     }
   }
 
@@ -72,39 +76,40 @@ class Name extends React.Component {
     const { form } = hocs;
 
     return (
-      <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
-        <View>
-          <Text style={styleGlobal.formHeading}>
-            Your name
-          </Text>
+      <Content padder contentContainerStyle={sg.flexGrow}>
+        <View style={sg.spaceBetween}>
+          <View>
+            <Text style={sg.formHeading}>
+              Your name
+            </Text>
 
-          <Input
-            formData={form}
-            formKey="firstName"
-            placeholder="First Name"
-            onChangeText={hocs.handleInput}
-            itemProps={{
-              marginBottom: true,
-            }}
-          />
+            <Input
+              formData={form}
+              formKey="firstName"
+              helper="First Name"
+              onChangeText={hocs.handleInput}
+              itemProps={{
+                marginBottom: true,
+              }}
+            />
 
-          <Input
-            formData={form}
-            formKey="lastName"
-            placeholder="Last Name"
-            onChangeText={hocs.handleInput}
-          />
+            <Input
+              formData={form}
+              formKey="lastName"
+              helper="Last Name"
+              onChangeText={hocs.handleInput}
+            />
 
+          </View>
+          <KeyboardAvoidingView>
+            <Button
+              onPress={() => this.handlePress()}
+              block
+            >
+              <Text>Next</Text>
+            </Button>
+          </KeyboardAvoidingView>
         </View>
-        <KeyboardAvoidingView behavior="padding">
-          <Button
-            onPress={() => this.handlePress()}
-            block
-          >
-            <Text>Next</Text>
-          </Button>
-          <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
-        </KeyboardAvoidingView>
       </Content>
     );
   }

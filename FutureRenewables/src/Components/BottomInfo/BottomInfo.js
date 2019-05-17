@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { PanGestureHandler } from 'react-native-gesture-handler';
 import {
   Animated,
   View,
+  PanResponder,
 } from 'react-native';
 
 import {
@@ -18,11 +18,24 @@ class BottomInfo extends Component {
   constructor(props) {
     super(props);
 
+    this.isBounceHeightSet = false;
+
     this.state = {
       visibleState: false,
       bounceValue: new Animated.Value(0),
       height: 0,
     };
+
+    this.buildPanResponder();
+  }
+
+  onClose() {
+    const { onClose } = this.props;
+    const { visibleState } = this.state;
+
+    if (!visibleState && onClose) {
+      onClose();
+    }
   }
 
   setHeight = (event) => {
@@ -32,8 +45,12 @@ class BottomInfo extends Component {
       height,
     });
 
-    // eslint-disable-next-line react/destructuring-assignment
-    this.state.bounceValue.setValue(-height);
+    if (!this.isBounceHeightSet) {
+      this.isBounceHeightSet = true;
+
+      // eslint-disable-next-line react/destructuring-assignment
+      this.state.bounceValue.setValue(-height);
+    }
   }
 
   show() {
@@ -62,21 +79,25 @@ class BottomInfo extends Component {
 
     this.setState({
       visibleState: !visibleState,
+    }, () => {
+      this.onClose();
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  renderGesture(children) {
-    return (
-      <PanGestureHandler
-        activeOffsetY={[-10, 10]}
-        onGestureEvent={() => {
+  buildPanResponder() {
+    this.PanResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderRelease: (evt, gestureState) => {
+        const x = gestureState.dx;
+        const y = gestureState.dy;
+        if (
+          (Math.abs(x) <= Math.abs(y))
+          && y >= 0
+        ) {
           this.toggleAnimation();
-        }}
-      >
-        {children}
-      </PanGestureHandler>
-    );
+        }
+      },
+    });
   }
 
   renderAnimation(children) {
@@ -95,22 +116,27 @@ class BottomInfo extends Component {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   renderTopLine() {
+    const { gesture } = this.props;
+    let panHandlers = {};
+
+    if (gesture) {
+      panHandlers = { ...this.PanResponder.panHandlers };
+    }
+
     return (
-      <View style={styles.topLineBl}>
+      <View
+        style={styles.topLineBl}
+        {...panHandlers}
+      >
         <View style={styles.topLine} />
       </View>
     );
   }
 
   renderBody() {
-    const { children, gesture, style } = this.props;
-    let renderTopLine = this.renderTopLine();
-
-    if (gesture) {
-      renderTopLine = this.renderGesture(renderTopLine);
-    }
+    const { children, style } = this.props;
+    const renderTopLine = this.renderTopLine();
 
     return (
       <View style={[styles.container, style]} onLayout={this.setHeight}>
@@ -145,6 +171,7 @@ BottomInfo.defaultProps = {
   gesture: true,
   visible: false,
   style: {},
+  onClose: null,
 };
 
 BottomInfo.propTypes = {
@@ -153,6 +180,7 @@ BottomInfo.propTypes = {
   gesture: PropTypes.bool,
   visible: PropTypes.bool,
   style: PropTypes.object,
+  onClose: PropTypes.func,
 };
 
 export default BottomInfo;

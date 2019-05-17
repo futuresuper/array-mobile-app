@@ -9,7 +9,7 @@ export default {
     borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
     paddingHorizontal: 15,
-    paddingBottom: 50,
+    paddingBottom: 40,
   },
   containerModal: {
     position: 'absolute',
@@ -20,6 +20,8 @@ export default {
   topLineBl: {
     paddingTop: 18,
     paddingBottom: 27,
+    borderWidth: 1, // swipe doesn't work on Android without it
+    borderColor: sc.color.white,
   },
   topLine: {
     alignSelf: 'center',

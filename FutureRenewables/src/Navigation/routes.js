@@ -63,6 +63,15 @@ const signRoutes = formatRoutes({
   [routeNames.ACCOUNT_TYPE]: {
     screen: screens.AccountType,
   },
+  [routeNames.NAME]: {
+    screen: screens.Name,
+  },
+  [routeNames.EMAIL]: {
+    screen: screens.Email,
+  },
+  [routeNames.DATE_OF_BIRTH]: {
+    screen: screens.DateOfBirth,
+  },
 });
 
 const mainRoutes = formatRoutes({
@@ -77,15 +86,6 @@ const mainRoutes = formatRoutes({
     params: {
       noHeader: true,
     },
-  },
-  Name: {
-    screen: screens.Name,
-  },
-  Email: {
-    screen: screens.Email,
-  },
-  DateOfBirth: {
-    screen: screens.DateOfBirth,
   },
   HomeAddress: {
     screen: screens.HomeAddress,

@@ -361,6 +361,9 @@ export default {
   p30: {
     padding: 30,
   },
+  pH0: {
+    paddingHorizontal: 0,
+  },
   pH10: {
     paddingHorizontal: 10,
   },
@@ -561,6 +564,12 @@ export default {
   },
   contentPadding: {
     padding: styleConstants.contentPadding,
+  },
+  contentPaddingV: {
+    paddingVertical: styleConstants.contentPadding,
+  },
+  contentPaddingH: {
+    paddingHorizontal: styleConstants.contentPadding,
   },
   textUnderline: {
     textDecorationLine: 'underline',

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
 import {
   Content,
@@ -10,14 +9,17 @@ import {
   Text,
 } from 'native-base';
 
+import {
+  routeNames,
+} from 'src/Navigation';
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
 } from 'src/Components/Form';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
 import {
   styleGlobal,
-  styleConstants,
 } from 'src/Styles';
 
 class Email extends React.Component {
@@ -44,17 +46,18 @@ class Email extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
-    const userInfo = screenProps.userInfo();
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
       const email = hocs.form.emailAddress.value;
 
-      screenProps.Api.put(`users/${userInfo.id}`, {
+      screenProps.Api.post('/user', {
         email,
       }, () => {
+        screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
+      }, () => {
+        screenProps.tastDanger('Error. Try again.');
       });
-      screenProps.navigateTo('DateOfBirth');
     }
   }
 
@@ -63,31 +66,32 @@ class Email extends React.Component {
     const { form } = hocs;
 
     return (
-      <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
-        <View>
-          <Text style={styleGlobal.formHeading}>
-            Your Email Address
-          </Text>
+      <Content padder contentContainerStyle={styleGlobal.flexGrow}>
+        <View style={styleGlobal.spaceBetween}>
+          <View>
+            <Text style={styleGlobal.formHeading}>
+              Your Email Address
+            </Text>
 
-          <Input
-            formData={form}
-            formKey="emailAddress"
-            placeholder="Email Address"
-            autoCapitalize="none"
-            keyboardType="email-address"
-            onChangeText={hocs.handleInput}
-          />
+            <Input
+              formData={form}
+              formKey="emailAddress"
+              helper="Email Address"
+              autoCapitalize="none"
+              keyboardType="email-address"
+              onChangeText={hocs.handleInput}
+            />
+          </View>
+
+          <KeyboardAvoidingView>
+            <Button
+              onPress={() => this.handlePress()}
+              block
+            >
+              <Text>Next</Text>
+            </Button>
+          </KeyboardAvoidingView>
         </View>
-
-        <KeyboardAvoidingView behavior="padding">
-          <Button
-            onPress={() => this.handlePress()}
-            block
-          >
-            <Text>Next</Text>
-          </Button>
-          <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
-        </KeyboardAvoidingView>
       </Content>
     );
   }

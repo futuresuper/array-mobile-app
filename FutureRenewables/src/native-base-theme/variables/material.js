@@ -115,7 +115,7 @@ export default {
   brandSuccess: styleConstants.color.success,
   brandDanger: styleConstants.color.danger,
   brandWarning: styleConstants.color.warning,
-  brandDark: "#000",
+  brandDark: styleConstants.color.dark3,
   brandLight: "#f4f4f4",
 
   //Container

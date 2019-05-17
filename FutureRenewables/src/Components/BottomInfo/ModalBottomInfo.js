@@ -1,15 +1,13 @@
 
 import React, { Component } from 'react';
-import {
-  View,
-} from 'react-native';
 import Modal from 'react-native-modal';
 
-import BottomInfo from './BottomInfo';
 
 import {
   sg,
 } from 'src/Styles';
+
+import BottomInfo from './BottomInfo';
 import styles from './styles';
 
 class ModalBottomInfo extends Component {
@@ -48,13 +46,14 @@ class ModalBottomInfo extends Component {
         onBackdropPress={this.hide}
         style={sg.m0}
       >
-        <View style={[styles.container, styles.containerModal]}>
-          <View style={styles.topLine} />
-
-          <View style={sg.flex}>
-            {content}
-          </View>
-        </View>
+        <BottomInfo
+          animation={false}
+          gesture={false}
+          visible
+          style={styles.containerModal}
+        >
+          {content}
+        </BottomInfo>
       </Modal>
     );
   }

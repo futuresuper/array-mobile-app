@@ -3,15 +3,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   View,
-  Animated,
 } from 'react-native';
 import {
   Content,
   Text,
   Button,
+  Icon,
+  H2,
 } from 'native-base';
 
-import { BottomInfo, BottomInfoModal } from 'src/Components/BottomInfo';
+import { BottomInfo } from 'src/Components/BottomInfo';
+import {
+  routeNames,
+} from 'src/Navigation';
 
 import {
   sg,
@@ -21,88 +25,109 @@ class AccountType extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bounceValue: new Animated.Value(0),
-      visible: false,
+      isBottomOpened: false,
     };
   }
 
-  toggleHz() {
+  onMyself = () => {
+    const { screenProps } = this.props;
+
+    this.saveDatabase('individual', () => {
+      screenProps.navigateTo(routeNames.NAME);
+    });
+  }
+
+  onFeat = () => {
+    const { screenProps } = this.props;
+
+    this.saveDatabase('feat', () => {
+      screenProps.toast('next screen will be here');
+    });
+  }
+
+  openBottomInfo = () => {
     this.BottomInfo.show();
+
+    this.setState({
+      isBottomOpened: true,
+    });
+  }
+
+  saveDatabase(type, onSuccess) {
+    const { screenProps } = this.props;
+
+    screenProps.Api.post('/user', {
+      waitlistAccountType: type,
+    }, onSuccess, () => {
+      screenProps.toast('Error. Try again.');
+    });
   }
 
   render() {
-    const { screenProps } = this.props;
-    const { visible, bounceValue } = this.state;
+    const { isBottomOpened } = this.state;
 
     return (
-      <Content padder contentContainerStyle={[sg.flexGrow, { paddingLeft: 0, paddingBottom: 0 }]} bounces={false}>
-      <View style={[sg.spaceBetween]}>
-        <View>
-          <Text style={sg.formHeading}>
-          Your account
-          </Text>
+      <Content padder contentContainerStyle={[sg.flexGrow, sg.pB0, sg.pH0]} bounces={false}>
+        <View style={[sg.spaceBetween]}>
+          <View style={[sg.contentPaddingH]}>
+            <Text style={sg.formHeading}>
+            Your account
+            </Text>
 
-          <Text>
-          Who are you interested in setting an account up as?
-          </Text>
+            <Text>
+              {isBottomOpened ? 'What sort of account would you like to start?' : 'Who are you interested in setting an account up as?'}
+            </Text>
 
-        </View>
+          </View>
 
-        <View>
-          <Button
-            onPress={() => {
-              this.toggleHz();
-            }}
-          >
-            <Text>vv</Text>
-          </Button>
+          <View>
+            <View style={sg.contentPadding}>
+              <Button
+                onPress={this.onMyself}
+                block
+              >
+                <Text>Myself</Text>
+              </Button>
 
-          {/* <Button
-            onPress={() => {
-              this.toggleHz();
-            }}
-          >
-            <Text>modal</Text>
-          </Button> */}
+              <Button
+                style={[sg.mT30, sg.mB10]}
+                onPress={this.onFeat}
+                bordered
+                dark
+                block
+                iconRight
+              >
+                <Text>FEAT. Artist / Music Industry</Text>
+                <Icon type="EvilIcons" name="question" style={[sg.colorDark3, sg.fS30]} onPress={this.openBottomInfo} />
+              </Button>
+            </View>
 
-          <BottomInfo
-            ref={(c) => {
-              if (c) this.BottomInfo = c;
-            }}
-            // animation={false}
-            // visible
-          >
-            <Text>body</Text>
-          </BottomInfo>
-
-            {/* <PanGestureHandler
-              activeOffsetY={[-10, 10]}
-              onGestureEvent={(e, ee, eee) => {
-                // console.log('!!!', { e, ee, eee });
-                console.log('!!!', {  });
+            <BottomInfo
+              ref={(c) => {
+                if (c) this.BottomInfo = c;
+              }}
+              onClose={() => {
+                this.setState({
+                  isBottomOpened: false,
+                });
               }}
             >
-            <Animated.View style={[
-              {
-                height: this.state.bounceValue,
-                overflow: 'hidden',
-              backgroundColor: "#FFFFFF",
-              },
-            ]}>
-              <Text>hhhh</Text>
-              <Button
-                onPress={() => {
-                  this.toggleHz();
-                }}
-              >
-                <Text>hh</Text>
-              </Button>
-            </Animated.View>
-            </PanGestureHandler> */}
+              <View style={sg.aICenter}>
+                <H2>What is FEAT.?</H2>
+
+                <Text style={[sg.textCenter, sg.mV10]}>
+                FEAT (Future Energy Artists) are a group of Australia’s top musical artists investing
+                in renewables as a powerful response to the reality of climate change.
+                </Text>
+                <Text style={sg.textCenter}>
+                If you’re an artist / music industry considering investing, please choose this option (even if you might like to also start a personal account).
+                </Text>
+              </View>
+            </BottomInfo>
+          </View>
+
+
         </View>
-
-
-      </View>
       </Content>
     );
   }
