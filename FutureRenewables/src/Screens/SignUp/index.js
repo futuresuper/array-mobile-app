@@ -1,6 +1,5 @@
 
 import ApplicationType from './ApplicationType';
-import HomeAddress from './HomeAddress';
 import InitialInvestmentAmount from './InitialInvestmentAmount';
 import RegularInvestmentAmount from './RegularInvestmentAmount';
 import BankAccount from './BankAccount';
@@ -31,7 +30,6 @@ import Partners from './Partners';
 
 export {
   ApplicationType,
-  HomeAddress,
   InitialInvestmentAmount,
   RegularInvestmentAmount,
   BankAccount,

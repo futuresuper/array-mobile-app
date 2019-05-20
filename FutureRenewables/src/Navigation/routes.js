@@ -72,6 +72,9 @@ const signRoutes = formatRoutes({
   [routeNames.DATE_OF_BIRTH]: {
     screen: screens.DateOfBirth,
   },
+  [routeNames.HOME_ADDRESS]: {
+    screen: screens.HomeAddress,
+  },
 });
 
 const mainRoutes = formatRoutes({
@@ -86,9 +89,6 @@ const mainRoutes = formatRoutes({
     params: {
       noHeader: true,
     },
-  },
-  HomeAddress: {
-    screen: screens.HomeAddress,
   },
   InitialInvestmentAmount: {
     screen: screens.InitialInvestmentAmount,

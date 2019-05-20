@@ -9,6 +9,7 @@ import AccountType from './AccountType';
 import Name from './Name';
 import Email from './Email';
 import DateOfBirth from './DateOfBirth';
+import HomeAddress from './HomeAddress';
 
 export {
   AppLanding,
@@ -21,4 +22,5 @@ export {
   Name,
   Email,
   DateOfBirth,
+  HomeAddress,
 };

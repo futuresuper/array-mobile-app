@@ -11,13 +11,11 @@ import {
   Col,
 } from 'native-base';
 
-import moment from 'src/Common/moment';
 import {
   routeNames,
 } from 'src/Navigation';
 import {
   styleGlobal,
-  styleConstants,
 } from 'src/Styles';
 
 import composeHoc from 'src/Common/Hocs';
@@ -59,22 +57,6 @@ class DateOfBirth extends React.Component {
     const { form } = this.state;
 
     hocs.setForm(form);
-  }
-
-  formayDay = (valInp) => {
-    const valLength = valInp.length;
-    let val = valInp;
-    console.log('!!!', { val });
-
-    if (valLength == 1) {
-    }
-
-    if (valLength === 1) {
-      // val = `0${val}`;
-    }
-
-
-    return val;
   }
 
   isDayValid = (valInp) => {
@@ -142,7 +124,7 @@ class DateOfBirth extends React.Component {
       screenProps.Api.post('/user', {
         birthDate,
       }, () => {
-        // screenProps.navigateTo('HomeAddress');
+        screenProps.navigateTo(routeNames.HOME_ADDRESS);
       }, () => {
         screenProps.tastDanger('Error. Try again.');
       });

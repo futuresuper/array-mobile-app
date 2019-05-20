@@ -10,6 +10,7 @@ export default {
   NAME: 'Name',
   EMAIL: 'Email',
   DATE_OF_BIRTH: 'DateOfBirth',
+  HOME_ADDRESS: 'HomeAddress',
   FIRST_PAGE: 'FirstPage',
   TAB_HOME: 'TabHome',
   TAB_ACTIVITY: 'TabActivity',
