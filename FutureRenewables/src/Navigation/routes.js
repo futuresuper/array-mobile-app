@@ -75,6 +75,17 @@ const signRoutes = formatRoutes({
   [routeNames.HOME_ADDRESS]: {
     screen: screens.HomeAddress,
   },
+  [routeNames.NOTIFICATIONS]: {
+    screen: screens.Notifications,
+  },
+  [routeNames.THANKS_SHARE]: {
+    screen: screens.ThanksShare,
+    params: {
+      headerStyle: {
+        opacity: 0.1,
+      },
+    },
+  },
 });
 
 const mainRoutes = formatRoutes({

@@ -117,7 +117,7 @@ class AppIndex extends Component {
         }}
       >
         <StyleProvider style={getTheme(material)}>
-          <Container>
+          <Container style={{ backgroundColor: 'red' }}>
             <Spinner
               ref={(c) => {
                 this.Spinner = c;

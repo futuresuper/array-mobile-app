@@ -11,7 +11,14 @@ import {
 import styles from './styles';
 
 const BadgeCheckmark = (props) => {
-  const { checked, inverted, style } = props;
+  const {
+    checked,
+    inverted,
+    style,
+    styleTick,
+  } = props;
+  const bandgeStyleMain = styles.badge;
+  const badgeIconStyle = styles.badgeIcon;
 
   let badgeStyle = {};
   let iconName = 'md-checkmark';
@@ -36,13 +43,14 @@ const BadgeCheckmark = (props) => {
   return (
     <TouchableOpacity
       {...props}
-      style={[styles.badge, badgeStyle, style]}
+      style={[bandgeStyleMain, badgeStyle, style]}
     >
       <Icon
         name={iconName}
         style={[
-          styles.badgeIcon,
+          badgeIconStyle,
           iconTickStyle,
+          styleTick,
         ]}
       />
     </TouchableOpacity>
@@ -53,12 +61,14 @@ BadgeCheckmark.defaultProps = {
   checked: true,
   inverted: false,
   style: {},
+  styleTick: {},
 };
 
 BadgeCheckmark.propTypes = {
   checked: PropTypes.bool,
   inverted: PropTypes.bool,
   style: PropTypes.object,
+  styleTick: PropTypes.object,
 };
 
 export default BadgeCheckmark;

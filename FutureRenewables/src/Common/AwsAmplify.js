@@ -14,8 +14,8 @@ class AwsAmplify {
     return AwsAmplify.instance;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  init() {
+  async init() {
+    this.cognitoUser = undefined;
     const config = Config.get();
 
     Amplify.configure({
@@ -35,9 +35,27 @@ class AwsAmplify {
         ],
       },
     });
+
+    const conf = Auth.configure();
+    const currentUser = Auth.userPool.getCurrentUser();
+    try {
+      const session = await Auth.currentSession();
+      console.log('!!!', { session });
+    } catch {
+      // empty
+    }
+    console.log('!!!', { conf });
+    console.log('!!!', { currentUser });
+
+    if (currentUser) {
+      await currentUser.signOut();
+    }
+
+    await Auth.signOut({ global: true });
   }
 
   async signIn(phoneNumber) {
+    this.isAuthenticated();
     this.cognitoUser = await Auth.signIn(phoneNumber);
   }
 

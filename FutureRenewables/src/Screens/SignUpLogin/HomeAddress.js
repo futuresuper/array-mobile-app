@@ -13,17 +13,17 @@ import {
 import _ from 'lodash';
 
 import {
-  styleGlobal,
+  sg,
 } from 'src/Styles';
 
+import {
+  routeNames,
+} from 'src/Navigation';
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
 } from 'src/Components/Form';
-import Kleber from 'src/Components/Kleber';
-import KleberApi from 'src/Common/Kleber';
-
-import styles from './styles';
+import Address from 'src/Components/Address';
 
 class HomeAddress extends React.Component {
   constructor(props) {
@@ -114,45 +114,35 @@ class HomeAddress extends React.Component {
     const { form } = this.state;
     const { hocs } = this.props;
 
-    KleberApi.requestRetrieveAddress(recordId).then((res) => {
-      if (!res) return;
+    // KleberApi.requestRetrieveAddress(recordId).then((res) => {
+    //   if (!res) return;
 
-      const {
-        UnitNumber,
-        StreetNumber1,
-        StreetName,
-        StreetType,
-      } = res;
+    //   const {
+    //     UnitNumber,
+    //     StreetNumber1,
+    //     StreetName,
+    //     StreetType,
+    //   } = res;
 
-      const formValues = {
-        unitNumber: {
-          value: UnitNumber,
-        },
-        streetNumber: {
-          value: StreetNumber1,
-        },
-        streetName: {
-          value: StreetName,
-        },
-        streetType: {
-          value: StreetType,
-        },
-      };
+    //   const formValues = {
+    //     unitNumber: {
+    //       value: UnitNumber,
+    //     },
+    //     streetNumber: {
+    //       value: StreetNumber1,
+    //     },
+    //     streetName: {
+    //       value: StreetName,
+    //     },
+    //     streetType: {
+    //       value: StreetType,
+    //     },
+    //   };
 
-      form[1] = _.merge(form[1], formValues);
+    //   form[1] = _.merge(form[1], formValues);
 
-      hocs.setForm(form);
-    });
-  }
-
-  addAddressManually() {
-    const { hocs } = this.props;
-    const { form } = this.state;
-
-    form[1].country.value = 'Australia';
-
-    hocs.setForm(form);
-    this.initManualForm();
+    //   hocs.setForm(form);
+    // });
   }
 
   initManualForm() {
@@ -168,140 +158,129 @@ class HomeAddress extends React.Component {
 
     const formIsValid = hocs.formIsValid(formKey);
     if (formIsValid) {
-      screenProps.navigateTo('InitialInvestmentAmount');
+      screenProps.navigateTo(routeNames.NOTIFICATIONS);
     }
   }
 
   render() {
-    const { hocs } = this.props;
+    const { hocs, screenProps } = this.props;
     const { form } = hocs;
     const { showManualForm } = this.state;
 
     return (
-      <Content padder bounces={false}>
-        <View>
-          <Text style={styleGlobal.formHeading}>
-            Your Home Address
-          </Text>
+      <Content padder bounces={false} contentContainerStyle={sg.flexGrow}>
+        <View style={sg.spaceBetween}>
+          <View>
+            <Text style={sg.formHeading}>
+              Your Home Address
+            </Text>
 
-          {showManualForm
-            ? (
-              <View>
-                <Input
-                  formData={form[1]}
-                  dataKey={1}
-                  placeholder="Unit Number"
-                  formKey="unitNumber"
-                  onChangeText={hocs.handleInput}
-                  itemProps={{
-                    marginBottom: true,
+            {showManualForm
+              ? (
+                <View>
+                  <Input
+                    formData={form[1]}
+                    dataKey={1}
+                    placeholder="Unit Number"
+                    formKey="unitNumber"
+                    onChangeText={hocs.handleInput}
+                    itemProps={{
+                      marginBottom: true,
+                    }}
+                  />
+                  <Input
+                    formData={form[1]}
+                    dataKey={1}
+                    placeholder="Streen Number"
+                    formKey="streetNumber"
+                    onChangeText={hocs.handleInput}
+                    itemProps={{
+                      marginBottom: true,
+                    }}
+                  />
+                  <Input
+                    formData={form[1]}
+                    dataKey={1}
+                    placeholder="Street Name"
+                    formKey="streetName"
+                    onChangeText={hocs.handleInput}
+                    itemProps={{
+                      marginBottom: true,
+                    }}
+                  />
+                  <Input
+                    formData={form[1]}
+                    dataKey={1}
+                    placeholder="Street Type"
+                    formKey="streetType"
+                    onChangeText={hocs.handleInput}
+                    itemProps={{
+                      marginBottom: true,
+                    }}
+                  />
+                  <Input
+                    formData={form[1]}
+                    dataKey={1}
+                    placeholder="Suburb"
+                    formKey="suburb"
+                    onChangeText={hocs.handleInput}
+                    itemProps={{
+                      marginBottom: true,
+                    }}
+                  />
+                  <Input
+                    formData={form[1]}
+                    dataKey={1}
+                    placeholder="State"
+                    formKey="state"
+                    onChangeText={hocs.handleInput}
+                    itemProps={{
+                      marginBottom: true,
+                    }}
+                  />
+                  <Input
+                    formData={form[1]}
+                    dataKey={1}
+                    placeholder="Postcode"
+                    formKey="postcode"
+                    onChangeText={hocs.handleInput}
+                    itemProps={{
+                      marginBottom: true,
+                    }}
+                  />
+                  <Input
+                    formData={form[1]}
+                    dataKey={1}
+                    placeholder="Country"
+                    formKey="country"
+                    onChangeText={hocs.handleInput}
+                    itemProps={{
+                      marginBottom: true,
+                    }}
+                  />
+                </View>
+              )
+              : (
+                <Address
+                  onPressItem={this.onPressListItem}
+                  inputProps={{
+                    formData: ((form && form[0]) ? form[0] : null),
+                    dataKey: 0,
+                    formKey: 'address',
+                    onChangeText: hocs.handleInput,
                   }}
+                  Api={screenProps.Api}
                 />
-                <Input
-                  formData={form[1]}
-                  dataKey={1}
-                  placeholder="Streen Number"
-                  formKey="streetNumber"
-                  onChangeText={hocs.handleInput}
-                  itemProps={{
-                    marginBottom: true,
-                  }}
-                />
-                <Input
-                  formData={form[1]}
-                  dataKey={1}
-                  placeholder="Street Name"
-                  formKey="streetName"
-                  onChangeText={hocs.handleInput}
-                  itemProps={{
-                    marginBottom: true,
-                  }}
-                />
-                <Input
-                  formData={form[1]}
-                  dataKey={1}
-                  placeholder="Street Type"
-                  formKey="streetType"
-                  onChangeText={hocs.handleInput}
-                  itemProps={{
-                    marginBottom: true,
-                  }}
-                />
-                <Input
-                  formData={form[1]}
-                  dataKey={1}
-                  placeholder="Suburb"
-                  formKey="suburb"
-                  onChangeText={hocs.handleInput}
-                  itemProps={{
-                    marginBottom: true,
-                  }}
-                />
-                <Input
-                  formData={form[1]}
-                  dataKey={1}
-                  placeholder="State"
-                  formKey="state"
-                  onChangeText={hocs.handleInput}
-                  itemProps={{
-                    marginBottom: true,
-                  }}
-                />
-                <Input
-                  formData={form[1]}
-                  dataKey={1}
-                  placeholder="Postcode"
-                  formKey="postcode"
-                  onChangeText={hocs.handleInput}
-                  itemProps={{
-                    marginBottom: true,
-                  }}
-                />
-                <Input
-                  formData={form[1]}
-                  dataKey={1}
-                  placeholder="Country"
-                  formKey="country"
-                  onChangeText={hocs.handleInput}
-                  itemProps={{
-                    marginBottom: true,
-                  }}
-                />
-              </View>
-            )
-            : (
-              <Kleber
-                onPressItem={this.onPressListItem}
-                inputProps={{
-                  formData: ((form && form[0]) ? form[0] : null),
-                  dataKey: 0,
-                  formKey: 'address',
-                  onChangeText: hocs.handleInput,
-                }}
-              />
-            )
-          }
-
-          <View style={styleGlobal.mT10}>
-            <Button
-              onPress={() => this.handlePress()}
-              block
-            >
-              <Text>Next</Text>
-            </Button>
-
-            {!showManualForm
-              && (
-              <Button
-                onPress={() => this.addAddressManually()}
-                transparent
-                block
-              >
-                <Text style={styles.addAddressManually}>Add address manually</Text>
-              </Button>
               )
             }
+
           </View>
+          <Button
+            onPress={() => this.handlePress()}
+            block
+          >
+            <Text>Next</Text>
+          </Button>
         </View>
       </Content>
     );

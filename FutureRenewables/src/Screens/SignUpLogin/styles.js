@@ -42,3 +42,32 @@ export const appLanding = {
 export const buildYourImpact = {
 
 };
+
+export const ThanksShare = {
+  opacityBl: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  opacityTitle: {
+    fontSize: 20,
+  },
+  checkmark: {
+    alignSelf: 'center',
+    backgroundColor: 'red',
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    paddingHorizontal: 8,
+    paddingTop: isIOSv ? 0 : 4,
+  },
+  checkmarkTick: {
+    color: 'white',
+    fontSize: 30,
+  },
+};

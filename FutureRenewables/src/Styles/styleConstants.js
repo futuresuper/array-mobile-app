@@ -25,6 +25,7 @@ export default Object.freeze({
     gray9: '#F4F4F4',
     gray10: '#BEBEBE',
     gray11: '#766B97',
+    orange: '#FFA334',
     lightGreen: '#6FCE1C',
     errorBorder: '#ed2f2f',
     white: 'white',

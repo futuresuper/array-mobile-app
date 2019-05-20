@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
+import {
+  View,
+} from 'react-native';
 import Modal from 'react-native-modal';
-
-
 import {
   sg,
 } from 'src/Styles';
@@ -46,14 +47,20 @@ class ModalBottomInfo extends Component {
         onBackdropPress={this.hide}
         style={sg.m0}
       >
-        <BottomInfo
-          animation={false}
-          gesture={false}
-          visible
-          style={styles.containerModal}
-        >
-          {content}
-        </BottomInfo>
+        {content
+          ? (
+            <BottomInfo
+              animation={false}
+              gesture={false}
+              visible
+              style={styles.containerModal}
+            >
+              {content}
+            </BottomInfo>
+          ) : (
+            <View />
+          )
+        }
       </Modal>
     );
   }

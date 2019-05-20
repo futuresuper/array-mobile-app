@@ -11,6 +11,8 @@ export default {
   EMAIL: 'Email',
   DATE_OF_BIRTH: 'DateOfBirth',
   HOME_ADDRESS: 'HomeAddress',
+  NOTIFICATIONS: 'Notifications',
+  THANKS_SHARE: 'ThanksShare',
   FIRST_PAGE: 'FirstPage',
   TAB_HOME: 'TabHome',
   TAB_ACTIVITY: 'TabActivity',

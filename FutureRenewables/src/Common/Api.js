@@ -8,6 +8,7 @@ import {
   Platform,
 } from 'react-native';
 
+import _ from 'lodash';
 import { API } from 'aws-amplify';
 
 import AwsAmplify from 'src/Common/AwsAmplify';
@@ -19,6 +20,7 @@ const UNAUTHORIZED = 401;
 const apiError = {
   unknown: 'unknown error',
   unauthenticated: 'Unauthenticated',
+  tokenError: 'token error',
 };
 
 
@@ -85,9 +87,9 @@ class Api extends Component {
   //   return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'PUT');
   // }
 
-  // static get(urlInp, params, onSuccess = null, onError = null, spinner = true) {
-  //   return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'GET');
-  // }
+  static get(path, query, onSuccess = null, onError = null, spinner = true) {
+    return this.ApiInstance.proc(path, query, onSuccess, onError, 'get', spinner);
+  }
 
   static post(path, body, onSuccess = null, onError = null, spinner = true) {
     return this.ApiInstance.proc(path, body, onSuccess, onError, 'post', spinner);
@@ -104,12 +106,45 @@ class Api extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  proc(path, body, onSuccess = null, onError = null, method, spinner = false) {
-    const { toast, navigateTo, authResetConnect } = this.props;
-    const apiName = 'array';
-    const options = {
-      body,
+  getParameters(parametersInp) {
+    let parameters = {};
+    const parametersDef = {
+      apiName: 'array',
+      path: null,
     };
+
+    if (typeof parametersInp === 'string') {
+      parameters.path = parametersInp;
+    } else {
+      parameters = parametersInp;
+    }
+
+    parameters = {
+      ...parametersDef,
+      ...parameters,
+    };
+
+    return parameters;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  proc(parameters, bodyQuery, onSuccess = null, onError = null, method, spinner = false) {
+    const { toast, navigateTo, authResetConnect } = this.props;
+    const { apiName, path } = this.getParameters(parameters);
+    const options = {};
+    let errorResponseMessage = null;
+
+    if (bodyQuery && !_.isEmpty(bodyQuery)) {
+      if (method === 'post') {
+        options.body = bodyQuery;
+      } else {
+        options.queryStringParameters = bodyQuery;
+      }
+    }
+
+    // if (!_.isEmpty(query)) {
+    //   options.queryStringParameters = query;
+    // }
 
     if (spinner) {
       this.spinnerShow();
@@ -124,6 +159,14 @@ class Api extends Component {
     }).catch((err) => {
       this.spinnerHide();
 
+      try {
+        // eslint-disable-next-line no-underscore-dangle
+        errorResponseMessage = JSON.parse(err.request._response).message;
+        errorResponseMessage = errorResponseMessage.toLowerCase();
+      } catch (e) {
+        // empty
+      }
+
       if (
         err.request
         && (err.request.status === UNAUTHORIZED)
@@ -131,6 +174,13 @@ class Api extends Component {
         authResetConnect();
         navigateTo('SignUpLogin');
         toast(apiError.unauthenticated);
+      } else if (
+        err.request
+        && (err.request.status === 403)
+        && (errorResponseMessage.includes('token'))
+      ) {
+        navigateTo('SignUpLogin');
+        toast(apiError.tokenError);
       } else {
         // eslint-disable-next-line no-lonely-if
         if (onError) {

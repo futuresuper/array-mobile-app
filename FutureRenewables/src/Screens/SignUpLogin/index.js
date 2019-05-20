@@ -10,6 +10,8 @@ import Name from './Name';
 import Email from './Email';
 import DateOfBirth from './DateOfBirth';
 import HomeAddress from './HomeAddress';
+import Notifications from './Notifications';
+import ThanksShare from './ThanksShare';
 
 export {
   AppLanding,
@@ -23,4 +25,6 @@ export {
   Email,
   DateOfBirth,
   HomeAddress,
+  Notifications,
+  ThanksShare,
 };
