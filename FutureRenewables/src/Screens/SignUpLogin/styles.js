@@ -94,4 +94,9 @@ export const ThanksShare = {
   borderListItem: {
     borderColor: sc.color.gray11,
   },
+  imageBottom: {
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 0,
+  },
 };

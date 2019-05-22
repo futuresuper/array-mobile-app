@@ -189,7 +189,7 @@ export default {
     return this.textColor;
   },
   get inputColorPlaceholder() {
-    return styleConstants.color.dark;
+    return styleConstants.color.gray11;
   },
 
   // Line Height

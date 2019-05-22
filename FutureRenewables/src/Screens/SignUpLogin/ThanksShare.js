@@ -5,6 +5,7 @@ import {
   View,
   Modal,
   Clipboard,
+  Image,
 } from 'react-native';
 import {
   Content,
@@ -21,6 +22,7 @@ import {
 } from 'src/Styles';
 
 import { ThanksShare as styles } from './styles';
+import ThanksShareBottom from './images/ThanksShareBottom.png';
 
 class ThanksShare extends React.Component {
   constructor(props) {
@@ -28,21 +30,37 @@ class ThanksShare extends React.Component {
 
     this.state = {
       showThanks: true,
+      userInfo: {},
     };
   }
 
   componentDidMount() {
-    this.timeoutId = setTimeout(() => {
-      this.setState({
-        showThanks: false,
-      });
-    }, 3000);
+    const { screenProps } = this.props;
+
+    screenProps.Api.get('/user',
+      {},
+      (res) => {
+        this.setState({
+          userInfo: res.user || {},
+        });
+        this.hideShowThanks();
+      },
+      () => {
+        this.hideShowThanks();
+        screenProps.toastDanger('Unknown error');
+      }, false);
   }
 
   componentWillUnmount() {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
+  }
+
+  hideShowThanks() {
+    this.setState({
+      showThanks: false,
+    });
   }
 
   renderOpacity() {
@@ -95,20 +113,24 @@ class ThanksShare extends React.Component {
 
   render() {
     const { screenProps } = this.props;
+    const { userInfo } = this.state;
 
     return (
-      <Content padder>
+      <Content padder contentContainerStyle={sg.flexGrow} bounces={false}>
         {this.renderOpacity()}
-        <View>
+        <View style={sg.pB70}>
           <View style={styles.profileBadge}>
-            <Text style={styles.profileBadgeText}>A</Text>
+            <Text style={styles.profileBadgeText}>{userInfo.firstName ? userInfo.firstName.charAt(0) : ''}</Text>
           </View>
-          <Text style={[sg.aSCenter, sg.fS30, sg.mT10]}>Andrew Sellen</Text>
-
+          <Text style={[sg.aSCenter, sg.fS30, sg.mT10]}>
+            {userInfo.firstName}
+            {' '}
+            {userInfo.lastName}
+          </Text>
 
           <View style={[sg.mT20, sg.mB30]}>
             <ListItem style={[sg.mL0, styles.borderListItem]} />
-            {this.renderListItem('Your early access group', 'August 19')}
+            {this.renderListItem('Your early access group', userInfo.waitlistAccessGroup)}
             {this.renderListItem('Friends referred', '0')}
             {this.renderListItem('Referrals needed for July upgrade', '0')}
           </View>
@@ -133,6 +155,8 @@ class ThanksShare extends React.Component {
 
           <Text style={[sg.colorGray11, sg.aSCenter]}>Tap to copy your referral code</Text>
         </View>
+
+        <Image source={ThanksShareBottom} style={styles.imageBottom} />
       </Content>
     );
   }

@@ -25,7 +25,7 @@ import {
   Config,
 } from 'src/Common/config';
 
-import ListLinks from 'src/Components/ListLinks';
+// import ListLinks from 'src/Components/ListLinks';
 
 import {
   routeNames,
@@ -138,7 +138,7 @@ class SmsCode extends Component {
           </KeyboardAvoidingView>
         </View>
 
-        <ListLinks
+        {/* <ListLinks
           absolute
           navigateTo={this.props.screenProps.navigateTo}
           data={[
@@ -147,7 +147,7 @@ class SmsCode extends Component {
               screen: routeNames.ACCOUNT_TYPE,
             },
           ]}
-        />
+        /> */}
 
       </Content>
     );

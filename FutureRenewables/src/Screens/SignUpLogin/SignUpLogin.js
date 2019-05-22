@@ -24,7 +24,7 @@ import {
   routeNames,
 } from 'src/Navigation';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
-import ListLinks from 'src/Components/ListLinks';
+// import ListLinks from 'src/Components/ListLinks';
 
 class SignUpLogin extends Component {
   constructor(props) {
@@ -135,7 +135,7 @@ class SignUpLogin extends Component {
 
         </View>
 
-        <ListLinks
+        {/* <ListLinks
           absolute
           navigateTo={screenProps.navigateTo}
           data={[
@@ -144,7 +144,7 @@ class SignUpLogin extends Component {
               screen: routeNames.SMS_CODE,
             },
           ]}
-        />
+        /> */}
 
       </Content>
     );

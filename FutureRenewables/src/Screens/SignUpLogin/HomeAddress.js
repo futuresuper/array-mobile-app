@@ -112,37 +112,43 @@ class HomeAddress extends React.Component {
 
   retrieveAddress(recordId) {
     const { form } = this.state;
-    const { hocs } = this.props;
+    const { screenProps, hocs } = this.props;
 
-    // KleberApi.requestRetrieveAddress(recordId).then((res) => {
-    //   if (!res) return;
+    screenProps.Api.get('/addressdetails',
+      {
+        paf: recordId,
+      },
+      (res) => {
+        if (!res || !res.addressDetails) {
+          return;
+        }
 
-    //   const {
-    //     UnitNumber,
-    //     StreetNumber1,
-    //     StreetName,
-    //     StreetType,
-    //   } = res;
+        const {
+          UnitNumber,
+          StreetNumber1,
+          StreetName,
+          StreetType,
+        } = res.addressDetails;
 
-    //   const formValues = {
-    //     unitNumber: {
-    //       value: UnitNumber,
-    //     },
-    //     streetNumber: {
-    //       value: StreetNumber1,
-    //     },
-    //     streetName: {
-    //       value: StreetName,
-    //     },
-    //     streetType: {
-    //       value: StreetType,
-    //     },
-    //   };
+        const formValues = {
+          unitNumber: {
+            value: UnitNumber,
+          },
+          streetNumber: {
+            value: StreetNumber1,
+          },
+          streetName: {
+            value: StreetName,
+          },
+          streetType: {
+            value: StreetType,
+          },
+        };
 
-    //   form[1] = _.merge(form[1], formValues);
+        form[1] = _.merge(form[1], formValues);
 
-    //   hocs.setForm(form);
-    // });
+        hocs.setForm(form);
+      }, null, false);
   }
 
   initManualForm() {
