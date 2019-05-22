@@ -81,6 +81,9 @@ const signRoutes = formatRoutes({
   [routeNames.THANKS_SHARE]: {
     screen: screens.ThanksShare,
   },
+  [routeNames.ARTIST_NAME]: {
+    screen: screens.ArtistName,
+  },
 });
 
 const mainRoutes = formatRoutes({

@@ -16,6 +16,7 @@ import { BottomInfo } from 'src/Components/BottomInfo';
 import {
   routeNames,
 } from 'src/Navigation';
+import signUpLoginUtils from 'src/Common/signUpLogin';
 
 import {
   sg,
@@ -32,7 +33,7 @@ class AccountType extends React.Component {
   onMyself = () => {
     const { screenProps } = this.props;
 
-    this.saveDatabase('individual', () => {
+    this.saveDatabase(signUpLoginUtils.ACCOUNT_TYPE.INDIVIDUAL, () => {
       screenProps.navigateTo(routeNames.NAME);
     });
   }
@@ -40,8 +41,8 @@ class AccountType extends React.Component {
   onFeat = () => {
     const { screenProps } = this.props;
 
-    this.saveDatabase('feat', () => {
-      screenProps.toast('next screen will be here');
+    this.saveDatabase(signUpLoginUtils.ACCOUNT_TYPE.FEAT, () => {
+      screenProps.navigateTo(routeNames.ARTIST_NAME);
     });
   }
 

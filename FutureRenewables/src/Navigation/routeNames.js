@@ -13,6 +13,7 @@ export default {
   HOME_ADDRESS: 'HomeAddress',
   NOTIFICATIONS: 'Notifications',
   THANKS_SHARE: 'ThanksShare',
+  ARTIST_NAME: 'ArtistName',
   FIRST_PAGE: 'FirstPage',
   TAB_HOME: 'TabHome',
   TAB_ACTIVITY: 'TabActivity',

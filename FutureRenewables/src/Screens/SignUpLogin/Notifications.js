@@ -5,6 +5,7 @@ import {
   Alert,
   View,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import {
   Content,
   Button,
@@ -14,6 +15,7 @@ import {
 import {
   routeNames,
 } from 'src/Navigation';
+import signUpLoginUtils from 'src/Common/signUpLogin';
 
 import {
   sg,
@@ -39,9 +41,9 @@ class Notifications extends React.Component {
   }
 
   nextScreen() {
-    const { screenProps } = this.props;
+    const { screenProps, accountType } = this.props;
 
-    screenProps.navigateTo(routeNames.THANKS_SHARE);
+    screenProps.navigateTo(routeNames.THANKS_SHARE, { accountType });
   }
 
   render() {
@@ -57,7 +59,6 @@ class Notifications extends React.Component {
               We’ll let you know as soon as you have access to Array. Switch on notifications so you’ll know straight away.
             </Text>
           </View>
-
 
           <View>
             <Button
@@ -82,4 +83,16 @@ class Notifications extends React.Component {
   }
 }
 
-export default connect()(Notifications);
+Notifications.propTypes = {
+  accountType: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const { accountType } = signUpLoginUtils.getAccountType(ownProps.navigation);
+
+  return {
+    accountType,
+  };
+};
+
+export default connect(mapStateToProps)(Notifications);

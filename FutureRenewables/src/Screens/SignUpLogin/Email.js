@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   View,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import {
   Content,
   Button,
@@ -12,7 +13,11 @@ import {
 import {
   routeNames,
 } from 'src/Navigation';
-import composeHoc from 'src/Common/Hocs';
+import {
+  composeHoc,
+  hocNames,
+} from 'src/Common/Hocs';
+import signUpLoginUtils from 'src/Common/signUpLogin';
 import {
   Input,
 } from 'src/Components/Form';
@@ -45,7 +50,12 @@ class Email extends React.Component {
   }
 
   handlePress() {
-    const { screenProps, hocs } = this.props;
+    const {
+      screenProps,
+      hocs,
+      isFeat,
+      accountType,
+    } = this.props;
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
@@ -54,7 +64,11 @@ class Email extends React.Component {
       screenProps.Api.post('/user', {
         email,
       }, () => {
-        screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
+        if (isFeat) {
+          screenProps.navigateTo(routeNames.NOTIFICATIONS, { accountType });
+        } else {
+          screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
+        }
       }, () => {
         screenProps.tastDanger('Error. Try again.');
       });
@@ -97,9 +111,22 @@ class Email extends React.Component {
   }
 }
 
+Email.propTypes = {
+  accountType: PropTypes.string.isRequired,
+  isFeat: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const { accountType, isFeat } = signUpLoginUtils.getAccountType(ownProps.navigation);
+
+  return {
+    accountType,
+    isFeat,
+  };
+};
 
 const res = composeHoc([
-  'FormHoc',
+  hocNames.FORM,
 ])(Email);
 
-export default connect()(res);
+export default connect(mapStateToProps)(res);

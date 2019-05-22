@@ -12,6 +12,7 @@ import DateOfBirth from './DateOfBirth';
 import HomeAddress from './HomeAddress';
 import Notifications from './Notifications';
 import ThanksShare from './ThanksShare';
+import ArtistName from './ArtistName';
 
 export {
   AppLanding,
@@ -27,4 +28,5 @@ export {
   HomeAddress,
   Notifications,
   ThanksShare,
+  ArtistName,
 };

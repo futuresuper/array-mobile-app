@@ -100,3 +100,20 @@ export const ThanksShare = {
     bottom: 0,
   },
 };
+
+export const ArtistName = {
+  checkmarkContainer: {
+    backgroundColor: 'white',
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: 'center',
+  },
+  checkmark: {
+    backgroundColor: sc.color.orange,
+    alignSelf: 'center',
+  },
+  checkmarkTick: {
+    color: 'white',
+  },
+};
