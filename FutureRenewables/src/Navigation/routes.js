@@ -80,11 +80,6 @@ const signRoutes = formatRoutes({
   },
   [routeNames.THANKS_SHARE]: {
     screen: screens.ThanksShare,
-    params: {
-      headerStyle: {
-        opacity: 0.1,
-      },
-    },
   },
 });
 

@@ -2,21 +2,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Alert,
   View,
+  Modal,
+  Clipboard,
 } from 'react-native';
 import {
   Content,
   Button,
   Text,
-  H1,
-  H2,
-  H3,
+  ListItem,
+  Body,
 } from 'native-base';
-
-import {
-  routeNames,
-} from 'src/Navigation';
 
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 
@@ -31,54 +27,112 @@ class ThanksShare extends React.Component {
     super(props);
 
     this.state = {
-      showOpacity: true,
+      showThanks: true,
     };
   }
 
   componentDidMount() {
-    const { navigation } = this.props;
-    // navigation.setParams({
-    //   headerStyle: {
-    //     opacity: 0.1,
-    //   },
-    // });
-    // this.props.screenProps.spinnerShow();
+    this.timeoutId = setTimeout(() => {
+      this.setState({
+        showThanks: false,
+      });
+    }, 3000);
   }
 
-  hideOpacity() {
-
+  componentWillUnmount() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
   }
 
   renderOpacity() {
-    const { showOpacity } = this.state;
+    const { showThanks } = this.state;
 
-    if (!showOpacity) {
+    if (!showThanks) {
       return null;
     }
 
     return (
-      <View style={styles.opacityBl}>
-        <BadgeCheckmark
-          style={styles.checkmark}
-          styleTick={styles.checkmarkTick}
-        />
+      <Modal
+        animationType="none"
+        onRequestClose={() => {
 
-        <Text style={sg.formHeading}>Thanks!</Text>
-        <Text style={[sg.textCenter]}>
-          Your spot in the August group
-          {'\n'}
-          is confirmed.
-        </Text>
-      </View>
+        }}
+        supportedOrientations={['landscape', 'portrait']}
+        transparent
+        visible
+      >
+        <View style={styles.opacityBl}>
+          <View style={[styles.thanksBl]}>
+            <BadgeCheckmark
+              style={styles.checkmark}
+              styleTick={styles.checkmarkTick}
+            />
+
+            <Text style={[sg.formHeading, sg.aSCenter]}>Thanks!</Text>
+            <Text style={[sg.textCenter]}>
+              Your spot in the August group
+              {'\n'}
+              is confirmed.
+            </Text>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  renderListItem(name, value) {
+    return (
+      <ListItem style={[sg.mL0, sg.mR0, styles.borderListItem]}>
+        <Body style={[sg.spaceBetween, sg.row]}>
+          <Text>{name}</Text>
+          <Text style={sg.textBold}>{value}</Text>
+        </Body>
+      </ListItem>
     );
   }
 
   render() {
+    const { screenProps } = this.props;
 
     return (
-      <Content padder contentContainerStyle={sg.flex}>
-        <H2>asd</H2>
+      <Content padder>
         {this.renderOpacity()}
+        <View>
+          <View style={styles.profileBadge}>
+            <Text style={styles.profileBadgeText}>A</Text>
+          </View>
+          <Text style={[sg.aSCenter, sg.fS30, sg.mT10]}>Andrew Sellen</Text>
+
+
+          <View style={[sg.mT20, sg.mB30]}>
+            <ListItem style={[sg.mL0, styles.borderListItem]} />
+            {this.renderListItem('Your early access group', 'August 19')}
+            {this.renderListItem('Friends referred', '0')}
+            {this.renderListItem('Referrals needed for July upgrade', '0')}
+          </View>
+
+          <Text style={sg.textCenter}>
+            Want to get in earlier?
+            <Text style={sg.textBold}> Refer 5 friends </Text>
+            with your unique code below and we’ll bump you up  the queue.
+          </Text>
+
+          <Button
+            block
+            bordered
+            style={[sg.mV30]}
+            onPress={() => {
+              Clipboard.setString('UrName0199');
+              screenProps.toast('Copied.');
+            }}
+          >
+            <Text>UrName0199</Text>
+          </Button>
+
+          <Text style={[sg.colorGray11, sg.aSCenter]}>Tap to copy your referral code</Text>
+        </View>
       </Content>
     );
   }
