@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   View,
-  Modal,
   Clipboard,
   Image,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import {
   Content,
   Button,
@@ -45,12 +45,13 @@ class ThanksShare extends React.Component {
         this.setState({
           userInfo: res.user || {},
         });
-        this.hideShowThanks();
       },
       () => {
-        this.hideShowThanks();
         screenProps.toastDanger('Unknown error');
       }, false);
+
+
+    this.hideShowThanks();
   }
 
   componentWillUnmount() {
@@ -74,19 +75,20 @@ class ThanksShare extends React.Component {
   renderOpacity() {
     const { showThanks } = this.state;
 
-    if (!showThanks) {
-      return null;
-    }
-
     return (
       <Modal
-        animationType="none"
-        onRequestClose={() => {
-
+        animationOutTiming={3000}
+        animationOut="fadeOut"
+        animationIn={{
+          from: {
+          },
+          to: {
+          },
         }}
         supportedOrientations={['landscape', 'portrait']}
-        transparent
-        visible
+        hasBackdrop={false}
+        isVisible={showThanks}
+        style={sg.m0}
       >
         <View style={styles.opacityBl}>
           <View style={[styles.thanksBl]}>
