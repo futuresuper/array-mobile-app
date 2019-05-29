@@ -19,13 +19,13 @@ export default class Card extends React.Component {
 
 const styles = StyleSheet.create({
   textAboveImage: {
-    fontFamily: 'Lato',
+    fontFamily: 'BwGradual-Regular',
     fontWeight: '300',
     padding: 12,
     fontSize: 14
   },
   textHeadline: {
-    fontFamily: 'Lato',
+    fontFamily: 'BwGradual-Regular',
     fontWeight: '700',
     paddingHorizontal: 12,
     paddingTop: 12,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   textBelowImage: {
-    fontFamily: 'Lato',
+    fontFamily: 'BwGradual-Regular',
     fontWeight: '300',
     paddingHorizontal: 12,
     paddingBottom: 12,

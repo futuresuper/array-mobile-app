@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   balance: {
-    fontFamily: 'Lato',
+    fontFamily: 'BwGradual-Regular',
     fontSize: 48,
     fontWeight: '900',
     color: 'white',

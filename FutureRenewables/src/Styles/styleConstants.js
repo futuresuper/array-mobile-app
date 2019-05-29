@@ -30,7 +30,7 @@ export default Object.freeze({
     errorBorder: '#ed2f2f',
     white: 'white',
   },
-  fontFamily: 'Lato',
+  fontFamily: 'BwGradual-Regular',
   fontSize: {
     h1: 30,
     h2: 24,
