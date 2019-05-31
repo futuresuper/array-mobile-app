@@ -10,6 +10,7 @@ export default Object.freeze({
     dark: '#000000',
     dark2: '#1A1E5E',
     dark3: '#2F2353',
+    dark4: '#101343',
     dark3alpha: 'rgba(47,35,83, 56)',
     danger: '#d9534f',
     warning: '#f0ad4e',
@@ -29,8 +30,43 @@ export default Object.freeze({
     lightGreen: '#6FCE1C',
     errorBorder: '#ed2f2f',
     white: 'white',
+    white2: '#FAF3EB',
+    get brightRed() {
+      return this.color.primary;
+    },
+    get darkPurple() {
+      return this.color.dark3;
+    },
+    get mediumPurple() {
+      return this.color.gray11;
+    },
+    lightPurple: '#a09bb1',
+    brightGreen: '#51ccaa',
+    brightYellow: '#ffad3a',
+    get backgroundLight() {
+      return this.containerBgColor;
+    },
+    backgroundDark: '#11133d',
   },
-  fontFamily: 'BwGradual-Regular',
+  font: {
+    black: 'BwGradual-Black',
+    blackItalic: 'BwGradual-BlackItalic',
+    bold: 'BwGradual-Bold',
+    boldItalic: 'BwGradual-BoldItalic',
+    extraBold: 'BwGradual-ExtraBold',
+    extraBoldItalic: 'BwGradual-ExtraBoldItalic',
+    light: 'BwGradual-Light',
+    lightItalic: 'BwGradual-LightItalic',
+    medium: 'BwGradual-Medium',
+    mediumItalic: 'BwGradual-MediumItalic',
+    regular: 'BwGradual-Regular',
+    regularItalic: 'BwGradual-RegularItalic',
+    thin: 'BwGradual-Thin',
+    thinItalic: 'BwGradual-ThinItalic',
+  },
+  get fontFamily() {
+    return this.font.regular;
+  },
   fontSize: {
     h1: 30,
     h2: 24,

@@ -36,7 +36,7 @@ export default {
   badgePadding: 0,
 
   // Button
-  btnFontFamily: styleConstants.fontFamily,
+  btnFontFamily: styleConstants.font.medium,
   btnDisabledBg: "#b5b5b5",
   buttonPadding: 6,
   get btnPrimaryBg() {
@@ -73,7 +73,7 @@ export default {
     return this.inverseTextColor;
   },
   get btnTextSize() {
-    return this.fontSizeBase + 4;
+    return 16;
   },
   get btnTextSizeLarge() {
     return this.fontSizeBase * 1.5;

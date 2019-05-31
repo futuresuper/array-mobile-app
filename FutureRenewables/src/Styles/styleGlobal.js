@@ -510,6 +510,34 @@ export default {
   fS35: {
     fontSize: 35,
   },
+  fontLabel: {
+    fontSize: 14,
+    fontFamily: styleConstants.font.medium,
+  },
+  fontBody: {
+    fontSize: 16,
+    fontFamily: styleConstants.font.regular,
+  },
+  headingXS: {
+    fontSize: 20,
+    fontFamily: styleConstants.font.bold,
+  },
+  headingS: {
+    fontSize: 24,
+    fontFamily: styleConstants.font.bold,
+  },
+  headingM: {
+    fontSize: 32,
+    fontFamily: styleConstants.font.bold,
+  },
+  headingL: {
+    fontSize: 44,
+    fontFamily: styleConstants.font.bold,
+  },
+  headingXL: {
+    fontSize: 50,
+    fontFamily: styleConstants.font.bold,
+  },
   backgroundDefault: {
     backgroundColor: styleConstants.color.light,
   },
@@ -596,13 +624,13 @@ export default {
     paddingVertical: 4,
   },
   disclaimerBl: {
-    backgroundColor: styleConstants.color.dark,
+    backgroundColor: styleConstants.color.dark4,
     paddingTop: 30,
     paddingBottom: 40,
     paddingHorizontal: 20,
   },
   disclaimer: {
-    color: 'white',
+    color: styleConstants.color.white2,
   },
   get disclaimerUnderline() {
     return {
@@ -613,7 +641,7 @@ export default {
   get disclaimerBold() {
     return {
       ...this.disclaimer,
-      fontWeight: '600',
+      fontFamily: styleConstants.font.bold,
     };
   },
   get disclaimerP() {

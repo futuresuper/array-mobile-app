@@ -22,8 +22,9 @@ import {
   sg,
 } from 'src/Styles';
 
-import landingCircle from './images/landingCircle.png';
-import landingArray from './images/landingArray.png';
+// import landingCircle from './images/landingCircle.png';
+// import landingArray from './images/landingArray.png';
+import appLanding from './images/appLanding.png';
 import poweredBy from './images/poweredBy.png';
 
 import { appLanding as styles } from './styles';
@@ -49,11 +50,17 @@ class AppLanding extends Component {
 
     return (
       <Content bounces={false}>
-        <Image source={landingCircle} style={[styles.image]} />
+        <Image source={appLanding} style={[styles.image]} />
 
         <View style={[styles.topBl, { height: screenHeight }]} onLayout={this.handleLayout}>
-          <Image source={landingArray} />
-          <Text style={styles.textMiddle}>A brighter future built by you</Text>
+
+          <Text style={styles.textMiddle}>
+            A brighter
+            {'\n'}
+            future built
+            {'\n'}
+            by you
+          </Text>
 
           <View style={[sg.width100p, sg.pH30, sg.aICenter]}>
 
@@ -66,14 +73,16 @@ class AppLanding extends Component {
               <Text>Next</Text>
             </Button>
 
-            <Image source={poweredBy} style={sg.mT25} />
+            <Image source={poweredBy} style={sg.mT20} />
           </View>
         </View>
 
         <View style={sg.disclaimerBl}>
           <Text style={sg.disclaimer}>ABOUT THE ARRAY APP</Text>
           <Text style={sg.disclaimer}>
-            The Array app is a mobile app which will enable you to apply to invest in the Future Renewables Fund ARSN 628 987 842 (the Fund),
+            The Array app is a mobile app which will enable you to apply to invest in the Future Renewables Fund ARSN 628 987 842 (the&nbsp;
+            <Text style={sg.disclaimerBold}>Fund</Text>
+            ),
             and track your investment in the Fund.
             The Array app is published by Future Super Services Pty Ltd (ABN 34 619 076 023, AFS Representative No. 001255665),
             which is a Corporate Authorised Representative of Future Super Asset Management Limited (ABN 81 002 558 956, AFSL No. 238184).
@@ -110,10 +119,10 @@ class AppLanding extends Component {
             This website should be regarded as general information only and not financial advice.
             Any one reading this website must obtain and rely upon their own independent advice and inquiries,
             both OMIFL and the Fund Manager do not guarantee the performance of the Fund or the repayment of any investor’s capital.
-            Investors should consider the&nbsp;
-            <Text style={sg.disclaimerBold}>PDS</Text>
-            &nbsp;before making any decision regarding the Fund.
-            The PDS contains important information about investing in the Fund and it is important investors obtain and read a copy of the
+            Investors should consider the PDS before making any decision regarding the Fund.
+            The
+            <Text style={sg.disclaimerUnderline}> PDS </Text>
+            contains important information about investing in the Fund and it is important investors obtain and read a copy of the
             PDS before making a decision about whether to acquire,
             continue to hold or dispose of units in the Fund.
           </Text>

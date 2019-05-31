@@ -454,15 +454,15 @@ export default (variables /*: * */ = variable) => {
     borderRadius: variables.borderRadiusBase,
     borderColor: variables.btnPrimaryBg,
     borderWidth: null,
-    height: 45,
+    height: 48,
     alignSelf: "flex-start",
     flexDirection: "row",
-    elevation: 2,
-    shadowColor: platformStyle === "material" ? variables.brandDark : undefined,
-    shadowOffset:
-      platformStyle === "material" ? { width: 0, height: 2 } : undefined,
-    shadowOpacity: platformStyle === "material" ? 0.2 : undefined,
-    shadowRadius: platformStyle === "material" ? 1.2 : undefined,
+    // elevation: 2,
+    // shadowColor: platformStyle === "material" ? variables.brandDark : undefined,
+    // shadowOffset:
+    //   platformStyle === "material" ? { width: 0, height: 2 } : undefined,
+    // shadowOpacity: platformStyle === "material" ? 0.2 : undefined,
+    // shadowRadius: platformStyle === "material" ? 1.2 : undefined,
     alignItems: "center",
     justifyContent: "space-between"
   };

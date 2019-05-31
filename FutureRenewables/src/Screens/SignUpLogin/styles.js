@@ -6,6 +6,7 @@ import {
 
 import {
   sc,
+  sg,
 } from 'src/Styles';
 
 const isIOSv = isIOS();
@@ -22,21 +23,20 @@ export default {
 export const appLanding = {
   image: {
     position: 'absolute',
-    top: (isIOSv ? 60 : 40),
+    top: 40,
     alignSelf: 'center',
   },
   topBl: {
     alignItems: 'center',
-    paddingTop: (isIOSv ? 100 : 80),
+    paddingTop: 300,
     paddingBottom: (isIOSv ? 20 : 50),
     justifyContent: 'space-between',
   },
   textMiddle: {
     color: sc.color.dark2,
-    fontSize: 32,
-    fontWeight: '600',
+    fontSize: 35,
+    fontFamily: sc.font.bold,
     textAlign: 'center',
-    width: 180,
   },
 };
 
