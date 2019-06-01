@@ -15,7 +15,7 @@ export default {
   header: {
     color: sc.color.dark2,
     fontSize: 35,
-    fontWeight: '600',
+    fontFamily: sc.font.bold,
     textAlign: 'center',
   },
 };
@@ -29,7 +29,7 @@ export const appLanding = {
   topBl: {
     alignItems: 'center',
     paddingTop: 300,
-    paddingBottom: (isIOSv ? 20 : 50),
+    paddingBottom: (isIOSv ? sc.contentPadding : (sc.contentPadding + 20)),
     justifyContent: 'space-between',
   },
   textMiddle: {
@@ -69,11 +69,11 @@ export const ThanksShare = {
   checkmark: {
     alignSelf: 'center',
     backgroundColor: sc.color.orange,
-    height: 40,
-    width: 40,
-    borderRadius: 20,
-    paddingHorizontal: 8,
-    paddingTop: isIOSv ? 2 : 4,
+    height: 45,
+    width: 45,
+    borderRadius: 45 / 2,
+    paddingHorizontal: 12,
+    paddingTop: isIOSv ? 3 : 5,
   },
   checkmarkTick: {
     color: 'white',
@@ -90,6 +90,7 @@ export const ThanksShare = {
   },
   profileBadgeText: {
     fontSize: 35,
+    fontFamily: sc.font.bold,
   },
   borderListItem: {
     borderColor: sc.color.gray11,
@@ -104,9 +105,9 @@ export const ThanksShare = {
 export const ArtistName = {
   checkmarkContainer: {
     backgroundColor: 'white',
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 33,
+    height: 33,
+    borderRadius: 33 / 2,
     justifyContent: 'center',
   },
   checkmark: {

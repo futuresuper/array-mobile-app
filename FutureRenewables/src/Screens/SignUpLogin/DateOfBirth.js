@@ -139,8 +139,8 @@ class DateOfBirth extends React.Component {
       <Content padder contentContainerStyle={styleGlobal.flexGrow}>
         <View style={styleGlobal.spaceBetween}>
           <View>
-            <Text style={styleGlobal.formHeading}>
-              Date of Birth
+            <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>
+              Date of birth
             </Text>
 
             <Grid>

@@ -82,7 +82,7 @@ class AccountType extends React.Component {
           </View>
 
           <View>
-            <View style={sg.contentPadding}>
+            <View style={[sg.contentPadding, sg.pT0]}>
               <Button
                 onPress={this.onMyself}
                 block
@@ -91,7 +91,7 @@ class AccountType extends React.Component {
               </Button>
 
               <Button
-                style={[sg.mT30, sg.mB10]}
+                style={[sg.mT20, sg.mB0]}
                 onPress={this.onFeat}
                 bordered
                 dark
@@ -99,7 +99,7 @@ class AccountType extends React.Component {
                 iconRight
               >
                 <Text>FEAT. Artist / Music Industry</Text>
-                <Icon type="EvilIcons" name="question" style={[sg.colorDark3, sg.fS30]} onPress={this.openBottomInfo} />
+                <Icon type="EvilIcons" name="question" style={[sg.colorGray11, sg.fS30]} onPress={this.openBottomInfo} />
               </Button>
             </View>
 
@@ -114,9 +114,9 @@ class AccountType extends React.Component {
               }}
             >
               <View style={sg.aICenter}>
-                <H2>What is FEAT.?</H2>
+                <H2 style={[sg.headingXS, sg.colorDark2, sg.mT0]}>What is FEAT.?</H2>
 
-                <Text style={[sg.textCenter, sg.mV10]}>
+                <Text style={[sg.textCenter, sg.mT20, sg.mB20]}>
                 FEAT (Future Energy Artists) are a group of Australia’s top musical artists investing
                 in renewables as a powerful response to the reality of climate change.
                 </Text>

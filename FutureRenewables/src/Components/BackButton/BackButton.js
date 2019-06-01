@@ -15,20 +15,20 @@ import styles from './styles';
 const iconSignUp = {
   name: 'md-arrow-back',
   style: {
-    fontSize: 30,
+    fontSize: 32,
     color: sc.color.gray11,
   },
 };
 
 const BackButton = (props) => {
-  const { signup, header } = props;
+  const { signup, header, style } = props;
   let { icon } = props;
 
   if (signup) {
     icon = iconSignUp;
   }
 
-  const style = header ? {} : styles.outOfHeader;
+  const styleHeader = header ? {} : styles.outOfHeader;
 
   return (
     <Button
@@ -36,8 +36,8 @@ const BackButton = (props) => {
       onPress={() => {
         props.screenProps.routeBack();
       }}
-      style={style}
       {...props}
+      style={[styles.button, styleHeader, style]}
     >
       <Icon
         type={icon.type || undefined}
@@ -56,12 +56,14 @@ BackButton.defaultProps = {
   },
   signup: false,
   header: true,
+  style: {},
 };
 
 BackButton.propTypes = {
   icon: PropTypes.object,
   signup: PropTypes.bool,
   header: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 export default BackButton;

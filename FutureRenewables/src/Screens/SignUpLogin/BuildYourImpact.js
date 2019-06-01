@@ -47,7 +47,11 @@ class BuildYourImpact extends Component {
           SwanHill2,
         ]}
         renderItem={({ item }) => (
-          <Image source={item} style={[sg.farmImage, sg.mR15, { height: 240 * 0.8, width: 316 * 0.8 }]} />
+          <View
+            style={[sg.farmImageShadow, sg.mR15]}
+          >
+            <Image source={item} style={[sg.farmImage, { height: 240 * 0.8, width: 316 * 0.8 }]} />
+          </View>
         )}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -73,23 +77,26 @@ class BuildYourImpact extends Component {
             {...this.props}
           />
 
-          <View style={[sg.spaceBetween, sg.pH20]}>
-            <Text style={[styles.header, sg.mB10, sg.mT70]}>
-              Build your
-              {'\n'}
-              impact
-            </Text>
+          <View style={[sg.spaceBetween, sg.contentPaddingH]}>
 
-            <Text style={sg.textCenter}>
-              Put your savings to work building &
-              {'\n'}
-              supporting real solar farms, like these
-            </Text>
+            <View>
+              <Text style={[styles.header, sg.mB10, sg.mT60]}>
+                Build your
+                {'\n'}
+                impact
+              </Text>
+
+              <Text style={sg.textCenter}>
+                Put your savings to work building &
+                {'\n'}
+                supporting real solar farms, like these
+              </Text>
+            </View>
 
             {this.renderFarms()}
 
             <Button
-              style={[sg.mH0, sg.mB20, sg.mT20]}
+              style={[sg.mH0, sg.contentMarginV]}
               block
               onPress={() => {
                 screenProps.navigateTo(routeNames.BUILD_MOVEMENT);

@@ -31,11 +31,36 @@ import styles from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class BuildMovement extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      multiplier: 1,
+    };
+  }
+
+  onLayout = (event) => {
+    const { height } = event.nativeEvent.layout;
+    let multiplier = 1;
+
+    if (height < 600) {
+      multiplier = 0.7;
+    } else if (height < 670) {
+      multiplier = 0.9;
+    }
+
+    this.setState({
+      multiplier,
+    });
+  }
+
   render() {
     const { screenProps } = this.props;
+    const { multiplier } = this.state;
+    const centerImage = (multiplier < 0.9);
 
     return (
-      <Content contentContainerStyle={[sg.flexGrow]} bounces={false}>
+      <Content contentContainerStyle={[sg.flexGrow]} bounces={false} onLayout={this.onLayout}>
         <Image
           source={buildMovement}
           style={sg.postitionAbsoluteRight}
@@ -48,26 +73,28 @@ class BuildMovement extends Component {
             {...this.props}
           />
 
-          <View style={[sg.spaceBetween, sg.pH20, sg.aICenter]}>
-            <Text style={[styles.header, sg.mB10, sg.mT20]}>
-              Build the
-              {'\n'}
-              movement
-            </Text>
+          <View style={[sg.spaceBetween, sg.pH0]}>
+            <View>
+              <Text style={[styles.header, sg.mB10, sg.mT60]}>
+                Build the
+                {'\n'}
+                movement
+              </Text>
 
-            <Text style={sg.textCenter}>
-              Join the growing movement of people
-              {'\n'}
-              building a cleaner future for the planet
-            </Text>
+              <Text style={sg.textCenter}>
+                Join the growing movement of people
+                {'\n'}
+                building a cleaner future for the planet
+              </Text>
+            </View>
 
             <Image
               source={buildMovementPeople}
+              style={[centerImage ? {} : sg.mL20, { width: 416 * multiplier, height: 349 * multiplier, alignSelf: (centerImage ? 'center' : undefined) }]}
             />
 
-
             <Button
-              style={[sg.mH0, sg.mB20, sg.mT20]}
+              style={[sg.contentMargin, sg.mT0]}
               block
               onPress={() => {
                 screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);

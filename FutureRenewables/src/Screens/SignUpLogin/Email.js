@@ -83,14 +83,14 @@ class Email extends React.Component {
       <Content padder contentContainerStyle={styleGlobal.flexGrow}>
         <View style={styleGlobal.spaceBetween}>
           <View>
-            <Text style={styleGlobal.formHeading}>
-              Your Email Address
+            <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>
+              Your email
             </Text>
 
             <Input
               formData={form}
               formKey="emailAddress"
-              helper="Email Address"
+              helper="Email address"
               autoCapitalize="none"
               keyboardType="email-address"
               onChangeText={hocs.handleInput}

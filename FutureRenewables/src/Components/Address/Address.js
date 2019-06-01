@@ -14,6 +14,10 @@ import {
   Input,
 } from 'src/Components/Form';
 
+import {
+  sg,
+} from 'src/Styles';
+
 import styles from './styles';
 
 class Address extends Component {
@@ -76,8 +80,9 @@ class Address extends Component {
     }
   }
 
-  renderItem = ({ item }) => {
+  renderItem = ({ item, index }, listLength) => {
     const { loading } = this.state;
+    const isLastItem = (index + 1) === listLength;
 
     if (loading) {
       return (null);
@@ -85,7 +90,7 @@ class Address extends Component {
 
     return (
       <TouchableOpacity
-        style={styles.listItem}
+        style={[styles.listItem, isLastItem ? sg.noBorder : {}]}
         onPress={() => { this.onPressItem(item); }}
       >
         <Text style={styles.listItemText}>
@@ -102,12 +107,13 @@ class Address extends Component {
       <FlatList
         data={list}
         keyExtractor={(item, key) => `${key}`}
-        renderItem={this.renderItem}
+        renderItem={(...args) => this.renderItem(...args, list.length)}
         contentContainerStyle={styles.list}
         bounces={false}
         ListEmptyComponent={null}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator
+        showsHorizontalScrollIndicator={false}
       />
     );
   }
@@ -120,7 +126,7 @@ class Address extends Component {
       <View style={[styles.container]}>
         <View>
           <Input
-            helper="Home Address"
+            helper="Home address"
             ref={(ref) => {
               this.textInput = ref;
             }}

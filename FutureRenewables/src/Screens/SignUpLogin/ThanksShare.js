@@ -17,6 +17,7 @@ import {
 } from 'native-base';
 
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
+import TextLink from 'src/Components/TextLink';
 import signUpLoginUtils from 'src/Common/signUpLogin';
 
 import {
@@ -97,11 +98,14 @@ class ThanksShare extends React.Component {
               styleTick={styles.checkmarkTick}
             />
 
-            <Text style={[sg.formHeading, sg.aSCenter]}>Thanks!</Text>
-            <Text style={[sg.textCenter]}>
-              Your spot in the August group
+            <Text style={[sg.formHeading, sg.aSCenter, sg.mT20, sg.mB20]}>Thanks!</Text>
+            <Text style={[sg.textCenter, sg.fontMedium]}>
+              Your spot in the&nbsp;
+              <Text style={sg.textBold}>August</Text>
+              &nbsp;group
               {'\n'}
-              is confirmed.
+              is&nbsp;
+              <Text style={sg.textBold}>confirmed.</Text>
             </Text>
           </View>
         </View>
@@ -112,10 +116,10 @@ class ThanksShare extends React.Component {
   // eslint-disable-next-line class-methods-use-this
   renderListItem(name, value) {
     return (
-      <ListItem style={[sg.mL0, sg.mR0, styles.borderListItem]}>
+      <ListItem style={[sg.mL0, sg.mR0, sg.pR0, styles.borderListItem]}>
         <Body style={[sg.spaceBetween, sg.row]}>
-          <Text>{name}</Text>
-          <Text style={sg.textBold}>{value}</Text>
+          <Text style={[sg.mL0, sg.mR0, sg.fontMedium]}>{name}</Text>
+          <Text style={[sg.mL0, sg.mR0, sg.textBold]}>{value}</Text>
         </Body>
       </ListItem>
     );
@@ -138,7 +142,7 @@ class ThanksShare extends React.Component {
           {this.renderListItem('Referrals needed for July upgrade', '0')}
         </View>
 
-        <Text style={sg.textCenter}>
+        <Text style={[sg.textCenter, sg.fontMedium]}>
           Want to get in earlier?
           <Text style={sg.textBold}> Refer 5 friends </Text>
           with your unique code below and we’ll bump you up  the queue.
@@ -153,7 +157,7 @@ class ThanksShare extends React.Component {
           <Text>UrName0199</Text>
         </Button>
 
-        <Text style={[sg.colorGray11, sg.aSCenter]}>Tap to copy your referral code</Text>
+        <Text style={[sg.colorGray11, sg.aSCenter, sg.fontMedium, sg.fS14]}>Tap to copy your referral code</Text>
       </View>
     );
   }
@@ -197,10 +201,18 @@ class ThanksShare extends React.Component {
             {this.renderListItem('Artist VIP early\n access group', userInfo.waitlistAccessGroup)}
           </View>
 
-          <Text>
-            If you have any questions feel free to get in touch with Heidi at
-            <Text style={sg.textBold}> heidi@feat.ldt</Text>
-          </Text>
+          {/* <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}> */}
+          <View style={{ flexDirection: 'column'}}>
+            {/* <View style={{ flexDirection: 'column', borderWidth: 1, flex: 1}}> */}
+            <Text>
+              If you have any questions feel free to get in touch with Heidi at&nbsp;
+            </Text>
+            {/* </View> */}
+            <Text>111asd</Text>
+
+            <TextLink url="asdasd">heidi@feat.ldt</TextLink>
+          </View>
+          {/* </View> */}
         </View>
 
       </View>
@@ -226,7 +238,7 @@ class ThanksShare extends React.Component {
             <View style={styles.profileBadge}>
               <Text style={styles.profileBadgeText}>{fullName ? fullName.charAt(0) : ''}</Text>
             </View>
-            <Text style={[sg.aSCenter, sg.fS30, sg.mT10]}>
+            <Text style={[sg.aSCenter, sg.mT10, sg.fS35, sg.textBold]}>
               {fullName}
             </Text>
 

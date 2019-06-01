@@ -177,8 +177,8 @@ class HomeAddress extends React.Component {
       <Content padder bounces={false} contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
           <View>
-            <Text style={sg.formHeading}>
-              Your Home Address
+            <Text style={[sg.formHeading, sg.mB50]}>
+              Home address
             </Text>
 
             {showManualForm

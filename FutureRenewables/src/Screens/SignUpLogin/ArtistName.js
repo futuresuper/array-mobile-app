@@ -91,8 +91,8 @@ class ArtistName extends React.Component {
                 </View>
               </Col>
               <Col>
-                <Text style={sg.textBold}>Help promote FEAT & Array</Text>
-                <Text>
+                <Text style={[sg.textBold, sg.fS14, sg.colorGray11]}>Help promote FEAT & Array</Text>
+                <Text style={[sg.fontMedium, sg.fS14, sg.colorGray11]}>
                   It’s okay to list our artist name as one of the FEAT artists in launch communications
                 </Text>
               </Col>

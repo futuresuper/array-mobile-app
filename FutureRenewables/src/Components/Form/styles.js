@@ -29,7 +29,8 @@ export const input = {
   helperBl: {
     fontSize: 14,
     color: sc.color.gray11,
-    marginTop: 10,
+    fontFamily: sc.font.medium,
+    marginTop: 12,
     marginLeft: 3,
   },
 };

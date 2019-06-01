@@ -128,6 +128,7 @@ export default {
   // Font
   DefaultFontSize: 16,
   fontFamily: styleConstants.fontFamily,
+  fontFamilyBold: styleConstants.font.bold,
   fontSizeBase: 15,
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
@@ -180,8 +181,9 @@ export default {
   iconHeaderSize: 24,
 
   // InputGroup
-  inputFontSize: 17,
-  inputBorderColor: styleConstants.color.gray6,
+  inputFontSize: 20,
+  inputFontFamily: styleConstants.font.bold,
+  inputBorderColor: styleConstants.color.gray12,
   inputSuccessBorderColor: "#2b8339",
   inputErrorBorderColor: styleConstants.color.errorBorder,
   inputHeightBase: styleConstants.inputHeightBase,

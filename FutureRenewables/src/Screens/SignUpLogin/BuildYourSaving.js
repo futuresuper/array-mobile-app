@@ -32,11 +32,12 @@ class BuildYourSaving extends Component {
     return (
       <Content contentContainerStyle={sg.flexGrow} bounces={false}>
         <View style={[sg.spaceBetween]}>
-          <View style={sg.aICenter}>
-            <Text style={[styles.header, sg.mV10]}>
+
+          <View>
+            <Text style={[styles.header, sg.mB10, sg.mT60]}>
               Build your
               {'\n'}
-              saving
+              savings
             </Text>
 
             <Text style={[sg.colorDark2, sg.textCenter]}>
@@ -45,17 +46,18 @@ class BuildYourSaving extends Component {
               watch your money grow
             </Text>
 
-            <Image source={buildYourSaving} style={sg.mV20} />
-
-            <Text style={[sg.fS11, sg.colorDark3alpha, sg.mH20, sg.textCenter]}>
-              ^ Target Return is after fees and expenses and including distributions. The Fund Manager has a reasonable basis for setting the target return,
-              however it is a ‘target’ only.  It is not intended as a projection of likely future returns and is not a guarantee.
-              The value of your investment can rise and fall. Please refer to the PDS for further information.
-            </Text>
           </View>
 
+          <Image source={buildYourSaving} />
+
+          <Text style={[sg.contentMarginH, sg.fS11, sg.colorDark3alpha, sg.textCenter]}>
+            ^ Target Return is after fees and expenses and including distributions. The Fund Manager has a reasonable basis for setting the target return,
+            however it is a ‘target’ only.  It is not intended as a projection of likely future returns and is not a guarantee.
+            The value of your investment can rise and fall. Please refer to the PDS for further information.
+          </Text>
+
           <Button
-            style={[sg.mH20, sg.mB20, sg.mT20]}
+            style={[sg.contentMargin, sg.mT5]}
             block
             onPress={() => {
               screenProps.navigateTo(routeNames.BUILD_YOUR_IMPACT);

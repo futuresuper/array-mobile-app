@@ -51,7 +51,12 @@ class AwsAmplify {
       await currentUser.signOut();
     }
 
-    await Auth.signOut({ global: true });
+    try {
+      await Auth.signOut({ global: true });
+    } catch (e) {
+      // empty
+      console.warn('Auth.signOut:', e);
+    }
   }
 
   async signIn(phoneNumber) {

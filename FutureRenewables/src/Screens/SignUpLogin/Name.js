@@ -79,14 +79,14 @@ class Name extends React.Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
           <View>
-            <Text style={sg.formHeading}>
+            <Text style={[sg.formHeading, sg.mB50]}>
               Your name
             </Text>
 
             <Input
               formData={form}
               formKey="firstName"
-              helper="First Name"
+              helper="First name"
               onChangeText={hocs.handleInput}
               itemProps={{
                 marginBottom: true,
@@ -96,7 +96,7 @@ class Name extends React.Component {
             <Input
               formData={form}
               formKey="lastName"
-              helper="Last Name"
+              helper="Last name"
               onChangeText={hocs.handleInput}
             />
 

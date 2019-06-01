@@ -2,7 +2,7 @@
 export default Object.freeze({
   mainColor: 'green',
   containerBgColor: '#F9F4EB',
-  contentPadding: 20,
+  contentPadding: 30,
   color: {
     primary: '#FF615C',
     secondary: '#CCCCCC',
@@ -11,7 +11,7 @@ export default Object.freeze({
     dark2: '#1A1E5E',
     dark3: '#2F2353',
     dark4: '#101343',
-    dark3alpha: 'rgba(47,35,83, 56)',
+    dark3alpha: 'rgba(47,35,83, 59)',
     danger: '#d9534f',
     warning: '#f0ad4e',
     success: '#5cb85c',
@@ -26,19 +26,22 @@ export default Object.freeze({
     gray9: '#F4F4F4',
     gray10: '#BEBEBE',
     gray11: '#766B97',
+    gray12: '#A09BB1',
     orange: '#FFA334',
     lightGreen: '#6FCE1C',
-    errorBorder: '#ed2f2f',
+    get errorBorder() {
+      return this.primary;
+    },
     white: 'white',
     white2: '#FAF3EB',
     get brightRed() {
-      return this.color.primary;
+      return this.primary;
     },
     get darkPurple() {
-      return this.color.dark3;
+      return this.dark3;
     },
     get mediumPurple() {
-      return this.color.gray11;
+      return this.gray11;
     },
     lightPurple: '#a09bb1',
     brightGreen: '#51ccaa',

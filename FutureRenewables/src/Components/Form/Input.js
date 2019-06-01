@@ -136,6 +136,7 @@ class Input extends Component {
       value,
       label,
       disabled,
+      containerStyle,
     } = this.props;
 
     // console.log('!!!', formData);
@@ -151,13 +152,13 @@ class Input extends Component {
     }
 
     return (
-      <View>
+      <View style={[sg.mB15, containerStyle]}>
         <Item
           // regular
           stackedLabel={!!label}
           error={(formData && formData[formKey].error) || false}
-          style={disabled ? sg.noBorder : {}}
           {...itemProps}
+          style={[disabled ? sg.noBorder : {}, itemProps.style ? itemProps.style : {}]}
           iconLeft={false}
           icon
         >
@@ -208,6 +209,7 @@ Input.defaultProps = {
   },
   disabled: false,
   helper: '',
+  containerStyle: {},
 };
 
 Input.propTypes = {
@@ -225,6 +227,7 @@ Input.propTypes = {
   iconRight: PropTypes.object,
   disabled: PropTypes.bool,
   helper: PropTypes.string,
+  containerStyle: PropTypes.object,
 };
 
 export default Input;

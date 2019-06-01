@@ -1,12 +1,18 @@
 
+import {
+  isIOS,
+} from 'src/Common/Helpers';
+
 import styleConstants from './styleConstants';
+
+const isIOSv = isIOS();
 
 export default {
   formHeading: {
     color: styleConstants.color.dark3,
-    fontSize: 25,
-    fontWeight: '600',
-    marginBottom: 20,
+    fontSize: 35,
+    fontFamily: styleConstants.font.bold,
+    marginBottom: 35,
   },
   formError: {
     fontSize: 12,
@@ -80,7 +86,7 @@ export default {
     textAlign: 'center',
   },
   textBold: {
-    fontWeight: '900',
+    fontFamily: styleConstants.font.bold,
   },
   colorWhite: {
     color: 'white',
@@ -172,8 +178,14 @@ export default {
   mB10: {
     marginBottom: 10,
   },
+  mB15: {
+    marginBottom: 15,
+  },
   mB20: {
     marginBottom: 20,
+  },
+  mB25: {
+    marginBottom: 25,
   },
   mB30: {
     marginBottom: 30,
@@ -192,6 +204,9 @@ export default {
   },
   mT10: {
     marginTop: 10,
+  },
+  mT15: {
+    marginTop: 15,
   },
   mT20: {
     marginTop: 20,
@@ -265,6 +280,9 @@ export default {
   pT10: {
     paddingTop: 10,
   },
+  pT15: {
+    paddingTop: 15,
+  },
   pT20: {
     paddingTop: 20,
   },
@@ -276,6 +294,9 @@ export default {
   },
   pB10: {
     paddingBottom: 10,
+  },
+  pB15: {
+    paddingBottom: 15,
   },
   pB20: {
     paddingBottom: 20,
@@ -459,6 +480,9 @@ export default {
   flex: {
     flex: 1,
   },
+  flex03: {
+    flex: 0.3,
+  },
   flex05: {
     flex: 0.5,
   },
@@ -538,6 +562,9 @@ export default {
     fontSize: 50,
     fontFamily: styleConstants.font.bold,
   },
+  fontMedium: {
+    fontFamily: styleConstants.font.medium,
+  },
   backgroundDefault: {
     backgroundColor: styleConstants.color.light,
   },
@@ -599,6 +626,15 @@ export default {
   contentPaddingH: {
     paddingHorizontal: styleConstants.contentPadding,
   },
+  contentMargin: {
+    margin: styleConstants.contentPadding,
+  },
+  contentMarginV: {
+    marginVertical: styleConstants.contentPadding,
+  },
+  contentMarginH: {
+    marginHorizontal: styleConstants.contentPadding,
+  },
   textUnderline: {
     textDecorationLine: 'underline',
   },
@@ -652,5 +688,15 @@ export default {
   },
   farmImage: {
     borderRadius: 8,
+  },
+  farmImageShadow: {
+    shadowColor: styleConstants.color.primary,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    padding: isIOSv ? 5 : 0,
+    margin: isIOSv ? 0 : 5,
+    elevation: 3,
+    borderRadius: 10,
   },
 };

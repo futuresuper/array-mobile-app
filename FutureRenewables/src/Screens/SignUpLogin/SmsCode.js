@@ -108,7 +108,7 @@ class SmsCode extends Component {
               Verify
             </Text>
 
-            <Text>
+            <Text style={styleGlobal.mB30}>
               We&apos;ve just texted you a code to
               <Text style={styleGlobal.textBold}>
                 &nbsp;xxx xxx&nbsp;
@@ -133,7 +133,7 @@ class SmsCode extends Component {
               onPress={() => this.handlePress()}
               block
             >
-              <Text>Go</Text>
+              <Text>Next</Text>
             </Button>
           </KeyboardAvoidingView>
         </View>
