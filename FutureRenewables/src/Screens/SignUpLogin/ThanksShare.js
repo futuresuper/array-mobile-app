@@ -180,7 +180,7 @@ class ThanksShare extends React.Component {
           <Text>arrayapp.co</Text>
         </Button>
 
-        <Text style={[sg.colorGray11, sg.aSCenter]}>Tap to copy and share the waitlist link</Text>
+        <Text style={[sg.colorGray11, sg.aSCenter, sg.fS14]}>Tap to copy and share the waitlist link</Text>
       </View>
     );
   }
@@ -201,18 +201,13 @@ class ThanksShare extends React.Component {
             {this.renderListItem('Artist VIP early\n access group', userInfo.waitlistAccessGroup)}
           </View>
 
-          {/* <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}> */}
-          <View style={{ flexDirection: 'column'}}>
-            {/* <View style={{ flexDirection: 'column', borderWidth: 1, flex: 1}}> */}
+          <View>
             <Text>
               If you have any questions feel free to get in touch with Heidi at&nbsp;
+              <TextLink email="heidi@feat.ldt">heidi@feat.ldt</TextLink>
             </Text>
-            {/* </View> */}
-            <Text>111asd</Text>
 
-            <TextLink url="asdasd">heidi@feat.ldt</TextLink>
           </View>
-          {/* </View> */}
         </View>
 
       </View>

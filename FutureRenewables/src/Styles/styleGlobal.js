@@ -88,6 +88,9 @@ export default {
   textBold: {
     fontFamily: styleConstants.font.bold,
   },
+  colorPrimary: {
+    color: styleConstants.color.primary,
+  },
   colorWhite: {
     color: 'white',
   },
@@ -231,6 +234,9 @@ export default {
   },
   mT80: {
     marginTop: 80,
+  },
+  mT85: {
+    marginTop: 85,
   },
   mT90: {
     marginTop: 90,

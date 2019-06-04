@@ -1,12 +1,13 @@
 
+import {
+  sc,
+} from 'src/Styles';
+
 export default ({
-  container: {
-    // alignSelf: 'flex-start',
-    // flexDirectin: 'column',
-  },
   text: {
-    color: 'blue',
+    color: sc.color.dark3,
+    fontFamily: sc.font.bold,
     textDecorationLine: 'underline',
-    textDecorationColor: 'red',
+    textDecorationColor: sc.color.primary,
   },
 });

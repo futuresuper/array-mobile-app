@@ -26,15 +26,17 @@ import {
   Right,
 } from 'native-base';
 
-import LinearGradient from 'react-native-linear-gradient';
-
 import BottomInfo from 'src/Components/BottomInfo';
 import Br from 'src/Components/Br';
 import {
   routeNames,
 } from 'src/Navigation';
 
-import Glow from 'src/assets/images/Glow.png';
+import GraphExample from 'src/assets/images/GraphExample.png';
+import CircleSunrise from 'src/assets/images/CircleSunrise.png';
+// import CircleDay from 'src/assets/images/CircleDay.png';
+// import CircleSunset from 'src/assets/images/CircleSunset.png';
+// import CircleNight from 'src/assets/images/CircleNight.png';
 
 import {
   content as contentTest,
@@ -42,7 +44,6 @@ import {
 
 import {
   sg,
-  sc,
 } from 'src/Styles';
 import styles from './styles';
 
@@ -217,39 +218,41 @@ class TabHome extends Component {
       <Content contentContainerStyle={[styles.containerBg]} bounces={false}>
 
         <View style={[sg.oFHidden]}>
-          <LinearGradient colors={[styles.containerBg.backgroundColor, sc.color.white]} style={sg.absoluteFillObject} locations={[0, 1]} />
-          <Image
+          {/* <LinearGradient colors={[styles.containerBg.backgroundColor, sc.color.white]} style={sg.absoluteFillObject} locations={[0, 1]} /> */}
+          {/* <Image
             resizeMode="contain"
             source={Glow}
             style={styles.grow}
-          />
+          /> */}
 
           <View style={sg.contentPadding}>
 
             <View style={sg.mB40}>
               <Grid>
                 <Row>
-                  <Icon type="FontAwesome5" name="map-marker" style={[sg.fS14, sg.mR10]} />
-                  <TouchableOpacity
-                    onPress={() => {
-                      screenProps.navigateTo(routeNames.SOLAR_FARM);
-                    }}
-                  >
-                    <Text style={sg.fS14}>Brigalow Solar Farm</Text>
-                  </TouchableOpacity>
+                  <Col style={sg.aICenter}>
+                    <Icon type="FontAwesome5" name="map-marker" style={[sg.fS14, sg.colorPrimary]} />
+                    <TouchableOpacity
+                      onPress={() => {
+                        screenProps.navigateTo(routeNames.SOLAR_FARM);
+                      }}
+                      style={styles.farmName}
+                    >
+                      <Text style={[sg.fS14, sg.fontMedium]}>Brigalow Solar Farm</Text>
+                    </TouchableOpacity>
+                  </Col>
                 </Row>
-                <Row style={[sg.pL20, sg.pT5]}>
-                  <Text style={[sg.fS14, sg.colorGray3]}>1:40am local time</Text>
-                  <Icon name="ios-arrow-round-forward" style={[sg.fS20, sg.colorGray3, sg.mL10]} />
+                <Row style={sg.jCCenter}>
+                  <Text style={styles.localTime}>1:40am local time</Text>
                 </Row>
               </Grid>
             </View>
 
-            <View>
+            <View style={[sg.aICenter, sg.mT50, sg.mB25]}>
               <Button
                 transparent
                 iconRight
-                style={sg.mB10}
+                style={sg.aSCenter}
                 onPress={() => {
                   BottomInfo.showAccounts();
                 }}
@@ -258,40 +261,42 @@ class TabHome extends Component {
                 <Icon name="ios-arrow-down" style={styles.titleIcon} />
               </Button>
 
-              <H1 style={styles.mainAmount}>$1,978</H1>
-
-              <Button
-                rounded
-                dark
-                style={sg.mT20}
-                onPress={() => {
-                  screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW);
-                }}
-              >
-                <Icon name="add" />
-              </Button>
+              <View style={sg.row}>
+                <H1 style={styles.mainAmount}>$1,978</H1>
+                <Text style={styles.mainAmountCent}>.00</Text>
+              </View>
             </View>
+
+            <Button
+              rounded
+              primary
+              style={styles.plusButton}
+              onPress={() => {
+                screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW);
+              }}
+            >
+              <Icon name="add" style={styles.plusButtonIcon} />
+            </Button>
           </View>
 
           <View style={styles.graphBl}>
+            <Image source={CircleSunrise} style={styles.circleDay} />
+            <Image source={GraphExample} style={styles.graphExample} />
+
             <View style={styles.graphBottomLine} />
             <View style={styles.graphPointBl}>
-              <Text style={styles.graphPointText}>Today</Text>
-              <Icon type="FontAwesome" name="circle" style={[sg.fS15]} />
+              <Text style={styles.graphPointText}>Feb 25</Text>
+              <Icon type="FontAwesome" name="circle" style={[sg.fS15, sg.colorPrimary]} />
             </View>
+
           </View>
 
         </View>
 
         <View style={styles.contentBl}>
-          <View style={styles.impact}>
-            <H2>Impact</H2>
-            <Text style={[sg.fS14, sg.colorGray7]}>Powered by 12k members</Text>
-          </View>
+          <H2 style={[sg.headingS, sg.colorGray11, sg.aSCenter]}>Impact</H2>
 
           <View style={[sg.pT20, sg.pB20]}>
-            <Br />
-
             <Grid style={sg.mV10}>
               {content.impact.map((item, index) => (
                 this.renderImpactItem(item, index)

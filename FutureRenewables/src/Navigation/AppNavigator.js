@@ -22,7 +22,7 @@ import { navReduxMiddleware } from './navMiddlewareListener';
 
 
 const initialRoute = () => {
-  const init_screen = 'SignStack';
+  const init_screen = 'TmpStack';
 
   return init_screen;
 };

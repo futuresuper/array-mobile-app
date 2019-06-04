@@ -1,24 +1,58 @@
 
 import {
   sc,
+  sg,
 } from 'src/Styles';
 
 export default {
   mainAmount: {
     fontSize: 50,
+    fontFamily: sc.font.bold,
     lineHeight: 50,
   },
+  mainAmountCent: {
+    color: sc.color.gray12,
+    fontSize: 24,
+    fontFamily: sc.font.bold,
+  },
   title: {
-    fontSize: 26,
-    paddingLeft: 0,
+    ...sg.headingS,
+    color: sc.color.dark2,
+    paddingRight: 7,
   },
   titleIcon: {
     fontSize: 18,
+    color: sc.color.gray13,
+    marginTop: 3,
+  },
+  plusButton: {
+    alignSelf: 'center',
+    borderRadius: 25,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+  },
+  plusButtonIcon: {
+    fontSize: 33,
+    marginLeft: 0,
+    marginRight: 0,
   },
   contentBl: {
-    backgroundColor: sc.color.gray9,
+    backgroundColor: sc.containerBgColor,
     padding: sc.contentPadding,
-    paddingTop: 30,
+    paddingTop: 0,
+  },
+  farmName: {
+    borderBottomWidth: 1,
+    borderBottomColor: sc.color.primary,
+    marginTop: 8,
+    paddingBottom: 2,
+  },
+  localTime: {
+    color: sc.color.gray12,
+    fontSize: 14,
+    fontFamily: sc.font.medium,
+    marginTop: 8,
   },
   contentItemSmallImage: {
     height: 45,
@@ -29,13 +63,15 @@ export default {
     width: 125,
   },
   containerBg: {
-    backgroundColor: sc.color.gray,
+    backgroundColor: sc.containerBgColor,
   },
   graphBl: {
-    height: 100,
+    height: 130,
+    width: 350,
+    alignSelf: 'center',
   },
   graphBottomLine: {
-    backgroundColor: sc.color.gray9,
+    backgroundColor: sc.containerBgColor,
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -44,23 +80,25 @@ export default {
   },
   graphPointBl: {
     position: 'absolute',
-    bottom: 0,
-    right: 20,
+    bottom: 49,
+    right: 50,
   },
   graphPointText: {
-    marginBottom: 10,
+    marginBottom: 6,
     fontSize: 14,
+    fontFamily: sc.font.medium,
   },
-  grow: {
-    position: 'absolute',
+  graphExample: {
     alignSelf: 'center',
-    height: '100%',
-    bottom: '-60%',
+    position: 'absolute',
+    bottom: -35,
+  },
+  circleDay: {
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: -70,
   },
   impact: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
   },
 };
 

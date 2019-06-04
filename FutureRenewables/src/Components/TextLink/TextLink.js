@@ -1,11 +1,7 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Linking,
-  View,
-  TextInput,
-  TouchableOpacity,
 } from 'react-native';
 import {
   Text,
@@ -13,48 +9,31 @@ import {
 
 import styles from './styles';
 
-const TextLink = ({ children, url }) => (
-  <TouchableOpacity
-    style={{
-      // flexDirection: 'column',
-      // alignSelf: 'flex-start',
-    }}
+const TextLink = ({ children, url, email }) => (
+  <Text
     onPress={() => {
-      console.log('!!!1', {  });
+      if (url) {
+        Linking.openURL(url);
+      } else if (email) {
+        const openEmail = `mailto:${email}`;
+        Linking.openURL(openEmail);
+      }
     }}
+    style={styles.text}
   >
-    {/* <TextInput
-      style={{
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        paddingBottom: 10,
-        alignSelf: 'flex-start',
-      }}
-      editable={false}
-      pointerEvents="none"
-      value={'My Text'}
-      onTouchStart={() => {
-        console.log('!!!', {  });
-      }}
-    /> */}
-    <Text>asdasd</Text>
-  </TouchableOpacity>
-  // <View style={styles.container}>
-  //   <Text
-  //     onPress={() => {
-  //       Linking.openURL(url);
-  //     }}
-  //     style={styles.text}
-  //   >
-  //     {children}
-  //     {/* <Text style={{ borderWidth: 1, height: 10, width: 50 }}>sad</Text> */}
-  //   </Text>
-  // </View>
+    {children}
+  </Text>
 );
+
+TextLink.defaultProps = {
+  url: null,
+  email: null,
+};
 
 TextLink.propTypes = {
   children: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
+  email: PropTypes.string,
 };
 
 export default TextLink;
