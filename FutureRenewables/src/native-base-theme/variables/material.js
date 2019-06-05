@@ -94,8 +94,8 @@ export default {
   // Card
   cardDefaultBg: "#fff",
   cardBorderColor: "#ccc",
-  cardBorderRadius: 2,
-  cardItemPadding: platform === "ios" ? 10 : 12,
+  cardBorderRadius: 4,
+  cardItemPadding: 15,
 
   // CheckBox
   CheckboxRadius: 0,

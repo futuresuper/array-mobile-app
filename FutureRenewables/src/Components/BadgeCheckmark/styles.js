@@ -11,17 +11,17 @@ const isIOSc = isIOS();
 
 export default {
   badge: {
-    height: 20,
-    width: 20,
-    borderRadius: 10,
+    height: 18,
+    width: 18,
+    borderRadius: 9,
     paddingHorizontal: 4,
-    paddingTop: isIOSc ? 0 : 2,
+    paddingTop: 2,
     backgroundColor: sc.color.gray5,
     alignSelf: 'flex-start',
     justifyContent: isIOSc ? 'center' : undefined,
   },
   badgeIcon: {
-    fontSize: 15,
+    fontSize: 13,
   },
   iconTickColor: {
     color: 'black',
@@ -30,7 +30,7 @@ export default {
     color: 'transparent',
   },
   badgeInverted: {
-    backgroundColor: sc.color.dark,
+    backgroundColor: sc.color.brightGreen,
   },
   iconTickColorInverted: {
     color: 'white',
@@ -40,7 +40,7 @@ export default {
   },
   badgeUntickInverted: {
     backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: sc.color.gray5,
+    borderWidth: 1,
+    borderColor: sc.color.gray12,
   },
 };

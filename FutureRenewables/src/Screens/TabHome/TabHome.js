@@ -104,10 +104,13 @@ class TabHome extends Component {
     });
   }
 
-  renderImpactItem = ({ number, text }, key) => (
+  renderImpactItem = ({ number, text, suffix }, key) => (
     <Col style={sg.aICenter} key={key}>
-      <Text style={[sg.fS30, sg.textBold]}>{number}</Text>
-      <Text style={[sg.textCenter, sg.fS15, sg.colorGray]}>{text}</Text>
+      <Text style={[sg.headingS]}>
+        {number}
+        {suffix || ''}
+      </Text>
+      <Text style={[sg.textCenter, sg.fontBodySmall, sg.colorGray11, sg.mT10]}>{text}</Text>
     </Col>
   );
 
@@ -137,6 +140,7 @@ class TabHome extends Component {
         onPress={() => {
           this.openArticle(item);
         }}
+        style={[(actionToPage ? sg.m5 : {})]}
       >
         {image && (
           <Left style={[sg.mR10, sg.flexNull]}>
@@ -146,18 +150,18 @@ class TabHome extends Component {
         <Body style={[sg.mL0]}>
           <Row style={[sg.aICenter]}>
             <Col>
-              <Text style={sg.fS15}>{item.headline}</Text>
+              <Text style={[sg.fS16, sg.fontMedium, (actionToPage ? sg.textCenter : {})]}>{item.headline}</Text>
             </Col>
             {timeAgo && (
               <Col style={[sg.aIRight, sg.flex08]}>
-                <Text style={[sg.fS14, sg.colorGray]}>{item.timeAgo}</Text>
+                <Text style={[sg.fontMedium, sg.fS14, sg.colorGray12]}>{item.timeAgo}</Text>
               </Col>
             )}
           </Row>
         </Body>
         {actionToPage && (
           <Right style={[sg.width30, sg.flexNull]}>
-            <Icon name="md-arrow-forward" />
+            <Icon name="md-arrow-forward" style={[sg.colorPrimary, sg.fS24]} />
           </Right>
         )}
       </CardItem>
@@ -179,13 +183,13 @@ class TabHome extends Component {
         <Body>
           <Grid>
             <Row>
-              <Text style={[sg.fS14, sg.colorGray3]}>{item.subhead}</Text>
+              <Text style={[sg.fontMedium, sg.fS14, sg.colorGray12]}>{item.subhead}</Text>
             </Row>
             <Row>
-              <Text style={[sg.fS16]}>{item.headline}</Text>
+              <Text style={[sg.fS16, sg.fontMedium]}>{item.headline}</Text>
             </Row>
             <Row style={[sg.aIEnd]}>
-              <Text style={[sg.fS14, sg.colorGray3]}>Read more</Text>
+              <Text style={[sg.fontMedium, sg.fS14, sg.colorGray12]}>Read more</Text>
             </Row>
           </Grid>
         </Body>
@@ -218,14 +222,7 @@ class TabHome extends Component {
       <Content contentContainerStyle={[styles.containerBg]} bounces={false}>
 
         <View style={[sg.oFHidden]}>
-          {/* <LinearGradient colors={[styles.containerBg.backgroundColor, sc.color.white]} style={sg.absoluteFillObject} locations={[0, 1]} /> */}
-          {/* <Image
-            resizeMode="contain"
-            source={Glow}
-            style={styles.grow}
-          /> */}
-
-          <View style={sg.contentPadding}>
+          <View style={[sg.contentPadding2, sg.zIndex10]}>
 
             <View style={sg.mB40}>
               <Grid>
@@ -296,26 +293,11 @@ class TabHome extends Component {
         <View style={styles.contentBl}>
           <H2 style={[sg.headingS, sg.colorGray11, sg.aSCenter]}>Impact</H2>
 
-          <View style={[sg.pT20, sg.pB20]}>
-            <Grid style={sg.mV10}>
+          <View style={[sg.pT15, sg.pB30]}>
+            <Grid>
               {content.impact.map((item, index) => (
                 this.renderImpactItem(item, index)
               ))}
-            </Grid>
-
-            <Grid>
-              <Col style={sg.jCCenter}>
-                <Br />
-              </Col>
-              <Col style={sg.width60}>
-                <Row style={[sg.aSCenter]}>
-                  <Icon type="FontAwesome" name="circle-o" style={[sg.fS10, sg.colorGray10, sg.mR5]} />
-                  <Icon type="FontAwesome" name="circle" style={[sg.fS10, sg.colorGray10]} />
-                </Row>
-              </Col>
-              <Col style={sg.jCCenter}>
-                <Br />
-              </Col>
             </Grid>
 
           </View>

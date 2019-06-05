@@ -216,6 +216,13 @@ const tabModalRoutes = {
       backButton: true,
     },
   },
+  [routeNames.ARTICLE]: {
+    screen: screens.Article,
+    // params: {
+    //   routeReset: true,
+    // },
+    // ...tabCardOptions,
+  },
 };
 
 const tabCardRoutes = {
@@ -225,13 +232,13 @@ const tabCardRoutes = {
       header: null,
     },
   },
-  [routeNames.ARTICLE]: {
-    screen: screens.Article,
-    params: {
-      routeReset: true,
-    },
-    ...tabCardOptions,
-  },
+  // [routeNames.ARTICLE]: {
+  //   screen: screens.Article,
+  //   params: {
+  //     routeReset: true,
+  //   },
+  //   ...tabCardOptions,
+  // },
   [routeNames.MANAGE_ACCOUNTS]: {
     screen: screens.ManageAccounts,
     params: {

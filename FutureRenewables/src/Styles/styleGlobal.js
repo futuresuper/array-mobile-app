@@ -124,8 +124,14 @@ export default {
   colorGray11: {
     color: styleConstants.color.gray11,
   },
+  colorGray12: {
+    color: styleConstants.color.gray12,
+  },
   m0: {
     margin: 0,
+  },
+  m5: {
+    margin: 5,
   },
   m10: {
     margin: 10,
@@ -141,6 +147,9 @@ export default {
   },
   mV10: {
     marginVertical: 10,
+  },
+  mV15: {
+    marginVertical: 15,
   },
   mV20: {
     marginVertical: 20,
@@ -162,6 +171,9 @@ export default {
   },
   mV80: {
     marginVertical: 80,
+  },
+  mH5: {
+    marginHorizontal: 5,
   },
   mH10: {
     marginHorizontal: 10,
@@ -391,6 +403,9 @@ export default {
   pH0: {
     paddingHorizontal: 0,
   },
+  pH5: {
+    paddingHorizontal: 5,
+  },
   pH10: {
     paddingHorizontal: 10,
   },
@@ -534,6 +549,12 @@ export default {
   fS23: {
     fontSize: 23,
   },
+  fS24: {
+    fontSize: 24,
+  },
+  fS25: {
+    fontSize: 25,
+  },
   fS30: {
     fontSize: 30,
   },
@@ -547,6 +568,10 @@ export default {
   fontBody: {
     fontSize: 16,
     fontFamily: styleConstants.font.regular,
+  },
+  fontBodySmall: {
+    fontSize: 14,
+    fontFamily: styleConstants.font.medium,
   },
   headingXS: {
     fontSize: 20,
@@ -641,8 +666,14 @@ export default {
   contentMarginH: {
     marginHorizontal: styleConstants.contentPadding,
   },
+  contentPadding2: {
+    padding: styleConstants.contentPadding2,
+  },
   textUnderline: {
     textDecorationLine: 'underline',
+  },
+  zIndex10: {
+    zIndex: 10,
   },
   whatIsAccountBl: {
     alignSelf: 'center',

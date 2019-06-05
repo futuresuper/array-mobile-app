@@ -21,9 +21,9 @@ export default {
     paddingRight: 7,
   },
   titleIcon: {
-    fontSize: 18,
+    fontSize: 19,
     color: sc.color.gray13,
-    marginTop: 3,
+    marginTop: 4,
   },
   plusButton: {
     alignSelf: 'center',
@@ -39,7 +39,7 @@ export default {
   },
   contentBl: {
     backgroundColor: sc.containerBgColor,
-    padding: sc.contentPadding,
+    padding: sc.contentPadding2,
     paddingTop: 0,
   },
   farmName: {
@@ -80,7 +80,7 @@ export default {
   },
   graphPointBl: {
     position: 'absolute',
-    bottom: 49,
+    bottom: 39,
     right: 50,
   },
   graphPointText: {
@@ -91,12 +91,12 @@ export default {
   graphExample: {
     alignSelf: 'center',
     position: 'absolute',
-    bottom: -35,
+    bottom: -45,
   },
   circleDay: {
     alignSelf: 'center',
     position: 'absolute',
-    bottom: -70,
+    bottom: -75,
   },
   impact: {
   },

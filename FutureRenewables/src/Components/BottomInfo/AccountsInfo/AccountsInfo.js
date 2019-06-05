@@ -18,6 +18,7 @@ import {
 } from 'native-base';
 
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
+import TextUnderline from 'src/Components/TextUnderline';
 import {
   sg,
 } from 'src/Styles';
@@ -49,18 +50,18 @@ class AccountsInfo extends Component {
     const { list } = this.state;
 
     return (
-      <View>
+      <View style={sg.mH5}>
         <List>
           <FlatList
             data={list}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <ListItem noIndent>
-                <Left style={[sg.flexNull, sg.mR5]}>
-                  <Thumbnail source={{ uri: item.image }} small />
+            renderItem={({ item, index }) => (
+              <ListItem noIndent style={[styles.listItem, (index === 0 ? sg.pT0 : {})]}>
+                <Left style={[sg.flexNull]}>
+                  <Thumbnail source={{ uri: item.image }} style={styles.thumbnail} />
                 </Left>
                 <Body>
-                  <Text>{item.name}</Text>
+                  <Text style={[sg.fontMedium, sg.fS20, sg.colorDark2, sg.mL20]}>{item.name}</Text>
                 </Body>
                 <Right style={[sg.flexNull, sg.width30]}>
                   <BadgeCheckmark inverted checked={item.active} style={sg.aSEnd} />
@@ -70,9 +71,8 @@ class AccountsInfo extends Component {
           />
         </List>
 
-        <View style={sg.mT30}>
+        <View style={[sg.mT30, sg.mH10]}>
           <Button
-            gray4
             block
             iconRight
           >
@@ -87,14 +87,12 @@ class AccountsInfo extends Component {
                 bordered
                 dark
                 block
-                style={sg.mT10}
+                style={sg.mT15}
               >
                 <Text>Future Super Account</Text>
               </Button>
 
-              <View style={sg.whatIsAccountBl}>
-                <Text style={sg.whatIsAccount}>What&apos;s a Future Super Account?</Text>
-              </View>
+              <TextUnderline style={[sg.mT25]}>What&apos;s a Future Super Account?</TextUnderline>
             </View>
           )}
         </View>
