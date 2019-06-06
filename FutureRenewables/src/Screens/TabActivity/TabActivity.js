@@ -18,7 +18,7 @@ import Br from 'src/Components/Br';
 import BottomInfo from 'src/Components/BottomInfo';
 
 import {
-  styleGlobal,
+  sg,
 } from 'src/Styles';
 import styles from './styles';
 
@@ -60,11 +60,11 @@ class TabActivity extends Component {
 
     return (
       <Content padder>
-        <View>
+        <View style={[sg.aICenter, sg.mT50, sg.mB25]}>
           <Button
             transparent
             iconRight
-            style={styleGlobal.mB10}
+            style={sg.aSCenter}
             onPress={() => {
               BottomInfo.showAccounts({
                 superAccount: false,
@@ -75,34 +75,37 @@ class TabActivity extends Component {
             <Icon name="ios-arrow-down" style={styles.titleIcon} />
           </Button>
 
-          <H1 style={styles.mainAmount}>$1,978</H1>
+          <View style={sg.row}>
+            <H1 style={styles.mainAmount}>$1,978</H1>
+            <Text style={styles.mainAmountCent}>.00</Text>
+          </View>
         </View>
 
-        <View style={[styleGlobal.mT30, styleGlobal.row]}>
+        <View style={[sg.mT30, sg.row]}>
           <Button
             transparent
             onPress={this.setPerfomanceSegment}
           >
-            <Text style={[styleGlobal.pL0, (segment.isPerfomance ? {} : styleGlobal.colorGray)]}>Perfomance</Text>
+            <Text style={[sg.pL0, sg.fS20, sg.colorDark2, sg.fontRegular, (segment.isPerfomance ? sg.textBold : sg.colorGray12)]}>Perfomance</Text>
           </Button>
 
           <Button
             transparent
             onPress={this.setInvestmentSegment}
           >
-            <Text style={[styleGlobal.pL0, (segment.isInvestment ? {} : styleGlobal.colorGray)]}>Investment</Text>
+            <Text style={[sg.pL0, sg.fS20, sg.colorDark2, sg.fontRegular, (segment.isInvestment ? sg.textBold : sg.colorGray12)]}>Investment</Text>
           </Button>
         </View>
 
-        <Br style={[styleGlobal.mB20]} />
+        <Br style={[sg.mB20]} />
 
         {segment.isPerfomance ? (
-          <View style={styleGlobal.mT2012}>
-            <Text style={styleGlobal.colorGray3}>
+          <View style={sg.mT2012}>
+            <Text style={sg.colorGray3}>
               Since you&apos;ve joined, you&apos;ve made
-              <Text style={styleGlobal.textBold}> $600 </Text>
+              <Text style={sg.textBold}> $600 </Text>
               and your account is up
-              <Text style={styleGlobal.textBold}> 4.6% </Text>
+              <Text style={sg.textBold}> 4.6% </Text>
               .
               {'\n'}
               Sweeet.

@@ -24,7 +24,6 @@ export default {
   SOLAR_FARM: 'SolarFarm',
   MANAGE_ACCOUNTS: 'ManageAccounts',
   MANAGE_ACCOUNT_DETAILS: 'ManageAccountDetails',
-  ARTICLE: 'Article',
   PERSONAL_DETAILS: 'PersonalDetails',
   REFER_FRIEND: 'ReferFriend',
   TALK_US: 'TalkUs',

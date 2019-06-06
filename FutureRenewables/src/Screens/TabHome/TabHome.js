@@ -32,6 +32,8 @@ import {
   routeNames,
 } from 'src/Navigation';
 
+import ArticleModal from './ArticleModal';
+
 import GraphExample from 'src/assets/images/GraphExample.png';
 import CircleSunrise from 'src/assets/images/CircleSunrise.png';
 // import CircleDay from 'src/assets/images/CircleDay.png';
@@ -62,38 +64,10 @@ class TabHome extends Component {
 
     this.state = {
       content: contentTest,
-      // list: [
-      //   {
-      //     cardType: cardTypeConst.SMALL,
-      //     headLine: 'This is a card with a user action',
-      //     subHead: 'subHead 2',
-      //     actionPage: 'hz',
-      //   },
-      //   {
-      //     cardType: cardTypeConst.SMALL,
-      //     headLine: 'Chinchilla Solar Farm currenntly 58MW',
-      //     subHead: 'subHead 2',
-      //   },
-      //   {
-      //     cardType: cardTypeConst.SMALL,
-      //     headLine: 'Vance Joy Just joined',
-      //     subHead: 'subHead 2',
-      //     image: 'https://subscribers-prod.s3.amazonaws.com/uploads/setting/modal_image/27736/1.2cC_instller.jpg',
-      //     timeAgo: '6 days ago',
-      //   },
-      //   {
-      //     cardType: cardTypeConst.LARGE,
-      //     headLine: 'Introducing FEAT. — bringing musicians and artists into Array',
-      //     subHead: 'Our Partner',
-      //     image: 'https://www.solarcostguide.com/guides/wp-content/uploads/2015/09/crazy-solar-panels.jpg',
-      //   },
-      //   {
-      //     cardType: cardTypeConst.LARGE,
-      //     headLine: 'Take a look at exactly where your money goes',
-      //     subHead: 'Behind the scenes',
-      //     image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1936&q=80',
-      //   },
-      // ]
+      article: {
+        visible: false,
+        item: null,
+      },
     };
   }
 
@@ -127,7 +101,13 @@ class TabHome extends Component {
           break;
       }
     } else {
-      screenProps.navigateTo(routeNames.ARTICLE, { item });
+      // screenProps.navigateTo(routeNames.ARTICLE, { item });
+      this.setState({
+        article: {
+          visible: true,
+          item,
+        },
+      });
     }
   }
 
@@ -216,7 +196,7 @@ class TabHome extends Component {
 
   render() {
     const { screenProps } = this.props;
-    const { content } = this.state;
+    const { content, article } = this.state;
 
     return (
       <Content contentContainerStyle={[styles.containerBg]} bounces={false}>
@@ -310,6 +290,18 @@ class TabHome extends Component {
 
         </View>
 
+        <ArticleModal
+          visible={article.visible}
+          item={article.item}
+          onRequestClose={() => {
+            this.setState({
+              article: {
+                visible: false,
+                item: null,
+              },
+            });
+          }}
+        />
       </Content>
     );
   }

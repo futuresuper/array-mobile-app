@@ -154,6 +154,9 @@ export default {
   mV20: {
     marginVertical: 20,
   },
+  mV25: {
+    marginVertical: 25,
+  },
   mV30: {
     marginVertical: 30,
   },
@@ -183,6 +186,9 @@ export default {
   },
   mH30: {
     marginHorizontal: 30,
+  },
+  mH35: {
+    marginHorizontal: 35,
   },
   mB0: {
     marginBottom: 0,
@@ -472,6 +478,12 @@ export default {
   width150: {
     width: 150,
   },
+  width290: {
+    width: 290,
+  },
+  width300: {
+    width: 300,
+  },
   heightNull: {
     height: null,
   },
@@ -593,11 +605,14 @@ export default {
     fontSize: 50,
     fontFamily: styleConstants.font.bold,
   },
+  fontRegular: {
+    fontFamily: styleConstants.font.regular,
+  },
   fontMedium: {
     fontFamily: styleConstants.font.medium,
   },
   backgroundDefault: {
-    backgroundColor: styleConstants.color.light,
+    backgroundColor: styleConstants.containerBgColor,
   },
   bGGray8: {
     backgroundColor: styleConstants.color.gray8,
@@ -668,6 +683,12 @@ export default {
   },
   contentPadding2: {
     padding: styleConstants.contentPadding2,
+  },
+  contentMarginH2: {
+    marginHorizontal: styleConstants.contentPadding2,
+  },
+  contentMarginV2: {
+    marginVertical: styleConstants.contentPadding2,
   },
   textUnderline: {
     textDecorationLine: 'underline',

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import {
   BackHandler,
+  StatusBar,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -34,6 +35,10 @@ import {
   navigateTo,
   routeBack,
 } from 'src/Redux/Nav';
+
+import {
+  sc,
+} from 'src/Styles';
 
 class AppIndex extends Component {
   constructor(props, context) {
@@ -118,6 +123,8 @@ class AppIndex extends Component {
       >
         <StyleProvider style={getTheme(material)}>
           <Container>
+            <StatusBar backgroundColor={sc.containerBgColor} barStyle="dark-content" />
+
             <Spinner
               ref={(c) => {
                 this.Spinner = c;
