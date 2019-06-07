@@ -23,7 +23,7 @@ import {
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 
 import {
-  styleGlobal,
+  sg,
 } from 'src/Styles';
 
 import styles from './styles';
@@ -69,48 +69,107 @@ class Perfomance extends Component {
     }));
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  renderActivityItem(item = {}, index = 0) {
+    const rowStyle = (index === 0) ? styles.activityRowFirst : {};
+    const styleCols = {
+      type: {},
+      date: {},
+      status: {},
+      amount: {},
+    };
+    let status;
+
+    if (item.status === 1) {
+      status = 'Upcoming';
+      styleCols.type = styles.activityColTextGray;
+      styleCols.date = styles.activityColTextGray;
+      styleCols.status = styles.activityColTextGray;
+      styleCols.amount = styles.activityColTextGray;
+    } else if (item.status === 2) {
+      status = 'Pending';
+      styleCols.status = styles.activityColTextGray;
+      styleCols.amount = styles.activityColTextGray;
+    }
+
+    return (
+      <Row key={index.toString()} style={[styles.activityRow, rowStyle]}>
+        <Col style={[styles.activityCol]}>
+          <Text style={[styles.activityColText, styleCols.type]}>{item.type || 'Type'}</Text>
+        </Col>
+        <Col style={[styles.activityCol]}>
+          <Text style={[styles.activityColText, styleCols.date]}>{item.date || 'Date'}</Text>
+        </Col>
+        <Col style={[styles.activityCol]}>
+          {(status)
+            ? <Text style={[styles.activityColText, styleCols.status]}>{status || 'Status'}</Text>
+            : <BadgeCheckmark />
+          }
+        </Col>
+        <Col style={[styles.activityCol, sg.right]}>
+          <Text style={[styles.activityColText, styleCols.amount]}>{item.amount || 'Amount'}</Text>
+        </Col>
+      </Row>
+    );
+  }
+
   render() {
     const { screenProps } = this.props;
     const { plusMinusValue, activity } = this.state;
 
     return (
-      <View>
-        <View>
-          <Button
-            iconRight
-            block
-            gray4
-            style={styleGlobal.mV20}
-            onPress={() => {
-              screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW);
-            }}
-          >
-            <Text>Deposit</Text>
-            <Icon name="add" />
-          </Button>
-        </View>
-
-        <View>
-          <H1>Monthly Deposit</H1>
-        </View>
-
-        <Grid style={styleGlobal.center}>
-          <Col style={styles.plusMinusBl}>
+      <View style={sg.mT25}>
+        <Grid style={[sg.contentMarginH]}>
+          <Col style={sg.mR10}>
             <Button
-              gray4
+              iconRight
+              block
+              bordered
+              dark
+              onPress={() => {
+                screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW, {
+                  withdraw: true,
+                });
+              }}
+            >
+              <Text>Withdraw</Text>
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              iconRight
+              block
+              onPress={() => {
+                screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW);
+              }}
+            >
+              <Text>Deposit</Text>
+              <Icon name="add" />
+            </Button>
+          </Col>
+        </Grid>
+
+        <View style={[sg.mT45]}>
+          <H1 style={[sg.colorDark2, sg.fS24, sg.textCenter]}>Monthly Deposit</H1>
+        </View>
+
+        <Grid style={[sg.center, sg.contentMarginH]}>
+          <Col style={[styles.plusMinusBl]}>
+            <Button
+              dark5
               disabled={!(plusMinusValue > 0)}
               onPress={this.btnMinus}
             >
               <Icon name="remove" />
             </Button>
 
-            <View style={styleGlobal.row}>
+            <View style={[sg.row]}>
               <Text style={styles.plusMinusValue}>$</Text>
               <Text style={styles.plusMinusValue}>{plusMinusValue}</Text>
             </View>
 
             <Button
-              gray4
+              dark5
               onPress={this.btnPlus}
             >
               <Icon name="add" />
@@ -118,72 +177,16 @@ class Perfomance extends Component {
           </Col>
         </Grid>
 
-        <View style={[styleGlobal.center, styleGlobal.mB50]}>
+        <View style={[sg.center, sg.mB55]}>
           <Text style={styles.collected}>Collected on the 20th</Text>
           <Text style={styles.nextCollection}>Next collection: 20 April</Text>
         </View>
 
         <View>
+          <H1 style={[sg.fS24, sg.textCenter, sg.mB30]}>Activity</H1>
           <Grid>
-            <Col style={[styles.activityCol]}>
-              <Row>
-                <H1 style={styles.activityTitle}>Activity</H1>
-              </Row>
-            </Col>
-            <Col style={[styles.activityCol]}>
-              <Row style={styleGlobal.mB10}>
-                <TextQuestion
-                  text="Status"
-                  onPress={() => {
-                    BottomInfo.show(<StatusInfo />);
-                  }}
-                />
-              </Row>
-            </Col>
-          </Grid>
-          <Grid>
-            {activity.map((item, index) => {
-              const rowStyle = (index === 0) ? styles.activityRowFirst : {};
-              const styleCols = {
-                type: {},
-                date: {},
-                status: {},
-                amount: {},
-              };
-              let status;
-
-              if (item.status === 1) {
-                status = 'Upcoming';
-                styleCols.type = styles.activityColTextGray;
-                styleCols.date = styles.activityColTextGray;
-                styleCols.status = styles.activityColTextGray;
-                styleCols.amount = styles.activityColTextGray;
-              } else if (item.status === 2) {
-                status = 'Pending';
-                styleCols.status = styles.activityColTextGray;
-                styleCols.amount = styles.activityColTextGray;
-              }
-
-              return (
-                <Row key={index.toString()} style={[styles.activityRow, rowStyle]}>
-                  <Col style={[styles.activityCol]}>
-                    <Text style={[styles.activityColText, styleCols.type]}>{item.type}</Text>
-                  </Col>
-                  <Col style={[styles.activityCol]}>
-                    <Text style={[styles.activityColText, styleCols.date]}>{item.date}</Text>
-                  </Col>
-                  <Col style={[styles.activityCol]}>
-                    {(status)
-                      ? <Text style={[styles.activityColText, styleCols.status]}>{status}</Text>
-                      : <BadgeCheckmark />
-                    }
-                  </Col>
-                  <Col style={[styles.activityCol, styleGlobal.right]}>
-                    <Text style={[styles.activityColText, styleCols.amount]}>{item.amount}</Text>
-                  </Col>
-                </Row>
-              );
-            })}
+            {this.renderActivityItem()}
+            {activity.map((item, index) => this.renderActivityItem(item, index))}
           </Grid>
         </View>
       </View>

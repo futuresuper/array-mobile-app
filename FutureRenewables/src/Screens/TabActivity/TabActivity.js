@@ -4,18 +4,24 @@ import { connect } from 'react-redux';
 
 import {
   View,
+  Image,
 } from 'react-native';
 
 import {
   Button,
   Text,
   Content,
-  Icon,
-  H1,
 } from 'native-base';
 
 import Br from 'src/Components/Br';
 import BottomInfo from 'src/Components/BottomInfo';
+import Balance from 'src/Components/Balance';
+
+import GraphExample2 from 'src/assets/images/GraphExample2.png';
+import CircleSunrise from 'src/assets/images/CircleSunrise.png';
+// import CircleDay from 'src/assets/images/CircleDay.png';
+// import CircleSunset from 'src/assets/images/CircleSunset.png';
+// import CircleNight from 'src/assets/images/CircleNight.png';
 
 import {
   sg,
@@ -55,61 +61,72 @@ class TabActivity extends Component {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  renderChart() {
+    return (
+      <View style={[sg.contentMarginH2]}>
+
+        <View style={[styles.activityChartBl, sg.aICenter]}>
+          <Image source={GraphExample2} style={styles.activityGraphExample} />
+          <Image source={CircleSunrise} style={styles.activityCircleDay} />
+        </View>
+        <View style={[sg.row, sg.spaceBetween]}>
+          <Text style={[sg.fS14, sg.fontMedium, sg.colorDark2]}>Jul</Text>
+          <Text style={[sg.fS14, sg.fontMedium, sg.colorDark2]}>Nov</Text>
+        </View>
+      </View>
+    );
+  }
+
   render() {
     const { segment } = this.state;
 
     return (
-      <Content padder>
-        <View style={[sg.aICenter, sg.mT50, sg.mB25]}>
-          <Button
-            transparent
-            iconRight
-            style={sg.aSCenter}
-            onPress={() => {
-              BottomInfo.showAccounts({
-                superAccount: false,
-              });
-            }}
-          >
-            <Text style={styles.title}>Grace</Text>
-            <Icon name="ios-arrow-down" style={styles.titleIcon} />
-          </Button>
+      <Content>
+        <Balance
+          onPress={() => {
+            BottomInfo.showAccounts({
+              superAccount: false,
+            });
+          }}
+        />
 
-          <View style={sg.row}>
-            <H1 style={styles.mainAmount}>$1,978</H1>
-            <Text style={styles.mainAmountCent}>.00</Text>
+        <View style={[sg.contentMarginH2, sg.mT30, sg.mB30]}>
+          <Br style={[sg.footerBl]} />
+
+          <View style={[sg.mH20, sg.row]}>
+            <Button
+              transparent
+              onPress={this.setPerfomanceSegment}
+              style={[styles.activityTabTitleBl, (segment.isPerfomance ? styles.activityTabTitleBlActive : {}), sg.mR70]}
+            >
+              <Text style={[styles.activityTabTitleText, (segment.isPerfomance ? styles.activityTabTitleTextActive : {})]}>Perfomance</Text>
+            </Button>
+
+            <Button
+              transparent
+              onPress={this.setInvestmentSegment}
+              style={[styles.activityTabTitleBl, (segment.isInvestment ? styles.activityTabTitleBlActive : {})]}
+            >
+              <Text style={[styles.activityTabTitleText, (segment.isInvestment ? styles.activityTabTitleTextActive : {})]}>Investment</Text>
+            </Button>
           </View>
+
         </View>
 
-        <View style={[sg.mT30, sg.row]}>
-          <Button
-            transparent
-            onPress={this.setPerfomanceSegment}
-          >
-            <Text style={[sg.pL0, sg.fS20, sg.colorDark2, sg.fontRegular, (segment.isPerfomance ? sg.textBold : sg.colorGray12)]}>Perfomance</Text>
-          </Button>
-
-          <Button
-            transparent
-            onPress={this.setInvestmentSegment}
-          >
-            <Text style={[sg.pL0, sg.fS20, sg.colorDark2, sg.fontRegular, (segment.isInvestment ? sg.textBold : sg.colorGray12)]}>Investment</Text>
-          </Button>
-        </View>
-
-        <Br style={[sg.mB20]} />
 
         {segment.isPerfomance ? (
-          <View style={sg.mT2012}>
-            <Text style={sg.colorGray3}>
+          <View>
+            <Text style={[sg.fontMedium, sg.colorDark3, sg.contentMarginH]}>
               Since you&apos;ve joined, you&apos;ve made
-              <Text style={sg.textBold}> $600 </Text>
+              <Text style={[sg.textBold, sg.colorDark3]}> $600 </Text>
               and your account is up
-              <Text style={sg.textBold}> 4.6% </Text>
+              <Text style={[sg.textBold, sg.colorDark3]}> 4.6% </Text>
               .
               {'\n'}
               Sweeet.
             </Text>
+            {this.renderChart()}
           </View>
         ) : (
           <Investment {...this.props} />

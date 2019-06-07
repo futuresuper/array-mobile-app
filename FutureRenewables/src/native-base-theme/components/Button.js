@@ -279,6 +279,19 @@ export default (variables /*: * */ = variable) => {
       backgroundColor: styleConstants.color.gray4,
     },
 
+    ".dark5": {
+      ".bordered": {
+        ...gray4Common
+      },
+      "NativeBase.Text": {
+        color: styleConstants.color.white,
+      },
+      "NativeBase.Icon": {
+        color: styleConstants.color.white,
+      },
+      backgroundColor: styleConstants.color.dark5,
+    },
+
     ".block": {
       justifyContent: "center",
       alignSelf: "stretch"

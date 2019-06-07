@@ -184,6 +184,9 @@ export default {
   mH20: {
     marginHorizontal: 20,
   },
+  mH25: {
+    marginHorizontal: 25,
+  },
   mH30: {
     marginHorizontal: 30,
   },
@@ -217,6 +220,9 @@ export default {
   mB50: {
     marginBottom: 50,
   },
+  mB55: {
+    marginBottom: 55,
+  },
   mT0: {
     marginTop: 0,
   },
@@ -240,6 +246,9 @@ export default {
   },
   mT40: {
     marginTop: 40,
+  },
+  mT45: {
+    marginTop: 45,
   },
   mT50: {
     marginTop: 50,
@@ -294,6 +303,9 @@ export default {
   },
   mR30: {
     marginRight: 30,
+  },
+  mR70: {
+    marginRight: 70,
   },
   pT0: {
     paddingTop: 0,

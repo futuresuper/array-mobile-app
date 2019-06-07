@@ -37,7 +37,7 @@ export default {
 
   // Button
   btnFontFamily: styleConstants.font.medium,
-  btnDisabledBg: "#b5b5b5",
+  btnDisabledBg: styleConstants.color.gray14,
   buttonPadding: 6,
   get btnPrimaryBg() {
     return this.brandPrimary;

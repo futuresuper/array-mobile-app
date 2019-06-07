@@ -12,6 +12,7 @@ export default Object.freeze({
     dark2: '#1A1E5E',
     dark3: '#2F2353',
     dark4: '#101343',
+    dark5: '#211545',
     dark3alpha: 'rgba(47,35,83, 59)',
     danger: '#d9534f',
     warning: '#f0ad4e',
@@ -29,6 +30,7 @@ export default Object.freeze({
     gray11: '#766B97',
     gray12: '#A09BB1',
     gray13: '#A1A0B7',
+    gray14: '#A39BA9',
     orange: '#FFA334',
     lightGreen: '#6FCE1C',
     get errorBorder() {

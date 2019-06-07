@@ -14,7 +14,6 @@ import {
   Content,
   Button,
   Icon,
-  H1,
   H2,
   Grid,
   Col,
@@ -27,12 +26,10 @@ import {
 } from 'native-base';
 
 import BottomInfo from 'src/Components/BottomInfo';
-import Br from 'src/Components/Br';
+import Balance from 'src/Components/Balance';
 import {
   routeNames,
 } from 'src/Navigation';
-
-import ArticleModal from './ArticleModal';
 
 import GraphExample from 'src/assets/images/GraphExample.png';
 import CircleSunrise from 'src/assets/images/CircleSunrise.png';
@@ -47,6 +44,8 @@ import {
 import {
   sg,
 } from 'src/Styles';
+
+import ArticleModal from './ArticleModal';
 import styles from './styles';
 
 const cardTypeConst = {
@@ -225,24 +224,11 @@ class TabHome extends Component {
               </Grid>
             </View>
 
-            <View style={[sg.aICenter, sg.mT50, sg.mB25]}>
-              <Button
-                transparent
-                iconRight
-                style={sg.aSCenter}
-                onPress={() => {
-                  BottomInfo.showAccounts();
-                }}
-              >
-                <Text style={styles.title}>Grace</Text>
-                <Icon name="ios-arrow-down" style={styles.titleIcon} />
-              </Button>
-
-              <View style={sg.row}>
-                <H1 style={styles.mainAmount}>$1,978</H1>
-                <Text style={styles.mainAmountCent}>.00</Text>
-              </View>
-            </View>
+            <Balance
+              onPress={() => {
+                BottomInfo.showAccounts();
+              }}
+            />
 
             <Button
               rounded

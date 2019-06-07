@@ -1,27 +1,30 @@
 
 import {
-  styleConstants,
+  sc,
 } from 'src/Styles';
 
 export default {
-  mainAmount: {
-    fontSize: 50,
-    lineHeight: 50,
+  activityTabTitleBl: {
+    paddingBottom: 0,
+    paddingHorizontal: 1,
   },
-  title: {
-    fontSize: 26,
+  activityTabTitleBlActive: {
+    borderBottomWidth: 2,
+  },
+  activityTabTitleText: {
     paddingLeft: 0,
+    paddingRight: 0,
+    fontSize: 20,
+    color: sc.color.gray12,
+    fontFamily: sc.font.regular,
   },
-  titleIcon: {
-    fontSize: 18,
-  },
-  activityTitle: {
-    position: 'absolute',
-    top: -15,
+  activityTabTitleTextActive: {
+    color: sc.color.dark2,
+    fontFamily: sc.font.bold,
   },
   activityRow: {
     borderBottomWidth: 2,
-    borderColor: styleConstants.color.gray2,
+    borderColor: sc.color.gray2,
     padding: 10,
   },
   activityRowFirst: {
@@ -31,7 +34,20 @@ export default {
     fontWeight: '700',
   },
   activityColTextGray: {
-    color: styleConstants.color.gray,
+    color: sc.color.gray,
+  },
+  activityChartBl: {
+    borderBotomWidth: 1,
+    borderColor: sc.color.gray2,
+    height: 165,
+    marginBottom: 15,
+    overflow: 'hidden',
+  },
+  activityCircleDay: {
+    position: 'absolute',
+    bottom: -130,
+  },
+  acitivityGraphExample: {
   },
   plusMinusBl: {
     flexDirection: 'row',
@@ -41,15 +57,18 @@ export default {
     marginVertical: 30,
   },
   collected: {
-    fontWeight: '600',
+    fontSize: 14,
+    fontFamily: sc.font.medium,
   },
   nextCollection: {
-    color: styleConstants.color.gray,
-    fontWeight: '600',
+    color: sc.color.gray11,
+    fontSize: 14,
+    fontFamily: sc.font.medium,
   },
   plusMinusValue: {
-    fontSize: 25,
-    fontWeight: '600',
+    color: sc.color.dark2,
+    fontSize: 36,
+    fontFamily: sc.font.bold,
   },
   investFarmTitle: {
     fontSize: 18,
@@ -59,7 +78,7 @@ export default {
     fontSize: 40,
   },
   allInvestHeader: {
-    borderColor: styleConstants.color.gray5,
+    borderColor: sc.color.gray5,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     marginTop: 20,

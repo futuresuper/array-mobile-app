@@ -13,7 +13,7 @@ const Br = ({ width, style }) => (
   <View style={[
     {
       borderBottomWidth: width,
-      borderBottomColor: styleConstants.color.gray2,
+      borderBottomColor: styleConstants.color.gray6,
       height: 1,
     },
     style,
