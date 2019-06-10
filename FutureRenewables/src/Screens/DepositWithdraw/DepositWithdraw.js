@@ -19,6 +19,8 @@ import {
 import Deposit from './Deposit';
 import Withdraw from './Withdraw';
 
+import styles from './styles';
+
 class DepositWithdraw extends Component {
   constructor(props) {
     super(props);
@@ -62,61 +64,64 @@ class DepositWithdraw extends Component {
     const { segment } = this.state;
 
     return (
-      <Content padder contentContainerStyle={[sg.flexGrow, sg.pB80]}>
-        <View style={[sg.row]}>
-          <Button
-            transparent
-            onPress={this.segmentDeposit}
-            style={[sg.mT0, sg.pT0, sg.heightNull]}
-          >
-            <Text style={[sg.pT0, sg.pL0, (segment.isDeposit ? {} : sg.colorGray)]}>Deposit</Text>
-          </Button>
+      <Content padder contentContainerStyle={[sg.flexGrow]}>
+        <View style={sg.spaceBetween}>
+          <View>
+            <View style={[sg.row]}>
+              <Button
+                transparent
+                onPress={this.segmentDeposit}
+                style={[sg.mT0, sg.pT0, sg.heightNull]}
+              >
+                <Text style={[styles.tabText, (segment.isDeposit ? styles.tabTextActive : {})]}>Deposit</Text>
+              </Button>
 
-          <Button
-            transparent
-            onPress={this.segmentWithdraw}
-            style={[sg.mT0, sg.pT0, sg.heightNull]}
-          >
-            <Text style={[sg.pL0, (segment.isWithdraw ? {} : sg.colorGray)]}>Withdraw</Text>
-          </Button>
-        </View>
+              <Button
+                transparent
+                onPress={this.segmentWithdraw}
+                style={[sg.mT0, sg.pT0, sg.heightNull]}
+              >
+                <Text style={[styles.tabText, sg.mL10, (segment.isWithdraw ? styles.tabTextActive : {})]}>Withdraw</Text>
+              </Button>
+            </View>
 
-        {segment.isDeposit
-          ? (
-            <Deposit
-              ref={(ref) => {
-                if (ref) this.Deposit = ref;
-              }}
-              {...this.props}
-            />
-          )
-          : (
-            <Withdraw
-              ref={(ref) => {
-                if (ref) this.Withdraw = ref;
-              }}
-              {...this.props}
-            />
-          )
-        }
+            {segment.isDeposit
+              ? (
+                <Deposit
+                  ref={(ref) => {
+                    if (ref) this.Deposit = ref;
+                  }}
+                  {...this.props}
+                />
+              )
+              : (
+                <Withdraw
+                  ref={(ref) => {
+                    if (ref) this.Withdraw = ref;
+                  }}
+                  {...this.props}
+                />
+              )
+            }
+          </View>
 
-        <View style={[sg.footerBl, sg.p30]}>
-          {segment.isWithdraw
-            && (
-              <Text style={[sg.colorGray, sg.mB20]}>
-                Just a reminder that withdrawals can take up to 30 days to reach your account.
-                <Text style={sg.textBold}> Why?</Text>
-              </Text>
-            )
-          }
+          <View>
+            {segment.isWithdraw
+              && (
+                <Text style={[sg.colorGray, sg.mB20]}>
+                  Just a reminder that withdrawals can take up to 30 days to reach your account.
+                  <Text style={sg.textBold}> Why?</Text>
+                </Text>
+              )
+            }
 
-          <Button
-            gray4
-            block
-            onPress={this.onNext}
-          >
-            <Text>{segment.isDeposit ? 'Next' : 'Confirm'}</Text>
-          </Button>
+            <Button
+              block
+              onPress={this.onNext}
+            >
+              <Text>{segment.isDeposit ? 'Next' : 'Confirm'}</Text>
+            </Button>
+          </View>
         </View>
       </Content>
     );

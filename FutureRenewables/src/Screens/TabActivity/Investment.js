@@ -1,30 +1,19 @@
 
 import React, { Component } from 'react';
 import {
-  FlatList,
+  TouchableOpacity,
   Image,
 } from 'react-native';
 import {
-  Button,
   View,
   Text,
   Icon,
-  H1,
-  H2,
-  H3,
   Grid,
   Row,
   Col,
-  Badge,
-  List,
-  ListItem,
-  Body,
-  Left,
-  Right,
-  Accordion,
 } from 'native-base';
 
-import TextQuestion from 'src/Components/TextQuestion';
+import { routeNames } from 'src/Navigation';
 
 import {
   sg,
@@ -37,96 +26,6 @@ import Oval from './images/Oval.png';
 import styles from './styles';
 
 class Investment extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      barGraph: {
-        isSun: true,
-        isHeart: false,
-      },
-      farms: [
-        {
-          name: 'Brigalow',
-          type: 'Solar Farm',
-        },
-        {
-          name: 'Chinchilla',
-          type: 'Solar Farm',
-        },
-        {
-          name: 'Silent Hill',
-          type: 'Wind Farm',
-        },
-        {
-          name: 'Name goes here',
-          type: 'Solar Farm',
-        },
-        {
-          name: 'Name goes here',
-          type: 'Solar Farm',
-        },
-        {
-          name: 'Name goes here',
-          type: 'Solar Farm',
-        },
-      ],
-    };
-  }
-
-  setSunBar() {
-    this.setState({
-      barGraph: {
-        isSun: true,
-        isHeart: false,
-      },
-    });
-  }
-
-  setHeartBar() {
-    this.setState({
-      barGraph: {
-        isSun: false,
-        isHeart: true,
-      },
-    });
-  }
-
-  renderListFarms() {
-    const { farms } = this.state;
-
-    return (
-      <List>
-        <FlatList
-          data={farms}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <ListItem noIndent style={styles.investListItem}>
-              <Left style={sg.aICenter}>
-                <Text>{item.name}</Text>
-                <Icon type="FontAwesome5" name="arrow-right" style={[sg.colorGray, sg.fS15, sg.mL10]} />
-              </Left>
-              <Right style={[sg.flex05]}>
-                <Text style={sg.colorGray}>{item.type}</Text>
-              </Right>
-            </ListItem>
-          )}
-        />
-
-      </List>
-    );
-  }
-
-  renderListFramsHeader({ title }) {
-
-    return (
-      <View style={styles.allInvestHeader}>
-        <Text style={[sg.fontMedium]}>{title}</Text>
-        <Icon name="ios-arrow-forward" style={[sg.colorDark3, { fontSize: 20 }]} />
-      </View>
-    );
-  }
-
   renderInvTitle(image, title) {
     return (
       <Grid style={styles.activityInvTitle}>
@@ -156,12 +55,10 @@ class Investment extends Component {
   }
 
   render() {
-    const { barGraph } = this.state;
-    const sunBarStyle = barGraph.isSun ? {} : sg.bGGray8;
-    const heartBarStyle = barGraph.isHeart ? {} : sg.bGGray8;
+    const { screenProps } = this.props;
 
     return (
-      <View style={sg.mB10}>
+      <View style={sg.mB20}>
         <View style={sg.mH0}>
           <Text style={[sg.fontMedium, sg.contentMarginH]}>Let&apos;s break down where your money is going.</Text>
 
@@ -177,17 +74,15 @@ class Investment extends Component {
 
         </View>
 
-        <Accordion
-          dataArray={[{
-            title: 'See all inverstments',
-          }]}
-          headerStyle={styles.allInvestHeader}
-          contentStyle={{ borderWidth: 0, marginBottom: 0, paddingBottom: 0, }}
-          style={{ borderWidth: 0, marginBottom: 0, paddingBottom: 0, marginLeft: 0, paddingLeft: 0 }}
-          iconStyle={{ color: 'red'}}
-          renderContent={() => this.renderListFarms()}
-          renderHeader={(...args) => this.renderListFramsHeader(...args)}
-        />
+        <TouchableOpacity
+          style={styles.allInvestHeader}
+          onPress={() => {
+            screenProps.navigateTo(routeNames.ALL_INVESTMENTS);
+          }}
+        >
+          <Text style={[sg.fontMedium]}>See all inverstments</Text>
+          <Icon name="ios-arrow-forward" style={[sg.colorDark3, sg.fS20]} />
+        </TouchableOpacity>
 
       </View>
     );

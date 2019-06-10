@@ -8,6 +8,10 @@ import {
 
 import PickerOrig from 'src/Components/Picker';
 
+import {
+  sg,
+} from 'src/Styles';
+
 class Picker extends Component {
   componentDidMount() {
     this.onInit(this.props);
@@ -74,6 +78,7 @@ class Picker extends Component {
     return (
       <Item
         error={error}
+        style={[sg.mB15]}
       >
         <PickerOrig
           ref={(ref) => {
@@ -81,10 +86,10 @@ class Picker extends Component {
           }}
           label={label}
           labelGray={labelGray}
-          title={titleText}
           list={list}
           renderItem={renderItem}
           {...this.props}
+          title={titleText}
           onPressItem={this.onPressItem}
         />
       </Item>

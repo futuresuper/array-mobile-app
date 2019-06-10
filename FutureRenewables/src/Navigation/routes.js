@@ -267,6 +267,17 @@ const tabCardRoutes = {
     },
     ...tabCardOptions,
   },
+  [routeNames.ALL_INVESTMENTS]: {
+    screen: screens.AllInvestments,
+    params: {
+      routeReset: true,
+      title: 'All investments',
+      headerTitleStyle: {
+        fontSize: 24,
+      },
+    },
+    ...tabCardOptions,
+  },
 };
 
 const tmpRoutes = {

@@ -19,6 +19,11 @@ import {
 } from 'src/Navigation';
 
 import {
+  formatAmountDollar,
+  normalizeAmount,
+} from 'src/Common/Helpers';
+
+import {
   sg,
 } from 'src/Styles';
 
@@ -32,6 +37,8 @@ class Deposit extends Component {
           validations: [
             'required',
           ],
+          normalize: normalizeAmount,
+          format: formatAmountDollar,
         },
         from: {
           validations: [
@@ -105,13 +112,12 @@ class Deposit extends Component {
           formKey="amount"
           onChangeText={hocs.handleInput}
           keyboardType="numeric"
-          iconLeft={{
-            type: 'FontAwesome',
-            name: 'dollar',
-          }}
+          style={[sg.fS24, sg.colorDark2]}
         />
 
-        <Item>
+        <Item
+          style={[sg.noBorder]}
+        >
           <Picker
             formData={form}
             formKey="from"
@@ -126,8 +132,8 @@ class Deposit extends Component {
                     onPress={() => {
                     }}
                   >
-                    <Text style={sg.pickerItemText}>{item.name}</Text>
-                    <Icon name="add" />
+                    <Text style={sg.pickerItemAddText}>{item.name}</Text>
+                    <Icon name="add" style={sg.pickerItemAddIcon} />
                   </View>
                 );
               }
@@ -146,7 +152,9 @@ class Deposit extends Component {
           />
         </Item>
 
-        <Item>
+        <Item
+          style={[sg.noBorder]}
+        >
           <Picker
             formData={form}
             formKey="frequency"

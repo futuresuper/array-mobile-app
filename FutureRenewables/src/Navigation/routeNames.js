@@ -28,4 +28,5 @@ export default {
   REFER_FRIEND: 'ReferFriend',
   TALK_US: 'TalkUs',
   JOIN_FUTURE_SUPER: 'JoinFutureSuper',
+  ALL_INVESTMENTS: 'AllInvestments',
 };

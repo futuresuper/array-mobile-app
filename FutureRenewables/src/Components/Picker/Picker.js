@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Dimensions,
-  StyleSheet,
   Modal,
   FlatList,
 } from 'react-native';
+import _ from 'lodash';
 import {
   Text,
   Label,
@@ -41,6 +41,7 @@ class Picker extends Component {
     this.state = {
       showList: false,
       title: null,
+      positionStyle: {},
     };
   }
 
@@ -72,6 +73,31 @@ class Picker extends Component {
     this.closeList();
   };
 
+  calcPosition = (event) => {
+    const { height: dropdownHeight } = event.nativeEvent.layout;
+    const dimensions = Dimensions.get('window');
+    const windowWidth = dimensions.width;
+    const windowHeight = dimensions.height;
+
+    const bottomSpace = windowHeight - this._buttonFrame.y - this._buttonFrame.h;
+    const rightSpace = windowWidth - this._buttonFrame.x;
+    const showInBottom = bottomSpace >= dropdownHeight || bottomSpace >= this._buttonFrame.y;
+
+    const positionStyle = {
+      height: dropdownHeight,
+      top: showInBottom ? this._buttonFrame.y + this._buttonFrame.h + 15 : Math.max(0, this._buttonFrame.y - dropdownHeight),
+    };
+
+    positionStyle.left = this._buttonFrame.x;
+    positionStyle.right = rightSpace - this._buttonFrame.w;
+
+    console.log('!!!', { positionStyle });
+
+    this.setState({
+      positionStyle,
+    });
+  }
+
   updatePosition(callback) {
     if (this._button && this._button.measure) {
       this._button.measure((fx, fy, width, height, px, py) => {
@@ -87,36 +113,6 @@ class Picker extends Component {
         }
       });
     }
-  }
-
-  calcPosition() {
-    const dimensions = Dimensions.get('window');
-    const windowWidth = dimensions.width;
-    const windowHeight = dimensions.height;
-
-    const dropdownHeight = StyleSheet.flatten(styles.listSubBl).height;
-
-    const bottomSpace = windowHeight - this._buttonFrame.y - this._buttonFrame.h;
-    const rightSpace = windowWidth - this._buttonFrame.x;
-    const showInBottom = bottomSpace >= dropdownHeight || bottomSpace >= this._buttonFrame.y;
-    const showInLeft = rightSpace >= this._buttonFrame.x;
-
-    const positionStyle = {
-      height: dropdownHeight,
-      top: showInBottom ? this._buttonFrame.y + this._buttonFrame.h : Math.max(0, this._buttonFrame.y - dropdownHeight),
-    };
-
-    if (showInLeft) {
-      positionStyle.left = this._buttonFrame.x;
-    } else {
-      const dropdownWidth = -1;
-      if (dropdownWidth !== -1) {
-        positionStyle.width = dropdownWidth;
-      }
-      positionStyle.right = rightSpace - this._buttonFrame.w;
-    }
-
-    return positionStyle;
   }
 
   renderItem = (...args) => {
@@ -177,6 +173,7 @@ class Picker extends Component {
     const {
       showList,
       title: titleState,
+      positionStyle,
     } = this.state;
 
     return (
@@ -209,8 +206,8 @@ class Picker extends Component {
               onPress={this.onModalPress}
             >
 
-              <View style={styles.listBl}>
-                <View style={[styles.listSubBl, this.calcPosition()]}>
+              <View style={[styles.listBl]}>
+                <View style={[styles.listSubBl, positionStyle]} onLayout={this.calcPosition}>
                   {this.renderList()}
                 </View>
               </View>

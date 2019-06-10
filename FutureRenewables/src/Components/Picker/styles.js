@@ -21,17 +21,19 @@ export default {
     alignItems: 'flex-end',
   },
   title: {
-    fontSize: 25,
-    marginLeft: 2,
+    color: sc.color.dark2,
+    fontSize: 24,
+    fontFamily: sc.font.bold,
+    marginLeft: 0,
   },
   icon: {
+    color: sc.color.dark3,
     fontSize: 20,
   },
   listBl: {
     flexGrow: 1,
   },
   listSubBl: {
-    width: '94%',
     position: 'absolute',
     maxHeight: (53 + StyleSheet.hairlineWidth) * 5,
     borderRadius: 2,
@@ -42,11 +44,14 @@ export default {
   listItemBl: {
   },
   listItemBlBorder: {
-    borderColor: sc.color.gray6,
+    borderColor: sc.color.gray1,
     borderTopWidth: 1,
   },
   listItemTouch: {
     borderColor: 'red',
-    padding: 20,
+    paddingTop: 25,
+    paddingBottom: 25,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 };

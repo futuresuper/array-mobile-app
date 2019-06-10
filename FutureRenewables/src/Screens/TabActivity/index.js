@@ -1,7 +1,8 @@
 
 import TabActivity from './TabActivity';
+import AllInvestments from './AllInvestments';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   TabActivity,
+  AllInvestments,
 };

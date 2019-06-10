@@ -94,14 +94,40 @@ export default {
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 20,
-    marginBottom: 3,
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 15,
     paddingRight: 20,
+    marginHorizontal: sc.contentPadding2,
   },
   investListItem: {
     paddingLeft: 10,
     paddingRigth: 20,
+  },
+};
+
+export const allInvestments = {
+  itemContainer: {
+    borderBottomWidth: 1,
+    borderColor: sc.color.gray2,
+  },
+  itemContainerFirst: {
+    borderTopWidth: 1,
+  },
+  icon: {
+    tintColor: sc.color.gray11,
+    width: '100%',
+  },
+  get iconSun() {
+    return {
+      ...this.icon,
+      height: 16,
+    };
+  },
+  get iconHeart() {
+    return {
+      ...this.icon,
+      height: 16,
+    };
   },
 };

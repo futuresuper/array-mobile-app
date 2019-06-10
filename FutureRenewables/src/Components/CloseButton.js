@@ -1,6 +1,5 @@
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Button,
   Icon,
@@ -11,16 +10,17 @@ import {
 } from 'src/Common/Helpers';
 
 import {
-  styleGlobal,
+  sg,
+  sc,
 } from 'src/Styles';
 
 const CloseButton = props => (
   <Button
     transparent
     {...props}
-    style={[(!isIOS() ? styleGlobal.mT10 : {})]}
+    style={[(!isIOS() ? sg.mT10 : {})]}
   >
-    <Icon name="close" />
+    <Icon name="close" style={{ marginRight: sc.contentPadding }} />
   </Button>
 );
 

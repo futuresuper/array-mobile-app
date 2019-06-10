@@ -127,6 +127,9 @@ export default {
   colorGray12: {
     color: styleConstants.color.gray12,
   },
+  tintColorGray11: {
+    tintColor: styleConstants.color.gray11,
+  },
   m0: {
     margin: 0,
   },
@@ -454,6 +457,9 @@ export default {
   width20: {
     width: 20,
   },
+  width25: {
+    width: 25,
+  },
   width30: {
     width: 30,
   },
@@ -670,13 +676,21 @@ export default {
     paddingBottom: 80,
   },
   pickerItemText: {
-    fontSize: 16,
-    fontWeight: '600',
+    color: styleConstants.color.dark2,
+    fontSize: 20,
+    fontFamily: styleConstants.font.bold,
   },
   pickerItemText2: {
-    fontSize: 16,
-    fontWeight: '600',
     color: styleConstants.color.gray,
+    fontSize: 18,
+  },
+  pickerItemAddText: {
+    color: styleConstants.color.dark3,
+    fontSize: 18,
+    fontFamily: styleConstants.font.medium,
+  },
+  pickerItemAddIcon: {
+    color: styleConstants.color.dark3,
   },
   contentPadding: {
     padding: styleConstants.contentPadding,
@@ -723,8 +737,10 @@ export default {
     paddingBottom: 3,
   },
   formLabel: {
-    fontSize: 17,
-    lineHeight: 17,
+    color: styleConstants.color.dark3,
+    fontSize: 16,
+    fontFamily: styleConstants.font.regular,
+    lineHeight: 16,
   },
   incAppBl: {
     alignSelf: 'flex-start',

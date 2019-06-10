@@ -16,6 +16,8 @@ import {
   sg,
 } from 'src/Styles';
 
+import styles from './styles';
+
 class DepositWithdrawDone extends Component {
   onConfirm = () => {
     const { navigation, screenProps } = this.props;
@@ -36,17 +38,19 @@ class DepositWithdrawDone extends Component {
   render() {
     return (
       <Content padder contentContainerStyle={sg.spaceBetween}>
-        <Text style={sg.fS23}>
-          Confirming you&apos;d like to invest
-          <Text style={[sg.textBold, sg.fS23]}> $20 monthly </Text>
-          from your
-          <Text style={[sg.textBold, sg.fS23]}> ING account </Text>
-          starting on
-          <Text style={[sg.textBold, sg.fS23]}> April 20 </Text>
-        </Text>
+
+        <View style={[styles.doneTextBl]}>
+          <Text style={styles.doneText}>
+            Confirming you&apos;d like to invest
+            <Text style={styles.doneTextBold}> $20 monthly </Text>
+            from your
+            <Text style={styles.doneTextBold}> ING account </Text>
+            starting on
+            <Text style={styles.doneTextBold}> April 20.</Text>
+          </Text>
+        </View>
 
         <Button
-          gray4
           block
           style={sg.m20}
           onPress={this.onConfirm}

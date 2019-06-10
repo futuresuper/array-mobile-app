@@ -6,7 +6,6 @@ import {
 import {
   Text,
   Item,
-  Icon,
 } from 'native-base';
 
 import composeHoc from 'src/Common/Hocs';
@@ -17,6 +16,11 @@ import {
 import {
   routeNames,
 } from 'src/Navigation';
+
+import {
+  formatAmountDollar,
+  normalizeAmount,
+} from 'src/Common/Helpers';
 
 import {
   sg,
@@ -32,6 +36,8 @@ class Withdraw extends Component {
           validations: [
             'required',
           ],
+          normalize: normalizeAmount,
+          format: formatAmountDollar,
         },
         from: {
           validations: [
@@ -80,7 +86,7 @@ class Withdraw extends Component {
   render() {
     const { hocs } = this.props;
     const { form } = hocs;
-    const { accountList, frequencyList } = this.state;
+    const { accountList } = this.state;
 
     return (
       <View>
@@ -89,13 +95,12 @@ class Withdraw extends Component {
           formKey="amount"
           onChangeText={hocs.handleInput}
           keyboardType="numeric"
-          iconLeft={{
-            type: 'FontAwesome',
-            name: 'dollar',
-          }}
+          style={[sg.fS24, sg.colorDark2]}
         />
 
-        <Item>
+        <Item
+          style={[sg.noBorder]}
+        >
           <Picker
             formData={form}
             formKey="from"
@@ -115,7 +120,9 @@ class Withdraw extends Component {
           />
         </Item>
 
-        <Item>
+        <Item
+          style={[sg.noBorder]}
+        >
           <Picker
             formData={form}
             formKey="into"

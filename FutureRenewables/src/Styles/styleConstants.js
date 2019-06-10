@@ -18,6 +18,7 @@ export default Object.freeze({
     warning: '#f0ad4e',
     success: '#5cb85c',
     gray: '#919191',
+    gray1: '#979797',
     gray2: '#E8E9E8',
     gray3: '#6A6A6A',
     gray4: '#5C5C5C',

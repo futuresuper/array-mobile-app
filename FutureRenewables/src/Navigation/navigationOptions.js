@@ -5,7 +5,7 @@ import TabBar from 'src/Components/TabBar';
 import CloseButton from 'src/Components/CloseButton';
 import BackButton from 'src/Components/BackButton';
 import {
-  styleConstants,
+  sc,
 } from 'src/Styles';
 
 export const signOptions = (props) => {
@@ -26,7 +26,7 @@ export const signOptions = (props) => {
     title,
     headerLeft: backButton,
     headerStyle: {
-      backgroundColor: styleConstants.containerBgColor,
+      backgroundColor: sc.containerBgColor,
       borderBottomWidth: 0,
       elevation: 0,
       ...headerStyle,
@@ -47,7 +47,7 @@ export const tabBarOptions = {
     const currentRoute = state.routes[state.index];
     const params = currentRoute.params || {};
     const header = params.noHeader ? null : undefined;
-    const backgroundColor = params.backgroundColor || styleConstants.containerBgColor;
+    const backgroundColor = params.backgroundColor || sc.containerBgColor;
 
     return {
       headerStyle: {
@@ -75,7 +75,7 @@ export const tabModalOptions = {
       headerLeft: backButton,
       headerRight: <CloseButton onPress={() => { navigation.popToTop(); }} />,
       headerStyle: {
-        backgroundColor: styleConstants.containerBgColor,
+        backgroundColor: sc.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
       },
@@ -89,13 +89,19 @@ export const tabCardOptions = {
     const { navigation } = props;
     const backButton = <BackButton {...props} style={{ alignSelf: 'center' }} />;
     const title = navigation.getParam('title');
+    const headerTitleStyle = navigation.getParam('headerTitleStyle', {});
 
     return {
       headerLeft: backButton,
       headerStyle: {
-        backgroundColor: styleConstants.containerBgColor,
+        backgroundColor: sc.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
+      },
+      headerTitleStyle: {
+        color: sc.color.dark3,
+        fontFamily: sc.font.bold,
+        ...headerTitleStyle,
       },
       title,
     };
