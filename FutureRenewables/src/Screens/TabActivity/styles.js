@@ -23,15 +23,18 @@ export default {
     fontFamily: sc.font.bold,
   },
   activityRow: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderColor: sc.color.gray2,
-    padding: 10,
+    paddingHorizontal: 0,
+    paddingVertical: 20,
   },
-  activityRowFirst: {
-    borderTopWidth: 2,
+  activityRowHeader: {
+    paddingTop: 0,
+    paddingBottom: 15,
   },
   activityColText: {
-    fontWeight: '700',
+    fontSize: 14,
+    fontFamily: sc.font.medium,
   },
   activityColTextGray: {
     color: sc.color.gray,
@@ -47,7 +50,13 @@ export default {
     position: 'absolute',
     bottom: -130,
   },
-  acitivityGraphExample: {
+  activityInvTitle: {
+    borderBottomWidth: 1,
+    borderColor: sc.color.gray2,
+    paddingLeft: 15,
+    paddingBottom: 10,
+    marginHorizontal: sc.contentPadding2,
+    marginBottom: 20,
   },
   plusMinusBl: {
     flexDirection: 'row',
@@ -78,13 +87,18 @@ export default {
     fontSize: 40,
   },
   allInvestHeader: {
-    borderColor: sc.color.gray5,
+    borderColor: sc.color.gray2,
     borderTopWidth: 1,
     borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 20,
     marginBottom: 3,
-    paddingBottom: 10,
-    paddingLeft: 7,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 15,
+    paddingRight: 20,
   },
   investListItem: {
     paddingLeft: 10,

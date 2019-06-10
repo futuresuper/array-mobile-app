@@ -11,6 +11,8 @@ import {
   Col,
 } from 'native-base';
 
+import _ from 'lodash';
+
 import {
   routeNames,
 } from 'src/Navigation';
@@ -70,44 +72,36 @@ class Perfomance extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  renderActivityItem(item = {}, index = 0) {
-    const rowStyle = (index === 0) ? styles.activityRowFirst : {};
-    const styleCols = {
-      type: {},
-      date: {},
-      status: {},
-      amount: {},
-    };
+  renderActivityItem(item = {}, index = -1) {
+    const isHeader = _.isEmpty(item);
     let status;
 
     if (item.status === 1) {
       status = 'Upcoming';
-      styleCols.type = styles.activityColTextGray;
-      styleCols.date = styles.activityColTextGray;
-      styleCols.status = styles.activityColTextGray;
-      styleCols.amount = styles.activityColTextGray;
     } else if (item.status === 2) {
       status = 'Pending';
-      styleCols.status = styles.activityColTextGray;
-      styleCols.amount = styles.activityColTextGray;
+    } else if (item.status === undefined) {
+      status = 'Status';
     }
 
+    const styleText = isHeader ? sg.colorGray11 : {};
+
     return (
-      <Row key={index.toString()} style={[styles.activityRow, rowStyle]}>
+      <Row key={index.toString()} style={[styles.activityRow, (isHeader ? styles.activityRowHeader : {})]}>
         <Col style={[styles.activityCol]}>
-          <Text style={[styles.activityColText, styleCols.type]}>{item.type || 'Type'}</Text>
+          <Text style={[styles.activityColText, styleText]}>{item.type || 'Type'}</Text>
         </Col>
         <Col style={[styles.activityCol]}>
-          <Text style={[styles.activityColText, styleCols.date]}>{item.date || 'Date'}</Text>
+          <Text style={[styles.activityColText, styleText]}>{item.date || 'Date'}</Text>
         </Col>
         <Col style={[styles.activityCol]}>
           {(status)
-            ? <Text style={[styles.activityColText, styleCols.status]}>{status || 'Status'}</Text>
-            : <BadgeCheckmark />
+            ? <Text style={[styles.activityColText, sg.colorGray11, styleText]}>{status}</Text>
+            : <BadgeCheckmark inverted />
           }
         </Col>
         <Col style={[styles.activityCol, sg.right]}>
-          <Text style={[styles.activityColText, styleCols.amount]}>{item.amount || 'Amount'}</Text>
+          <Text style={[styles.activityColText, styleText]}>{item.amount || 'Amount'}</Text>
         </Col>
       </Row>
     );
@@ -182,7 +176,7 @@ class Perfomance extends Component {
           <Text style={styles.nextCollection}>Next collection: 20 April</Text>
         </View>
 
-        <View>
+        <View style={sg.contentMarginH2}>
           <H1 style={[sg.fS24, sg.textCenter, sg.mB30]}>Activity</H1>
           <Grid>
             {this.renderActivityItem()}

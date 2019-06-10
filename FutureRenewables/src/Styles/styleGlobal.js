@@ -280,6 +280,9 @@ export default {
   mL10: {
     marginLeft: 10,
   },
+  mL15: {
+    marginLeft: 15,
+  },
   mL20: {
     marginLeft: 20,
   },
