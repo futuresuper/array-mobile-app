@@ -44,36 +44,6 @@ class TabFarms extends Component {
 
     this.state = {
       farms: [
-        {
-          id: 1,
-          title: 'Brigalow',
-          description: 'Queensland',
-          completed: 15,
-          coordinate: {
-            latitude: -26.8833514,
-            longitude: 150.7383817,
-          },
-        },
-        {
-          id: 2,
-          title: 'Swan Hill',
-          description: 'Somethingland',
-          completed: 50,
-          coordinate: {
-            latitude: -35.3621025,
-            longitude: 143.4533884,
-          },
-        },
-        {
-          id: 3,
-          title: 'Chinchilla',
-          description: 'Disneyland',
-          completed: 100,
-          coordinate: {
-            latitude: -26.7502014,
-            longitude: 150.5923164,
-          },
-        },
       ],
       startPosition: null,
       activeFarmId: null,

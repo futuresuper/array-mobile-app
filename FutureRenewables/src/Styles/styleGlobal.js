@@ -633,6 +633,9 @@ export default {
   fontMedium: {
     fontFamily: styleConstants.font.medium,
   },
+  fontRegularItalic: {
+    fontFamily: styleConstants.font.regularItalic,
+  },
   backgroundDefault: {
     backgroundColor: styleConstants.containerBgColor,
   },

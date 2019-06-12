@@ -195,11 +195,8 @@ const tabRoutes = {
   [routeNames.TAB_ACTIVITY]: {
     screen: screens.TabActivity,
   },
-  [routeNames.TAB_FARMS]: {
-    screen: screens.TabFarms,
-    params: {
-      noHeader: true,
-    },
+  [routeNames.SOLAR_FARMS_LIST]: {
+    screen: screens.SolarFarmsList,
   },
   [routeNames.TAB_PROFILE]: {
     screen: screens.TabProfile,
@@ -225,13 +222,10 @@ const tabModalRoutes = {
 };
 
 const tabCardRoutes = {
-  [routeNames.SOLAR_FARMS_LIST]: {
-    screen: screens.SolarFarmsList,
+  [routeNames.SOLAR_FARMS_MAP]: {
+    screen: screens.SolarFarmsMap,
     params: {
-      routeReset: true,
-    },
-    navigationOptions: {
-      header: null,
+      noHeader: true,
     },
   },
   [routeNames.MANAGE_ACCOUNTS]: {

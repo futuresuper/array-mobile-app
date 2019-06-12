@@ -53,6 +53,7 @@ export default {
     color: sc.color.dark2,
     fontSize: 20,
     fontFamily: sc.font.medium,
+    textAlign: 'center',
   },
   solarFarmFinishDate: {
     color: sc.color.white,
@@ -60,28 +61,31 @@ export default {
     fontFamily: sc.font.medium,
   },
   solarFarmStatBl: {
-    borderColor: sc.color.gray5,
+    flex: null,
+    marginTop: 30,
+    marginBottom: 50,
   },
   solarFarmStatCol: {
     alignItems: 'center',
     width: 115,
   },
   solarForamStatAmount: {
+    color: sc.color.dark3,
     fontSize: 35,
-    fontWeight: '900',
-    color: sc.color.white,
+    fontFamily: sc.font.bold,
     marginBottom: 10,
   },
   solarForamStatDescription: {
-    textAlign: 'center',
     color: sc.color.white,
-    fontWeight: '600',
+    fontSize: 14,
+    fontFamily: sc.font.medium,
+    textAlign: 'center',
   },
   solarFarmWeatherWidget: {
     marginTop: -20,
   },
   solarFarmPhotoCard: {
-    marginRight: 10,
+    marginRight: 20,
     elevation: 0,
     shadowColor: null,
     shadowOpacity: null,
@@ -102,8 +106,8 @@ export default {
     padding: 8,
   },
   solarFarmPhotoPhoto: {
-    height: 150,
-    width: 150,
+    height: 225,
+    width: 177,
   },
   solarFarmPhotoPosition: {
     color: sc.color.gray,
@@ -113,5 +117,21 @@ export default {
     paddingRight: 20,
     justifyContent: 'center',
     height: 60,
+  },
+};
+
+export const farmsList = {
+  markerImage: {
+    position: 'absolute',
+    right: 0,
+  },
+  farmContainer: {
+  },
+  farmImage: {
+    justifyContent: 'space-between',
+    padding: 20,
+    marginBottom: 15,
+    width: 317,
+    height: 240,
   },
 };

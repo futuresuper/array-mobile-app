@@ -15,15 +15,11 @@ import {
   H1,
   Grid,
   Col,
-  Row,
   Card,
   CardItem,
   Body,
 } from 'native-base';
 
-import LinearGradient from 'react-native-linear-gradient';
-
-import BackButton from 'src/Components/BackButton';
 import CloseButton from 'src/Components/CloseButton';
 import WeatherWidget from 'src/Components/WeatherWidget';
 
@@ -73,25 +69,27 @@ class SolarFarm extends Component {
     });
   }
 
-  renderPhotoItem = ({ item }) => (
-    <Card style={styles.solarFarmPhotoCard}>
-      <CardItem style={styles.solarFarmPhotoCardItem}>
-        <Body>
-          <Image source={{ uri: item.photo }} style={styles.solarFarmPhotoPhoto} resizeMode="cover" />
-          <View style={styles.solarFarmPhotoTextBl}>
-            <Text style={styles.solarFarmPhotoDescription}>{item.description}</Text>
-          </View>
-        </Body>
-      </CardItem>
-    </Card>
-  )
+  renderPhotoItem({ item }) {
+    return (
+      <Card style={styles.solarFarmPhotoCard}>
+        <CardItem style={styles.solarFarmPhotoCardItem}>
+          <Body>
+            <Image source={{ uri: item.photo }} style={styles.solarFarmPhotoPhoto} resizeMode="cover" />
+            <View style={styles.solarFarmPhotoTextBl}>
+              <Text style={[sg.fS14, sg.colorGray11, sg.fontRegularItalic]}>{item.description}</Text>
+            </View>
+          </Body>
+        </CardItem>
+      </Card>
+    );
+  }
 
   render() {
     const { item, photos } = this.state;
 
     return (
       <Content contentContainerStyle={[sg.mT0]} bounces={false}>
-        <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" style={[{ height: (deviceUtils.screenHeight() - sc.footerHeight - 34) }]}>
+        <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" style={[{ height: (deviceUtils.screenHeight() - sc.footerHeight - 54) }]}>
 
           <View style={[sg.aIEnd, sg.mT40]}>
             <CloseButton white {...this.props} />
@@ -108,7 +106,7 @@ class SolarFarm extends Component {
               <Text style={styles.solarFarmItemDescription}>{item.description}</Text>
             </View>
 
-            <View>
+            <View style={sg.aICenter}>
               <Text style={styles.solarFarmFinishDate}>Projected finish date: Jan 2020</Text>
 
               <Grid style={styles.solarFarmStatBl}>
@@ -130,44 +128,21 @@ class SolarFarm extends Component {
           </View>
         </ImageBackground>
 
-        <View>
-          <Text>asd</Text>
-          <Text>asd</Text>
-          <Text>asd</Text>
-        </View>
-
-
-        {/* <View>
-          <Grid>
-            <Row>
-              <Col style={sg.mL20}>
-                <H1>{item.title}</H1>
-                <Text style={styles.solarFarmItemDescription}>{item.description}</Text>
-              </Col>
-            </Row>
-          </Grid>
-        </View> */}
-
-        {/* <Grid style={[sg.p20]}>
-          <Col style={sg.width100}>
-            <H1>About</H1>
-          </Col>
-          <Col>
-            <Text style={sg.colorGray}>
-              A 34.5MW solar farm under developnet near Pittsworth in southeast Queensland. When complete,
-              Brigalow will power the equivalent of 11,300 average Ausstralian homes and expected to avoid adding 60 tonnes of Gold from the atmoshere.
-            </Text>
-          </Col>
-        </Grid>
+        <Text style={[sg.fS24, sg.textBold, sg.colorDark2, sg.aSCenter, sg.mT30]}>About</Text>
+        <Text style={[sg.contentMarginH, sg.mT20, sg.mB30]}>
+          A 34.5MW solar farm under development near Pittsworth in southeast Queensland. When complete,
+          Brigalow will power the equivalent of 11,300 average Australian homes and expected to avoid adding 60 tonnes of of C02 from the atmosphere.
+          Currently at Stage 2 of the build project, it Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam.
+        </Text>
 
         <FlatList
           data={photos}
           keyExtractor={person => person.id.toString()}
-          renderItem={this.renderPhotoItem}
+          renderItem={(...args) => this.renderPhotoItem(...args)}
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={styles.photosBl}
-        /> */}
+          style={sg.mB30}
+        />
 
       </Content>
     );

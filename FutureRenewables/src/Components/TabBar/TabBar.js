@@ -30,7 +30,7 @@ const TabBar = (props) => {
 
   const iconHome = routeName === routeNames.TAB_HOME ? HomeActive : HomeInactive;
   const iconActivity = routeName === routeNames.TAB_ACTIVITY ? DollarActive : DollarInactive;
-  const iconFarms = routeName === routeNames.TAB_FARMS ? SunActive : SunInactive;
+  const iconFarms = routeName === routeNames.SOLAR_FARMS_LIST ? SunActive : SunInactive;
   const iconProfile = routeName === routeNames.TAB_PROFILE ? ChelActive : ChelInactive;
 
   return (
@@ -53,7 +53,7 @@ const TabBar = (props) => {
         </Button>
         <Button
           onPress={() => {
-            screenProps.navigateTo(routeNames.TAB_FARMS);
+            screenProps.navigateTo(routeNames.SOLAR_FARMS_LIST);
           }}
         >
           <Image source={iconFarms} />
