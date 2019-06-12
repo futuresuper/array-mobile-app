@@ -130,6 +130,7 @@ class WeatherWidget extends Component {
   }
 
   render() {
+    const { style } = this.props;
     const { isLoading, summary, icon } = this.state;
 
     if (isLoading) {
@@ -141,7 +142,7 @@ class WeatherWidget extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         <Image style={styles.icon} source={weatherIcons[icon] || weatherIcons.default} />
         <Text style={styles.summary}>{summary}</Text>
       </View>
@@ -154,6 +155,7 @@ WeatherWidget.defaultProps = {
     latitude: null,
     longitude: null,
   },
+  style: {},
 };
 
 WeatherWidget.propTypes = {
@@ -161,6 +163,10 @@ WeatherWidget.propTypes = {
     latitude: PropTypes.number,
     longitude: PropTypes.number,
   }),
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
 };
 
 export default WeatherWidget;

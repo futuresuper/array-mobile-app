@@ -593,6 +593,7 @@ export default {
   },
   fS35: {
     fontSize: 35,
+    lineHeight: 35,
   },
   fontLabel: {
     fontSize: 14,

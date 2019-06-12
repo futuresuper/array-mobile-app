@@ -32,6 +32,7 @@ export default Object.freeze({
     gray12: '#A09BB1',
     gray13: '#A1A0B7',
     gray14: '#A39BA9',
+    gray15: '#C0C0C0',
     orange: '#FFA334',
     lightGreen: '#6FCE1C',
     get errorBorder() {
@@ -98,4 +99,5 @@ export default Object.freeze({
   },
   keyboardAvoidingHeight: 100,
   inputHeightBase: 50,
+  footerHeight: 55,
 });

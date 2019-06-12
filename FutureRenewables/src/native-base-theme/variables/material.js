@@ -141,7 +141,7 @@ export default {
   },
 
   // Footer
-  footerHeight: 55,
+  footerHeight: styleConstants.footerHeight,
   footerDefaultBg: styleConstants.color.light,
   footerPaddingBottom: 0,
 

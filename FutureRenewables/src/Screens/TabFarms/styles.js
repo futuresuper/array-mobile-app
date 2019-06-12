@@ -4,68 +4,63 @@ import {
 } from 'src/Styles';
 
 export default {
-  marketIcon: {
-    color: sc.color.gray,
+  markerIcon: {
+    zIndex: 9,
   },
-  marketIconActive: {
-    color: sc.color.dark,
+  markerIconActive: {
+    zIndex: 10,
   },
   marketTitle: {
     color: sc.color.dark,
   },
   farmCardsBl: {
     position: 'absolute',
-    bottom: 10,
-    left: 15,
+    bottom: sc.contentPadding,
+    left: sc.contentPadding,
   },
   farmCardBl: {
     marginRight: 10,
   },
   farmCardItem: {
-    margin: 10,
+    paddingTop: 18,
+    paddingBottom: 20,
+    paddingLeft: 15,
+    paddingRight: 19,
   },
   farmCardImage: {
-    height: 80,
-    width: 80,
+    height: 86,
+    width: 86,
+    borderRadius: 4,
   },
   farmCardBody: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 18,
+    justifyContent: 'space-between',
   },
   farmCardRight: {
     alignSelf: 'flex-start',
   },
   farmCardTextDescription: {
-    color: sc.color.gray,
+    fontSize: 16,
+    fontFamily: sc.font.medium,
     marginTop: 5,
-    marginBottom: 5,
   },
   farmCardTextComplete: {
-    color: sc.color.gray,
+    color: sc.color.gray11,
+    fontSize: 14,
+    fontFamily: sc.font.medium,
   },
   solarFarmItemDescription: {
+    color: sc.color.dark2,
     fontSize: 20,
-    fontWeight: '600',
-    color: sc.color.gray,
-    marginTop: 8,
+    fontFamily: sc.font.medium,
   },
   solarFarmFinishDate: {
-    color: sc.color.gray,
-    fontSize: 15,
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  solarFarmImage: {
-    height: 350,
-    alignItems: 'center',
-    backgroundColor: sc.containerBgColor,
+    color: sc.color.white,
+    fontSize: 14,
+    fontFamily: sc.font.medium,
   },
   solarFarmStatBl: {
-    position: 'absolute',
-    bottom: 40,
     borderColor: sc.color.gray5,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
-    paddingVertical: 10,
   },
   solarFarmStatCol: {
     alignItems: 'center',
@@ -82,21 +77,8 @@ export default {
     color: sc.color.white,
     fontWeight: '600',
   },
-  solarFarmLinearGradientBl: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 50,
-  },
-  linearGradient: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-  photosBl: {
+  solarFarmWeatherWidget: {
+    marginTop: -20,
   },
   solarFarmPhotoCard: {
     marginRight: 10,

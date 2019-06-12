@@ -14,8 +14,7 @@ export default {
     alignSelf: 'center',
   },
   summary: {
-    fontSize: 14,
-    color: sc.color.gray4,
+    fontSize: 12,
     textAlign: 'center',
   },
 };

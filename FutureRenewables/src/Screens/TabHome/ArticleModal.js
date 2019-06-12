@@ -13,6 +13,7 @@ import {
 } from 'native-base';
 
 import SafeAreaView from 'src/Components/SafeAreaView';
+import CloseButton from 'src/Components/CloseButton';
 import {
   sg,
 } from 'src/Styles';
@@ -82,10 +83,8 @@ class ArticleModal extends Component {
       >
         <SafeAreaView>
           <View style={[sg.backgroundDefault, sg.contentMarginV2]}>
-            <View style={[sg.aIEnd, sg.mH35]}>
-              <TouchableOpacity onPress={() => this.onRequestClose()}>
-                <Image source={CloseCircle} />
-              </TouchableOpacity>
+            <View style={[sg.aIEnd]}>
+              <CloseButton white onPress={() => this.onRequestClose()} />
             </View>
             {this.renderContent()}
           </View>

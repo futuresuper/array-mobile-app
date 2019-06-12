@@ -15,8 +15,8 @@ export default {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
-    paddingTop: isIOSc ? 40 : 20,
+    padding: 30,
+    paddingTop: isIOSc ? 60 : 40,
     minHeight: 50,
   },
   subContainer: {
@@ -25,7 +25,7 @@ export default {
     justifyContent: 'flex-start',
   },
   default: {
-    backgroundColor: sc.color.gray6,
+    backgroundColor: sc.color.white,
   },
   danger: {
     backgroundColor: sc.color.danger,
@@ -53,6 +53,7 @@ export default {
   },
   icon: {
     fontSize: 22,
-    marginRight: 10,
+    marginRight: 20,
+    color: sc.color.brightGreen,
   },
 };

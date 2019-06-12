@@ -10,14 +10,13 @@ import {
 
 import {
   Text,
-  Icon,
-  H1,
   H3,
   Card,
   CardItem,
   Left,
   Right,
   Body,
+  Thumbnail,
 } from 'native-base';
 
 import MapView from 'react-native-maps';
@@ -26,11 +25,11 @@ import {
   routeNames,
 } from 'src/Navigation';
 import CircularProgress from 'src/Components/CircularProgress';
-import solarHeart from 'src/assets/images/solarHeart.png';
+import BackButton from 'src/Components/BackButton';
 
-import {
-  isIOS as isIOSF,
-} from 'src/Common/Helpers';
+import solarHeart from 'src/assets/images/solarHeart.png';
+import MarkerActive from 'src/assets/images/MarkerActive.png';
+import MarkerInactive from 'src/assets/images/MarkerInactive.png';
 
 import {
   sg,
@@ -38,8 +37,6 @@ import {
 } from 'src/Styles';
 
 import styles from './styles';
-
-const isIOS = isIOSF();
 
 class TabFarms extends Component {
   constructor(props) {
@@ -165,56 +162,62 @@ class TabFarms extends Component {
 
   renderMarker = (item) => {
     const { activeFarmId } = this.state;
-    let iconStyle = {};
+    let markerImage = MarkerInactive;
+    let style = {};
     if (activeFarmId === item.id) {
-      iconStyle = styles.marketIconActive;
+      markerImage = MarkerActive;
+      style = styles.markerIconActive;
     }
 
     return (
       <View style={sg.center}>
-        <Icon style={[styles.marketIcon, iconStyle]} type="FontAwesome" name="map-marker" />
+        <Image source={markerImage} style={[styles.markerIcon, style]} />
         <Text style={[styles.marketTitle]}>{item.title}</Text>
       </View>
     );
   }
 
-  renderFarmCard = ({ item }) => (
-    <Card style={styles.farmCardBl}>
-      <CardItem
-        button
-        onPress={() => {
-          this.navigateToFarm(item);
-        }}
-        style={styles.farmCardItem}
-      >
-        <Left>
-          <Image
-            resizeMode="cover"
-            source={solarHeart}
-            style={styles.farmCardImage}
-          />
-        </Left>
-        <Body style={styles.farmCardBody}>
-          <H3>{item.title}</H3>
-          <Text style={styles.farmCardTextDescription}>{item.description}</Text>
-          <Text style={styles.farmCardTextComplete}>
-            {item.completed}
-            % Completed
-          </Text>
-        </Body>
-        <Right style={styles.farmCardRight}>
-          <CircularProgress
-            percent={item.completed}
-            radius={15}
-            borderWidth={3}
-            color={sc.color.dark}
-            shadowColor={sc.color.gray2}
-            bgColor={sc.color.white}
-          />
-        </Right>
-      </CardItem>
-    </Card>
-  )
+  renderFarmCard({ item }) {
+    return (
+      <Card style={styles.farmCardBl}>
+        <CardItem
+          button
+          onPress={() => {
+            this.navigateToFarm(item);
+          }}
+          style={styles.farmCardItem}
+        >
+          <Left>
+            <Thumbnail
+              resizeMode="cover"
+              source={solarHeart}
+              style={styles.farmCardImage}
+            />
+          </Left>
+          <Body style={styles.farmCardBody}>
+            <View>
+              <H3 style={[sg.colorDark2, sg.fS20]}>{item.title}</H3>
+              <Text style={styles.farmCardTextDescription}>{item.description}</Text>
+            </View>
+            <Text style={styles.farmCardTextComplete}>
+              {item.completed}
+              % Completed
+            </Text>
+          </Body>
+          <Right style={styles.farmCardRight}>
+            <CircularProgress
+              percent={item.completed}
+              radius={15}
+              borderWidth={3}
+              color={sc.color.primary}
+              shadowColor={sc.color.gray15}
+              bgColor={sc.color.white}
+            />
+          </Right>
+        </CardItem>
+      </Card>
+    );
+  }
 
   render() {
     const { farms, startPosition } = this.state;
@@ -241,15 +244,20 @@ class TabFarms extends Component {
           ))}
         </MapView>
 
-        <View style={[sg.postitionAbsolute, sg.center, (isIOS ? sg.p30 : sg.p20)]}>
-          <H1 style={sg.textBold}>Solar farms</H1>
+        <View style={[sg.postitionAbsolute, sg.center, sg.contentPadding]}>
+          <BackButton
+            header={false}
+            style={sg.pL0}
+            iconStyle={sg.mL0}
+            {...this.props}
+          />
         </View>
 
         <View style={styles.farmCardsBl}>
           <FlatList
             data={farms}
             keyExtractor={item => item.id.toString()}
-            renderItem={this.renderFarmCard}
+            renderItem={(...args) => this.renderFarmCard(...args)}
             horizontal
             showsHorizontalScrollIndicator={false}
           />

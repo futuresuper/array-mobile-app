@@ -8,6 +8,7 @@ import {
 
 import {
   sc,
+  sg,
 } from 'src/Styles';
 
 import styles from './styles';
@@ -21,7 +22,12 @@ const iconSignUp = {
 };
 
 const BackButton = (props) => {
-  const { signup, header, style } = props;
+  const {
+    signup,
+    header,
+    style,
+    iconStyle,
+  } = props;
   let { icon } = props;
 
   if (signup) {
@@ -42,7 +48,7 @@ const BackButton = (props) => {
       <Icon
         type={icon.type || undefined}
         name={icon.name}
-        style={icon.style || {}}
+        style={[sg.colorDark3, icon.style || {}, iconStyle]}
       />
     </Button>
   );
@@ -54,6 +60,7 @@ BackButton.defaultProps = {
     name: 'ios-arrow-back',
     style: undefined,
   },
+  iconStyle: {},
   signup: false,
   header: true,
   style: {},
@@ -61,6 +68,7 @@ BackButton.defaultProps = {
 
 BackButton.propTypes = {
   icon: PropTypes.object,
+  iconStyle: PropTypes.object,
   signup: PropTypes.bool,
   header: PropTypes.bool,
   style: PropTypes.object,

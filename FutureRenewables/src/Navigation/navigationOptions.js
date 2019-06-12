@@ -55,7 +55,7 @@ export const tabBarOptions = {
         borderBottomWidth: 0,
         elevation: 0,
         height: 0,
-        paddingBottom: 20,
+        paddingBottom: 24,
       },
       header,
     };

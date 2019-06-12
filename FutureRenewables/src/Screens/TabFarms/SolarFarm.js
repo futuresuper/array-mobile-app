@@ -24,7 +24,10 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 import BackButton from 'src/Components/BackButton';
+import CloseButton from 'src/Components/CloseButton';
 import WeatherWidget from 'src/Components/WeatherWidget';
+
+import deviceUtils from 'src/Common/device';
 
 import {
   sg,
@@ -33,7 +36,7 @@ import {
 
 import styles from './styles';
 
-const imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Stone_Bridge%2C_Lake_County%2C_Oregon%2C_1967.png';
+const imageUrl = 'http://www.gone-fishing.co.za/wp-content/uploads/2009/07/ab0001.jpg';
 
 class SolarFarm extends Component {
   constructor(props) {
@@ -87,51 +90,65 @@ class SolarFarm extends Component {
     const { item, photos } = this.state;
 
     return (
-      <Content contentContainerStyle={[sg.mT40, sg.tabFooterPadding]}>
-        <View>
-          <Grid>
-            <View style={styles.solarFarmLinearGradientBl}>
-              <LinearGradient colors={[sc.containerBgColor, sc.color.white]} style={styles.linearGradient} locations={[0, 1]} />
+      <Content contentContainerStyle={[sg.mT0]} bounces={false}>
+        <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" style={[{ height: (deviceUtils.screenHeight() - sc.footerHeight - 34) }]}>
+
+          <View style={[sg.aIEnd, sg.mT40]}>
+            <CloseButton white {...this.props} />
+          </View>
+
+          <View style={[sg.aICenter, sg.spaceBetween]}>
+            <View>
+              <WeatherWidget
+                coordinate={item.coordinate}
+                style={styles.solarFarmWeatherWidget}
+              />
+
+              <H1 style={[sg.fS35, sg.mT30, sg.mB5]}>{item.title}</H1>
+              <Text style={styles.solarFarmItemDescription}>{item.description}</Text>
             </View>
 
-            <Row>
-              <Col style={sg.pL5}>
-                <BackButton {...this.props} style={sg.pT0} />
-              </Col>
-              <Col style={styles.solarFarmWeatherWidgetBl}>
-                <WeatherWidget
-                  coordinate={item.coordinate}
-                />
-              </Col>
-            </Row>
+            <View>
+              <Text style={styles.solarFarmFinishDate}>Projected finish date: Jan 2020</Text>
+
+              <Grid style={styles.solarFarmStatBl}>
+                <Col style={styles.solarFarmStatCol}>
+                  <Text style={styles.solarForamStatAmount}>85</Text>
+                  <Text style={styles.solarForamStatDescription}>New panels added</Text>
+                </Col>
+                <Col style={styles.solarFarmStatCol}>
+                  <Text style={styles.solarForamStatAmount}>60k</Text>
+                  <Text style={styles.solarForamStatDescription}>Tonnes of carbon reduced</Text>
+                </Col>
+                <Col style={styles.solarFarmStatCol}>
+                  <Text style={styles.solarForamStatAmount}>400</Text>
+                  <Text style={styles.solarForamStatDescription}>New jobs created</Text>
+                </Col>
+              </Grid>
+            </View>
+
+          </View>
+        </ImageBackground>
+
+        <View>
+          <Text>asd</Text>
+          <Text>asd</Text>
+          <Text>asd</Text>
+        </View>
+
+
+        {/* <View>
+          <Grid>
             <Row>
               <Col style={sg.mL20}>
                 <H1>{item.title}</H1>
                 <Text style={styles.solarFarmItemDescription}>{item.description}</Text>
-                <Text style={styles.solarFarmFinishDate}>Projected finish date: Jan 2020</Text>
               </Col>
             </Row>
           </Grid>
-        </View>
+        </View> */}
 
-        <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" style={styles.solarFarmImage}>
-          <Grid style={styles.solarFarmStatBl}>
-            <Col style={styles.solarFarmStatCol}>
-              <Text style={styles.solarForamStatAmount}>85</Text>
-              <Text style={styles.solarForamStatDescription}>New panels added</Text>
-            </Col>
-            <Col style={styles.solarFarmStatCol}>
-              <Text style={styles.solarForamStatAmount}>60k</Text>
-              <Text style={styles.solarForamStatDescription}>Tonnes of carbon reduced</Text>
-            </Col>
-            <Col style={styles.solarFarmStatCol}>
-              <Text style={styles.solarForamStatAmount}>400</Text>
-              <Text style={styles.solarForamStatDescription}>New jobs created</Text>
-            </Col>
-          </Grid>
-        </ImageBackground>
-
-        <Grid style={[sg.p20]}>
+        {/* <Grid style={[sg.p20]}>
           <Col style={sg.width100}>
             <H1>About</H1>
           </Col>
@@ -150,7 +167,7 @@ class SolarFarm extends Component {
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.photosBl}
-        />
+        /> */}
 
       </Content>
     );

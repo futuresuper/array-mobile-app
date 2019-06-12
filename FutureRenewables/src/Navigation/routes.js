@@ -216,11 +216,20 @@ const tabModalRoutes = {
       backButton: true,
     },
   },
+  [routeNames.SOLAR_FARM]: {
+    screen: screens.SolarFarm,
+    params: {
+      noHeader: true,
+    },
+  },
 };
 
 const tabCardRoutes = {
-  [routeNames.SOLAR_FARM]: {
-    screen: screens.SolarFarm,
+  [routeNames.SOLAR_FARMS_LIST]: {
+    screen: screens.SolarFarmsList,
+    params: {
+      routeReset: true,
+    },
     navigationOptions: {
       header: null,
     },

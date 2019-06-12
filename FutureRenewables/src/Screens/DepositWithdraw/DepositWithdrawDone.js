@@ -23,8 +23,8 @@ class DepositWithdrawDone extends Component {
     const { navigation, screenProps } = this.props;
     const depositMessage = (
       <View style={[sg.row, sg.center]}>
-        <Text style={sg.fS15}>Deposit recieved.</Text>
-        <Text style={[sg.fS15, sg.colorGray7]}> Nice one Grace!</Text>
+        <Text style={[sg.fS16, sg.fontMedium, sg.colorDark3]}>Deposit recieved.</Text>
+        <Text style={[sg.fS16, sg.colorDark3]}> Nice one Grace!</Text>
       </View>
     );
 
