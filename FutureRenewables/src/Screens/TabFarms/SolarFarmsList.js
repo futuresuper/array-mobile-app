@@ -104,16 +104,15 @@ class SolarFarmsList extends Component {
             />
           </View>
 
-          <View style={sg.border}>
-            <CircularProgress
-              percent={item.completed}
-              radius={15}
-              borderWidth={3}
+          <View style={[sg.border, sg.row]}>
+            {/* <CircularProgress
+              progress={item.completed / 100}
+              borderWidth={2}
+              size={20}
               color={sc.color.primary}
-              shadowColor={sc.color.gray15}
-              bgColor={sc.color.white}
+              borderColor={sc.color.gray6}
             />
-            {/* <Text>bbb</Text> */}
+            <Text style={[sg.colorWhite]}>bbb</Text> */}
           </View>
         </ImageBackground>
       </TouchableOpacity>

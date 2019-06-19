@@ -1,228 +1,216 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { Animated, ART, StyleSheet, Text, View } from 'react-native';
 
-import styles from './styles';
+import Arc from './Shapes/Arc';
+import withAnimation from './withAnimation';
 
-function percentToDegrees(percent) {
-  return percent * 3.6;
-}
+const CIRCLE = Math.PI * 2;
 
-class CircularProgress extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.getInitialStateFromProps(props);
+const AnimatedSurface = Animated.createAnimatedComponent(ART.Surface);
+const AnimatedArc = Animated.createAnimatedComponent(Arc);
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'transparent',
+    overflow: 'hidden',
+  },
+});
+
+export class ProgressCircle extends Component {
+  static propTypes = {
+    animated: PropTypes.bool,
+    borderColor: PropTypes.string,
+    borderWidth: PropTypes.number,
+    color: PropTypes.string,
+    children: PropTypes.node,
+    direction: PropTypes.oneOf(['clockwise', 'counter-clockwise']),
+    fill: PropTypes.string,
+    formatText: PropTypes.func,
+    indeterminate: PropTypes.bool,
+    progress: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.instanceOf(Animated.Value),
+    ]),
+    rotation: PropTypes.instanceOf(Animated.Value),
+    showsText: PropTypes.bool,
+    size: PropTypes.number,
+    style: PropTypes.any,
+    strokeCap: PropTypes.oneOf(['butt', 'square', 'round']),
+    textStyle: PropTypes.any,
+    thickness: PropTypes.number,
+    unfilledColor: PropTypes.string,
+    endAngle: PropTypes.number,
+    allowFontScaling: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    borderWidth: 1,
+    color: 'rgba(0, 122, 255, 1)',
+    direction: 'clockwise',
+    formatText: progress => `${Math.round(progress * 100)}%`,
+    progress: 0,
+    showsText: false,
+    size: 40,
+    thickness: 3,
+    endAngle: 0.9,
+    allowFontScaling: true,
+  };
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.progressValue = 0;
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.getInitialStateFromProps(nextProps));
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  getInitialStateFromProps(props) {
-    const percent = Math.max(Math.min(100, props.percent), 0);
-    const needHalfCircle2 = percent > 50;
-    let halfCircle1Degree;
-    let halfCircle2Degree;
-    // degrees indicate the 'end' of the half circle, i.e. they span (degree - 180, degree)
-    if (needHalfCircle2) {
-      halfCircle1Degree = 180;
-      halfCircle2Degree = percentToDegrees(percent);
-    } else {
-      halfCircle1Degree = percentToDegrees(percent);
-      halfCircle2Degree = 0;
+  componentWillMount() {
+    if (this.props.animated) {
+      this.props.progress.addListener(event => {
+        this.progressValue = event.value;
+        if (this.props.showsText || this.progressValue === 1) {
+          this.forceUpdate();
+        }
+      });
     }
-
-    return {
-      halfCircle1Degree,
-      halfCircle2Degree,
-      halfCircle2Styles: {
-        // when the second half circle is not needed, we need it to cover
-        // the negative degrees of the first circle
-        backgroundColor: needHalfCircle2
-          ? props.color
-          : props.shadowColor,
-      },
-    }
-  }
-
-  renderHalfCircle(rotateDegrees, halfCircleStyles = {}, hz = true) {
-    let { radius, color } = this.props;
-    let styleLeftWrap = {
-      top: 0,
-      left: 0,
-    };
-    let styleHalfCircle = {};
-    // let radius2 = radius;
-    // const width2 = radius2 + 0;
-    // const height2 = (radius2 + 0) * 2;
-
-    //   radius = radius + 10;
-    //   styleLeftWrap.top = -10;
-    //   styleLeftWrap.left = -10;
-    // if (hz) {
-    //   // styleHalfCircle.backgroundColor = 'red';
-    // } else {
-    //   // radius2 = radius + 10;
-    //   // color = 'red';
-    //   styleHalfCircle.backgroundColor = 'white';
-    // }
-    const width = radius + 0;
-    const height = (radius + 0) * 2;
-
-    return (
-      <View
-        style={[
-          styles.leftWrap,
-          styleLeftWrap,
-          {
-            width: width - 0 + 0,
-            height: height - 0,
-          },
-        ]}
-      >
-        <View
-          style={[
-            styles.halfCircle,
-            {
-              width: width + 0,
-              height: height + 0,
-              borderRadius: radius,
-              overflow: 'hidden',
-              transform: [
-                { translateX: radius / 2 },
-                { rotate: `${rotateDegrees}deg` },
-                { translateX: -radius / 2 },
-              ],
-              backgroundColor: color,
-              ...halfCircleStyles,
-            },
-            styleHalfCircle,
-          ]}
-        />
-        {/* {!hz
-          && (
-            <View
-              style={[
-                styles.halfCircle,
-                {
-                  width: width2 + 0,
-                  height: height2 + 0,
-                  borderRadius: radius2,
-                  overflow: 'hidden',
-                  transform: [
-                    { translateX: radius2 / 2 },
-                    { rotate: `${rotateDegrees}deg` },
-                    { translateX: -radius2 / 2 },
-                  ],
-                  backgroundColor: color,
-                  ...halfCircleStyles,
-                },
-                // styleHalfCircle,
-              ]}
-            />
-          )
-        } */}
-      </View>
-    )
-  }
-
-  renderInnerCircle() {
-    const {
-      radius,
-      borderWidth,
-      bgColor,
-      containerStyle,
-      children,
-    } = this.props;
-    const radiusMinusBorder = radius - borderWidth;
-    return (
-      <View
-        style={[
-          styles.innerCircle,
-          {
-            width: radiusMinusBorder * 2,
-            height: radiusMinusBorder * 2,
-            borderRadius: radiusMinusBorder,
-            backgroundColor: bgColor,
-            ...containerStyle,
-          },
-        ]}
-      >
-        {children}
-      </View>
-    );
   }
 
   render() {
     const {
-      radius,
-      shadowColor,
-      outerCircleStyle,
+      animated,
+      borderColor,
+      borderWidth,
+      color,
+      children,
+      direction,
+      fill,
+      formatText,
+      indeterminate,
+      progress,
+      rotation,
+      showsText,
+      size,
+      style,
+      strokeCap,
+      textStyle,
+      thickness,
+      unfilledColor,
+      endAngle,
+      allowFontScaling,
+      ...restProps
     } = this.props;
-    const {
-      halfCircle1Degree,
-      halfCircle2Degree,
-      halfCircle2Styles,
-    } = this.state;
+
+    const border = borderWidth || (indeterminate ? 1 : 0);
+
+    const radius = size / 2 - border;
+    const offset = {
+      top: border,
+      left: border,
+    };
+    const textOffset = border + thickness;
+    const textSize = size - textOffset * 2;
+
+    const Surface = rotation ? AnimatedSurface : ART.Surface;
+    const Shape = animated ? AnimatedArc : Arc;
+    const progressValue = animated ? this.progressValue : progress;
+    const angle = animated
+      ? Animated.multiply(progress, CIRCLE)
+      : progress * CIRCLE;
 
     return (
-      <View
-        style={[
-          styles.outerCircle,
-          {
-            width: radius * 2,
-            height: radius * 2,
-            borderRadius: radius,
-            backgroundColor: shadowColor,
-            ...outerCircleStyle,
-          },
-        ]}
-      >
-        {/* <View
-          style={[
-            styles.hz,
-            {
-              width: (radius + 5) * 2,
-              height: (radius + 5) * 2,
-              borderRadius: radius + 5,
-              // backgroundColor: 'red',
-            },
-          ]}
-        /> */}
-
-        {this.renderHalfCircle(halfCircle1Degree)}
-        {this.renderHalfCircle(halfCircle2Degree, halfCircle2Styles, false)}
-        {this.renderInnerCircle()}
+      <View style={[styles.container, style]} {...restProps}>
+        <Surface
+          width={size}
+          height={size}
+          style={{
+            transform: [
+              {
+                rotate:
+                  indeterminate && rotation
+                    ? rotation.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: ['0deg', '360deg'],
+                      })
+                    : '0deg',
+              },
+            ],
+          }}
+        >
+          {unfilledColor && progressValue !== 1 ? (
+            <Shape
+              fill={fill}
+              radius={radius}
+              offset={offset}
+              startAngle={angle}
+              endAngle={CIRCLE}
+              direction={direction}
+              stroke={unfilledColor}
+              strokeWidth={thickness}
+            />
+          ) : (
+            false
+          )}
+          {!indeterminate ? (
+            <Shape
+              fill={fill}
+              radius={radius}
+              offset={offset}
+              startAngle={0}
+              endAngle={angle}
+              direction={direction}
+              stroke={color}
+              strokeCap={strokeCap}
+              strokeWidth={thickness}
+            />
+          ) : (
+            false
+          )}
+          {border ? (
+            <Arc
+              radius={size / 2}
+              startAngle={0}
+              endAngle={(indeterminate ? endAngle * 2 : 2) * Math.PI}
+              stroke={borderColor || color}
+              strokeCap={strokeCap}
+              strokeWidth={border}
+            />
+          ) : (
+            false
+          )}
+        </Surface>
+        {!indeterminate && showsText ? (
+          <View
+            style={{
+              position: 'absolute',
+              left: textOffset,
+              top: textOffset,
+              width: textSize,
+              height: textSize,
+              borderRadius: textSize / 2,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text
+              style={[
+                {
+                  color,
+                  fontSize: textSize / 4.5,
+                  fontWeight: '300',
+                },
+                textStyle,
+              ]}
+              allowFontScaling={allowFontScaling}
+            >
+              {formatText(progressValue)}
+            </Text>
+          </View>
+        ) : (
+          false
+        )}
+        {children}
       </View>
     );
   }
 }
 
-CircularProgress.defaultProps = {
-  color: '#f00',
-  shadowColor: '#999',
-  bgColor: '#e9e9ef',
-  borderWidth: 2,
-  children: null,
-  containerStyle: {},
-  outerCircleStyle: {},
-  progressWidth: 10,
-};
-
-CircularProgress.propTypes = {
-  color: PropTypes.string,
-  shadowColor: PropTypes.string,
-  bgColor: PropTypes.string,
-  radius: PropTypes.number.isRequired,
-  borderWidth: PropTypes.number,
-  percent: PropTypes.number.isRequired,
-  children: PropTypes.node,
-  containerStyle: PropTypes.object,
-  outerCircleStyle: PropTypes.object,
-  progressWidth: PropTypes.number,
-};
-
-
-export default CircularProgress;
+export default withAnimation(ProgressCircle);

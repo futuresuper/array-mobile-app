@@ -174,14 +174,14 @@ class TabFarms extends Component {
             </Text>
           </Body>
           <Right style={styles.farmCardRight}>
-            <CircularProgress
+            {/* <CircularProgress
               percent={item.completed}
               radius={15}
               borderWidth={3}
               color={sc.color.primary}
               shadowColor={sc.color.gray15}
               bgColor={sc.color.white}
-            />
+            /> */}
           </Right>
         </CardItem>
       </Card>
