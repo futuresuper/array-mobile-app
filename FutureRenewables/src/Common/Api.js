@@ -15,6 +15,9 @@ import AwsAmplify from 'src/Common/AwsAmplify';
 import {
   authReset,
 } from 'src/Redux/Auth';
+import {
+  routeNames,
+} from 'src/Navigation';
 
 const UNAUTHORIZED = 401;
 const apiError = {
@@ -79,6 +82,11 @@ class Api extends Component {
     });
   }
 
+  static async logOut() {
+    await AwsAmplify.logOut();
+    this.ApiInstance.navigateToLading();
+  }
+
   // static fetch(...args) {
   //   return this.ApiInstance.fetchProc(...args);
   // }
@@ -125,6 +133,11 @@ class Api extends Component {
     };
 
     return parameters;
+  }
+
+  navigateToLading() {
+    const { navigateTo } = this.props;
+    navigateTo(routeNames.APP_LANDING);
   }
 
   // eslint-disable-next-line class-methods-use-this

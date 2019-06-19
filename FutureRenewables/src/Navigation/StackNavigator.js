@@ -41,6 +41,13 @@ export const SignStack = createStackNavigator(
   },
 );
 
+export const TmpStack = createStackNavigator(
+  tmpRoutes,
+  {
+    headerMode: 'none',
+  },
+);
+
 const TabBar = createBottomTabNavigator(
   tabRoutes,
   tabBarOptions,
@@ -96,15 +103,11 @@ export const TabStack = createStackNavigator(
     TabCards: {
       screen: TabCards,
     },
+    TmpStack: {
+      screen: TmpStack,
+    },
   },
   {
     headerMode: 'none',
-  },
-);
-
-export const TmpStack = createStackNavigator(
-  tmpRoutes,
-  {
-    headerMode: 'float',
   },
 );

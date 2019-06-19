@@ -2,7 +2,7 @@
 import _ from 'lodash';
 
 import * as screens from 'src/Screens';
-import FirstPage from 'src/Screens/FirstPage';
+import ScreensList from 'src/Screens/ScreensList';
 
 import {
   noHeader,
@@ -87,7 +87,7 @@ const signRoutes = formatRoutes({
 });
 
 const mainRoutes = formatRoutes({
-  ApplicationType: {
+  [routeNames.APPLICATION_TYPE]: {
     screen: screens.ApplicationType,
     params: {
       routeReset: true,
@@ -99,19 +99,19 @@ const mainRoutes = formatRoutes({
       noHeader: true,
     },
   },
-  InitialInvestmentAmount: {
+  [routeNames.INITIAL_INVESTMENT_AMOUNT]: {
     screen: screens.InitialInvestmentAmount,
   },
-  RegularInvestmentAmount: {
+  [routeNames.REGULAR_INVESTMENT_AMOUNT]: {
     screen: screens.RegularInvestmentAmount,
   },
-  BankAccount: {
+  [routeNames.BANK_ACCOUNT]: {
     screen: screens.BankAccount,
   },
   DirectDebitAuth: {
     screen: screens.DirectDebitAuth,
   },
-  SourceOfFunds: {
+  [routeNames.SOURCE_OF_FUNDS]: {
     screen: screens.SourceOfFunds,
   },
   PurposeOfInvestment: {
@@ -287,8 +287,8 @@ const tabCardRoutes = {
 };
 
 const tmpRoutes = {
-  [routeNames.FIRST_PAGE]: {
-    screen: FirstPage,
+  [routeNames.SCREENS_LIST]: {
+    screen: ScreensList,
   },
 };
 

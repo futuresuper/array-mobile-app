@@ -22,7 +22,7 @@ import { navReduxMiddleware } from './navMiddlewareListener';
 
 
 const initialRoute = () => {
-  const init_screen = 'TmpStack';
+  const init_screen = 'SignStack';
 
   return init_screen;
 };
@@ -33,7 +33,7 @@ const AppNavigator = createAppContainer(createSwitchNavigator(
     MainStack,
     // MainModalStack,
     TabStack,
-    TmpStack,
+    // TmpStack,
   },
   {
     initialRouteName: initialRoute(),

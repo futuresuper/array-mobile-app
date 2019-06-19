@@ -36,6 +36,10 @@ class AwsAmplify {
       },
     });
 
+    this.logOut();
+  }
+
+  async logOut() {
     const conf = Auth.configure();
     const currentUser = Auth.userPool.getCurrentUser();
     try {

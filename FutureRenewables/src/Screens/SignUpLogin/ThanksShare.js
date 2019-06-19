@@ -19,6 +19,9 @@ import {
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 import TextLink from 'src/Components/TextLink';
 import signUpLoginUtils from 'src/Common/signUpLogin';
+import {
+  routeNames,
+} from 'src/Navigation';
 
 import {
   sg,
@@ -239,6 +242,16 @@ class ThanksShare extends React.Component {
 
             {this.renderIndividual()}
             {this.renderFeat()}
+
+            <Button
+              small
+              onPress={() => {
+                // eslint-disable-next-line react/destructuring-assignment
+                this.props.screenProps.navigateTo(routeNames.TAB_HOME);
+              }}
+            >
+              <Text>next</Text>
+            </Button>
           </View>
 
           {this.renderFeatBottom()}

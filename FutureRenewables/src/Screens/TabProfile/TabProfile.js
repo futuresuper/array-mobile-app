@@ -65,6 +65,10 @@ class TabProfile extends Component {
           name: 'Join Future Super',
           screen: routeNames.JOIN_FUTURE_SUPER,
         },
+        {
+          name: 'Onboarding & Sign Up',
+          screen: routeNames.SCREENS_LIST,
+        },
       ],
     };
   }
@@ -76,7 +80,7 @@ class TabProfile extends Component {
 
   logOut = () => {
     const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.FIRST_PAGE);
+    screenProps.Api.logOut();
   }
 
   render() {
