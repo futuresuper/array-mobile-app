@@ -14,10 +14,12 @@ import {
 } from 'native-base';
 
 import WeatherWidget from 'src/Components/WeatherWidget';
+import CircularProgress from 'src/Components/CircularProgress';
 import routeNames from 'src/Navigation/routeNames';
 
 import {
   sg,
+  sc,
 } from 'src/Styles';
 
 import MarkerActive from 'src/assets/images/MarkerActive.png';
@@ -102,8 +104,16 @@ class SolarFarmsList extends Component {
             />
           </View>
 
-          <View>
-            <Text>bbb</Text>
+          <View style={sg.border}>
+            <CircularProgress
+              percent={item.completed}
+              radius={15}
+              borderWidth={3}
+              color={sc.color.primary}
+              shadowColor={sc.color.gray15}
+              bgColor={sc.color.white}
+            />
+            {/* <Text>bbb</Text> */}
           </View>
         </ImageBackground>
       </TouchableOpacity>

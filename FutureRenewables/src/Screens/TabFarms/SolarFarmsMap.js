@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   View,
@@ -43,8 +44,6 @@ class TabFarms extends Component {
     super(props);
 
     this.state = {
-      farms: [
-      ],
       startPosition: null,
       activeFarmId: null,
     };
@@ -60,7 +59,7 @@ class TabFarms extends Component {
       minY,
       maxY,
       activeFarmId;
-    const { farms } = this.state;
+    const { farms } = this.props;
 
     if (!farms.length) {
       return;
@@ -190,7 +189,8 @@ class TabFarms extends Component {
   }
 
   render() {
-    const { farms, startPosition } = this.state;
+    const { farms } = this.props;
+    const { startPosition } = this.state;
 
     return (
       <View style={sg.flex}>
@@ -237,4 +237,16 @@ class TabFarms extends Component {
   }
 }
 
-export default connect()(TabFarms);
+TabFarms.defaultProps = {
+  farms: [],
+};
+
+TabFarms.propTypes = {
+  farms: PropTypes.array,
+};
+
+const mapStateToProps = (state, ownProps) => ({
+  farms: ownProps.navigation.getParam('farms'),
+});
+
+export default connect(mapStateToProps)(TabFarms);

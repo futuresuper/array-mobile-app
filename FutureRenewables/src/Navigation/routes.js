@@ -227,6 +227,9 @@ const tabCardRoutes = {
     params: {
       noHeader: true,
     },
+    navigationOptions: {
+      header: null,
+    },
   },
   [routeNames.MANAGE_ACCOUNTS]: {
     screen: screens.ManageAccounts,
