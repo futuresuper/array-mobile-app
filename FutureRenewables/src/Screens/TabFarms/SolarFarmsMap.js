@@ -124,9 +124,11 @@ class TabFarms extends Component {
   }
 
   navigateToFarm(item) {
-    const { screenProps } = this.props;
+    const { screenProps, navigation } = this.props;
 
     screenProps.navigateTo(routeNames.SOLAR_FARM, { item });
+    // navigation.push(routeNames.SOLAR_FARM, { item });
+    // screenProps.navigateTo('example');
   }
 
   renderMarker = (item) => {
@@ -174,14 +176,13 @@ class TabFarms extends Component {
             </Text>
           </Body>
           <Right style={styles.farmCardRight}>
-            {/* <CircularProgress
-              percent={item.completed}
-              radius={15}
-              borderWidth={3}
+            <CircularProgress
+              progress={item.completed / 100}
+              borderWidth={1}
+              size={24}
               color={sc.color.primary}
-              shadowColor={sc.color.gray15}
-              bgColor={sc.color.white}
-            /> */}
+              borderColor={sc.color.gray6}
+            />
           </Right>
         </CardItem>
       </Card>

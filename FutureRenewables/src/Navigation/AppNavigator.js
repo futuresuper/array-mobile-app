@@ -12,7 +12,6 @@ import {
 import {
   SignStack,
   MainStack,
-  // MainModalStack,
   TabStack,
   TmpStack,
 } from './StackNavigator';
@@ -31,7 +30,6 @@ const AppNavigator = createAppContainer(createSwitchNavigator(
   {
     SignStack,
     MainStack,
-    // MainModalStack,
     TabStack,
     // TmpStack,
   },

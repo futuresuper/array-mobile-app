@@ -86,10 +86,12 @@ class SolarFarmsList extends Component {
   }
 
   renderFarmCard({ item }) {
+    const { screenProps } = this.props;
+
     return (
       <TouchableOpacity
         onPress={() => {
-
+          screenProps.navigateTo(routeNames.SOLAR_FARM, { item });
         }}
       >
         <ImageBackground source={item.image} resizeMode="stretch" style={styles.farmImage}>
@@ -104,15 +106,18 @@ class SolarFarmsList extends Component {
             />
           </View>
 
-          <View style={[sg.border, sg.row]}>
-            {/* <CircularProgress
+          <View style={[sg.row, sg.aICenter]}>
+            <CircularProgress
               progress={item.completed / 100}
-              borderWidth={2}
-              size={20}
+              borderWidth={1}
+              size={18}
               color={sc.color.primary}
               borderColor={sc.color.gray6}
             />
-            <Text style={[sg.colorWhite]}>bbb</Text> */}
+            <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15]}>
+              {item.completed}
+              % Completed
+            </Text>
           </View>
         </ImageBackground>
       </TouchableOpacity>

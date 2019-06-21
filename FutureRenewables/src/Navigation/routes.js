@@ -182,7 +182,7 @@ const mainRoutes = formatRoutes({
   },
 });
 
-const mainModalRoutes = {
+const tabBarModalRootRoutes = {
   example: {
     screen: screens.Example,
   },
@@ -203,9 +203,18 @@ const tabRoutes = {
   },
 };
 
-const tabModalRoutes = {
+const tabBarModalRoutes = {
   [routeNames.DEPOSIT_WITHDRAW]: {
     screen: screens.DepositWithdraw,
+        headerMode: 'float',
+        mode: 'modal',
+    // navigationOptions: {
+    //   headerStyle: {
+    //     backgroundColor: 'red',
+    //     borderBottomWidth: 0,
+    //     elevation: 0,
+    //   },
+    // },
   },
   [routeNames.DEPOSIT_WITHDRAW_DONE]: {
     screen: screens.DepositWithdrawDone,
@@ -217,8 +226,12 @@ const tabModalRoutes = {
     screen: screens.SolarFarm,
     params: {
       noHeader: true,
+      // routeReset: true,
     },
   },
+};
+
+const tabBarScreensRoutes = {
 };
 
 const tabCardRoutes = {
@@ -295,7 +308,7 @@ const tmpRoutes = {
 const routes = {
   signRoutes,
   mainRoutes,
-  mainModalRoutes,
+  tabBarModalRootRoutes,
   tabRoutes,
   tabCardRoutes,
 };
@@ -330,9 +343,10 @@ export {
   getRouteInfo,
   signRoutes,
   mainRoutes,
-  mainModalRoutes,
+  tabBarModalRootRoutes,
   tabRoutes,
-  tabModalRoutes,
+  tabBarModalRoutes,
+  tabBarScreensRoutes,
   tabCardRoutes,
   tmpRoutes,
 };

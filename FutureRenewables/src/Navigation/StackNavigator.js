@@ -2,14 +2,16 @@
 import {
   createStackNavigator,
   createBottomTabNavigator,
+  NavigationActions,
+  createMaterialTopTabNavigator,
 } from 'react-navigation';
 
 import {
   signRoutes,
   mainRoutes,
-  mainModalRoutes,
+  tabBarModalRootRoutes,
   tabRoutes,
-  tabModalRoutes,
+  tabBarModalRoutes,
   tabCardRoutes,
   tmpRoutes,
 } from './routes';
@@ -18,14 +20,6 @@ import {
   tabBarOptions,
   tabModalOptions,
 } from './navigationOptions';
-
-export const MainModalStack = createStackNavigator(
-  mainModalRoutes,
-  {
-    mode: 'card',
-    headerMode: 'float',
-  },
-);
 
 export const MainStack = createStackNavigator(
   mainRoutes,
@@ -53,13 +47,85 @@ const TabBar = createBottomTabNavigator(
   tabBarOptions,
 );
 
-const TabModal = createBottomTabNavigator(
-  tabModalRoutes,
+// console.log('!!!', { tabBarModalRoutes });
+
+const hz = createStackNavigator(
+  tabBarModalRoutes,
+  {
+    // headerMode: 'none',
+    // ...tabModalOptions,
+  },
+);
+
+// const TabBarModalHz = {
+//   DepositWithdraw: createStackNavigator(
+//     {
+//       DepositWithdraw: tabBarModalRoutes.DepositWithdraw
+//     },
+//     {
+//     // headerMode: 'none',
+//       ...tabModalOptions,
+//     },
+//   ),
+//   DepositWithdrawDone: createStackNavigator(
+//     {DepositWithdrawDone: tabBarModalRoutes.DepositWithdrawDone},
+//   ),
+//   SolarFarm: createStackNavigator(
+//     {SolarFarm: tabBarModalRoutes.SolarFarm},
+//   ),
+// };
+
+export const TabBarModalRootRoutes = () => {
+  const tabBarModalRoutesKeys = Object.keys(tabBarModalRoutes);
+  const allModalRoutes = {};
+  tabBarModalRoutesKeys.forEach((modalRouteKey) => {
+    const modalRoutesConfigValue = tabBarModalRoutes[modalRouteKey];
+    const modalRoute = tabModalOptions(modalRoutesConfigValue);
+
+    const stack = createStackNavigator(
+      {
+        [modalRouteKey]: modalRoutesConfigValue,
+        // [modalRouteKey]: modalRoutesConfigValue,
+      },
+      {
+        headerMode: 'float',
+        mode: 'modal',
+      },
+    );
+
+    allModalRoutes[modalRouteKey] = stack;
+  });
+
+  return allModalRoutes;
+};
+
+
+const TabBarModalRootRoutesHz = createBottomTabNavigator(
+  {
+    ...TabBarModalRootRoutes(),
+    // hz: {
+    //   screen: hz,
+    // },
+  },
+  {
+    headerMode: 'float',
+        mode: 'modal',
+        swipeEnabled: false,
+    // ...tabBarOptions,
+  },
+);
+
+const TabBarModal = createBottomTabNavigator(
+  {
+    hz: {
+      screen: hz,
+    },
+  },
   {
     mode: 'modal',
-    headerMode: 'none',
+    // headerMode: 'none',
+    // ...tabModalOptions,
     ...tabBarOptions,
-    ...tabModalOptions,
   },
 );
 
@@ -68,9 +134,9 @@ const TabWithModal = createStackNavigator(
     TabBar: {
       screen: TabBar,
     },
-    TabModal: {
-      screen: TabModal,
-    },
+    // TabBarModal: {
+    //   screen: TabBarModal,
+    // },
   },
   {
     mode: 'modal',
@@ -95,10 +161,10 @@ const TabCards = createBottomTabNavigator(
   },
 );
 
-export const TabStack = createStackNavigator(
+export const TabSubStack = createStackNavigator(
   {
-    TabWithModal: {
-      screen: TabWithModal,
+    TabBar: {
+      screen: TabBar,
     },
     TabCards: {
       screen: TabCards,
@@ -108,6 +174,47 @@ export const TabStack = createStackNavigator(
     },
   },
   {
+    headerMode: 'none',
+  },
+);
+
+const TabBarModalRootStack = createBottomTabNavigator(
+  tabBarModalRootRoutes,
+  {
+    mode: 'modal',
+    headerMode: 'none',
+    ...tabBarOptions,
+    ...tabModalOptions,
+  },
+);
+
+// const TabBarRootModalStack = createStackNavigator(
+//   tabBarModalRootRoutes,
+//   {
+//     mode: 'modal',
+//     // headerMode: 'float',
+//   },
+// );
+
+
+export const TabStack = createStackNavigator(
+  {
+    TabSubStack: {
+      screen: TabSubStack,
+    },
+    TabBarModalRootStack: {
+      screen: TabBarModalRootStack,
+    },
+    // TabBarModal: {
+    //   screen: TabBarModal,
+    // },
+    // ...TabBarModalRootRoutes(),
+    TabBarModalRootRoutesHz: {
+      screen: TabBarModalRootRoutesHz,
+    },
+  },
+  {
+    mode: 'modal',
     headerMode: 'none',
   },
 );

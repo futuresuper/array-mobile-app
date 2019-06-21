@@ -52,37 +52,51 @@ export const tabBarOptions = {
     return {
       headerStyle: {
         backgroundColor,
-        borderBottomWidth: 0,
-        elevation: 0,
-        height: 0,
-        paddingBottom: 24,
+        // borderBottomWidth: 0,
+        // elevation: 0,
+        // height: 0,
+        // paddingBottom: 24,
       },
-      header,
+      // header,
     };
   },
 };
 
-export const tabModalOptions = {
+export const tabModalOptions = propsInp => ({
+  screen: propsInp.screen,
+  // tabBarComponent: props => <TabBar {...props} />,
+  // tabBarPosition: 'bottom',
+        headerMode: 'float',
+        mode: 'modal',
   navigationOptions: (props) => {
+    const { params: paramsInp } = propsInp;
     const { navigation } = props;
     const { state } = navigation;
-    const currentRoute = state.routes[state.index];
-    const params = currentRoute.params || {};
+    let params = state.params || {};
+    if (paramsInp) {
+      params = {
+        ...paramsInp,
+        ...params,
+      };
+    }
+
     const header = params.noHeader ? null : undefined;
     const backButton = params.backButton ? <BackButton {...props} style={{ alignSelf: 'center' }} /> : null;
 
     return {
-      headerLeft: backButton,
+      ...tabBarOptions,
+  //       headerMode: 'float',
+      // headerLeft: backButton,
       headerRight: <CloseButton onPress={() => { navigation.popToTop(); }} />,
       headerStyle: {
         backgroundColor: sc.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
       },
-      header,
+      // header,
     };
   },
-};
+});
 
 export const tabCardOptions = {
   navigationOptions: (props) => {

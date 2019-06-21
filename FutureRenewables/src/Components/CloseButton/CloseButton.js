@@ -21,7 +21,8 @@ const CloseButton = (props) => {
       transparent
       onPress={() => {
         if (navigation) {
-          navigation.popToTop();
+          console.log('!!!closeb', {  });
+          navigation.goBack(null);
         }
       }}
       {...props}

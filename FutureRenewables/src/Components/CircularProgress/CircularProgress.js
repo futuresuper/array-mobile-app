@@ -102,6 +102,7 @@ export class ProgressCircle extends Component {
     const border = borderWidth || (indeterminate ? 1 : 0);
 
     const radius = size / 2 - border;
+    const radius2 = (size / 2);
     const offset = {
       top: border,
       left: border,
@@ -127,9 +128,9 @@ export class ProgressCircle extends Component {
                 rotate:
                   indeterminate && rotation
                     ? rotation.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: ['0deg', '360deg'],
-                      })
+                      inputRange: [0, 1],
+                      outputRange: ['0deg', '360deg'],
+                    })
                     : '0deg',
               },
             ],
@@ -149,21 +150,6 @@ export class ProgressCircle extends Component {
           ) : (
             false
           )}
-          {!indeterminate ? (
-            <Shape
-              fill={fill}
-              radius={radius}
-              offset={offset}
-              startAngle={0}
-              endAngle={angle}
-              direction={direction}
-              stroke={color}
-              strokeCap={strokeCap}
-              strokeWidth={thickness}
-            />
-          ) : (
-            false
-          )}
           {border ? (
             <Arc
               radius={size / 2}
@@ -172,6 +158,21 @@ export class ProgressCircle extends Component {
               stroke={borderColor || color}
               strokeCap={strokeCap}
               strokeWidth={border}
+            />
+          ) : (
+            false
+          )}
+          {!indeterminate ? (
+            <Shape
+              fill={fill}
+              radius={radius2}
+              // offset={offset}
+              startAngle={0}
+              endAngle={angle}
+              direction={direction}
+              stroke={color}
+              strokeCap={strokeCap}
+              strokeWidth={thickness}
             />
           ) : (
             false
