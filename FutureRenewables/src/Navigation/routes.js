@@ -186,6 +186,13 @@ const tabBarModalRootRoutes = {
   example: {
     screen: screens.Example,
   },
+  [routeNames.SOLAR_FARM]: {
+    screen: screens.SolarFarm,
+    params: {
+      noHeader: true,
+      // routeReset: true,
+    },
+  },
 };
 
 const tabRoutes = {
@@ -206,27 +213,11 @@ const tabRoutes = {
 const tabBarModalRoutes = {
   [routeNames.DEPOSIT_WITHDRAW]: {
     screen: screens.DepositWithdraw,
-        headerMode: 'float',
-        mode: 'modal',
-    // navigationOptions: {
-    //   headerStyle: {
-    //     backgroundColor: 'red',
-    //     borderBottomWidth: 0,
-    //     elevation: 0,
-    //   },
-    // },
   },
   [routeNames.DEPOSIT_WITHDRAW_DONE]: {
     screen: screens.DepositWithdrawDone,
     params: {
       backButton: true,
-    },
-  },
-  [routeNames.SOLAR_FARM]: {
-    screen: screens.SolarFarm,
-    params: {
-      noHeader: true,
-      // routeReset: true,
     },
   },
 };

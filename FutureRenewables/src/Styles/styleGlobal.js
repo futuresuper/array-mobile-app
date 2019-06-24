@@ -708,6 +708,9 @@ export default {
   contentMargin: {
     margin: styleConstants.contentPadding,
   },
+  contentMarginLeft: {
+    marginLeft: styleConstants.contentPadding,
+  },
   contentMarginV: {
     marginVertical: styleConstants.contentPadding,
   },

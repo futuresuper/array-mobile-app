@@ -100,4 +100,5 @@ export default Object.freeze({
   keyboardAvoidingHeight: 100,
   inputHeightBase: 50,
   footerHeight: 55,
+  listBorderWidth: 1,
 });

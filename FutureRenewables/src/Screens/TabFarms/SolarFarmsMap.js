@@ -124,11 +124,9 @@ class TabFarms extends Component {
   }
 
   navigateToFarm(item) {
-    const { screenProps, navigation } = this.props;
+    const { screenProps } = this.props;
 
     screenProps.navigateTo(routeNames.SOLAR_FARM, { item });
-    // navigation.push(routeNames.SOLAR_FARM, { item });
-    // screenProps.navigateTo('example');
   }
 
   renderMarker = (item) => {

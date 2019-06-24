@@ -5,6 +5,11 @@ import { Platform, PixelRatio } from "react-native";
 import pickerTheme from "./Picker";
 import variable from "./../variables/platform";
 
+
+import { sc } from 'src/Styles';
+
+const borderWidth = sc.listBorderWidth;
+
 export default (variables /*: * */ = variable) => {
   const platform = variables.platform;
   const selectedStyle = {
@@ -91,7 +96,7 @@ export default (variables /*: * */ = variable) => {
       ".first": {
         paddingTop: variables.listItemPadding + 3
       },
-      borderBottomWidth: platform === "ios" ? variables.borderWidth : null,
+      borderBottomWidth: platform === "ios" ? borderWidth : null,
       marginLeft: null,
       padding: variables.listItemPadding,
       paddingLeft: variables.listItemPadding + 5,
@@ -243,7 +248,7 @@ export default (variables /*: * */ = variable) => {
         },
         flex: 1,
         paddingVertical: variables.listItemPadding,
-        borderBottomWidth: variables.borderWidth,
+        borderBottomWidth: borderWidth,
         borderColor: variables.listBorderColor,
         marginLeft: variables.listItemPadding + 5
       },
@@ -257,7 +262,7 @@ export default (variables /*: * */ = variable) => {
         paddingRight: variables.listItemPadding + 5,
         alignSelf: "stretch",
         paddingVertical: variables.listItemPadding,
-        borderBottomWidth: variables.borderWidth,
+        borderBottomWidth: borderWidth,
         borderColor: variables.listBorderColor
       },
       ".noBorder": {
@@ -282,7 +287,7 @@ export default (variables /*: * */ = variable) => {
         },
         flex: 1,
         paddingVertical: variables.listItemPadding + 5,
-        borderBottomWidth: variables.borderWidth,
+        borderBottomWidth: borderWidth,
         borderColor: variables.listBorderColor,
         marginLeft: variables.listItemPadding + 5
       },
@@ -301,7 +306,7 @@ export default (variables /*: * */ = variable) => {
         alignSelf: "stretch",
         paddingRight: variables.listItemPadding + 5,
         paddingVertical: variables.listItemPadding + 5,
-        borderBottomWidth: variables.borderWidth,
+        borderBottomWidth: borderWidth,
         borderColor: variables.listBorderColor
       },
       ".noBorder": {
@@ -324,7 +329,7 @@ export default (variables /*: * */ = variable) => {
         "NativeBase.Right": {
           borderBottomWidth: null
         },
-        borderBottomWidth: variables.borderWidth,
+        borderBottomWidth: borderWidth,
         borderColor: variables.listBorderColor
       },
       "NativeBase.Left": {
@@ -368,7 +373,7 @@ export default (variables /*: * */ = variable) => {
         flex: 1,
         height: 44,
         justifyContent: "center",
-        borderBottomWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
+        borderBottomWidth: borderWidth,
         borderColor: variables.listBorderColor
       },
       "NativeBase.Right": {
@@ -404,7 +409,7 @@ export default (variables /*: * */ = variable) => {
         alignSelf: "stretch",
         height: 44,
         justifyContent: "flex-end",
-        borderBottomWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
+        borderBottomWidth: borderWidth,
         borderColor: variables.listBorderColor,
         paddingRight: variables.listItemPadding + 5
       },
@@ -435,7 +440,7 @@ export default (variables /*: * */ = variable) => {
     paddingRight: variables.listItemPadding + 6,
     paddingVertical: variables.listItemPadding + 3,
     marginLeft: variables.listItemPadding + 6,
-    borderBottomWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
+    borderBottomWidth: borderWidth,
     backgroundColor: variables.listBg,
     borderColor: variables.listBorderColor
   };

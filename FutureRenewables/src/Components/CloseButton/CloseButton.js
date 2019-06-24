@@ -21,7 +21,6 @@ const CloseButton = (props) => {
       transparent
       onPress={() => {
         if (navigation) {
-          console.log('!!!closeb', {  });
           navigation.goBack(null);
         }
       }}

@@ -175,6 +175,12 @@ export default (variables /*: * */ = variable) => {
         borderColor: variables.btnDangerBg,
         borderWidth: variables.borderWidth * 2
       },
+      ".dark3": {
+        ...gray4Common,
+        backgroundColor: "transparent",
+        borderColor: styleConstants.color.dark3,
+        borderWidth: variables.borderWidth * 2,
+      },
       ".disabled": {
         backgroundColor: null,
         borderColor: variables.btnDisabledBg,
@@ -279,9 +285,22 @@ export default (variables /*: * */ = variable) => {
       backgroundColor: styleConstants.color.gray4,
     },
 
-    ".dark5": {
+    ".dark3": {
       ".bordered": {
         ...gray4Common
+      },
+      "NativeBase.Text": {
+        color: styleConstants.color.white,
+      },
+      "NativeBase.Icon": {
+        color: styleConstants.color.white,
+      },
+      backgroundColor: styleConstants.color.dark3,
+    },
+
+    ".dark5": {
+      ".bordered": {
+        ...gray4Common,
       },
       "NativeBase.Text": {
         color: styleConstants.color.white,
@@ -353,6 +372,13 @@ export default (variables /*: * */ = variable) => {
       ".gray": {
         ...grayCommon,
         backgroundColor: null
+      },
+      ".dark3": {
+        ...gray4Common,
+        backgroundColor: null,
+        "NativeBase.Text": {
+          color: styleConstants.color.dark3,
+        },
       },
       ".disabled": {
         backgroundColor: "transparent",

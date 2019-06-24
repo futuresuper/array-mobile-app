@@ -4,7 +4,6 @@ import {
   Image,
 } from 'react-native';
 import {
-  Icon,
   Button,
   Footer,
   FooterTab,
@@ -12,6 +11,7 @@ import {
 
 import {
   routeNames,
+  NavigationService,
 } from 'src/Navigation';
 
 import HomeActive from './images/HomeActive.png';
@@ -26,7 +26,7 @@ import ChelInactive from './images/ChelInactive.png';
 const TabBar = (props) => {
   const { navigation, screenProps } = props;
   const { state } = navigation;
-  const { routeName } = state.routes[state.index];
+  const { routeName } = NavigationService.getCurrentRoute(state);
 
   const iconHome = routeName === routeNames.TAB_HOME ? HomeActive : HomeInactive;
   const iconActivity = routeName === routeNames.TAB_ACTIVITY ? DollarActive : DollarInactive;

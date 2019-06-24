@@ -8,6 +8,8 @@ import {
   sc,
 } from 'src/Styles';
 
+import NavigationService from './NavigationService';
+
 export const signOptions = (props) => {
   const { navigation } = props;
   const { state } = navigation;
@@ -44,7 +46,7 @@ export const tabBarOptions = {
   navigationOptions: (props) => {
     const { navigation } = props;
     const { state } = navigation;
-    const currentRoute = state.routes[state.index];
+    const currentRoute = NavigationService.getCurrentRoute(state);
     const params = currentRoute.params || {};
     const header = params.noHeader ? null : undefined;
     const backgroundColor = params.backgroundColor || sc.containerBgColor;
@@ -52,27 +54,25 @@ export const tabBarOptions = {
     return {
       headerStyle: {
         backgroundColor,
-        // borderBottomWidth: 0,
-        // elevation: 0,
-        // height: 0,
-        // paddingBottom: 24,
+        borderBottomWidth: 0,
+        elevation: 0,
+        height: 0,
+        paddingBottom: 24,
       },
-      // header,
+      header,
     };
   },
 };
 
-export const tabModalOptions = propsInp => ({
+export const tabModalOptions = (propsInp = {}) => ({
   screen: propsInp.screen,
-  // tabBarComponent: props => <TabBar {...props} />,
-  // tabBarPosition: 'bottom',
-        headerMode: 'float',
-        mode: 'modal',
   navigationOptions: (props) => {
     const { params: paramsInp } = propsInp;
     const { navigation } = props;
     const { state } = navigation;
-    let params = state.params || {};
+    const currentRoute = NavigationService.getCurrentRoute(state);
+    let params = currentRoute.params || {};
+
     if (paramsInp) {
       params = {
         ...paramsInp,
@@ -84,16 +84,14 @@ export const tabModalOptions = propsInp => ({
     const backButton = params.backButton ? <BackButton {...props} style={{ alignSelf: 'center' }} /> : null;
 
     return {
-      ...tabBarOptions,
-  //       headerMode: 'float',
-      // headerLeft: backButton,
+      headerLeft: backButton,
       headerRight: <CloseButton onPress={() => { navigation.popToTop(); }} />,
       headerStyle: {
         backgroundColor: sc.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
       },
-      // header,
+      header,
     };
   },
 });
@@ -118,6 +116,7 @@ export const tabCardOptions = {
         ...headerTitleStyle,
       },
       title,
+      // header: null,
     };
   },
 };

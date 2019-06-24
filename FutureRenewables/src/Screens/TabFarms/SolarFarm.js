@@ -22,6 +22,9 @@ import {
 
 import CloseButton from 'src/Components/CloseButton';
 import WeatherWidget from 'src/Components/WeatherWidget';
+import {
+  TabBarWrapper,
+} from 'src/Components/TabBar';
 
 import deviceUtils from 'src/Common/device';
 
@@ -88,63 +91,65 @@ class SolarFarm extends Component {
     const { item, photos } = this.state;
 
     return (
-      <Content contentContainerStyle={[sg.mT0]} bounces={false}>
-        <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" style={[{ height: (deviceUtils.screenHeight() - sc.footerHeight - 54) }]}>
+      <TabBarWrapper {...this.props}>
+        <Content contentContainerStyle={[sg.mT0]} bounces={false}>
+          <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" style={[{ height: (deviceUtils.screenHeight() - sc.footerHeight - 54) }]}>
 
-          <View style={[sg.aIEnd, sg.mT40]}>
-            <CloseButton white {...this.props} />
-          </View>
-
-          <View style={[sg.aICenter, sg.spaceBetween]}>
-            <View>
-              <WeatherWidget
-                coordinate={item.coordinate}
-                style={styles.solarFarmWeatherWidget}
-              />
-
-              <H1 style={[sg.fS35, sg.mT30, sg.mB5]}>{item.title}</H1>
-              <Text style={styles.solarFarmItemDescription}>{item.description}</Text>
+            <View style={[sg.aIEnd, sg.mT40]}>
+              <CloseButton white {...this.props} />
             </View>
 
-            <View style={sg.aICenter}>
-              <Text style={styles.solarFarmFinishDate}>Projected finish date: Jan 2020</Text>
+            <View style={[sg.aICenter, sg.spaceBetween]}>
+              <View>
+                <WeatherWidget
+                  coordinate={item.coordinate}
+                  style={styles.solarFarmWeatherWidget}
+                />
 
-              <Grid style={styles.solarFarmStatBl}>
-                <Col style={styles.solarFarmStatCol}>
-                  <Text style={styles.solarForamStatAmount}>85</Text>
-                  <Text style={styles.solarForamStatDescription}>New panels added</Text>
-                </Col>
-                <Col style={styles.solarFarmStatCol}>
-                  <Text style={styles.solarForamStatAmount}>60k</Text>
-                  <Text style={styles.solarForamStatDescription}>Tonnes of carbon reduced</Text>
-                </Col>
-                <Col style={styles.solarFarmStatCol}>
-                  <Text style={styles.solarForamStatAmount}>400</Text>
-                  <Text style={styles.solarForamStatDescription}>New jobs created</Text>
-                </Col>
-              </Grid>
+                <H1 style={[sg.fS35, sg.mT30, sg.mB5]}>{item.title}</H1>
+                <Text style={styles.solarFarmItemDescription}>{item.description}</Text>
+              </View>
+
+              <View style={sg.aICenter}>
+                <Text style={styles.solarFarmFinishDate}>Projected finish date: Jan 2020</Text>
+
+                <Grid style={styles.solarFarmStatBl}>
+                  <Col style={styles.solarFarmStatCol}>
+                    <Text style={styles.solarForamStatAmount}>85</Text>
+                    <Text style={styles.solarForamStatDescription}>New panels added</Text>
+                  </Col>
+                  <Col style={styles.solarFarmStatCol}>
+                    <Text style={styles.solarForamStatAmount}>60k</Text>
+                    <Text style={styles.solarForamStatDescription}>Tonnes of carbon reduced</Text>
+                  </Col>
+                  <Col style={styles.solarFarmStatCol}>
+                    <Text style={styles.solarForamStatAmount}>400</Text>
+                    <Text style={styles.solarForamStatDescription}>New jobs created</Text>
+                  </Col>
+                </Grid>
+              </View>
+
             </View>
+          </ImageBackground>
 
-          </View>
-        </ImageBackground>
+          <Text style={[sg.fS24, sg.textBold, sg.colorDark2, sg.aSCenter, sg.mT30]}>About</Text>
+          <Text style={[sg.contentMarginH, sg.mT20, sg.mB30]}>
+            A 34.5MW solar farm under development near Pittsworth in southeast Queensland. When complete,
+            Brigalow will power the equivalent of 11,300 average Australian homes and expected to avoid adding 60 tonnes of of C02 from the atmosphere.
+            Currently at Stage 2 of the build project, it Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam.
+          </Text>
 
-        <Text style={[sg.fS24, sg.textBold, sg.colorDark2, sg.aSCenter, sg.mT30]}>About</Text>
-        <Text style={[sg.contentMarginH, sg.mT20, sg.mB30]}>
-          A 34.5MW solar farm under development near Pittsworth in southeast Queensland. When complete,
-          Brigalow will power the equivalent of 11,300 average Australian homes and expected to avoid adding 60 tonnes of of C02 from the atmosphere.
-          Currently at Stage 2 of the build project, it Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam.
-        </Text>
+          <FlatList
+            data={photos}
+            keyExtractor={person => person.id.toString()}
+            renderItem={(...args) => this.renderPhotoItem(...args)}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={sg.mB30}
+          />
 
-        <FlatList
-          data={photos}
-          keyExtractor={person => person.id.toString()}
-          renderItem={(...args) => this.renderPhotoItem(...args)}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={sg.mB30}
-        />
-
-      </Content>
+        </Content>
+      </TabBarWrapper>
     );
   }
 }

@@ -1,7 +1,8 @@
 
 import routeNames from './routeNames';
+import NavigationService from './NavigationService';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   routeNames,
+  NavigationService,
 };

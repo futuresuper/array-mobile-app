@@ -90,30 +90,35 @@ class TabProfile extends Component {
     const memberSince = `${moment(user.dataJoined).format('MMMM')}'s ${user.dateJoined.split('-')[0].substring(2)}`;
 
     return (
-      <Content contentContainerStyle={sg.tabFooterPadding}>
+      <Content contentContainerStyle={[sg.pB30]}>
 
-        <Grid style={sg.m20}>
-          <Col>
-            <H2>{user.firstName}</H2>
-            <H2 style={sg.mB10}>{user.lastName}</H2>
-            <Text style={[sg.colorGray, sg.fS15]}>{`Member since ${memberSince}`}</Text>
-          </Col>
-          <Col style={[sg.jCCenter, sg.aIRight]}>
-            <Thumbnail source={{ uri: user.profileImage }} />
+        <Grid style={[sg.mT20]}>
+          <Col style={sg.aICenter}>
+            <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />
+
+            <View style={[sg.row, sg.mT25, sg.mB15]}>
+              <H2 style={sg.colorDark2}>
+                {user.firstName}
+                &nbsp;
+              </H2>
+              <H2 style={sg.colorDark2}>{user.lastName}</H2>
+            </View>
+
+            <Text style={[sg.colorGray11, sg.fS14]}>{`Member since ${memberSince}`}</Text>
           </Col>
         </Grid>
 
 
         <View>
-          <List>
-            <ListItem />
+          <List style={sg.contentMarginLeft}>
+            <ListItem style={[sg.pT15, sg.mL0]} />
             <FlatList
               data={listMenu}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
-                <ListItem onPress={() => { this.navigateTo(item.screen); }}>
+                <ListItem onPress={() => { this.navigateTo(item.screen); }} style={[sg.pT20, sg.pB20, sg.mL0, sg.pR30]}>
                   <Left>
-                    <Text>{item.name}</Text>
+                    <Text style={[sg.fontMedium]}>{item.name}</Text>
                   </Left>
                   <Right>
                     <Icon name="ios-arrow-forward" style={styles.listIcon} />
@@ -124,8 +129,9 @@ class TabProfile extends Component {
           </List>
 
           <Button
-            transparent
             bordered
+            transparent
+            dark3
             style={styles.logOut}
             onPress={this.logOut}
             large

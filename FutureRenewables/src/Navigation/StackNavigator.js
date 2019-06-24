@@ -2,8 +2,6 @@
 import {
   createStackNavigator,
   createBottomTabNavigator,
-  NavigationActions,
-  createMaterialTopTabNavigator,
 } from 'react-navigation';
 
 import {
@@ -47,49 +45,16 @@ const TabBar = createBottomTabNavigator(
   tabBarOptions,
 );
 
-// console.log('!!!', { tabBarModalRoutes });
-
-const hz = createStackNavigator(
-  tabBarModalRoutes,
-  {
-    // headerMode: 'none',
-    // ...tabModalOptions,
-  },
-);
-
-// const TabBarModalHz = {
-//   DepositWithdraw: createStackNavigator(
-//     {
-//       DepositWithdraw: tabBarModalRoutes.DepositWithdraw
-//     },
-//     {
-//     // headerMode: 'none',
-//       ...tabModalOptions,
-//     },
-//   ),
-//   DepositWithdrawDone: createStackNavigator(
-//     {DepositWithdrawDone: tabBarModalRoutes.DepositWithdrawDone},
-//   ),
-//   SolarFarm: createStackNavigator(
-//     {SolarFarm: tabBarModalRoutes.SolarFarm},
-//   ),
-// };
-
-export const TabBarModalRootRoutes = () => {
-  const tabBarModalRoutesKeys = Object.keys(tabBarModalRoutes);
+const TabBarModalRootRoutes = () => {
+  const tabBarModalRoutesKeys = Object.keys(tabBarModalRootRoutes);
   const allModalRoutes = {};
   tabBarModalRoutesKeys.forEach((modalRouteKey) => {
-    const modalRoutesConfigValue = tabBarModalRoutes[modalRouteKey];
+    const modalRoutesConfigValue = tabBarModalRootRoutes[modalRouteKey];
     const modalRoute = tabModalOptions(modalRoutesConfigValue);
 
     const stack = createStackNavigator(
       {
-        [modalRouteKey]: modalRoutesConfigValue,
-        // [modalRouteKey]: modalRoutesConfigValue,
-      },
-      {
-        headerMode: 'float',
-        mode: 'modal',
+        [modalRouteKey]: modalRoute,
       },
     );
 
@@ -99,33 +64,13 @@ export const TabBarModalRootRoutes = () => {
   return allModalRoutes;
 };
 
-
-const TabBarModalRootRoutesHz = createBottomTabNavigator(
-  {
-    ...TabBarModalRootRoutes(),
-    // hz: {
-    //   screen: hz,
-    // },
-  },
-  {
-    headerMode: 'float',
-        mode: 'modal',
-        swipeEnabled: false,
-    // ...tabBarOptions,
-  },
-);
-
 const TabBarModal = createBottomTabNavigator(
-  {
-    hz: {
-      screen: hz,
-    },
-  },
+  tabBarModalRoutes,
   {
     mode: 'modal',
-    // headerMode: 'none',
-    // ...tabModalOptions,
+    headerMode: 'none',
     ...tabBarOptions,
+    ...tabModalOptions(),
   },
 );
 
@@ -134,12 +79,13 @@ const TabWithModal = createStackNavigator(
     TabBar: {
       screen: TabBar,
     },
-    // TabBarModal: {
-    //   screen: TabBarModal,
-    // },
+    TabBarModal: {
+      screen: TabBarModal,
+    },
   },
   {
     mode: 'modal',
+    // headerMode: 'none',
   },
 );
 
@@ -164,7 +110,7 @@ const TabCards = createBottomTabNavigator(
 export const TabSubStack = createStackNavigator(
   {
     TabBar: {
-      screen: TabBar,
+      screen: TabWithModal,
     },
     TabCards: {
       screen: TabCards,
@@ -178,40 +124,12 @@ export const TabSubStack = createStackNavigator(
   },
 );
 
-const TabBarModalRootStack = createBottomTabNavigator(
-  tabBarModalRootRoutes,
-  {
-    mode: 'modal',
-    headerMode: 'none',
-    ...tabBarOptions,
-    ...tabModalOptions,
-  },
-);
-
-// const TabBarRootModalStack = createStackNavigator(
-//   tabBarModalRootRoutes,
-//   {
-//     mode: 'modal',
-//     // headerMode: 'float',
-//   },
-// );
-
-
 export const TabStack = createStackNavigator(
   {
     TabSubStack: {
       screen: TabSubStack,
     },
-    TabBarModalRootStack: {
-      screen: TabBarModalRootStack,
-    },
-    // TabBarModal: {
-    //   screen: TabBarModal,
-    // },
-    // ...TabBarModalRootRoutes(),
-    TabBarModalRootRoutesHz: {
-      screen: TabBarModalRootRoutesHz,
-    },
+    ...TabBarModalRootRoutes(),
   },
   {
     mode: 'modal',

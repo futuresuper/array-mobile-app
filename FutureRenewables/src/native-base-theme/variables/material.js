@@ -203,7 +203,7 @@ export default {
 
   // List
   listBg: "transparent",
-  listBorderColor: styleConstants.color.gray5,
+  listBorderColor: styleConstants.color.gray2,
   listDividerBg: "#f4f4f4",
   listBtnUnderlayColor: "#DDD",
   listItemPadding: 12,

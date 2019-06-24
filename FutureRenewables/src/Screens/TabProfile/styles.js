@@ -22,14 +22,11 @@ export default {
     color: sc.color.dark,
   },
   logOut: {
-    borderColor: sc.color.dark,
     marginTop: 30,
-    marginHorizontal: 20,
-    padding: 40,
+    marginHorizontal: sc.contentPadding,
   },
   logOutText: {
-    color: sc.color.dark,
-    fontSize: 19,
+    fontSize: 22,
   },
   input: {
     fontSize: 20,
@@ -38,6 +35,11 @@ export default {
   inputLeftIcon: {
     fontSize: 18,
     paddingBottom: 7,
+  },
+  profileImage: {
+    width: 65,
+    height: 65,
+    borderRadius: 32.5,
   },
 };
 
