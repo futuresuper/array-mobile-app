@@ -41,6 +41,9 @@ export default function FormHoc(WrappedComponent) {
           const formTmp = _.mapValues(formItem, (itemInp) => {
             let item = itemInp;
             item = { ...fromKeys, ...item };
+
+            item = this.applyNormalizeFormat(item);
+
             return item;
           });
 
@@ -50,6 +53,9 @@ export default function FormHoc(WrappedComponent) {
         form = _.mapValues(formInp, (itemInp) => {
           let item = itemInp;
           item = { ...fromKeys, ...item };
+
+          item = this.applyNormalizeFormat(item);
+
           return item;
         });
       }
@@ -214,20 +220,22 @@ export default function FormHoc(WrappedComponent) {
       }
 
 
-      if (
-        inputItem.normalize
-        && (typeof inputItem.normalize === 'function')
-      ) {
-        inputItem.value = inputItem.normalize(value) || fromKeys.value;
-      }
+      // if (
+      //   inputItem.normalize
+      //   && (typeof inputItem.normalize === 'function')
+      // ) {
+      //   inputItem.value = inputItem.normalize(value) || fromKeys.value;
+      // }
 
-      if (
-        inputItem.format
-        && (typeof inputItem.format === 'function')
-      ) {
-        const valueFormat = inputItem.format(inputItem.value);
-        inputItem.valueDisplay = !_.isNil(valueFormat) ? valueFormat : fromKeys.valueDisplay;
-      }
+      // if (
+      //   inputItem.format
+      //   && (typeof inputItem.format === 'function')
+      // ) {
+      //   const valueFormat = inputItem.format(inputItem.value);
+      //   inputItem.valueDisplay = !_.isNil(valueFormat) ? valueFormat : fromKeys.valueDisplay;
+      // }
+
+      inputItem = this.applyNormalizeFormat(inputItem, value);
 
       const validation = this.checkValidation(inputItem);
 
@@ -271,6 +279,28 @@ export default function FormHoc(WrappedComponent) {
       });
 
       return true;
+    }
+
+    applyNormalizeFormat(inputItemInp, valueInp = null) {
+      const inputItem = inputItemInp;
+      const value = !_.isNil(valueInp) ? valueInp : inputItem.value;
+
+      if (
+        inputItem.normalize
+        && (typeof inputItem.normalize === 'function')
+      ) {
+        inputItem.value = inputItem.normalize(value) || fromKeys.value;
+      }
+
+      if (
+        inputItem.format
+        && (typeof inputItem.format === 'function')
+      ) {
+        const valueFormat = inputItem.format(inputItem.value);
+        inputItem.valueDisplay = !_.isNil(valueFormat) ? valueFormat : fromKeys.valueDisplay;
+      }
+
+      return inputItem;
     }
 
     // eslint-disable-next-line class-methods-use-this

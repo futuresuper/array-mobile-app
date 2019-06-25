@@ -24,6 +24,7 @@ import EditButton from 'src/Components/EditButton';
 
 import {
   sg,
+  sc,
 } from 'src/Styles';
 
 import styles from './styles';
@@ -147,6 +148,7 @@ class PersonalDetails extends Component {
           labelGray
           value={`${form.firstName.value} ${details.lastName}`}
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
 
         <Input
@@ -155,6 +157,7 @@ class PersonalDetails extends Component {
           labelGray
           value={details.email}
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
 
         <Input
@@ -163,6 +166,7 @@ class PersonalDetails extends Component {
           labelGray
           value={details.address}
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
 
         <Input
@@ -171,6 +175,7 @@ class PersonalDetails extends Component {
           labelGray
           value={details.tfn}
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
 
         <Input
@@ -179,6 +184,7 @@ class PersonalDetails extends Component {
           labelGray
           value={details.touchFaceId ? 'On' : 'Off'}
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
 
         <Input
@@ -188,6 +194,7 @@ class PersonalDetails extends Component {
           value={details.pin}
           secureTextEntry
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
       </View>
     );
@@ -204,10 +211,8 @@ class PersonalDetails extends Component {
           label="Name"
           labelGray
           value={`${form.firstName.value} ${form.lastName.value}`}
-          style={styles.input}
-          onLabelRightIcon={() => {
-            alert('hello');
-          }}
+          style={[styles.input, sg.colorGray12]}
+          containerStyle={styles.inputContainer}
         />
 
         <Input
@@ -216,6 +221,7 @@ class PersonalDetails extends Component {
           label="Email"
           labelGray
           style={styles.input}
+          containerStyle={styles.inputContainer}
           onChangeText={hocs.handleInput}
         />
 
@@ -225,6 +231,7 @@ class PersonalDetails extends Component {
           label="Adddress"
           labelGray
           style={styles.input}
+          containerStyle={styles.inputContainer}
           onChangeText={hocs.handleInput}
         />
 
@@ -233,10 +240,8 @@ class PersonalDetails extends Component {
           label="TFN"
           labelGray
           value={form.tfn.value}
-          style={[styles.input, sg.colorGray]}
-          onLabelRightIcon={() => {
-            alert('hello');
-          }}
+          style={[styles.input, sg.colorGray12]}
+          containerStyle={styles.inputContainer}
         />
 
         <Switch
@@ -245,7 +250,6 @@ class PersonalDetails extends Component {
           label="Touch / Face ID"
           labelGray
           title={form.touchFaceId.value ? 'On' : 'Off'}
-          titleStyle={styles.input}
           onPress={hocs.handleCheckBox}
         />
 
@@ -257,16 +261,11 @@ class PersonalDetails extends Component {
           style={[styles.input]}
           onChangeText={hocs.handleInput}
           secureTextEntry
-          iconRight={{
-            type: 'FontAwesome',
-            name: 'eye',
-          }}
         />
 
         <Button
-          gray4
           block
-          style={[sg.mT40, sg.mB10]}
+          style={[sg.mT30, sg.mB10]}
           onPress={() => {
             this.onSave();
           }}
@@ -280,6 +279,7 @@ class PersonalDetails extends Component {
           onPress={() => {
             this.readMode();
           }}
+          style={sg.mB20}
         >
           <Text>Cancel</Text>
         </Button>
@@ -292,14 +292,16 @@ class PersonalDetails extends Component {
     const { isEdit } = this.state;
 
     return (
-      <Content padder>
+      <Content bounces={false}>
 
-        <Br style={[sg.mT10, sg.mB10]} />
+        <Br style={[sg.mT20, sg.mB15, sg.contentMarginH2]} color={sc.color.gray2} width={1} />
 
-        {isEdit
-          ? this.renderEditForm()
-          : this.renderReadForm()
-        }
+        <View style={sg.contentMarginH2}>
+          {isEdit
+            ? this.renderEditForm()
+            : this.renderReadForm()
+          }
+        </View>
       </Content>
     );
   }

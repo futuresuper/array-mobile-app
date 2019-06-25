@@ -17,11 +17,14 @@ import {
 
 import _ from 'lodash';
 
+import { clearThemeCache } from 'native-base-shoutem-theme';
+
 import Toast from 'src/Components/Toast';
 import BottomInfoModal from 'src/Components/BottomInfo';
 
 import getTheme from 'src/native-base-theme/components';
 import material from 'src/native-base-theme/variables/material';
+import platform from 'src/native-base-theme/variables/platform';
 
 import {
   navGetParam,
@@ -43,6 +46,10 @@ import {
 class AppIndex extends Component {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      dark: false,
+    };
 
     this.routeBack = this.routeBack.bind(this);
     this.navigateTo = this.navigateTo.bind(this);
@@ -114,14 +121,31 @@ class AppIndex extends Component {
     routeBackConnect(back_screen, inp_params);
   }
 
+  hz = () => {
+    this.setState({
+      dark: true,
+    });
+    console.log('!!!hz', {  });
+  }
+
   render() {
+    const { dark } = this.state;
+    let theme;
+    console.log('!!!', { dark });
+
+    if (dark) {
+      theme = getTheme(platform);
+    } else {
+      theme = getTheme(material);
+    }
+
     return (
       <Root
         ref={(c) => {
           this._root = c;
         }}
       >
-        <StyleProvider style={getTheme(material)}>
+        <StyleProvider style={theme}>
           <Container>
             <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
 
@@ -161,6 +185,7 @@ class AppIndex extends Component {
                 spinnerHide: this.spinnerHide,
                 alert: this.alert,
                 userInfo: this.userInfo,
+                hz: this.hz,
                 Api,
               }}
             />

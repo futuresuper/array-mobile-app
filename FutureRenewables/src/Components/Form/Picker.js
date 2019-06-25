@@ -62,6 +62,7 @@ class Picker extends Component {
       labelGray,
       title,
       list,
+      lineColor,
       containerStyle,
     } = this.props;
 
@@ -79,7 +80,7 @@ class Picker extends Component {
     return (
       <Item
         error={error}
-        style={[sg.mB15, containerStyle]}
+        style={[{ borderColor: lineColor }, sg.mB15, containerStyle]}
       >
         <PickerOrig
           ref={(ref) => {
@@ -109,6 +110,7 @@ Picker.defaultProps = {
   onPressItem: null,
   onInit: null,
   containerStyle: {},
+  lineColor: undefined,
 };
 
 Picker.propTypes = {
@@ -126,6 +128,7 @@ Picker.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]),
+  lineColor: PropTypes.string,
 };
 
 export default Picker;

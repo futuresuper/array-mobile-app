@@ -123,8 +123,6 @@ class ManageAccountDetails extends Component {
       }
     });
 
-    console.log('!!!', { form });
-
     hocs.setForm(form);
   }
 
@@ -285,6 +283,7 @@ class ManageAccountDetails extends Component {
             onChangeText={hocs.handleInput}
             style={styles.input}
             containerStyle={styles.inputContainer}
+            inputLineColor={sc.color.gray1}
           />
 
           <PickerIngAccount
@@ -299,6 +298,7 @@ class ManageAccountDetails extends Component {
               hocs.handlePicker(item.number, formKey, dataKey);
               hocs.setFormTitle(item.number, formKey, dataKey);
             }}
+            lineColor={sc.color.gray1}
           />
 
           <Switch
@@ -309,6 +309,7 @@ class ManageAccountDetails extends Component {
             title="Reinvested"
             titleStyle={styles.input}
             onPress={hocs.handleCheckBox}
+            lineColor={sc.color.gray1}
           />
 
           <Input
@@ -318,11 +319,6 @@ class ManageAccountDetails extends Component {
             labelGray
             onChangeText={hocs.handleInput}
             keyboardType="numeric"
-            // iconLeft={{
-            //   type: 'FontAwesome',
-            //   name: 'dollar',
-            //   style: styles.inputLeftIcon,
-            // }}
             style={styles.input}
             containerStyle={styles.inputContainer}
             inputLineColor={sc.color.gray1}

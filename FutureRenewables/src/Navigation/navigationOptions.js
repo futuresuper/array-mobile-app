@@ -5,10 +5,15 @@ import TabBar from 'src/Components/TabBar';
 import CloseButton from 'src/Components/CloseButton';
 import BackButton from 'src/Components/BackButton';
 import {
+  isIOS,
+} from 'src/Common/Helpers';
+import {
   sc,
 } from 'src/Styles';
 
 import NavigationService from './NavigationService';
+
+const isIOSv = isIOS();
 
 export const signOptions = (props) => {
   const { navigation } = props;
@@ -109,6 +114,7 @@ export const tabCardOptions = {
         backgroundColor: sc.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
+        paddingTop: isIOSv ? undefined : 30,
       },
       headerTitleStyle: {
         color: sc.color.dark3,

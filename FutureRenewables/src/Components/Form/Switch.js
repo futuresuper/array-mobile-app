@@ -17,6 +17,7 @@ import {
 
 import {
   sg,
+  sc,
 } from 'src/Styles';
 
 class Switch extends Component {
@@ -36,17 +37,24 @@ class Switch extends Component {
       formData,
       formKey,
       value,
+      lineColor,
     } = this.props;
 
     return (
-      <Item>
-        <Grid style={[sg.mT20, sg.mB20]}>
+      <Item
+        style={[{ borderColor: lineColor }]}
+      >
+        <Grid style={[sg.mT20, sg.mB15]}>
           <Label style={[sg.formLabel, labelGray ? sg.colorGray : {}]}>{label}</Label>
-          <Row style={[sg.jCSpaceBetween, sg.pL5, sg.mT10, sg.aICenter]}>
-            <Text style={[sg.fS22, titleStyle]}>{title}</Text>
+          <Row style={[sg.jCSpaceBetween, sg.pL0, sg.mT10, sg.aICenter]}>
+            <Text style={[sg.fS20, sg.textBold, titleStyle, sg.aSEnd]}>{title}</Text>
             <SwitchNB
               value={(formData && !_.isNil(formData[formKey].value)) ? !!formData[formKey].value : !!value}
               onValueChange={(...args) => { this.onPress(...args); }}
+              trackColor={{
+                true: sc.color.brightGreen,
+              }}
+              style={sg.mB0}
             />
           </Row>
         </Grid>
@@ -66,6 +74,7 @@ Switch.defaultProps = {
   onPress: null,
   value: false,
   titleStyle: {},
+  lineColor: undefined,
 };
 
 Switch.propTypes = {
@@ -78,6 +87,7 @@ Switch.propTypes = {
   onPress: PropTypes.func,
   value: PropTypes.bool,
   titleStyle: PropTypes.object,
+  lineColor: PropTypes.string,
 };
 
 export default Switch;

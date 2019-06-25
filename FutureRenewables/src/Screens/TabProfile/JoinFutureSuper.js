@@ -22,15 +22,26 @@ class JoinFutureSuper extends Component {
   render() {
     return (
       <Content padder contentContainerStyle={[sg.flexGrow, sg.center, sg.pB80]}>
-        <H2 style={sg.textCenter}>Want to invest even more in renewables?</H2>
+        <Text style={[sg.headingM, sg.fS35]}>
+          Want to
+          {'\n'}
+          invest even
+          {'\n'}
+          more in
+          {'\n'}
+          renewables?
+        </Text>
 
-        <Text style={[sg.colorGray, sg.textCenter, sg.mT30, sg.mB50]}>
-          Join Future Super to invest your super in ethical and climate concious companies.
+        <Text style={[sg.colorDark3, sg.textCenter, sg.mT25, sg.mB80]}>
+          Join Future Super to invest
+          {'\n'}
+          your super in ethical and
+          {'\n'}
+          climate concious companies.
         </Text>
 
         <View style={[sg.footerBl, sg.contentPadding]}>
           <Button
-            gray4
             block
           >
             <Text>Join in a few minutes</Text>
@@ -39,7 +50,7 @@ class JoinFutureSuper extends Component {
             bordered
             dark
             block
-            style={sg.mV10}
+            style={sg.mV20}
           >
             <Text>Join in a few minutes</Text>
           </Button>

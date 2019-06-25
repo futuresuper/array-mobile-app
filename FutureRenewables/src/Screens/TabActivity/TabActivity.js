@@ -61,7 +61,11 @@ class TabActivity extends Component {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  componentDidMount() {
+    console.log('!!!activ', {  });
+    this.props.screenProps.hz();
+  }
+
   renderChart() {
     return (
       <View style={[sg.contentMarginH2]}>

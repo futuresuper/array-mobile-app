@@ -58,8 +58,8 @@ const PickerIngAccount = (props) => {
                 onPress={() => {
                 }}
               >
-                <Text style={sg.pickerItemText}>{item.name}</Text>
-                <Icon name="add" />
+                <Text style={sg.pickerItemAddText}>{item.name}</Text>
+                <Icon name="add" style={sg.pickerItemAddIcon} />
               </View>
             );
           }

@@ -229,6 +229,9 @@ export default {
   mB55: {
     marginBottom: 55,
   },
+  mB80: {
+    marginBottom: 80,
+  },
   mT0: {
     marginTop: 0,
   },

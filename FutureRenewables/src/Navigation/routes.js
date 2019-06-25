@@ -260,6 +260,7 @@ const tabCardRoutes = {
     params: {
       title: 'Personal details',
       routeReset: true,
+      headerTitleStyle: sg.tabProfileTitle,
     },
     ...tabCardOptions,
   },
@@ -282,6 +283,7 @@ const tabCardRoutes = {
     params: {
       title: 'Join Future Super',
       routeReset: true,
+      headerTitleStyle: sg.tabProfileTitle,
     },
     ...tabCardOptions,
   },
