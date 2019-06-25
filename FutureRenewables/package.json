@@ -12,7 +12,7 @@
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "native-base": "^2.11.0",
+    "native-base": "^2.12.1",
     "react": "16.6.3",
     "react-native": "0.58.4",
     "react-native-dialog": "^5.5.0",
