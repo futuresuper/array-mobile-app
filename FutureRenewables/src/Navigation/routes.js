@@ -5,6 +5,10 @@ import * as screens from 'src/Screens';
 import ScreensList from 'src/Screens/ScreensList';
 
 import {
+  sg,
+} from 'src/Styles';
+
+import {
   noHeader,
   signOptions,
   tabCardOptions,
@@ -240,11 +244,15 @@ const tabCardRoutes = {
     params: {
       routeReset: true,
       title: 'Manage Accounts',
+      headerTitleStyle: sg.tabProfileTitle,
     },
     ...tabCardOptions,
   },
   [routeNames.MANAGE_ACCOUNT_DETAILS]: {
     screen: screens.ManageAccountDetails,
+    params: {
+      headerTitleStyle: sg.tabProfileTitle,
+    },
     ...tabCardOptions,
   },
   [routeNames.PERSONAL_DETAILS]: {

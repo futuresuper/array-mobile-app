@@ -184,6 +184,9 @@ export default {
   mH10: {
     marginHorizontal: 10,
   },
+  mH15: {
+    marginHorizontal: 15,
+  },
   mH20: {
     marginHorizontal: 20,
   },
@@ -328,6 +331,9 @@ export default {
   pT20: {
     paddingTop: 20,
   },
+  pT25: {
+    paddingTop: 25,
+  },
   pT30: {
     paddingTop: 30,
   },
@@ -342,6 +348,9 @@ export default {
   },
   pB20: {
     paddingBottom: 20,
+  },
+  pB25: {
+    paddingBottom: 25,
   },
   pB30: {
     paddingBottom: 30,
@@ -412,6 +421,9 @@ export default {
   pR30: {
     paddingRight: 30,
   },
+  pR35: {
+    paddingRight: 35,
+  },
   p5: {
     padding: 5,
   },
@@ -432,6 +444,9 @@ export default {
   },
   pH10: {
     paddingHorizontal: 10,
+  },
+  pH15: {
+    paddingHorizontal: 15,
   },
   pH20: {
     paddingHorizontal: 20,
@@ -711,6 +726,9 @@ export default {
   contentMarginLeft: {
     marginLeft: styleConstants.contentPadding,
   },
+  contentMarginRight: {
+    marginRight: styleConstants.contentPadding,
+  },
   contentMarginV: {
     marginVertical: styleConstants.contentPadding,
   },
@@ -751,9 +769,16 @@ export default {
   },
   incAppBl: {
     alignSelf: 'flex-start',
-    backgroundColor: 'white',
-    borderRadius: 11,
-    paddingVertical: 4,
+    backgroundColor: styleConstants.color.primary,
+    borderRadius: 4,
+    padding: 5,
+  },
+  incAppText: {
+    color: styleConstants.color.white,
+    fontSize: 14,
+    fontFamily: styleConstants.font.medium,
+    marginLeft: 0,
+    marginRight: 0,
   },
   disclaimerBl: {
     backgroundColor: styleConstants.color.dark4,
@@ -794,5 +819,9 @@ export default {
     margin: isIOSv ? 0 : 5,
     elevation: 3,
     borderRadius: 10,
+  },
+  tabProfileTitle: {
+    fontSize: 20,
+    color: styleConstants.color.dark2,
   },
 };

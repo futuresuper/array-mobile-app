@@ -113,6 +113,7 @@ export const tabCardOptions = {
       headerTitleStyle: {
         color: sc.color.dark3,
         fontFamily: sc.font.bold,
+        fontWeight: null,
         ...headerTitleStyle,
       },
       title,

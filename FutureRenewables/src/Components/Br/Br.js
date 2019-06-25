@@ -9,11 +9,11 @@ import {
   styleConstants,
 } from 'src/Styles';
 
-const Br = ({ width, style }) => (
+const Br = ({ width, style, color }) => (
   <View style={[
     {
       borderBottomWidth: width,
-      borderBottomColor: styleConstants.color.gray6,
+      borderBottomColor: color,
       height: 1,
     },
     style,
@@ -24,6 +24,7 @@ const Br = ({ width, style }) => (
 Br.defaultProps = {
   width: 3,
   style: {},
+  color: styleConstants.color.gray6,
 };
 
 Br.propTypes = {
@@ -32,6 +33,7 @@ Br.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]),
+  color: PropTypes.string,
 };
 
 export default Br;

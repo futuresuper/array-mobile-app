@@ -16,6 +16,12 @@ import {
   composeHoc,
   hocNames,
 } from 'src/Common/Hocs';
+
+import {
+  formatAmountDollar,
+  normalizeAmount,
+} from 'src/Common/Helpers';
+
 import {
   Input,
   Switch,
@@ -26,6 +32,7 @@ import EditButton from 'src/Components/EditButton';
 
 import {
   sg,
+  sc,
 } from 'src/Styles';
 
 import styles from './styles';
@@ -109,7 +116,14 @@ class ManageAccountDetails extends Component {
           'required',
         ];
       }
+
+      if (key === 'regularInvestmentAmmount') {
+        form[key].normalize = normalizeAmount;
+        form[key].format = formatAmountDollar;
+      }
     });
+
+    console.log('!!!', { form });
 
     hocs.setForm(form);
   }
@@ -184,6 +198,7 @@ class ManageAccountDetails extends Component {
           labelGray
           value={details.accountNickName || '-'}
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
 
         <Input
@@ -192,6 +207,7 @@ class ManageAccountDetails extends Component {
           labelGray
           value={details.bankAccountName || '-'}
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
 
         <Input
@@ -200,6 +216,7 @@ class ManageAccountDetails extends Component {
           labelGray
           value={details.distributions ? 'Reinvested' : '-'}
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
 
         <Input
@@ -208,6 +225,7 @@ class ManageAccountDetails extends Component {
           labelGray
           value={regularInvestmentAmmount}
           style={styles.input}
+          containerStyle={styles.inputContainer}
         />
 
         {details.complete && (
@@ -217,6 +235,7 @@ class ManageAccountDetails extends Component {
             labelGray
             value={details.admins}
             style={styles.input}
+            containerStyle={styles.inputContainer}
           />
         )}
       </View>
@@ -227,7 +246,6 @@ class ManageAccountDetails extends Component {
     return (
       <View>
         <Button
-          gray4
           block
           style={[sg.mT40, sg.mB10]}
           onPress={() => {
@@ -243,6 +261,7 @@ class ManageAccountDetails extends Component {
           onPress={() => {
             this.readMode();
           }}
+          style={sg.mB20}
         >
           <Text>Cancel</Text>
         </Button>
@@ -256,88 +275,92 @@ class ManageAccountDetails extends Component {
     const { form } = hocs;
 
     return (
-      <View>
-        <Input
-          formData={form}
-          formKey="accountNickName"
-          label="Nickname"
-          labelGray
-          onChangeText={hocs.handleInput}
-          style={styles.input}
-        />
+      <View style={sg.spaceBetween}>
+        <View>
+          <Input
+            formData={form}
+            formKey="accountNickName"
+            label="Nickname"
+            labelGray
+            onChangeText={hocs.handleInput}
+            style={styles.input}
+            containerStyle={styles.inputContainer}
+          />
 
-        <PickerIngAccount
-          formData={form}
-          formKey="bankAccountName"
-          label="Linked Bank Account"
-          labelGray
-          title={form.bankAccountName.value}
-          titleStyle={styles.input}
-          onPressItem={({ item }, formKey, dataKey) => {
-            hocs.handlePicker(item.number, formKey, dataKey);
-            hocs.setFormTitle(item.number, formKey, dataKey);
-          }}
-        />
+          <PickerIngAccount
+            formData={form}
+            formKey="bankAccountName"
+            label="Linked Bank Account"
+            labelGray
+            title={form.bankAccountName.value}
+            titleStyle={styles.input}
+            containerStyle={styles.inputContainer}
+            onPressItem={({ item }, formKey, dataKey) => {
+              hocs.handlePicker(item.number, formKey, dataKey);
+              hocs.setFormTitle(item.number, formKey, dataKey);
+            }}
+          />
 
-        <Switch
-          formData={form}
-          formKey="distributions"
-          label="Distributions"
-          labelGray
-          title="Reinvested"
-          titleStyle={styles.input}
-          onPress={hocs.handleCheckBox}
-        />
+          <Switch
+            formData={form}
+            formKey="distributions"
+            label="Distributions"
+            labelGray
+            title="Reinvested"
+            titleStyle={styles.input}
+            onPress={hocs.handleCheckBox}
+          />
 
-        <Input
-          formData={form}
-          formKey="regularInvestmentAmmount"
-          label="Regular investment ammount"
-          labelGray
-          onChangeText={hocs.handleInput}
-          keyboardType="numeric"
-          iconLeft={{
-            type: 'FontAwesome',
-            name: 'dollar',
-            style: styles.inputLeftIcon,
-          }}
-          style={styles.input}
-        />
+          <Input
+            formData={form}
+            formKey="regularInvestmentAmmount"
+            label="Regular investment ammount"
+            labelGray
+            onChangeText={hocs.handleInput}
+            keyboardType="numeric"
+            // iconLeft={{
+            //   type: 'FontAwesome',
+            //   name: 'dollar',
+            //   style: styles.inputLeftIcon,
+            // }}
+            style={styles.input}
+            containerStyle={styles.inputContainer}
+            inputLineColor={sc.color.gray1}
+          />
 
-        <Input
-          disabled
-          label="Authorised admins"
-          labelGray
-          value={form.admins.value}
-          style={styles.input}
-          onLabelRightIcon={() => {
-            alert('hello');
-          }}
-        />
+          <Input
+            // disabled
+            label="Authorised admins"
+            labelGray
+            value={form.admins.value}
+            style={styles.input}
+            containerStyle={styles.inputContainer}
+            inputLineColor={sc.color.gray1}
+          />
+        </View>
 
         {this.renderEditFormButtons()}
       </View>
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   renderIncApp() {
     return (
       <View style={[sg.incAppBl, sg.aSCenter]}>
-        <Text style={[sg.fS14, sg.mH10]}>Incomplete application</Text>
+        <Text style={[sg.incAppText]}>Incomplete application</Text>
       </View>
     );
   }
 
   render() {
     const { details, isEdit } = this.state;
-    const complete = true;
+    const { complete } = details;
 
     return (
-      <Content padder contentContainerStyle={sg.pT0}>
+      <Content contentContainerStyle={[sg.pT0, sg.flexGrow]} bounces={false}>
         {complete
           ? (
-            <Text style={sg.aSCenter}>
+            <Text style={[sg.aSCenter, sg.fS14, sg.fontMedium, sg.colorGray11]}>
               $
               {details.balanceDollars}
             </Text>
@@ -345,35 +368,36 @@ class ManageAccountDetails extends Component {
           : this.renderIncApp()
         }
 
-        <Br style={[sg.mT20, sg.mB10]} />
+        <Br style={[sg.mT20, sg.mB15, sg.contentMarginH2]} color={sc.color.gray2} width={1} />
 
-        <View style={sg.contentPadding}>
-          {isEdit
-            ? this.renderEditForm()
-            : this.renderReadForm()
-          }
+        <View style={[sg.contentMarginH, sg.flexGrow]}>
+          <View style={sg.spaceBetween}>
+            {isEdit
+              ? this.renderEditForm()
+              : this.renderReadForm()
+            }
 
-          {!complete && !isEdit && (
-            <View>
-              <Button
-                gray4
-                block
-                style={sg.mV10}
-                onPress={() => {
-                  this.editMode();
-                }}
-              >
-                <Text>Resume Application</Text>
-              </Button>
-              <Button
-                bordered
-                dark
-                block
-              >
-                <Text>Delete application</Text>
-              </Button>
-            </View>
-          )}
+            {!complete && !isEdit && (
+              <View>
+                <Button
+                  block
+                  style={sg.mV10}
+                  onPress={() => {
+                    this.editMode();
+                  }}
+                >
+                  <Text>Resume Application</Text>
+                </Button>
+                <Button
+                  bordered
+                  dark
+                  block
+                >
+                  <Text>Delete application</Text>
+                </Button>
+              </View>
+            )}
+          </View>
         </View>
       </Content>
     );

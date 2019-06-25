@@ -62,6 +62,7 @@ class Picker extends Component {
       labelGray,
       title,
       list,
+      containerStyle,
     } = this.props;
 
     let titleText = title;
@@ -78,7 +79,7 @@ class Picker extends Component {
     return (
       <Item
         error={error}
-        style={[sg.mB15]}
+        style={[sg.mB15, containerStyle]}
       >
         <PickerOrig
           ref={(ref) => {
@@ -107,6 +108,7 @@ Picker.defaultProps = {
   list: [],
   onPressItem: null,
   onInit: null,
+  containerStyle: {},
 };
 
 Picker.propTypes = {
@@ -120,6 +122,10 @@ Picker.propTypes = {
   onPressItem: PropTypes.func,
   renderItem: PropTypes.func.isRequired,
   onInit: PropTypes.func,
+  containerStyle: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
 };
 
 export default Picker;

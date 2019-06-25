@@ -27,6 +27,7 @@ import {
 } from 'src/Navigation';
 
 import BottomInfo from 'src/Components/BottomInfo';
+import TextUnderline from 'src/Components/TextUnderline';
 
 import {
   sg,
@@ -72,17 +73,22 @@ class ManageAccounts extends Component {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
   renderIncApp() {
     return (
       <View style={sg.incAppBl}>
-        <Text style={[sg.fS14]}>Incomplete application</Text>
+        <Text style={[sg.incAppText, sg.fS14]}>Incomplete application</Text>
       </View>
     );
   }
 
-  renderItem({ item }) {
-    const complete = true;
+  renderItem({ item, index }) {
+    let complete = true;
+
+    item.complete = true;
+    if (index === 2) {
+      complete = false;
+      item.complete = false;
+    }
 
     return (
       <ListItem
@@ -91,29 +97,29 @@ class ManageAccounts extends Component {
         onPress={() => {
           this.openItem(item);
         }}
-        style={sg.pL0}
+        style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
       >
         <Body>
           <Grid>
             <Row>
-              <Col>
-                <Text style={[sg.mL0, sg.mB5, sg.fS22]}>{item.accountNickName}</Text>
+              <Col style={[sg.flexNull]}>
+                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold, sg.colorDark2]}>{item.accountNickName}</Text>
 
                 {complete && (
-                  <Text style={[sg.mL0, sg.fS14]}>
+                  <Text style={[sg.mL0, sg.fS16]}>
                     Balance:&nbsp;
                     <Text>{item.balanceDollars}</Text>
                   </Text>
                 )}
               </Col>
               <Col style={[sg.jCCenter, sg.aIEnd]}>
-                {complete && <Icon name="ios-arrow-forward" style={sg.fS20} />}
+                <Icon name="ios-arrow-forward" style={sg.fS20} />
               </Col>
             </Row>
             {!complete && (
-              <Row style={[sg.jCSpaceBetween, sg.aICenter, sg.mT5]}>
+              <Row style={[sg.jCSpaceBetween, sg.aICenter, sg.mT0]}>
                 {this.renderIncApp()}
-                <Text style={[sg.fS14, sg.mR0]}>Resume</Text>
+                <Text style={[sg.fS14, sg.fontMedium, sg.mR0]}>Resume</Text>
               </Row>
             )}
           </Grid>
@@ -126,9 +132,9 @@ class ManageAccounts extends Component {
     const { accounts } = this.state;
 
     return (
-      <Content padder contentContainerStyle={[sg.flexGrow, sg.pB220]}>
+      <Content contentContainerStyle={[sg.flexGrow, sg.pB220]}>
 
-        <List>
+        <List style={[sg.contentMarginLeft, sg.mB50]}>
           <ListItem noIndent />
 
           <FlatList
@@ -139,7 +145,7 @@ class ManageAccounts extends Component {
         </List>
 
         <View style={[sg.footerBl, sg.contentPadding, sg.aICenter]}>
-          <H2>Add a new Account</H2>
+          <H2 style={[sg.fS20, sg.colorDark2]}>Add a new Account</H2>
 
           <Button
             bordered
@@ -158,15 +164,14 @@ class ManageAccounts extends Component {
             <Text>Future Super Account</Text>
           </Button>
 
-
-          <TouchableOpacity
-            style={sg.whatIsAccountBl}
+          <TextUnderline
+            style={sg.mT25}
             onPress={() => {
               BottomInfo.showFutureSuperAccount();
             }}
           >
-            <Text style={sg.whatIsAccount}>What&apos;s a future super Account?</Text>
-          </TouchableOpacity>
+            What&apos;s a Future Super Account?
+          </TextUnderline>
         </View>
       </Content>
     );

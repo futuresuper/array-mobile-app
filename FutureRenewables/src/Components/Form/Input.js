@@ -87,7 +87,7 @@ class Input extends Component {
       return null;
     }
 
-    const style = [styles.label, labelGray ? sg.colorGray : {}, labelStyle];
+    const style = [styles.label, labelGray ? sg.colorGray11 : {}, labelStyle];
 
     return (
       <Label style={style}>{label}</Label>
@@ -137,6 +137,7 @@ class Input extends Component {
       label,
       disabled,
       containerStyle,
+      inputLineColor,
     } = this.props;
 
     // console.log('!!!', formData);
@@ -158,7 +159,7 @@ class Input extends Component {
           stackedLabel={!!label}
           error={(formData && formData[formKey].error) || false}
           {...itemProps}
-          style={[disabled ? sg.noBorder : {}, itemProps.style ? itemProps.style : {}]}
+          style={[{ borderColor: inputLineColor }, disabled ? sg.noBorder : {}, itemProps.style ? itemProps.style : {}]}
           iconLeft={false}
           icon
         >
@@ -210,6 +211,7 @@ Input.defaultProps = {
   disabled: false,
   helper: '',
   containerStyle: {},
+  inputLineColor: undefined,
 };
 
 Input.propTypes = {
@@ -228,6 +230,7 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   helper: PropTypes.string,
   containerStyle: PropTypes.object,
+  inputLineColor: PropTypes.string,
 };
 
 export default Input;
