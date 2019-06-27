@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import './ReactotronConfig';
 import { Provider } from 'react-redux';
+
+import ServiceManager from 'src/Services';
+
 import { name as appName } from '../app.json';
 import store from './Redux/store';
 
@@ -34,6 +37,7 @@ class Root extends Component {
     // } else {
       return (
         <Provider store={this.state.store}>
+          <ServiceManager />
           <AppIndex />
         </Provider>
       );

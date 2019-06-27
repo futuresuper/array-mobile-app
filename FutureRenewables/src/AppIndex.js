@@ -21,10 +21,11 @@ import { clearThemeCache } from 'native-base-shoutem-theme';
 
 import Toast from 'src/Components/Toast';
 import BottomInfoModal from 'src/Components/BottomInfo';
+import ThemeService from 'src/Services/ThemeService';
 
 import getTheme from 'src/native-base-theme/components';
 import material from 'src/native-base-theme/variables/material';
-import platform from 'src/native-base-theme/variables/platform';
+import materialDark from 'src/native-base-theme/variables/materialDark';
 
 import {
   navGetParam,
@@ -122,10 +123,15 @@ class AppIndex extends Component {
   }
 
   hz = () => {
+    ThemeService.setDark();
     this.setState({
       dark: true,
+    }, () => {
+      clearThemeCache();
     });
-    console.log('!!!hz', {  });
+    // console.log('!!!hz', {  });
+    // clearThemeCache();
+    this.forceUpdate();
   }
 
   render() {
@@ -134,7 +140,7 @@ class AppIndex extends Component {
     console.log('!!!', { dark });
 
     if (dark) {
-      theme = getTheme(platform);
+      theme = getTheme(materialDark);
     } else {
       theme = getTheme(material);
     }

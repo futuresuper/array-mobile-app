@@ -63,7 +63,9 @@ class TabActivity extends Component {
 
   componentDidMount() {
     console.log('!!!activ', {  });
-    this.props.screenProps.hz();
+    setTimeout(() => {
+      this.props.screenProps.hz();
+    });
   }
 
   renderChart() {

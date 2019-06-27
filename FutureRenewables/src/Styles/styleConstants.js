@@ -1,7 +1,23 @@
 
+import ThemeService from 'src/Services/ThemeService';
+
+import colorsLight from './colorsLight';
+import colorsDark from './colorsDark';
+
 export default Object.freeze({
   mainColor: 'green',
-  containerBgColor: '#F9F4EB',
+  // containerBgColor: '#F9F4EB',
+  get containerBgColor() {
+    let res = colorsLight.containerBgColor;
+
+    const isDark = ThemeService.isDark();
+    console.log('!!!: getcontainerBgColor -> isDark', isDark);
+    if (isDark) {
+      res = colorsDark.containerBgColor;
+    }
+
+    return res;
+  },
   contentPadding: 30,
   contentPadding2: 15,
   color: {
