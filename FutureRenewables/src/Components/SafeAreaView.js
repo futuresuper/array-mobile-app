@@ -15,7 +15,7 @@ const defaultForceInset = {
 
 const defaultStyle = {
   flex: 1,
-  backgroundColor: sc.containerBgColor,
+  backgroundColor: sc.color.containerBgColor,
 };
 
 const SafeAreaView = ({ children, forceInset, style }) => (

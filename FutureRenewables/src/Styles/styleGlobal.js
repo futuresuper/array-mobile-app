@@ -827,4 +827,7 @@ export default {
     fontSize: 20,
     color: styleConstants.color.dark2,
   },
+  tintColor(tintColor) {
+    return { tintColor };
+  },
 };

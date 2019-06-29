@@ -119,7 +119,7 @@ export default {
   brandLight: "#f4f4f4",
 
   //Container
-  containerBgColor: styleConstants.containerBgColor,
+  containerBgColor: styleConstants.color.containerBgColor,
 
   //Date Picker
   datePickerTextColor: "#000",
@@ -286,5 +286,8 @@ export default {
       rightInset: 44,
       bottomInset: 21
     }
-  }
+  },
+
+  footerIconColor: styleConstants.color.dark3,
+  graphExampleColor: styleConstants.color.containerBgColor,
 };

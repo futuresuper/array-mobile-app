@@ -100,7 +100,7 @@ export default {
     paddingBottom: 0,
     paddingLeft: 0,
     paddingRight: 0,
-    backgroundColor: sc.containerBgColor,
+    backgroundColor: sc.color.containerBgColor,
   },
   solarFarmPhotoTextBl: {
     padding: 8,

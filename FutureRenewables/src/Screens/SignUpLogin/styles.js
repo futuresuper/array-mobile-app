@@ -52,7 +52,7 @@ export const ThanksShare = {
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: rgbaByHex(sc.containerBgColor, 0.9),
+    backgroundColor: rgbaByHex(sc.color.containerBgColor, 0.9),
   },
   thanksBl: {
     position: 'absolute',

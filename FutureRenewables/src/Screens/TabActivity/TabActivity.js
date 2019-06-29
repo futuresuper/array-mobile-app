@@ -61,13 +61,6 @@ class TabActivity extends Component {
     });
   }
 
-  componentDidMount() {
-    console.log('!!!activ', {  });
-    setTimeout(() => {
-      this.props.screenProps.hz();
-    });
-  }
-
   renderChart() {
     return (
       <View style={[sg.contentMarginH2]}>

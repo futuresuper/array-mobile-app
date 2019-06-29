@@ -18,7 +18,6 @@ export default {
     marginRight: 0,
   },
   contentBl: {
-    backgroundColor: sc.containerBgColor,
     padding: sc.contentPadding2,
     paddingTop: 0,
   },
@@ -43,7 +42,7 @@ export default {
     width: 125,
   },
   containerBg: {
-    backgroundColor: sc.containerBgColor,
+    backgroundColor: sc.color.containerBgColor,
   },
   graphBl: {
     height: 130,
@@ -51,7 +50,6 @@ export default {
     alignSelf: 'center',
   },
   graphBottomLine: {
-    backgroundColor: sc.containerBgColor,
     position: 'absolute',
     bottom: 0,
     left: 0,

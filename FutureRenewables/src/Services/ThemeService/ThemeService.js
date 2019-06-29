@@ -1,4 +1,9 @@
 
+import {
+  themeLight,
+  themeDark,
+} from 'src/Theme';
+
 class ThemeService {
   constructor() {
     this.init = this.init.bind(this);
@@ -18,12 +23,23 @@ class ThemeService {
 
   setDark() {
     this.theme = 'dark';
-    console.log('!!!dark', {  });
+  }
+
+  setLight() {
+    this.theme = 'light';
   }
 
   isDark() {
     console.log('!!!this.theme', this.theme);
     return (this.theme === 'dark');
+  }
+
+  getTheme() {
+    if (this.isDark()) {
+      return themeDark;
+    }
+
+    return themeLight;
   }
 }
 

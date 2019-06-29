@@ -238,7 +238,7 @@ export default (variables /*: * */ = variable) => {
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderColor: variables.inputBorderColor,
-    backgroundColor: sc.containerBgColor,
+    backgroundColor: variables.containerBgColor,
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 2

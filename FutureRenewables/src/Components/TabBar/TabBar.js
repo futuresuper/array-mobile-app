@@ -14,6 +14,8 @@ import {
   NavigationService,
 } from 'src/Navigation';
 
+import ThemeService from 'src/Services/ThemeService';
+
 import HomeActive from './images/HomeActive.png';
 import HomeInactive from './images/HomeInactive.png';
 import DollarActive from './images/DollarActive.png';
@@ -23,15 +25,53 @@ import SunInactive from './images/SunInactive.png';
 import ChelActive from './images/ChelActive.png';
 import ChelInactive from './images/ChelInactive.png';
 
+import styles from './styles';
+
 const TabBar = (props) => {
   const { navigation, screenProps } = props;
   const { state } = navigation;
   const { routeName } = NavigationService.getCurrentRoute(state);
+  const theme = ThemeService.getTheme();
+  const iconStyle = {
+    tintColor: theme.footerIconColor,
+  };
 
-  const iconHome = routeName === routeNames.TAB_HOME ? HomeActive : HomeInactive;
-  const iconActivity = routeName === routeNames.TAB_ACTIVITY ? DollarActive : DollarInactive;
-  const iconFarms = routeName === routeNames.SOLAR_FARMS_LIST ? SunActive : SunInactive;
-  const iconProfile = routeName === routeNames.TAB_PROFILE ? ChelActive : ChelInactive;
+  // const iconHome = routeName === routeNames.TAB_HOME ? HomeActive : HomeInactive;
+
+  let iconHome = HomeInactive;
+  let iconHomeStyle = iconStyle;
+  if (routeName === routeNames.TAB_HOME) {
+    iconHome = HomeActive;
+    iconHomeStyle = {};
+  }
+
+  let iconActivity = DollarInactive;
+  let iconActivityStyle = iconStyle;
+  if (routeName === routeNames.TAB_ACTIVITY) {
+    iconActivity = DollarActive;
+    iconActivityStyle = {};
+  }
+
+  let iconFarms = SunInactive;
+  let iconFarmsStyle = iconStyle;
+  if (routeName === routeNames.SOLAR_FARMS_LIST) {
+    iconFarms = SunActive;
+    iconFarmsStyle = {};
+  }
+
+  let iconProfile = ChelInactive;
+  let iconProfileStyle = iconStyle;
+  if (routeName === routeNames.TAB_PROFILE) {
+    iconProfile = ChelActive;
+    iconProfileStyle = {};
+  }
+
+
+  // const iconActivity = routeName === routeNames.TAB_ACTIVITY ? DollarActive : DollarInactive;
+  // const iconFarms = routeName === routeNames.SOLAR_FARMS_LIST ? SunActive : SunInactive;
+  // const iconProfile = routeName === routeNames.TAB_PROFILE ? ChelActive : ChelInactive;
+
+  // let iconStyle = styles.icon;
 
   return (
     <Footer>
@@ -41,7 +81,7 @@ const TabBar = (props) => {
             screenProps.navigateTo(routeNames.TAB_HOME);
           }}
         >
-          <Image source={iconHome} />
+          <Image source={iconHome} style={iconHomeStyle} />
         </Button>
         <Button
           active={routeName === ''}
@@ -49,21 +89,21 @@ const TabBar = (props) => {
             screenProps.navigateTo(routeNames.TAB_ACTIVITY);
           }}
         >
-          <Image source={iconActivity} />
+          <Image source={iconActivity} style={iconActivityStyle} />
         </Button>
         <Button
           onPress={() => {
             screenProps.navigateTo(routeNames.SOLAR_FARMS_LIST);
           }}
         >
-          <Image source={iconFarms} />
+          <Image source={iconFarms} style={iconFarmsStyle} />
         </Button>
         <Button
           onPress={() => {
             screenProps.navigateTo(routeNames.TAB_PROFILE);
           }}
         >
-          <Image source={iconProfile} />
+          <Image source={iconProfile} style={iconProfileStyle} />
         </Button>
       </FooterTab>
     </Footer>

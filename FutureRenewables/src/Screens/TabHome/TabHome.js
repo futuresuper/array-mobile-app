@@ -23,6 +23,7 @@ import {
   Body,
   Left,
   Right,
+  View as ViewNB,
 } from 'native-base';
 
 import BottomInfo from 'src/Components/BottomInfo';
@@ -30,6 +31,7 @@ import Balance from 'src/Components/Balance';
 import {
   routeNames,
 } from 'src/Navigation';
+import ThemeService from 'src/Services/ThemeService';
 
 import GraphExample from 'src/assets/images/GraphExample.png';
 import CircleSunrise from 'src/assets/images/CircleSunrise.png';
@@ -73,7 +75,7 @@ class TabHome extends Component {
   componentDidMount() {
     const { navigation } = this.props;
     navigation.setParams({
-      backgroundColor: styles.containerBg.backgroundColor,
+      // backgroundColor: styles.containerBg.backgroundColor,
     });
   }
 
@@ -196,9 +198,10 @@ class TabHome extends Component {
   render() {
     const { screenProps } = this.props;
     const { content, article } = this.state;
+    const theme = ThemeService.getTheme();
 
     return (
-      <Content contentContainerStyle={[styles.containerBg]} bounces={false}>
+      <Content bounces={false}>
 
         <View style={[sg.oFHidden]}>
           <View style={[sg.contentPadding2, sg.zIndex10]}>
@@ -244,7 +247,7 @@ class TabHome extends Component {
 
           <View style={styles.graphBl}>
             <Image source={CircleSunrise} style={styles.circleDay} />
-            <Image source={GraphExample} style={styles.graphExample} />
+            <Image source={GraphExample} style={[styles.graphExample, sg.tintColor(theme.graphExampleColor)]} />
 
             <View style={styles.graphBottomLine} />
             <View style={styles.graphPointBl}>
@@ -256,7 +259,7 @@ class TabHome extends Component {
 
         </View>
 
-        <View style={styles.contentBl}>
+        <ViewNB style={styles.contentBl}>
           <H2 style={[sg.headingS, sg.colorGray11, sg.aSCenter]}>Impact</H2>
 
           <View style={[sg.pT15, sg.pB30]}>
@@ -274,7 +277,7 @@ class TabHome extends Component {
             renderItem={this.renderContentItem}
           />
 
-        </View>
+        </ViewNB>
 
         <ArticleModal
           visible={article.visible}

@@ -1,29 +1,16 @@
 
-import ThemeService from 'src/Services/ThemeService';
-
-import colorsLight from './colorsLight';
-import colorsDark from './colorsDark';
-
 export default Object.freeze({
   mainColor: 'green',
-  // containerBgColor: '#F9F4EB',
-  get containerBgColor() {
-    let res = colorsLight.containerBgColor;
-
-    const isDark = ThemeService.isDark();
-    console.log('!!!: getcontainerBgColor -> isDark', isDark);
-    if (isDark) {
-      res = colorsDark.containerBgColor;
-    }
-
-    return res;
-  },
   contentPadding: 30,
   contentPadding2: 15,
   color: {
+    containerBgColor: '#F9F4EB',
+    containerBgColor2: '#12143C',
     primary: '#FF615C',
     secondary: '#CCCCCC',
     light: '#FAFAFA',
+    white: 'white',
+    white2: '#FAF3EB',
     dark: '#000000',
     dark2: '#1A1E5E',
     dark3: '#2F2353',
@@ -51,11 +38,13 @@ export default Object.freeze({
     gray15: '#C0C0C0',
     orange: '#FFA334',
     lightGreen: '#6FCE1C',
+    brightGreen: '#51ccaa',
+    lightPurple: '#a09bb1',
+    brightYellow: '#ffad3a',
+    backgroundDark: '#11133d',
     get errorBorder() {
       return this.primary;
     },
-    white: 'white',
-    white2: '#FAF3EB',
     get brightRed() {
       return this.primary;
     },
@@ -65,13 +54,9 @@ export default Object.freeze({
     get mediumPurple() {
       return this.gray11;
     },
-    lightPurple: '#a09bb1',
-    brightGreen: '#51ccaa',
-    brightYellow: '#ffad3a',
     get backgroundLight() {
       return this.containerBgColor;
     },
-    backgroundDark: '#11133d',
   },
   font: {
     black: 'BwGradual-Black',

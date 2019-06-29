@@ -23,9 +23,11 @@ import Toast from 'src/Components/Toast';
 import BottomInfoModal from 'src/Components/BottomInfo';
 import ThemeService from 'src/Services/ThemeService';
 
-import getTheme from 'src/native-base-theme/components';
-import material from 'src/native-base-theme/variables/material';
-import materialDark from 'src/native-base-theme/variables/materialDark';
+import {
+  getTheme,
+  themeLight,
+  themeDark,
+} from 'src/Theme';
 
 import {
   navGetParam,
@@ -122,28 +124,36 @@ class AppIndex extends Component {
     routeBackConnect(back_screen, inp_params);
   }
 
-  hz = () => {
+  setDarkTheme = () => {
     ThemeService.setDark();
     this.setState({
       dark: true,
     }, () => {
       clearThemeCache();
+      this.forceUpdate();
     });
-    // console.log('!!!hz', {  });
-    // clearThemeCache();
-    this.forceUpdate();
+  }
+
+  setLightTheme = () => {
+    ThemeService.setLight();
+    this.setState({
+      dark: false,
+    }, () => {
+      clearThemeCache();
+      this.forceUpdate();
+    });
   }
 
   render() {
     const { dark } = this.state;
     let theme;
-    console.log('!!!', { dark });
 
     if (dark) {
-      theme = getTheme(materialDark);
+      theme = themeDark;
     } else {
-      theme = getTheme(material);
+      theme = themeLight;
     }
+    // console.log('!!!theme', { dark });
 
     return (
       <Root
@@ -151,7 +161,7 @@ class AppIndex extends Component {
           this._root = c;
         }}
       >
-        <StyleProvider style={theme}>
+        <StyleProvider style={getTheme(theme)}>
           <Container>
             <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
 
@@ -191,7 +201,8 @@ class AppIndex extends Component {
                 spinnerHide: this.spinnerHide,
                 alert: this.alert,
                 userInfo: this.userInfo,
-                hz: this.hz,
+                setDarkTheme: this.setDarkTheme,
+                setLightTheme: this.setLightTheme,
                 Api,
               }}
             />

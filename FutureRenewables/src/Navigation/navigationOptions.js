@@ -7,6 +7,7 @@ import BackButton from 'src/Components/BackButton';
 import {
   isIOS,
 } from 'src/Common/Helpers';
+import ThemeService from 'src/Services/ThemeService';
 import {
   sc,
 } from 'src/Styles';
@@ -33,7 +34,7 @@ export const signOptions = (props) => {
     title,
     headerLeft: backButton,
     headerStyle: {
-      backgroundColor: sc.containerBgColor,
+      backgroundColor: sc.color.containerBgColor,
       borderBottomWidth: 0,
       elevation: 0,
       ...headerStyle,
@@ -54,7 +55,7 @@ export const tabBarOptions = {
     const currentRoute = NavigationService.getCurrentRoute(state);
     const params = currentRoute.params || {};
     const header = params.noHeader ? null : undefined;
-    const backgroundColor = params.backgroundColor || sc.containerBgColor;
+    const backgroundColor = params.backgroundColor || ThemeService.getTheme().containerBgColor;
 
     return {
       headerStyle: {
@@ -92,7 +93,7 @@ export const tabModalOptions = (propsInp = {}) => ({
       headerLeft: backButton,
       headerRight: <CloseButton onPress={() => { navigation.popToTop(); }} />,
       headerStyle: {
-        backgroundColor: sc.containerBgColor,
+        backgroundColor: sc.color.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
       },
@@ -111,7 +112,7 @@ export const tabCardOptions = {
     return {
       headerLeft: backButton,
       headerStyle: {
-        backgroundColor: sc.containerBgColor,
+        backgroundColor: sc.color.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
         paddingTop: isIOSv ? undefined : 30,

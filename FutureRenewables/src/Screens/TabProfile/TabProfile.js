@@ -83,6 +83,13 @@ class TabProfile extends Component {
     screenProps.Api.logOut();
   }
 
+  componentDidMount() {
+    console.log('!!!activ', {  });
+    setTimeout(() => {
+      this.props.screenProps.setDarkTheme();
+    });
+  }
+
   render() {
     const { user } = this.props;
     const { listMenu } = this.state;
