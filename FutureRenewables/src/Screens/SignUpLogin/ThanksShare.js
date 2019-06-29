@@ -239,10 +239,6 @@ class ThanksShare extends React.Component {
             <Text style={[sg.aSCenter, sg.mT10, sg.fS35, sg.textBold]}>
               {fullName}
             </Text>
-
-            {this.renderIndividual()}
-            {this.renderFeat()}
-
             <Button
               small
               onPress={() => {
@@ -252,6 +248,10 @@ class ThanksShare extends React.Component {
             >
               <Text>next</Text>
             </Button>
+
+            {this.renderIndividual()}
+            {this.renderFeat()}
+
           </View>
 
           {this.renderFeatBottom()}
