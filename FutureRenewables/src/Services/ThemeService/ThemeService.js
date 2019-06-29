@@ -17,8 +17,6 @@ class ThemeService {
 
   init() {
     this.theme = 'light';
-
-    console.log('!!!themeservice', {  });
   }
 
   setDark() {
@@ -30,7 +28,6 @@ class ThemeService {
   }
 
   isDark() {
-    console.log('!!!this.theme', this.theme);
     return (this.theme === 'dark');
   }
 

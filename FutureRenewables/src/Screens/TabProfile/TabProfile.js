@@ -83,15 +83,8 @@ class TabProfile extends Component {
     screenProps.Api.logOut();
   }
 
-  componentDidMount() {
-    console.log('!!!activ', {  });
-    setTimeout(() => {
-      this.props.screenProps.setDarkTheme();
-    });
-  }
-
   render() {
-    const { user } = this.props;
+    const { user, screenProps } = this.props;
     const { listMenu } = this.state;
 
     const memberSince = `${moment(user.dataJoined).format('MMMM')}'s ${user.dateJoined.split('-')[0].substring(2)}`;
@@ -119,7 +112,23 @@ class TabProfile extends Component {
         <View>
           <List style={sg.contentMarginLeft}>
             <ListItem style={[sg.pT15, sg.mL0]} />
+
+            <ListItem
+              onPress={() => {
+                screenProps.toogleTheme();
+              }}
+              style={[sg.pT20, sg.pB20, sg.mL0, sg.pR30]}
+            >
+              <Left>
+                <Text style={[sg.fontMedium]}>Switch theme</Text>
+              </Left>
+              <Right>
+                <Icon name="ios-arrow-forward" />
+              </Right>
+            </ListItem>
+
             <FlatList
+              extraData={screenProps.theme}
               data={listMenu}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
@@ -128,7 +137,7 @@ class TabProfile extends Component {
                     <Text style={[sg.fontMedium]}>{item.name}</Text>
                   </Left>
                   <Right>
-                    <Icon name="ios-arrow-forward" style={styles.listIcon} />
+                    <Icon name="ios-arrow-forward" />
                   </Right>
                 </ListItem>
               )}

@@ -7,7 +7,6 @@ import BackButton from 'src/Components/BackButton';
 import {
   isIOS,
 } from 'src/Common/Helpers';
-import ThemeService from 'src/Services/ThemeService';
 import {
   sc,
 } from 'src/Styles';
@@ -50,12 +49,12 @@ export const tabBarOptions = {
   tabBarComponent: props => <TabBar {...props} />,
   tabBarPosition: 'bottom',
   navigationOptions: (props) => {
-    const { navigation } = props;
+    const { navigation, screenProps } = props;
     const { state } = navigation;
     const currentRoute = NavigationService.getCurrentRoute(state);
     const params = currentRoute.params || {};
     const header = params.noHeader ? null : undefined;
-    const backgroundColor = params.backgroundColor || ThemeService.getTheme().containerBgColor;
+    const backgroundColor = params.backgroundColor || screenProps.getTheme().containerBgColor;
 
     return {
       headerStyle: {
@@ -74,9 +73,10 @@ export const tabModalOptions = (propsInp = {}) => ({
   screen: propsInp.screen,
   navigationOptions: (props) => {
     const { params: paramsInp } = propsInp;
-    const { navigation } = props;
+    const { navigation, screenProps } = props;
     const { state } = navigation;
     const currentRoute = NavigationService.getCurrentRoute(state);
+    const theme = screenProps.getTheme();
     let params = currentRoute.params || {};
 
     if (paramsInp) {
@@ -93,7 +93,7 @@ export const tabModalOptions = (propsInp = {}) => ({
       headerLeft: backButton,
       headerRight: <CloseButton onPress={() => { navigation.popToTop(); }} />,
       headerStyle: {
-        backgroundColor: sc.color.containerBgColor,
+        backgroundColor: theme.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
       },
@@ -104,15 +104,16 @@ export const tabModalOptions = (propsInp = {}) => ({
 
 export const tabCardOptions = {
   navigationOptions: (props) => {
-    const { navigation } = props;
+    const { navigation, screenProps } = props;
     const backButton = <BackButton {...props} style={{ alignSelf: 'center' }} />;
     const title = navigation.getParam('title');
     const headerTitleStyle = navigation.getParam('headerTitleStyle', {});
+    const theme = screenProps.getTheme();
 
     return {
       headerLeft: backButton,
       headerStyle: {
-        backgroundColor: sc.color.containerBgColor,
+        backgroundColor: theme.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
         paddingTop: isIOSv ? undefined : 30,

@@ -144,8 +144,21 @@ class AppIndex extends Component {
     });
   }
 
+  toogleTheme = () => {
+    const { dark } = this.state;
+
+    if (dark) {
+      this.setLightTheme();
+    } else {
+      this.setDarkTheme();
+    }
+  }
+
+  getTheme = () => ThemeService.getTheme()
+
   render() {
     const { dark } = this.state;
+    const barStyle = dark ? 'light-content' : 'dark-content';
     let theme;
 
     if (dark) {
@@ -153,7 +166,7 @@ class AppIndex extends Component {
     } else {
       theme = themeLight;
     }
-    // console.log('!!!theme', { dark });
+    // console.log('!!!theme', getTheme(theme));
 
     return (
       <Root
@@ -163,7 +176,7 @@ class AppIndex extends Component {
       >
         <StyleProvider style={getTheme(theme)}>
           <Container>
-            <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+            <StatusBar backgroundColor="transparent" barStyle={barStyle} translucent />
 
             <Spinner
               ref={(c) => {
@@ -203,7 +216,12 @@ class AppIndex extends Component {
                 userInfo: this.userInfo,
                 setDarkTheme: this.setDarkTheme,
                 setLightTheme: this.setLightTheme,
+                toogleTheme: this.toogleTheme,
+                getTheme: this.getTheme,
                 Api,
+                theme: {
+                  dark,
+                },
               }}
             />
 

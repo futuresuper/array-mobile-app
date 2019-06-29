@@ -1,30 +1,29 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import {
   View,
-} from 'react-native';
-
-import {
-  styleConstants,
-} from 'src/Styles';
+} from 'native-base';
 
 const Br = ({ width, style, color }) => (
-  <View style={[
-    {
-      borderBottomWidth: width,
-      borderBottomColor: color,
-      height: 1,
-    },
-    style,
-  ]}
+  <View
+    br
+    style={[
+      {
+        borderBottomWidth: width,
+        height: 1,
+      },
+      (color ? { borderBottomColor: color } : {}),
+      style,
+    ]}
   />
 );
 
 Br.defaultProps = {
   width: 3,
   style: {},
-  color: styleConstants.color.gray6,
+  color: undefined,
 };
 
 Br.propTypes = {

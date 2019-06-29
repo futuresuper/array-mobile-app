@@ -18,9 +18,6 @@ export default {
     justifyContent: 'space-between',
     marginTop: 20,
   },
-  listIcon: {
-    color: sc.color.dark,
-  },
   logOut: {
     marginTop: 30,
     marginHorizontal: sc.contentPadding,

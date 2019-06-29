@@ -8,6 +8,10 @@ import {
   Text,
 } from 'native-base';
 
+import {
+  sg,
+} from 'src/Styles';
+
 import styles from './styles';
 
 const TextUnderline = (props) => {
@@ -18,7 +22,7 @@ const TextUnderline = (props) => {
       {...props}
       style={[styles.container, style]}
     >
-      <Text style={[styles.text, styleText]}>{children}</Text>
+      <Text style={[styles.text, sg.colorDark3, styleText]} underline>{children}</Text>
     </TouchableOpacity>
   );
 };

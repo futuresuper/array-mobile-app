@@ -31,7 +31,6 @@ import Balance from 'src/Components/Balance';
 import {
   routeNames,
 } from 'src/Navigation';
-import ThemeService from 'src/Services/ThemeService';
 
 import GraphExample from 'src/assets/images/GraphExample.png';
 import CircleSunrise from 'src/assets/images/CircleSunrise.png';
@@ -198,7 +197,7 @@ class TabHome extends Component {
   render() {
     const { screenProps } = this.props;
     const { content, article } = this.state;
-    const theme = ThemeService.getTheme();
+    const theme = screenProps.getTheme();
 
     return (
       <Content bounces={false}>
@@ -272,6 +271,7 @@ class TabHome extends Component {
           </View>
 
           <FlatList
+            extraData={screenProps.theme}
             data={content.latest}
             keyExtractor={(item, index) => index.toString()}
             renderItem={this.renderContentItem}

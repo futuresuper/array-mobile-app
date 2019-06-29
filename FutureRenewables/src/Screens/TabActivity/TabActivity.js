@@ -99,7 +99,7 @@ class TabActivity extends Component {
               onPress={this.setPerfomanceSegment}
               style={[styles.activityTabTitleBl, (segment.isPerfomance ? styles.activityTabTitleBlActive : {}), sg.mR70]}
             >
-              <Text style={[styles.activityTabTitleText, (segment.isPerfomance ? styles.activityTabTitleTextActive : {})]}>Perfomance</Text>
+              <Text style={[styles.activityTabTitleTextActive, (!segment.isPerfomance ? styles.activityTabTitleText : {})]}>Perfomance</Text>
             </Button>
 
             <Button
@@ -107,7 +107,7 @@ class TabActivity extends Component {
               onPress={this.setInvestmentSegment}
               style={[styles.activityTabTitleBl, (segment.isInvestment ? styles.activityTabTitleBlActive : {})]}
             >
-              <Text style={[styles.activityTabTitleText, (segment.isInvestment ? styles.activityTabTitleTextActive : {})]}>Investment</Text>
+              <Text style={[styles.activityTabTitleTextActive, (!segment.isInvestment ? styles.activityTabTitleText : {})]}>Investment</Text>
             </Button>
           </View>
 
@@ -116,11 +116,11 @@ class TabActivity extends Component {
 
         {segment.isPerfomance ? (
           <View>
-            <Text style={[sg.fontMedium, sg.colorDark3, sg.contentMarginH]}>
+            <Text style={[sg.fontMedium, sg.contentMarginH]}>
               Since you&apos;ve joined, you&apos;ve made
-              <Text style={[sg.textBold, sg.colorDark3]}> $600 </Text>
+              <Text style={[sg.textBold]}> $600 </Text>
               and your account is up
-              <Text style={[sg.textBold, sg.colorDark3]}> 4.6% </Text>
+              <Text style={[sg.textBold]}> 4.6% </Text>
               .
               {'\n'}
               Sweeet.

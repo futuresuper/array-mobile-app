@@ -17,7 +17,6 @@ export default {
   },
   title: {
     ...sg.headingS,
-    color: sc.color.dark2,
     paddingRight: 7,
   },
   titleIcon: {

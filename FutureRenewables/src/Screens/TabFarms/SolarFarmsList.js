@@ -85,12 +85,6 @@ class SolarFarmsList extends Component {
     };
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.props.screenProps.setLightTheme();
-    });
-  }
-
   renderFarmCard({ item }) {
     const { screenProps } = this.props;
 

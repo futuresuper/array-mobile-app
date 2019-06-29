@@ -32,7 +32,7 @@ export default (variables /*: * */ = variable) => {
   };
   const primaryCommon = {
     "NativeBase.Text": {
-      color: styleConstants.color.dark3,
+      color: variables.buttonPrimaryTextColor,
     },
     "NativeBase.Icon": {
       color: styleConstants.color.dark3,

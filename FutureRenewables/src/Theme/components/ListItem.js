@@ -192,7 +192,7 @@ export default (variables /*: * */ = variable) => {
       "NativeBase.Icon": {
         alignSelf: null,
         fontSize: variables.iconFontSize - 8,
-        color: "#c9c8cd"
+        color: variables.listItemIconColor,
       },
       "NativeBase.IconNB": {
         alignSelf: null,

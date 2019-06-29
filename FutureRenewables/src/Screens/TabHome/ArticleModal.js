@@ -5,7 +5,6 @@ import {
   View,
   Image,
   Modal,
-  TouchableOpacity,
 } from 'react-native';
 import {
   H3,
@@ -40,7 +39,7 @@ class ArticleModal extends Component {
     return (
       <View>
         {item.subhead && <Text style={[sg.textCenter, sg.fontMedium, sg.fS14, sg.colorGray11]}>{item.subhead}</Text>}
-        <H3 style={[sg.fS24, sg.colorDark2, sg.textCenter, sg.aSCenter, sg.mT30, sg.width150, sg.width300]}>{item.headline}</H3>
+        <H3 style={[sg.fS24, sg.textCenter, sg.aSCenter, sg.mT30, sg.width150, sg.width300]}>{item.headline}</H3>
 
         {Object.keys(article).map((key, index) => {
           const artItem = article[key];
@@ -53,7 +52,7 @@ class ArticleModal extends Component {
             case 'image':
               res = (
                 <View style={[sg.contentMarginH2, sg.mT15]}>
-                  <Image source={{ uri: artItem.url }} resizeMode="contain" style={styles.image} />
+                  <Image source={{ uri: artItem.url }} resizeMode="contain" style={styles.image} borderRadius={8} />
                   {artItem.description && <Text style={[sg.mT10, sg.colorGray, sg.fS14]}>{artItem.description}</Text>}
                 </View>
               );
@@ -82,7 +81,7 @@ class ArticleModal extends Component {
         transparent
       >
         <SafeAreaView>
-          <View style={[sg.backgroundDefault, sg.contentMarginV2]}>
+          <View style={[sg.contentMarginV2]}>
             <View style={[sg.aIEnd]}>
               <CloseButton white onPress={() => this.onRequestClose()} />
             </View>

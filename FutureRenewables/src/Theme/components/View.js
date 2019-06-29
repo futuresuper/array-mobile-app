@@ -10,6 +10,9 @@ export default (variables /*: * */ = variable) => {
     '.bg': {
       backgroundColor: variables.containerBgColor,
     },
+    '.br': {
+      borderBottomColor: variables.borderColor,
+    },
   };
 
   return viewTheme;

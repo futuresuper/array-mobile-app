@@ -1,49 +1,50 @@
 // @flow
 
-import color from "color";
+import color from 'color';
 
-import { Platform, Dimensions, PixelRatio } from "react-native";
+import { Platform, Dimensions, PixelRatio } from 'react-native';
 
-const deviceHeight = Dimensions.get("window").height;
-const deviceWidth = Dimensions.get("window").width;
+import {
+  sc,
+} from 'src/Styles';
+
+const deviceHeight = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width;
 const platform = Platform.OS;
-const platformStyle = "material";
-const isIphoneX =
-platform === "ios" && (deviceHeight === 812 || deviceWidth === 812 || deviceHeight === 896 || deviceWidth === 896);
-
-import { styleConstants } from 'src/Styles';
+const platformStyle = 'material';
+const isIphoneX = platform === 'ios' && (deviceHeight === 812 || deviceWidth === 812 || deviceHeight === 896 || deviceWidth === 896);
 
 export default {
   platformStyle,
   platform,
 
-  //Accordion
-  headerStyle: "#edebed",
-  iconStyle: "#000",
-  contentStyle: "#f5f4f5",
-  expandedIconStyle: "#000",
-  accordionBorderColor: "#d3d3d3",
+  // Accordion
+  headerStyle: '#edebed',
+  iconStyle: '#000',
+  contentStyle: '#f5f4f5',
+  expandedIconStyle: '#000',
+  accordionBorderColor: '#d3d3d3',
 
   // Android
   androidRipple: true,
-  androidRippleColor: "rgba(256, 256, 256, 0.3)",
-  androidRippleColorDark: "rgba(0, 0, 0, 0.15)",
+  androidRippleColor: 'rgba(256, 256, 256, 0.3)',
+  androidRippleColorDark: 'rgba(0, 0, 0, 0.15)',
   btnUppercaseAndroidText: false,
 
   // Badge
-  badgeBg: "#ED1727",
-  badgeColor: "#fff",
+  badgeBg: '#ED1727',
+  badgeColor: '#fff',
   badgePadding: 0,
 
   // Button
-  btnFontFamily: styleConstants.font.medium,
-  btnDisabledBg: styleConstants.color.gray14,
+  btnFontFamily: sc.font.medium,
+  btnDisabledBg: sc.color.gray14,
   buttonPadding: 6,
   get btnPrimaryBg() {
     return this.brandPrimary;
   },
   get btnSecondaryBg() {
-    return styleConstants.color.secondary;
+    return sc.color.secondary;
   },
   get btnPrimaryColor() {
     return this.inverseTextColor;
@@ -92,8 +93,8 @@ export default {
   },
 
   // Card
-  cardDefaultBg: "#fff",
-  cardBorderColor: "#ccc",
+  cardDefaultBg: sc.color.white,
+  cardBorderColor: '#ccc',
   cardBorderRadius: 4,
   cardItemPadding: 15,
 
@@ -105,30 +106,30 @@ export default {
   CheckboxIconSize: 16,
   CheckboxIconMarginTop: 1,
   CheckboxFontSize: 17,
-  checkboxBgColor: "#039BE5",
+  checkboxBgColor: '#039BE5',
   checkboxSize: 20,
-  checkboxTickColor: "#fff",
+  checkboxTickColor: '#fff',
 
   // Color
-  brandPrimary: styleConstants.color.primary,
-  brandInfo: "#62B1F6",
-  brandSuccess: styleConstants.color.success,
-  brandDanger: styleConstants.color.danger,
-  brandWarning: styleConstants.color.warning,
-  brandDark: styleConstants.color.dark3,
-  brandLight: "#f4f4f4",
+  brandPrimary: sc.color.primary,
+  brandInfo: '#62B1F6',
+  brandSuccess: sc.color.success,
+  brandDanger: sc.color.danger,
+  brandWarning: sc.color.warning,
+  brandDark: sc.color.dark3,
+  brandLight: '#f4f4f4',
 
-  //Container
-  containerBgColor: styleConstants.color.containerBgColor,
+  // Container
+  containerBgColor: sc.color.containerBgColor,
 
-  //Date Picker
-  datePickerTextColor: "#000",
-  datePickerBg: "transparent",
+  // Date Picker
+  datePickerTextColor: '#000',
+  datePickerBg: 'transparent',
 
   // Font
   DefaultFontSize: 16,
-  fontFamily: styleConstants.fontFamily,
-  fontFamilyBold: styleConstants.font.bold,
+  fontFamily: sc.fontFamily,
+  fontFamilyBold: sc.font.bold,
   fontSizeBase: 15,
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
@@ -141,29 +142,29 @@ export default {
   },
 
   // Footer
-  footerHeight: styleConstants.footerHeight,
-  footerDefaultBg: styleConstants.color.light,
+  footerHeight: sc.footerHeight,
+  footerDefaultBg: sc.color.light,
   footerPaddingBottom: 0,
 
   // FooterTab
-  tabBarTextColor: "#bfc6ea",
+  tabBarTextColor: '#bfc6ea',
   tabBarTextSize: 11,
-  activeTab: "#fff",
-  sTabBarActiveTextColor: "#007aff",
-  tabBarActiveTextColor: "#fff",
-  tabActiveBgColor: "#3F51B5",
+  activeTab: '#fff',
+  sTabBarActiveTextColor: '#007aff',
+  tabBarActiveTextColor: '#fff',
+  tabActiveBgColor: '#3F51B5',
 
   // Header
-  toolbarBtnColor: "#fff",
-  toolbarDefaultBg: "#3F51B5",
+  toolbarBtnColor: '#fff',
+  toolbarDefaultBg: '#3F51B5',
   toolbarHeight: 56,
   toolbarSearchIconSize: 23,
-  toolbarInputColor: "#fff",
-  searchBarHeight: platform === "ios" ? 30 : 40,
-  searchBarInputHeight: platform === "ios" ? 40 : 50,
-  toolbarBtnTextColor: "#fff",
-  toolbarDefaultBorder: "#3F51B5",
-  iosStatusbar: "light-content",
+  toolbarInputColor: '#fff',
+  searchBarHeight: platform === 'ios' ? 30 : 40,
+  searchBarInputHeight: platform === 'ios' ? 40 : 50,
+  toolbarBtnTextColor: '#fff',
+  toolbarDefaultBorder: '#3F51B5',
+  iosStatusbar: 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)
@@ -176,22 +177,22 @@ export default {
   },
 
   // Icon
-  iconFamily: "Ionicons",
+  iconFamily: 'Ionicons',
   iconFontSize: 28,
   iconHeaderSize: 24,
 
   // InputGroup
   inputFontSize: 20,
-  inputFontFamily: styleConstants.font.bold,
-  inputBorderColor: styleConstants.color.gray12,
-  inputSuccessBorderColor: "#2b8339",
-  inputErrorBorderColor: styleConstants.color.errorBorder,
-  inputHeightBase: styleConstants.inputHeightBase,
+  inputFontFamily: sc.font.bold,
+  inputBorderColor: sc.color.gray12,
+  inputSuccessBorderColor: '#2b8339',
+  inputErrorBorderColor: sc.color.errorBorder,
+  inputHeightBase: sc.inputHeightBase,
   get inputColor() {
     return this.textColor;
   },
   get inputColorPlaceholder() {
-    return styleConstants.color.gray11;
+    return sc.color.gray11;
   },
 
   // Line Height
@@ -202,92 +203,96 @@ export default {
   lineHeight: 24,
 
   // List
-  listBg: "transparent",
-  listBorderColor: styleConstants.color.gray2,
-  listDividerBg: "#f4f4f4",
-  listBtnUnderlayColor: "#DDD",
+  listBg: 'transparent',
+  listBorderColor: sc.color.gray2,
+  listDividerBg: '#f4f4f4',
+  listBtnUnderlayColor: '#DDD',
   listItemPadding: 12,
-  listNoteColor: "#808080",
+  listNoteColor: '#808080',
   listNoteSize: 13,
-  listItemSelected: "#3F51B5",
+  listItemSelected: '#3F51B5',
+  listItemIconColor: sc.color.dark,
 
   // Progress Bar
-  defaultProgressColor: "#E4202D",
-  inverseProgressColor: "#1A191B",
+  defaultProgressColor: '#E4202D',
+  inverseProgressColor: '#1A191B',
 
   // Radio Button
   radioBtnSize: 23,
-  radioSelectedColorAndroid: "#3F51B5",
+  radioSelectedColorAndroid: '#3F51B5',
   radioBtnLineHeight: 24,
   get radioColor() {
     return this.brandPrimary;
   },
 
   // Segment
-  segmentBackgroundColor: styleConstants.color.secondary,
-  segmentActiveBackgroundColor: styleConstants.color.secondary,
-  segmentTextColor: styleConstants.color.gray,
-  segmentActiveTextColor: styleConstants.color.gray,
-  segmentBorderColor: "#b7b7b7",
-  segmentBorderColorMain: "#b7b7b7",
+  segmentBackgroundColor: sc.color.secondary,
+  segmentActiveBackgroundColor: sc.color.secondary,
+  segmentTextColor: sc.color.gray,
+  segmentActiveTextColor: sc.color.gray,
+  segmentBorderColor: '#b7b7b7',
+  segmentBorderColorMain: '#b7b7b7',
 
   // Spinner
-  defaultSpinnerColor: "#45D56E",
-  inverseSpinnerColor: "#1A191B",
+  defaultSpinnerColor: '#45D56E',
+  inverseSpinnerColor: '#1A191B',
 
   // Tab
-  tabDefaultBg: "#3F51B5",
-  topTabBarTextColor: "#b3c7f9",
-  topTabBarActiveTextColor: "#fff",
-  topTabBarBorderColor: "#fff",
-  topTabBarActiveBorderColor: "#fff",
+  tabDefaultBg: '#3F51B5',
+  topTabBarTextColor: '#b3c7f9',
+  topTabBarActiveTextColor: '#fff',
+  topTabBarBorderColor: '#fff',
+  topTabBarActiveBorderColor: '#fff',
 
   // Tabs
-  tabBgColor: "#F8F8F8",
+  tabBgColor: '#F8F8F8',
   tabFontSize: 15,
 
   // Text
-  textColor: styleConstants.color.dark3,
-  inverseTextColor: "#FFF",
+  textColor: sc.color.dark3,
+  inverseTextColor: '#FFF',
   noteFontSize: 14,
   get defaultTextColor() {
     return this.textColor;
   },
 
   // Title
-  titleFontfamily: "Roboto",
+  titleFontfamily: 'Roboto',
   titleFontSize: 19,
   subTitleFontSize: 14,
-  subtitleColor: "#FFF",
-  titleFontColor: "#FFF",
+  subtitleColor: '#FFF',
+  titleFontColor: '#FFF',
 
   // Other
-  borderRadiusBase: styleConstants.radius,
+  borderRadiusBase: sc.radius,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
-  contentPadding: styleConstants.contentPadding,
-  dropdownLinkColor: "#414142",
+  contentPadding: sc.contentPadding,
+  dropdownLinkColor: '#414142',
   inputLineHeight: 24,
   deviceWidth,
   deviceHeight,
   isIphoneX,
   inputGroupRoundedBorderRadius: 30,
 
-  //iPhoneX SafeArea
+  // iPhoneX SafeArea
   Inset: {
     portrait: {
       topInset: 24,
       leftInset: 0,
       rightInset: 0,
-      bottomInset: 34
+      bottomInset: 34,
     },
     landscape: {
       topInset: 0,
       leftInset: 44,
       rightInset: 44,
-      bottomInset: 21
-    }
+      bottomInset: 21,
+    },
   },
 
-  footerIconColor: styleConstants.color.dark3,
-  graphExampleColor: styleConstants.color.containerBgColor,
+  footerIconColor: sc.color.dark3,
+  graphExampleColor: sc.color.containerBgColor,
+  iconColor: sc.color.dark,
+  buttonPrimaryTextColor: sc.color.dark3,
+  borderColor: sc.color.gray6,
 };

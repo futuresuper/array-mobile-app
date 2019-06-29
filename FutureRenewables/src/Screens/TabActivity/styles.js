@@ -12,14 +12,13 @@ export default {
     borderBottomWidth: 2,
   },
   activityTabTitleText: {
-    paddingLeft: 0,
-    paddingRight: 0,
-    fontSize: 20,
     color: sc.color.gray12,
     fontFamily: sc.font.regular,
   },
   activityTabTitleTextActive: {
-    color: sc.color.dark2,
+    paddingLeft: 0,
+    paddingRight: 0,
+    fontSize: 20,
     fontFamily: sc.font.bold,
   },
   activityRow: {
