@@ -830,4 +830,7 @@ export default {
   tintColor(tintColor) {
     return { tintColor };
   },
+  borderColor(borderColor) {
+    return { borderColor };
+  },
 };

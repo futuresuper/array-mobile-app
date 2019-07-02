@@ -131,7 +131,7 @@ class SolarFarmsList extends Component {
     return (
       <Content padder>
         <View style={[sg.aICenter, sg.mB20]}>
-          <Text style={[sg.fS24, sg.colorDark2, sg.textBold]}>
+          <Text style={[sg.fS24, sg.textBold]} color2>
             Explore your
             {'\n'}
             Solar Farms

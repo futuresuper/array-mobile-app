@@ -23,7 +23,6 @@ import {
 import { allInvestments as styles } from './styles';
 
 
-// eslint-disable-next-line react/prefer-stateless-function
 class AllInvestments extends Component {
   constructor(props) {
     super(props);
@@ -65,7 +64,9 @@ class AllInvestments extends Component {
   }
 
   render() {
+    const { screenProps } = this.props;
     const { farms } = this.state;
+    const theme = screenProps.getTheme();
 
     return (
       <Content padder contentContainerStyle={sg.contentPadding2}>
@@ -80,13 +81,13 @@ class AllInvestments extends Component {
             };
 
             return (
-              <Grid style={[styles.itemContainer, (index === 0 ? styles.itemContainerFirst : {})]}>
+              <Grid style={[sg.borderColor(theme.borderColorList), styles.itemContainer, (index === 0 ? styles.itemContainerFirst : {})]}>
                 <Row style={[sg.pV20, sg.pL10, sg.pR20]}>
                   <Col style={[sg.jCCenter, sg.flexNull, sg.width30]}>
                     <Image source={icon.source} style={icon.style} resizeMode="contain" />
                   </Col>
                   <Col style={[sg.mL20, sg.mR20]}>
-                    <Text style={[sg.fS14, sg.textBold, sg.colorDark3]}>{item.name}</Text>
+                    <Text style={[sg.fS14, sg.textBold]}>{item.name}</Text>
                   </Col>
                   <Col style={sg.jCCenter}>
                     <Text style={[sg.fS14, sg.fontMedium, sg.colorGray11]}>{item.type}</Text>

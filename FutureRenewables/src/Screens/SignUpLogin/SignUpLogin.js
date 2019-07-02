@@ -48,7 +48,8 @@ class SignUpLogin extends Component {
     Api.signIn(formattedMobile).then(() => {
       navigateTo(routeNames.SMS_CODE, { mobile: formattedMobile });
     }).catch((err) => {
-      toast(err.message);
+      screenProps.spinnerHide();
+      toast(err.message || 'Unknown error');
     });
 
     return true;

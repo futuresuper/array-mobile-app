@@ -11,6 +11,12 @@ export default (variables /*: * */ = variable) => {
       color: "#a7a7a7",
       fontSize: variables.noteFontSize
     },
+    '.color2': {
+      color: variables.textColor2,
+    },
+    '.color3': {
+      color: variables.textColor3,
+    },
   };
 
   return textTheme;

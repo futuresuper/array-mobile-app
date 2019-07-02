@@ -73,6 +73,8 @@ class Perfomance extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   renderActivityItem(item = {}, index = -1) {
+    const { screenProps } = this.props;
+    const theme = screenProps.getTheme();
     const isHeader = _.isEmpty(item);
     let status;
 
@@ -87,7 +89,7 @@ class Perfomance extends Component {
     const styleText = isHeader ? sg.colorGray11 : {};
 
     return (
-      <Row key={index.toString()} style={[styles.activityRow, (isHeader ? styles.activityRowHeader : {})]}>
+      <Row key={index.toString()} style={[styles.activityRow, (isHeader ? styles.activityRowHeader : {}), sg.borderColor(theme.borderColorList)]}>
         <Col style={[styles.activityCol]}>
           <Text style={[styles.activityColText, styleText]}>{item.type || 'Type'}</Text>
         </Col>
@@ -144,7 +146,7 @@ class Perfomance extends Component {
         </Grid>
 
         <View style={[sg.mT45]}>
-          <H1 style={[sg.colorDark2, sg.fS24, sg.textCenter]}>Monthly Deposit</H1>
+          <H1 style={[sg.fS24, sg.textCenter]} color2>Monthly Deposit</H1>
         </View>
 
         <Grid style={[sg.center, sg.contentMarginH]}>
@@ -159,7 +161,7 @@ class Perfomance extends Component {
 
             <View style={[sg.row]}>
               <Text style={styles.plusMinusValue}>$</Text>
-              <Text style={styles.plusMinusValue}>{plusMinusValue}</Text>
+              <Text style={styles.plusMinusValue} color2>{plusMinusValue}</Text>
             </View>
 
             <Button

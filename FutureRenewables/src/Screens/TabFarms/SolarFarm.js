@@ -106,7 +106,7 @@ class SolarFarm extends Component {
                   style={styles.solarFarmWeatherWidget}
                 />
 
-                <H1 style={[sg.fS35, sg.mT30, sg.mB5]}>{item.title}</H1>
+                <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.title}</H1>
                 <Text style={styles.solarFarmItemDescription}>{item.description}</Text>
               </View>
 
@@ -132,7 +132,7 @@ class SolarFarm extends Component {
             </View>
           </ImageBackground>
 
-          <Text style={[sg.fS24, sg.textBold, sg.colorDark2, sg.aSCenter, sg.mT30]}>About</Text>
+          <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>About</Text>
           <Text style={[sg.contentMarginH, sg.mT20, sg.mB30]}>
             A 34.5MW solar farm under development near Pittsworth in southeast Queensland. When complete,
             Brigalow will power the equivalent of 11,300 average Australian homes and expected to avoid adding 60 tonnes of of C02 from the atmosphere.

@@ -45,6 +45,8 @@ import separatorTheme from "./Separator";
 import pickerTheme from "./Picker"
 import variable from "./../variables/platform";
 
+import image from './../App/Image';
+
 export default (variables /*: * */ = variable) => {
   const theme = {
     variables,
@@ -212,7 +214,10 @@ export default (variables /*: * */ = variable) => {
     },
     "NativeBase.Thumbnail": {
       ...thumbnailTheme(variables)
-    }
+    },
+    "App.Image": {
+      ...image(variables),
+    },
   };
 
   const cssifyTheme = (grandparent, parent, parentKey) => {

@@ -23,7 +23,6 @@ export default {
   },
   activityRow: {
     borderBottomWidth: 1,
-    borderColor: sc.color.gray2,
     paddingHorizontal: 0,
     paddingVertical: 20,
   },
@@ -51,7 +50,6 @@ export default {
   },
   activityInvTitle: {
     borderBottomWidth: 1,
-    borderColor: sc.color.gray2,
     paddingLeft: 15,
     paddingBottom: 10,
     marginHorizontal: sc.contentPadding2,
@@ -74,7 +72,6 @@ export default {
     fontFamily: sc.font.medium,
   },
   plusMinusValue: {
-    color: sc.color.dark2,
     fontSize: 36,
     fontFamily: sc.font.bold,
   },
@@ -86,7 +83,6 @@ export default {
     fontSize: 40,
   },
   allInvestHeader: {
-    borderColor: sc.color.gray2,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     flexDirection: 'row',
@@ -108,7 +104,6 @@ export default {
 export const allInvestments = {
   itemContainer: {
     borderBottomWidth: 1,
-    borderColor: sc.color.gray2,
   },
   itemContainerFirst: {
     borderTopWidth: 1,

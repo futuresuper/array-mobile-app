@@ -70,8 +70,8 @@ class TabActivity extends Component {
           <Image source={CircleSunrise} style={styles.activityCircleDay} />
         </View>
         <View style={[sg.row, sg.spaceBetween]}>
-          <Text style={[sg.fS14, sg.fontMedium, sg.colorDark2]}>Jul</Text>
-          <Text style={[sg.fS14, sg.fontMedium, sg.colorDark2]}>Nov</Text>
+          <Text style={[sg.fS14, sg.fontMedium]} color3>Jul</Text>
+          <Text style={[sg.fS14, sg.fontMedium]} color3>Nov</Text>
         </View>
       </View>
     );

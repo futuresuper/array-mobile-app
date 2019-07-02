@@ -94,13 +94,14 @@ export default {
     borderRightWidth: 0,
     borderTopWidth: 0,
     borderBottomWidth: 0,
+    backgroundColor: null,
   },
   solarFarmPhotoCardItem: {
     paddingTop: 0,
     paddingBottom: 0,
     paddingLeft: 0,
     paddingRight: 0,
-    backgroundColor: sc.color.containerBgColor,
+    backgroundColor: null,
   },
   solarFarmPhotoTextBl: {
     padding: 8,

@@ -5,17 +5,17 @@ import {
 
 export default {
   tabText: {
-    color: sc.color.gray11,
+    color: sc.color.dark2,
+    fontFamily: sc.font.bold,
+  },
+  tabTextActive: {
+    // color: sc.color.gray11,
     fontSize: 20,
     fontFamily: sc.font.regular,
     marginLeft: 0,
     marginRight: 0,
     paddingLeft: 0,
     paddingRight: 0,
-  },
-  tabTextActive: {
-    color: sc.color.dark2,
-    fontFamily: sc.font.bold,
   },
   doneTextBl: {
     flex: 1,

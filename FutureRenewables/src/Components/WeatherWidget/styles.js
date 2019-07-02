@@ -16,5 +16,6 @@ export default {
   summary: {
     fontSize: 12,
     textAlign: 'center',
+    color: sc.color.dark3,
   },
 };

@@ -165,7 +165,7 @@ class TabFarms extends Component {
           </Left>
           <Body style={styles.farmCardBody}>
             <View>
-              <H3 style={[sg.colorDark2, sg.fS20]}>{item.title}</H3>
+              <H3 style={[sg.fS20]} color2>{item.title}</H3>
               <Text style={styles.farmCardTextDescription}>{item.description}</Text>
             </View>
             <Text style={styles.farmCardTextComplete}>

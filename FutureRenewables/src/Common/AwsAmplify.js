@@ -1,5 +1,7 @@
 
 import Amplify, { Auth } from 'aws-amplify';
+import _ from 'lodash';
+
 import { Config } from 'src/Common/config';
 
 class AwsAmplify {
@@ -108,9 +110,8 @@ class AwsAmplify {
 
   // eslint-disable-next-line class-methods-use-this
   getRandomString(bytes) {
-    const randomValues = new Uint8Array(bytes);
-    // eslint-disable-next-line no-undef
-    window.crypto.getRandomValues(randomValues);
+    let randomValues = new Uint8Array(bytes);
+    randomValues = randomValues.map(() => _.random(1, 999));
 
     return Array.from(randomValues)
       .map(this.intToHex)

@@ -8,6 +8,9 @@ export default (variables /*: * */ = variable) => {
     fontSize: variables.fontSizeH3,
     lineHeight: variables.lineHeightH3,
     fontFamily: variables.fontFamilyBold,
+    '.color2': {
+      color: variables.textColor2,
+    },
   };
 
   return h3Theme;

@@ -8,6 +8,9 @@ export default (variables /*: * */ = variable) => {
     fontSize: variables.fontSizeH2,
     lineHeight: variables.lineHeightH2,
     fontFamily: variables.fontFamilyBold,
+    '.color2': {
+      color: variables.textColor2,
+    },
   };
 
   return h2Theme;

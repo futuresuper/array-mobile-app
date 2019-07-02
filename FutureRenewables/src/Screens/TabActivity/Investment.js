@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import {
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import {
   View,
@@ -12,6 +11,8 @@ import {
   Row,
   Col,
 } from 'native-base';
+
+import Image from 'src/Components/Image';
 
 import { routeNames } from 'src/Navigation';
 
@@ -26,12 +27,12 @@ import Oval from './images/Oval.png';
 import styles from './styles';
 
 class Investment extends Component {
-  renderInvTitle(image, title) {
+  renderInvTitle(image, title, theme) {
     return (
-      <Grid style={styles.activityInvTitle}>
+      <Grid style={[styles.activityInvTitle, sg.borderColor(theme.borderColorList)]}>
         <Row style={[sg.aICenter]}>
-          <Image source={image} />
-          <Text style={[sg.headingS, sg.colorDark2, sg.mL15]}>{title}</Text>
+          <Image source={image} color2 />
+          <Text style={[sg.headingS, sg.mL15]} color2>{title}</Text>
         </Row>
       </Grid>
     );
@@ -41,7 +42,7 @@ class Investment extends Component {
     return (
       <Grid style={sg.contentMarginH}>
         <Col style={sg.width110}>
-          <Text style={[sg.headingS, sg.colorDark2]}>{value}</Text>
+          <Text style={[sg.headingS]} color2>{value}</Text>
           <Text style={[sg.fS14, sg.colorGray11]}>Target</Text>
         </Col>
         <Col>
@@ -56,6 +57,7 @@ class Investment extends Component {
 
   render() {
     const { screenProps } = this.props;
+    const theme = screenProps.getTheme();
 
     return (
       <View style={sg.mB20}>
@@ -64,24 +66,24 @@ class Investment extends Component {
 
           <Image source={Oval} style={[sg.aSCenter, sg.mT20, sg.mB30]} />
 
-          {this.renderInvTitle(SunDark, 'Renewables')}
+          {this.renderInvTitle(SunDark, 'Renewables', theme)}
           {this.renderInvBody('60%')}
 
           <View style={sg.mT40} />
 
-          {this.renderInvTitle(HeartDark, 'Ethical')}
+          {this.renderInvTitle(HeartDark, 'Ethical', theme)}
           {this.renderInvBody('40%')}
 
         </View>
 
         <TouchableOpacity
-          style={styles.allInvestHeader}
+          style={[styles.allInvestHeader, sg.borderColor(theme.borderColorList)]}
           onPress={() => {
             screenProps.navigateTo(routeNames.ALL_INVESTMENTS);
           }}
         >
           <Text style={[sg.fontMedium]}>See all inverstments</Text>
-          <Icon name="ios-arrow-forward" style={[sg.colorDark3, sg.fS20]} />
+          <Icon name="ios-arrow-forward" style={[sg.fS20]} />
         </TouchableOpacity>
 
       </View>

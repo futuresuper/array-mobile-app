@@ -250,6 +250,8 @@ export default {
 
   // Text
   textColor: sc.color.dark3,
+  textColor2: sc.color.dark2,
+  textColor3: sc.color.dark2,
   inverseTextColor: '#FFF',
   noteFontSize: 14,
   get defaultTextColor() {
@@ -293,6 +295,17 @@ export default {
   footerIconColor: sc.color.dark3,
   graphExampleColor: sc.color.containerBgColor,
   iconColor: sc.color.dark,
+
+  btnDisabledIcon: sc.color.white,
   buttonPrimaryTextColor: sc.color.dark3,
+  buttonDark5: {
+    backgroundColor: sc.color.dark5,
+    textColor: sc.color.white,
+  },
+  btnDisabled: {
+    iconColor: sc.color.white,
+  },
+
   borderColor: sc.color.gray6,
+  borderColorList: sc.color.gray2,
 };

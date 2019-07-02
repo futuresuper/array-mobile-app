@@ -56,6 +56,7 @@ class Api extends Component {
     }
 
     if (signInErr.code !== 'UserNotFoundException') {
+      this.ApiInstance.spinnerHide();
       throw signInErr;
     }
 

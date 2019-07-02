@@ -119,7 +119,7 @@ export const tabCardOptions = {
         paddingTop: isIOSv ? undefined : 30,
       },
       headerTitleStyle: {
-        color: sc.color.dark3,
+        color: theme.textColor,
         fontFamily: sc.font.bold,
         fontWeight: null,
         ...headerTitleStyle,

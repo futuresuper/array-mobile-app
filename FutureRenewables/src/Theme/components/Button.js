@@ -35,10 +35,10 @@ export default (variables /*: * */ = variable) => {
       color: variables.buttonPrimaryTextColor,
     },
     "NativeBase.Icon": {
-      color: styleConstants.color.dark3,
+      color: variables.buttonPrimaryTextColor,
     },
     "NativeBase.IconNB": {
-      color: styleConstants.color.dark3,
+      color: variables.buttonPrimaryTextColor,
     }
   };
   const successCommon = {
@@ -122,10 +122,10 @@ export default (variables /*: * */ = variable) => {
         }
       },
       "NativeBase.Icon": {
-        color: variables.brandLight
+        color: variables.btnDisabled.iconColor,
       },
       "NativeBase.IconNB": {
-        color: variables.brandLight
+        color: variables.btnDisabled.iconColor,
       },
       backgroundColor: variables.btnDisabledBg
     },
@@ -303,12 +303,12 @@ export default (variables /*: * */ = variable) => {
         ...gray4Common,
       },
       "NativeBase.Text": {
-        color: styleConstants.color.white,
+        color: variables.buttonDark5.textColor,
       },
       "NativeBase.Icon": {
-        color: styleConstants.color.white,
+        color: variables.buttonDark5.textColor,
       },
-      backgroundColor: styleConstants.color.dark5,
+      backgroundColor: variables.buttonDark5.backgroundColor,
     },
 
     ".block": {
