@@ -121,3 +121,5 @@ export const rgbaByHex = (hexInp, opacity) => {
   const res = `rgba(${r}, ${g}, ${b}, ${opacity})`;
   return res;
 };
+
+export const ucFirst = string => string.charAt(0).toUpperCase() + string.slice(1);

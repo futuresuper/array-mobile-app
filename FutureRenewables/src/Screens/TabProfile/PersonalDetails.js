@@ -145,56 +145,56 @@ class PersonalDetails extends Component {
         <Input
           disabled
           label="Name"
-          labelGray
           value={`${form.firstName.value} ${details.lastName}`}
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
 
         <Input
           disabled
           label="Email"
-          labelGray
           value={details.email}
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
 
         <Input
           disabled
           label="Address"
-          labelGray
           value={details.address}
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
 
         <Input
           disabled
           label="TFN"
-          labelGray
           value={details.tfn}
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
 
         <Input
           disabled
           label="Touch / Face ID"
-          labelGray
           value={details.touchFaceId ? 'On' : 'Off'}
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
 
         <Input
           disabled
           label="Pin"
-          labelGray
           value={details.pin}
           secureTextEntry
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
       </View>
     );
@@ -209,7 +209,6 @@ class PersonalDetails extends Component {
         <Input
           disabled
           label="Name"
-          labelGray
           value={`${form.firstName.value} ${form.lastName.value}`}
           style={[styles.input, sg.colorGray12]}
           containerStyle={styles.inputContainer}
@@ -219,10 +218,10 @@ class PersonalDetails extends Component {
           formData={form}
           formKey="email"
           label="Email"
-          labelGray
           style={styles.input}
           containerStyle={styles.inputContainer}
           onChangeText={hocs.handleInput}
+          color2
         />
 
         <Input
@@ -233,12 +232,12 @@ class PersonalDetails extends Component {
           style={styles.input}
           containerStyle={styles.inputContainer}
           onChangeText={hocs.handleInput}
+          color2
         />
 
         <Input
           disabled
           label="TFN"
-          labelGray
           value={form.tfn.value}
           style={[styles.input, sg.colorGray12]}
           containerStyle={styles.inputContainer}
@@ -248,7 +247,6 @@ class PersonalDetails extends Component {
           formData={form}
           formKey="touchFaceId"
           label="Touch / Face ID"
-          labelGray
           title={form.touchFaceId.value ? 'On' : 'Off'}
           onPress={hocs.handleCheckBox}
         />
@@ -257,7 +255,6 @@ class PersonalDetails extends Component {
           formData={form}
           formKey="pin"
           label="Pin"
-          labelGray
           style={[styles.input]}
           onChangeText={hocs.handleInput}
           secureTextEntry
@@ -294,7 +291,7 @@ class PersonalDetails extends Component {
     return (
       <Content bounces={false}>
 
-        <Br style={[sg.mT20, sg.mB15, sg.contentMarginH2]} color={sc.color.gray2} width={1} />
+        <Br style={[sg.mT20, sg.mB15, sg.contentMarginH2]} brList width={1} />
 
         <View style={sg.contentMarginH2}>
           {isEdit

@@ -252,6 +252,7 @@ export default {
   textColor: sc.color.dark3,
   textColor2: sc.color.dark2,
   textColor3: sc.color.dark2,
+  textColor4: sc.color.dark3,
   inverseTextColor: '#FFF',
   noteFontSize: 14,
   get defaultTextColor() {
@@ -295,9 +296,14 @@ export default {
   footerIconColor: sc.color.dark3,
   graphExampleColor: sc.color.containerBgColor,
   iconColor: sc.color.dark,
+  iconColor0: sc.color.dark3,
 
   btnDisabledIcon: sc.color.white,
   buttonPrimaryTextColor: sc.color.dark3,
+  buttonDark3: {
+    borderColor: sc.color.dark3,
+    textColor: sc.color.dark3,
+  },
   buttonDark5: {
     backgroundColor: sc.color.dark5,
     textColor: sc.color.white,
@@ -307,5 +313,16 @@ export default {
   },
 
   borderColor: sc.color.gray6,
+  borderColor2: sc.color.gray1,
+  borderColor3: sc.color.primary,
   borderColorList: sc.color.gray2,
+
+  labelColor: sc.color.dark3,
+  labelGrayColor: 'red',
+
+  pickerListBg: sc.color.white,
+
+  toast: {
+    defaultBg: sc.color.white,
+  },
 };

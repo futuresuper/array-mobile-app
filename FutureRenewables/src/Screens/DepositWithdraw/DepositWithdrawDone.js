@@ -23,8 +23,8 @@ class DepositWithdrawDone extends Component {
     const { navigation, screenProps } = this.props;
     const depositMessage = (
       <View style={[sg.row, sg.center]}>
-        <Text style={[sg.fS16, sg.fontMedium, sg.colorDark3]}>Deposit recieved.</Text>
-        <Text style={[sg.fS16, sg.colorDark3]}> Nice one Grace!</Text>
+        <Text style={[sg.fS16, sg.fontMedium]}>Deposit recieved.</Text>
+        <Text style={[sg.fS16]}> Nice one Grace!</Text>
       </View>
     );
 
@@ -40,7 +40,7 @@ class DepositWithdrawDone extends Component {
       <Content padder contentContainerStyle={sg.spaceBetween}>
 
         <View style={[styles.doneTextBl]}>
-          <Text style={styles.doneText}>
+          <Text style={styles.doneText} color2>
             Confirming you&apos;d like to invest
             <Text style={styles.doneTextBold}> $20 monthly </Text>
             from your

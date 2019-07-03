@@ -178,7 +178,7 @@ export default (variables /*: * */ = variable) => {
       ".dark3": {
         ...gray4Common,
         backgroundColor: "transparent",
-        borderColor: styleConstants.color.dark3,
+        borderColor: variables.buttonDark3.borderColor,
         borderWidth: variables.borderWidth * 2,
       },
       ".disabled": {
@@ -377,7 +377,7 @@ export default (variables /*: * */ = variable) => {
         ...gray4Common,
         backgroundColor: null,
         "NativeBase.Text": {
-          color: styleConstants.color.dark3,
+          color: variables.buttonDark3.textColor,
         },
       },
       ".disabled": {

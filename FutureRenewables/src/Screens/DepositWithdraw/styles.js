@@ -5,13 +5,12 @@ import {
 
 export default {
   tabText: {
-    color: sc.color.dark2,
-    fontFamily: sc.font.bold,
+    color: sc.color.gray11,
+    fontFamily: sc.font.regular,
   },
   tabTextActive: {
-    // color: sc.color.gray11,
     fontSize: 20,
-    fontFamily: sc.font.regular,
+    fontFamily: sc.font.bold,
     marginLeft: 0,
     marginRight: 0,
     paddingLeft: 0,
@@ -24,7 +23,6 @@ export default {
     justifyContent: 'center',
   },
   doneText: {
-    color: sc.color.dark2,
     fontSize: 24,
     lineHeight: 36,
     fontFamily: sc.font.regular,

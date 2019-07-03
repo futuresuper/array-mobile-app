@@ -698,7 +698,6 @@ export default {
     paddingBottom: 80,
   },
   pickerItemText: {
-    color: styleConstants.color.dark2,
     fontSize: 20,
     fontFamily: styleConstants.font.bold,
   },
@@ -707,12 +706,10 @@ export default {
     fontSize: 18,
   },
   pickerItemAddText: {
-    color: styleConstants.color.dark3,
     fontSize: 18,
     fontFamily: styleConstants.font.medium,
   },
   pickerItemAddIcon: {
-    color: styleConstants.color.dark3,
   },
   contentPadding: {
     padding: styleConstants.contentPadding,
@@ -765,7 +762,6 @@ export default {
     paddingBottom: 3,
   },
   formLabel: {
-    color: styleConstants.color.dark3,
     fontSize: 16,
     fontFamily: styleConstants.font.regular,
     lineHeight: 16,
@@ -825,12 +821,17 @@ export default {
   },
   tabProfileTitle: {
     fontSize: 20,
-    color: styleConstants.color.dark2,
   },
   tintColor(tintColor) {
     return { tintColor };
   },
   borderColor(borderColor) {
     return { borderColor };
+  },
+  borderColorPrimary: {
+    borderColor: styleConstants.color.primary,
+  },
+  borderColorDark3: {
+    borderColor: styleConstants.color.dark3,
   },
 };

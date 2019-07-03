@@ -2,11 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Image,
 } from 'react-native';
 import {
   Button,
 } from 'native-base';
+
+import Image from 'src/Components/Image';
 
 import {
   sg,
@@ -25,7 +26,7 @@ const EditButton = (props) => {
       {...props}
       style={[sg.contentMarginRight, sg.aSCenter, style]}
     >
-      <Image source={EditIcon} />
+      <Image source={EditIcon} color0 />
     </Button>
   );
 };

@@ -77,27 +77,6 @@ class AppIndex extends Component {
     this.AlertComp.showDialog(options);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  toast(text, configInp = {}) {
-    const config = {
-      type: 'default',
-      ...configInp,
-    };
-
-    Toast.show({
-      text,
-      position: 'top',
-      duration: 3000,
-      ...config,
-    });
-  }
-
-  toastDanger(text) {
-    this.toast(text, {
-      type: 'danger',
-    });
-  }
-
   navigateTo(route_name, params = {}) {
     const { navigateToConnect } = this.props;
     navigateToConnect(route_name, params);
@@ -155,6 +134,26 @@ class AppIndex extends Component {
   }
 
   getTheme = () => ThemeService.getTheme()
+
+  toast(text, configInp = {}) {
+    const config = {
+      type: 'default',
+      ...configInp,
+    };
+
+    Toast.show({
+      text,
+      position: 'top',
+      duration: 3000,
+      ...config,
+    });
+  }
+
+  toastDanger(text) {
+    this.toast(text, {
+      type: 'danger',
+    });
+  }
 
   render() {
     const { dark } = this.state;

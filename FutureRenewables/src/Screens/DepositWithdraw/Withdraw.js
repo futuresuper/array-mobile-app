@@ -95,7 +95,8 @@ class Withdraw extends Component {
           formKey="amount"
           onChangeText={hocs.handleInput}
           keyboardType="numeric"
-          style={[sg.fS24, sg.colorDark2]}
+          style={[sg.fS24]}
+          color2
         />
 
         <Item

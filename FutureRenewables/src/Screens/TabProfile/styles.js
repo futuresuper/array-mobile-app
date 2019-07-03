@@ -26,7 +26,6 @@ export default {
     fontSize: 22,
   },
   input: {
-    color: sc.color.dark2,
     fontSize: 20,
     lineHeight: 22,
   },

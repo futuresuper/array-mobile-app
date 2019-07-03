@@ -11,7 +11,6 @@ const isIOSc = isIOS();
 
 export default {
   container: {
-    backgroundColor: sc.color.dark,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -25,7 +24,6 @@ export default {
     justifyContent: 'flex-start',
   },
   default: {
-    backgroundColor: sc.color.white,
   },
   danger: {
     backgroundColor: sc.color.danger,

@@ -6,8 +6,9 @@ import {
 export default {
   container: {
     alignSelf: 'center',
+  },
+  subContainer: {
     borderBottomWidth: 1,
-    borderBottomColor: sc.color.primary,
     marginTop: 8,
     paddingBottom: 2,
   },

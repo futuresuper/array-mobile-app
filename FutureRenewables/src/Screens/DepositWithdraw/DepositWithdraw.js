@@ -73,7 +73,7 @@ class DepositWithdraw extends Component {
                 onPress={this.segmentDeposit}
                 style={[sg.mT0, sg.pT0, sg.heightNull]}
               >
-                <Text style={[styles.tabTextActive, (segment.isDeposit ? styles.tabText : {})]}>Deposit</Text>
+                <Text style={[styles.tabTextActive, (!segment.isDeposit ? styles.tabText : {})]}>Deposit</Text>
               </Button>
 
               <Button
@@ -81,7 +81,7 @@ class DepositWithdraw extends Component {
                 onPress={this.segmentWithdraw}
                 style={[sg.mT0, sg.pT0, sg.heightNull]}
               >
-                <Text style={[styles.tabTextActive, sg.mL10, (segment.isWithdraw ? styles.tabText : {})]}>Withdraw</Text>
+                <Text style={[styles.tabTextActive, sg.mL10, (!segment.isWithdraw ? styles.tabText : {})]}>Withdraw</Text>
               </Button>
             </View>
 

@@ -15,6 +15,7 @@ import {
   Label,
   Icon,
   Col,
+  View as ViewNB,
 } from 'native-base';
 
 import {
@@ -139,20 +140,21 @@ class Picker extends Component {
     }
 
     res = (
-      <View style={[styles.listItemBl, (index > 0) ? styles.listItemBlBorder : {}]}>
+      <ViewNB style={[styles.listItemBl, (index > 0) ? styles.listItemBlBorder : {}]} br2>
         {res}
-      </View>
+      </ViewNB>
     );
 
     return res;
   }
 
   renderList() {
-    const { list } = this.props;
+    const { list, extraData } = this.props;
 
     return (
       <FlatList
         data={list}
+        extraData={extraData}
         keyExtractor={(item, index) => `${index}`}
         renderItem={this.renderItem}
         style={{
@@ -188,7 +190,7 @@ class Picker extends Component {
           }}
         >
           <Col>
-            <Text style={[styles.title, titleStyle]}>{titleState || title}</Text>
+            <Text style={[styles.title, titleStyle]} color2>{titleState || title}</Text>
           </Col>
           <Icon name="ios-arrow-down" style={styles.icon} />
         </TouchableOpacity>
@@ -207,9 +209,9 @@ class Picker extends Component {
             >
 
               <View style={[styles.listBl]}>
-                <View style={[styles.listSubBl, positionStyle]} onLayout={this.calcPosition}>
+                <ViewNB style={[styles.listSubBl, positionStyle]} onLayout={this.calcPosition} bgPicker>
                   {this.renderList()}
-                </View>
+                </ViewNB>
               </View>
 
             </TouchableWithoutFeedback>
@@ -229,6 +231,7 @@ Picker.defaultProps = {
   list: [],
   renderItem: () => null,
   onPressItem: () => null,
+  extraData: undefined,
 };
 
 Picker.propTypes = {
@@ -239,6 +242,7 @@ Picker.propTypes = {
   list: PropTypes.array,
   renderItem: PropTypes.func,
   onPressItem: PropTypes.func,
+  extraData: PropTypes.object,
 };
 
 export default Picker;

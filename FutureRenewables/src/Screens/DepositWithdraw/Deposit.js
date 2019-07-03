@@ -95,7 +95,7 @@ class Deposit extends Component {
   }
 
   render() {
-    const { hocs } = this.props;
+    const { hocs, screenProps } = this.props;
     const { form } = hocs;
     const { frequencyList } = this.state;
     let { accountList } = this.state;
@@ -112,13 +112,15 @@ class Deposit extends Component {
           formKey="amount"
           onChangeText={hocs.handleInput}
           keyboardType="numeric"
-          style={[sg.fS24, sg.colorDark2]}
+          style={[sg.fS24]}
+          color2
         />
 
         <Item
           style={[sg.noBorder]}
         >
           <Picker
+            extraData={screenProps.theme}
             formData={form}
             formKey="from"
             label="From"
@@ -133,14 +135,14 @@ class Deposit extends Component {
                     }}
                   >
                     <Text style={sg.pickerItemAddText}>{item.name}</Text>
-                    <Icon name="add" style={sg.pickerItemAddIcon} />
+                    <Icon name="add" style={sg.pickerItemAddIcon} color0 />
                   </View>
                 );
               }
 
               return (
                 <View>
-                  <Text style={sg.pickerItemText}>{item.name}</Text>
+                  <Text style={sg.pickerItemText} color2>{item.name}</Text>
                   <Text style={sg.pickerItemText2}>{item.number}</Text>
                 </View>
               );

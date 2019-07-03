@@ -103,12 +103,12 @@ class ManageAccounts extends Component {
           <Grid>
             <Row>
               <Col style={[sg.flexNull]}>
-                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold, sg.colorDark2]}>{item.accountNickName}</Text>
+                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{item.accountNickName}</Text>
 
                 {complete && (
-                  <Text style={[sg.mL0, sg.fS16]}>
+                  <Text style={[sg.mL0, sg.fS16]} color4>
                     Balance:&nbsp;
-                    <Text>{item.balanceDollars}</Text>
+                    <Text color4>{item.balanceDollars}</Text>
                   </Text>
                 )}
               </Col>
@@ -145,7 +145,7 @@ class ManageAccounts extends Component {
         </List>
 
         <View style={[sg.footerBl, sg.contentPadding, sg.aICenter]}>
-          <H2 style={[sg.fS20, sg.colorDark2]}>Add a new Account</H2>
+          <H2 style={[sg.fS20]} color2>Add a new Account</H2>
 
           <Button
             bordered
@@ -169,6 +169,7 @@ class ManageAccounts extends Component {
             onPress={() => {
               BottomInfo.showFutureSuperAccount();
             }}
+            theme
           >
             What&apos;s a Future Super Account?
           </TextUnderline>

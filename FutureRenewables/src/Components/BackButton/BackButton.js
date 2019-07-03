@@ -48,7 +48,8 @@ const BackButton = (props) => {
       <Icon
         type={icon.type || undefined}
         name={icon.name}
-        style={[sg.colorDark3, icon.style || {}, iconStyle]}
+        style={[icon.style || {}, iconStyle]}
+        color0
       />
     </Button>
   );

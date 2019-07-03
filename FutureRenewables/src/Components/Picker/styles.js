@@ -21,7 +21,6 @@ export default {
     alignItems: 'flex-end',
   },
   title: {
-    color: sc.color.dark2,
     fontSize: 24,
     fontFamily: sc.font.bold,
     marginLeft: 0,
@@ -37,14 +36,13 @@ export default {
     position: 'absolute',
     maxHeight: (53 + StyleSheet.hairlineWidth) * 5,
     borderRadius: 2,
-    backgroundColor: sc.color.white,
     justifyContent: 'center',
     alignItems: 'center',
   },
   listItemBl: {
   },
   listItemBlBorder: {
-    borderColor: sc.color.gray1,
+    // borderColor: sc.color.gray1,
     borderTopWidth: 1,
   },
   listItemTouch: {

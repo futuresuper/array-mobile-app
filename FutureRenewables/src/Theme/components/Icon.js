@@ -6,6 +6,9 @@ export default (variables /*: * */ = variable) => {
   const iconTheme = {
     fontSize: variables.iconFontSize,
     color: variables.iconColor,
+    '.color0': {
+      color: variables.iconColor0,
+    },
   };
 
   return iconTheme;

@@ -10,6 +10,9 @@ export default (variables /*: * */ = variable) => {
     '.textCenter': {
       textAlign: 'center',
     },
+    '.color2': {
+      color: variables.textColor2,
+    },
     height: variables.inputHeightBase,
     color: variables.inputColor,
     paddingLeft: 0,

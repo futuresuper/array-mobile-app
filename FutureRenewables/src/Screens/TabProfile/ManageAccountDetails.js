@@ -197,6 +197,7 @@ class ManageAccountDetails extends Component {
           value={details.accountNickName || '-'}
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
 
         <Input
@@ -206,6 +207,7 @@ class ManageAccountDetails extends Component {
           value={details.bankAccountName || '-'}
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
 
         <Input
@@ -215,6 +217,7 @@ class ManageAccountDetails extends Component {
           value={details.distributions ? 'Reinvested' : '-'}
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
 
         <Input
@@ -224,6 +227,7 @@ class ManageAccountDetails extends Component {
           value={regularInvestmentAmmount}
           style={styles.input}
           containerStyle={styles.inputContainer}
+          color2
         />
 
         {details.complete && (
@@ -234,6 +238,7 @@ class ManageAccountDetails extends Component {
             value={details.admins}
             style={styles.input}
             containerStyle={styles.inputContainer}
+            color2
           />
         )}
       </View>
@@ -279,18 +284,16 @@ class ManageAccountDetails extends Component {
             formData={form}
             formKey="accountNickName"
             label="Nickname"
-            labelGray
             onChangeText={hocs.handleInput}
             style={styles.input}
             containerStyle={styles.inputContainer}
-            inputLineColor={sc.color.gray1}
+            color2
           />
 
           <PickerIngAccount
             formData={form}
             formKey="bankAccountName"
             label="Linked Bank Account"
-            labelGray
             title={form.bankAccountName.value}
             titleStyle={styles.input}
             containerStyle={styles.inputContainer}
@@ -298,18 +301,15 @@ class ManageAccountDetails extends Component {
               hocs.handlePicker(item.number, formKey, dataKey);
               hocs.setFormTitle(item.number, formKey, dataKey);
             }}
-            lineColor={sc.color.gray1}
           />
 
           <Switch
             formData={form}
             formKey="distributions"
             label="Distributions"
-            labelGray
             title="Reinvested"
             titleStyle={styles.input}
             onPress={hocs.handleCheckBox}
-            lineColor={sc.color.gray1}
           />
 
           <Input
@@ -321,7 +321,7 @@ class ManageAccountDetails extends Component {
             keyboardType="numeric"
             style={styles.input}
             containerStyle={styles.inputContainer}
-            inputLineColor={sc.color.gray1}
+            color2
           />
 
           <Input
@@ -331,7 +331,7 @@ class ManageAccountDetails extends Component {
             value={form.admins.value}
             style={styles.input}
             containerStyle={styles.inputContainer}
-            inputLineColor={sc.color.gray1}
+            color2
           />
         </View>
 
@@ -364,7 +364,7 @@ class ManageAccountDetails extends Component {
           : this.renderIncApp()
         }
 
-        <Br style={[sg.mT20, sg.mB15, sg.contentMarginH2]} color={sc.color.gray2} width={1} />
+        <Br style={[sg.mT20, sg.mB15, sg.contentMarginH2]} brList width={1} />
 
         <View style={[sg.contentMarginH, sg.flexGrow]}>
           <View style={sg.spaceBetween}>

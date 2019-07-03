@@ -23,7 +23,7 @@ const FutureSuperAccountInfo = () => (
       account?
     </H2>
 
-    <Text style={[sg.mT15, sg.textCenter]}>
+    <Text style={[sg.mT15, sg.colorDark2, sg.textCenter]}>
       Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
       totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
     </Text>
@@ -33,9 +33,9 @@ const FutureSuperAccountInfo = () => (
       bordered
       dark
       block
-      style={[sg.mV20]}
+      style={[sg.mV20, sg.borderColorDark3]}
     >
-      <Text>Start one now</Text>
+      <Text style={sg.colorDark3}>Start one now</Text>
     </Button>
 
     <TextUnderline>

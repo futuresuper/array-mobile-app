@@ -17,6 +17,9 @@ export default (variables /*: * */ = variable) => {
     '.color3': {
       color: variables.textColor3,
     },
+    '.color4': {
+      color: variables.textColor4,
+    },
   };
 
   return textTheme;

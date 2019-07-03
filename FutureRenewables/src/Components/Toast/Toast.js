@@ -9,7 +9,12 @@ import {
   Button,
   Text,
   Icon,
+  View as ViewNB,
 } from 'native-base';
+
+import {
+  ucFirst,
+} from 'src/Common/Helpers';
 
 import styles from './styles';
 
@@ -140,10 +145,13 @@ class Toast extends Component {
     } = this.state;
 
     if (modalVisible) {
+      const tastBg = `bgToast${ucFirst(type)}`;
+
       return (
         <Animated.View style={this.getToastStyle()}>
-          <View
+          <ViewNB
             style={[styles.container, styles[type], style]}
+            {...{ [tastBg]: true }}
           >
             <View style={styles.subContainer}>
               {iconName && <Icon type={iconType} name={iconName} style={styles.icon} />}
@@ -168,7 +176,7 @@ class Toast extends Component {
                 </Text>
               </Button>
             )}
-          </View>
+          </ViewNB>
         </Animated.View>
       );
     }

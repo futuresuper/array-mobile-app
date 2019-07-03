@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import {
   Text,
+  View as ViewNB,
 } from 'native-base';
 
 import {
@@ -15,14 +16,21 @@ import {
 import styles from './styles';
 
 const TextUnderline = (props) => {
-  const { children, style, styleText } = props;
+  const {
+    children,
+    style,
+    styleText,
+    theme,
+  } = props;
 
   return (
     <TouchableOpacity
       {...props}
       style={[styles.container, style]}
     >
-      <Text style={[styles.text, sg.colorDark3, styleText]} underline>{children}</Text>
+      <ViewNB style={[styles.subContainer, (theme ? {} : sg.borderColorPrimary)]} br3={theme}>
+        <Text style={[styles.text, (theme ? {} : sg.colorDark3), styleText]} underline color4={theme}>{children}</Text>
+      </ViewNB>
     </TouchableOpacity>
   );
 };
@@ -30,6 +38,7 @@ const TextUnderline = (props) => {
 TextUnderline.defaultProps = {
   style: {},
   styleText: {},
+  theme: false,
 };
 
 TextUnderline.propTypes = {
@@ -42,6 +51,7 @@ TextUnderline.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]),
+  theme: PropTypes.bool,
 };
 
 export default TextUnderline;

@@ -97,11 +97,11 @@ class TabProfile extends Component {
             <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />
 
             <View style={[sg.row, sg.mT25, sg.mB15]}>
-              <H2 style={sg.colorDark2}>
+              <H2 color2>
                 {user.firstName}
                 &nbsp;
               </H2>
-              <H2 style={sg.colorDark2}>{user.lastName}</H2>
+              <H2 color2>{user.lastName}</H2>
             </View>
 
             <Text style={[sg.colorGray11, sg.fS14]}>{`Member since ${memberSince}`}</Text>
