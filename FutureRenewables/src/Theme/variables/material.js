@@ -253,6 +253,7 @@ export default {
   textColor2: sc.color.dark2,
   textColor3: sc.color.dark2,
   textColor4: sc.color.dark3,
+  textColor5: sc.color.gray12,
   inverseTextColor: '#FFF',
   noteFontSize: 14,
   get defaultTextColor() {

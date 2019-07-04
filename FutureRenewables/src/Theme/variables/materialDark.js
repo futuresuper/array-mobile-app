@@ -14,6 +14,7 @@ export default {
   textColor2: sc.color.white,
   textColor3: sc.color.gray12,
   textColor4: sc.color.gray11,
+  textColor5: sc.color.gray11,
 
   footerIconColor: sc.color.white,
   graphExampleColor: sc.color.containerBgColor2,

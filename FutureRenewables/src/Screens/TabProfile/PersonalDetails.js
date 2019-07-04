@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   View,
 } from 'react-native';
@@ -24,7 +23,6 @@ import EditButton from 'src/Components/EditButton';
 
 import {
   sg,
-  sc,
 } from 'src/Styles';
 
 import styles from './styles';
@@ -210,8 +208,8 @@ class PersonalDetails extends Component {
           disabled
           label="Name"
           value={`${form.firstName.value} ${form.lastName.value}`}
-          style={[styles.input, sg.colorGray12]}
           containerStyle={styles.inputContainer}
+          color5
         />
 
         <Input
@@ -239,8 +237,8 @@ class PersonalDetails extends Component {
           disabled
           label="TFN"
           value={form.tfn.value}
-          style={[styles.input, sg.colorGray12]}
           containerStyle={styles.inputContainer}
+          color5
         />
 
         <Switch
@@ -249,13 +247,15 @@ class PersonalDetails extends Component {
           label="Touch / Face ID"
           title={form.touchFaceId.value ? 'On' : 'Off'}
           onPress={hocs.handleCheckBox}
+          titleStyle={sg.colorDark2}
         />
 
         <Input
+          key={123}
           formData={form}
           formKey="pin"
           label="Pin"
-          style={[styles.input]}
+          style={[styles.input, sg.colorDark3]}
           onChangeText={hocs.handleInput}
           secureTextEntry
         />

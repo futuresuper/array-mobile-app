@@ -3,12 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {
-  View,
-} from 'react-native';
-import {
   Grid,
   Row,
-  Col,
   Item,
   Label,
   Text,
@@ -21,7 +17,7 @@ import {
 } from 'src/Styles';
 
 class Switch extends Component {
-  onPress(state) {
+  onPress() {
     const { onPress, formKey, dataKey } = this.props;
     if (onPress) {
       onPress(formKey, dataKey);

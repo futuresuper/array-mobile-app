@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   View,
   FlatList,
-  TouchableOpacity,
 } from 'react-native';
 
 import {

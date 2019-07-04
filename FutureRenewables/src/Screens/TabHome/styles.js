@@ -75,6 +75,8 @@ export default {
     alignSelf: 'center',
     position: 'absolute',
     bottom: -75,
+    width: 381,
+    height: 290,
   },
   impact: {
   },

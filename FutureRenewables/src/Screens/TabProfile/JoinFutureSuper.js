@@ -22,7 +22,7 @@ class JoinFutureSuper extends Component {
   render() {
     return (
       <Content padder contentContainerStyle={[sg.flexGrow, sg.center, sg.pB80]}>
-        <Text style={[sg.headingM, sg.fS35]}>
+        <Text style={[sg.headingM, sg.fS35, sg.colorDark3]}>
           Want to
           {'\n'}
           invest even
@@ -32,7 +32,7 @@ class JoinFutureSuper extends Component {
           renewables?
         </Text>
 
-        <Text style={[sg.colorDark3, sg.textCenter, sg.mT25, sg.mB80]}>
+        <Text style={[sg.textCenter, sg.mT25, sg.mB80]}>
           Join Future Super to invest
           {'\n'}
           your super in ethical and

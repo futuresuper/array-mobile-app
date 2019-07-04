@@ -31,12 +31,17 @@ import Balance from 'src/Components/Balance';
 import {
   routeNames,
 } from 'src/Navigation';
+import {
+  getTimeLapse,
+} from 'src/Common/Helpers';
+import moment from 'src/Common/moment';
 
 import GraphExample from 'src/assets/images/GraphExample.png';
 import CircleSunrise from 'src/assets/images/CircleSunrise.png';
-// import CircleDay from 'src/assets/images/CircleDay.png';
-// import CircleSunset from 'src/assets/images/CircleSunset.png';
+import CircleDay from 'src/assets/images/CircleDay.png';
+import CircleSunset from 'src/assets/images/CircleSunset.png';
 // import CircleNight from 'src/assets/images/CircleNight.png';
+import CircleNight2 from 'src/assets/images/CircleNight2.png';
 
 import {
   content as contentTest,
@@ -64,6 +69,7 @@ class TabHome extends Component {
 
     this.state = {
       content: contentTest,
+      currentTime: moment().format(),
       article: {
         visible: false,
         item: null,
@@ -109,6 +115,31 @@ class TabHome extends Component {
         },
       });
     }
+  }
+
+  renderGlow() {
+    const { screenProps } = this.props;
+    const { currentTime } = this.state;
+    const timeLapse = getTimeLapse(currentTime);
+    let image = CircleNight2;
+
+    if (timeLapse.isSunrise) {
+      image = CircleSunrise;
+
+      // screenProps.setLightTheme();
+    } else if (timeLapse.isDay) {
+      image = CircleDay;
+
+      // screenProps.setLightTheme();
+    } else if (timeLapse.isSunset) {
+      image = CircleSunset;
+
+      // screenProps.setDarkTheme();
+    } else {
+      // screenProps.setDarkTheme();
+    }
+
+    return <Image source={image} style={styles.circleDay} />;
   }
 
   renderContentItemSmall(item) {
@@ -245,7 +276,7 @@ class TabHome extends Component {
           </View>
 
           <View style={styles.graphBl}>
-            <Image source={CircleSunrise} style={styles.circleDay} />
+            {this.renderGlow()}
             <Image source={GraphExample} style={[styles.graphExample, sg.tintColor(theme.graphExampleColor)]} />
 
             <View style={styles.graphBottomLine} />

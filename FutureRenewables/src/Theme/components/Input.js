@@ -13,6 +13,9 @@ export default (variables /*: * */ = variable) => {
     '.color2': {
       color: variables.textColor2,
     },
+    '.color5': {
+      color: variables.textColor5,
+    },
     height: variables.inputHeightBase,
     color: variables.inputColor,
     paddingLeft: 0,

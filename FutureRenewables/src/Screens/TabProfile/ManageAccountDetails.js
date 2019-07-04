@@ -32,7 +32,6 @@ import EditButton from 'src/Components/EditButton';
 
 import {
   sg,
-  sc,
 } from 'src/Styles';
 
 import styles from './styles';

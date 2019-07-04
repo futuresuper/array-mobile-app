@@ -104,6 +104,11 @@ class AppIndex extends Component {
   }
 
   setDarkTheme = () => {
+    const { dark } = this.state;
+    if (dark) {
+      return;
+    }
+
     ThemeService.setDark();
     this.setState({
       dark: true,
@@ -114,6 +119,11 @@ class AppIndex extends Component {
   }
 
   setLightTheme = () => {
+    const { dark } = this.state;
+    if (!dark) {
+      return;
+    }
+
     ThemeService.setLight();
     this.setState({
       dark: false,
