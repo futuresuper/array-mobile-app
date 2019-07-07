@@ -80,6 +80,8 @@ class TabProfile extends Component {
 
   logOut = () => {
     const { screenProps } = this.props;
+
+    screenProps.disableTheme();
     screenProps.Api.logOut();
   }
 
@@ -112,20 +114,6 @@ class TabProfile extends Component {
         <View>
           <List style={sg.contentMarginLeft}>
             <ListItem style={[sg.pT15, sg.mL0]} />
-
-            <ListItem
-              onPress={() => {
-                screenProps.toogleTheme();
-              }}
-              style={[sg.pT20, sg.pB20, sg.mL0, sg.pR30]}
-            >
-              <Left>
-                <Text style={[sg.fontMedium]}>Switch theme</Text>
-              </Left>
-              <Right>
-                <Icon name="ios-arrow-forward" />
-              </Right>
-            </ListItem>
 
             <FlatList
               extraData={screenProps.theme}

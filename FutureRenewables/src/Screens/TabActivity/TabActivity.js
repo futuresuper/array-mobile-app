@@ -16,17 +16,10 @@ import {
 import Br from 'src/Components/Br';
 import BottomInfo from 'src/Components/BottomInfo';
 import Balance from 'src/Components/Balance';
-import {
-  getTimeLapse,
-} from 'src/Common/Helpers';
 import moment from 'src/Common/moment';
+import SunGlow from 'src/Components/SunGlow';
 
 import GraphExample2 from 'src/assets/images/GraphExample2.png';
-import CircleSunrise from 'src/assets/images/CircleSunrise.png';
-import CircleDay from 'src/assets/images/CircleDay.png';
-import CircleSunset from 'src/assets/images/CircleSunset.png';
-// import CircleNight from 'src/assets/images/CircleNight.png';
-import CircleNight2 from 'src/assets/images/CircleNight2.png';
 
 import {
   sg,
@@ -68,28 +61,9 @@ class TabActivity extends Component {
   }
 
   renderGlow() {
-    const { screenProps } = this.props;
     const { currentTime } = this.state;
-    const timeLapse = getTimeLapse(currentTime);
-    let image = CircleNight2;
 
-    if (timeLapse.isSunrise) {
-      image = CircleSunrise;
-
-      // screenProps.setLightTheme();
-    } else if (timeLapse.isDay) {
-      image = CircleDay;
-
-      // screenProps.setLightTheme();
-    } else if (timeLapse.isSunset) {
-      image = CircleSunset;
-
-      // screenProps.setDarkTheme();
-    } else {
-      // screenProps.setDarkTheme();
-    }
-
-    return <Image source={image} style={styles.activityCircleDay} />;
+    return <SunGlow currentTime={currentTime} style={styles.activityCircleDay} {...this.props} />;
   }
 
   renderChart() {

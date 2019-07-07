@@ -47,6 +47,8 @@ export default {
   activityCircleDay: {
     position: 'absolute',
     bottom: -130,
+    width: 381,
+    height: 290,
   },
   activityInvTitle: {
     borderBottomWidth: 1,

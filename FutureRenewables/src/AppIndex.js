@@ -31,6 +31,7 @@ import {
 
 import {
   navGetParam,
+  getTimeLapse,
 } from 'src/Common/Helpers';
 
 import Api from 'src/Common/Api';
@@ -41,10 +42,6 @@ import {
   navigateTo,
   routeBack,
 } from 'src/Redux/Nav';
-
-import {
-  sc,
-} from 'src/Styles';
 
 class AppIndex extends Component {
   constructor(props, context) {
@@ -75,32 +72,6 @@ class AppIndex extends Component {
 
   alert = (options) => {
     this.AlertComp.showDialog(options);
-  }
-
-  navigateTo(route_name, params = {}) {
-    const { navigateToConnect } = this.props;
-    navigateToConnect(route_name, params);
-  }
-
-  spinnerShow(config) {
-    this.Spinner.show(config);
-  }
-
-  spinnerHide() {
-    this.Spinner.hide();
-  }
-
-  routeBack(inp_back_screen = null, inp_params = null) {
-    const { navigation, routeBackConnect } = this.props;
-    let back_screen;
-
-    if (!_.isNil(inp_back_screen)) {
-      back_screen = inp_back_screen;
-    } else {
-      back_screen = navGetParam(navigation, 'back_screen');
-    }
-
-    routeBackConnect(back_screen, inp_params);
   }
 
   setDarkTheme = () => {
@@ -143,7 +114,47 @@ class AppIndex extends Component {
     }
   }
 
+  enableTheme = (currentTime) => {
+    const timeLapse = getTimeLapse(currentTime);
+
+    if (timeLapse.isSunrise || timeLapse.isDay) {
+      this.setLightTheme();
+    } else {
+      this.setDarkTheme();
+    }
+  }
+
+  disableTheme = () => {
+    this.setLightTheme();
+  }
+
   getTheme = () => ThemeService.getTheme()
+
+  navigateTo(route_name, params = {}) {
+    const { navigateToConnect } = this.props;
+    navigateToConnect(route_name, params);
+  }
+
+  spinnerShow(config) {
+    this.Spinner.show(config);
+  }
+
+  spinnerHide() {
+    this.Spinner.hide();
+  }
+
+  routeBack(inp_back_screen = null, inp_params = null) {
+    const { navigation, routeBackConnect } = this.props;
+    let back_screen;
+
+    if (!_.isNil(inp_back_screen)) {
+      back_screen = inp_back_screen;
+    } else {
+      back_screen = navGetParam(navigation, 'back_screen');
+    }
+
+    routeBackConnect(back_screen, inp_params);
+  }
 
   toast(text, configInp = {}) {
     const config = {
@@ -225,7 +236,8 @@ class AppIndex extends Component {
                 userInfo: this.userInfo,
                 setDarkTheme: this.setDarkTheme,
                 setLightTheme: this.setLightTheme,
-                toogleTheme: this.toogleTheme,
+                enableTheme: this.enableTheme,
+                disableTheme: this.disableTheme,
                 getTheme: this.getTheme,
                 Api,
                 theme: {

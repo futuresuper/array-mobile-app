@@ -1,7 +1,6 @@
 
 import {
   sc,
-  sg,
 } from 'src/Styles';
 
 export default {
