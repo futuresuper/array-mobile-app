@@ -33,6 +33,9 @@ import {
 } from 'src/Navigation';
 import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
+import {
+  LineChart,
+} from 'src/Components/ChartKit';
 
 import GraphExample from 'src/assets/images/GraphExample.png';
 
@@ -202,6 +205,48 @@ class TabHome extends Component {
     );
   }
 
+  renderChart() {
+    return (
+      <LineChart
+        data={{
+          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          datasets: [{
+            data: [
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100,
+              Math.random() * 100
+            ]
+          }]
+        }}
+        width={300} // from react-native
+        height={220}
+        yAxisLabel={'$'}
+        chartConfig={{
+          backgroundColor: 'blue',
+          // backgroundGradientFrom: '#fb8c00',
+          // backgroundGradientTo: '#ffa726',
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          style: {
+            borderRadius: 16
+          }
+        }}
+        bezier
+        style={{
+          marginVertical: 8,
+          borderRadius: 16
+        }}
+
+        // onDataPointClick={() => {
+        //   console.log('!!!outtap', {  });
+        // }}
+      />
+    );
+  }
+
   render() {
     const { screenProps } = this.props;
     const { content, article } = this.state;
@@ -233,6 +278,8 @@ class TabHome extends Component {
                 </Row>
               </Grid>
             </View>
+
+            {this.renderChart()}
 
             <Balance
               onPress={() => {
