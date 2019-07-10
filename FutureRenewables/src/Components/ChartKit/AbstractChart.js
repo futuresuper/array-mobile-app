@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-
+import {
+  Dimensions,
+} from 'react-native';
+import PropTypes from 'prop-types';
 import {
   LinearGradient,
   Line,
@@ -56,6 +59,15 @@ class AbstractChart extends Component {
     return height;
   }
 
+  getBackgroundGradient() {
+    const { setBackgroundGradient } = this.props;
+    if (setBackgroundGradient) {
+      return 'url(#backgroundGradient)';
+    }
+
+    return 'none';
+  }
+
   renderHorizontalLines = (config) => {
     const { chartConfig } = this.props;
     const {
@@ -108,7 +120,13 @@ class AbstractChart extends Component {
       chartConfig,
       yAxisLabel: yAxisLabelProps,
       fromZero,
+      renderHorizontalLabels,
     } = this.props;
+
+    if (!renderHorizontalLabels) {
+      return null;
+    }
+
     const {
       count,
       data,
@@ -148,7 +166,11 @@ class AbstractChart extends Component {
   }
 
   renderVerticalLabels = (config) => {
-    const { chartConfig } = this.props;
+    const { chartConfig, renderVerticalLabels } = this.props;
+    if (!renderVerticalLabels) {
+      return null;
+    }
+
     const {
       labels = [],
       width,
@@ -238,6 +260,10 @@ class AbstractChart extends Component {
       backgroundGradientTo,
     } = config;
 
+    if (!backgroundGradientFrom || !backgroundGradientTo) {
+      return null;
+    }
+
     return (
       <Defs>
         <LinearGradient
@@ -272,5 +298,22 @@ class AbstractChart extends Component {
     );
   }
 }
+
+AbstractChart.defaultProps = {
+  fromZero: false,
+  yAxisLabel: '',
+  renderVerticalLabels: false,
+  renderHorizontalLabels: false,
+  setBackgroundGradient: false,
+};
+
+AbstractChart.propTypes = {
+  chartConfig: PropTypes.object.isRequired,
+  fromZero: PropTypes.bool,
+  yAxisLabel: PropTypes.string,
+  renderVerticalLabels: PropTypes.bool,
+  renderHorizontalLabels: PropTypes.bool,
+  setBackgroundGradient: PropTypes.bool,
+};
 
 export default AbstractChart;

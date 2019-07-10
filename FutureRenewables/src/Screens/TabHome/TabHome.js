@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 
 import {
@@ -207,43 +208,51 @@ class TabHome extends Component {
 
   renderChart() {
     return (
-      <LineChart
-        data={{
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-          datasets: [{
-            data: [
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100
-            ]
-          }]
-        }}
-        width={300} // from react-native
-        height={220}
-        yAxisLabel={'$'}
-        chartConfig={{
-          backgroundColor: 'blue',
-          // backgroundGradientFrom: '#fb8c00',
-          // backgroundGradientTo: '#ffa726',
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16
-          }
-        }}
-        bezier
-        style={{
-          marginVertical: 8,
-          borderRadius: 16
-        }}
+      <View  style={{ width: 300 }}>
+        <LineChart
+          data={{
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [{
+              data: [
+                10,
+                50,
+                50,
+                80,
+                100,
+                60,
+              ],
+            }],
+          }}
+          // width={Dimensions.get('window').width} // from react-native
+          height={220}
+          yAxisLabel="$"
+          chartConfig={{
+            graphBackgroundColor: 'red',
+            backgroundColor: 'red',
+            // backgroundGradientFrom: 'red',
+            // backgroundGradientTo: 'green',
+            decimalPlaces: 1, // optional, defaults to 2dp
+            color: (opacity = 1) => `green`,
+            style: {
+              borderRadius: 16
+            }
+          }}
+          bezier
+          style={{
+            borderWidth: 2,
+            borderColor: 'red',
+            // marginVertical: 8,
+            // borderRadius: 16
+          }}
 
-        // onDataPointClick={() => {
-        //   console.log('!!!outtap', {  });
-        // }}
-      />
+          onDataPointClick={() => {
+            console.log('!!!outtap', {  });
+          }}
+          decorator={(hz) => {
+            console.log('!!!', { hz });
+          }}
+        />
+      </View>
     );
   }
 

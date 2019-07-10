@@ -65,6 +65,9 @@ export default {
   aSEnd: {
     alignSelf: 'flex-end',
   },
+  aSStretch: {
+    alignSelf: 'stretch',
+  },
   right: {
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
