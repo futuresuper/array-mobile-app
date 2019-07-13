@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Dimensions,
+  PanResponder,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -11,7 +11,57 @@ import {
   Stop,
 } from 'react-native-svg';
 
+import {
+  sc,
+} from 'src/Styles';
+
 class AbstractChart extends Component {
+  getConfig() {
+    const { chartConfig } = this.props;
+    const res = {
+      graphBackgroundColor: 'red',
+      backgroundColor: undefined,
+      backgroundGradientFrom: undefined,
+      backgroundGradientTo: undefined,
+      decimalPlaces: 2,
+      color: () => sc.color.containerBgColor,
+      colorDot: sc.color.primary,
+      label: {
+        fontSize: 14,
+        fontFamily: sc.font.medium,
+        color: sc.color.dark3,
+        ...chartConfig.label || {},
+      },
+      ...chartConfig,
+    };
+
+    return res;
+  }
+
+  getDotEvents() {
+    const { onDataPointClick, onLeftSwipeDot, onRightSwipeDot } = this.props;
+    const res = {};
+
+    if (onDataPointClick) {
+      res.onPress = () => {
+        console.log('!!!press', {  });
+      };
+    } else if (onLeftSwipeDot || onRightSwipeDot) {
+
+    }
+
+    return res;
+  }
+
+  getBackgroundGradient() {
+    const { setBackgroundGradient } = this.props;
+    if (setBackgroundGradient) {
+      return 'url(#backgroundGradient)';
+    }
+
+    return 'none';
+  }
+
   calcScaler = (data) => {
     const { fromZero } = this.props;
 
@@ -59,17 +109,28 @@ class AbstractChart extends Component {
     return height;
   }
 
-  getBackgroundGradient() {
-    const { setBackgroundGradient } = this.props;
-    if (setBackgroundGradient) {
-      return 'url(#backgroundGradient)';
-    }
+  heightDivider = () => 4
 
-    return 'none';
+  buildPanResponder() {
+    this.PanResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderRelease: (evt, gestureState) => {
+        const x = gestureState.dx;
+        const y = gestureState.dy;
+
+        if (Math.abs(x) > Math.abs(y)) {
+          if (x >= 0) {
+            this.onRightSwipeDot();
+          } else {
+            this.onLeftSwipeDot();
+          }
+        }
+      },
+    });
   }
 
   renderHorizontalLines = (config) => {
-    const { chartConfig } = this.props;
+    const chartConfig = this.getConfig();
     const {
       count,
       width,
@@ -82,9 +143,9 @@ class AbstractChart extends Component {
       <Line
         key={Math.random()}
         x1={paddingRight}
-        y1={(height / 4) * i + paddingTop}
+        y1={(height / this.heightDivider()) * i + paddingTop}
         x2={width}
-        y2={(height / 4) * i + paddingTop}
+        y2={(height / this.heightDivider()) * i + paddingTop}
         stroke={chartConfig.color(0.2)}
         strokeDasharray="5, 10"
         strokeWidth={1}
@@ -93,7 +154,7 @@ class AbstractChart extends Component {
   }
 
   renderHorizontalLine = (config) => {
-    const { chartConfig } = this.props;
+    const chartConfig = this.getConfig();
     const {
       width,
       height,
@@ -105,9 +166,9 @@ class AbstractChart extends Component {
       <Line
         key={Math.random()}
         x1={paddingRight}
-        y1={height - height / 4 + paddingTop}
+        y1={height - height / this.heightDivider() + paddingTop}
         x2={width}
-        y2={height - height / 4 + paddingTop}
+        y2={height - height / this.heightDivider() + paddingTop}
         stroke={chartConfig.color(0.2)}
         strokeDasharray="5, 10"
         strokeWidth={1}
@@ -117,11 +178,12 @@ class AbstractChart extends Component {
 
   renderHorizontalLabels = (config) => {
     const {
-      chartConfig,
       yAxisLabel: yAxisLabelProps,
       fromZero,
       renderHorizontalLabels,
     } = this.props;
+
+    const chartConfig = this.getConfig();
 
     if (!renderHorizontalLabels) {
       return null;
@@ -166,11 +228,12 @@ class AbstractChart extends Component {
   }
 
   renderVerticalLabels = (config) => {
-    const { chartConfig, renderVerticalLabels } = this.props;
+    const { renderVerticalLabels } = this.props;
     if (!renderVerticalLabels) {
       return null;
     }
 
+    const chartConfig = this.getConfig();
     const {
       labels = [],
       width,
@@ -206,7 +269,7 @@ class AbstractChart extends Component {
   }
 
   renderVerticalLines = (config) => {
-    const { chartConfig } = this.props;
+    const chartConfig = this.getConfig();
     const {
       data,
       width,
@@ -225,7 +288,7 @@ class AbstractChart extends Component {
         x2={Math.floor(
           ((width - paddingRight) / data.length) * i + paddingRight,
         )}
-        y2={height - height / 4 + paddingTop}
+        y2={height - height / this.heightDivider() + paddingTop}
         stroke={chartConfig.color(0.2)}
         strokeDasharray="5, 10"
         strokeWidth={1}
@@ -234,7 +297,7 @@ class AbstractChart extends Component {
   }
 
   renderVerticalLine = (config) => {
-    const { chartConfig } = this.props;
+    const chartConfig = this.getConfig();
     const { height, paddingTop, paddingRight } = config;
 
     return (
@@ -243,7 +306,7 @@ class AbstractChart extends Component {
         x1={Math.floor(paddingRight)}
         y1={0}
         x2={Math.floor(paddingRight)}
-        y2={height - height / 4 + paddingTop}
+        y2={height - height / this.heightDivider() + paddingTop}
         stroke={chartConfig.color(0.2)}
         strokeDasharray="5, 10"
         strokeWidth={1}
@@ -252,7 +315,7 @@ class AbstractChart extends Component {
   }
 
   renderDefs = (config) => {
-    const { chartConfig } = this.props;
+    const chartConfig = this.getConfig();
     const {
       width,
       height,
@@ -305,15 +368,25 @@ AbstractChart.defaultProps = {
   renderVerticalLabels: false,
   renderHorizontalLabels: false,
   setBackgroundGradient: false,
+  chartConfig: {},
+  activeDot: undefined,
+  onRightSwipeDot: null,
+  onLeftSwipeDot: null,
 };
 
 AbstractChart.propTypes = {
-  chartConfig: PropTypes.object.isRequired,
+  chartConfig: PropTypes.object,
   fromZero: PropTypes.bool,
   yAxisLabel: PropTypes.string,
   renderVerticalLabels: PropTypes.bool,
   renderHorizontalLabels: PropTypes.bool,
   setBackgroundGradient: PropTypes.bool,
+  // eslint-disable-next-line react/no-unused-prop-types
+  activeDot: PropTypes.string,
+  // eslint-disable-next-line react/no-unused-prop-types
+  onRightSwipeDot: PropTypes.func,
+  // eslint-disable-next-line react/no-unused-prop-types
+  onLeftSwipeDot: PropTypes.func,
 };
 
 export default AbstractChart;

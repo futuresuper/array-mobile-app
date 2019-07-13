@@ -208,14 +208,15 @@ class TabHome extends Component {
 
   renderChart() {
     return (
-      <View  style={{ width: 300 }}>
+      <View>
         <LineChart
           data={{
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'Hzune'],
             datasets: [{
               data: [
                 10,
                 50,
+                0,
                 50,
                 80,
                 100,
@@ -223,33 +224,26 @@ class TabHome extends Component {
               ],
             }],
           }}
-          // width={Dimensions.get('window').width} // from react-native
-          height={220}
-          yAxisLabel="$"
-          chartConfig={{
-            graphBackgroundColor: 'red',
-            backgroundColor: 'red',
-            // backgroundGradientFrom: 'red',
-            // backgroundGradientTo: 'green',
-            decimalPlaces: 1, // optional, defaults to 2dp
-            color: (opacity = 1) => `green`,
-            style: {
-              borderRadius: 16
-            }
-          }}
+          height={150}
+          // chartConfig={{
+          //   graphBackgroundColor: 'green',
+          //   // backgroundColor: 'red',
+          //   // backgroundGradientFrom: 'red',
+          //   // backgroundGradientTo: 'green',
+          //   // decimalPlaces: 1, // optional, defaults to 2dp
+          //   // color: () => 'red',
+          //   // colorDot: 'green',
+          // }}
           bezier
+          withDots
+          activeDot="April"
           style={{
             borderWidth: 2,
             borderColor: 'red',
-            // marginVertical: 8,
-            // borderRadius: 16
           }}
 
           onDataPointClick={() => {
             console.log('!!!outtap', {  });
-          }}
-          decorator={(hz) => {
-            console.log('!!!', { hz });
           }}
         />
       </View>
