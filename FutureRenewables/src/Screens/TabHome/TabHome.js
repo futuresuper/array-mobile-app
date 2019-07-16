@@ -71,6 +71,7 @@ class TabHome extends Component {
         visible: false,
         item: null,
       },
+      activeDot: 'Apr 1',
     };
   }
 
@@ -82,7 +83,7 @@ class TabHome extends Component {
       // backgroundColor: styles.containerBg.backgroundColor,
     });
 
-    screenProps.enableTheme(currentTime);
+    // screenProps.enableTheme(currentTime);
   }
 
   renderImpactItem = ({ number, text, suffix }, key) => (
@@ -207,46 +208,65 @@ class TabHome extends Component {
   }
 
   renderChart() {
+    const { activeDot } = this.state;
     return (
-      <View>
-        <LineChart
-          data={{
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'Hzune'],
-            datasets: [{
-              data: [
-                10,
-                50,
-                0,
-                50,
-                80,
-                100,
-                60,
-              ],
-            }],
-          }}
-          height={150}
-          // chartConfig={{
-          //   graphBackgroundColor: 'green',
-          //   // backgroundColor: 'red',
-          //   // backgroundGradientFrom: 'red',
-          //   // backgroundGradientTo: 'green',
-          //   // decimalPlaces: 1, // optional, defaults to 2dp
-          //   // color: () => 'red',
-          //   // colorDot: 'green',
-          // }}
-          bezier
-          withDots
-          activeDot="April"
-          style={{
-            borderWidth: 2,
-            borderColor: 'red',
-          }}
-
-          onDataPointClick={() => {
-            console.log('!!!outtap', {  });
-          }}
-        />
-      </View>
+      <LineChart
+        ref={(c) => {
+          if (c) this.LineChart = c;
+        }}
+        data={{
+          labels: ['Jan 1', 'Feb 23', 'Mar 8', 'Apr 1', 'May 9', 'Jun 12', 'Sep 1', 'Nov 4', 'Dec 31'],
+          datasets: [{
+            data: [
+              100,
+              500,
+              0,
+              500,
+              850,
+              1200,
+              670,
+              754,
+              501,
+            ],
+          }],
+        }}
+        height={120}
+        chartConfig={{
+          // paddingRight2: 0,
+        }}
+        // chartConfig={{
+        //   graphBackgroundColor: 'green',
+        //   // backgroundColor: 'red',
+        //   // backgroundGradientFrom: 'red',
+        //   // backgroundGradientTo: 'green',
+        //   // decimalPlaces: 1, // optional, defaults to 2dp
+        //   // color: () => 'red',
+        //   // colorDot: 'green',
+        // }}
+        bezier
+        withDots
+        activeDot={activeDot}
+        style={{
+          borderWidth: 2,
+          borderColor: 'red',
+        }}
+        onLeftSwipeDot={() => {
+          const prevDot = this.LineChart.getPreviousDot();
+          if (prevDot) {
+            this.setState({
+              activeDot: prevDot.label,
+            });
+          }
+        }}
+        onRightSwipeDot={() => {
+          const nextDot = this.LineChart.getNextDot();
+          if (nextDot) {
+            this.setState({
+              activeDot: nextDot.label,
+            });
+          }
+        }}
+      />
     );
   }
 
@@ -282,8 +302,6 @@ class TabHome extends Component {
               </Grid>
             </View>
 
-            {this.renderChart()}
-
             <Balance
               onPress={() => {
                 BottomInfo.showAccounts();
@@ -304,14 +322,15 @@ class TabHome extends Component {
 
           <View style={styles.graphBl}>
             {this.renderGlow()}
-            <Image source={GraphExample} style={[styles.graphExample, sg.tintColor(theme.graphExampleColor)]} />
+            {/* <Image source={GraphExample} style={[styles.graphExample, sg.tintColor(theme.graphExampleColor)]} /> */}
 
-            <View style={styles.graphBottomLine} />
+            {/* <View style={styles.graphBottomLine} />
             <View style={styles.graphPointBl}>
               <Text style={styles.graphPointText}>Feb 25</Text>
               <Icon type="FontAwesome" name="circle" style={[sg.fS15, sg.colorPrimary]} />
-            </View>
+            </View> */}
 
+            {this.renderChart()}
           </View>
 
         </View>

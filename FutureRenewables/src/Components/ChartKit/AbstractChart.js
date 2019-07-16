@@ -19,7 +19,7 @@ class AbstractChart extends Component {
   getConfig() {
     const { chartConfig } = this.props;
     const res = {
-      graphBackgroundColor: 'red',
+      graphBackgroundColor: sc.color.containerBgColor,
       backgroundColor: undefined,
       backgroundGradientFrom: undefined,
       backgroundGradientTo: undefined,
@@ -32,22 +32,86 @@ class AbstractChart extends Component {
         color: sc.color.dark3,
         ...chartConfig.label || {},
       },
+      paddingRight2: 16,
       ...chartConfig,
     };
 
     return res;
   }
 
-  getDotEvents() {
+  getData() {
+    const { data } = this.props;
+
+    if (!data.labels || !Array.isArray(data.labels)) {
+      data.labels = [];
+    }
+
+    return data;
+  }
+
+  getActiveDotIndex() {
+    const { activeDot } = this.props;
+    const {
+      labels,
+    } = this.getData();
+    let res = -1;
+
+    if (activeDot) {
+      res = labels.findIndex(item => item === activeDot);
+    }
+
+    return res;
+  }
+
+  getNextDot() {
+    let res;
+    const activeDotIndex = this.getActiveDotIndex();
+
+    if (activeDotIndex !== -1) {
+      res = this.getDotInfoByLabelIndex(activeDotIndex + 1);
+    }
+
+    return res;
+  }
+
+  getPreviousDot() {
+    let res;
+    const activeDotIndex = this.getActiveDotIndex();
+
+    if (activeDotIndex !== -1) {
+      res = this.getDotInfoByLabelIndex(activeDotIndex - 1);
+    }
+
+    return res;
+  }
+
+  getDotInfoByLabelIndex(index) {
+    const { labels, datasets } = this.getData();
+    let res;
+
+    if (labels[index]) {
+      const data = datasets[0].data.find((item, i) => i === index);
+
+      res = {
+        index,
+        label: labels[index],
+        data,
+      };
+    }
+
+    return res;
+  }
+
+  getDotEvents(...args) {
     const { onDataPointClick, onLeftSwipeDot, onRightSwipeDot } = this.props;
-    const res = {};
+    let res = {};
 
     if (onDataPointClick) {
       res.onPress = () => {
-        console.log('!!!press', {  });
+        onDataPointClick(...args);
       };
     } else if (onLeftSwipeDot || onRightSwipeDot) {
-
+      res = { ...this.PanResponder.panHandlers };
     }
 
     return res;
@@ -112,6 +176,8 @@ class AbstractChart extends Component {
   heightDivider = () => 4
 
   buildPanResponder() {
+    const { onRightSwipeDot, onLeftSwipeDot } = this.props;
+
     this.PanResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderRelease: (evt, gestureState) => {
@@ -120,9 +186,9 @@ class AbstractChart extends Component {
 
         if (Math.abs(x) > Math.abs(y)) {
           if (x >= 0) {
-            this.onRightSwipeDot();
+            onRightSwipeDot();
           } else {
-            this.onLeftSwipeDot();
+            onLeftSwipeDot();
           }
         }
       },
@@ -372,6 +438,7 @@ AbstractChart.defaultProps = {
   activeDot: undefined,
   onRightSwipeDot: null,
   onLeftSwipeDot: null,
+  onDataPointClick: null,
 };
 
 AbstractChart.propTypes = {
@@ -383,10 +450,10 @@ AbstractChart.propTypes = {
   setBackgroundGradient: PropTypes.bool,
   // eslint-disable-next-line react/no-unused-prop-types
   activeDot: PropTypes.string,
-  // eslint-disable-next-line react/no-unused-prop-types
   onRightSwipeDot: PropTypes.func,
-  // eslint-disable-next-line react/no-unused-prop-types
   onLeftSwipeDot: PropTypes.func,
+  onDataPointClick: PropTypes.func,
+  data: PropTypes.object.isRequired,
 };
 
 export default AbstractChart;

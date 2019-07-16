@@ -13,7 +13,6 @@ import {
   G,
   Text,
 } from 'react-native-svg';
-import _ from 'lodash';
 
 import {
   sg,
@@ -32,22 +31,6 @@ class LineChart extends AbstractChart {
     this.buildPanResponder();
   }
 
-  setNextDot() {
-    console.log('!!!next', { });
-  }
-
-  setPreviousDot() {
-    console.log('!!!previous', {  });
-  }
-
-  onRightSwipeDot() {
-    this.setNextDot();
-  }
-
-  onLeftSwipeDot() {
-    this.setPreviousDot();
-  }
-
   getColor = (dataset, opacity) => (dataset.color || this.getConfig().color)(opacity)
   getColorDot = () => (this.getConfig().colorDot || this.getColor())
 
@@ -62,25 +45,19 @@ class LineChart extends AbstractChart {
       return null;
     }
 
-    const panHandlers = { ...this.PanResponder.panHandlers };
     const {
       data,
       width,
       height,
       paddingTop,
       paddingRight,
-      onDataPointClick,
+      paddingRight2,
       labels,
       label,
     } = config;
     const output = [];
     const datas = this.getDatas(data);
-    let activeDotIndex = -1;
-
-    if (activeDot) {
-      activeDotIndex = labels.findIndex(item => item === activeDot);
-    }
-
+    const activeDotIndex = this.getActiveDotIndex();
 
     console.log('!!!', { config, datas, activeDot });
 
@@ -90,24 +67,13 @@ class LineChart extends AbstractChart {
           return false;
         }
 
-        const cx = paddingRight + (i * (width - paddingRight)) / dataset.data.length;
+        const cx = paddingRight + (i * (width - paddingRight2)) / (dataset.data.length - 1);
         const cy = (height / this.heightDivider())
             * 3
             * (1 - (x - Math.min(...datas)) / this.calcScaler(datas))
           + paddingTop - 0.5;
 
         const events = this.getDotEvents();
-        // const onPress = () => {
-        //   if (!onDataPointClick) {
-        //     return;
-        //   }
-
-        //   onDataPointClick({
-        //     value: x,
-        //     dataset,
-        //     getColor: opacity => this.getColor(dataset, opacity),
-        //   });
-        // };
 
         output.push(
           <Circle
@@ -253,6 +219,7 @@ class LineChart extends AbstractChart {
       width,
       height,
       paddingRight,
+      paddingRight2,
       paddingTop,
       data,
     } = config;
@@ -263,7 +230,7 @@ class LineChart extends AbstractChart {
 
     const datas = this.getDatas(data);
     const x = i => Math.floor(
-      paddingRight + (i * (width - paddingRight)) / dataset.data.length,
+      paddingRight + (i * (width - paddingRight2)) / (dataset.data.length - 1),
     );
     const baseHeight = this.calcBaseHeight(datas, height);
     const y = (i) => {
@@ -320,6 +287,7 @@ class LineChart extends AbstractChart {
       width,
       height,
       paddingRight,
+      paddingRight2,
       paddingTop,
       data,
       graphBackgroundColor,
@@ -327,11 +295,18 @@ class LineChart extends AbstractChart {
     const pathFill = graphBackgroundColor || 'url(#fillShadowGradient)';
     const output = [];
 
+    console.log('!!!', { data });
+    // data[0].data.push(123);
+
     data.map((dataset, index) => {
+      // dataset.data.push(dataset.data[dataset.data.length - 1]);
+
       const d = `${this.getBezierLinePoints(dataset, config)} L${paddingRight
-          + ((width - paddingRight) / dataset.data.length)
+          + ((width - paddingRight2) / (dataset.data.length - 1))
           * (dataset.data.length - 1)},${(height / this.heightDivider()) * 3
           + paddingTop} L${paddingRight},${(height / this.heightDivider()) * 3 + paddingTop} Z`;
+
+          console.log('!!!d', { d });
 
       output.push(
         <Path
@@ -345,6 +320,18 @@ class LineChart extends AbstractChart {
       return null;
     });
 
+      // const d2 = `${this.getBezierLinePoints({data:[501]}, config)} L${10},${(height / this.heightDivider()) * 3
+      //     + paddingTop} L${paddingRight},${(height / this.heightDivider()) * 3 + paddingTop} Z`;
+
+      // output.push(
+      //   <Path
+      //     key={'asd'}
+      //     d={d2}
+      //     fill={'red'}
+      //     strokeWidth={1}
+      //   />,
+      // );
+
     return output;
   }
 
@@ -355,7 +342,6 @@ class LineChart extends AbstractChart {
       height,
       data,
       withShadow = true,
-      withDots = true,
       withInnerLines = false,
       withOuterLines = false,
       style = {},
@@ -370,7 +356,7 @@ class LineChart extends AbstractChart {
     const { labels = [] } = data;
     const { borderRadius = 0 } = style;
     const config = {
-      width: width / 0.887,
+      width,
       height,
     };
     const chartConfigMerged = {
