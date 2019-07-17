@@ -59,8 +59,6 @@ class LineChart extends AbstractChart {
     const datas = this.getDatas(data);
     const activeDotIndex = this.getActiveDotIndex();
 
-    console.log('!!!', { config, datas, activeDot });
-
     data.map((dataset) => {
       dataset.data.map((x, i) => {
         if (activeDot && activeDotIndex !== i) {
@@ -177,8 +175,15 @@ class LineChart extends AbstractChart {
   }
 
   renderLine = (config) => {
+    const { renderLine } = this.props;
+
+    if (!renderLine) {
+      return null;
+    }
+
     if (this.props.bezier) {
-      return this.renderBezierLine(config);
+      return null;
+      // return this.renderBezierLine(config);
     }
 
     const {
@@ -224,8 +229,16 @@ class LineChart extends AbstractChart {
       data,
     } = config;
 
+    const res = {
+      data: 'M0,0',
+      lastX: 0,
+      lastY: 0,
+      firstX: 0,
+      firstY: 0,
+    };
+
     if (dataset.data.length === 0) {
-      return 'M0,0';
+      return res;
     }
 
     const datas = this.getDatas(data);
@@ -238,20 +251,29 @@ class LineChart extends AbstractChart {
       return Math.floor((baseHeight - yHeight) / this.heightDivider() * 3 + paddingTop);
     };
 
-    return [`M${x(0)},${y(0)}`]
+    res.firstX = x(0);
+    res.firstY = y(0);
+
+    res.data = [`M${res.firstX},${res.firstY}`]
       .concat(
         dataset.data.slice(0, -1).map((_, i) => {
           const x_mid = (x(i) + x(i + 1)) / 2;
           const y_mid = (y(i) + y(i + 1)) / 2;
           const cp_x1 = (x_mid + x(i)) / 2;
           const cp_x2 = (x_mid + x(i + 1)) / 2;
+
+          res.lastX = x(i + 1);
+          res.lastY = y(i + 1);
+
           return (
             `Q ${cp_x1}, ${y(i)}, ${x_mid}, ${y_mid}`
             + ` Q ${cp_x2}, ${y(i + 1)}, ${x(i + 1)}, ${y(i + 1)}`
           );
         }),
-      )
-      .join(' ');
+      ).join('');
+
+
+    return res;
   }
 
   onLayout = (event) => {
@@ -266,10 +288,11 @@ class LineChart extends AbstractChart {
     const output = [];
     config.data.map((dataset, index) => {
       const result = this.getBezierLinePoints(dataset, config);
+
       output.push(
         <Path
           key={index.toString}
-          d={result}
+          d={result.data}
           fill="none"
           stroke={this.getColor(dataset, 0.2)}
           strokeWidth={this.getStrokeWidth(dataset)}
@@ -283,6 +306,7 @@ class LineChart extends AbstractChart {
   }
 
   renderBezierShadow = (config) => {
+    const { fillSides, fillBottom } = this.props;
     const {
       width,
       height,
@@ -294,19 +318,16 @@ class LineChart extends AbstractChart {
     } = config;
     const pathFill = graphBackgroundColor || 'url(#fillShadowGradient)';
     const output = [];
-
-    console.log('!!!', { data });
-    // data[0].data.push(123);
+    const calcHeight = (height / this.heightDivider()) * 3 + paddingTop;
+    let points = {};
 
     data.map((dataset, index) => {
-      // dataset.data.push(dataset.data[dataset.data.length - 1]);
+      points = this.getBezierLinePoints(dataset, config);
 
-      const d = `${this.getBezierLinePoints(dataset, config)} L${paddingRight
+      const d = `${points.data} L${paddingRight
           + ((width - paddingRight2) / (dataset.data.length - 1))
           * (dataset.data.length - 1)},${(height / this.heightDivider()) * 3
-          + paddingTop} L${paddingRight},${(height / this.heightDivider()) * 3 + paddingTop} Z`;
-
-          console.log('!!!d', { d });
+          + paddingTop} L${paddingRight},${calcHeight} Z`;
 
       output.push(
         <Path
@@ -320,17 +341,42 @@ class LineChart extends AbstractChart {
       return null;
     });
 
-      // const d2 = `${this.getBezierLinePoints({data:[501]}, config)} L${10},${(height / this.heightDivider()) * 3
-      //     + paddingTop} L${paddingRight},${(height / this.heightDivider()) * 3 + paddingTop} Z`;
+    if (fillSides) {
+      output.push(
+        <Rect
+          key={Math.random()}
+          x={points.lastX}
+          y={points.lastY}
+          width={paddingRight2}
+          height={calcHeight - points.lastY}
+          fill={graphBackgroundColor}
+          strokeWidth="0"
+        />,
+        <Rect
+          key={Math.random()}
+          x={0}
+          y={points.firstY}
+          width={paddingRight}
+          height={calcHeight - points.firstY}
+          fill={graphBackgroundColor}
+          strokeWidth="0"
+        />,
+      );
+    }
 
-      // output.push(
-      //   <Path
-      //     key={'asd'}
-      //     d={d2}
-      //     fill={'red'}
-      //     strokeWidth={1}
-      //   />,
-      // );
+    if (fillBottom) {
+      output.push(
+        <Rect
+          key={Math.random()}
+          x={0}
+          y={calcHeight - 0.5}
+          width={width}
+          height={height - calcHeight + 0.5}
+          fill={graphBackgroundColor}
+          strokeWidth="1"
+        />,
+      );
+    }
 
     return output;
   }
@@ -436,7 +482,7 @@ class LineChart extends AbstractChart {
               </G>
               <G>
                 {this.renderLine({
-                  ...config,
+                  ...chartConfigMerged,
                   paddingRight,
                   paddingTop,
                   data: data.datasets,

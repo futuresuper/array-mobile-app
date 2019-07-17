@@ -44,7 +44,6 @@ export default {
     backgroundColor: sc.color.containerBgColor,
   },
   graphBl: {
-    borderWidth: 1,
     height: 130,
     width: 350,
     alignSelf: 'center',

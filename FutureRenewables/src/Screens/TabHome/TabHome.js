@@ -7,7 +7,6 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  Dimensions,
 } from 'react-native';
 
 import {
@@ -37,8 +36,6 @@ import SunGlow from 'src/Components/SunGlow';
 import {
   LineChart,
 } from 'src/Components/ChartKit';
-
-import GraphExample from 'src/assets/images/GraphExample.png';
 
 import {
   content as contentTest,
@@ -71,7 +68,8 @@ class TabHome extends Component {
         visible: false,
         item: null,
       },
-      activeDot: 'Apr 1',
+      activeDot: 'Mar 8',
+      activeBalance: 0,
     };
   }
 
@@ -83,7 +81,8 @@ class TabHome extends Component {
       // backgroundColor: styles.containerBg.backgroundColor,
     });
 
-    // screenProps.enableTheme(currentTime);
+    screenProps.enableTheme(currentTime);
+    // screenProps.setDarkTheme();
   }
 
   renderImpactItem = ({ number, text, suffix }, key) => (
@@ -161,7 +160,6 @@ class TabHome extends Component {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   renderContentItemLarge(item) {
     return (
       <CardItem
@@ -208,7 +206,10 @@ class TabHome extends Component {
   }
 
   renderChart() {
+    const { screenProps } = this.props;
     const { activeDot } = this.state;
+    const theme = screenProps.getTheme();
+
     return (
       <LineChart
         ref={(c) => {
@@ -230,9 +231,14 @@ class TabHome extends Component {
             ],
           }],
         }}
-        height={120}
+        height={125}
         chartConfig={{
+          graphBackgroundColor: theme.containerBgColor,
+          label: {
+            color: theme.textColor,
+          },
           // paddingRight2: 0,
+          // graphBackgroundColor: 'red',
         }}
         // chartConfig={{
         //   graphBackgroundColor: 'green',
@@ -245,16 +251,20 @@ class TabHome extends Component {
         // }}
         bezier
         withDots
+        fillSides
+        fillBottom
         activeDot={activeDot}
         style={{
-          borderWidth: 2,
+          // borderWidth: 1,
           borderColor: 'red',
+          // padding: 10,
         }}
         onLeftSwipeDot={() => {
           const prevDot = this.LineChart.getPreviousDot();
           if (prevDot) {
             this.setState({
               activeDot: prevDot.label,
+              activeBalance: prevDot.data,
             });
           }
         }}
@@ -263,6 +273,7 @@ class TabHome extends Component {
           if (nextDot) {
             this.setState({
               activeDot: nextDot.label,
+              activeBalance: nextDot.data,
             });
           }
         }}
@@ -272,8 +283,7 @@ class TabHome extends Component {
 
   render() {
     const { screenProps } = this.props;
-    const { content, article } = this.state;
-    const theme = screenProps.getTheme();
+    const { content, article, activeBalance } = this.state;
 
     return (
       <Content bounces={false}>
@@ -306,6 +316,7 @@ class TabHome extends Component {
               onPress={() => {
                 BottomInfo.showAccounts();
               }}
+              balance={activeBalance}
             />
 
             <Button
@@ -322,14 +333,6 @@ class TabHome extends Component {
 
           <View style={styles.graphBl}>
             {this.renderGlow()}
-            {/* <Image source={GraphExample} style={[styles.graphExample, sg.tintColor(theme.graphExampleColor)]} /> */}
-
-            {/* <View style={styles.graphBottomLine} />
-            <View style={styles.graphPointBl}>
-              <Text style={styles.graphPointText}>Feb 25</Text>
-              <Icon type="FontAwesome" name="circle" style={[sg.fS15, sg.colorPrimary]} />
-            </View> */}
-
             {this.renderChart()}
           </View>
 

@@ -10,6 +10,7 @@ import {
   Defs,
   Stop,
 } from 'react-native-svg';
+import _ from 'lodash';
 
 import {
   sc,
@@ -18,7 +19,8 @@ import {
 class AbstractChart extends Component {
   getConfig() {
     const { chartConfig } = this.props;
-    const res = {
+
+    const res = _.merge({
       graphBackgroundColor: sc.color.containerBgColor,
       backgroundColor: undefined,
       backgroundGradientFrom: undefined,
@@ -30,11 +32,9 @@ class AbstractChart extends Component {
         fontSize: 14,
         fontFamily: sc.font.medium,
         color: sc.color.dark3,
-        ...chartConfig.label || {},
       },
       paddingRight2: 16,
-      ...chartConfig,
-    };
+    }, chartConfig);
 
     return res;
   }
@@ -205,7 +205,7 @@ class AbstractChart extends Component {
       paddingRight,
     } = config;
 
-    return [...new Array(count)].map((_, i) => (
+    return [...new Array(count)].map((__, i) => (
       <Line
         key={Math.random()}
         x1={paddingRight}
@@ -266,7 +266,7 @@ class AbstractChart extends Component {
     const decimalPlaces = chartConfig.decimalPlaces === undefined ? 2 : chartConfig.decimalPlaces;
     const yAxisLabel = yAxisLabelProps || '';
 
-    return [...new Array(count)].map((_, i) => {
+    return [...new Array(count)].map((__, i) => {
       let yLabel;
 
       if (count === 1) {
@@ -344,7 +344,7 @@ class AbstractChart extends Component {
       paddingRight,
     } = config;
 
-    return [...new Array(data.length)].map((_, i) => (
+    return [...new Array(data.length)].map((__, i) => (
       <Line
         key={Math.random()}
         x1={Math.floor(
@@ -433,12 +433,15 @@ AbstractChart.defaultProps = {
   yAxisLabel: '',
   renderVerticalLabels: false,
   renderHorizontalLabels: false,
+  renderLine: true,
   setBackgroundGradient: false,
   chartConfig: {},
   activeDot: undefined,
   onRightSwipeDot: null,
   onLeftSwipeDot: null,
   onDataPointClick: null,
+  fillSides: false,
+  fillBottom: false,
 };
 
 AbstractChart.propTypes = {
@@ -447,6 +450,8 @@ AbstractChart.propTypes = {
   yAxisLabel: PropTypes.string,
   renderVerticalLabels: PropTypes.bool,
   renderHorizontalLabels: PropTypes.bool,
+  // eslint-disable-next-line react/no-unused-prop-types
+  renderLine: PropTypes.bool,
   setBackgroundGradient: PropTypes.bool,
   // eslint-disable-next-line react/no-unused-prop-types
   activeDot: PropTypes.string,
@@ -454,6 +459,10 @@ AbstractChart.propTypes = {
   onLeftSwipeDot: PropTypes.func,
   onDataPointClick: PropTypes.func,
   data: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/no-unused-prop-types
+  fillSides: PropTypes.bool,
+  // eslint-disable-next-line react/no-unused-prop-types
+  fillBottom: PropTypes.bool,
 };
 
 export default AbstractChart;

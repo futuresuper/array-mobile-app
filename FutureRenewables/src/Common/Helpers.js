@@ -103,6 +103,10 @@ export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thou
 export const formatAmountDollar = (inputInp) => {
   let input = inputInp;
 
+  if (typeof input !== 'string') {
+    input = input.toString();
+  }
+
   if (Number.isNaN(parseInt(input[input.length - 1], 10))) {
     input = input.slice(0, -1);
   } else {
