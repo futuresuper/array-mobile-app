@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		005CFB9A59B0431E81833C8D /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E7B803A231B44D3A23606AF /* AntDesign.ttf */; };
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
@@ -80,6 +79,7 @@
 		F8119510486B4E648B8EF5CF /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 064A6913A7F14514A1C1E88F /* MaterialIcons.ttf */; };
 		FA3EEDD822BB38730073FD8B /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3EEDAA22BB38200073FD8B /* libART.a */; };
 		FF67C06FEC5A40D298FA7CBA /* BwGradual-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 094D6886E86D4B1FAB2B92B6 /* BwGradual-RegularItalic.otf */; };
+		8613EF0A7844433D816F533F /* WeatherIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 850A8B4B1ABB4E5D88A27724 /* WeatherIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -535,6 +535,7 @@
 		F27EE44E7452418B8E97E47C /* libRNAWSCognito.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAWSCognito.a; sourceTree = "<group>"; };
 		FA3EEDA322BB38200073FD8B /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		FAE30C7022D48223004098FC /* RNSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
+		850A8B4B1ABB4E5D88A27724 /* WeatherIcons.ttf */ = {isa = PBXFileReference; name = "WeatherIcons.ttf"; path = "../src/assets/fonts/WeatherIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -790,6 +791,7 @@
 				094D6886E86D4B1FAB2B92B6 /* BwGradual-RegularItalic.otf */,
 				34B313376F7E4970B39ED896 /* BwGradual-Thin.otf */,
 				A8224CC6E1E84F1DB2CE232F /* BwGradual-ThinItalic.otf */,
+				850A8B4B1ABB4E5D88A27724 /* WeatherIcons.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1555,6 +1557,7 @@
 				FF67C06FEC5A40D298FA7CBA /* BwGradual-RegularItalic.otf in Resources */,
 				0D611D99E57B439D9919090D /* BwGradual-Thin.otf in Resources */,
 				29BF9A2BBCA044A3A226E0C7 /* BwGradual-ThinItalic.otf in Resources */,
+				8613EF0A7844433D816F533F /* WeatherIcons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
