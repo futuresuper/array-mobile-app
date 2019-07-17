@@ -129,6 +129,11 @@ class TabFarms extends Component {
     screenProps.navigateTo(routeNames.SOLAR_FARM, { item });
   }
 
+  onViewableItemsChanged = ({ viewableItems, changed }) => {
+    console.log("Visible items are", viewableItems);
+    console.log("Changed in this iteration", changed);
+  }
+
   renderMarker = (item) => {
     const { activeFarmId } = this.state;
     let markerImage = MarkerInactive;
@@ -152,7 +157,8 @@ class TabFarms extends Component {
         <CardItem
           button
           onPress={() => {
-            this.navigateToFarm(item);
+            // this.navigateToFarm(item);
+            this.farmsFlarList.scrollToIndex({ index: 3 });
           }}
           style={styles.farmCardItem}
         >
@@ -224,11 +230,27 @@ class TabFarms extends Component {
 
         <View style={styles.farmCardsBl}>
           <FlatList
+            ref={(c) => {
+              if (c) this.farmsFlarList = c;
+            }}
             data={farms}
             keyExtractor={item => item.id.toString()}
             renderItem={(...args) => this.renderFarmCard(...args)}
             horizontal
             showsHorizontalScrollIndicator={false}
+            onScrollEndDrag={(e) => {
+              const currentOffset = e.nativeEvent.contentOffset.x;
+              const direction = currentOffset > this.offset ? 'left' : 'right';
+              this.offset = currentOffset;
+
+              console.log('!!!scroll', direction);
+              // this.farmsFlarList.scrollEnabled = false;
+              // this.farmsFlarList.scrollToIndex({ index: 1 });
+            }}
+            // onViewableItemsChanged={this.onViewableItemsChanged}
+            // viewabilityConfig={{
+            //   itemVisiblePercentThreshold: 50
+            // }}
           />
         </View>
       </View>

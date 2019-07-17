@@ -1,5 +1,9 @@
 
 import {
+  isIOS,
+} from 'src/Common/Helpers';
+
+import {
   sc,
 } from 'src/Styles';
 
@@ -131,8 +135,14 @@ export const farmsList = {
   farmImage: {
     justifyContent: 'space-between',
     padding: 20,
+    paddingRight: 15,
     marginBottom: 15,
     width: 317,
     height: 240,
+  },
+  farmTextBl: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: isIOS() ? null : 15,
   },
 };

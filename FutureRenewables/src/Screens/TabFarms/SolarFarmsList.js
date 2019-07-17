@@ -95,14 +95,15 @@ class SolarFarmsList extends Component {
         }}
       >
         <ImageBackground source={item.image} resizeMode="stretch" style={styles.farmImage}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <View style={{}}>
+          <View style={styles.farmTextBl}>
+            <View>
               <Text style={[sg.fS20, sg.colorDark2, sg.textBold]}>{item.title}</Text>
-              <Text style={[sg.fontMedium, sg.mT5]}>{item.description}</Text>
+              <Text style={[sg.fontMedium, sg.colorDark3, sg.mT5]}>{item.description}</Text>
             </View>
 
             <WeatherWidget
               coordinate={item.coordinate}
+              showSummary={false}
             />
           </View>
 

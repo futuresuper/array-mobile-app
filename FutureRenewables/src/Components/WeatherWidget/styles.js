@@ -6,12 +6,10 @@ import {
 export default {
   container: {
   },
-  spinner: {
-    height: 30,
-  },
   icon: {
-    tintColor: sc.color.gray4,
     alignSelf: 'center',
+    lineHeight: 28,
+    fontSize: 33,
   },
   summary: {
     fontSize: 12,

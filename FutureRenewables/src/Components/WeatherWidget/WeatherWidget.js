@@ -6,11 +6,9 @@ import _ from 'lodash';
 import axios from 'axios';
 import {
   View,
-  Image,
 } from 'react-native';
 import {
   Text,
-  Spinner,
 } from 'native-base';
 
 import {
@@ -21,46 +19,30 @@ import {
   sc,
 } from 'src/Styles';
 
-import defaultIcon from './img/default.png';
-import partlyCloudyDay from './img/partly-cloudy-day.png';
-import partlyCloudyNight from './img/partly-cloudy-night.png';
-import clearday from './img/clear-day.png';
-import clearNight from './img/clear-night.png';
-import rain from './img/rain.png';
-import snow from './img/snow.png';
-import sleet from './img/sleet.png';
-import wind from './img/wind.png';
-import fog from './img/fog.png';
-import cloudy from './img/cloudy.png';
-import hail from './img/hail.png';
-import thunderstorm from './img/thunderstorm.png';
-import tornado from './img/tornado.png';
-import meteorShower from './img/meteor-shower.png';
-
+import WeatherIcon from './WeatherIcon';
 import styles from './styles';
 
 const weatherIcons = {
-  default: defaultIcon,
-  'partly-cloudy-day': partlyCloudyDay,
-  'partly-cloudy-night': partlyCloudyNight,
-  'clear-day': clearday,
-  'clear-night': clearNight,
-  rain,
-  snow,
-  sleet,
-  wind,
-  fog,
-  cloudy,
-  hail,
-  thunderstorm,
-  tornado,
-  'meteor-shower': meteorShower,
+  default: 'wi-thermometer',
+  'partly-cloudy-day': 'wi-day-cloudy',
+  'partly-cloudy-night': 'wi-night-alt-partly-cloudy',
+  'clear-day': 'wi-day-sunny',
+  'clear-night': 'wi-night-clear',
+  rain: 'wi-rain',
+  snow: 'wi-snow',
+  sleet: 'wi-sleet',
+  wind: 'wi-strong-wind',
+  fog: 'wi-fog',
+  cloudy: 'wi-cloudy',
+  hail: 'wi-hail',
+  thunderstorm: 'wi-thunderstorm',
+  tornado: 'wi-tornado',
+  'meteor-shower': 'wi-meteor',
 };
 
 class WeatherWidget extends Component {
   constructor(props) {
     super(props);
-    const { coordinate } = this.props;
 
     this.weatherDefState = {
       summary: '',
@@ -70,7 +52,10 @@ class WeatherWidget extends Component {
     };
 
     this.state = {
-      coordinate,
+      coordinate: {
+        latitude: 0,
+        longitude: 0,
+      },
       isLoading: true,
       ...this.weatherDefState,
     };
@@ -95,6 +80,7 @@ class WeatherWidget extends Component {
     const { coordinate: coordinateState } = this.state;
     const apiKey = Config.get().darkSkyKey;
     const url = `https://api.darksky.net/forecast/${apiKey}/${coordinateProp.latitude},${coordinateProp.longitude}`;
+
 
     if (_.isNil(coordinateProp.latitude) && _.isNil(coordinateProp.longitude)) {
       return;
@@ -123,18 +109,25 @@ class WeatherWidget extends Component {
         this.setState({
           summary: data.currently.summary,
           icon: data.currently.icon,
-          isLoading: false,
         });
       }
-    }).catch(() => null);
+
+      this.setState({
+        isLoading: false,
+      });
+    }).catch(() => {
+      this.setState({
+        isLoading: false,
+      });
+    });
   }
 
   render() {
-    const { style } = this.props;
+    const { style, showSummary } = this.props;
     const { isLoading, summary, icon } = this.state;
 
     if (isLoading) {
-      return <Spinner size="small" color={sc.color.gray4} style={styles.spinner} />;
+      return null;
     }
 
     if (summary === '') {
@@ -143,8 +136,8 @@ class WeatherWidget extends Component {
 
     return (
       <View style={[styles.container, style]}>
-        <Image style={styles.icon} source={weatherIcons[icon] || weatherIcons.default} />
-        <Text style={styles.summary}>{summary}</Text>
+        <WeatherIcon style={styles.icon} name={weatherIcons[icon] || weatherIcons.default} color={sc.color.dark3} />
+        {showSummary && <Text style={styles.summary}>{summary}</Text>}
       </View>
     );
   }
@@ -156,6 +149,7 @@ WeatherWidget.defaultProps = {
     longitude: null,
   },
   style: {},
+  showSummary: true,
 };
 
 WeatherWidget.propTypes = {
@@ -167,6 +161,7 @@ WeatherWidget.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]),
+  showSummary: PropTypes.bool,
 };
 
 export default WeatherWidget;
