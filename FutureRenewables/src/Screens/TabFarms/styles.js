@@ -8,6 +8,10 @@ import {
 } from 'src/Styles';
 
 export default {
+  markerIconMain: {
+    width: 36,
+    height: 45,
+  },
   markerIcon: {
     zIndex: 9,
   },

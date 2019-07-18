@@ -85,6 +85,25 @@ class TabProfile extends Component {
     screenProps.Api.logOut();
   }
 
+  renderAvatar() {
+    const { user } = this.props;
+
+    if (user.profileImage) {
+      return (
+        <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />
+      );
+    }
+
+    return (
+      <View style={styles.profileAvatarBl}>
+        <Text style={styles.profileAvatarText}>
+          {user.firstName ? user.firstName.charAt(0) : ''}
+          {user.lastName ? user.lastName.charAt(0) : ''}
+        </Text>
+      </View>
+    );
+  }
+
   render() {
     const { user, screenProps } = this.props;
     const { listMenu } = this.state;
@@ -96,7 +115,7 @@ class TabProfile extends Component {
 
         <Grid style={[sg.mT20]}>
           <Col style={sg.aICenter}>
-            <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />
+            {this.renderAvatar()}
 
             <View style={[sg.row, sg.mT25, sg.mB15]}>
               <H2 color2>

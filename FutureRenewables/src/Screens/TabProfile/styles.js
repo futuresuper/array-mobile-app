@@ -41,6 +41,19 @@ export default {
     height: 65,
     borderRadius: 32.5,
   },
+  profileAvatarBl: {
+    backgroundColor: sc.color.orange,
+    width: 65,
+    height: 65,
+    borderRadius: 32.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profileAvatarText: {
+    fontSize: 23,
+    fontFamily: sc.font.bold,
+    color: sc.color.white,
+  },
 };
 
 export const manageAccounts = {

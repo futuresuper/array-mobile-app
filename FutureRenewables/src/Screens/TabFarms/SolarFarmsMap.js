@@ -9,6 +9,8 @@ import {
   Image,
 } from 'react-native';
 
+import _ from 'lodash';
+
 import {
   Text,
   H3,
@@ -27,6 +29,7 @@ import {
 } from 'src/Navigation';
 import CircularProgress from 'src/Components/CircularProgress';
 import BackButton from 'src/Components/BackButton';
+import DeviceUtils from 'src/Common/device';
 
 import solarHeart from 'src/assets/images/solarHeart.png';
 import MarkerActive from 'src/assets/images/MarkerActive.png';
@@ -44,13 +47,10 @@ class TabFarms extends Component {
     super(props);
 
     this.state = {
+      isMapReady: false,
       startPosition: null,
       activeFarmId: null,
     };
-  }
-
-  componentDidMount() {
-    this.getRegionForCoordinates();
   }
 
   getRegionForCoordinates() {
@@ -102,10 +102,15 @@ class TabFarms extends Component {
   }
 
   activateFarm = (item) => {
+    const zoomFactor = 40;
+    const deltaVal = 0.00522;
+    const latitudeDelta = deltaVal * zoomFactor;
+    const longitudeDelta = deltaVal * DeviceUtils.screenAspectRatio() * zoomFactor;
+
     this._mapView.animateToRegion({
       ...item.coordinate,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      latitudeDelta,
+      longitudeDelta,
     });
 
     if (this.activeFarmTimeoutId) {
@@ -115,23 +120,27 @@ class TabFarms extends Component {
       this.setState({
         startPosition: {
           ...item.coordinate,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta,
+          longitudeDelta,
         },
         activeFarmId: item.id,
       });
     }, 500);
   }
 
+  onMapReady = () => {
+    this.setState({
+      isMapReady: true,
+    }, () => {
+      const { farms } = this.props;
+      this.activateFarm(farms[0]);
+    });
+  }
+
   navigateToFarm(item) {
     const { screenProps } = this.props;
 
     screenProps.navigateTo(routeNames.SOLAR_FARM, { item });
-  }
-
-  onViewableItemsChanged = ({ viewableItems, changed }) => {
-    console.log("Visible items are", viewableItems);
-    console.log("Changed in this iteration", changed);
   }
 
   renderMarker = (item) => {
@@ -144,8 +153,8 @@ class TabFarms extends Component {
     }
 
     return (
-      <View style={sg.center}>
-        <Image source={markerImage} style={[styles.markerIcon, style]} />
+      <View style={[sg.center]}>
+        <Image source={markerImage} style={[styles.markerIconMain, styles.markerIcon, style]} />
         <Text style={[styles.marketTitle]}>{item.title}</Text>
       </View>
     );
@@ -157,8 +166,7 @@ class TabFarms extends Component {
         <CardItem
           button
           onPress={() => {
-            // this.navigateToFarm(item);
-            this.farmsFlarList.scrollToIndex({ index: 3 });
+            this.navigateToFarm(item);
           }}
           style={styles.farmCardItem}
         >
@@ -195,7 +203,7 @@ class TabFarms extends Component {
 
   render() {
     const { farms } = this.props;
-    const { startPosition } = this.state;
+    const { startPosition, isMapReady } = this.state;
 
     return (
       <View style={sg.flex}>
@@ -205,8 +213,9 @@ class TabFarms extends Component {
           }}
           style={sg.absoluteFillObject}
           region={startPosition}
+          onMapReady={this.onMapReady}
         >
-          {farms.map((item, index) => (
+          {isMapReady && farms.map((item, index) => (
             <MapView.Marker
               key={index.toString()}
               coordinate={item.coordinate}
@@ -241,16 +250,37 @@ class TabFarms extends Component {
             onScrollEndDrag={(e) => {
               const currentOffset = e.nativeEvent.contentOffset.x;
               const direction = currentOffset > this.offset ? 'left' : 'right';
-              this.offset = currentOffset;
+              const maxIndex = farms.length - 1;
+              let nextIndex = 0;
 
-              console.log('!!!scroll', direction);
-              // this.farmsFlarList.scrollEnabled = false;
-              // this.farmsFlarList.scrollToIndex({ index: 1 });
+              this.offset = currentOffset;
+              this.currentIndex = _.isNil(this.currentIndex) ? 0 : this.currentIndex;
+
+              if (direction === 'left') {
+                if (this.currentIndex >= maxIndex) {
+                  nextIndex = maxIndex;
+                } else {
+                  nextIndex = this.currentIndex + 1;
+                }
+              } else {
+                // eslint-disable-next-line no-lonely-if
+                if (this.currentIndex <= 0) {
+                  nextIndex = 0;
+                } else {
+                  nextIndex = this.currentIndex - 1;
+                }
+              }
+
+              if (this.currentIndex !== nextIndex) {
+                this.currentIndex = nextIndex;
+
+                this.activateFarm(farms[nextIndex]);
+                this.farmsFlarList.scrollToIndex({ index: nextIndex });
+              }
             }}
-            // onViewableItemsChanged={this.onViewableItemsChanged}
-            // viewabilityConfig={{
-            //   itemVisiblePercentThreshold: 50
-            // }}
+            onScrollBeginDrag={(e) => {
+              this.offset = e.nativeEvent.contentOffset.x;
+            }}
           />
         </View>
       </View>
