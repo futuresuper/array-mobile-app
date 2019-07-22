@@ -3,6 +3,7 @@ package com.futurerenewables;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.robinpowered.react.Intercom.IntercomPackage;
 import com.horcrux.svg.SvgPackage;
 import com.amazonaws.RNAWSCognitoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new IntercomPackage(),
             new SvgPackage(),
             new RNAWSCognitoPackage(),
             new LinearGradientPackage(),
