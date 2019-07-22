@@ -3,7 +3,6 @@ package com.futurerenewables;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import org.reactnative.camera.RNCameraPackage;
 import com.horcrux.svg.SvgPackage;
 import com.amazonaws.RNAWSCognitoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -30,7 +29,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNCameraPackage(),
             new SvgPackage(),
             new RNAWSCognitoPackage(),
             new LinearGradientPackage(),

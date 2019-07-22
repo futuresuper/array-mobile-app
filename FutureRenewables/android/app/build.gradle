@@ -137,7 +137,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-camera')
     implementation project(':react-native-svg')
     implementation project(':amazon-cognito-identity-js')
     implementation project(':react-native-linear-gradient')
