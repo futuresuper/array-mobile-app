@@ -30,11 +30,11 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  return YES;
-}
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  // Intercom
   [Intercom setApiKey:@"ios_sdk-3c2b18f3d65afdfb6cc91902db33f901c4d56f6c" forAppId:@"oqha580c"];
+
+  return YES;
 }
 
 @end
