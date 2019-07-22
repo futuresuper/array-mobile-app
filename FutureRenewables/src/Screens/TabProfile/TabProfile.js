@@ -23,6 +23,8 @@ import {
   ListItem,
 } from 'native-base';
 
+import Intercom from 'react-native-intercom';
+
 import {
   routeNames,
 } from 'src/Navigation';
@@ -55,7 +57,7 @@ class TabProfile extends Component {
         },
         {
           name: 'Talk to us',
-          screen: routeNames.TALK_US,
+          function: this.displayIntercom,
         },
         {
           name: 'Withdraw',
@@ -73,6 +75,12 @@ class TabProfile extends Component {
     };
   }
 
+  componentDidMount() {
+    const { user } = this.props;
+    console.log('!!!', { user });
+    Intercom.registerIdentifiedUser({ email: user.email });
+  }
+
   navigateTo = (screen) => {
     const { screenProps } = this.props;
     screenProps.navigateTo(screen);
@@ -83,6 +91,10 @@ class TabProfile extends Component {
 
     screenProps.disableTheme();
     screenProps.Api.logOut();
+  }
+
+  displayIntercom() {
+    Intercom.displayMessageComposer();
   }
 
   renderAvatar() {
@@ -139,7 +151,16 @@ class TabProfile extends Component {
               data={listMenu}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
-                <ListItem onPress={() => { this.navigateTo(item.screen); }} style={[sg.pT20, sg.pB20, sg.mL0, sg.pR30]}>
+                <ListItem
+                  onPress={() => {
+                    if (item.function) {
+                      item.function();
+                    } else {
+                      this.navigateTo(item.screen);
+                    }
+                  }}
+                  style={[sg.pT20, sg.pB20, sg.mL0, sg.pR30]}
+                >
                   <Left>
                     <Text style={[sg.fontMedium]}>{item.name}</Text>
                   </Left>
