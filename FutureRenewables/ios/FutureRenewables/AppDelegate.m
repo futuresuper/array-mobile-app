@@ -9,6 +9,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "Intercom/intercom.h"
 
 @implementation AppDelegate
 
@@ -30,6 +31,10 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  [Intercom setApiKey:@"ios_sdk-3c2b18f3d65afdfb6cc91902db33f901c4d56f6c" forAppId:@"oqha580c"];
 }
 
 @end

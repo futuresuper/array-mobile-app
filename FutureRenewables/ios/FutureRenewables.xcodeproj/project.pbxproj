@@ -80,6 +80,8 @@
 		F306373992DF42A0813EF73A /* BwGradual-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = E8B811D484D54606AB734746 /* BwGradual-Black.otf */; };
 		F8119510486B4E648B8EF5CF /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 064A6913A7F14514A1C1E88F /* MaterialIcons.ttf */; };
 		FA3EEDD822BB38730073FD8B /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3EEDAA22BB38200073FD8B /* libART.a */; };
+		FA52827D22E15E7000A6FFB1 /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA52824A22E15E7000A6FFB1 /* Intercom.framework */; };
+		FA52827E22E15E7000A6FFB1 /* Intercom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA52824A22E15E7000A6FFB1 /* Intercom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FF67C06FEC5A40D298FA7CBA /* BwGradual-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 094D6886E86D4B1FAB2B92B6 /* BwGradual-RegularItalic.otf */; };
 /* End PBXBuildFile section */
 
@@ -450,6 +452,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		FA52827F22E15E7000A6FFB1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA52827E22E15E7000A6FFB1 /* Intercom.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -536,6 +552,7 @@
 		F0A0C8C5857C40E483235DBD /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BlackItalic.ttf"; path = "../src/assets/fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		F27EE44E7452418B8E97E47C /* libRNAWSCognito.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAWSCognito.a; sourceTree = "<group>"; };
 		FA3EEDA322BB38200073FD8B /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
+		FA52824A22E15E7000A6FFB1 /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intercom.framework; path = opensource/intercom/Intercom.framework; sourceTree = "<group>"; };
 		FAE30C7022D48223004098FC /* RNSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -572,6 +589,7 @@
 				D809A79F6DD0407699E2858D /* libBVLinearGradient.a in Frameworks */,
 				C22B7228C47A4E38B2315B9A /* libRNAWSCognito.a in Frameworks */,
 				8B76A4F1D126420F994AD0F7 /* libRNSVG.a in Frameworks */,
+				FA52827D22E15E7000A6FFB1 /* Intercom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,6 +854,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				FA52824A22E15E7000A6FFB1 /* Intercom.framework */,
 				13B07FAE1A68108700A75B9A /* FutureRenewables */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FutureRenewablesTests */,
@@ -981,6 +1000,8 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				FA52827F22E15E7000A6FFB1 /* Embed Frameworks */,
+				FA52828022E15F5C00A6FFB1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1608,6 +1629,23 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		FA52828022E15F5C00A6FFB1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Intercom.framework/strip-frameworks.sh\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1759,6 +1797,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 377T2R9H7X;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/opensource/intercom",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1790,6 +1832,10 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 377T2R9H7X;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/opensource/intercom",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
