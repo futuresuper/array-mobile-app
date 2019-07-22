@@ -77,7 +77,6 @@ class TabProfile extends Component {
 
   componentDidMount() {
     const { user } = this.props;
-    console.log('!!!', { user });
     Intercom.registerIdentifiedUser({ email: user.email });
   }
 

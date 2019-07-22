@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.robinpowered.react.Intercom.IntercomPackage;
+import io.intercom.android.sdk.Intercom;
 import com.horcrux.svg.SvgPackage;
 import com.amazonaws.RNAWSCognitoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -55,5 +56,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    Intercom.initialize(this, "android_sdk-01bcaa4f2385e90cec08e17ffd4dbb47e1c5bc0d", "oqha580c");
   }
 }
