@@ -81,7 +81,7 @@ class TabHome extends Component {
       // backgroundColor: styles.containerBg.backgroundColor,
     });
 
-    screenProps.enableTheme(currentTime);
+    // screenProps.enableTheme(currentTime);
     // screenProps.setDarkTheme();
   }
 

@@ -35,4 +35,5 @@ export default {
   REGULAR_INVESTMENT_AMOUNT: 'RegularInvestmentAmount',
   BANK_ACCOUNT: 'BankAccount',
   SOURCE_OF_FUNDS: 'SourceOfFunds',
+  ID_CHECK_FINISH: 'IdCheckFinish',
 };

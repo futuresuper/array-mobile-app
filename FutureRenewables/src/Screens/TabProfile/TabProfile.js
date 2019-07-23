@@ -44,6 +44,16 @@ class TabProfile extends Component {
     this.state = {
       listMenu: [
         {
+          name: 'ID Check',
+          screen: routeNames.ID_CHECK_FINISH,
+        },
+        {
+          name: 'Change Theme',
+          function: () => {
+            props.screenProps.toogleTheme();
+          },
+        },
+        {
           name: 'Manage accounts',
           screen: routeNames.MANAGE_ACCOUNTS,
         },

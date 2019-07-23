@@ -35,6 +35,7 @@ class Perfomance extends Component {
     super(props);
 
     this.state = {
+      confirmDepositAmount: 0,
       plusMinusValue: 0,
       activity: [
         {
@@ -60,18 +61,31 @@ class Perfomance extends Component {
   }
 
   btnPlus = () => {
-    this.setState(prevState => ({
-      plusMinusValue: prevState.plusMinusValue + 5,
-    }));
+    const { plusMinusValue } = this.state;
+    const amountValue = plusMinusValue + 5;
+
+    this.setState({
+      plusMinusValue: amountValue,
+      confirmDepositAmount: amountValue,
+    });
   }
 
   btnMinus = () => {
-    this.setState(prevState => ({
-      plusMinusValue: prevState.plusMinusValue - 5,
-    }));
+    const { plusMinusValue } = this.state;
+    const amountValue = plusMinusValue - 5;
+
+    this.setState({
+      plusMinusValue: amountValue,
+      confirmDepositAmount: amountValue,
+    });
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  confirmDeposit = () => {
+    this.setState({
+      confirmDepositAmount: 0,
+    });
+  }
+
   renderActivityItem(item = {}, index = -1) {
     const { screenProps } = this.props;
     const theme = screenProps.getTheme();
@@ -111,7 +125,7 @@ class Perfomance extends Component {
 
   render() {
     const { screenProps } = this.props;
-    const { plusMinusValue, activity } = this.state;
+    const { plusMinusValue, activity, confirmDepositAmount } = this.state;
 
     return (
       <View style={sg.mT25}>
@@ -172,6 +186,16 @@ class Perfomance extends Component {
             </Button>
           </Col>
         </Grid>
+
+        {confirmDepositAmount > 0 && (
+          <Button
+            style={[sg.contentMarginH, sg.mT5, sg.mB25]}
+            block
+            onPress={this.confirmDeposit}
+          >
+            <Text>{`Confirm $${confirmDepositAmount} monthly deposit`}</Text>
+          </Button>
+        )}
 
         <View style={[sg.center, sg.mB55]}>
           <Text style={styles.collected}>Collected on the 20th</Text>

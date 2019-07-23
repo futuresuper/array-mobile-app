@@ -58,3 +58,12 @@ export default {
 
 export const manageAccounts = {
 };
+
+export const referFriend = {
+  shareButton: {
+    width: 60,
+    height: 60,
+    marginRight: 15,
+    justifyContent: 'center',
+  },
+};

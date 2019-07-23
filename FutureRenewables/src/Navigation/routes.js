@@ -267,6 +267,7 @@ const tabCardRoutes = {
   [routeNames.REFER_FRIEND]: {
     screen: screens.ReferFriend,
     params: {
+      title: 'Refer a friend',
       routeReset: true,
     },
     ...tabCardOptions,
@@ -295,6 +296,14 @@ const tabCardRoutes = {
       headerTitleStyle: {
         fontSize: 24,
       },
+    },
+    ...tabCardOptions,
+  },
+  [routeNames.ID_CHECK_FINISH]: {
+    screen: screens.IdCheckFinish,
+    params: {
+      routeReset: true,
+
     },
     ...tabCardOptions,
   },

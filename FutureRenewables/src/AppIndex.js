@@ -238,6 +238,7 @@ class AppIndex extends Component {
                 setLightTheme: this.setLightTheme,
                 enableTheme: this.enableTheme,
                 disableTheme: this.disableTheme,
+                toogleTheme: this.toogleTheme,
                 getTheme: this.getTheme,
                 Api,
                 theme: {

@@ -8,4 +8,5 @@ export * from './TabActivity';
 export * from './TabFarms';
 export * from './DepositWithdraw';
 export * from './TabProfile';
+export * from './IdCheck';
 export * from './Example';

@@ -9,10 +9,15 @@ const isIOSv = isIOS();
 
 export default {
   formHeading: {
-    color: styleConstants.color.dark3,
     fontSize: 35,
     fontFamily: styleConstants.font.bold,
     marginBottom: 35,
+  },
+  get formHeading32() {
+    return {
+      ...this.formHeading,
+      fontSize: 32,
+    };
   },
   formError: {
     fontSize: 12,
@@ -150,6 +155,9 @@ export default {
   },
   mV0: {
     marginVertical: 0,
+  },
+  mV5: {
+    marginVertical: 5,
   },
   mV10: {
     marginVertical: 10,
@@ -609,8 +617,23 @@ export default {
   fS25: {
     fontSize: 25,
   },
+  fS26: {
+    fontSize: 26,
+  },
+  fS27: {
+    fontSize: 27,
+  },
+  fS28: {
+    fontSize: 28,
+  },
+  fS29: {
+    fontSize: 29,
+  },
   fS30: {
     fontSize: 30,
+  },
+  fS32: {
+    fontSize: 32,
   },
   fS35: {
     fontSize: 35,
