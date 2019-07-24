@@ -36,4 +36,6 @@ export default {
   BANK_ACCOUNT: 'BankAccount',
   SOURCE_OF_FUNDS: 'SourceOfFunds',
   ID_CHECK_FINISH: 'IdCheckFinish',
+  ID_CHECK_DETAILS: 'IdCheckDetails',
+  ID_CHECK_ADD: 'IdCheckAdd',
 };

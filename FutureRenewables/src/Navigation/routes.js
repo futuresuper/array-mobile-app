@@ -303,7 +303,18 @@ const tabCardRoutes = {
     screen: screens.IdCheckFinish,
     params: {
       routeReset: true,
-
+    },
+    ...tabCardOptions,
+  },
+  [routeNames.ID_CHECK_DETAILS]: {
+    screen: screens.IdCheckDetails,
+    params: {
+    },
+    ...tabCardOptions,
+  },
+  [routeNames.ID_CHECK_ADD]: {
+    screen: screens.IdCheckAdd,
+    params: {
     },
     ...tabCardOptions,
   },

@@ -1,7 +1,10 @@
 
 import IdCheckFinish from './IdCheckFinish';
+import IdCheckDetails from './IdCheckDetails';
+import IdCheckAdd from './IdCheckAdd';
 
 export {
-  // eslint-disable-next-line import/prefer-default-export
   IdCheckFinish,
+  IdCheckDetails,
+  IdCheckAdd,
 };

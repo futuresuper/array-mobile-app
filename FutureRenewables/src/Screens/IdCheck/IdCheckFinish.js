@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   FlatList,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Content,
@@ -17,10 +18,15 @@ import {
 } from 'native-base';
 
 import TextUnderline from 'src/Components/TextUnderline';
+import {
+  routeNames,
+} from 'src/Navigation';
 
 import {
   sg,
 } from 'src/Styles';
+
+import idCheckUtils from 'src/Common/idCheck';
 
 import EditIcon from 'src/assets/images/Edit.png';
 
@@ -33,14 +39,14 @@ class IdCheckFinish extends Component {
     this.state = {
       list: [
         {
-          type: 'Drivers License',
+          type: idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
           name: 'Olivia King',
           no: '123123123',
           state: 'NSW',
           verified: true,
         },
         {
-          type: 'Passport',
+          type: idCheckUtils.ID_TYPE.PASSPORT,
           name: 'Olivia King',
           no: '123123123',
           state: 'NSW',
@@ -50,12 +56,21 @@ class IdCheckFinish extends Component {
     };
   }
 
+  onPressEditItem(item) {
+    const { screenProps } = this.props;
+
+    screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { item });
+  }
+
   renderItem({ item }) {
+    const isVerified = item.verified;
+    const type = idCheckUtils.getTypeName(item.type);
+
     return (
       <Grid style={styles.itemBl}>
         <Row>
           <Col>
-            <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{item.type}</Text>
+            <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
 
             <Text style={[sg.colorDark3]}>{item.name}</Text>
             <Text style={[sg.colorDark3, sg.mV5]}>
@@ -68,20 +83,26 @@ class IdCheckFinish extends Component {
             </Text>
           </Col>
           <Col style={sg.width20}>
-            <Image source={EditIcon} />
+            {isVerified && (
+              <TouchableOpacity
+                onPress={() => this.onPressEditItem(item)}
+              >
+                <Image source={EditIcon} />
+              </TouchableOpacity>
+            )}
           </Col>
         </Row>
-        {item.verified
+        {isVerified
           ? (
             <Row style={[sg.mT15, sg.aICenter]}>
-              <Icon name="ios-close-circle" />
-              <Text>Verified</Text>
+              <Icon name="ios-close-circle" style={styles.itemStatusIconErr} />
+              <Text style={styles.itemStatusTextErr}>Details didn’t match</Text>
             </Row>
           )
           : (
             <Row style={[sg.mT15, sg.aICenter]}>
-              <Icon name="ios-close-circle" />
-              <Text>Verified</Text>
+              <Icon name="ios-close-circle" style={styles.itemStatusIconOk} />
+              <Text style={styles.itemStatusTextOk}>Verified</Text>
             </Row>
           )
         }
@@ -90,8 +111,8 @@ class IdCheckFinish extends Component {
   }
 
   render() {
+    const { screenProps } = this.props;
     const { list } = this.state;
-    console.log('!!!: IdCheckFinish -> render -> list', list);
 
     return (
       <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
@@ -113,6 +134,7 @@ class IdCheckFinish extends Component {
               }}
               styleText={[sg.fS16]}
               style={sg.aSStart}
+              theme
             >
               How to certify ID.
             </TextUnderline>
@@ -124,13 +146,15 @@ class IdCheckFinish extends Component {
               bounces={false}
               contentContainerStyle={[sg.mT20]}
             />
-
           </View>
-
 
           <Button
             block
             iconRight
+            style={sg.mT10}
+            onPress={() => {
+              screenProps.navigateTo(routeNames.ID_CHECK_ADD);
+            }}
           >
             <Text>Add other ID</Text>
             <Icon name="add" />
