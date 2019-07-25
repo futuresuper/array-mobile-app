@@ -21,7 +21,6 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
 import {
   sg,
-  styleConstants,
 } from 'src/Styles';
 
 class Name extends React.Component {
@@ -79,8 +78,12 @@ class Name extends React.Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
           <View>
-            <Text style={[sg.formHeading, sg.mB50]}>
+            <Text style={[sg.formHeading]}>
               Your name
+            </Text>
+
+            <Text style={[sg.formHeadingDescription]}>
+              Please enter your name as it appears on your drivers licence.
             </Text>
 
             <Input

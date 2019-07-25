@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
 import {
   Content,
@@ -12,19 +11,24 @@ import {
 } from 'native-base';
 
 import {
-  styleGlobal,
-  styleConstants,
+  sg,
 } from 'src/Styles';
 
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
 } from 'src/Components/Form';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
+
 
 import {
   formatAmountDollar,
   normalizeAmount,
 } from 'src/Common/Helpers';
+
+import {
+  routeNames,
+} from 'src/Navigation';
 
 class InitialInvestmentAmount extends React.Component {
   constructor(props) {
@@ -67,11 +71,11 @@ class InitialInvestmentAmount extends React.Component {
     if (formIsValid) {
       const amount = hocs.form.field.value;
 
-      screenProps.Api.put(`accounts/${userInfo.id}`, {
-        initial_investment_amount: amount,
-      }, () => {
-      });
-      screenProps.navigateTo('RegularInvestmentAmount');
+      // screenProps.Api.put(`accounts/${userInfo.id}`, {
+      //   initial_investment_amount: amount,
+      // }, () => {
+      // });
+      screenProps.navigateTo(routeNames.BANK_ACCOUNT);
     }
   }
 
@@ -80,33 +84,35 @@ class InitialInvestmentAmount extends React.Component {
     const { form } = hocs;
 
     return (
-      <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
-        <View>
-          <Text style={styleGlobal.formHeading}>
-            Initial Investment Amount
-          </Text>
+      <Content padder contentContainerStyle={sg.flexGrow}>
+        <View style={[sg.spaceBetween]}>
+          <View>
+            <Text style={sg.formHeading}>
+              Initial Investment
+            </Text>
 
-          <Input
-            formData={form}
-            formKey="field"
-            placeholder="Investment Amount"
-            onChangeText={hocs.handleInput}
-            keyboardType="numeric"
-            itemProps={{
-              marginBottom: true,
-            }}
-          />
+            <Text style={sg.formHeadingDescription}>
+              How much would you like yo get started with?
+            </Text>
+
+            <Input
+              formData={form}
+              formKey="field"
+              helper="Amount"
+              onChangeText={hocs.handleInput}
+              keyboardType="numeric"
+            />
+          </View>
+
+          <KeyboardAvoidingView>
+            <Button
+              onPress={() => this.handlePress()}
+              block
+            >
+              <Text>Next</Text>
+            </Button>
+          </KeyboardAvoidingView>
         </View>
-
-        <KeyboardAvoidingView behavior="padding">
-          <Button
-            onPress={() => this.handlePress()}
-            block
-          >
-            <Text>Next</Text>
-          </Button>
-          <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
-        </KeyboardAvoidingView>
       </Content>
     );
   }

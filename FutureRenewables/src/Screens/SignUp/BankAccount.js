@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
 import {
   Content,
@@ -12,14 +11,19 @@ import {
 } from 'native-base';
 
 import {
-  styleGlobal,
-  styleConstants,
+  sg,
 } from 'src/Styles';
 
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
 } from 'src/Components/Form';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
+
+
+import {
+  routeNames,
+} from 'src/Navigation';
 
 class BankAccount extends React.Component {
   constructor(props) {
@@ -51,7 +55,7 @@ class BankAccount extends React.Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      screenProps.navigateTo('DirectDebitAuth');
+      screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
     }
   }
 
@@ -60,61 +64,49 @@ class BankAccount extends React.Component {
     const { form } = hocs;
 
     return (
-      <Content padder contentContainerStyle={styleGlobal.spaceBetween}>
-        <View>
-          <Text style={styleGlobal.formHeading}>
-            Bank Account
-          </Text>
+      <Content padder contentContainerStyle={sg.flexGrow}>
+        <View style={[sg.spaceBetween]}>
+          <View>
+            <Text style={sg.formHeading}>
+              Link bank account
+            </Text>
 
-          <Text style={[styleGlobal.textCenter, styleGlobal.colorGray, styleGlobal.mB20]}>
-            Choose the bank account you’d like us to automatically direct debit to fund your investment.
-          </Text>
+            <Text style={sg.formHeadingDescription}>
+              This will allow us to direct debit your investments
+            </Text>
 
-          <Text style={[styleGlobal.textCenter, styleGlobal.colorGray, styleGlobal.mB20]}>
-            We’ll also pay any withdrawals to this account.
-          </Text>
+            <Input
+              formData={form}
+              formKey="accountName"
+              helper="Bank account name"
+              onChangeText={hocs.handleInput}
+            />
 
-          <Input
-            formData={form}
-            formKey="accountName"
-            placeholder="Account Name"
-            onChangeText={hocs.handleInput}
-            itemProps={{
-              marginBottom: true,
-            }}
-          />
+            <Input
+              formData={form}
+              formKey="bsb"
+              helper="BSB"
+              onChangeText={hocs.handleInput}
+            />
 
-          <Input
-            formData={form}
-            formKey="bsb"
-            placeholder="BSB"
-            onChangeText={hocs.handleInput}
-            itemProps={{
-              marginBottom: true,
-            }}
-          />
+            <Input
+              formData={form}
+              formKey="accountNumber"
+              helper="Account number"
+              onChangeText={hocs.handleInput}
+            />
 
-          <Input
-            formData={form}
-            formKey="accountNumber"
-            placeholder="Account Number"
-            onChangeText={hocs.handleInput}
-            itemProps={{
-              marginBottom: true,
-            }}
-          />
+          </View>
 
+          <KeyboardAvoidingView>
+            <Button
+              onPress={() => this.handlePress()}
+              block
+            >
+              <Text>Next</Text>
+            </Button>
+          </KeyboardAvoidingView>
         </View>
-
-        <KeyboardAvoidingView behavior="padding">
-          <Button
-            onPress={() => this.handlePress()}
-            block
-          >
-            <Text>Next</Text>
-          </Button>
-          <View style={{ height: styleConstants.keyboardAvoidingHeight }} />
-        </KeyboardAvoidingView>
       </Content>
     );
   }

@@ -85,6 +85,17 @@ export default (variables /*: * */ = variable) => {
       color: variables.btnDangerBg
     }
   };
+  const yellowCommon = {
+    "NativeBase.Text": {
+      color: styleConstants.color.dark3,
+    },
+    "NativeBase.Icon": {
+      color: styleConstants.color.dark3,
+    },
+    "NativeBase.IconNB": {
+      color: styleConstants.color.dark3,
+    },
+  };
   const grayCommon = {
     "NativeBase.Text": {
       color: styleConstants.color.gray
@@ -265,6 +276,19 @@ export default (variables /*: * */ = variable) => {
       backgroundColor: variables.btnDangerBg
     },
 
+    ".yellow": {
+      ".bordered": {
+        ...yellowCommon
+      },
+      "NativeBase.Text": {
+        color: styleConstants.color.dark3,
+      },
+      "NativeBase.Icon": {
+        color: styleConstants.color.dark3,
+      },
+      backgroundColor: styleConstants.color.brightYellow,
+    },
+
     ".gray": {
       ".bordered": {
         ...grayCommon
@@ -367,6 +391,10 @@ export default (variables /*: * */ = variable) => {
       },
       ".light": {
         ...lightCommon,
+        backgroundColor: null
+      },
+      ".yellow": {
+        ...yellowCommon,
         backgroundColor: null
       },
       ".gray": {

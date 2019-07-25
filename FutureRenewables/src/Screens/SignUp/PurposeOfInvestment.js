@@ -11,6 +11,9 @@ import {
 } from 'native-base';
 
 import ListLinks from 'src/Components/ListLinks';
+import {
+  routeNames,
+} from 'src/Navigation';
 
 import {
   styleGlobal,
@@ -23,8 +26,9 @@ class PurposeOfInvestment extends React.Component {
     };
   }
 
-  // eslint-disable-next-line class-methods-use-this
   handlePress() {
+    const { screenProps } = this.props;
+    screenProps.navigateTo(routeNames.OCCUPATION);
   }
 
   render() {
@@ -32,10 +36,12 @@ class PurposeOfInvestment extends React.Component {
       <Content padder>
         <View>
           <Text style={styleGlobal.formHeading}>
-            Which of these best describes the purpose of your investment?
+            Investment Purpose
           </Text>
 
           <Text style={[styleGlobal.textCenter, styleGlobal.colorGray, styleGlobal.mB20]}>
+            Which of these best describes the purpose of your investment?
+            {'\n'}
             We need to ask for compliance purposes
           </Text>
 
@@ -73,7 +79,7 @@ class PurposeOfInvestment extends React.Component {
 
         </View>
 
-        <ListLinks
+        {/* <ListLinks
             navigateTo={this.props.screenProps.navigateTo}
             data={[
               {
@@ -85,7 +91,7 @@ class PurposeOfInvestment extends React.Component {
                 screen: 'MultiPartyNextSteps',
               },
             ]}
-          />
+          /> */}
       </Content>
     );
   }

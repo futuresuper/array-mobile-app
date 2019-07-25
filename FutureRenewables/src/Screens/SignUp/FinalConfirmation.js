@@ -24,6 +24,9 @@ import composeHoc from 'src/Common/Hocs';
 import {
   CheckBox,
 } from 'src/Components/Form';
+import {
+  routeNames,
+} from 'src/Navigation';
 
 import styles from './styles';
 
@@ -73,7 +76,7 @@ class FinalConfirmation extends React.Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      screenProps.navigateTo('JoinSuper');
+      screenProps.navigateTo(routeNames.TAB_HOME);
     }
   }
 

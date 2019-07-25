@@ -109,7 +109,7 @@ class SignUpLogin extends Component {
 
           <View>
             <Text style={styleGlobal.formHeading}>
-              Mobile Number
+              Get started
             </Text>
 
             <Input

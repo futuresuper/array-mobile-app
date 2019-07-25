@@ -19,6 +19,11 @@ export default {
       fontSize: 32,
     };
   },
+  formHeadingDescription: {
+    color: styleConstants.color.dark3,
+    fontSize: 16,
+    marginBottom: 30,
+  },
   formError: {
     fontSize: 12,
     textAlign: 'center',

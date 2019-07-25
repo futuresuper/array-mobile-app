@@ -89,7 +89,7 @@ class SmsCode extends Component {
     const { screenProps } = this.props;
     const { navigateTo } = screenProps;
 
-    navigateTo(routeNames.ACCOUNT_TYPE);
+    navigateTo(routeNames.ABOUT_APP_FORM);
   }
 
   render() {
@@ -97,7 +97,7 @@ class SmsCode extends Component {
     const { smsCode } = this.state;
 
     if (mobile) {
-      mobile = mobile.substr(-3);
+      mobile = mobile.substr(1);
     }
 
     return (
@@ -109,17 +109,11 @@ class SmsCode extends Component {
             </Text>
 
             <Text style={styleGlobal.mB30}>
-              We&apos;ve just texted you a code to
-              <Text style={styleGlobal.textBold}>
-                &nbsp;xxx xxx&nbsp;
-                {mobile}
-              </Text>
-              &nbsp;
-              to verify your number
+              {`Please enter the SMS code we just sent your mobile ${mobile}`}
             </Text>
 
             <Input
-              helper="Code"
+              helper="6 digit code"
               returnKeyType="next"
               keyboardType="numeric"
               value={smsCode}

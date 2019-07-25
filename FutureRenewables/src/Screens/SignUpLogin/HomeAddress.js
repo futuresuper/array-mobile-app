@@ -164,7 +164,7 @@ class HomeAddress extends React.Component {
 
     const formIsValid = hocs.formIsValid(formKey);
     if (formIsValid) {
-      screenProps.navigateTo(routeNames.NOTIFICATIONS);
+      screenProps.navigateTo(routeNames.PLACE_OF_BIRTH);
     }
   }
 

@@ -13,6 +13,11 @@ import HomeAddress from './HomeAddress';
 import Notifications from './Notifications';
 import ThanksShare from './ThanksShare';
 import ArtistName from './ArtistName';
+import AboutAppForm from './AboutAppForm';
+import PlaceOfBirth from './PlaceOfBirth';
+import Occupation from './Occupation';
+import Pep from './Pep';
+import TaxNumbers from './TaxNumbers';
 
 export {
   AppLanding,
@@ -29,4 +34,9 @@ export {
   Notifications,
   ThanksShare,
   ArtistName,
+  AboutAppForm,
+  PlaceOfBirth,
+  Occupation,
+  Pep,
+  TaxNumbers,
 };

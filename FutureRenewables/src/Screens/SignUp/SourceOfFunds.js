@@ -11,8 +11,12 @@ import {
 } from 'native-base';
 
 import {
-  styleGlobal,
+  sg,
 } from 'src/Styles';
+
+import {
+  routeNames,
+} from 'src/Navigation';
 
 class SourceOfFunds extends React.Component {
   constructor(props) {
@@ -23,61 +27,80 @@ class SourceOfFunds extends React.Component {
 
   handlePress(type) {
     const { screenProps } = this.props;
-    screenProps.navigateTo('PurposeOfInvestment', { type });
+    screenProps.navigateTo(routeNames.PURPOSE_OF_INVESTMENT, { type });
   }
 
   render() {
     return (
-      <Content padder>
-        <View>
-          <Text style={styleGlobal.formHeading}>
-            Which of these best describes the source of your investment funds?
-          </Text>
+      <Content padder contentContainerStyle={sg.flexGrow}>
+        <View style={[sg.spaceBetween]}>
+          <View>
+            <Text style={sg.formHeading}>
+              Funds source
+            </Text>
 
-          <Text style={[styleGlobal.textCenter, styleGlobal.colorGray, styleGlobal.mB20]}>
-            We need to ask for compliance purposes
-          </Text>
+            <Text style={[sg.formHeadingDescription]}>
+              Which of these best describes the source of your investment funds? (We need to ask for compliance purposes)
+            </Text>
+
+            <Button
+              onPress={() => this.handlePress('moneyEmployment')}
+              bordered
+              dark
+              block
+              marginVert
+            >
+              <Text>Money from employment</Text>
+            </Button>
+
+            <Button
+              onPress={() => this.handlePress('inheritenceGift')}
+              yellow
+              block
+              marginVert
+            >
+              <Text>Inheritence / Gift</Text>
+            </Button>
+
+            <Button
+              onPress={() => this.handlePress('businessActivity')}
+              bordered
+              dark
+              block
+              marginVert
+            >
+              <Text>Business Activity</Text>
+            </Button>
+
+            <Button
+              onPress={() => this.handlePress('superSavings')}
+              bordered
+              dark
+              block
+              marginVert
+            >
+              <Text>Super Savings</Text>
+            </Button>
+
+            <Button
+              onPress={() => this.handlePress('financialInvestments')}
+              bordered
+              dark
+              block
+              marginVert
+            >
+              <Text>Financial Investments</Text>
+            </Button>
+
+          </View>
 
           <Button
-            onPress={() => this.handlePress('moneyEmployment')}
+            onPress={() => this.handlePress('hz')}
             block
             marginVert
           >
-            <Text>Money from employment</Text>
+            <Text>Next</Text>
           </Button>
-
-          <Button
-            onPress={() => this.handlePress('inheritenceGift')}
-            block
-            marginVert
-          >
-            <Text>Inheritence / Gift</Text>
-          </Button>
-
-          <Button
-            onPress={() => this.handlePress('businessActivity')}
-            block
-            marginVert
-          >
-            <Text>Business Activity</Text>
-          </Button>
-
-          <Button
-            onPress={() => this.handlePress('superSavings')}
-            block
-            marginVert
-          >
-            <Text>Super Savings</Text>
-          </Button>
-
-          <Button
-            onPress={() => this.handlePress('financialInvestments')}
-            block
-            marginVert
-          >
-            <Text>Financial Investments</Text>
-          </Button>
-
         </View>
       </Content>
     );

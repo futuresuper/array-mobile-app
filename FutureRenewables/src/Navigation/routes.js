@@ -67,6 +67,9 @@ const signRoutes = formatRoutes({
   [routeNames.ACCOUNT_TYPE]: {
     screen: screens.AccountType,
   },
+  [routeNames.ABOUT_APP_FORM]: {
+    screen: screens.AboutAppForm,
+  },
   [routeNames.NAME]: {
     screen: screens.Name,
   },
@@ -78,6 +81,36 @@ const signRoutes = formatRoutes({
   },
   [routeNames.HOME_ADDRESS]: {
     screen: screens.HomeAddress,
+  },
+  [routeNames.PLACE_OF_BIRTH]: {
+    screen: screens.PlaceOfBirth,
+  },
+  [routeNames.INITIAL_INVESTMENT_AMOUNT]: {
+    screen: screens.InitialInvestmentAmount,
+  },
+  [routeNames.BANK_ACCOUNT]: {
+    screen: screens.BankAccount,
+  },
+  [routeNames.ID_CHECK_ONLINE]: {
+    screen: screens.IdCheckOnline,
+  },
+  [routeNames.SOURCE_OF_FUNDS]: {
+    screen: screens.SourceOfFunds,
+  },
+  [routeNames.PURPOSE_OF_INVESTMENT]: {
+    screen: screens.PurposeOfInvestment,
+  },
+  [routeNames.OCCUPATION]: {
+    screen: screens.Occupation,
+  },
+  [routeNames.PEP]: {
+    screen: screens.Pep,
+  },
+  [routeNames.TAX_NUMBERS]: {
+    screen: screens.TaxNumbers,
+  },
+  [routeNames.FINAL_CONFIRMATION]: {
+    screen: screens.FinalConfirmation,
   },
   [routeNames.NOTIFICATIONS]: {
     screen: screens.Notifications,
@@ -103,23 +136,11 @@ const mainRoutes = formatRoutes({
       noHeader: true,
     },
   },
-  [routeNames.INITIAL_INVESTMENT_AMOUNT]: {
-    screen: screens.InitialInvestmentAmount,
-  },
   [routeNames.REGULAR_INVESTMENT_AMOUNT]: {
     screen: screens.RegularInvestmentAmount,
   },
-  [routeNames.BANK_ACCOUNT]: {
-    screen: screens.BankAccount,
-  },
   DirectDebitAuth: {
     screen: screens.DirectDebitAuth,
-  },
-  [routeNames.SOURCE_OF_FUNDS]: {
-    screen: screens.SourceOfFunds,
-  },
-  PurposeOfInvestment: {
-    screen: screens.PurposeOfInvestment,
   },
   OsTaxResident: {
     screen: screens.OsTaxResident,
@@ -132,9 +153,6 @@ const mainRoutes = formatRoutes({
   },
   JointInvestorDetails: {
     screen: screens.JointInvestorDetails,
-  },
-  FinalConfirmation: {
-    screen: screens.FinalConfirmation,
   },
   JoinSuper: {
     screen: screens.JoinSuper,
