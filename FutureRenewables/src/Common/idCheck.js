@@ -14,7 +14,7 @@ export default {
         res = 'Drivers License';
         break;
       case this.ID_TYPE.MEDICARE_CARD:
-        res = 'Drivers License';
+        res = 'Medicare Card';
         break;
       default:
         break;

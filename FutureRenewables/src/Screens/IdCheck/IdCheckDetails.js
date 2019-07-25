@@ -8,6 +8,7 @@ import {
   View,
   Button,
 } from 'native-base';
+import _ from 'lodash';
 
 import {
   Input,
@@ -22,6 +23,11 @@ import {
 } from 'src/Common/Hocs';
 
 import idCheckUtils from 'src/Common/idCheck';
+import {
+  normalizeAmount,
+  formatShortDate,
+  isShortDateValid,
+} from 'src/Common/Helpers';
 
 import {
   sg,
@@ -32,12 +38,7 @@ class IdCheckDetails extends Component {
     const { item, newItemByType } = this.props;
 
     if (newItemByType) {
-      this.setForm({
-        type: newItemByType,
-        name: '',
-        no: '',
-        state: '',
-      });
+      this.setForm(this.getEmptyForm());
     } else {
       this.setForm(item);
     }
@@ -54,6 +55,39 @@ class IdCheckDetails extends Component {
     screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
   }
 
+  getEmptyForm() {
+    const { newItemByType } = this.props;
+
+    let res = {
+      type: newItemByType,
+      name: '',
+    };
+
+    if (newItemByType === idCheckUtils.ID_TYPE.PASSPORT) {
+      res = {
+        ...res,
+        passportNumber: '',
+        expiry: '',
+        country: '',
+      };
+    } else if (newItemByType === idCheckUtils.ID_TYPE.DRIVERS_LICENSE) {
+      res = {
+        ...res,
+        licenseNumber: '',
+        state: '',
+      };
+    } else if (newItemByType === idCheckUtils.ID_TYPE.MEDICARE_CARD) {
+      res = {
+        ...res,
+        cardNumber: '',
+        referenceNumber: '',
+        expiry: '',
+      };
+    }
+
+    return res;
+  }
+
   setForm(item) {
     const { hocs } = this.props;
 
@@ -62,18 +96,34 @@ class IdCheckDetails extends Component {
         'required',
       ]);
 
-      hocs.setFieldValidations('no', [
-        'required',
-      ]);
+      if (item.type === idCheckUtils.ID_TYPE.PASSPORT) {
+        hocs.setFieldValidations('passportNumber', [
+          'required',
+        ]);
+        hocs.setFieldValidations('expiry', [
+          'required',
+          [isShortDateValid, 'Wrong date'],
+        ]);
 
-      // if (item.type === idCheckUtils.ID_TYPE.PASSPORT) {
+        hocs.setFieldFormat('expiry', formatShortDate);
+        hocs.setFieldNormalize('expiry', normalizeAmount);
 
-      // } else if (item.type === idCheckUtils.ID_TYPE.PASSPORT) {
-      // }
+        hocs.setFieldValidations('country', [
+          'required',
+        ]);
+      } else if (item.type === idCheckUtils.ID_TYPE.DRIVERS_LICENSE) {
+        hocs.setFieldValidations('licenseNumber', [
+          'required',
+        ]);
 
-      hocs.setFieldValidations('state', [
-        'required',
-      ]);
+        hocs.setFieldValidations('state', [
+          'required',
+        ]);
+      } else if (item.type === idCheckUtils.ID_TYPE.MEDICARE_CARD) {
+        hocs.setFieldValidations('passportNucardNumbermber', [
+          'required',
+        ]);
+      }
     });
   }
 
@@ -88,6 +138,72 @@ class IdCheckDetails extends Component {
     return res;
   }
 
+  renderFormInput(key, index, form) {
+    const { hocs, newItemByType } = this.props;
+    let helper = '';
+
+    if ([
+      'type',
+      'verified',
+    ].includes(key)) {
+      return null;
+    }
+
+    switch (key) {
+      case 'name':
+        if (newItemByType === idCheckUtils.ID_TYPE.PASSPORT) {
+          helper = 'Full name on passport';
+        } else if (newItemByType === idCheckUtils.ID_TYPE.DRIVERS_LICENSE) {
+          helper = 'Full name on license';
+        } else {
+          helper = 'Full name on Medicare Card';
+        }
+
+        break;
+      case 'passportNumber':
+        helper = 'Pasport number';
+
+        break;
+      case 'licenseNumber':
+        helper = 'License number';
+
+        break;
+      case 'cardNumber':
+        helper = 'Card Number';
+
+        break;
+      case 'referenceNumber':
+        helper = 'Reference number';
+
+        break;
+      case 'state':
+        helper = 'State';
+
+        break;
+      case 'country':
+        helper = 'Country';
+
+        break;
+      case 'expiry':
+        helper = 'Expiry';
+
+        break;
+      default:
+        break;
+    }
+
+    return (
+      <Input
+        key={index.toString()}
+        formData={form}
+        formKey={key}
+        helper={helper}
+        onChangeText={hocs.handleInput}
+        color2
+      />
+    );
+  }
+
   renderForm() {
     const { hocs } = this.props;
     const { form } = hocs;
@@ -96,9 +212,14 @@ class IdCheckDetails extends Component {
       return null;
     }
 
+    // const hz =
+
+    console.log('!!!', { form });
+
     return (
       <View>
-        <Input
+        {Object.keys(form).map((key, index) => this.renderFormInput(key, index, form))}
+        {/* <Input
           formData={form}
           formKey="name"
           helper="Full name on licence"
@@ -120,7 +241,7 @@ class IdCheckDetails extends Component {
           helper="State"
           onChangeText={hocs.handleInput}
           color2
-        />
+        /> */}
       </View>
     );
   }

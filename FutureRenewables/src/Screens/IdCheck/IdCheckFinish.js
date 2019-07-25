@@ -41,14 +41,14 @@ class IdCheckFinish extends Component {
         {
           type: idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
           name: 'Olivia King',
-          no: '123123123',
+          licenseNumber: '123123123',
           state: 'NSW',
           verified: true,
         },
         {
           type: idCheckUtils.ID_TYPE.PASSPORT,
           name: 'Olivia King',
-          no: '123123123',
+          licenseNumber: '123123123',
           state: 'NSW',
           verified: false,
         },
@@ -75,7 +75,7 @@ class IdCheckFinish extends Component {
             <Text style={[sg.colorDark3]}>{item.name}</Text>
             <Text style={[sg.colorDark3, sg.mV5]}>
               No.
-              {item.no}
+              {item.licenseNumber}
             </Text>
             <Text style={[sg.colorDark3]}>
               State:

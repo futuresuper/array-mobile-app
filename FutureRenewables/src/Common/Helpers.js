@@ -82,7 +82,7 @@ export const normalizeAmount = (valueInp) => {
 };
 
 
-export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thousands = ',') {
+export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thousands = ',', length = 3) {
   let amount = amountInp;
   try {
     let decimalCount = Math.abs(decimalCountInp);
@@ -91,10 +91,13 @@ export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thou
     const negativeSign = amount < 0 ? '-' : '';
 
     const i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount), 10).toString();
-    const j = (i.length > 3) ? i.length % 3 : 0;
+    const j = (i.length > length) ? i.length % length : 0;
+
+    const pattern = `(\\d{${length}})(?=\\d)`;
+    const regExp = new RegExp(pattern, 'g');
 
     // eslint-disable-next-line max-len
-    return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, `$1${thousands}`) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : '');
+    return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(regExp, `$1${thousands}`) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : '');
   } catch (e) {
     return 'error';
   }
@@ -117,6 +120,19 @@ export const formatAmountDollar = (inputInp) => {
 
   return input;
 };
+
+export const formatShortDate = (valInp) => {
+  let val = valInp;
+  if (val.length > 6) {
+    val = val.slice(0, -1);
+  }
+
+  const res = formatAmount(val, 0, '.', '.', 2);
+
+  return res;
+};
+
+export const isShortDateValid = valInp => (valInp.length >= 6);
 
 export const rgbaByHex = (hexInp, opacity) => {
   const hex = hexInp.replace('#', '');

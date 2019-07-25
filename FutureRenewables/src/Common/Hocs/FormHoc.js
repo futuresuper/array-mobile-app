@@ -281,6 +281,30 @@ export default function FormHoc(WrappedComponent) {
       return true;
     }
 
+    setFieldNormalize = (formKey, value) => this.setFieldKey(formKey, 'normalize', value);
+
+    setFieldFormat = (formKey, value) => this.setFieldKey(formKey, 'format', value);
+
+    setFieldKey = (formKey, formFieldKey, formFieldValue) => {
+      const { form } = this.state;
+      const formIsArray = (Array.isArray(form));
+      if (formIsArray) {
+        return false;
+      }
+
+      if (_.isNil(form[formKey])) {
+        return false;
+      }
+
+      form[formKey][formFieldKey] = formFieldValue;
+
+      this.setState({
+        form,
+      });
+
+      return true;
+    }
+
     applyNormalizeFormat(inputItemInp, valueInp = null) {
       const inputItem = inputItemInp;
       const value = !_.isNil(valueInp) ? valueInp : inputItem.value;
@@ -440,6 +464,8 @@ export default function FormHoc(WrappedComponent) {
             formIsValid: this.formIsValid,
             addFormItem: this.addFormItem,
             setFieldValidations: this.setFieldValidations,
+            setFieldNormalize: this.setFieldNormalize,
+            setFieldFormat: this.setFieldFormat,
           }}
           {...passThroughtProps}
           ref={forwardedRef}
