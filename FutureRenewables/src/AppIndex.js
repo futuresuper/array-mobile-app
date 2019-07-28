@@ -129,6 +129,7 @@ class AppIndex extends Component {
   }
 
   getTheme = () => ThemeService.getTheme()
+  isDarkTheme = () => ThemeService.isDark()
 
   navigateTo(route_name, params = {}) {
     const { navigateToConnect } = this.props;
@@ -240,6 +241,7 @@ class AppIndex extends Component {
                 disableTheme: this.disableTheme,
                 toogleTheme: this.toogleTheme,
                 getTheme: this.getTheme,
+                isDarkTheme: this.isDarkTheme,
                 Api,
                 theme: {
                   dark,

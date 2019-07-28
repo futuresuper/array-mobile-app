@@ -78,6 +78,7 @@ export const tabModalOptions = (propsInp = {}) => ({
     const currentRoute = NavigationService.getCurrentRoute(state);
     const theme = screenProps.getTheme();
     let params = currentRoute.params || {};
+    const title = params.title || null;
 
     if (paramsInp) {
       params = {
@@ -91,12 +92,19 @@ export const tabModalOptions = (propsInp = {}) => ({
 
     return {
       headerLeft: backButton,
-      headerRight: <CloseButton onPress={() => { navigation.popToTop(); }} />,
+      headerRight: <CloseButton white theme onPress={() => { navigation.popToTop(); }} {...props} />,
       headerStyle: {
         backgroundColor: theme.containerBgColor,
         borderBottomWidth: 0,
         elevation: 0,
       },
+      headerTitleStyle: {
+        color: theme.textColor2,
+        fontFamily: sc.font.bold,
+        fontWeight: null,
+        fontSize: 24,
+      },
+      title,
       header,
     };
   },

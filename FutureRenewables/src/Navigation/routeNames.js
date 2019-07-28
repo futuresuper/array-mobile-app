@@ -22,6 +22,7 @@ export default {
   TAB_PROFILE: 'TabProfile',
   DEPOSIT_WITHDRAW: 'DepositWithdraw',
   DEPOSIT_WITHDRAW_DONE: 'DepositWithdrawDone',
+  WITHDRAW: 'Withdraw',
   SOLAR_FARM: 'SolarFarm',
   SOLAR_FARMS_LIST: 'SolarFarmsList',
   SOLAR_FARMS_MAP: 'SolarFarmsMap',

@@ -242,6 +242,12 @@ const tabBarModalRoutes = {
       backButton: true,
     },
   },
+  [routeNames.WITHDRAW]: {
+    screen: screens.Withdraw,
+    params: {
+      title: 'Withdraw',
+    },
+  },
 };
 
 const tabBarScreensRoutes = {

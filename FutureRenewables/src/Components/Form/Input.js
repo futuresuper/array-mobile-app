@@ -80,6 +80,20 @@ class Input extends Component {
     );
   }
 
+  renderRightComponent() {
+    const { componentRight } = this.props;
+
+    if (!componentRight) {
+      return null;
+    }
+
+    if (typeof componentRight === 'function') {
+      return componentRight();
+    }
+
+    return componentRight;
+  }
+
   renderLabel() {
     const { label, labelStyle, labelGray } = this.props;
 
@@ -179,6 +193,7 @@ class Input extends Component {
               value={formValue || value}
             />
             {this.renderInputRightIcon()}
+            {this.renderRightComponent()}
           </View>
         </Item>
         {this.renderHelper()}
@@ -212,6 +227,7 @@ Input.defaultProps = {
   helper: '',
   containerStyle: {},
   inputLineColor: undefined,
+  componentRight: null,
 };
 
 Input.propTypes = {
@@ -231,6 +247,10 @@ Input.propTypes = {
   helper: PropTypes.string,
   containerStyle: PropTypes.object,
   inputLineColor: PropTypes.string,
+  componentRight: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.func,
+  ]),
 };
 
 export default Input;

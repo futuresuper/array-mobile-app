@@ -17,7 +17,6 @@ import {
 } from 'src/Styles';
 
 import Deposit from './Deposit';
-import Withdraw from './Withdraw';
 
 import styles from './styles';
 
@@ -85,24 +84,14 @@ class DepositWithdraw extends Component {
               </Button>
             </View>
 
-            {segment.isDeposit
-              ? (
-                <Deposit
-                  ref={(ref) => {
-                    if (ref) this.Deposit = ref;
-                  }}
-                  {...this.props}
-                />
-              )
-              : (
-                <Withdraw
-                  ref={(ref) => {
-                    if (ref) this.Withdraw = ref;
-                  }}
-                  {...this.props}
-                />
-              )
-            }
+            {segment.isDeposit && (
+              <Deposit
+                ref={(ref) => {
+                  if (ref) this.Deposit = ref;
+                }}
+                {...this.props}
+              />
+            )}
           </View>
 
           <View>

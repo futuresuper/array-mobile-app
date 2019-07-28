@@ -1,9 +1,11 @@
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
 } from 'react-native';
 import {
+  Content,
   Text,
   Item,
 } from 'native-base';
@@ -13,6 +15,7 @@ import {
   Input,
   Picker,
 } from 'src/Components/Form';
+import TextUnderline from 'src/Components/TextUnderline';
 import {
   routeNames,
 } from 'src/Navigation';
@@ -89,62 +92,81 @@ class Withdraw extends Component {
     const { accountList } = this.state;
 
     return (
-      <View>
-        <Input
-          formData={form}
-          formKey="amount"
-          onChangeText={hocs.handleInput}
-          keyboardType="numeric"
-          style={[sg.fS24]}
-          color2
-        />
+      <Content padder contentContainerStyle={[sg.flexGrow]}>
+        <View style={sg.spaceBetween}>
+          <View>
+            <Input
+              formData={form}
+              formKey="amount"
+              onChangeText={hocs.handleInput}
+              keyboardType="numeric"
+              style={[sg.fS24]}
+              color2
+              componentRight={<Text color4>Available: $2,901.50</Text>}
+            />
 
-        <Item
-          style={[sg.noBorder]}
-        >
-          <Picker
-            formData={form}
-            formKey="from"
-            label="From"
-            title="Liv"
-            list={accountList}
-            renderItem={({ item }) => (
-              <View>
-                <Text style={sg.pickerItemText}>{item.name}</Text>
-                <Text style={sg.pickerItemText2}>{item.number}</Text>
-              </View>
-            )}
-            onPressItem={({ item }, formKey, dataKey) => {
-              hocs.handlePicker(item.number, formKey, dataKey);
-              hocs.setFormTitle(item.number, formKey, dataKey);
-            }}
-          />
-        </Item>
+            <Item
+              style={[sg.noBorder]}
+            >
+              <Picker
+                formData={form}
+                formKey="from"
+                label="From"
+                title="Liv"
+                list={accountList}
+                renderItem={({ item }) => (
+                  <View>
+                    <Text style={sg.pickerItemText}>{item.name}</Text>
+                    <Text style={sg.pickerItemText2}>{item.number}</Text>
+                  </View>
+                )}
+                onPressItem={({ item }, formKey, dataKey) => {
+                  hocs.handlePicker(item.number, formKey, dataKey);
+                  hocs.setFormTitle(item.number, formKey, dataKey);
+                }}
+              />
+            </Item>
 
-        <Item
-          style={[sg.noBorder]}
-        >
-          <Picker
-            formData={form}
-            formKey="into"
-            label="Into"
-            title="ING account"
-            list={accountList}
-            renderItem={({ item }) => (
-              <View>
-                <Text style={sg.pickerItemText}>{item.name}</Text>
-                <Text style={sg.pickerItemText2}>{item.number}</Text>
-              </View>
-            )}
-            onPressItem={({ item }, formKey, dataKey) => {
-              hocs.handlePicker(item.number, formKey, dataKey);
-              hocs.setFormTitle(item.number, formKey, dataKey);
-            }}
-          />
-        </Item>
+            <Item
+              style={[sg.noBorder]}
+            >
+              <Picker
+                formData={form}
+                formKey="into"
+                label="Into"
+                title="ING account"
+                list={accountList}
+                renderItem={({ item }) => (
+                  <View>
+                    <Text style={sg.pickerItemText}>{item.name}</Text>
+                    <Text style={sg.pickerItemText2}>{item.number}</Text>
+                  </View>
+                )}
+                onPressItem={({ item }, formKey, dataKey) => {
+                  hocs.handlePicker(item.number, formKey, dataKey);
+                  hocs.setFormTitle(item.number, formKey, dataKey);
+                }}
+              />
+            </Item>
 
+            <Text style={[sg.mT30]}>
+              Withdrawal offers are currently
+              &nbsp;
+              <Text style={sg.textBold}>open</Text>
+              .
+              For more info on how withdrawls work,
+            </Text>
+            <TextUnderline
+              theme2
+              style={[sg.aSStart]}
+              styleText={[sg.fS16]}
+            >
+              read more here.
+            </TextUnderline>
 
-      </View>
+          </View>
+        </View>
+      </Content>
     );
   }
 }
@@ -153,4 +175,4 @@ const res = composeHoc([
   'FormHoc',
 ])(Withdraw);
 
-export default res;
+export default connect()(res);

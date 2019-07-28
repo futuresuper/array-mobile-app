@@ -22,6 +22,7 @@ const TextUnderline = (props) => {
     style,
     styleText,
     theme,
+    theme2,
     iconRight: iconRightProps,
   } = props;
   let iconRight;
@@ -42,8 +43,8 @@ const TextUnderline = (props) => {
       {...props}
       style={[styles.container, style]}
     >
-      <ViewNB style={[styles.subContainer, (theme ? {} : sg.borderColorPrimary)]} br3={theme}>
-        <Text style={[styles.text, (theme ? {} : sg.colorDark3), styleText]} underline color4={theme}>{children}</Text>
+      <ViewNB style={[styles.subContainer, sg.borderColorPrimary]}>
+        <Text style={[styles.text, ((theme || theme2) ? {} : sg.colorDark3), styleText]} underline color4={theme} color={theme2}>{children}</Text>
         {iconRight && <Icon type={iconRight.type} name={iconRight.name} style={iconRight.style} />}
       </ViewNB>
     </TouchableOpacity>
@@ -54,6 +55,7 @@ TextUnderline.defaultProps = {
   style: {},
   styleText: {},
   theme: false,
+  theme2: false,
   iconRight: null,
 };
 
@@ -68,6 +70,7 @@ TextUnderline.propTypes = {
     PropTypes.array,
   ]),
   theme: PropTypes.bool,
+  theme2: PropTypes.bool,
   iconRight: PropTypes.shape({
     type: PropTypes.string,
     name: PropTypes.string.isRequired,

@@ -137,9 +137,7 @@ class Perfomance extends Component {
               bordered
               dark
               onPress={() => {
-                screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW, {
-                  withdraw: true,
-                });
+                screenProps.navigateTo(routeNames.WITHDRAW);
               }}
             >
               <Text>Withdraw</Text>

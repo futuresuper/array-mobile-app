@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Image,
@@ -10,38 +10,54 @@ import {
 } from 'native-base';
 
 import CloseCircle from 'src/assets/images/CloseCircle.png';
+import CloseCircleDark from 'src/assets/images/CloseCircleDark.png';
 
 import styles from './styles';
 
-const CloseButton = (props) => {
-  const { style, white, navigation } = props;
+class CloseButton extends Component {
+  renderImage() {
+    const { theme, screenProps } = this.props;
+    let image = CloseCircle;
 
-  return (
-    <Button
-      transparent
-      onPress={() => {
-        if (navigation) {
-          navigation.goBack(null);
+    if (theme && screenProps.isDarkTheme()) {
+      image = CloseCircleDark;
+    }
+
+    return <Image source={image} />;
+  }
+
+  render() {
+    const { style, white, navigation } = this.props;
+
+    return (
+      <Button
+        transparent
+        onPress={() => {
+          if (navigation) {
+            navigation.goBack(null);
+          }
+        }}
+        {...this.props}
+        style={[styles.button, style]}
+      >
+        {white
+          ? this.renderImage()
+          : <Icon name="close" style={styles.icon} />
         }
-      }}
-      {...props}
-      style={[styles.button, style]}
-    >
-      {white
-        ? <Image source={CloseCircle} />
-        : <Icon name="close" style={styles.icon} />
-      }
-    </Button>
-  );
-};
+      </Button>
+    );
+  }
+}
 
 CloseButton.defaultProps = {
   white: false,
+  theme: false,
   style: {},
 };
 
 CloseButton.propTypes = {
   white: PropTypes.bool,
+  theme: PropTypes.bool,
   style: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,
