@@ -3,7 +3,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {
+  View,
+} from 'react-native';
+
+import {
   Item,
+  Text,
 } from 'native-base';
 
 import PickerOrig from 'src/Components/Picker';
@@ -11,6 +16,8 @@ import PickerOrig from 'src/Components/Picker';
 import {
   sg,
 } from 'src/Styles';
+
+import { picker as styles } from './styles';
 
 class Picker extends Component {
   componentDidMount() {
@@ -46,11 +53,22 @@ class Picker extends Component {
   onPressItem = (...args) => {
     const { onPressItem, formKey, dataKey } = this.props;
 
-    console.log('!!!asd', this.props);
     this.Picker.closeList();
     if (onPressItem) {
       onPressItem(...args, formKey, dataKey);
     }
+  }
+
+  renderHelper() {
+    const { helper } = this.props;
+
+    if (_.isEmpty(helper)) {
+      return null;
+    }
+
+    return (
+      <Text style={styles.helperBl}>{helper}</Text>
+    );
   }
 
   render() {
@@ -78,23 +96,26 @@ class Picker extends Component {
     }
 
     return (
-      <Item
-        error={error}
-        style={[{ borderColor: lineColor }, sg.mB15, containerStyle]}
-      >
-        <PickerOrig
-          ref={(ref) => {
-            if (ref) this.Picker = ref;
-          }}
-          label={label}
-          labelGray={labelGray}
-          list={list}
-          renderItem={renderItem}
-          {...this.props}
-          title={titleText}
-          onPressItem={this.onPressItem}
-        />
-      </Item>
+      <View style={[sg.flex, sg.mB15]}>
+        <Item
+          error={error}
+          style={[{ borderColor: lineColor }, sg.mB0, containerStyle]}
+        >
+          <PickerOrig
+            ref={(ref) => {
+              if (ref) this.Picker = ref;
+            }}
+            label={label}
+            labelGray={labelGray}
+            list={list}
+            renderItem={renderItem}
+            {...this.props}
+            title={titleText}
+            onPressItem={this.onPressItem}
+          />
+        </Item>
+        {this.renderHelper()}
+      </View>
     );
   }
 }
@@ -111,6 +132,7 @@ Picker.defaultProps = {
   onInit: null,
   containerStyle: {},
   lineColor: undefined,
+  helper: '',
 };
 
 Picker.propTypes = {
@@ -129,6 +151,7 @@ Picker.propTypes = {
     PropTypes.array,
   ]),
   lineColor: PropTypes.string,
+  helper: PropTypes.string,
 };
 
 export default Picker;

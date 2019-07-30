@@ -40,22 +40,22 @@ class SourceOfFunds extends React.Component {
             </Text>
 
             <Text style={[sg.formHeadingDescription]}>
-              Which of these best describes the source of your investment funds? (We need to ask for compliance purposes)
+              Which of these best describes the source of your investment funds?
             </Text>
 
+          </View>
+
+          <View>
             <Button
               onPress={() => this.handlePress('moneyEmployment')}
-              bordered
-              dark
               block
               marginVert
             >
-              <Text>Money from employment</Text>
+              <Text>Money from working</Text>
             </Button>
 
             <Button
               onPress={() => this.handlePress('inheritenceGift')}
-              yellow
               block
               marginVert
             >
@@ -64,8 +64,6 @@ class SourceOfFunds extends React.Component {
 
             <Button
               onPress={() => this.handlePress('businessActivity')}
-              bordered
-              dark
               block
               marginVert
             >
@@ -74,8 +72,6 @@ class SourceOfFunds extends React.Component {
 
             <Button
               onPress={() => this.handlePress('superSavings')}
-              bordered
-              dark
               block
               marginVert
             >
@@ -84,23 +80,13 @@ class SourceOfFunds extends React.Component {
 
             <Button
               onPress={() => this.handlePress('financialInvestments')}
-              bordered
-              dark
               block
               marginVert
             >
               <Text>Financial Investments</Text>
             </Button>
-
           </View>
 
-          <Button
-            onPress={() => this.handlePress('hz')}
-            block
-            marginVert
-          >
-            <Text>Next</Text>
-          </Button>
         </View>
       </Content>
     );

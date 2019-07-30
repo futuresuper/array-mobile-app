@@ -15,19 +15,51 @@ import {
 import {
   routeNames,
 } from 'src/Navigation';
+import {
+  Input,
+} from 'src/Components/Form';
+import {
+  composeHoc,
+  hocNames,
+} from 'src/Common/Hocs';
 
 import {
   sg,
 } from 'src/Styles';
 
 class Occupation extends Component {
-  onNext() {
-    const { screenProps } = this.props;
+  constructor(props) {
+    super(props);
 
-    screenProps.navigateTo(routeNames.PEP);
+    this.state = {
+      form: {
+        occupation: {
+          validations: ['required'],
+        },
+      },
+    };
+  }
+
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
+  onNext() {
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo(routeNames.PEP);
+    }
   }
 
   render() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
@@ -35,19 +67,64 @@ class Occupation extends Component {
             <Text style={sg.formHeading}>
               Occupation
             </Text>
+
+            <Input
+              formData={form}
+              formKey="occupation"
+              helper="Occupation"
+              onChangeText={hocs.handleInput}
+            />
           </View>
 
 
-          <Button
-            onPress={() => this.onNext()}
-            block
-          >
-            <Text>Next</Text>
-          </Button>
+          <View>
+            <Button
+              onPress={() => this.onNext()}
+              bordered
+              dark
+              block
+              marginVert
+            >
+              <Text>Not currently employed</Text>
+            </Button>
+
+            <Button
+              onPress={() => this.onNext()}
+              bordered
+              dark
+              block
+              marginVert
+            >
+              <Text>Student</Text>
+            </Button>
+
+            <Button
+              onPress={() => this.onNext()}
+              bordered
+              dark
+              block
+              marginVert
+            >
+              <Text>Ritired</Text>
+            </Button>
+
+            <Button
+              onPress={() => this.onNext()}
+              block
+              marginVert
+              style={sg.mB0}
+            >
+              <Text>Next</Text>
+            </Button>
+          </View>
         </View>
       </Content>
     );
   }
 }
 
-export default connect()(Occupation);
+const res = composeHoc([
+  hocNames.FORM,
+])(Occupation);
+
+export default connect()(res);

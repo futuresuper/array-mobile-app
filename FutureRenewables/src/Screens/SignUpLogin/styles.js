@@ -118,3 +118,21 @@ export const ArtistName = {
     color: 'white',
   },
 };
+
+export const aboutAppForm = {
+  description: {
+    fontSize: 10,
+  },
+  get descriptionUnderline() {
+    return {
+      ...this.description,
+      textDecorationLine: 'underline',
+    };
+  },
+  get descriptionP() {
+    return {
+      ...this.description,
+      marginTop: 20,
+    };
+  },
+};

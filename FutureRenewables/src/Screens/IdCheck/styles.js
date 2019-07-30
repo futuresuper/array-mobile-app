@@ -42,3 +42,15 @@ export default {
     };
   },
 };
+
+export const idCheckOnline = {
+  text: {
+    fontSize: 10,
+  },
+  get textBold() {
+    return {
+      ...this.text,
+      fontFamily: sc.font.bold,
+    };
+  },
+};

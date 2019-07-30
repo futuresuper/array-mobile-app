@@ -15,19 +15,51 @@ import {
 import {
   routeNames,
 } from 'src/Navigation';
+import {
+  Input,
+} from 'src/Components/Form';
+import {
+  composeHoc,
+  hocNames,
+} from 'src/Common/Hocs';
 
 import {
   sg,
 } from 'src/Styles';
 
 class TaxNumbers extends Component {
-  onNext() {
-    const { screenProps } = this.props;
+  constructor(props) {
+    super(props);
 
-    screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
+    this.state = {
+      form: {
+        asdasd: {
+          validations: ['required'],
+        },
+      },
+    };
+  }
+
+  componentDidUpdate() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
+  onNext() {
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
+    }
   }
 
   render() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
@@ -35,6 +67,13 @@ class TaxNumbers extends Component {
             <Text style={sg.formHeading}>
               Tax Numbers
             </Text>
+
+            {/* <Input
+              formData={form}
+              formKey="tfn"
+              helper="Your Australian Tax File Number (TFN)"
+              onChangeText={hocs.handleInput}
+            /> */}
           </View>
 
 
@@ -50,4 +89,8 @@ class TaxNumbers extends Component {
   }
 }
 
-export default connect()(TaxNumbers);
+const res = composeHoc([
+  hocNames.FORM,
+])(TaxNumbers);
+
+export default connect()(res);

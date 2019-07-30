@@ -8,6 +8,8 @@ import {
   Content,
   Button,
   Text,
+  Grid,
+  Col,
 } from 'native-base';
 
 import {
@@ -17,9 +19,8 @@ import {
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
+  CheckBox,
 } from 'src/Components/Form';
-import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
-
 
 import {
   routeNames,
@@ -37,6 +38,9 @@ class BankAccount extends React.Component {
           validations: ['required'],
         },
         accountNumber: {
+          validations: ['required'],
+        },
+        authority: {
           validations: ['required'],
         },
       },
@@ -66,21 +70,10 @@ class BankAccount extends React.Component {
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
-          <View>
+          <View style={sg.mB20}>
             <Text style={sg.formHeading}>
               Link bank account
             </Text>
-
-            <Text style={sg.formHeadingDescription}>
-              This will allow us to direct debit your investments
-            </Text>
-
-            <Input
-              formData={form}
-              formKey="accountName"
-              helper="Bank account name"
-              onChangeText={hocs.handleInput}
-            />
 
             <Input
               formData={form}
@@ -96,16 +89,41 @@ class BankAccount extends React.Component {
               onChangeText={hocs.handleInput}
             />
 
+            <Input
+              formData={form}
+              formKey="accountName"
+              helper="Bank account name"
+              onChangeText={hocs.handleInput}
+            />
+
+            <Grid style={sg.mT20}>
+              <Col style={sg.width50}>
+                <CheckBox
+                  formData={form}
+                  formKey="authority"
+                  onPress={hocs.handleCheckBox}
+                />
+              </Col>
+              <Col>
+                <Text style={[sg.textBold, sg.fS10]}>Provide authority to direct debit your bank account</Text>
+                <Text style={[sg.fS10, sg.mT10]}>
+                  I authorise Ezidebit Pty Ltd ACN 096 902 813 (User ID No 165969, 303909, 301203, 234040, 234072, 428198)
+                  to debit my account at the Financial Institution identified above through the Bulk Electronic Clearing System (BECS),
+                  in accordance with this Direct Debit Request and as per the Ezidebit DDR Service Agreement.
+                  I authorise these payments to be debited at intervals and amounts as directed by Future Super for the Future Renewables Fund,
+                  as per the Terms and Conditions of the Future Super agreement and subsequent agreements.
+                </Text>
+              </Col>
+            </Grid>
+
           </View>
 
-          <KeyboardAvoidingView>
-            <Button
-              onPress={() => this.handlePress()}
-              block
-            >
-              <Text>Next</Text>
-            </Button>
-          </KeyboardAvoidingView>
+          <Button
+            onPress={() => this.handlePress()}
+            block
+          >
+            <Text>Next</Text>
+          </Button>
         </View>
       </Content>
     );

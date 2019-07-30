@@ -5,23 +5,24 @@ import {
 
 export default {
   container: {
-    borderRadius: 6,
+    borderRadius: 4,
     overflow: 'hidden',
-    width: 50,
-    height: 50,
-    borderWidth: 2,
-    borderColor: styleConstants.color.gray,
-    paddingLeft: 10,
-    paddingBottom: 5,
+    width: 28,
+    height: 28,
+    borderWidth: 1,
+    borderColor: styleConstants.color.white,
+    backgroundColor: styleConstants.color.white,
+    paddingLeft: 4,
+    paddingBottom: 1,
   },
   containerError: {
     borderColor: styleConstants.color.errorBorder,
   },
   icon: {
-    fontSize: 37,
-    lineHeight: 36,
+    fontSize: 26,
+    lineHeight: 25,
     fontWeight: '900',
-    marginTop: 5,
+    marginTop: 1,
     textShadowRadius: 0,
   },
 };

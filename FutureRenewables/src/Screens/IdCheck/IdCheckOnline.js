@@ -11,31 +11,106 @@ import {
   Content,
   Text,
   Button,
+  Grid,
+  Col,
 } from 'native-base';
 
 import {
   routeNames,
 } from 'src/Navigation';
+import {
+  Input,
+  CheckBox,
+} from 'src/Components/Form';
+import {
+  composeHoc,
+  hocNames,
+} from 'src/Common/Hocs';
 
 import {
   sg,
 } from 'src/Styles';
 
-class IdCheckOnline extends Component {
-  onNext() {
-    const { screenProps } = this.props;
+import { idCheckOnline as styles } from './styles';
 
-    screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
+class IdCheckOnline extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      form: {
+        check: {
+          validations: ['required'],
+        },
+      },
+    };
+  }
+
+  componentDidMount() {
+    const { hocs } = this.props;
+    const { form } = this.state;
+
+    hocs.setForm(form);
+  }
+
+  onNext() {
+    const { screenProps, hocs } = this.props;
+
+    const formIsValid = hocs.formIsValid();
+    if (formIsValid) {
+      screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
+    }
+  }
+
+  renderLi(text, subLi = false) {
+    const paddingLeft = sg.mL20;
+    const style = subLi ? paddingLeft : {};
+
+    return (
+      <View style={[sg.row, sg.mT10, style]}>
+        <Text style={sg.fS11}>{'\u2022'}</Text>
+        <Text style={[styles.text, paddingLeft]}>{text}</Text>
+      </View>
+    );
   }
 
   render() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
-          <View>
+          <View style={sg.mB20}>
             <Text style={sg.formHeading}>
               Online ID Check
             </Text>
+
+            <Grid style={sg.mT20}>
+              <Col style={sg.width50}>
+                <CheckBox
+                  formData={form}
+                  formKey="check"
+                  onPress={hocs.handleCheckBox}
+                />
+              </Col>
+              <Col>
+                <Text style={[styles.textBold]}>Please check my ID online</Text>
+                <Text style={[styles.text, sg.mT10]}>
+                  I understand that my details will be submitted to the Australian Government&apos;s Document Verification Service (DVS).
+                  I understand that the ID document details will be checked against records held by the Issuer or Official Record Holder.
+                </Text>
+                <Text style={[styles.text, sg.mT10]}>
+                  Specifically, as an investor:
+                </Text>
+                {this.renderLi('I have the legal capacity to understand and communicate any personal information required under this application,')}
+                {this.renderLi('I have read and understood the privacy disclosure as detailed in the PDS and in this on-line application form,')}
+                {this.renderLi('I consent to my personal information being collected, held, used and disclosed in accordance with the privacy disclosure voluntarily,')}
+                {this.renderLi('I consent to the Issuer disclosing my personal information to any Issuer’s service providers, in relation to any identification and verification that the Issuer is required to undertake on me, as required under the AML/CTF Act. This shall include any information:')}
+                {this.renderLi('required by any third party document verification service provider; and/or', true)}
+                {this.renderLi('provided to any third party document verification service provider.', true)}
+              </Col>
+            </Grid>
           </View>
 
 
@@ -51,4 +126,9 @@ class IdCheckOnline extends Component {
   }
 }
 
-export default connect()(IdCheckOnline);
+
+const res = composeHoc([
+  hocNames.FORM,
+])(IdCheckOnline);
+
+export default connect()(res);

@@ -9,8 +9,8 @@ import {
 
 export default {
   container: {
-    marginTop: 5,
-    marginBottom: 13,
+    marginTop: 8,
+    marginBottom: 12,
   },
   label: {
     marginBottom: 10,
@@ -19,9 +19,11 @@ export default {
   titleBl: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+    marginBottom: 0,
+    paddingBottom: 0,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: sc.font.bold,
     marginLeft: 0,
   },

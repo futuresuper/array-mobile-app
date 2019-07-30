@@ -9,7 +9,6 @@ import {
   Modal,
   FlatList,
 } from 'react-native';
-import _ from 'lodash';
 import {
   Text,
   Label,
@@ -91,8 +90,6 @@ class Picker extends Component {
 
     positionStyle.left = this._buttonFrame.x;
     positionStyle.right = rightSpace - this._buttonFrame.w;
-
-    console.log('!!!', { positionStyle });
 
     this.setState({
       positionStyle,

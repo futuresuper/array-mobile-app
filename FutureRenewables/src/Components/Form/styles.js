@@ -34,3 +34,11 @@ export const input = {
     marginLeft: 3,
   },
 };
+
+export const picker = {
+  get helperBl() {
+    return {
+      ...input.helperBl,
+    };
+  },
+};

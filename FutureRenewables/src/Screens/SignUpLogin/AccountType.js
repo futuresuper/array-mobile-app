@@ -82,11 +82,12 @@ class AccountType extends React.Component {
             <Text style={sg.formHeadingDescription}>
               What sort of account would you like to start?
             </Text>
+          </View>
 
+          <View>
             <Button
               onPress={() => this.onButtonPress(routeNames.NAME)}
               block
-              yellow
               marginVert
               style={sg.mT0}
             >
@@ -108,7 +109,6 @@ class AccountType extends React.Component {
               dark
               block
               marginVert
-              disabled
             >
               <Text>Company / Partnership</Text>
             </Button>
@@ -118,7 +118,6 @@ class AccountType extends React.Component {
               dark
               block
               marginVert
-              disabled
             >
               <Text>Joint</Text>
             </Button>
@@ -128,7 +127,6 @@ class AccountType extends React.Component {
               dark
               block
               marginVert
-              disabled
             >
               <Text>Adult for child</Text>
             </Button>
@@ -138,20 +136,11 @@ class AccountType extends React.Component {
               dark
               block
               marginVert
-              disabled
             >
               <Text>SMSF/Trust/Super Fund</Text>
             </Button>
+
           </View>
-
-
-          <Button
-            // onPress={() => this.onMyself()}
-            block
-            marginVert
-          >
-            <Text>Next</Text>
-          </Button>
         </View>
       </Content>
     );

@@ -8,6 +8,7 @@ import {
   Content,
   Button,
   Text,
+  Icon,
 } from 'native-base';
 
 import {
@@ -28,7 +29,19 @@ class Name extends React.Component {
     super(props);
     this.state = {
       form: {
+        title: {
+          value: '',
+          validations: [
+            'required',
+          ],
+        },
         firstName: {
+          value: '',
+          validations: [
+            'required',
+          ],
+        },
+        middleName: {
           value: '',
           validations: [
             'required',
@@ -82,18 +95,27 @@ class Name extends React.Component {
               Your name
             </Text>
 
-            <Text style={[sg.formHeadingDescription]}>
-              Please enter your name as it appears on your drivers licence.
-            </Text>
+            <Input
+              formData={form}
+              formKey="title"
+              helper="Title"
+              onChangeText={hocs.handleInput}
+              containerStyle={sg.width100}
+              componentRight={<Icon name="ios-arrow-down" style={sg.aSEnd} />}
+            />
 
             <Input
               formData={form}
               formKey="firstName"
               helper="First name"
               onChangeText={hocs.handleInput}
-              itemProps={{
-                marginBottom: true,
-              }}
+            />
+
+            <Input
+              formData={form}
+              formKey="middleName"
+              helper="Last name"
+              onChangeText={hocs.handleInput}
             />
 
             <Input

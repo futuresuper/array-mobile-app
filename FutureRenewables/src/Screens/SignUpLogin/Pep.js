@@ -33,17 +33,41 @@ class Pep extends Component {
         <View style={[sg.spaceBetween]}>
           <View>
             <Text style={sg.formHeading}>
-              Are you a PEP?
+              Are you a Politically Exposed Person?
+            </Text>
+
+            <Text style={sg.fS10}>
+              A Politically Exposed Person (PEP) is an individual who holds a prominent public position or function in a government body
+              or an international organisation in Australia or overseas,
+              such as a Head of State, or Head of a Country or Government, or a Government Minister, or equivalent senior politician.
+              A PEP can also be an immediate family member of a person referred to above, including spouse, de facto partner, child, and a child’s spouse or a parent.
+              A close associate of a PEP,
+              i.e. any individual who is known to have joint beneficial ownership of a legal arrangement or entity is also considered to be a PEP.
+              Where you identify as, or have an association with, a PEP, we may request additional information from you.
             </Text>
           </View>
 
 
-          <Button
-            onPress={() => this.onNext()}
-            block
-          >
-            <Text>Next</Text>
-          </Button>
+          <View>
+            <Button
+              onPress={() => this.onNext()}
+              bordered
+              dark
+              block
+              marginVert
+            >
+              <Text>Yes I am</Text>
+            </Button>
+
+            <Button
+              onPress={() => this.onNext()}
+              block
+              marginVert
+              style={sg.mB0}
+            >
+              <Text>No I&apos;m not</Text>
+            </Button>
+          </View>
         </View>
       </Content>
     );

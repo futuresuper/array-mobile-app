@@ -36,16 +36,7 @@ class HomeAddress extends React.Component {
           },
         },
         {
-          unitNumber: {
-            validations: ['required'],
-          },
-          streetNumber: {
-            validations: ['required'],
-          },
-          streetName: {
-            validations: ['required'],
-          },
-          streetType: {
+          addressLineOne: {
             validations: ['required'],
           },
           suburb: {
@@ -55,9 +46,6 @@ class HomeAddress extends React.Component {
             validations: ['required'],
           },
           postcode: {
-            validations: ['required'],
-          },
-          country: {
             validations: ['required'],
           },
         },
@@ -77,9 +65,9 @@ class HomeAddress extends React.Component {
     const { hocs } = this.props;
     const { form } = this.state;
     const {
-      RecordId,
-      // AddressLine,
-      Country,
+      // RecordId,
+      AddressLine,
+      // Country,
       // CountryCode,
       Postcode,
       Locality,
@@ -88,14 +76,14 @@ class HomeAddress extends React.Component {
     } = item;
 
     const formValues = {
+      addressLineOne: {
+        value: AddressLine,
+      },
       state: {
         value: State,
       },
       postcode: {
         value: Postcode,
-      },
-      country: {
-        value: Country,
       },
       suburb: {
         value: Locality,
@@ -107,7 +95,7 @@ class HomeAddress extends React.Component {
     hocs.setForm(form);
     this.initManualForm();
 
-    this.retrieveAddress(RecordId);
+    // this.retrieveAddress(RecordId);
   }
 
   retrieveAddress(recordId) {
@@ -187,82 +175,30 @@ class HomeAddress extends React.Component {
                   <Input
                     formData={form[1]}
                     dataKey={1}
-                    placeholder="Unit Number"
-                    formKey="unitNumber"
+                    helper="Address Line 1"
+                    formKey="addressLineOne"
                     onChangeText={hocs.handleInput}
-                    itemProps={{
-                      marginBottom: true,
-                    }}
                   />
                   <Input
                     formData={form[1]}
                     dataKey={1}
-                    placeholder="Streen Number"
-                    formKey="streetNumber"
-                    onChangeText={hocs.handleInput}
-                    itemProps={{
-                      marginBottom: true,
-                    }}
-                  />
-                  <Input
-                    formData={form[1]}
-                    dataKey={1}
-                    placeholder="Street Name"
-                    formKey="streetName"
-                    onChangeText={hocs.handleInput}
-                    itemProps={{
-                      marginBottom: true,
-                    }}
-                  />
-                  <Input
-                    formData={form[1]}
-                    dataKey={1}
-                    placeholder="Street Type"
-                    formKey="streetType"
-                    onChangeText={hocs.handleInput}
-                    itemProps={{
-                      marginBottom: true,
-                    }}
-                  />
-                  <Input
-                    formData={form[1]}
-                    dataKey={1}
-                    placeholder="Suburb"
+                    helper="Suburb"
                     formKey="suburb"
                     onChangeText={hocs.handleInput}
-                    itemProps={{
-                      marginBottom: true,
-                    }}
                   />
                   <Input
                     formData={form[1]}
                     dataKey={1}
-                    placeholder="State"
+                    helper="State"
                     formKey="state"
                     onChangeText={hocs.handleInput}
-                    itemProps={{
-                      marginBottom: true,
-                    }}
                   />
                   <Input
                     formData={form[1]}
                     dataKey={1}
-                    placeholder="Postcode"
+                    helper="Postcode"
                     formKey="postcode"
                     onChangeText={hocs.handleInput}
-                    itemProps={{
-                      marginBottom: true,
-                    }}
-                  />
-                  <Input
-                    formData={form[1]}
-                    dataKey={1}
-                    placeholder="Country"
-                    formKey="country"
-                    onChangeText={hocs.handleInput}
-                    itemProps={{
-                      marginBottom: true,
-                    }}
                   />
                 </View>
               )
@@ -281,9 +217,11 @@ class HomeAddress extends React.Component {
             }
 
           </View>
+
           <Button
             onPress={() => this.handlePress()}
             block
+            style={sg.mT15}
           >
             <Text>Next</Text>
           </Button>
