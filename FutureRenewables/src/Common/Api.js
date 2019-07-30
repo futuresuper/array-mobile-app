@@ -88,6 +88,15 @@ class Api extends Component {
     this.ApiInstance.navigateToLading();
   }
 
+  static async isAuthenticated() {
+    try {
+      await AwsAmplify.currentAuthenticatedUser();
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   // static fetch(...args) {
   //   return this.ApiInstance.fetchProc(...args);
   // }

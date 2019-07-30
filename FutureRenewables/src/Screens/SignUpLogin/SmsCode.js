@@ -89,7 +89,7 @@ class SmsCode extends Component {
     const { screenProps } = this.props;
     const { navigateTo } = screenProps;
 
-    navigateTo(routeNames.ABOUT_APP_FORM);
+    navigateTo(routeNames.ACCOUNTS);
   }
 
   render() {

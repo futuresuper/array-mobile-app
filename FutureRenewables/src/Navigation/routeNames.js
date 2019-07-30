@@ -5,6 +5,7 @@ export default {
   BUILD_YOUR_SAVING: 'BuildYourSaving',
   BUILD_YOUR_IMPACT: 'BuildYourImpact',
   BUILD_MOVEMENT: 'BuildMovement',
+  ACCOUNTS: 'Accounts',
   SIGN_UP_LOGIN: 'SignUpLogin',
   SMS_CODE: 'SmsCode',
   ABOUT_APP_FORM: 'AboutAppForm',
