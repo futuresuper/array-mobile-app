@@ -1,16 +1,3 @@
-/*
-
-TO DO TONIGHT
-
-- Add entity accounts to the list. Add Account Num data to the GET to make it easy
-- Put screen order back to how it was
-- Pull request for Alexander
-- Trello ticket to move the GET to the verification code and skip Accounts page if no accounts?
-
-*/
-
-
-
 import React from 'react';
 import { connect } from 'react-redux';
 import {
