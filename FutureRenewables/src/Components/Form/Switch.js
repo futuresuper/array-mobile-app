@@ -24,17 +24,44 @@ class Switch extends Component {
     }
   }
 
+  renderSwitch() {
+    const {
+      formData,
+      formKey,
+      value,
+      trackColor: trackColorProps,
+      ...restProps
+    } = this.props;
+
+    const trackColor = {
+      true: sc.color.brightGreen,
+      ...trackColorProps,
+    };
+
+    return (
+      <SwitchNB
+        value={(formData && !_.isNil(formData[formKey].value)) ? !!formData[formKey].value : !!value}
+        onValueChange={(...args) => { this.onPress(...args); }}
+        style={sg.mB0}
+        trackColor={trackColor}
+        {...restProps}
+      />
+    );
+  }
+
   render() {
     const {
       title,
       titleStyle,
       label,
       labelGray,
-      formData,
-      formKey,
-      value,
       lineColor,
+      pure,
     } = this.props;
+
+    if (pure) {
+      return this.renderSwitch();
+    }
 
     return (
       <Item
@@ -44,14 +71,7 @@ class Switch extends Component {
           <Label style={[sg.formLabel, labelGray ? sg.colorGray : {}]}>{label}</Label>
           <Row style={[sg.jCSpaceBetween, sg.pL0, sg.mT10, sg.aICenter]}>
             <Text style={[sg.fS20, sg.textBold, titleStyle, sg.aSEnd]}>{title}</Text>
-            <SwitchNB
-              value={(formData && !_.isNil(formData[formKey].value)) ? !!formData[formKey].value : !!value}
-              onValueChange={(...args) => { this.onPress(...args); }}
-              trackColor={{
-                true: sc.color.brightGreen,
-              }}
-              style={sg.mB0}
-            />
+            {this.renderSwitch()}
           </Row>
         </Grid>
       </Item>
@@ -71,6 +91,8 @@ Switch.defaultProps = {
   value: false,
   titleStyle: {},
   lineColor: undefined,
+  pure: false,
+  trackColor: {},
 };
 
 Switch.propTypes = {
@@ -84,6 +106,8 @@ Switch.propTypes = {
   value: PropTypes.bool,
   titleStyle: PropTypes.object,
   lineColor: PropTypes.string,
+  pure: PropTypes.bool,
+  trackColor: PropTypes.object,
 };
 
 export default Switch;

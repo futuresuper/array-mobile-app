@@ -106,6 +106,9 @@ const signRoutes = formatRoutes({
   [routeNames.PEP]: {
     screen: screens.Pep,
   },
+  [routeNames.PEP_DESCRIPTION]: {
+    screen: screens.PepDescription,
+  },
   [routeNames.TAX_NUMBERS]: {
     screen: screens.TaxNumbers,
   },

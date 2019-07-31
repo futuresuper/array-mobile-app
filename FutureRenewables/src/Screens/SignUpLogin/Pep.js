@@ -21,10 +21,14 @@ import {
 } from 'src/Styles';
 
 class Pep extends Component {
-  onNext() {
+  onNext(isPep = true) {
     const { screenProps } = this.props;
 
-    screenProps.navigateTo(routeNames.TAX_NUMBERS);
+    if (isPep) {
+      screenProps.navigateTo(routeNames.PEP_DESCRIPTION);
+    } else {
+      screenProps.navigateTo(routeNames.TAX_NUMBERS);
+    }
   }
 
   render() {
@@ -60,7 +64,7 @@ class Pep extends Component {
             </Button>
 
             <Button
-              onPress={() => this.onNext()}
+              onPress={() => this.onNext(false)}
               block
               marginVert
               style={sg.mB0}

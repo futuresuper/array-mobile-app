@@ -686,7 +686,7 @@ export default {
     fontFamily: styleConstants.font.regularItalic,
   },
   backgroundDefault: {
-    backgroundColor: styleConstants.containerBgColor,
+    backgroundColor: styleConstants.color.containerBgColor,
   },
   bGGray8: {
     backgroundColor: styleConstants.color.gray8,

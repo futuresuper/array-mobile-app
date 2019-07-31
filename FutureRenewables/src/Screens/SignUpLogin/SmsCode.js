@@ -98,6 +98,7 @@ class SmsCode extends Component {
 
     if (mobile) {
       mobile = mobile.substr(1);
+      mobile = `${mobile.substr(0, 4)} ${mobile.substr(4, 3)} ${mobile.substr(7, mobile.length)}`;
     }
 
     return (
@@ -109,11 +110,14 @@ class SmsCode extends Component {
             </Text>
 
             <Text style={styleGlobal.mB30}>
-              {`Please enter the SMS code we just sent your mobile ${mobile}`}
+              We&apos;ve just texted you a code to
+              {'\n'}
+              <Text style={styleGlobal.textBold}>{mobile}</Text>
+              &nbsp;to verify your number
             </Text>
 
             <Input
-              helper="6 digit code"
+              helper="Code"
               returnKeyType="next"
               keyboardType="numeric"
               value={smsCode}

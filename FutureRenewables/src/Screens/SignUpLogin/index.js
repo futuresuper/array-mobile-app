@@ -17,6 +17,7 @@ import AboutAppForm from './AboutAppForm';
 import PlaceOfBirth from './PlaceOfBirth';
 import Occupation from './Occupation';
 import Pep from './Pep';
+import PepDescription from './PepDescription';
 import TaxNumbers from './TaxNumbers';
 
 export {
@@ -38,5 +39,6 @@ export {
   PlaceOfBirth,
   Occupation,
   Pep,
+  PepDescription,
   TaxNumbers,
 };

@@ -41,6 +41,7 @@ export default {
   PURPOSE_OF_INVESTMENT: 'PurposeOfInvestment',
   OCCUPATION: 'OCCUPATION',
   PEP: 'Pep',
+  PEP_DESCRIPTION: 'PepDescription',
   TAX_NUMBERS: 'TaxNumbers',
   FINAL_CONFIRMATION: 'FinalConfirmation',
   ID_CHECK_FINISH: 'IdCheckFinish',

@@ -8,8 +8,6 @@ import {
   Content,
   Text,
   Button,
-  Icon,
-  H2,
 } from 'native-base';
 
 // import { BottomInfo } from 'src/Components/BottomInfo';
@@ -76,7 +74,7 @@ class AccountType extends React.Component {
         <View style={[sg.spaceBetween]}>
           <View>
             <Text style={sg.formHeading}>
-              Your account
+              Account type
             </Text>
 
             <Text style={sg.formHeadingDescription}>
@@ -101,7 +99,7 @@ class AccountType extends React.Component {
               block
               marginVert
             >
-              <Text>FEAT. Artist</Text>
+              <Text>FEAT. Artist / Music Industry</Text>
             </Button>
 
             <Button
@@ -137,7 +135,7 @@ class AccountType extends React.Component {
               block
               marginVert
             >
-              <Text>SMSF/Trust/Super Fund</Text>
+              <Text>SMSF / Trust / Super Fund</Text>
             </Button>
 
           </View>

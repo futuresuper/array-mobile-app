@@ -6,7 +6,6 @@ import {
 
 import {
   sc,
-  sg,
 } from 'src/Styles';
 
 const isIOSv = isIOS();
@@ -134,5 +133,12 @@ export const aboutAppForm = {
       ...this.description,
       marginTop: 20,
     };
+  },
+};
+
+export const taxNumbers = {
+  switchCol: {
+    alignItems: 'flex-end',
+    width: 80,
   },
 };

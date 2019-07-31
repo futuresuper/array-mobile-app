@@ -17,6 +17,7 @@ import {
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
+  Picker,
 } from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
@@ -31,9 +32,6 @@ class Name extends React.Component {
       form: {
         title: {
           value: '',
-          validations: [
-            'required',
-          ],
         },
         firstName: {
           value: '',
@@ -54,6 +52,16 @@ class Name extends React.Component {
           ],
         },
       },
+      titles: [
+        {
+          id: 1,
+          name: 'Title 1',
+        },
+        {
+          id: 2,
+          name: 'Title 2',
+        },
+      ],
     };
   }
 
@@ -86,6 +94,7 @@ class Name extends React.Component {
   render() {
     const { hocs } = this.props;
     const { form } = hocs;
+    const { titles } = this.state;
 
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
@@ -95,13 +104,22 @@ class Name extends React.Component {
               Your name
             </Text>
 
-            <Input
+            <Picker
+              containerStyle={sg.width100}
               formData={form}
               formKey="title"
               helper="Title"
-              onChangeText={hocs.handleInput}
-              containerStyle={sg.width100}
-              componentRight={<Icon name="ios-arrow-down" style={sg.aSEnd} />}
+              title="Title 1"
+              list={titles}
+              renderItem={({ item }) => (
+                <View>
+                  <Text style={sg.pickerItemText}>{item.name}</Text>
+                </View>
+              )}
+              onPressItem={({ item }, formKey, dataKey) => {
+                hocs.handlePicker(item.name, formKey, dataKey);
+                hocs.setFormTitle(item.name, formKey, dataKey);
+              }}
             />
 
             <Input
@@ -114,7 +132,7 @@ class Name extends React.Component {
             <Input
               formData={form}
               formKey="middleName"
-              helper="Last name"
+              helper="Middle name"
               onChangeText={hocs.handleInput}
             />
 
