@@ -113,8 +113,11 @@ class SmsCode extends Component {
     const { smsCode } = this.state;
 
     if (mobile) {
-      mobile = mobile.substr(1);
-      mobile = `${mobile.substr(0, 4)} ${mobile.substr(4, 3)} ${mobile.substr(7, mobile.length)}`;
+      // If it's an Australian number, change to pretty display format, otherwise leave as is
+      if (mobile.substr(0, 3) === "+61") {
+        mobile = mobile.substr(3);
+        mobile = `0${mobile.substr(0, 3)} ${mobile.substr(3, 3)} ${mobile.substr(6, mobile.length)}`;
+      }
     }
 
     return (
