@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   TouchableOpacity,
+  TextInput,
 } from 'react-native';
 import {
   Text,
@@ -23,8 +24,11 @@ const TextQuestion = (props) => {
       {...props}
       style={[sg.row, style]}
     >
-      <Text style={styles.text}>{text}</Text>
-      <Icon type="EvilIcons" name="question" style={sg.colorGray} />
+      <Text style={styles.text}>
+        {text}
+        &nbsp;
+        <Icon type="EvilIcons" name="question" style={styles.icon} />
+      </Text>
     </TouchableOpacity>
   );
 };

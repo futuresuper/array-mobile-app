@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   View,
@@ -27,43 +28,19 @@ import {
 
 import BottomInfo from 'src/Components/BottomInfo';
 import TextUnderline from 'src/Components/TextUnderline';
+import {
+  formatAmountDollarCent,
+} from 'src/Common/Helpers';
+
+import {
+  accountsSelector,
+} from 'src/Redux/AppContent';
 
 import {
   sg,
 } from 'src/Styles';
 
 class ManageAccounts extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      accounts: [],
-    };
-  }
-
-  componentDidMount() {
-    this.setAccounts();
-  }
-
-  setAccounts() {
-    const { screenProps } = this.props;
-    const userInfo = screenProps.userInfo();
-
-    let accounts = userInfo.accounts || [];
-
-    if (userInfo.entities_linked_to && Array.isArray(userInfo.entities_linked_to)) {
-      userInfo.entities_linked_to.forEach((item) => {
-        if (item.accounts && Array.isArray(item.accounts)) {
-          accounts = [...accounts, ...item.accounts];
-        }
-      });
-    }
-
-    this.setState({
-      accounts,
-    });
-  }
-
   openItem(item) {
     const { screenProps } = this.props;
 
@@ -80,11 +57,11 @@ class ManageAccounts extends Component {
     );
   }
 
-  renderItem({ item, index }) {
+  renderItem({ item }) {
     let complete = true;
 
     item.complete = true;
-    if (index === 2) {
+    if (item.status !== 'unitsIssued') {
       complete = false;
       item.complete = false;
     }
@@ -102,12 +79,12 @@ class ManageAccounts extends Component {
           <Grid>
             <Row>
               <Col style={[sg.flexNull]}>
-                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{item.accountNickName}</Text>
+                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{item.nickName}</Text>
 
                 {complete && (
                   <Text style={[sg.mL0, sg.fS16]} color4>
                     Balance:&nbsp;
-                    <Text color4>{item.balanceDollars}</Text>
+                    <Text color4>{formatAmountDollarCent(item.balanceInDollars)}</Text>
                   </Text>
                 )}
               </Col>
@@ -128,7 +105,7 @@ class ManageAccounts extends Component {
   }
 
   render() {
-    const { accounts } = this.state;
+    const { accounts } = this.props;
 
     return (
       <Content contentContainerStyle={[sg.flexGrow, sg.pB220]}>
@@ -178,4 +155,16 @@ class ManageAccounts extends Component {
   }
 }
 
-export default connect()(ManageAccounts);
+ManageAccounts.propTypes = {
+  accounts: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const accounts = accountsSelector(state);
+
+  return {
+    accounts,
+  };
+};
+
+export default connect(mapStateToProps)(ManageAccounts);

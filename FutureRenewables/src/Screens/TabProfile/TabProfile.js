@@ -32,6 +32,10 @@ import {
 import moment from 'src/Common/moment';
 
 import {
+  userSelector,
+} from 'src/Redux/AppContent';
+
+import {
   sg,
 } from 'src/Styles';
 
@@ -67,7 +71,7 @@ class TabProfile extends Component {
         },
         {
           name: 'Talk to us',
-          function: this.displayIntercom,
+          function: () => this.displayIntercom(props),
         },
         {
           name: 'Withdraw',
@@ -87,7 +91,10 @@ class TabProfile extends Component {
 
   componentDidMount() {
     const { user } = this.props;
-    Intercom.registerIdentifiedUser({ email: user.email });
+
+    if (user.email) {
+      Intercom.registerIdentifiedUser({ email: user.email });
+    }
   }
 
   navigateTo = (screen) => {
@@ -102,8 +109,14 @@ class TabProfile extends Component {
     screenProps.Api.logOut();
   }
 
-  displayIntercom() {
-    Intercom.displayMessageComposer();
+  displayIntercom(props) {
+    const { user, screenProps } = props;
+
+    if (user.email) {
+      Intercom.displayMessageComposer();
+    } else {
+      screenProps.toast('You don\'t have email to talk to us');
+    }
   }
 
   renderAvatar() {
@@ -129,7 +142,10 @@ class TabProfile extends Component {
     const { user, screenProps } = this.props;
     const { listMenu } = this.state;
 
-    const memberSince = `${moment(user.dataJoined).format('MMMM')}'s ${user.dateJoined.split('-')[0].substring(2)}`;
+    if (!user.dateJoined) {
+      user.dateJoined = '2019-03-15';
+    }
+    const memberSince = `${moment(user.dateJoined).format('MMMM')}'s ${user.dateJoined.split('-')[0].substring(2)}`;
 
     return (
       <Content contentContainerStyle={[sg.pB30]}>
@@ -139,11 +155,18 @@ class TabProfile extends Component {
             {this.renderAvatar()}
 
             <View style={[sg.row, sg.mT25, sg.mB15]}>
-              <H2 color2>
-                {user.firstName}
-                &nbsp;
-              </H2>
-              <H2 color2>{user.lastName}</H2>
+              {user.fullName
+                ? <H2 color2>{user.fullName}</H2>
+                : (
+                  <View>
+                    <H2 color2>
+                      {user.firstName || ''}
+                      &nbsp;
+                    </H2>
+                    <H2 color2>{user.lastName || ''}</H2>
+                  </View>
+                )
+              }
             </View>
 
             <Text style={[sg.colorGray11, sg.fS14]}>{`Member since ${memberSince}`}</Text>
@@ -202,8 +225,13 @@ TabProfile.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  user: state.auth.user,
-});
+const mapStateToProps = (state) => {
+  const user = userSelector(state);
+
+  return {
+    // user: state.auth.user,
+    user,
+  };
+};
 
 export default connect(mapStateToProps)(TabProfile);

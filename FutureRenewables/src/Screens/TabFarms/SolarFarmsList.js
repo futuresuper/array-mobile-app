@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   View,
   Image,
@@ -18,73 +19,19 @@ import CircularProgress from 'src/Components/CircularProgress';
 import routeNames from 'src/Navigation/routeNames';
 
 import {
+  solarFarmsSelector,
+} from 'src/Redux/AppContent';
+
+import {
   sg,
   sc,
 } from 'src/Styles';
 
 import MarkerActive from 'src/assets/images/MarkerActive.png';
-import BrigalowClear from 'src/assets/images/farms/BrigalowClear.png';
-import ChinchillaClear from 'src/assets/images/farms/ChinchillaClear.png';
-import SwanHillClear from 'src/assets/images/farms/SwanHillClear.png';
-import SwanHill2Clear from 'src/assets/images/farms/SwanHill2Clear.png';
 
 import { farmsList as styles } from './styles';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class SolarFarmsList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      farms: [
-        {
-          id: 1,
-          title: 'Brigalow',
-          description: 'Queensland',
-          image: BrigalowClear,
-          completed: 15,
-          coordinate: {
-            latitude: -26.8833514,
-            longitude: 150.7383817,
-          },
-        },
-        {
-          id: 2,
-          title: 'Chinchilla',
-          description: 'Disneyland',
-          image: ChinchillaClear,
-          completed: 100,
-          coordinate: {
-            latitude: -26.7502014,
-            longitude: 150.5923164,
-          },
-        },
-        {
-          id: 3,
-          title: 'Swan Hill',
-          description: 'Somethingland',
-          image: SwanHillClear,
-          completed: 50,
-          coordinate: {
-            latitude: -35.3621025,
-            longitude: 143.4533884,
-          },
-        },
-        {
-          id: 4,
-          title: 'Swan Hill2',
-          description: 'whereisthisland',
-          image: SwanHill2Clear,
-          completed: 99,
-          coordinate: {
-            latitude: -35.367175,
-            longitude: 143.6967643,
-          },
-        },
-      ],
-    };
-  }
-
   renderFarmCard({ item }) {
     const { screenProps } = this.props;
 
@@ -94,11 +41,11 @@ class SolarFarmsList extends Component {
           screenProps.navigateTo(routeNames.SOLAR_FARM, { item });
         }}
       >
-        <ImageBackground source={item.image} resizeMode="stretch" style={styles.farmImage}>
+        <ImageBackground source={{ uri: item.featureImage.landscape }} resizeMode="stretch" style={styles.farmImage}>
           <View style={styles.farmTextBl}>
             <View>
-              <Text style={[sg.fS20, sg.colorDark2, sg.textBold]}>{item.title}</Text>
-              <Text style={[sg.fontMedium, sg.colorDark3, sg.mT5]}>{item.description}</Text>
+              <Text style={[sg.fS20, sg.colorDark2, sg.textBold]}>{item.name}</Text>
+              <Text style={[sg.fontMedium, sg.colorDark3, sg.mT5]}>{item.location}</Text>
             </View>
 
             <WeatherWidget
@@ -109,14 +56,14 @@ class SolarFarmsList extends Component {
 
           <View style={[sg.row, sg.aICenter]}>
             <CircularProgress
-              progress={item.completed / 100}
+              progress={item.percentComplete / 100}
               borderWidth={1}
               size={18}
               color={sc.color.primary}
               borderColor={sc.color.gray6}
             />
             <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15]}>
-              {item.completed}
+              {item.percentComplete}
               % Completed
             </Text>
           </View>
@@ -126,8 +73,7 @@ class SolarFarmsList extends Component {
   }
 
   render() {
-    const { screenProps } = this.props;
-    const { farms } = this.state;
+    const { screenProps, farms } = this.props;
 
     return (
       <Content padder>
@@ -141,7 +87,7 @@ class SolarFarmsList extends Component {
           <TouchableOpacity
             style={styles.markerImage}
             onPress={() => {
-              screenProps.navigateTo(routeNames.SOLAR_FARMS_MAP, { farms });
+              screenProps.navigateTo(routeNames.SOLAR_FARMS_MAP);
             }}
           >
             <Image source={MarkerActive} />
@@ -158,4 +104,16 @@ class SolarFarmsList extends Component {
   }
 }
 
-export default connect()(SolarFarmsList);
+SolarFarmsList.propTypes = {
+  farms: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const solarFarms = solarFarmsSelector(state);
+
+  return {
+    farms: solarFarms,
+  };
+};
+
+export default connect(mapStateToProps)(SolarFarmsList);

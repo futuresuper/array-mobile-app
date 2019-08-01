@@ -19,6 +19,7 @@ import {
 
 import {
   formatAmountDollar,
+  formatAmountDollarCent,
   normalizeAmount,
 } from 'src/Common/Helpers';
 
@@ -55,7 +56,7 @@ class ManageAccountDetails extends Component {
     const details = navigation.getParam('details');
 
     navigation.setParams({
-      title: details.accountNickName,
+      title: details.nickName,
     });
 
     this.setState({
@@ -94,9 +95,10 @@ class ManageAccountDetails extends Component {
     const { hocs } = this.props;
     const { details } = this.state;
 
-    details.distributions = true;
-    details.regularInvestmentAmmount = (details.monthlyInvestmentAmount || '').toString();
-    details.admins = '';
+    if (!details.distributions) details.distributions = true;
+    if (!details.regularInvestmentAmmount) details.regularInvestmentAmmount = (details.monthlyInvestmentAmount || '').toString();
+    if (!details.admins) details.admins = '';
+    if (!details.bankAccountName) details.bankAccountName = '';
 
     const form = {};
     Object.keys(details).forEach((key) => {
@@ -105,11 +107,10 @@ class ManageAccountDetails extends Component {
         value,
       };
 
-      if (![
-        'distributions',
-        'balance',
-        'complete',
-        'admins',
+      if ([
+        'nickName',
+        'bankAccountName',
+        'regularInvestmentAmmount',
       ].includes(key)) {
         form[key].validations = [
           'required',
@@ -193,7 +194,7 @@ class ManageAccountDetails extends Component {
           disabled
           label="Nickname"
           labelGray
-          value={details.accountNickName || '-'}
+          value={details.nickName || '-'}
           style={styles.input}
           containerStyle={styles.inputContainer}
           color2
@@ -281,7 +282,7 @@ class ManageAccountDetails extends Component {
         <View>
           <Input
             formData={form}
-            formKey="accountNickName"
+            formKey="nickName"
             label="Nickname"
             onChangeText={hocs.handleInput}
             style={styles.input}
@@ -356,8 +357,7 @@ class ManageAccountDetails extends Component {
         {complete
           ? (
             <Text style={[sg.aSCenter, sg.fS14, sg.fontMedium, sg.colorGray11]}>
-              $
-              {details.balanceDollars}
+              {formatAmountDollarCent(details.balanceInDollars)}
             </Text>
           )
           : this.renderIncApp()

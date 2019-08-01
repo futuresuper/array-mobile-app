@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -18,6 +19,7 @@ import {
 } from 'src/Components/Form';
 import TextUnderline from 'src/Components/TextUnderline';
 import Br from 'src/Components/Br';
+import TextQuestion from 'src/Components/TextQuestion';
 import {
   routeNames,
 } from 'src/Navigation';
@@ -113,108 +115,127 @@ class Withdraw extends Component {
   }
 
   render() {
-    const { hocs } = this.props;
-    const { form } = hocs;
-    const { accountList, segment } = this.state;
-
     return (
       <Content padder contentContainerStyle={[sg.flexGrow]}>
         <View style={sg.spaceBetween}>
           <View>
-            <View style={[sg.row]}>
-              <Br style={[sg.footerBl]} />
-
-              <Button
-                transparent
-                onPress={this.segmentSpecificAmount}
-                style={[sg.mT0, sg.pT0, sg.heightNull]}
-              >
-                <Text style={[styles.tabTextActive, (!segment.isSpecificAmount ? styles.tabText : {})]}>Specific Amount</Text>
-              </Button>
-
-              <Button
-                transparent
-                onPress={this.segmentWholeBalance}
-                style={[sg.mT0, sg.pT0, sg.heightNull]}
-              >
-                <Text style={[styles.tabTextActive, sg.mL10, (!segment.isWholeBalance ? styles.tabText : {})]}>Whole Balance</Text>
-              </Button>
-            </View>
-
-
-            <Input
-              formData={form}
-              formKey="amount"
-              onChangeText={hocs.handleInput}
-              keyboardType="numeric"
-              style={[sg.fS24]}
-              color2
-              componentRight={<Text color4>Available: $2,901.50</Text>}
+            <TextQuestion
+              text="There is no current open ‘Withdrawal Offer’."
             />
-
-            <Item
-              style={[sg.noBorder]}
-            >
-              <Picker
-                formData={form}
-                formKey="from"
-                label="From"
-                title="Liv"
-                list={accountList}
-                renderItem={({ item }) => (
-                  <View>
-                    <Text style={sg.pickerItemText}>{item.name}</Text>
-                    <Text style={sg.pickerItemText2}>{item.number}</Text>
-                  </View>
-                )}
-                onPressItem={({ item }, formKey, dataKey) => {
-                  hocs.handlePicker(item.number, formKey, dataKey);
-                  hocs.setFormTitle(item.number, formKey, dataKey);
-                }}
-              />
-            </Item>
-
-            <Item
-              style={[sg.noBorder]}
-            >
-              <Picker
-                formData={form}
-                formKey="into"
-                label="Into"
-                title="ING account"
-                list={accountList}
-                renderItem={({ item }) => (
-                  <View>
-                    <Text style={sg.pickerItemText}>{item.name}</Text>
-                    <Text style={sg.pickerItemText2}>{item.number}</Text>
-                  </View>
-                )}
-                onPressItem={({ item }, formKey, dataKey) => {
-                  hocs.handlePicker(item.number, formKey, dataKey);
-                  hocs.setFormTitle(item.number, formKey, dataKey);
-                }}
-              />
-            </Item>
-
-            <Text style={[sg.mT30]}>
-              Withdrawal offers are currently
-              &nbsp;
-              <Text style={sg.textBold}>open</Text>
-              .
-              For more info on how withdrawls work,
-            </Text>
-            <TextUnderline
-              theme2
-              style={[sg.aSStart]}
-              styleText={[sg.fS16]}
-            >
-              read more here.
-            </TextUnderline>
-
           </View>
         </View>
+
+        <Button
+          block
+          // onPress={this.onNotify}
+        >
+          <Text>Notify me when I can withdraw</Text>
+        </Button>
       </Content>
     );
+
+    // const { hocs } = this.props;
+    // const { form } = hocs;
+    // const { accountList, segment } = this.state;
+
+    // return (
+    //   <Content padder contentContainerStyle={[sg.flexGrow]}>
+    //     <View style={sg.spaceBetween}>
+    //       <View>
+    //         <View style={[sg.row]}>
+    //           <Br style={[sg.footerBl]} />
+
+    //           <Button
+    //             transparent
+    //             onPress={this.segmentSpecificAmount}
+    //             style={[sg.mT0, sg.pT0, sg.heightNull]}
+    //           >
+    //             <Text style={[styles.tabTextActive, (!segment.isSpecificAmount ? styles.tabText : {})]}>Specific Amount</Text>
+    //           </Button>
+
+    //           <Button
+    //             transparent
+    //             onPress={this.segmentWholeBalance}
+    //             style={[sg.mT0, sg.pT0, sg.heightNull]}
+    //           >
+    //             <Text style={[styles.tabTextActive, sg.mL10, (!segment.isWholeBalance ? styles.tabText : {})]}>Whole Balance</Text>
+    //           </Button>
+    //         </View>
+
+
+    //         <Input
+    //           formData={form}
+    //           formKey="amount"
+    //           onChangeText={hocs.handleInput}
+    //           keyboardType="numeric"
+    //           style={[sg.fS24]}
+    //           color2
+    //           componentRight={<Text color4>Available: $2,901.50</Text>}
+    //         />
+
+    //         <Item
+    //           style={[sg.noBorder]}
+    //         >
+    //           <Picker
+    //             formData={form}
+    //             formKey="from"
+    //             label="From"
+    //             title="Liv"
+    //             list={accountList}
+    //             renderItem={({ item }) => (
+    //               <View>
+    //                 <Text style={sg.pickerItemText}>{item.name}</Text>
+    //                 <Text style={sg.pickerItemText2}>{item.number}</Text>
+    //               </View>
+    //             )}
+    //             onPressItem={({ item }, formKey, dataKey) => {
+    //               hocs.handlePicker(item.number, formKey, dataKey);
+    //               hocs.setFormTitle(item.number, formKey, dataKey);
+    //             }}
+    //           />
+    //         </Item>
+
+    //         <Item
+    //           style={[sg.noBorder]}
+    //         >
+    //           <Picker
+    //             formData={form}
+    //             formKey="into"
+    //             label="Into"
+    //             title="ING account"
+    //             list={accountList}
+    //             renderItem={({ item }) => (
+    //               <View>
+    //                 <Text style={sg.pickerItemText}>{item.name}</Text>
+    //                 <Text style={sg.pickerItemText2}>{item.number}</Text>
+    //               </View>
+    //             )}
+    //             onPressItem={({ item }, formKey, dataKey) => {
+    //               hocs.handlePicker(item.number, formKey, dataKey);
+    //               hocs.setFormTitle(item.number, formKey, dataKey);
+    //             }}
+    //           />
+    //         </Item>
+
+    //         <Text style={[sg.mT30]}>
+    //           Withdrawal offers are currently
+    //           &nbsp;
+    //           <Text style={sg.textBold}>open</Text>
+    //           .
+    //           For more info on how withdrawls work,
+    //         </Text>
+    //         <TextUnderline
+    //           theme2
+    //           style={[sg.aSStart]}
+    //           styleText={[sg.fS16]}
+    //         >
+    //           read more here.
+    //         </TextUnderline>
+
+    //       </View>
+    //     </View>
+    //   </Content>
+    // );
   }
 }
 

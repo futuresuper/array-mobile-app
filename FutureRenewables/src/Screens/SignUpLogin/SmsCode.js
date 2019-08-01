@@ -22,10 +22,11 @@ import {
   userDataSave,
 } from 'src/Redux/Auth';
 import {
+  appContentSave,
+} from 'src/Redux/AppContent';
+import {
   Config,
 } from 'src/Common/config';
-
-// import ListLinks from 'src/Components/ListLinks';
 
 import {
   routeNames,
@@ -43,10 +44,20 @@ class SmsCode extends Component {
     };
   }
 
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {},
+      callback,
+      () => {
+        screenProps.toast('Unknown error');
+      });
+  }
+
   handlePress() {
     const {
       screenProps,
       userDataSaveConnect,
+      appContentSaveConnect,
       mobile,
     } = this.props;
     const { Api, toast } = screenProps;
@@ -71,7 +82,12 @@ class SmsCode extends Component {
           mobileVerified: true,
         }, () => {
           // userDataSaveConnect(userData);
-          this.nextScreen();
+          this.getAppContent((appContent) => {
+            // userDataSaveConnect(userInfo);
+            appContentSaveConnect(appContent);
+
+            this.nextScreen();
+          });
         }, () => {
           screenProps.toast('Unknown error');
         });
@@ -136,17 +152,6 @@ class SmsCode extends Component {
           </KeyboardAvoidingView>
         </View>
 
-        {/* <ListLinks
-          absolute
-          navigateTo={this.props.screenProps.navigateTo}
-          data={[
-            {
-              name: 'AccountType',
-              screen: routeNames.ACCOUNT_TYPE,
-            },
-          ]}
-        /> */}
-
       </Content>
     );
   }
@@ -155,6 +160,7 @@ class SmsCode extends Component {
 SmsCode.propTypes = {
   userDataSaveConnect: PropTypes.func.isRequired,
   mobile: PropTypes.string.isRequired,
+  appContentSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -167,6 +173,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   userDataSaveConnect: userDataSave,
+  appContentSaveConnect: appContentSave,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SmsCode);

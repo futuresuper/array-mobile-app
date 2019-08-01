@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   View,
@@ -29,66 +30,53 @@ import {
 import deviceUtils from 'src/Common/device';
 
 import {
+  featuredSolarFarmSelector,
+} from 'src/Redux/AppContent';
+
+import {
   sg,
   sc,
 } from 'src/Styles';
 
 import styles from './styles';
 
-const imageUrl = 'http://www.gone-fishing.co.za/wp-content/uploads/2009/07/ab0001.jpg';
-
 class SolarFarm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      item: {},
-      photos: [
-        {
-          id: 1,
-          description: 'description',
-          photo: 'https://cdn-02.independent.ie/business/farming/article35962536.ece/e4bd2/AUTOCROP/w620/2017-07-25_bus_33141392_I1.JPG',
-        },
-        {
-          id: 2,
-          description: 'description 2',
-          photo: 'https://www.revisionenergy.com/wp-content/uploads/2015/06/20.jpg',
-        },
-        {
-          id: 3,
-          description: 'description 3',
-          photo: 'https://futurism.com/wp-content/uploads/2017/07/Carter-Farm-Solar-Project-Plains-1020x610-1-300x179.jpg',
-        },
-      ],
-    };
-  }
-
-  componentDidMount() {
-    const { navigation } = this.props;
-    const item = navigation.getParam('item', {});
-
-    this.setState({
-      item,
-    });
-  }
-
   renderPhotoItem({ item }) {
     return (
       <Card style={styles.solarFarmPhotoCard}>
         <CardItem style={styles.solarFarmPhotoCardItem}>
           <Body>
-            <Image source={{ uri: item.photo }} style={styles.solarFarmPhotoPhoto} resizeMode="cover" />
-            <View style={styles.solarFarmPhotoTextBl}>
-              <Text style={[sg.fS14, sg.colorGray11, sg.fontRegularItalic]}>{item.description}</Text>
-            </View>
+            <Image source={{ uri: item }} style={styles.solarFarmPhotoPhoto} resizeMode="cover" />
           </Body>
         </CardItem>
       </Card>
     );
   }
 
+  renderStats() {
+    const { item } = this.props;
+
+    return (
+      <Grid style={styles.solarFarmStatBl}>
+        {item.stats.map(({ number, label }, index) => (
+          <Col style={styles.solarFarmStatCol} key={index.toString()}>
+            <Text style={styles.solarForamStatAmount}>{number}</Text>
+            <Text style={styles.solarForamStatDescription}>{label}</Text>
+          </Col>
+        ))}
+      </Grid>
+    );
+  }
+
   render() {
-    const { item, photos } = this.state;
+    const { item } = this.props;
+
+    if (!item) {
+      return null;
+    }
+
+    const imageUrl = item.featureImage.portrait;
+    const photos = item.otherImages;
 
     return (
       <TabBarWrapper {...this.props}>
@@ -106,42 +94,24 @@ class SolarFarm extends Component {
                   style={styles.solarFarmWeatherWidget}
                 />
 
-                <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.title}</H1>
-                <Text style={styles.solarFarmItemDescription}>{item.description}</Text>
+                <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.name}</H1>
+                <Text style={styles.solarFarmItemDescription}>{item.location}</Text>
               </View>
 
               <View style={sg.aICenter}>
-                <Text style={styles.solarFarmFinishDate}>Projected finish date: Jan 2020</Text>
-
-                <Grid style={styles.solarFarmStatBl}>
-                  <Col style={styles.solarFarmStatCol}>
-                    <Text style={styles.solarForamStatAmount}>85</Text>
-                    <Text style={styles.solarForamStatDescription}>New panels added</Text>
-                  </Col>
-                  <Col style={styles.solarFarmStatCol}>
-                    <Text style={styles.solarForamStatAmount}>60k</Text>
-                    <Text style={styles.solarForamStatDescription}>Tonnes of carbon reduced</Text>
-                  </Col>
-                  <Col style={styles.solarFarmStatCol}>
-                    <Text style={styles.solarForamStatAmount}>400</Text>
-                    <Text style={styles.solarForamStatDescription}>New jobs created</Text>
-                  </Col>
-                </Grid>
+                {item.completionDate && <Text style={styles.solarFarmFinishDate}>{`Projected finish date: ${item.completionDate}`}</Text>}
+                {this.renderStats()}
               </View>
 
             </View>
           </ImageBackground>
 
           <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>About</Text>
-          <Text style={[sg.contentMarginH, sg.mT20, sg.mB30]}>
-            A 34.5MW solar farm under development near Pittsworth in southeast Queensland. When complete,
-            Brigalow will power the equivalent of 11,300 average Australian homes and expected to avoid adding 60 tonnes of of C02 from the atmosphere.
-            Currently at Stage 2 of the build project, it Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam.
-          </Text>
+          <Text style={[sg.contentMarginH, sg.mT20, sg.mB30]}>{item.about}</Text>
 
           <FlatList
             data={photos}
-            keyExtractor={person => person.id.toString()}
+            keyExtractor={(i, index) => index.toString()}
             renderItem={(...args) => this.renderPhotoItem(...args)}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -154,4 +124,24 @@ class SolarFarm extends Component {
   }
 }
 
-export default connect()(SolarFarm);
+SolarFarm.defaultProps = {
+  item: null,
+};
+
+SolarFarm.propTypes = {
+  item: PropTypes.object,
+};
+
+const mapStateToProps = (state, ownProps) => {
+  let item = ownProps.navigation.getParam('item', null);
+
+  if (!item) {
+    item = featuredSolarFarmSelector(state);
+  }
+
+  return {
+    item,
+  };
+};
+
+export default connect(mapStateToProps)(SolarFarm);

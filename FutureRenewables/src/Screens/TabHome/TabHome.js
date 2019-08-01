@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   View,
@@ -36,10 +37,10 @@ import SunGlow from 'src/Components/SunGlow';
 import {
   LineChart,
 } from 'src/Components/ChartKit';
-
 import {
-  content as contentTest,
-} from 'src/assets/testdata/testData';
+  impactStatsSelector,
+  latestSelector,
+} from 'src/Redux/AppContent';
 
 import {
   sg,
@@ -62,7 +63,6 @@ class TabHome extends Component {
     super(props);
 
     this.state = {
-      content: contentTest,
       currentTime: moment().format(),
       article: {
         visible: false,
@@ -74,26 +74,12 @@ class TabHome extends Component {
   }
 
   componentDidMount() {
-    const { navigation, screenProps } = this.props;
-    const { currentTime } = this.state;
-
-    navigation.setParams({
-      // backgroundColor: styles.containerBg.backgroundColor,
-    });
+    // const { navigation, screenProps } = this.props;
+    // const { currentTime } = this.state;
 
     // screenProps.enableTheme(currentTime);
     // screenProps.setDarkTheme();
   }
-
-  renderImpactItem = ({ number, text, suffix }, key) => (
-    <Col style={sg.aICenter} key={key}>
-      <Text style={[sg.headingS]}>
-        {number}
-        {suffix || ''}
-      </Text>
-      <Text style={[sg.textCenter, sg.fontBodySmall, sg.colorGray11, sg.mT10]}>{text}</Text>
-    </Col>
-  );
 
   openArticle(item) {
     const { screenProps } = this.props;
@@ -116,6 +102,23 @@ class TabHome extends Component {
         },
       });
     }
+  }
+
+  renderImpactItem() {
+    const { impactStats } = this.props;
+
+    return (
+      <Grid>
+        {impactStats.map(({ number, label }, index) => (
+          <Col style={sg.aICenter} key={index.toString()}>
+            <Text style={[sg.headingS]}>
+              {number}
+            </Text>
+            <Text style={[sg.textCenter, sg.fontBodySmall, sg.colorGray11, sg.mT10]}>{label}</Text>
+          </Col>
+        ))}
+      </Grid>
+    );
   }
 
   renderGlow() {
@@ -282,8 +285,8 @@ class TabHome extends Component {
   }
 
   render() {
-    const { screenProps } = this.props;
-    const { content, article, activeBalance } = this.state;
+    const { screenProps, latest } = this.props;
+    const { article, activeBalance } = this.state;
 
     return (
       <Content bounces={false}>
@@ -342,17 +345,12 @@ class TabHome extends Component {
           <H2 style={[sg.headingS, sg.colorGray11, sg.aSCenter]}>Impact</H2>
 
           <View style={[sg.pT15, sg.pB30]}>
-            <Grid>
-              {content.impact.map((item, index) => (
-                this.renderImpactItem(item, index)
-              ))}
-            </Grid>
-
+            {this.renderImpactItem()}
           </View>
 
           <FlatList
             extraData={screenProps.theme}
-            data={content.latest}
+            data={latest}
             keyExtractor={(item, index) => index.toString()}
             renderItem={this.renderContentItem}
           />
@@ -376,4 +374,19 @@ class TabHome extends Component {
   }
 }
 
-export default connect()(TabHome);
+TabHome.propTypes = {
+  impactStats: PropTypes.array.isRequired,
+  latest: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const impactStats = impactStatsSelector(state);
+  const latest = latestSelector(state);
+
+  return {
+    impactStats,
+    latest,
+  };
+};
+
+export default connect(mapStateToProps)(TabHome);

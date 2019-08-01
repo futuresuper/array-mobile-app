@@ -5,6 +5,7 @@ import {
   View,
   Image,
   Modal,
+  ScrollView,
 } from 'react-native';
 import {
   H3,
@@ -41,21 +42,24 @@ class ArticleModal extends Component {
         {item.subhead && <Text style={[sg.textCenter, sg.fontMedium, sg.fS14, sg.colorGray11]}>{item.subhead}</Text>}
         <H3 style={[sg.fS24, sg.textCenter, sg.aSCenter, sg.mT30, sg.width150, sg.width300]}>{item.headline}</H3>
 
-        {Object.keys(article).map((key, index) => {
-          const artItem = article[key];
+        {article.map((artItem, index) => {
           let res = null;
+          const { contentType, content, description } = artItem;
 
-          switch (key) {
+          switch (contentType) {
             case 'paragraph':
-              res = <Text style={[sg.contentMarginH, sg.mT10]}>{artItem}</Text>;
+              res = <Text style={[sg.contentMarginH, sg.mT10]}>{content}</Text>;
               break;
             case 'image':
               res = (
                 <View style={[sg.contentMarginH2, sg.mT15]}>
-                  <Image source={{ uri: artItem.url }} resizeMode="contain" style={styles.image} borderRadius={8} />
-                  {artItem.description && <Text style={[sg.mT10, sg.colorGray, sg.fS14]}>{artItem.description}</Text>}
+                  <Image source={{ uri: content }} resizeMode="contain" style={styles.image} borderRadius={8} />
+                  {description && <Text style={[sg.mT10, sg.colorGray, sg.fS14]}>{description}</Text>}
                 </View>
               );
+              break;
+            case 'heading':
+              res = <H3 style={[sg.fS24, sg.textCenter, sg.aSCenter, sg.mT20, sg.width150, sg.width300]}>{content}</H3>;
               break;
             default:
               break;
@@ -81,12 +85,14 @@ class ArticleModal extends Component {
         transparent
       >
         <SafeAreaView>
-          <View style={[sg.contentMarginV2]}>
-            <View style={[sg.aIEnd]}>
-              <CloseButton white onPress={() => this.onRequestClose()} />
+          <ScrollView>
+            <View style={[sg.contentMarginV2]}>
+              <View style={[sg.aIEnd]}>
+                <CloseButton white onPress={() => this.onRequestClose()} />
+              </View>
+              {this.renderContent()}
             </View>
-            {this.renderContent()}
-          </View>
+          </ScrollView>
         </SafeAreaView>
       </Modal>
     );

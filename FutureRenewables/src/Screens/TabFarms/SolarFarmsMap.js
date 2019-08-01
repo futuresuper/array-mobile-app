@@ -31,7 +31,10 @@ import CircularProgress from 'src/Components/CircularProgress';
 import BackButton from 'src/Components/BackButton';
 import DeviceUtils from 'src/Common/device';
 
-import solarHeart from 'src/assets/images/solarHeart.png';
+import {
+  solarFarmsSelector,
+} from 'src/Redux/AppContent';
+
 import MarkerActive from 'src/assets/images/MarkerActive.png';
 import MarkerInactive from 'src/assets/images/MarkerInactive.png';
 
@@ -173,23 +176,23 @@ class TabFarms extends Component {
           <Left>
             <Thumbnail
               resizeMode="cover"
-              source={solarHeart}
+              source={{ uri: item.featureImage.landscape }}
               style={styles.farmCardImage}
             />
           </Left>
           <Body style={styles.farmCardBody}>
             <View>
-              <H3 style={[sg.fS20]} color2>{item.title}</H3>
-              <Text style={styles.farmCardTextDescription}>{item.description}</Text>
+              <H3 style={[sg.fS20]} color2>{item.name}</H3>
+              <Text style={styles.farmCardTextDescription}>{item.location}</Text>
             </View>
             <Text style={styles.farmCardTextComplete}>
-              {item.completed}
+              {item.percentComplete}
               % Completed
             </Text>
           </Body>
           <Right style={styles.farmCardRight}>
             <CircularProgress
-              progress={item.completed / 100}
+              progress={item.percentComplete / 100}
               borderWidth={1}
               size={24}
               color={sc.color.primary}
@@ -288,16 +291,16 @@ class TabFarms extends Component {
   }
 }
 
-TabFarms.defaultProps = {
-  farms: [],
-};
-
 TabFarms.propTypes = {
-  farms: PropTypes.array,
+  farms: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  farms: ownProps.navigation.getParam('farms'),
-});
+const mapStateToProps = (state) => {
+  const solarFarms = solarFarmsSelector(state);
+
+  return {
+    farms: solarFarms,
+  };
+};
 
 export default connect(mapStateToProps)(TabFarms);

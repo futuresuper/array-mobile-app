@@ -160,6 +160,7 @@ class Accounts extends React.Component {
             <Button
               onPress={() => {
                 screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+                // screenProps.navigateTo(routeNames.TAB_HOME);
               }}
               block
             >

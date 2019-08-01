@@ -5,7 +5,12 @@ import {
 
 export default {
   text: {
-    fontWeight: '700',
-    color: sc.color.gray,
+    lineHeight: 25,
+  },
+  icon: {
+    color: sc.color.gray11,
+    fontSize: 25,
+    lineHeight: 25,
+    height: 25,
   },
 };

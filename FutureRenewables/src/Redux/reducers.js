@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 
 import NavReducer from './Nav';
 import AuthReducer from './Auth';
+import AppContentReducer from './AppContent';
 
 const config = {
   key: 'primary',
@@ -13,4 +14,5 @@ const config = {
 export default persistCombineReducers(config, {
   navigationCard: NavReducer,
   auth: AuthReducer,
+  appContent: AppContentReducer,
 });
