@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import {
   View,
 } from 'react-native';
@@ -9,11 +10,9 @@ import {
   Content,
   Text,
   Icon,
-  H2,
   Grid,
   Row,
   Col,
-  List,
   ListItem,
   Body,
 } from 'native-base';
@@ -21,126 +20,128 @@ import {
 import {
   routeNames,
 } from 'src/Navigation';
-import composeHoc from 'src/Common/Hocs';
-import {
-  Input,
-} from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
+import {
+  formatAmountDollarCent,
+} from 'src/Common/Helpers';
 
 import {
   sg,
 } from 'src/Styles';
 
-import { API } from "aws-amplify";
-
 class Accounts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {},
     };
   }
 
   async componentDidMount() {
     const { screenProps } = this.props;
 
-    try {
-      const result = await API.get("array", "/user");
-
-      // TO DO - Add Entity Accounts to list - result.user.linkedEntities[i].entity.accounts
-      if (result.user.totalAccounts > 0) {
-        console.log(result.user);
-        this.setState({
-          user: result.user
-        })
-      } else {
-        console.log("No Accounts");
-      }
-    } catch (e) {
-      console.log("Error: " + e);
-    }
+    screenProps.Api.get('/user', {},
+      (res) => {
+        // TO DO - Add Entity Accounts to list - result.user.linkedEntities[i].entity.accounts
+        if (res.user.totalAccounts > 0) {
+          this.setState({
+            user: res.user,
+          });
+        }
+      },
+      () => {
+        screenProps.toastDanger('Unknown error');
+      });
   }
 
   renderAccounts() {
-
     const { screenProps } = this.props;
+    const { user } = this.state;
+
+    if (_.isNil(user) || _.isEmpty(user)) {
+      return null;
+    }
 
     // Combining Individual and Linked Entity Accounts into a single array
     let individualAccounts = [];
     let entityAccounts = [];
+    const {
+      linkedEntities,
+      accounts,
+      numberOfIndividualAccounts,
+      numberOfLinkedEntityAccounts,
+    } = user;
 
-    if ( this.state.user.accounts !== undefined && this.state.user.numberOfIndividualAccounts > 0 ) {
-      individualAccounts = this.state.user.accounts;
+    if (accounts !== undefined && numberOfIndividualAccounts > 0) {
+      individualAccounts = accounts;
     }
 
-    if ( this.state.user.linkedEntities !== undefined && this.state.user.numberOfLinkedEntityAccounts > 0 ) {
-      let linkedEntities = this.state.user.linkedEntities;
-      for (let i = 0; i < linkedEntities.length; i++) {
+    if (linkedEntities !== undefined && numberOfLinkedEntityAccounts > 0) {
+      for (let i = 0; i < linkedEntities.length; i += 1) {
         entityAccounts = entityAccounts.concat(linkedEntities[i].entity.accounts);
       }
     }
 
-    const accounts = [...individualAccounts, ...entityAccounts];
+    const accountsNew = [...individualAccounts, ...entityAccounts];
 
-    return accounts.map(
-      (account, i) =>
-        {
-            return (
-              <ListItem
-                button
-                noIndent
-                key={account.PK2}
-                onPress={() => {
-                  // Navigate to the Home screen with the selected Account Active
-                  // PK2 is the Account ID
-                  screenProps.navigateTo(routeNames.TAB_HOME, {
-                    details: account.PK2,
-                  });
-                }}
-                style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
-              >
-                <Body>
-                  <Grid>
-                    <Row>
-                      <Col style={[sg.flexNull]}>
-                        <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
+    return accountsNew.map((account) => {
+      const {
+        PK2,
+        nickName,
+        status,
+        balance,
+      } = account;
 
-                        {account.status === "unitsIssued" && (
-                          <Text style={[sg.mL0, sg.fS16]} color4>
-                            Balance:&nbsp;
-                            <Text color4>
-                              {account.balance.toLocaleString('en-AU', {
-                                  style: 'currency',
-                                  currency: 'AUD',
-                                })
-                              }
-                            </Text>
-                          </Text>
-                        )}
-                      </Col>
-                      <Col style={[sg.jCCenter, sg.aIEnd]}>
-                        <Icon name="ios-arrow-forward" style={sg.fS20} />
-                      </Col>
-                    </Row>
+      return (
+        <ListItem
+          button
+          noIndent
+          key={PK2}
+          onPress={() => {
+            // Navigate to the Home screen with the selected Account Active
+            // PK2 is the Account ID
+            screenProps.navigateTo(routeNames.TAB_HOME, {
+              details: PK2,
+            });
+          }}
+          style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
+        >
+          <Body>
+            <Grid>
+              <Row>
+                <Col style={[sg.flexNull]}>
+                  <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{nickName}</Text>
 
-                    { /*
-                      TO DO LATER - ADD INCOMPLETE APPS TO LIST
+                  {status === 'unitsIssued' && (
+                    <Text style={[sg.mL0, sg.fS16]} color4>
+                      Balance:&nbsp;
+                      <Text color4>
+                        {formatAmountDollarCent(balance)}
+                      </Text>
+                    </Text>
+                  )}
+                </Col>
+                <Col style={[sg.jCCenter, sg.aIEnd]}>
+                  <Icon name="ios-arrow-forward" style={sg.fS20} />
+                </Col>
+              </Row>
 
-                      account.status === "incompleteApp" && (
-                      <Row style={[sg.jCSpaceBetween, sg.aICenter, sg.mT0]}>
-                        {this.renderIncApp()}
-                        <Text style={[sg.fS14, sg.fontMedium, sg.mR0]}>Resume</Text>
-                      </Row>
-                      )
-                    */}
+              { /*
+                TO DO LATER - ADD INCOMPLETE APPS TO LIST
 
-                  </Grid>
-                </Body>
-              </ListItem>
-            )
-        }
-    );
+                account.status === "incompleteApp" && (
+                <Row style={[sg.jCSpaceBetween, sg.aICenter, sg.mT0]}>
+                  {this.renderIncApp()}
+                  <Text style={[sg.fS14, sg.fontMedium, sg.mR0]}>Resume</Text>
+                </Row>
+                )
+              */}
 
+            </Grid>
+          </Body>
+        </ListItem>
+      );
+    });
   }
 
   render() {
@@ -153,7 +154,7 @@ class Accounts extends React.Component {
             <Text style={[sg.formHeading]}>
               Your accounts
             </Text>
-            { this.renderAccounts() }
+            {this.renderAccounts()}
           </View>
           <KeyboardAvoidingView>
             <Button

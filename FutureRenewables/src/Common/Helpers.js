@@ -103,7 +103,7 @@ export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thou
   }
 }
 
-export const formatAmountDollar = (inputInp) => {
+export const formatAmountDollar = (inputInp, decimalCountInp = 0) => {
   let input = inputInp;
 
   if (typeof input !== 'string') {
@@ -113,13 +113,15 @@ export const formatAmountDollar = (inputInp) => {
   if (Number.isNaN(parseInt(input[input.length - 1], 10))) {
     input = input.slice(0, -1);
   } else {
-    const convertedInput = formatAmount(input);
+    const convertedInput = formatAmount(input, decimalCountInp);
 
     input = `$${convertedInput}`;
   }
 
   return input;
 };
+
+export const formatAmountDollarCent = val => formatAmountDollar(val, 2);
 
 export const formatShortDate = (valInp) => {
   let val = valInp;
