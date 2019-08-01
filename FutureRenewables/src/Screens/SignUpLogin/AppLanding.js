@@ -100,7 +100,7 @@ class AppLanding extends Component {
             <Button
               block
               onPress={() => {
-                screenProps.navigateTo(routeNames.BUILD_YOUR_SAVINGS);
+                screenProps.navigateTo(routeNames.BUILD_YOUR_SAVING);
               }}
             >
               <Text>Next</Text>
