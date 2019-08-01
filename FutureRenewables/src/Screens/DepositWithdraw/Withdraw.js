@@ -8,6 +8,7 @@ import {
   Content,
   Text,
   Item,
+  Button,
 } from 'native-base';
 
 import composeHoc from 'src/Common/Hocs';
@@ -16,6 +17,7 @@ import {
   Picker,
 } from 'src/Components/Form';
 import TextUnderline from 'src/Components/TextUnderline';
+import Br from 'src/Components/Br';
 import {
   routeNames,
 } from 'src/Navigation';
@@ -29,11 +31,17 @@ import {
   sg,
 } from 'src/Styles';
 
+import styles from './styles';
+
 class Withdraw extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      segment: {
+        isSpecificAmount: true,
+        isWholeBalance: false,
+      },
       form: {
         amount: {
           validations: [
@@ -77,6 +85,24 @@ class Withdraw extends Component {
     hocs.setForm(form);
   }
 
+  segmentSpecificAmount = () => {
+    this.setState({
+      segment: {
+        isSpecificAmount: true,
+        isWholeBalance: false,
+      },
+    });
+  }
+
+  segmentWholeBalance = () => {
+    this.setState({
+      segment: {
+        isSpecificAmount: false,
+        isWholeBalance: true,
+      },
+    });
+  }
+
   onNext = () => {
     const { hocs, screenProps } = this.props;
     const formIsValid = hocs.formIsValid();
@@ -89,12 +115,33 @@ class Withdraw extends Component {
   render() {
     const { hocs } = this.props;
     const { form } = hocs;
-    const { accountList } = this.state;
+    const { accountList, segment } = this.state;
 
     return (
       <Content padder contentContainerStyle={[sg.flexGrow]}>
         <View style={sg.spaceBetween}>
           <View>
+            <View style={[sg.row]}>
+              <Br style={[sg.footerBl]} />
+
+              <Button
+                transparent
+                onPress={this.segmentSpecificAmount}
+                style={[sg.mT0, sg.pT0, sg.heightNull]}
+              >
+                <Text style={[styles.tabTextActive, (!segment.isSpecificAmount ? styles.tabText : {})]}>Specific Amount</Text>
+              </Button>
+
+              <Button
+                transparent
+                onPress={this.segmentWholeBalance}
+                style={[sg.mT0, sg.pT0, sg.heightNull]}
+              >
+                <Text style={[styles.tabTextActive, sg.mL10, (!segment.isWholeBalance ? styles.tabText : {})]}>Whole Balance</Text>
+              </Button>
+            </View>
+
+
             <Input
               formData={form}
               formKey="amount"
