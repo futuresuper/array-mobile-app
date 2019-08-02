@@ -15,6 +15,7 @@ import {
   Content,
   Button,
   Icon,
+  H1,
   H2,
   Grid,
   Col,
@@ -40,6 +41,7 @@ import {
 import {
   impactStatsSelector,
   latestSelector,
+  accountsSelector
 } from 'src/Redux/AppContent';
 
 import {
@@ -284,6 +286,27 @@ class TabHome extends Component {
     );
   }
 
+  renderBalance() {
+    return (
+      <View style={[sg.aICenter, sg.mT50, sg.mB25]}>
+        <Button
+          transparent
+          iconRight
+          style={sg.aSCenter}
+          //onPress={onPress}
+        >
+          <Text style={styles.title}>Andrew</Text>
+          <Icon name="ios-arrow-down" style={styles.titleIcon} />
+        </Button>
+
+        <View style={sg.row}>
+          <H1 style={styles.mainAmount}>$1,978</H1>
+          <Text style={styles.mainAmountCent}>.00</Text>
+        </View>
+      </View>
+    )
+  }
+
   render() {
     const { screenProps, latest } = this.props;
     const { article, activeBalance } = this.state;
@@ -315,12 +338,16 @@ class TabHome extends Component {
               </Grid>
             </View>
 
+            { this.renderBalance() }
+
+            {/*
             <Balance
               onPress={() => {
                 BottomInfo.showAccounts();
               }}
               balance={activeBalance}
             />
+            */}
 
             <Button
               rounded
@@ -382,10 +409,12 @@ TabHome.propTypes = {
 const mapStateToProps = (state) => {
   const impactStats = impactStatsSelector(state);
   const latest = latestSelector(state);
+  const accounts = accountsSelector(state);
 
   return {
     impactStats,
     latest,
+    accounts
   };
 };
 
