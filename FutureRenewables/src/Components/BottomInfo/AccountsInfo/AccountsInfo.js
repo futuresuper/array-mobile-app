@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -8,14 +9,25 @@ import {
 import {
   Button,
   Icon,
+  Grid,
   List,
   ListItem,
   Left,
   Right,
+  Row,
+  Col,
   Body,
   Thumbnail,
   Text,
 } from 'native-base';
+
+import {
+  accountsSelector,
+} from 'src/Redux/AppContent';
+
+import {
+  routeNames,
+} from 'src/Navigation';
 
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 import TextUnderline from 'src/Components/TextUnderline';
@@ -33,7 +45,7 @@ class AccountsInfo extends Component {
       list: [
         {
           name: 'Hugh Jackman',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/World_Premiere_Logan_Berlinale_2017.jpg/220px-World_Premiere_Logan_Berlinale_2017.jpg',
+          //image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/World_Premiere_Logan_Berlinale_2017.jpg/220px-World_Premiere_Logan_Berlinale_2017.jpg',
           active: true,
         },
         {
@@ -45,13 +57,69 @@ class AccountsInfo extends Component {
     };
   }
 
+  renderAccounts() {
+      const { accounts, screenProps } = this.props;
+
+      return accounts.map((account) => {
+        
+        return (
+            <ListItem
+              button
+              noIndent
+              key={account.id}
+              onPress={() => {
+                // Navigate to the Home screen with the selected Account Active
+                // PK2 is the Account ID
+                screenProps.navigateTo(routeNames.TAB_HOME, {
+                  accountId: account.id,
+                });
+
+              }}
+              style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
+            >
+              <Body>
+
+                <Grid>
+                  <Row>
+                    <Col style={[sg.flexNull]}>
+
+                      <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
+
+                      {account.status === 'unitsIssued' && account.balance && (
+                        <Text style={[sg.mL0, sg.fS16]} color4>
+                          Balance:&nbsp;
+                          <Text color4>
+                            {formatAmountDollarCent(account.balance)}
+                          </Text>
+                        </Text>
+                      )}
+
+                    </Col>
+                    <Col style={[sg.jCCenter, sg.aIEnd]}>
+                      <Icon name="ios-arrow-forward" style={sg.fS20} />
+                    </Col>
+                  </Row>
+
+                </Grid>
+
+              </Body>
+            </ListItem>
+          );
+
+      });
+
+  }
+
   render() {
+    const { screenProps } = this.props;
     const { superAccount } = this.props;
     const { list } = this.state;
 
     return (
       <View style={sg.mH5}>
         <List>
+          { this.renderAccounts() }
+          {/*
           <FlatList
             data={list}
             keyExtractor={(item, index) => index.toString()}
@@ -69,6 +137,7 @@ class AccountsInfo extends Component {
               </ListItem>
             )}
           />
+          */}
         </List>
 
         <View style={[sg.mT30, sg.mH10]}>
@@ -109,4 +178,13 @@ AccountsInfo.propTypes = {
   superAccount: PropTypes.bool,
 };
 
-export default AccountsInfo;
+const mapStateToProps = (state) => {
+  const accounts = accountsSelector(state);
+
+  return {
+    accounts,
+  };
+};
+
+export default connect(mapStateToProps)(AccountsInfo);
+// export default AccountsInfo;

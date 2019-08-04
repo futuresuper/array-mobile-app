@@ -46,6 +46,7 @@ class Accounts extends React.Component {
       const { user } = this.state;
 
       console.log("Accounts: " + JSON.stringify(accounts));
+      console.log("screenProps: " + JSON.stringify(screenProps));
 
       /*
       if (_.isNil(user) || _.isEmpty(user)) {
@@ -54,16 +55,6 @@ class Accounts extends React.Component {
       */
 
       return accounts.map((account) => {
-
-
-        /*
-        return (
-          <Text>
-            {account.id} | {account.nickName} | {account.balance} | {account.status}
-          </Text>
-        )
-        */
-
 
         return (
             <ListItem
@@ -74,7 +65,7 @@ class Accounts extends React.Component {
                 // Navigate to the Home screen with the selected Account Active
                 // PK2 is the Account ID
                 screenProps.navigateTo(routeNames.TAB_HOME, {
-                  details: account.id,
+                  accountId: account.id,
                 });
               }}
               style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}

@@ -36,6 +36,9 @@ import {
 import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
 import {
+  formatAmountDollarCent,
+} from 'src/Common/Helpers';
+import {
   LineChart,
 } from 'src/Components/ChartKit';
 import {
@@ -221,18 +224,13 @@ class TabHome extends Component {
           if (c) this.LineChart = c;
         }}
         data={{
-          labels: ['Jan 1', 'Feb 23', 'Mar 8', 'Apr 1', 'May 9', 'Jun 12', 'Sep 1', 'Nov 4', 'Dec 31'],
+          //labels: ['Mar 31', 'Apr 30', 'May 31', 'Jun 30'],
           datasets: [{
             data: [
-              100,
-              500,
-              0,
-              500,
-              850,
-              1200,
-              670,
-              754,
-              501,
+              10,
+              12,
+              14,
+              15,
             ],
           }],
         }}
@@ -287,24 +285,50 @@ class TabHome extends Component {
   }
 
   renderBalance() {
-    return (
-      <View style={[sg.aICenter, sg.mT50, sg.mB25]}>
-        <Button
-          transparent
-          iconRight
-          style={sg.aSCenter}
-          //onPress={onPress}
-        >
-          <Text style={styles.title}>Andrew</Text>
-          <Icon name="ios-arrow-down" style={styles.titleIcon} />
-        </Button>
 
-        <View style={sg.row}>
-          <H1 style={styles.mainAmount}>$1,978</H1>
-          <Text style={styles.mainAmountCent}>.00</Text>
-        </View>
-      </View>
-    )
+    const { accounts, navigation } = this.props;
+
+    const accountIdActive = navigation.getParam('accountId', 'NO-ID');
+
+    console.log("Accounts: " + JSON.stringify(accounts));
+    console.log("Account ID Selected: " + JSON.stringify(accountIdActive));
+
+    return accounts.map((account) => {
+
+      if (account.id === accountIdActive) {
+
+        const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
+        const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
+        const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
+
+        return (
+          <View
+            style={[sg.aICenter, sg.mT50, sg.mB25]}
+            key={account.id}
+          >
+            <Button
+              transparent
+              iconRight
+              style={sg.aSCenter}
+              onPress={() => {
+                BottomInfo.showAccounts();
+              }}
+            >
+              <Text style={styles.title}>{account.nickName}</Text>
+              <Icon name="ios-arrow-down" style={styles.titleIcon} />
+            </Button>
+
+            <View style={sg.row}>
+              <H1 style={styles.mainAmount}>{balanceDollars}</H1>
+              <Text style={styles.mainAmountCent}>.{balanceCents}</Text>
+            </View>
+          </View>
+        )
+      }
+
+    });
+
+
   }
 
   render() {
@@ -339,15 +363,6 @@ class TabHome extends Component {
             </View>
 
             { this.renderBalance() }
-
-            {/*
-            <Balance
-              onPress={() => {
-                BottomInfo.showAccounts();
-              }}
-              balance={activeBalance}
-            />
-            */}
 
             <Button
               rounded
