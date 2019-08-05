@@ -339,7 +339,7 @@ class TabHome extends Component {
     let ampm = "am"
     let hours = today.getHours();
     if (hours > 12) {
-      hours =- 12;
+      hours = hours - 12;
       ampm = "pm";
     } else if (hours === 12 ) {
       ampm = "pm";

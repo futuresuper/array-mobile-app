@@ -67,7 +67,7 @@ class AppLanding extends Component {
     // if (__DEV__) {
     res = (
       <TouchableOpacity
-        onPress={() => screenProps.navigateTo(routeNames.TAB_HOME)}
+        // onPress={() => screenProps.navigateTo(routeNames.TAB_HOME)}
       >
         {res}
       </TouchableOpacity>

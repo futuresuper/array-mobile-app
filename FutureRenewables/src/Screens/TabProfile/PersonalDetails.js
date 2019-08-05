@@ -69,7 +69,6 @@ class PersonalDetails extends Component {
     const { details } = this.state;
 
     details.address = details.residenitalAddressStreet;
-
     details.tfn = 'Supplied';
     details.touchFaceId = true;
     details.pin = '123';
@@ -109,6 +108,8 @@ class PersonalDetails extends Component {
   }
 
   displayHeaderRight() {
+
+    /*
     const { navigation } = this.props;
     const { isEdit } = this.state;
 
@@ -127,6 +128,8 @@ class PersonalDetails extends Component {
     navigation.setParams({
       headerRight,
     });
+    */
+    
   }
 
   renderReadForm() {
@@ -158,6 +161,7 @@ class PersonalDetails extends Component {
           color2
         />
 
+        {/*
         <Input
           disabled
           label="Address"
@@ -194,6 +198,8 @@ class PersonalDetails extends Component {
           containerStyle={styles.inputContainer}
           color2
         />
+
+        */}
       </View>
     );
   }
