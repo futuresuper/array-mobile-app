@@ -589,6 +589,9 @@ export default {
   fS11: {
     fontSize: 11,
   },
+  fS12: {
+    fontSize: 12,
+  },
   fS14: {
     fontSize: 14,
   },

@@ -49,9 +49,6 @@ class AppLanding extends Component {
   componentDidMount() {
     // eslint-disable-next-line react/destructuring-assignment, react/prop-types
     this.props.userDataSave(users.andrew);
-
-    const hz = 'COL';
-    console.log('!!!zz', hz.match(/\d+/));
   }
 
   handleLayout = () => {

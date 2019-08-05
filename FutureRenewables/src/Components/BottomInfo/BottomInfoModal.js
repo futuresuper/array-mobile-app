@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import ModalBottomInfo from './ModalBottomInfo';
 import AccountsInfo from './AccountsInfo/AccountsInfo';
 import FutureSuperAccountInfo from './FutureSuperAccountInfo/FutureSuperAccountInfo';
+import WithdrawInfo from './WithdrawInfo/WithdrawInfo';
 
 class BottomInfoModal extends Component {
   static show(...args) {
@@ -16,6 +17,10 @@ class BottomInfoModal extends Component {
 
   static showFutureSuperAccount() {
     BottomInfoModal.show(<FutureSuperAccountInfo />);
+  }
+
+  static showWithdraw() {
+    BottomInfoModal.show(<WithdrawInfo />);
   }
 
   static hide() {
