@@ -58,10 +58,10 @@ class AccountsInfo extends Component {
   }
 
   renderAccounts() {
-      const { accounts, screenProps } = this.props;
+      const { accounts, screenProps, onPress } = this.props;
 
       return accounts.map((account) => {
-        
+
         return (
             <ListItem
               button
@@ -69,11 +69,14 @@ class AccountsInfo extends Component {
               key={account.id}
               onPress={() => {
                 // Navigate to the Home screen with the selected Account Active
-                // PK2 is the Account ID
+
+                /* THIS IS NOT WORKING
+
                 screenProps.navigateTo(routeNames.TAB_HOME, {
                   accountId: account.id,
                 });
 
+                */
               }}
               style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
             >

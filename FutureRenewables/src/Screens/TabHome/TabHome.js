@@ -311,11 +311,11 @@ class TabHome extends Component {
               iconRight
               style={sg.aSCenter}
               onPress={() => {
-                BottomInfo.showAccounts();
+                //BottomInfo.showAccounts();
               }}
             >
               <Text style={styles.title}>{account.nickName}</Text>
-              <Icon name="ios-arrow-down" style={styles.titleIcon} />
+              {/* <Icon name="ios-arrow-down" style={styles.titleIcon} /> */}
             </Button>
 
             <View style={sg.row}>
@@ -334,6 +334,19 @@ class TabHome extends Component {
   render() {
     const { screenProps, latest } = this.props;
     const { article, activeBalance } = this.state;
+    //let solarFarmTime = "3:00pm" // new Date();
+    let today = new Date();
+    let ampm = "am"
+    let hours = today.getHours();
+    if (hours > 12) {
+      hours =- 12;
+      ampm = "pm";
+    } else if (hours === 12 ) {
+      ampm = "pm";
+    }
+    let minutes = today.getMinutes();
+    if (minutes <10) { minutes = "0" + minutes }
+    let solarFarmTime = hours + ":" + minutes + ampm;
 
     return (
       <Content bounces={false}>
@@ -357,7 +370,7 @@ class TabHome extends Component {
                   </Col>
                 </Row>
                 <Row style={sg.jCCenter}>
-                  <Text style={styles.localTime}>1:40am local time</Text>
+                  <Text style={styles.localTime}>{solarFarmTime} local time</Text>
                 </Row>
               </Grid>
             </View>

@@ -157,6 +157,7 @@ class Perfomance extends Component {
           </Col>
         </Grid>
 
+        {/*
         <View style={[sg.mT45]}>
           <H1 style={[sg.fS24, sg.textCenter]} color2>Monthly Deposit</H1>
         </View>
@@ -200,13 +201,16 @@ class Perfomance extends Component {
           <Text style={styles.nextCollection}>Next collection: 20 April</Text>
         </View>
 
-        <View style={sg.contentMarginH2}>
+
+
+        <View style={[sg.contentMarginH2, sg.mT50]}>
           <H1 style={[sg.fS24, sg.textCenter, sg.mB30]}>Activity</H1>
           <Grid>
             {this.renderActivityItem()}
             {activity.map((item, index) => this.renderActivityItem(item, index))}
           </Grid>
         </View>
+        */}
       </View>
     );
   }

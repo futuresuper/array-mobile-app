@@ -40,6 +40,7 @@ class Deposit extends Component {
           normalize: normalizeAmount,
           format: formatAmountDollar,
         },
+        /*
         from: {
           validations: [
             'required',
@@ -50,6 +51,7 @@ class Deposit extends Component {
             'required',
           ],
         },
+        */
       },
       frequencyList: [
         {
@@ -107,14 +109,20 @@ class Deposit extends Component {
 
     return (
       <View>
+        <Text>
+          You'll be able to make a deposit here soon...
+        </Text>
+        {/*
         <Input
           formData={form}
           formKey="amount"
           onChangeText={hocs.handleInput}
           keyboardType="numeric"
-          style={[sg.fS24]}
+          //style={[sg.fS24]}
+          label="Amount"
           color2
         />
+
 
         <Item
           style={[sg.noBorder]}
@@ -180,6 +188,7 @@ class Deposit extends Component {
             }}
           />
         </Item>
+        */}
 
       </View>
     );
