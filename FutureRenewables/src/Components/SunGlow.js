@@ -33,7 +33,8 @@ class SunGlow extends Component {
   }
 
   render() {
-    const image = this.getImage();
+    // const image = this.getImage();
+    const image = CircleSunrise;
 
     return (
       <Image source={image} {...this.props} />

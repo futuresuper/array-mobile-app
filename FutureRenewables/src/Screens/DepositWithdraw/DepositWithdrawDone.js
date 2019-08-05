@@ -24,7 +24,7 @@ class DepositWithdrawDone extends Component {
     const depositMessage = (
       <View style={[sg.row, sg.center]}>
         <Text style={[sg.fS16, sg.fontMedium]}>Deposit recieved.</Text>
-        <Text style={[sg.fS16]}> Nice one Grace!</Text>
+        <Text style={[sg.fS16]}> Nice one!</Text>
       </View>
     );
 
@@ -42,11 +42,8 @@ class DepositWithdrawDone extends Component {
         <View style={[styles.doneTextBl]}>
           <Text style={styles.doneText} color2>
             Confirming you&apos;d like to invest
-            <Text style={styles.doneTextBold}> $20 monthly </Text>
-            from your
-            <Text style={styles.doneTextBold}> ING account </Text>
-            starting on
-            <Text style={styles.doneTextBold}> April 20.</Text>
+            <Text style={styles.doneTextBold}> $20 </Text>
+            from your linked bank account
           </Text>
         </View>
 

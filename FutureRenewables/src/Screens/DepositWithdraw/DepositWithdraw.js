@@ -67,12 +67,14 @@ class DepositWithdraw extends Component {
         <View style={sg.spaceBetween}>
           <View>
             <View style={[sg.row]}>
+              <Text style={[styles.tabTextActive, (!segment.isDeposit ? styles.tabText : {}), sg.mB40]}>Make a Deposit</Text>
+              {/*
               <Button
                 transparent
                 onPress={this.segmentDeposit}
                 style={[sg.mT0, sg.pT0, sg.heightNull]}
               >
-                <Text style={[styles.tabTextActive, (!segment.isDeposit ? styles.tabText : {})]}>Deposit</Text>
+                <Text style={[styles.tabTextActive, (!segment.isDeposit ? styles.tabText : {})]}>Make a Deposit</Text>
               </Button>
 
               <Button
@@ -82,6 +84,7 @@ class DepositWithdraw extends Component {
               >
                 <Text style={[styles.tabTextActive, sg.mL10, (!segment.isWithdraw ? styles.tabText : {})]}>Withdraw</Text>
               </Button>
+              */}
             </View>
 
             {segment.isDeposit && (
@@ -104,12 +107,14 @@ class DepositWithdraw extends Component {
               )
             }
 
+            {/*
             <Button
               block
               onPress={this.onNext}
             >
               <Text>{segment.isDeposit ? 'Next' : 'Confirm'}</Text>
             </Button>
+            */}
           </View>
         </View>
       </Content>

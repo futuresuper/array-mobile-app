@@ -54,19 +54,20 @@ class SolarFarmsList extends Component {
             />
           </View>
 
-          <View style={[sg.row, sg.aICenter]}>
-            <CircularProgress
-              progress={item.percentComplete / 100}
-              borderWidth={1}
-              size={18}
-              color={sc.color.primary}
-              borderColor={sc.color.gray6}
-            />
-            <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15]}>
-              {item.percentComplete}
-              % Completed
-            </Text>
+          { item.percentComplete < 100 && <View style={[sg.row, sg.aICenter]}>       
+              <CircularProgress
+                progress={item.percentComplete / 100}
+                borderWidth={1}
+                size={18}
+                color={sc.color.primary}
+                borderColor={sc.color.gray6}
+              />
+              <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15]}>
+                {item.percentComplete}
+                % Completed
+              </Text>
           </View>
+          }
         </ImageBackground>
       </TouchableOpacity>
     );
@@ -84,6 +85,7 @@ class SolarFarmsList extends Component {
             Solar Farms
           </Text>
 
+          {/*
           <TouchableOpacity
             style={styles.markerImage}
             onPress={() => {
@@ -92,6 +94,7 @@ class SolarFarmsList extends Component {
           >
             <Image source={MarkerActive} />
           </TouchableOpacity>
+          */}
         </View>
 
         <FlatList

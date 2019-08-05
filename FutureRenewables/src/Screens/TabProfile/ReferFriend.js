@@ -39,10 +39,12 @@ class ReferFriend extends Component {
           </Text>
 
           <View style={[sg.row, sg.mT50]}>
+
             <Button
               style={styles.shareButton}
               // large
               icon
+              onPress={() => this.props.navigation.navigate('https://www.arrayapp.co')}
             >
               <Icon type="FontAwesome" name="facebook-f" style={sg.fS25} />
             </Button>
@@ -52,6 +54,7 @@ class ReferFriend extends Component {
             >
               <Icon type="FontAwesome5" name="twitter" style={sg.fS26} />
             </Button>
+
             <Button
               style={styles.shareButton}
               icon
@@ -64,6 +67,7 @@ class ReferFriend extends Component {
             >
               <Icon type="Ionicons" name="logo-whatsapp" style={sg.fS27} />
             </Button>
+
           </View>
         </View>
       </Content>
