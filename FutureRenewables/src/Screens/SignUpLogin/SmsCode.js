@@ -114,7 +114,7 @@ class SmsCode extends Component {
 
     if (mobile) {
       // If it's an Australian number, change to pretty display format, otherwise leave as is
-      if (mobile.substr(0, 3) === "+61") {
+      if (mobile.substr(0, 3) === '+61') {
         mobile = mobile.substr(3);
         mobile = `0${mobile.substr(0, 3)} ${mobile.substr(3, 3)} ${mobile.substr(6, mobile.length)}`;
       }

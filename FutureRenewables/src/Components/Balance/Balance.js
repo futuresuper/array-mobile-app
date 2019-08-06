@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Text,
@@ -14,6 +15,7 @@ import {
 import {
   formatAmountDollar,
 } from 'src/Common/Helpers';
+import BottomInfo from 'src/Components/BottomInfo';
 
 import {
   sg,
@@ -37,6 +39,14 @@ const Balance = ({ onPress, style, balance }) => {
       </Button>
 
       <View style={sg.row}>
+        <TouchableOpacity
+          onPress={() => {
+            BottomInfo.showBalance();
+          }}
+        >
+          <Icon type="EvilIcons" name="question" style={[sg.colorGray11, sg.mR5]} />
+        </TouchableOpacity>
+
         <H1 style={styles.mainAmount}>{balanceFormated}</H1>
         <Text style={styles.mainAmountCent}>.00</Text>
       </View>
