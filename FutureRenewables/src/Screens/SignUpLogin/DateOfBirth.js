@@ -32,20 +32,20 @@ class DateOfBirth extends React.Component {
         day: {
           validations: [
             'required',
-            [this.isDayValid, 'Wrong day'],
+            [this.isDayValid, 'Day not valid'],
           ],
           format: this.formayDay,
         },
         month: {
           validations: [
             'required',
-            [this.isMonthValid, 'Wrong month'],
+            [this.isMonthValid, 'Month not valid'],
           ],
         },
         year: {
           validations: [
             'required',
-            [this.isYearValid, 'Wrong year'],
+            [this.isYearValid, 'Year not valid'],
           ],
         },
       },

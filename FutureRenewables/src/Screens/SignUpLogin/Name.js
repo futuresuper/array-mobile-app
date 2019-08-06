@@ -30,9 +30,11 @@ class Name extends React.Component {
     super(props);
     this.state = {
       form: {
+        /*
         title: {
           value: '',
         },
+        */
         firstName: {
           value: '',
           validations: [
@@ -41,9 +43,6 @@ class Name extends React.Component {
         },
         middleName: {
           value: '',
-          validations: [
-            'required',
-          ],
         },
         lastName: {
           value: '',
@@ -55,11 +54,27 @@ class Name extends React.Component {
       titles: [
         {
           id: 1,
-          name: 'Title 1',
+          name: 'Mr',
         },
         {
           id: 2,
-          name: 'Title 2',
+          name: 'Ms',
+        },
+        {
+          id: 3,
+          name: 'Mrs',
+        },
+        {
+          id: 4,
+          name: 'Miss',
+        },
+        {
+          id: 5,
+          name: 'Dr',
+        },
+        {
+          id: 6,
+          name: 'Other',
         },
       ],
     };
@@ -78,10 +93,12 @@ class Name extends React.Component {
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
       const firstName = hocs.form.firstName.value;
+      const middleName = hocs.form.middleName.value;
       const lastName = hocs.form.lastName.value;
 
       screenProps.Api.post('/user', {
         firstName,
+        middleName,
         lastName,
       }, () => {
         screenProps.navigateTo(routeNames.EMAIL);
@@ -104,6 +121,7 @@ class Name extends React.Component {
               Your name
             </Text>
 
+            {/*
             <Picker
               containerStyle={sg.width100}
               formData={form}
@@ -121,6 +139,7 @@ class Name extends React.Component {
                 hocs.setFormTitle(item.name, formKey, dataKey);
               }}
             />
+            */}
 
             <Input
               formData={form}
