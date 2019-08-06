@@ -189,6 +189,28 @@ class AppIndex extends Component {
     }
     // console.log('!!!theme', getTheme(theme));
 
+    const screenProps = {
+      toast: this.toast,
+      toastDanger: this.toastDanger,
+      routeBack: this.routeBack,
+      navigateTo: this.navigateTo,
+      spinnerShow: this.spinnerShow,
+      spinnerHide: this.spinnerHide,
+      alert: this.alert,
+      userInfo: this.userInfo,
+      setDarkTheme: this.setDarkTheme,
+      setLightTheme: this.setLightTheme,
+      enableTheme: this.enableTheme,
+      disableTheme: this.disableTheme,
+      toogleTheme: this.toogleTheme,
+      getTheme: this.getTheme,
+      isDarkTheme: this.isDarkTheme,
+      Api,
+      theme: {
+        dark,
+      },
+    };
+
     return (
       <Root
         ref={(c) => {
@@ -226,27 +248,7 @@ class AppIndex extends Component {
             />
 
             <AppWithNavigationState
-              navigation={{
-                toast: this.toast,
-                toastDanger: this.toastDanger,
-                routeBack: this.routeBack,
-                navigateTo: this.navigateTo,
-                spinnerShow: this.spinnerShow,
-                spinnerHide: this.spinnerHide,
-                alert: this.alert,
-                userInfo: this.userInfo,
-                setDarkTheme: this.setDarkTheme,
-                setLightTheme: this.setLightTheme,
-                enableTheme: this.enableTheme,
-                disableTheme: this.disableTheme,
-                toogleTheme: this.toogleTheme,
-                getTheme: this.getTheme,
-                isDarkTheme: this.isDarkTheme,
-                Api,
-                theme: {
-                  dark,
-                },
-              }}
+              navigation={screenProps}
             />
 
             <Toast
@@ -255,7 +257,7 @@ class AppIndex extends Component {
               }}
             />
 
-            <BottomInfoModal />
+            <BottomInfoModal screenProps={screenProps} />
           </Container>
 
         </StyleProvider>

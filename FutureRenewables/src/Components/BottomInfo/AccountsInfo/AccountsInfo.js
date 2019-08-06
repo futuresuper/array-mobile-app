@@ -61,7 +61,7 @@ class AccountsInfo extends Component {
       const { accounts, screenProps } = this.props;
 
       return accounts.map((account) => {
-        
+
         return (
             <ListItem
               button
