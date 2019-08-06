@@ -45,8 +45,8 @@ class Accounts extends React.Component {
       const { accounts, screenProps } = this.props;
       const { user } = this.state;
 
-      console.log("Accounts: " + JSON.stringify(accounts));
-      console.log("screenProps: " + JSON.stringify(screenProps));
+      //console.log("Accounts: " + JSON.stringify(accounts));
+      //console.log("screenProps: " + JSON.stringify(screenProps));
 
       let activeAccounts = 0;
       for (let i = 0; i < accounts.length; i++) {
@@ -58,7 +58,7 @@ class Accounts extends React.Component {
       if (activeAccounts > 0) {
         return accounts.map((account) => {
 
-          console.log("account ID: " + account.id)
+          //console.log("account ID: " + account.id)
 
           if (account.status === "unitsIssued") {
             return (
@@ -83,14 +83,14 @@ class Accounts extends React.Component {
 
                         <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
 
-                        {/*account.status === 'unitsIssued' && account.balance && (
+                        {account.balanceInDollars && (
                           <Text style={[sg.mL0, sg.fS16]} color4>
                             Balance:&nbsp;
                             <Text color4>
-                              {formatAmountDollarCent(account.balance)}
+                              {formatAmountDollarCent(account.balanceInDollars)}
                             </Text>
                           </Text>
-                        )*/}
+                        )}
 
                       </Col>
                       <Col style={[sg.jCCenter, sg.aIEnd]}>
@@ -109,80 +109,13 @@ class Accounts extends React.Component {
       } else {
         return (
           <Text>
-            You have no accounts yet :(
+            You don't have any accounts yet :(
               {'\n'}
               {'\n'}
             The good news is you'll have the ability to start an account via the Array app very soon!
           </Text>
         )
       }
-
-
-
-      /*
-      if (_.isNil(user) || _.isEmpty(user)) {
-        return null;
-      }
-      */
-
-      /*
-      return accounts.map((account) => {
-
-        return (
-            {account.status === 'unitsIssued' && (
-                <ListItem
-                  button
-                  noIndent
-                  key={account.id}
-                  onPress={() => {
-                    // Navigate to the Home screen with the selected Account Active
-                    // PK2 is the Account ID
-                    screenProps.navigateTo(routeNames.TAB_HOME, {
-                      accountId: account.id,
-                    });
-                  }}
-                  style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
-                >
-                  <Body>
-
-                    <Grid>
-
-                      <Row>
-                        <Col style={[sg.flexNull]}>
-
-                          <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
-
-
-                            <Text style={[sg.mL0, sg.fS16]} color4>
-                              Balance:&nbsp;
-                              <Text color4>
-                                {formatAmountDollarCent(account.balance)}
-                              </Text>
-                            </Text>
-
-
-
-                        </Col>
-                        <Col style={[sg.jCCenter, sg.aIEnd]}>
-                          <Icon name="ios-arrow-forward" style={sg.fS20} />
-                        </Col>
-                      </Row>
-
-
-                    </Grid>
-                    )}
-
-                  </Body>
-                </ListItem>
-
-
-            )}
-
-          )
-
-      }
-      */
-
   }
 
   render() {
@@ -199,6 +132,7 @@ class Accounts extends React.Component {
               this.renderAccounts()
             }
           </View>
+
           {/*
           <KeyboardAvoidingView>
             <Button
@@ -211,6 +145,7 @@ class Accounts extends React.Component {
             </Button>
           </KeyboardAvoidingView>
           */}
+
         </View>
       </Content>
     );
