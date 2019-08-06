@@ -48,16 +48,16 @@ class TabProfile extends Component {
     this.state = {
       listMenu: [
         {
-          name: 'Personal details',
-          screen: routeNames.PERSONAL_DETAILS,
-        },
-        {
           name: 'Talk to us',
           function: () => this.displayIntercom(props),
         }
       ],
       /*
       listMenu: [
+        {
+          name: 'Personal details',
+          screen: routeNames.PERSONAL_DETAILS,
+        },
         {
           name: 'ID Check',
           screen: routeNames.ID_CHECK_FINISH,
