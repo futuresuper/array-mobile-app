@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   View,
-  FlatList,
 } from 'react-native';
 import {
   Button,
@@ -12,12 +11,9 @@ import {
   Grid,
   List,
   ListItem,
-  Left,
-  Right,
   Row,
   Col,
   Body,
-  Thumbnail,
   Text,
 } from 'native-base';
 
@@ -26,99 +22,73 @@ import {
 } from 'src/Redux/AppContent';
 
 import {
+  formatAmountDollarCent,
+} from 'src/Common/Helpers';
+
+import {
   routeNames,
 } from 'src/Navigation';
 
-import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 import TextUnderline from 'src/Components/TextUnderline';
 import {
   sg,
 } from 'src/Styles';
 
-import styles from './styles';
-
 class AccountsInfo extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      list: [
-        {
-          name: 'Hugh Jackman',
-          //image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/World_Premiere_Logan_Berlinale_2017.jpg/220px-World_Premiere_Logan_Berlinale_2017.jpg',
-          active: true,
-        },
-        {
-          name: 'Cate Blanchett',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Cate_Blanchett_Deauville_2013_3.jpg/176px-Cate_Blanchett_Deauville_2013_3.jpg',
-          active: false,
-        },
-      ],
-    };
-  }
-
   renderAccounts() {
-      const { accounts, screenProps } = this.props;
+    const { accounts, screenProps } = this.props;
 
-      return accounts.map((account) => {
+    return accounts.map(account => (
+      <ListItem
+        button
+        noIndent
+        key={account.id}
+        onPress={() => {
+          // Navigate to the Home screen with the selected Account Active
+          // PK2 is the Account ID
+          screenProps.navigateTo(routeNames.TAB_HOME, {
+            accountId: account.id,
+          });
+        }}
+        style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
+      >
+        <Body>
 
-        return (
-            <ListItem
-              button
-              noIndent
-              key={account.id}
-              onPress={() => {
-                // Navigate to the Home screen with the selected Account Active
-                // PK2 is the Account ID
-                screenProps.navigateTo(routeNames.TAB_HOME, {
-                  accountId: account.id,
-                });
+          <Grid>
+            <Row>
+              <Col style={[sg.flexNull]}>
 
-              }}
-              style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
-            >
-              <Body>
+                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
 
-                <Grid>
-                  <Row>
-                    <Col style={[sg.flexNull]}>
+                {account.status === 'unitsIssued' && account.balance && (
+                  <Text style={[sg.mL0, sg.fS16]} color4>
+                    Balance:&nbsp;
+                    <Text color4>
+                      {formatAmountDollarCent(account.balance)}
+                    </Text>
+                  </Text>
+                )}
 
-                      <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
+              </Col>
+              <Col style={[sg.jCCenter, sg.aIEnd]}>
+                <Icon name="ios-arrow-forward" style={sg.fS20} />
+              </Col>
+            </Row>
 
-                      {account.status === 'unitsIssued' && account.balance && (
-                        <Text style={[sg.mL0, sg.fS16]} color4>
-                          Balance:&nbsp;
-                          <Text color4>
-                            {formatAmountDollarCent(account.balance)}
-                          </Text>
-                        </Text>
-                      )}
+          </Grid>
 
-                    </Col>
-                    <Col style={[sg.jCCenter, sg.aIEnd]}>
-                      <Icon name="ios-arrow-forward" style={sg.fS20} />
-                    </Col>
-                  </Row>
-
-                </Grid>
-
-              </Body>
-            </ListItem>
-          );
-
-      });
-
+        </Body>
+      </ListItem>
+    ));
   }
 
   render() {
-    const { screenProps } = this.props;
     const { superAccount } = this.props;
-    const { list } = this.state;
 
     return (
       <View style={sg.mH5}>
         <List>
-          { this.renderAccounts() }
+          {this.renderAccounts()}
           {/*
           <FlatList
             data={list}
@@ -176,6 +146,7 @@ AccountsInfo.defaultProps = {
 
 AccountsInfo.propTypes = {
   superAccount: PropTypes.bool,
+  accounts: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => {
