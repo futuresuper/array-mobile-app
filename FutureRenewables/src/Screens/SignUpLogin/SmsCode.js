@@ -49,7 +49,7 @@ class SmsCode extends Component {
     screenProps.Api.get('/appcontent', {},
       callback,
       () => {
-        screenProps.toast('Unknown error');
+        screenProps.toast('Unknown error (appcontent)');
       });
   }
 

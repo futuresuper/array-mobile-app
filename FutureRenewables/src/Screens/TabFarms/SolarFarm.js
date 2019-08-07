@@ -99,8 +99,10 @@ class SolarFarm extends Component {
               </View>
 
               <View style={sg.aICenter}>
-                {item.completionDate && <Text style={styles.solarFarmFinishDate}>{`Projected finish date: ${item.completionDate}`}</Text>}
-                {this.renderStats()}
+                {item.completionDate && <Text style={[styles.solarFarmFinishDate, sg.mB50]}>{`Projected finish date: ${item.completionDate}`}</Text>}
+                {
+                  // this.renderStats()
+                }
               </View>
 
             </View>

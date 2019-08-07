@@ -44,7 +44,7 @@ class BuildYourImpact extends Component {
           Brigalow,
           Chinchilla,
           SwanHill,
-          SwanHill2,
+          //SwanHill2,
         ]}
         renderItem={({ item }) => (
           <View

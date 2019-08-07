@@ -38,7 +38,7 @@ class Investment extends Component {
     );
   }
 
-  renderInvBody(value) {
+  renderInvBody(value, description) {
     return (
       <Grid style={sg.contentMarginH}>
         <Col style={sg.width110}>
@@ -47,8 +47,7 @@ class Investment extends Component {
         </Col>
         <Col>
           <Text style={[sg.fS14]}>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam.
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.
+            {description}
           </Text>
         </Col>
       </Grid>
@@ -67,24 +66,26 @@ class Investment extends Component {
           <Image source={Oval} style={[sg.aSCenter, sg.mT20, sg.mB30]} />
 
           {this.renderInvTitle(SunDark, 'Renewables', theme)}
-          {this.renderInvBody('60%')}
+          {this.renderInvBody('60%', "The portfolio contains investments in renewables such as solar and wind farms")}
 
           <View style={sg.mT40} />
 
           {this.renderInvTitle(HeartDark, 'Ethical', theme)}
-          {this.renderInvBody('40%')}
+          {this.renderInvBody('40%', "Fixed Interest and Cash investments such as ‘corporate bonds’ issued by companies that pass our strict ethical screens")}
 
         </View>
 
+        {/*
         <TouchableOpacity
           style={[styles.allInvestHeader, sg.borderColor(theme.borderColorList)]}
           onPress={() => {
             screenProps.navigateTo(routeNames.ALL_INVESTMENTS);
           }}
         >
-          <Text style={[sg.fontMedium]}>See all inverstments</Text>
+          <Text style={[sg.fontMedium]}>See all investments</Text>
           <Icon name="ios-arrow-forward" style={[sg.fS20]} />
         </TouchableOpacity>
+        */}
 
       </View>
     );

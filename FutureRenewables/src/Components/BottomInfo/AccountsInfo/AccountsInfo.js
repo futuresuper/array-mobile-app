@@ -36,50 +36,59 @@ import {
 
 class AccountsInfo extends Component {
   renderAccounts() {
-    const { accounts, screenProps } = this.props;
+      const { accounts, screenProps, onPress } = this.props;
 
-    return accounts.map(account => (
-      <ListItem
-        button
-        noIndent
-        key={account.id}
-        onPress={() => {
-          // Navigate to the Home screen with the selected Account Active
-          // PK2 is the Account ID
-          screenProps.navigateTo(routeNames.TAB_HOME, {
-            accountId: account.id,
-          });
-        }}
-        style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
-      >
-        <Body>
+      return accounts.map((account) => {
 
-          <Grid>
-            <Row>
-              <Col style={[sg.flexNull]}>
+        return (
+            <ListItem
+              button
+              noIndent
+              key={account.id}
+              onPress={() => {
+                // Navigate to the Home screen with the selected Account Active
 
-                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
+                /* THIS IS NOT WORKING
 
-                {account.status === 'unitsIssued' && account.balance && (
-                  <Text style={[sg.mL0, sg.fS16]} color4>
-                    Balance:&nbsp;
-                    <Text color4>
-                      {formatAmountDollarCent(account.balance)}
-                    </Text>
-                  </Text>
-                )}
+                screenProps.navigateTo(routeNames.TAB_HOME, {
+                  accountId: account.id,
+                });
 
-              </Col>
-              <Col style={[sg.jCCenter, sg.aIEnd]}>
-                <Icon name="ios-arrow-forward" style={sg.fS20} />
-              </Col>
-            </Row>
+                */
+              }}
+              style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
+            >
+              <Body>
 
-          </Grid>
+                <Grid>
+                  <Row>
+                    <Col style={[sg.flexNull]}>
 
-        </Body>
-      </ListItem>
-    ));
+                      <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
+
+                      {account.status === 'unitsIssued' && account.balance && (
+                        <Text style={[sg.mL0, sg.fS16]} color4>
+                          Balance:&nbsp;
+                          <Text color4>
+                            {formatAmountDollarCent(account.balance)}
+                          </Text>
+                        </Text>
+                      )}
+
+                    </Col>
+                    <Col style={[sg.jCCenter, sg.aIEnd]}>
+                      <Icon name="ios-arrow-forward" style={sg.fS20} />
+                    </Col>
+                  </Row>
+
+                </Grid>
+
+              </Body>
+            </ListItem>
+          );
+
+      });
+
   }
 
   render() {

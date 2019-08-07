@@ -12,7 +12,6 @@ import {
   Button,
 } from 'native-base';
 
-import composeHoc from 'src/Common/Hocs';
 import {
   Input,
   Picker,
@@ -20,6 +19,8 @@ import {
 import TextUnderline from 'src/Components/TextUnderline';
 import Br from 'src/Components/Br';
 import TextQuestion from 'src/Components/TextQuestion';
+import BottomInfo from 'src/Components/BottomInfo';
+
 import {
   routeNames,
 } from 'src/Navigation';
@@ -28,6 +29,7 @@ import {
   formatAmountDollar,
   normalizeAmount,
 } from 'src/Common/Helpers';
+import composeHoc from 'src/Common/Hocs';
 
 import {
   sg,
@@ -114,23 +116,38 @@ class Withdraw extends Component {
     }
   }
 
+  onNotifyWithdraw = () => {
+    const { navigation } = this.props;
+    navigation.popToTop();
+  }
+
   render() {
     return (
       <Content padder contentContainerStyle={[sg.flexGrow]}>
         <View style={sg.spaceBetween}>
           <View>
+            <Text>
+              There is no current open ‘Withdrawal Offer’.
+            </Text>
+            {/*
             <TextQuestion
               text="There is no current open ‘Withdrawal Offer’."
+              onPress={() => {
+                BottomInfo.showWithdraw();
+              }}
             />
+            */}
           </View>
         </View>
 
+        {/*
         <Button
           block
-          // onPress={this.onNotify}
+          onPress={this.onNotifyWithdraw}
         >
           <Text>Notify me when I can withdraw</Text>
         </Button>
+        */}
       </Content>
     );
 

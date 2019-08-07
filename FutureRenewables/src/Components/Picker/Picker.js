@@ -123,7 +123,7 @@ class Picker extends Component {
       onPressItem = res.props.onPress;
     }
 
-    if (!Object.keys(TOUCHABLE_ELEMENTS).find(itemEl => res.type.displayName.includes(TOUCHABLE_ELEMENTS[itemEl]))) {
+    if (!Object.keys(TOUCHABLE_ELEMENTS).find(itemEl => TOUCHABLE_ELEMENTS[itemEl] === res.type.displayName)) {
       res = (
         <TouchableOpacity
           onPress={() => {
