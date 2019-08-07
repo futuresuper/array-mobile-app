@@ -61,15 +61,15 @@ class AppLanding extends Component {
     const { screenProps } = this.props;
     let res = <Image source={poweredBy} style={sg.mT20} />;
 
-    // if (__DEV__) {
-    res = (
-      <TouchableOpacity
-        // onPress={() => screenProps.navigateTo(routeNames.TAB_HOME)}
-      >
-        {res}
-      </TouchableOpacity>
-    );
-    // }
+    if (__DEV__) {
+      res = (
+        <TouchableOpacity
+          onPress={() => screenProps.navigateTo(routeNames.TAB_HOME)}
+        >
+          {res}
+        </TouchableOpacity>
+      );
+    }
 
     return res;
   }
