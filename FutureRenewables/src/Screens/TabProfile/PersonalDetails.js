@@ -72,6 +72,8 @@ class PersonalDetails extends Component {
     details.tfn = 'Supplied';
     details.touchFaceId = true;
     details.pin = '123';
+    details.firstName = details.firstName || '';
+    details.email = details.email || '';
 
     hocs.setFormFromObject(details).then(() => {
       hocs.setFieldValidations('email', [
@@ -129,7 +131,7 @@ class PersonalDetails extends Component {
       headerRight,
     });
     */
-    
+
   }
 
   renderReadForm() {

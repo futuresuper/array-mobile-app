@@ -36,7 +36,6 @@ import {
 class Accounts extends React.Component {
   renderAccounts() {
       const { accounts, screenProps } = this.props;
-      console.log('!!!: Accounts -> renderAccounts -> accounts', accounts);
 
       //console.log("Accounts: " + JSON.stringify(accounts));
       //console.log("screenProps: " + JSON.stringify(screenProps));

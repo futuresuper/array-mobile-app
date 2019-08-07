@@ -18,20 +18,11 @@ import {
   routeNames,
 } from 'src/Navigation';
 import Device from 'src/Common/device';
-import {
-  userDataSave,
-} from 'src/Redux/Auth';
-
-import {
-  users,
-} from 'src/assets/testdata/testData';
 
 import {
   sg,
 } from 'src/Styles';
 
-// import landingCircle from './images/landingCircle.png';
-// import landingArray from './images/landingArray.png';
 import appLanding from './images/appLanding.png';
 import poweredBy from './images/poweredBy.png';
 
@@ -44,11 +35,6 @@ class AppLanding extends Component {
     this.state = {
       screenHeight: Device.screenHeight(),
     };
-  }
-
-  componentDidMount() {
-    // eslint-disable-next-line react/destructuring-assignment, react/prop-types
-    this.props.userDataSave(users.andrew);
   }
 
   handleLayout = () => {
@@ -172,8 +158,4 @@ class AppLanding extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  userDataSave,
-};
-
-export default connect(null, mapDispatchToProps)(AppLanding);
+export default connect()(AppLanding);

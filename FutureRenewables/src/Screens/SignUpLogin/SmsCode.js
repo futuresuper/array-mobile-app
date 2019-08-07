@@ -81,9 +81,9 @@ class SmsCode extends Component {
           mobile,
           mobileVerified: true,
         }, () => {
-          // userDataSaveConnect(userData);
           this.getAppContent((appContent) => {
-            // userDataSaveConnect(userInfo);
+            const { user } = appContent;
+            userDataSaveConnect(user);
             appContentSaveConnect(appContent);
 
             this.nextScreen();
