@@ -35,50 +35,80 @@ import {
 
 class Accounts extends React.Component {
   renderAccounts() {
-    const { accounts, screenProps } = this.props;
+      const { accounts, screenProps } = this.props;
+      const { user } = this.state;
 
-    return accounts.map(account => (
-      <ListItem
-        button
-        noIndent
-        key={account.id}
-        onPress={() => {
-          // Navigate to the Home screen with the selected Account Active
-          // PK2 is the Account ID
-          screenProps.navigateTo(routeNames.TAB_HOME, {
-            details: account.id,
-          });
-        }}
-        style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
-      >
-        <Body>
+      //console.log("Accounts: " + JSON.stringify(accounts));
+      //console.log("screenProps: " + JSON.stringify(screenProps));
 
-          <Grid>
-            <Row>
-              <Col style={[sg.flexNull]}>
+      let activeAccounts = 0;
+      for (let i = 0; i < accounts.length; i++) {
+        if (accounts[i].status === "unitsIssued") {
+          activeAccounts++;
+        }
+      }
 
-                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
+      if (activeAccounts > 0) {
+        return accounts.map((account) => {
 
-                {account.status === 'unitsIssued' && account.balance && (
-                  <Text style={[sg.mL0, sg.fS16]} color4>
-                    Balance:&nbsp;
-                    <Text color4>
-                      {formatAmountDollarCent(account.balance)}
-                    </Text>
-                  </Text>
-                )}
+          //console.log("account ID: " + account.id)
 
-              </Col>
-              <Col style={[sg.jCCenter, sg.aIEnd]}>
-                <Icon name="ios-arrow-forward" style={sg.fS20} />
-              </Col>
-            </Row>
+          if (account.status === "unitsIssued") {
+            return (
+              <ListItem
+                button
+                noIndent
+                key={account.id}
+                onPress={() => {
+                  // Navigate to the Home screen with the selected Account Active
+                  // PK2 is the Account ID
+                  screenProps.navigateTo(routeNames.TAB_HOME, {
+                    accountId: account.id,
+                  });
+                }}
+                style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
+              >
+                <Body>
 
-          </Grid>
+                  <Grid>
+                    <Row>
+                      <Col style={[sg.flexNull]}>
 
-        </Body>
-      </ListItem>
-    ));
+                        <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
+
+                        {account.balanceInDollars && (
+                          <Text style={[sg.mL0, sg.fS16]} color4>
+                            Balance:&nbsp;
+                            <Text color4>
+                              {formatAmountDollarCent(account.balanceInDollars)}
+                            </Text>
+                          </Text>
+                        )}
+
+                      </Col>
+                      <Col style={[sg.jCCenter, sg.aIEnd]}>
+                        <Icon name="ios-arrow-forward" style={sg.fS20} />
+                      </Col>
+                    </Row>
+
+                  </Grid>
+
+                </Body>
+              </ListItem>
+            );
+          }
+
+        })
+      } else {
+        return (
+          <Text>
+            You don't have any accounts yet :(
+              {'\n'}
+              {'\n'}
+            The good news is you'll have the ability to start an account via the Array app very soon!
+          </Text>
+        )
+      }
   }
 
   render() {
@@ -95,6 +125,8 @@ class Accounts extends React.Component {
               this.renderAccounts()
             }
           </View>
+
+          {/*
           <KeyboardAvoidingView>
             <Button
               onPress={() => {
@@ -105,6 +137,8 @@ class Accounts extends React.Component {
               <Text>Start new application</Text>
             </Button>
           </KeyboardAvoidingView>
+          */}
+
         </View>
       </Content>
     );

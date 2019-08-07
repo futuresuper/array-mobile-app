@@ -15,6 +15,7 @@ import {
   Content,
   Button,
   Icon,
+  H1,
   H2,
   Grid,
   Col,
@@ -35,11 +36,15 @@ import {
 import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
 import {
+  formatAmountDollarCent,
+} from 'src/Common/Helpers';
+import {
   LineChart,
 } from 'src/Components/ChartKit';
 import {
   impactStatsSelector,
   latestSelector,
+  accountsSelector
 } from 'src/Redux/AppContent';
 
 import {
@@ -219,18 +224,13 @@ class TabHome extends Component {
           if (c) this.LineChart = c;
         }}
         data={{
-          labels: ['Jan 1', 'Feb 23', 'Mar 8', 'Apr 1', 'May 9', 'Jun 12', 'Sep 1', 'Nov 4', 'Dec 31'],
+          //labels: ['Mar 31', 'Apr 30', 'May 31', 'Jun 30'],
           datasets: [{
             data: [
-              100,
-              500,
-              0,
-              500,
-              850,
-              1200,
-              670,
-              754,
-              501,
+              10,
+              12,
+              14,
+              15,
             ],
           }],
         }}
@@ -284,9 +284,69 @@ class TabHome extends Component {
     );
   }
 
+  renderBalance() {
+
+    const { accounts, navigation } = this.props;
+
+    const accountIdActive = navigation.getParam('accountId', 'NO-ID');
+
+    console.log("Accounts: " + JSON.stringify(accounts));
+    console.log("Account ID Selected: " + JSON.stringify(accountIdActive));
+
+    return accounts.map((account) => {
+
+      if (account.id === accountIdActive) {
+
+        const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
+        const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
+        const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
+
+        return (
+          <View
+            style={[sg.aICenter, sg.mT50, sg.mB25]}
+            key={account.id}
+          >
+            <Button
+              transparent
+              iconRight
+              style={sg.aSCenter}
+              onPress={() => {
+                //BottomInfo.showAccounts();
+              }}
+            >
+              <Text style={styles.title}>{account.nickName}</Text>
+              {/* <Icon name="ios-arrow-down" style={styles.titleIcon} /> */}
+            </Button>
+
+            <View style={sg.row}>
+              <H1 style={styles.mainAmount}>{balanceDollars}</H1>
+              <Text style={styles.mainAmountCent}>.{balanceCents}</Text>
+            </View>
+          </View>
+        )
+      }
+
+    });
+
+
+  }
+
   render() {
     const { screenProps, latest } = this.props;
     const { article, activeBalance } = this.state;
+    //let solarFarmTime = "3:00pm" // new Date();
+    let today = new Date();
+    let ampm = "am"
+    let hours = today.getHours();
+    if (hours > 12) {
+      hours = hours - 12;
+      ampm = "pm";
+    } else if (hours === 12 ) {
+      ampm = "pm";
+    }
+    let minutes = today.getMinutes();
+    if (minutes <10) { minutes = "0" + minutes }
+    let solarFarmTime = hours + ":" + minutes + ampm;
 
     return (
       <Content bounces={false}>
@@ -310,17 +370,12 @@ class TabHome extends Component {
                   </Col>
                 </Row>
                 <Row style={sg.jCCenter}>
-                  <Text style={styles.localTime}>1:40am local time</Text>
+                  <Text style={styles.localTime}>{solarFarmTime} local time</Text>
                 </Row>
               </Grid>
             </View>
 
-            <Balance
-              onPress={() => {
-                BottomInfo.showAccounts();
-              }}
-              balance={activeBalance}
-            />
+            { this.renderBalance() }
 
             <Button
               rounded
@@ -382,10 +437,12 @@ TabHome.propTypes = {
 const mapStateToProps = (state) => {
   const impactStats = impactStatsSelector(state);
   const latest = latestSelector(state);
+  const accounts = accountsSelector(state);
 
   return {
     impactStats,
     latest,
+    accounts
   };
 };
 

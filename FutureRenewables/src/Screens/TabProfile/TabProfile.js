@@ -48,6 +48,17 @@ class TabProfile extends Component {
     this.state = {
       listMenu: [
         {
+          name: 'Talk to us',
+          function: () => this.displayIntercom(props),
+        }
+      ],
+      /*
+      listMenu: [
+        {
+          name: 'Personal details',
+          screen: routeNames.PERSONAL_DETAILS,
+        },
+        {
           name: 'ID Check',
           screen: routeNames.ID_CHECK_FINISH,
         },
@@ -86,6 +97,7 @@ class TabProfile extends Component {
           screen: routeNames.SCREENS_LIST,
         },
       ],
+      */
     };
   }
 
@@ -169,7 +181,9 @@ class TabProfile extends Component {
               }
             </View>
 
+            {/*
             <Text style={[sg.colorGray11, sg.fS14]}>{`Member since ${memberSince}`}</Text>
+            */}
           </Col>
         </Grid>
 

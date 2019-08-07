@@ -126,21 +126,28 @@ class Withdraw extends Component {
       <Content padder contentContainerStyle={[sg.flexGrow]}>
         <View style={sg.spaceBetween}>
           <View>
+            <Text>
+              There is no current open ‘Withdrawal Offer’.
+            </Text>
+            {/*
             <TextQuestion
               text="There is no current open ‘Withdrawal Offer’."
               onPress={() => {
                 BottomInfo.showWithdraw();
               }}
             />
+            */}
           </View>
         </View>
 
+        {/*
         <Button
           block
           onPress={this.onNotifyWithdraw}
         >
           <Text>Notify me when I can withdraw</Text>
         </Button>
+        */}
       </Content>
     );
 

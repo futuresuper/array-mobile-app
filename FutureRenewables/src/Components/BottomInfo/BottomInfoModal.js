@@ -13,7 +13,9 @@ class BottomInfoModal extends Component {
   }
 
   static showAccounts(props) {
-    BottomInfoModal.show(<AccountsInfo {...props} />);
+    BottomInfoModal.show(
+      <AccountsInfo {...props} />
+    );
   }
 
   static showFutureSuperAccount() {
