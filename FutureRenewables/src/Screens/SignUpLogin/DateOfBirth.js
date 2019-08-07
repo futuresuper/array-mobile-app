@@ -19,6 +19,7 @@ import {
 } from 'src/Styles';
 
 import composeHoc from 'src/Common/Hocs';
+import moment from 'src/Common/moment';
 import {
   Input,
 } from 'src/Components/Form';
@@ -105,7 +106,6 @@ class DateOfBirth extends React.Component {
     return true;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   pad(num) {
     const s = `0${num}`;
     return s.substr(s.length - 2);
@@ -120,13 +120,19 @@ class DateOfBirth extends React.Component {
 
     if (formIsValid) {
       const birthDate = `${hocs.form.year.value}-${this.pad(hocs.form.month.value)}-${this.pad(hocs.form.day.value)}`;
+      const isEighteen = (moment().diff(birthDate, 'years') >= 18);
+
+      if (!isEighteen) {
+        screenProps.toastDanger('You must be over 18 to invest');
+        return;
+      }
 
       screenProps.Api.post('/user', {
         birthDate,
       }, () => {
         screenProps.navigateTo(routeNames.HOME_ADDRESS);
       }, () => {
-        screenProps.tastDanger('Error. Try again.');
+        screenProps.toastDanger('Error. Try again.');
       });
     }
   }
