@@ -58,13 +58,7 @@ class ManageAccounts extends Component {
   }
 
   renderItem({ item }) {
-    let complete = true;
-
-    item.complete = true;
-    if (item.status !== 'unitsIssued') {
-      complete = false;
-      item.complete = false;
-    }
+    const { complete } = item;
 
     return (
       <ListItem
