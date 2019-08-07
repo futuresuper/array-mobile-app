@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   View,
-  FlatList,
 } from 'react-native';
 import {
   Button,
@@ -12,12 +11,9 @@ import {
   Grid,
   List,
   ListItem,
-  Left,
-  Right,
   Row,
   Col,
   Body,
-  Thumbnail,
   Text,
 } from 'native-base';
 
@@ -26,37 +22,19 @@ import {
 } from 'src/Redux/AppContent';
 
 import {
+  formatAmountDollarCent,
+} from 'src/Common/Helpers';
+
+import {
   routeNames,
 } from 'src/Navigation';
 
-import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 import TextUnderline from 'src/Components/TextUnderline';
 import {
   sg,
 } from 'src/Styles';
 
-import styles from './styles';
-
 class AccountsInfo extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      list: [
-        {
-          name: 'Hugh Jackman',
-          //image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/World_Premiere_Logan_Berlinale_2017.jpg/220px-World_Premiere_Logan_Berlinale_2017.jpg',
-          active: true,
-        },
-        {
-          name: 'Cate Blanchett',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Cate_Blanchett_Deauville_2013_3.jpg/176px-Cate_Blanchett_Deauville_2013_3.jpg',
-          active: false,
-        },
-      ],
-    };
-  }
-
   renderAccounts() {
       const { accounts, screenProps, onPress } = this.props;
 
@@ -114,14 +92,12 @@ class AccountsInfo extends Component {
   }
 
   render() {
-    const { screenProps } = this.props;
     const { superAccount } = this.props;
-    const { list } = this.state;
 
     return (
       <View style={sg.mH5}>
         <List>
-          { this.renderAccounts() }
+          {this.renderAccounts()}
           {/*
           <FlatList
             data={list}
@@ -179,6 +155,7 @@ AccountsInfo.defaultProps = {
 
 AccountsInfo.propTypes = {
   superAccount: PropTypes.bool,
+  accounts: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => {

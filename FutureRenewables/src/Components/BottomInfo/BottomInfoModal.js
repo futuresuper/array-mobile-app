@@ -12,13 +12,11 @@ class BottomInfoModal extends Component {
   }
 
   static showAccounts(props) {
-    BottomInfoModal.show(
-      <AccountsInfo {...props} />
-    );
+    BottomInfoModal.show(AccountsInfo, props);
   }
 
   static showFutureSuperAccount() {
-    BottomInfoModal.show(<FutureSuperAccountInfo />);
+    BottomInfoModal.show(FutureSuperAccountInfo);
   }
 
   static showWithdraw() {
@@ -37,6 +35,7 @@ class BottomInfoModal extends Component {
             BottomInfoModal.ModalBottomInfo = ref;
           }
         }}
+        {...this.props}
       />
     );
   }

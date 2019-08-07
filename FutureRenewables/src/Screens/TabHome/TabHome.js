@@ -44,7 +44,7 @@ import {
 import {
   impactStatsSelector,
   latestSelector,
-  accountsSelector
+  accountsSelector,
 } from 'src/Redux/AppContent';
 
 import {
@@ -224,7 +224,7 @@ class TabHome extends Component {
           if (c) this.LineChart = c;
         }}
         data={{
-          //labels: ['Mar 31', 'Apr 30', 'May 31', 'Jun 30'],
+          // labels: ['Mar 31', 'Apr 30', 'May 31', 'Jun 30'],
           datasets: [{
             data: [
               10,
@@ -285,7 +285,6 @@ class TabHome extends Component {
   }
 
   renderBalance() {
-
     const { accounts, navigation } = this.props;
 
     const accountIdActive = navigation.getParam('accountId', 'NO-ID');
@@ -294,9 +293,7 @@ class TabHome extends Component {
     console.log("Account ID Selected: " + JSON.stringify(accountIdActive));
 
     return accounts.map((account) => {
-
       if (account.id === accountIdActive) {
-
         const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
         const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
         const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
@@ -320,15 +317,14 @@ class TabHome extends Component {
 
             <View style={sg.row}>
               <H1 style={styles.mainAmount}>{balanceDollars}</H1>
-              <Text style={styles.mainAmountCent}>.{balanceCents}</Text>
+              <Text style={styles.mainAmountCent}>{`.${balanceCents}`}</Text>
             </View>
           </View>
-        )
+        );
       }
 
+      return null;
     });
-
-
   }
 
   render() {
@@ -432,6 +428,7 @@ class TabHome extends Component {
 TabHome.propTypes = {
   impactStats: PropTypes.array.isRequired,
   latest: PropTypes.array.isRequired,
+  accounts: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -442,7 +439,7 @@ const mapStateToProps = (state) => {
   return {
     impactStats,
     latest,
-    accounts
+    accounts,
   };
 };
 

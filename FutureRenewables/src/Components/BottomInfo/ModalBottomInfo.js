@@ -28,10 +28,10 @@ class ModalBottomInfo extends Component {
     });
   }
 
-  show(content) {
+  show(ContentInp, propsInp = {}) {
     this.setState({
       visible: true,
-      content,
+      content: <ContentInp {...this.props} {...propsInp} />,
     });
   }
 
