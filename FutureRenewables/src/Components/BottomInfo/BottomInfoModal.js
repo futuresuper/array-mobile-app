@@ -5,6 +5,7 @@ import ModalBottomInfo from './ModalBottomInfo';
 import AccountsInfo from './AccountsInfo/AccountsInfo';
 import FutureSuperAccountInfo from './FutureSuperAccountInfo/FutureSuperAccountInfo';
 import WithdrawInfo from './WithdrawInfo/WithdrawInfo';
+import BalanceInfo from './BalanceInfo/BalanceInfo';
 
 class BottomInfoModal extends Component {
   static show(...args) {
@@ -21,6 +22,10 @@ class BottomInfoModal extends Component {
 
   static showWithdraw() {
     BottomInfoModal.show(<WithdrawInfo />);
+  }
+
+  static showBalance() {
+    BottomInfoModal.show(<BalanceInfo />);
   }
 
   static hide() {

@@ -18,20 +18,11 @@ import {
   routeNames,
 } from 'src/Navigation';
 import Device from 'src/Common/device';
-import {
-  userDataSave,
-} from 'src/Redux/Auth';
-
-import {
-  users,
-} from 'src/assets/testdata/testData';
 
 import {
   sg,
 } from 'src/Styles';
 
-// import landingCircle from './images/landingCircle.png';
-// import landingArray from './images/landingArray.png';
 import appLanding from './images/appLanding.png';
 import poweredBy from './images/poweredBy.png';
 
@@ -46,11 +37,6 @@ class AppLanding extends Component {
     };
   }
 
-  componentDidMount() {
-    // eslint-disable-next-line react/destructuring-assignment, react/prop-types
-    this.props.userDataSave(users.andrew);
-  }
-
   handleLayout = () => {
     this.setState({
       screenHeight: Device.screenHeight(),
@@ -61,15 +47,15 @@ class AppLanding extends Component {
     const { screenProps } = this.props;
     let res = <Image source={poweredBy} style={sg.mT20} />;
 
-    // if (__DEV__) {
-    res = (
-      <TouchableOpacity
-        // onPress={() => screenProps.navigateTo(routeNames.TAB_HOME)}
-      >
-        {res}
-      </TouchableOpacity>
-    );
-    // }
+    if (__DEV__) {
+      res = (
+        <TouchableOpacity
+          onPress={() => screenProps.navigateTo(routeNames.TAB_HOME)}
+        >
+          {res}
+        </TouchableOpacity>
+      );
+    }
 
     return res;
   }
@@ -172,8 +158,4 @@ class AppLanding extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  userDataSave,
-};
-
-export default connect(null, mapDispatchToProps)(AppLanding);
+export default connect()(AppLanding);

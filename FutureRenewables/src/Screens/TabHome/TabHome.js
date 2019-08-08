@@ -38,6 +38,7 @@ import SunGlow from 'src/Components/SunGlow';
 import {
   formatAmountDollarCent,
 } from 'src/Common/Helpers';
+
 import {
   LineChart,
 } from 'src/Components/ChartKit';
@@ -289,9 +290,6 @@ class TabHome extends Component {
 
     const accountIdActive = navigation.getParam('accountId', 'NO-ID');
 
-    console.log("Accounts: " + JSON.stringify(accounts));
-    console.log("Account ID Selected: " + JSON.stringify(accountIdActive));
-
     return accounts.map((account) => {
       if (account.id === accountIdActive) {
         const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
@@ -308,7 +306,7 @@ class TabHome extends Component {
               iconRight
               style={sg.aSCenter}
               onPress={() => {
-                //BottomInfo.showAccounts();
+                // BottomInfo.showAccounts();
               }}
             >
               <Text style={styles.title}>{account.nickName}</Text>
@@ -330,19 +328,7 @@ class TabHome extends Component {
   render() {
     const { screenProps, latest } = this.props;
     const { article, activeBalance } = this.state;
-    //let solarFarmTime = "3:00pm" // new Date();
-    let today = new Date();
-    let ampm = "am"
-    let hours = today.getHours();
-    if (hours > 12) {
-      hours = hours - 12;
-      ampm = "pm";
-    } else if (hours === 12 ) {
-      ampm = "pm";
-    }
-    let minutes = today.getMinutes();
-    if (minutes <10) { minutes = "0" + minutes }
-    let solarFarmTime = hours + ":" + minutes + ampm;
+    const solarFarmTime = moment().format('hh:mma');
 
     return (
       <Content bounces={false}>
@@ -366,7 +352,7 @@ class TabHome extends Component {
                   </Col>
                 </Row>
                 <Row style={sg.jCCenter}>
-                  <Text style={styles.localTime}>{solarFarmTime} local time</Text>
+                  <Text style={styles.localTime}>{`${solarFarmTime} local time`}</Text>
                 </Row>
               </Grid>
             </View>

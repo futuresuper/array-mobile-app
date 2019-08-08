@@ -78,7 +78,7 @@ export default {
     width: 115,
   },
   solarForamStatAmount: {
-    color: sc.color.dark3,
+    color: sc.color.white,
     fontSize: 35,
     fontFamily: sc.font.bold,
     marginBottom: 10,

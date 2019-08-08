@@ -4,6 +4,7 @@ import {
   View,
 } from 'react-native';
 import Modal from 'react-native-modal';
+
 import {
   sg,
 } from 'src/Styles';
@@ -41,6 +42,8 @@ class ModalBottomInfo extends Component {
     return (
       <Modal
         swipeDirection="down"
+        scrollHorizontal
+        propagateSwipe
         backdropOpacity={0}
         isVisible={visible}
         onSwipeComplete={this.hide}

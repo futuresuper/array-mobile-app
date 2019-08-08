@@ -1,4 +1,6 @@
 
+import accountUtils from 'src/Common/account';
+
 const coordinates = [
   {
     latitude: -26.8833514,
@@ -19,7 +21,6 @@ const coordinates = [
 ];
 
 
-// eslint-disable-next-line import/prefer-default-export
 export const formatSolarFarm = (itemInp, index) => {
   const item = itemInp;
 
@@ -33,3 +34,8 @@ export const formatSolarFarm = (itemInp, index) => {
 
   return item;
 };
+
+export const formatAccounts = data => ({
+  ...data,
+  complete: (data.status === accountUtils.STATUS.UNITS_ISSUED),
+});

@@ -29,6 +29,9 @@ class SunGlow extends Component {
       image = CircleSunset;
     }
 
+    // temporary
+    image = CircleSunrise;
+
     return image;
   }
 

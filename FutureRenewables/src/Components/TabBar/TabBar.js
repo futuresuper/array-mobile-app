@@ -36,8 +36,6 @@ const TabBar = (props) => {
     tintColor: theme.footerIconColor,
   };
 
-  // const iconHome = routeName === routeNames.TAB_HOME ? HomeActive : HomeInactive;
-
   let iconHome = HomeInactive;
   let iconHomeStyle = iconStyle;
   if (routeName === routeNames.TAB_HOME) {
@@ -66,13 +64,6 @@ const TabBar = (props) => {
     iconProfileStyle = {};
   }
 
-
-  // const iconActivity = routeName === routeNames.TAB_ACTIVITY ? DollarActive : DollarInactive;
-  // const iconFarms = routeName === routeNames.SOLAR_FARMS_LIST ? SunActive : SunInactive;
-  // const iconProfile = routeName === routeNames.TAB_PROFILE ? ChelActive : ChelInactive;
-
-  // let iconStyle = styles.icon;
-
   return (
     <Footer>
       <FooterTab>
@@ -81,7 +72,7 @@ const TabBar = (props) => {
             screenProps.navigateTo(routeNames.TAB_HOME);
           }}
         >
-          <Image source={iconHome} style={iconHomeStyle} />
+          <Image source={iconHome} style={[iconHomeStyle]} />
         </Button>
         <Button
           active={routeName === ''}
@@ -89,21 +80,21 @@ const TabBar = (props) => {
             screenProps.navigateTo(routeNames.TAB_ACTIVITY);
           }}
         >
-          <Image source={iconActivity} style={iconActivityStyle} />
+          <Image source={iconActivity} style={[styles.iconActivityStyle, iconActivityStyle]} />
         </Button>
         <Button
           onPress={() => {
             screenProps.navigateTo(routeNames.SOLAR_FARMS_LIST);
           }}
         >
-          <Image source={iconFarms} style={iconFarmsStyle} />
+          <Image source={iconFarms} style={[iconFarmsStyle]} />
         </Button>
         <Button
           onPress={() => {
             screenProps.navigateTo(routeNames.TAB_PROFILE);
           }}
         >
-          <Image source={iconProfile} style={iconProfileStyle} />
+          <Image source={iconProfile} style={[iconProfileStyle]} />
         </Button>
       </FooterTab>
     </Footer>
