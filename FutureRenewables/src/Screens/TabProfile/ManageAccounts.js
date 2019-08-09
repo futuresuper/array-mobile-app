@@ -40,6 +40,8 @@ import {
   sg,
 } from 'src/Styles';
 
+import { users } from 'src/assets/testdata/testData';
+
 class ManageAccounts extends Component {
   openItem(item) {
     const { screenProps } = this.props;
@@ -155,6 +157,7 @@ ManageAccounts.propTypes = {
 
 const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
+  // const { accounts } = users.andrew;
 
   return {
     accounts,

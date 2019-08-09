@@ -216,10 +216,9 @@ class TabProfile extends Component {
             dark3
             style={styles.logOut}
             onPress={this.logOut}
-            large
             block
           >
-            <Text style={styles.logOutText}>Log out</Text>
+            <Text>Log out</Text>
           </Button>
         </View>
       </Content>

@@ -452,23 +452,26 @@ export const users = {
       {
         "accountId": 1,
         "accountType": "individual",
-        "accountNickName": "Andrew Sellen",
+        "nickName": "Andrew Sellen",
         "monthlyInvestmentAmount": 20,
         "initialInvestmentAmount": 1000,
         "bankAccountName": "Andrew and Melissa Sellen",
         "bankAccountBSB": "923 100",
         "bankAccountNumber": "123456789",
         "balanceDollars": 1264.73,
+        "balanceInDollars": 1264.73,
+        "complete": true,
       },
       {
         "accountId": 3,
         "accountType": "adultForChild",
-        "accountNickName": "Chloe Sellen",
+        "nickName": "Chloe Sellen",
         "initialInvestmentAmount": 30,
         "bankAccountName": "Andrew and Melissa Sellen",
         "bankAccountBSB": "923 100",
         "bankAccountNumber": "123456789",
         "balanceDollars": 32.45,
+        "balanceInDollars": 32.45,
       }
     ],
     "entities_linked_to": [

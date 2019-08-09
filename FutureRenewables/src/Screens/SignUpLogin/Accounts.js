@@ -118,18 +118,19 @@ class Accounts extends React.Component {
             }
           </View>
 
-          {/*
-          <KeyboardAvoidingView>
-            <Button
-              onPress={() => {
-                screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-              }}
-              block
-            >
-              <Text>Start new application</Text>
-            </Button>
-          </KeyboardAvoidingView>
-          */}
+          {__DEV__ && (
+            <KeyboardAvoidingView>
+              <Button
+                onPress={() => {
+                  screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+                  // screenProps.navigateTo(routeNames.TAB_HOME);
+                }}
+                block
+              >
+                <Text>Start new application</Text>
+              </Button>
+            </KeyboardAvoidingView>
+          )}
 
         </View>
       </Content>

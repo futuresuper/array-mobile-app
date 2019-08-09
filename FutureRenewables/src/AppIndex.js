@@ -187,7 +187,7 @@ class AppIndex extends Component {
     } else {
       theme = themeLight;
     }
-    // console.log('!!!theme', getTheme(theme));
+    // console.log('!!!theme', theme);
 
     const screenProps = {
       toast: this.toast,
@@ -219,7 +219,7 @@ class AppIndex extends Component {
       >
         <StyleProvider style={getTheme(theme)}>
           <Container>
-            <StatusBar backgroundColor="transparent" barStyle={barStyle} translucent />
+            <StatusBar backgroundColor={theme.containerBgColor} barStyle={barStyle} translucent />
 
             <Spinner
               ref={(c) => {
