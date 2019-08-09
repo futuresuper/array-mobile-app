@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {
   View,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -35,6 +36,8 @@ import {
   userSelector,
 } from 'src/Redux/AppContent';
 
+import Camera from 'src/Components/Camera';
+
 import {
   sg,
 } from 'src/Styles';
@@ -46,6 +49,7 @@ class TabProfile extends Component {
     super(props);
 
     this.state = {
+      cameraVisible: false,
       listMenu: [
         // {
         //   name: 'Personal details',
@@ -113,6 +117,12 @@ class TabProfile extends Component {
     screenProps.Api.logOut();
   }
 
+  toggleCamera = () => {
+    this.setState(prev => ({
+      cameraVisible: !prev.cameraVisible,
+    }));
+  }
+
   displayIntercom(props) {
     const { user, screenProps } = props;
 
@@ -125,26 +135,35 @@ class TabProfile extends Component {
 
   renderAvatar() {
     const { user } = this.props;
+    let childEl;
 
     if (user.profileImage) {
-      return (
-        <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />
+      childEl = <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />;
+    } else {
+      childEl = (
+        <View style={styles.profileAvatarBl}>
+          <Text style={styles.profileAvatarText}>
+            {user.firstName ? user.firstName.charAt(0) : ''}
+            {user.lastName ? user.lastName.charAt(0) : ''}
+          </Text>
+        </View>
       );
     }
 
-    return (
-      <View style={styles.profileAvatarBl}>
-        <Text style={styles.profileAvatarText}>
-          {user.firstName ? user.firstName.charAt(0) : ''}
-          {user.lastName ? user.lastName.charAt(0) : ''}
-        </Text>
-      </View>
+    const res = (
+      <TouchableOpacity
+        onPress={this.toggleCamera}
+      >
+        {childEl}
+      </TouchableOpacity>
     );
+
+    return res;
   }
 
   render() {
     const { user, screenProps } = this.props;
-    const { listMenu } = this.state;
+    const { listMenu, cameraVisible } = this.state;
 
     if (!user.dateJoined) {
       user.dateJoined = '2019-03-15';
@@ -221,6 +240,10 @@ class TabProfile extends Component {
             <Text>Log out</Text>
           </Button>
         </View>
+        <Camera
+          visible={cameraVisible}
+          onRequestClose={this.toggleCamera}
+        />
       </Content>
     );
   }
