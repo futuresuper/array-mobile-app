@@ -21,6 +21,7 @@ export const signOptions = (props) => {
   const params = state.params || {};
   const title = params.title || '';
   const headerStyle = navigation.getParam('headerStyle', {});
+  const showBackButton = navigation.getParam('showBackButton', true);
   const backButton = (
     <BackButton
       {...props}
@@ -31,7 +32,7 @@ export const signOptions = (props) => {
 
   return {
     title,
-    headerLeft: backButton,
+    headerLeft: showBackButton ? backButton : null,
     headerStyle: {
       backgroundColor: sc.color.containerBgColor,
       borderBottomWidth: 0,
@@ -125,6 +126,7 @@ export const tabCardOptions = {
         borderBottomWidth: 0,
         elevation: 0,
         paddingTop: isIOSv ? undefined : 30,
+        marginTop: 15,
       },
       headerTitleStyle: {
         color: theme.textColor,

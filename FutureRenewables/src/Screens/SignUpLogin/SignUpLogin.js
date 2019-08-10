@@ -125,7 +125,7 @@ class SignUpLogin extends Component {
             </Text>
           </View>
 
-          <KeyboardAvoidingView>
+          <KeyboardAvoidingView keyboardVerticalOffset={100}>
             <Button
               onPress={() => this.getSms()}
               block

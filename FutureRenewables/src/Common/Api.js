@@ -85,7 +85,8 @@ class Api extends Component {
 
   static async logOut() {
     await AwsAmplify.logOut();
-    this.ApiInstance.navigateToLading();
+    this.ApiInstance.authReset();
+    this.ApiInstance.navigateToSplash();
   }
 
   static async isAuthenticated() {
@@ -145,9 +146,14 @@ class Api extends Component {
     return parameters;
   }
 
-  navigateToLading() {
+  navigateToSplash() {
     const { navigateTo } = this.props;
-    navigateTo(routeNames.APP_LANDING);
+    navigateTo(routeNames.SPLASH);
+  }
+
+  authReset() {
+    const { authResetConnect } = this.props;
+    authResetConnect();
   }
 
   // eslint-disable-next-line class-methods-use-this

@@ -17,7 +17,7 @@ const defaultStyle = {
 const SafeAreaView = ({ children, forceInset, style }) => (
   <RNSafeAreaView
     forceInset={{ ...defaultForceInset, ...forceInset }}
-    style={[defaultStyle, style, { backgroundColor: ThemeService.getTheme().containerBgColor }]}
+    style={[defaultStyle, { backgroundColor: ThemeService.getTheme().containerBgColor }, style]}
   >
     {children}
   </RNSafeAreaView>

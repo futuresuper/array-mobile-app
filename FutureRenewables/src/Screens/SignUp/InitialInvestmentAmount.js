@@ -65,7 +65,7 @@ class InitialInvestmentAmount extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
-    const userInfo = screenProps.userInfo();
+    const userInfo = screenProps.getUserInfo();
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
@@ -104,7 +104,7 @@ class InitialInvestmentAmount extends React.Component {
             />
           </View>
 
-          <KeyboardAvoidingView>
+          <KeyboardAvoidingView keyboardVerticalOffset={100}>
             <Button
               onPress={() => this.handlePress()}
               block

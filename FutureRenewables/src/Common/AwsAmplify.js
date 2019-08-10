@@ -38,7 +38,7 @@ class AwsAmplify {
       },
     });
 
-    this.logOut();
+    // this.logOut();
   }
 
   async logOut() {

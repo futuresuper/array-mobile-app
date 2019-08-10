@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   KeyboardAvoidingView as KeyboardAvoidingViewRN,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
   isIOS,
@@ -17,7 +18,7 @@ const KeyboardAvoidingView = (props) => {
 
   if (isIOSv) {
     res = (
-      <KeyboardAvoidingViewRN behavior="position" keyboardVerticalOffset={60} {...props}>
+      <KeyboardAvoidingViewRN behavior="position" keyboardVerticalOffset={0} {...props}>
         {children}
       </KeyboardAvoidingViewRN>
     );

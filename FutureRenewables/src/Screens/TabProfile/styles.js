@@ -22,9 +22,6 @@ export default {
     marginTop: 30,
     marginHorizontal: sc.contentPadding,
   },
-  logOutText: {
-    fontSize: 22,
-  },
   input: {
     fontSize: 20,
     lineHeight: 22,

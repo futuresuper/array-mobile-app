@@ -10,7 +10,9 @@ import {
 } from 'react-navigation-redux-helpers';
 
 import {
+  SplashStack,
   SignStack,
+  SignDataStack,
   MainStack,
   TabStack,
   TmpStack,
@@ -19,22 +21,17 @@ import {
 // eslint-disable-next-line no-unused-vars
 import { navReduxMiddleware } from './navMiddlewareListener';
 
-
-const initialRoute = () => {
-  const init_screen = 'SignStack';
-
-  return init_screen;
-};
-
 const AppNavigator = createAppContainer(createSwitchNavigator(
   {
+    SplashStack,
     SignStack,
+    SignDataStack,
     MainStack,
     TabStack,
     // TmpStack,
   },
   {
-    initialRouteName: initialRoute(),
+    initialRouteName: 'SplashStack',
   },
 ));
 

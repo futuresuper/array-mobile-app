@@ -697,6 +697,9 @@ export default {
   bGWhite: {
     backgroundColor: styleConstants.color.white,
   },
+  bGDark: {
+    backgroundColor: styleConstants.color.dark,
+  },
   inputHeightBase: {
     height: styleConstants.inputHeightBase,
   },

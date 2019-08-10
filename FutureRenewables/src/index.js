@@ -15,12 +15,11 @@ class Root extends Component {
   constructor() {
     super();
     this.state = {
-      store_loading: true,
-      store: store(() => this.setState({ store_loading: false })),
+      hydrated: false,
+      store: store(() => this.setState({ hydrated: true })),
     };
   }
 
-  // eslint-disable-next-line class-methods-use-this
   componentDidMount() {
     if (__DEV__) {
       Reactotron.connect();
@@ -30,18 +29,16 @@ class Root extends Component {
   }
 
   render() {
-    // if (this.state.store_loading) {
-    //   return (
-    //     null
-    //   )
-    // } else {
-      return (
-        <Provider store={this.state.store}>
-          <ServiceManager />
-          <AppIndex />
-        </Provider>
-      );
-    // }
+    const { store: storeState, hydrated } = this.state;
+
+    return (
+      <Provider store={storeState}>
+        <ServiceManager />
+        <AppIndex
+          hydrated={hydrated}
+        />
+      </Provider>
+    );
   }
 }
 
