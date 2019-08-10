@@ -69,7 +69,7 @@ class RegularInvestmentAmount extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
-    const userInfo = screenProps.userInfo();
+    const userInfo = screenProps.getUserInfo();
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {

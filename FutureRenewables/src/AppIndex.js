@@ -65,7 +65,7 @@ class AppIndex extends Component {
     });
   }
 
-  userInfo = () => {
+  getUserInfo = () => {
     const { auth } = this.props;
     return auth.user || {};
   }
@@ -178,6 +178,7 @@ class AppIndex extends Component {
   }
 
   render() {
+    const { hydrated, navigation } = this.props;
     const { dark } = this.state;
     const barStyle = dark ? 'light-content' : 'dark-content';
     let theme;
@@ -187,9 +188,10 @@ class AppIndex extends Component {
     } else {
       theme = themeLight;
     }
-    // console.log('!!!theme', theme);
 
     const screenProps = {
+      hydrated,
+      navState: navigation,
       toast: this.toast,
       toastDanger: this.toastDanger,
       routeBack: this.routeBack,
@@ -197,7 +199,7 @@ class AppIndex extends Component {
       spinnerShow: this.spinnerShow,
       spinnerHide: this.spinnerHide,
       alert: this.alert,
-      userInfo: this.userInfo,
+      getUserInfo: this.getUserInfo,
       setDarkTheme: this.setDarkTheme,
       setLightTheme: this.setLightTheme,
       enableTheme: this.enableTheme,
@@ -274,6 +276,7 @@ AppIndex.propTypes = {
   }).isRequired,
   routeBackConnect: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  hydrated: PropTypes.bool.isRequired,
 };
 
 function bindAction(dispatch) {

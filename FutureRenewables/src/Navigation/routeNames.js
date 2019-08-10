@@ -1,5 +1,6 @@
 
 export default {
+  SPLASH: 'Splash',
   SCREENS_LIST: 'ScreensList',
   APP_LANDING: 'AppLanding',
   BUILD_YOUR_SAVING: 'BuildYourSaving',

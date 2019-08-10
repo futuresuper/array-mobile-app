@@ -1,4 +1,3 @@
-
 import { AsyncStorage } from 'react-native';
 import {
   createStore as reduxCreateStore,
@@ -6,7 +5,7 @@ import {
   compose,
 } from 'redux';
 import reducers from 'src/Redux/reducers';
-import {persistStore} from 'redux-persist';
+import { persistStore, persistCombineReducers } from 'redux-persist';
 import thunk from 'redux-thunk';
 import { navReduxMiddleware } from 'src/Navigation/navMiddlewareListener';
 
@@ -19,16 +18,24 @@ if (__DEV__) {
   createStore = Reactotron.createStore;
 }
 
-export default function store(onCompletion) {
-  const store_sett = createStore(
-    reducers,
+export default (onCompletion) => {
+  const persistConfig = {
+    key: 'primary',
+    storage: AsyncStorage,
+    whitelist: ['auth'],
+  };
+  const persistReducers = persistCombineReducers(persistConfig, reducers);
+
+
+  const store = createStore(
+    persistReducers,
     undefined,
     enhancers(
       applyMiddleware(thunk, navReduxMiddleware),
     ),
   );
 
-  // persistStore(store_sett, { storage: AsyncStorage }, onCompletion);
+  persistStore(store, null, onCompletion);
 
-  return store_sett;
-}
+  return store;
+};

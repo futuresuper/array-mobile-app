@@ -4,8 +4,11 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation';
 
+import Splash from 'src/Screens/Splash';
+
 import {
   signRoutes,
+  signDataRoutes,
   mainRoutes,
   tabBarModalRootRoutes,
   tabRoutes,
@@ -19,6 +22,19 @@ import {
   tabModalOptions,
 } from './navigationOptions';
 
+import routeNames from './routeNames';
+
+export const SplashStack = createStackNavigator(
+  {
+    [routeNames.SPLASH]: {
+      screen: Splash,
+    },
+  },
+  {
+    headerMode: 'none',
+  },
+);
+
 export const MainStack = createStackNavigator(
   mainRoutes,
   {
@@ -28,6 +44,13 @@ export const MainStack = createStackNavigator(
 
 export const SignStack = createStackNavigator(
   signRoutes,
+  {
+    headerMode: 'screen',
+  },
+);
+
+export const SignDataStack = createStackNavigator(
+  signDataRoutes,
   {
     headerMode: 'screen',
   },

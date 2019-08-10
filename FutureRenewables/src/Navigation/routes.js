@@ -64,8 +64,15 @@ const signRoutes = formatRoutes({
   [routeNames.SMS_CODE]: {
     screen: screens.SmsCode,
   },
+});
+
+
+const signDataRoutes = formatRoutes({
   [routeNames.ACCOUNTS]: {
     screen: screens.Accounts,
+    params: {
+      showBackButton: false,
+    },
   },
   [routeNames.ACCOUNT_TYPE]: {
     screen: screens.AccountType,
@@ -358,6 +365,7 @@ const tmpRoutes = {
 
 const routes = {
   signRoutes,
+  signDataRoutes,
   mainRoutes,
   tabBarModalRootRoutes,
   tabRoutes,
@@ -393,6 +401,7 @@ export {
   routes,
   getRouteInfo,
   signRoutes,
+  signDataRoutes,
   mainRoutes,
   tabBarModalRootRoutes,
   tabRoutes,

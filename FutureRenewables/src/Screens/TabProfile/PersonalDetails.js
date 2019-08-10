@@ -37,7 +37,7 @@ class PersonalDetails extends Component {
 
     this.state = {
       isEdit: false,
-      details: props.screenProps.userInfo(),
+      details: props.screenProps.getUserInfo(),
     };
   }
 

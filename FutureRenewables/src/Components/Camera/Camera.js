@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-native-modal';
+// import Modal from 'react-native-modal';
 import {
-  // Modal,
+  Modal,
   View,
   TouchableOpacity,
   StatusBar,
@@ -78,22 +78,10 @@ class Camera extends Component {
         onRequestClose={() => this.onModalRequestClose()}
         visible={visible}
         transparent={false}
-        hasBackdrop={false}
-        style={{
-          margin: 0,
-          // top: 0,
-          // right: 0,
-          // bottom: 0,
-          // left: 0,
-        }}
       >
-        <View style={[sg.flex, { borderWidth: 1 }]}>
-          <StatusBar
-            backgroundColor="red"
-            // hidden
-          />
-          <SafeAreaView>
-            <View style={{ flex: 1, borderWidth: 1 }}>
+        <View style={[sg.flex]}>
+          <SafeAreaView style={sg.bGDark}>
+            <View style={sg.flex}>
               {this.renderCamera()}
               {this.renderButtons()}
             </View>
