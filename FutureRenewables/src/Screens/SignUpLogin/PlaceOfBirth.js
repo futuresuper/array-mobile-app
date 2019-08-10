@@ -19,6 +19,7 @@ import {
   Input,
   Picker,
 } from 'src/Components/Form';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import {
   composeHoc,
   hocNames,
@@ -305,12 +306,14 @@ class PlaceOfBirth extends Component {
           </View>
 
 
-          <Button
-            onPress={() => this.onNext()}
-            block
-          >
-            <Text>Next</Text>
-          </Button>
+          <KeyboardAvoidingView keyboardVerticalOffset={100}>
+            <Button
+              onPress={() => this.onNext()}
+              block
+            >
+              <Text>Next</Text>
+            </Button>
+          </KeyboardAvoidingView>
         </View>
       </Content>
     );

@@ -24,6 +24,7 @@ import {
   Input,
 } from 'src/Components/Form';
 import Address from 'src/Components/Address';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
 class HomeAddress extends React.Component {
   constructor(props) {
@@ -156,6 +157,30 @@ class HomeAddress extends React.Component {
     }
   }
 
+  renderButtonNext() {
+    const { showManualForm } = this.state;
+
+    const button = (
+      <Button
+        onPress={() => this.handlePress()}
+        block
+        style={[sg.mT15]}
+      >
+        <Text>Next</Text>
+      </Button>
+    );
+
+    if (!showManualForm) {
+      return (
+        <KeyboardAvoidingView keyboardVerticalOffset={100}>
+          {button}
+        </KeyboardAvoidingView>
+      );
+    }
+
+    return button;
+  }
+
   render() {
     const { hocs, screenProps } = this.props;
     const { form } = hocs;
@@ -164,7 +189,7 @@ class HomeAddress extends React.Component {
     return (
       <Content padder bounces={false} contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
-          <View>
+          <View style={sg.zIndex10}>
             <Text style={[sg.formHeading, sg.mB50]}>
               Home address
             </Text>
@@ -218,13 +243,7 @@ class HomeAddress extends React.Component {
 
           </View>
 
-          <Button
-            onPress={() => this.handlePress()}
-            block
-            style={sg.mT15}
-          >
-            <Text>Next</Text>
-          </Button>
+          {this.renderButtonNext()}
         </View>
       </Content>
     );

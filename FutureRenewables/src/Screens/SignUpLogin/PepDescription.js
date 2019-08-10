@@ -18,6 +18,7 @@ import {
 import {
   Input,
 } from 'src/Components/Form';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import {
   composeHoc,
   hocNames,
@@ -87,14 +88,14 @@ class PepDescription extends Component {
           </View>
 
 
-          <View>
+          <KeyboardAvoidingView keyboardVerticalOffset={100}>
             <Button
               onPress={() => this.onNext()}
               block
             >
               <Text>Next</Text>
             </Button>
-          </View>
+          </KeyboardAvoidingView>
         </View>
       </Content>
     );

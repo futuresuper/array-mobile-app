@@ -179,7 +179,7 @@ class DateOfBirth extends React.Component {
               </Col>
             </Grid>
           </View>
-          <KeyboardAvoidingView>
+          <KeyboardAvoidingView keyboardVerticalOffset={100}>
             <Button
               onPress={() => this.handlePress()}
               block

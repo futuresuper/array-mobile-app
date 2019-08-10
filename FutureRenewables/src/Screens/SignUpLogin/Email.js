@@ -97,7 +97,7 @@ class Email extends React.Component {
             />
           </View>
 
-          <KeyboardAvoidingView>
+          <KeyboardAvoidingView keyboardVerticalOffset={100}>
             <Button
               onPress={() => this.handlePress()}
               block
