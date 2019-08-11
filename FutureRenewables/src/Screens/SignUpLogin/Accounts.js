@@ -24,6 +24,12 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import {
   formatAmountDollarCent,
 } from 'src/Common/Helpers';
+import {
+  userDataSave,
+} from 'src/Redux/Auth';
+import {
+  appContentSave,
+} from 'src/Redux/AppContent';
 import accountUtils from 'src/Common/account';
 
 import {
@@ -35,6 +41,31 @@ import {
 } from 'src/Styles';
 
 class Accounts extends React.Component {
+
+  componentDidMount() {
+    const {
+      screenProps,
+      userDataSaveConnect,
+      appContentSaveConnect
+    } = this.props;
+
+    this.getAppContent((appContent) => {
+      const { user } = appContent;
+      userDataSaveConnect(user);
+      appContentSaveConnect(appContent);
+      // this.nextScreen();
+    });
+  }
+
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {},
+      callback,
+      () => {
+        screenProps.toast('Unknown error (appcontent)');
+      });
+  }
+
   renderAccounts() {
     const { accounts, screenProps } = this.props;
 
@@ -140,14 +171,20 @@ class Accounts extends React.Component {
 
 Accounts.propTypes = {
   accounts: PropTypes.array.isRequired,
+  userDataSaveConnect: PropTypes.func.isRequired,
+  appContentSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
-
   return {
     accounts,
   };
 };
 
-export default connect(mapStateToProps)(Accounts);
+const mapDispatchToProps = {
+  userDataSaveConnect: userDataSave,
+  appContentSaveConnect: appContentSave,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Accounts);
