@@ -96,6 +96,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>Camera used so that users can update their profile picture</string>
 </dict>
 </plist>
