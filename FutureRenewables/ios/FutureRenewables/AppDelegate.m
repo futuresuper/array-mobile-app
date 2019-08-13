@@ -10,6 +10,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "Intercom/intercom.h"
+#import "Orientation.h"
 
 @implementation AppDelegate
 
@@ -35,6 +36,10 @@
   [Intercom setApiKey:@"ios_sdk-3c2b18f3d65afdfb6cc91902db33f901c4d56f6c" forAppId:@"oqha580c"];
 
   return YES;
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
 }
 
 @end
