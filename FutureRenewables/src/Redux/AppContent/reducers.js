@@ -1,4 +1,7 @@
 
+import {
+  USER_UPDATE_AVATAR,
+} from 'src/Redux/Auth';
 import * as types from './actionTypes';
 
 const initialState = {};
@@ -12,6 +15,24 @@ const ACTION_HANDLERS = {
       ...payload,
     };
   },
+};
+
+ACTION_HANDLERS[USER_UPDATE_AVATAR] = (state, action) => {
+  const { payload } = action;
+  const { user } = state;
+
+  if (user) {
+    user.profileImage = payload;
+
+    return {
+      ...state,
+      user,
+    };
+  }
+
+  return {
+    ...state,
+  };
 };
 
 const AppContentReducer = (state = initialState, action) => {

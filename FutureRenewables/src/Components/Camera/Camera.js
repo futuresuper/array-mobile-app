@@ -16,10 +16,6 @@ import { RNCamera } from 'react-native-camera';
 import Orientation from 'react-native-orientation-locker';
 
 import SafeAreaView from 'src/Components/SafeAreaView';
-import CloseButton from 'src/Components/CloseButton';
-
-
-import Toast from 'src/Components/Toast';
 
 import {
   isIOS,
@@ -156,7 +152,7 @@ class Camera extends Component {
           <TouchableOpacity
             onPress={this.onTakePhoto}
           >
-            <Text style={[sg.colorWhite, sg.fS22]}>Take Photo</Text>
+            <Text style={[sg.colorPrimary, sg.fS22]}>Take Photo</Text>
           </TouchableOpacity>
         </View>
       </View>
