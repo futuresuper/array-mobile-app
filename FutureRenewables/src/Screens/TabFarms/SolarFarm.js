@@ -79,47 +79,45 @@ class SolarFarm extends Component {
     const photos = item.otherImages;
 
     return (
-      <TabBarWrapper {...this.props}>
-        <Content contentContainerStyle={[sg.mT0]} bounces={false}>
-          <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" style={[{ height: (deviceUtils.screenHeight() - sc.footerHeight - 54) }]}>
+      <Content contentContainerStyle={[sg.mT0]} bounces={false}>
+        <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" style={[{ height: (deviceUtils.screenHeight() - sc.footerHeight - 54) }]}>
 
-            <View style={[sg.aIEnd, sg.mT40]}>
-              <CloseButton white {...this.props} />
+          <View style={[sg.aIEnd, sg.mT40]}>
+            <CloseButton white {...this.props} />
+          </View>
+
+          <View style={[sg.aICenter, sg.spaceBetween]}>
+            <View>
+              <WeatherWidget
+                coordinate={item.coordinate}
+                style={styles.solarFarmWeatherWidget}
+              />
+
+              <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.name}</H1>
+              <Text style={styles.solarFarmItemDescription}>{item.location}</Text>
             </View>
 
-            <View style={[sg.aICenter, sg.spaceBetween]}>
-              <View>
-                <WeatherWidget
-                  coordinate={item.coordinate}
-                  style={styles.solarFarmWeatherWidget}
-                />
-
-                <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.name}</H1>
-                <Text style={styles.solarFarmItemDescription}>{item.location}</Text>
-              </View>
-
-              <View style={sg.aICenter}>
-                {item.completionDate && <Text style={[styles.solarFarmFinishDate, sg.mB50]}>{`Projected finish date: ${item.completionDate}`}</Text>}
-                {this.renderStats()}
-              </View>
-
+            <View style={sg.aICenter}>
+              {item.completionDate && <Text style={[styles.solarFarmFinishDate, sg.mB50]}>{`Projected finish date: ${item.completionDate}`}</Text>}
+              {this.renderStats()}
             </View>
-          </ImageBackground>
 
-          <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>About</Text>
-          <Text style={[sg.contentMarginH, sg.mT20, sg.mB30]}>{item.about}</Text>
+          </View>
+        </ImageBackground>
 
-          <FlatList
-            data={photos}
-            keyExtractor={(i, index) => index.toString()}
-            renderItem={(...args) => this.renderPhotoItem(...args)}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={sg.mB30}
-          />
+        <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>About</Text>
+        <Text style={[sg.contentMarginH, sg.mT20, sg.mB30, sg.lH26]}>{item.about}</Text>
 
-        </Content>
-      </TabBarWrapper>
+        <FlatList
+          data={photos}
+          keyExtractor={(i, index) => index.toString()}
+          renderItem={(...args) => this.renderPhotoItem(...args)}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={sg.mB30}
+        />
+
+      </Content>
     );
   }
 }
