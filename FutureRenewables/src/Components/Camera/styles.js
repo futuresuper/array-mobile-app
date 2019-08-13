@@ -21,4 +21,13 @@ export default {
     borderColor: 'red',
     flexDirection: 'row',
   },
+  buttonsBottom: {
+    borderWidth: 2,
+    borderColor: 'green',
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
 };

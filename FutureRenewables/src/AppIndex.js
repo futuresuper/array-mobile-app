@@ -163,8 +163,7 @@ class AppIndex extends Component {
       ...configInp,
     };
 
-    Toast.show({
-      text,
+    Toast.show(text, {
       position: 'top',
       duration: 3000,
       ...config,

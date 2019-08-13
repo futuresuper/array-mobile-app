@@ -29,24 +29,19 @@ import {
 } from 'src/Redux/Auth';
 import {
   appContentSave,
-} from 'src/Redux/AppContent';
-import accountUtils from 'src/Common/account';
-
-import {
   accountsSelector,
 } from 'src/Redux/AppContent';
+import accountUtils from 'src/Common/account';
 
 import {
   sg,
 } from 'src/Styles';
 
 class Accounts extends React.Component {
-
   componentDidMount() {
     const {
-      screenProps,
       userDataSaveConnect,
-      appContentSaveConnect
+      appContentSaveConnect,
     } = this.props;
 
     this.getAppContent((appContent) => {
