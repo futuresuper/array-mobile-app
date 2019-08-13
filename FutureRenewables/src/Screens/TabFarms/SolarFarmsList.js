@@ -86,14 +86,14 @@ class SolarFarmsList extends Component {
             Solar Farms
           </Text>
 
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.markerImageContainer}
             onPress={() => {
               screenProps.navigateTo(routeNames.SOLAR_FARMS_MAP);
             }}
           >
             <Image source={MarkerActive} style={styles.markerImage} />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
 
         <FlatList
