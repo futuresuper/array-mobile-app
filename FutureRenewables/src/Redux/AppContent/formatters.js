@@ -21,12 +21,14 @@ const coordinates = [
 ];
 
 
-export const formatSolarFarm = (itemInp, index) => {
+export const formatSolarFarm = (itemInp) => {
   const item = itemInp;
+  const { longitude, latitude } = item;
 
-  if (!item.coordinate) {
-    item.coordinate = coordinates[index] || coordinates[0];
-  }
+  item.coordinate = {
+    latitude,
+    longitude,
+  };
 
   if (!item.percentComplete) {
     item.percentComplete = 100;

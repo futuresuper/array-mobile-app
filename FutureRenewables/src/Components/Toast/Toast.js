@@ -29,7 +29,15 @@ class Toast extends Component {
   }
 
   static toastInstance;
-  static show({ ...config }) {
+  static show(text, configInp = {}) {
+    const config = {
+      text,
+      position: 'top',
+      duration: 3000,
+      type: 'default',
+      ...configInp,
+    };
+
     this.toastInstance.showToast({ config });
   }
 

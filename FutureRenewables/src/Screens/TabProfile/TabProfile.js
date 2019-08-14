@@ -36,6 +36,10 @@ import {
   userSelector,
 } from 'src/Redux/AppContent';
 
+import {
+  userUpdateAvatar,
+} from 'src/Redux/Auth';
+
 import Camera from 'src/Components/Camera';
 
 import {
@@ -103,6 +107,14 @@ class TabProfile extends Component {
     if (user.email) {
       Intercom.registerIdentifiedUser({ email: user.email });
     }
+  }
+
+  onTakePhoto = (data) => {
+    const { userUpdateAvatarConnect } = this.props;
+    const { uri } = data;
+
+    userUpdateAvatarConnect(uri);
+    this.toggleCamera();
   }
 
   navigateTo = (screen) => {
@@ -243,6 +255,7 @@ class TabProfile extends Component {
         <Camera
           visible={cameraVisible}
           onRequestClose={this.toggleCamera}
+          onTakePhoto={this.onTakePhoto}
         />
       </Content>
     );
@@ -251,6 +264,7 @@ class TabProfile extends Component {
 
 TabProfile.propTypes = {
   user: PropTypes.object.isRequired,
+  userUpdateAvatarConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -262,4 +276,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(TabProfile);
+const mapDispatchToProps = {
+  userUpdateAvatarConnect: userUpdateAvatar,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabProfile);

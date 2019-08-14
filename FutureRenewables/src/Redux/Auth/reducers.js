@@ -31,6 +31,19 @@ const ACTION_HANDLERS = {
     ...state,
     user: action.payload,
   }),
+  [types.USER_UPDATE_AVATAR]: (state, action) => {
+    const { payload } = action;
+    const { user } = state;
+
+    if (user) {
+      user.profileImage = payload;
+    }
+
+    return {
+      ...state,
+      user,
+    };
+  },
 };
 
 const AuthReducer = (state = initialState, action) => {

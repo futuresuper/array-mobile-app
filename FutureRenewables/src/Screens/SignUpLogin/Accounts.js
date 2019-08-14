@@ -29,24 +29,19 @@ import {
 } from 'src/Redux/Auth';
 import {
   appContentSave,
-} from 'src/Redux/AppContent';
-import accountUtils from 'src/Common/account';
-
-import {
   accountsSelector,
 } from 'src/Redux/AppContent';
+import accountUtils from 'src/Common/account';
 
 import {
   sg,
 } from 'src/Styles';
 
 class Accounts extends React.Component {
-
   componentDidMount() {
     const {
-      screenProps,
       userDataSaveConnect,
-      appContentSaveConnect
+      appContentSaveConnect,
     } = this.props;
 
     this.getAppContent((appContent) => {
@@ -153,8 +148,8 @@ class Accounts extends React.Component {
             <KeyboardAvoidingView>
               <Button
                 onPress={() => {
-                  screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                  // screenProps.navigateTo(routeNames.TAB_HOME);
+                  // screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+                  screenProps.navigateTo(routeNames.TAB_HOME);
                 }}
                 block
               >
