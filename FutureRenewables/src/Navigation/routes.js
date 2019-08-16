@@ -1,18 +1,11 @@
-
 import _ from 'lodash';
 
 import * as screens from 'src/Screens';
 import ScreensList from 'src/Screens/ScreensList';
 
-import {
-  sg,
-} from 'src/Styles';
+import { sg } from 'src/Styles';
 
-import {
-  noHeader,
-  signOptions,
-  tabCardOptions,
-} from './navigationOptions';
+import { noHeader, signOptions, tabCardOptions } from './navigationOptions';
 
 import routeNames from './routeNames';
 
@@ -66,13 +59,15 @@ const signRoutes = formatRoutes({
   },
 });
 
-
 const signDataRoutes = formatRoutes({
   [routeNames.ACCOUNTS]: {
     screen: screens.Accounts,
     params: {
       showBackButton: false,
     },
+  },
+  [routeNames.PERSONAL_DETAILS_ALREADY_SUBMITTED]: {
+    screen: screens.PersonalDetailsAlreadySubmitted,
   },
   [routeNames.ACCOUNT_TYPE]: {
     screen: screens.AccountType,
@@ -263,8 +258,7 @@ const tabBarModalRoutes = {
   },
 };
 
-const tabBarScreensRoutes = {
-};
+const tabBarScreensRoutes = {};
 
 const tabCardRoutes = {
   [routeNames.SOLAR_FARMS_MAP]: {
@@ -345,14 +339,12 @@ const tabCardRoutes = {
   },
   [routeNames.ID_CHECK_DETAILS]: {
     screen: screens.IdCheckDetails,
-    params: {
-    },
+    params: {},
     ...tabCardOptions,
   },
   [routeNames.ID_CHECK_ADD]: {
     screen: screens.IdCheckAdd,
-    params: {
-    },
+    params: {},
     ...tabCardOptions,
   },
 };

@@ -53,6 +53,9 @@ class Accounts extends React.Component {
       const { user } = appContent;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
+      if(!user.personalDetailsLocked){
+        screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+      }
       // this.nextScreen();
     });
   }

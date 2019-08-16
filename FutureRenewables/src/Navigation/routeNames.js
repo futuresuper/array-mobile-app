@@ -1,4 +1,3 @@
-
 export default {
   SPLASH: 'Splash',
   SCREENS_LIST: 'ScreensList',
@@ -10,6 +9,7 @@ export default {
   SIGN_UP_LOGIN: 'SignUpLogin',
   SMS_CODE: 'SmsCode',
   ABOUT_APP_FORM: 'AboutAppForm',
+  PERSONAL_DETAILS_ALREADY_SUBMITTED: 'PersonalDetailsAlreadySubmitted',
   ACCOUNT_TYPE: 'AccountType',
   NAME: 'Name',
   EMAIL: 'Email',

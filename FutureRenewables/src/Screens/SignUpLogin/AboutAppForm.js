@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   View,
@@ -20,13 +21,21 @@ import {
   sg,
 } from 'src/Styles';
 
+import {
+  userSelector,
+} from 'src/Redux/AppContent';
+
 import { aboutAppForm as styles } from './styles';
 
 class AboutAppForm extends Component {
   onNext() {
-    const { screenProps } = this.props;
+    const { screenProps, user } = this.props;
+    if(!user.personalDetailsLocked){
+      screenProps.navigateTo(routeNames.PERSONAL_DETAILS_ALREADY_SUBMITTED)
+    } else {
+      screenProps.navigateTo(routeNames.ACCOUNT_TYPE);
 
-    screenProps.navigateTo(routeNames.ACCOUNT_TYPE);
+    }
   }
 
   render() {
@@ -77,4 +86,16 @@ class AboutAppForm extends Component {
   }
 }
 
-export default connect()(AboutAppForm);
+AboutAppForm.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const user = userSelector(state);
+  return {
+    user,
+  };
+};
+
+
+export default connect(mapStateToProps)(AboutAppForm);

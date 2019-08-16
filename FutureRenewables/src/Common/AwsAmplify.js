@@ -1,4 +1,3 @@
-
 import Amplify, { Auth } from 'aws-amplify';
 import _ from 'lodash';
 
@@ -84,10 +83,7 @@ class AwsAmplify {
   }
 
   async answerCustomChallenge(answer) {
-    this.cognitoUser = await Auth.sendCustomChallengeAnswer(
-      this.cognitoUser,
-      `${answer}`,
-    );
+    this.cognitoUser = await Auth.sendCustomChallengeAnswer(this.cognitoUser, `${answer}`);
 
     const isAuthenticated = await this.isAuthenticated();
 
@@ -112,7 +108,7 @@ class AwsAmplify {
   getRandomString(bytes) {
     let randomValues = new Uint8Array(bytes);
     randomValues = randomValues.map(() => _.random(1, 999));
-
+    
     return Array.from(randomValues)
       .map(this.intToHex)
       .join('');
