@@ -39,7 +39,7 @@ class PlaceOfBirth extends Component {
           validations: ['required'],
         },
         country: {
-          value: 2,
+          value: 'Australia',
           validations: ['required'],
         },
       },
@@ -262,7 +262,15 @@ class PlaceOfBirth extends Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
+      const body = {
+        birthCityTown: hocs.form.city.value,
+        birthCountry: hocs.form.country.value,
+      };
+      screenProps.Api.post('/user', body, () => {
+        screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 

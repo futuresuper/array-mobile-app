@@ -1,5 +1,6 @@
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   View,
@@ -15,6 +16,10 @@ import {
 import {
   sg,
 } from 'src/Styles';
+
+import {
+  userSelector,
+} from 'src/Redux/AppContent';
 
 import composeHoc from 'src/Common/Hocs';
 import {
@@ -55,11 +60,25 @@ class BankAccount extends React.Component {
   }
 
   handlePress() {
-    const { screenProps, hocs } = this.props;
+    const { screenProps, hocs, user } = this.props;
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
+      const body = {
+        accountId: '', // From response after Account Type
+        bankAccountName: hocs.form.accountName.value,
+        bankAccountBsb: `${hocs.form.bsb.value}`,
+        bankAccountNumber: `${hocs.form.accountNumber.value}`,
+      };
+      screenProps.Api.post('/account', body, () => {
+        if (/* user.personalDetailsLocked */ !user.email) {
+          screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
+        } else {
+          screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
+        }
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 
@@ -130,8 +149,20 @@ class BankAccount extends React.Component {
   }
 }
 
+BankAccount.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const user = userSelector(state);
+  return {
+    user,
+  };
+};
+
 const res = composeHoc([
   'FormHoc',
 ])(BankAccount);
 
-export default connect()(res);
+
+export default connect(mapStateToProps)(res);

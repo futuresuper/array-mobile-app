@@ -19,7 +19,6 @@ import {
   routeNames,
 } from 'src/Navigation';
 import {
-  Input,
   CheckBox,
 } from 'src/Components/Form';
 import {
@@ -58,7 +57,14 @@ class IdCheckOnline extends Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
+      const body = {
+        onlineIdConsent: true,
+      };
+      screenProps.Api.post('/user', body, () => {
+        screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 

@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import './ReactotronConfig';
@@ -34,9 +33,7 @@ class Root extends Component {
     return (
       <Provider store={storeState}>
         <ServiceManager />
-        <AppIndex
-          hydrated={hydrated}
-        />
+        <AppIndex hydrated={hydrated} />
       </Provider>
     );
   }

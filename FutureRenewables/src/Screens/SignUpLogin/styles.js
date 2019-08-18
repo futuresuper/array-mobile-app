@@ -1,12 +1,6 @@
+import { isIOS, rgbaByHex } from 'src/Common/Helpers';
 
-import {
-  isIOS,
-  rgbaByHex,
-} from 'src/Common/Helpers';
-
-import {
-  sc,
-} from 'src/Styles';
+import { sc } from 'src/Styles';
 
 const isIOSv = isIOS();
 
@@ -28,7 +22,7 @@ export const appLanding = {
   topBl: {
     alignItems: 'center',
     paddingTop: 300,
-    paddingBottom: (isIOSv ? sc.contentPadding : (sc.contentPadding + 20)),
+    paddingBottom: isIOSv ? sc.contentPadding : sc.contentPadding + 20,
     justifyContent: 'space-between',
   },
   textMiddle: {
@@ -39,10 +33,7 @@ export const appLanding = {
   },
 };
 
-export const buildYourImpact = {
-
-};
-
+export const buildYourImpact = {};
 
 export const ThanksShare = {
   opacityBl: {

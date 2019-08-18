@@ -41,7 +41,7 @@ class Name extends React.Component {
             'required',
           ],
         },
-        middleName: {
+        middleNames: {
           value: '',
         },
         lastName: {
@@ -93,12 +93,12 @@ class Name extends React.Component {
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
       const firstName = hocs.form.firstName.value;
-      const middleName = hocs.form.middleName.value;
+      const middleNames = hocs.form.middleNames.value;
       const lastName = hocs.form.lastName.value;
 
       screenProps.Api.post('/user', {
         firstName,
-        middleName,
+        middleNames,
         lastName,
       }, () => {
         screenProps.navigateTo(routeNames.EMAIL);
@@ -150,8 +150,8 @@ class Name extends React.Component {
 
             <Input
               formData={form}
-              formKey="middleName"
-              helper="Middle name"
+              formKey="middleNames"
+              helper="Middle names"
               onChangeText={hocs.handleInput}
             />
 

@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import {
   View,
 } from 'react-native';
@@ -18,6 +20,10 @@ import {
   sg,
 } from 'src/Styles';
 
+import {
+  userSelector,
+} from 'src/Redux/AppContent';
+
 class PurposeOfInvestment extends React.Component {
   constructor(props) {
     super(props);
@@ -26,8 +32,14 @@ class PurposeOfInvestment extends React.Component {
   }
 
   handlePress() {
-    const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.OCCUPATION);
+    const { screenProps, user } = this.props;
+
+    if( /*user.personalDetailsLocked */ !user.email){
+      screenProps.navigateTo(routeNames.FINAL_CONFIRMATION)
+    } else {
+      screenProps.navigateTo(routeNames.OCCUPATION);
+    }
+    
   }
 
   render() {
@@ -84,4 +96,15 @@ class PurposeOfInvestment extends React.Component {
   }
 }
 
-export default connect()(PurposeOfInvestment);
+PurposeOfInvestment.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const user = userSelector(state);
+  return {
+    user,
+  };
+};
+
+export default connect(mapStateToProps)(PurposeOfInvestment);

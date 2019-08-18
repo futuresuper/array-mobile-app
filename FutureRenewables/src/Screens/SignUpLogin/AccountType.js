@@ -55,7 +55,14 @@ class AccountType extends React.Component {
   onButtonPress(route) {
     const { screenProps } = this.props;
 
-    screenProps.navigateTo(route);
+    screenProps.Api.post('/accounts', {}, () => {
+      screenProps.navigateTo(route);
+    }, () => {
+      // need to be deleted when requests will work
+      screenProps.navigateTo(route);
+      // ////////
+      screenProps.toast('Error. Try again.');
+    });
   }
 
   saveDatabase(type, onSuccess) {

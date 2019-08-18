@@ -20,6 +20,8 @@ import Occupation from './Occupation';
 import Pep from './Pep';
 import PepDescription from './PepDescription';
 import TaxNumbers from './TaxNumbers';
+import PersonalDetailsAlreadySubmitted from './PersonalDetailsAlreadySubmitted';
+
 
 export {
   AppLanding,
@@ -43,4 +45,5 @@ export {
   Pep,
   PepDescription,
   TaxNumbers,
+  PersonalDetailsAlreadySubmitted,
 };

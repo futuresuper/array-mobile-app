@@ -105,7 +105,7 @@ class Occupation extends Component {
               block
               marginVert
             >
-              <Text>Ritired</Text>
+              <Text>Retired</Text>
             </Button>
 
             <Button

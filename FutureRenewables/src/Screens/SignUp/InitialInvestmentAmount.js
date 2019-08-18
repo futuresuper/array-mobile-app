@@ -38,7 +38,6 @@ class InitialInvestmentAmount extends React.Component {
         field: {
           validations: [
             'required',
-            this.validationRule,
           ],
           normalize: normalizeAmount,
           format: formatAmountDollar,
@@ -67,15 +66,24 @@ class InitialInvestmentAmount extends React.Component {
     const { screenProps, hocs } = this.props;
     const userInfo = screenProps.getUserInfo();
 
-    const formIsValid = hocs.formIsValid();
+    const formIsValid = hocs.formIsValid({
+      fieldError: true,
+    });
+
     if (formIsValid) {
       const amount = hocs.form.field.value;
-
-      // screenProps.Api.put(`accounts/${userInfo.id}`, {
-      //   initial_investment_amount: amount,
-      // }, () => {
-      // });
-      screenProps.navigateTo(routeNames.BANK_ACCOUNT);
+      if (!this.validationRule(amount)) {
+        screenProps.toastDanger('Minimum investment amount is $5');
+        return;
+      }
+      screenProps.Api.post('/account', {
+        accountId: '',
+        iinitialInvestmentAmount: amount,
+      }, () => {
+        screenProps.navigateTo(routeNames.BANK_ACCOUNT);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 
@@ -92,7 +100,7 @@ class InitialInvestmentAmount extends React.Component {
             </Text>
 
             <Text style={sg.formHeadingDescription}>
-              How much would you like yo get started with?
+              How much would you like to get started with?
             </Text>
 
             <Input
