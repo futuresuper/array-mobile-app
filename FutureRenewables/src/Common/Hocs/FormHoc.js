@@ -238,7 +238,6 @@ export default function FormHoc(WrappedComponent) {
       inputItem = this.applyNormalizeFormat(inputItem, value);
 
       const validation = this.checkValidation(inputItem);
-
       if (formIsArray) {
         form[dataKey][formKey] = {
           ...inputItem,

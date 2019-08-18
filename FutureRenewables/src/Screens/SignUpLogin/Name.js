@@ -151,7 +151,7 @@ class Name extends React.Component {
             <Input
               formData={form}
               formKey="middleName"
-              helper="Middle name"
+              helper="Middle names"
               onChangeText={hocs.handleInput}
             />
 

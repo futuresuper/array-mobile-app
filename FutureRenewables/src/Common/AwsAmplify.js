@@ -108,7 +108,6 @@ class AwsAmplify {
   getRandomString(bytes) {
     let randomValues = new Uint8Array(bytes);
     randomValues = randomValues.map(() => _.random(1, 999));
-    
     return Array.from(randomValues)
       .map(this.intToHex)
       .join('');

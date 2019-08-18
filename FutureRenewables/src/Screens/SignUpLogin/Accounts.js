@@ -53,7 +53,7 @@ class Accounts extends React.Component {
       const { user } = appContent;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
-      if(!user.personalDetailsLocked){
+      if(user.email){
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
       // this.nextScreen();
@@ -156,6 +156,7 @@ class Accounts extends React.Component {
             <KeyboardAvoidingView>
               <Button
                 onPress={() => {
+                  console.log('pressed on start new----');
                   screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
                   // screenProps.navigateTo(routeNames.TAB_HOME);
                 }}

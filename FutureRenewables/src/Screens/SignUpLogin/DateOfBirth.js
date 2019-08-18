@@ -126,7 +126,6 @@ class DateOfBirth extends React.Component {
         screenProps.toastDanger('You must be over 18 to invest');
         return;
       }
-      
       screenProps.Api.post('/user', {
         birthDate,
       }, () => {

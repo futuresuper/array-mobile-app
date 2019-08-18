@@ -11,7 +11,7 @@ import {
   Content,
   Text,
   Button,
-  H2
+  H3
 } from 'native-base';
 
 import {
@@ -26,7 +26,6 @@ import {
   userSelector,
 } from 'src/Redux/AppContent';
 
-import { aboutAppForm as styles } from './styles';
 
 class PersonalDetailsAlreadySubmitted extends Component {
   onNext() {
@@ -35,7 +34,7 @@ class PersonalDetailsAlreadySubmitted extends Component {
   }
 
   render() {
-    const {user} = this.props;
+    const { user } = this.props;
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
@@ -45,21 +44,21 @@ class PersonalDetailsAlreadySubmitted extends Component {
             </Text>
 
 
-            <H2 style={styles.description}>
+            <H3 style={sg.mB20}>
               Name: {user.fullName} 
-            </H2>
+            </H3>
 
-            <H2 style={styles.descriptionP}>
+            <H3 style={sg.mB20}>
               Email: {user.email}
-            </H2>
+            </H3>
 
-            <H2 style={styles.descriptionP}>
+            <H3 style={sg.mB20}>
               Phone: {user.mobile && user.mobile.number}
-            </H2>
+            </H3>
 
-            <H2 style={[styles.descriptionP, sg.mB20]}>
+            <H3 style={sg.mB20}>
               Pretty: {user.mobile.pretty && user.mobile.pretty}
-            </H2>
+            </H3>
           </View>
 
 
