@@ -130,9 +130,13 @@ export default {
 };
 
 export const farmsList = {
-  markerImage: {
+  markerImageContainer: {
     position: 'absolute',
     right: 0,
+  },
+  markerImage: {
+    width: 31.2,
+    height: 38.4,
   },
   farmContainer: {
   },

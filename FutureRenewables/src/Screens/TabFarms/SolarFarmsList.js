@@ -54,7 +54,8 @@ class SolarFarmsList extends Component {
             />
           </View>
 
-          { item.percentComplete < 100 && <View style={[sg.row, sg.aICenter]}>       
+          { item.percentComplete < 100 && (
+            <View style={[sg.row, sg.aICenter]}>
               <CircularProgress
                 progress={item.percentComplete / 100}
                 borderWidth={1}
@@ -66,8 +67,8 @@ class SolarFarmsList extends Component {
                 {item.percentComplete}
                 % Completed
               </Text>
-          </View>
-          }
+            </View>
+          )}
         </ImageBackground>
       </TouchableOpacity>
     );
@@ -85,16 +86,14 @@ class SolarFarmsList extends Component {
             Solar Farms
           </Text>
 
-          {/*
           <TouchableOpacity
-            style={styles.markerImage}
+            style={styles.markerImageContainer}
             onPress={() => {
               screenProps.navigateTo(routeNames.SOLAR_FARMS_MAP);
             }}
           >
-            <Image source={MarkerActive} />
+            <Image source={MarkerActive} style={styles.markerImage} />
           </TouchableOpacity>
-          */}
         </View>
 
         <FlatList

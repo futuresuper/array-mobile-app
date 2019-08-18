@@ -15,10 +15,14 @@ export default {
     height: '100%',
     backgroundColor: 'transparent',
     position: 'absolute',
-    // paddingTop: 20,
     paddingBottom: 20,
-    borderWidth: 1,
-    borderColor: 'red',
     flexDirection: 'row',
+  },
+  buttonsBottom: {
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 };

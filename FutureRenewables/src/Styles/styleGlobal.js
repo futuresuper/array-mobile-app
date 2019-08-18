@@ -647,6 +647,9 @@ export default {
     fontSize: 35,
     lineHeight: 35,
   },
+  lH26: {
+    lineHeight: 26,
+  },
   fontLabel: {
     fontSize: 14,
     fontFamily: styleConstants.font.medium,

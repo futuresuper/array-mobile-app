@@ -1,7 +1,6 @@
 
 import * as types from './actionTypes';
 
-// eslint-disable-next-line import/prefer-default-export
 export function tokenSave(data) {
   return {
     type: types.TOKEN_SAVE,
@@ -25,5 +24,12 @@ export function userDataSave(data) {
 export function authReset() {
   return {
     type: types.AUTH_RESET,
+  };
+}
+
+export function userUpdateAvatar(data) {
+  return {
+    type: types.USER_UPDATE_AVATAR,
+    payload: data,
   };
 }
