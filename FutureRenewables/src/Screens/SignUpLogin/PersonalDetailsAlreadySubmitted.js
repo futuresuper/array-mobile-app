@@ -26,6 +26,7 @@ import {
   userSelector,
 } from 'src/Redux/AppContent';
 
+import { personalDetailsAlreadySubmitted as styles } from './styles';
 
 class PersonalDetailsAlreadySubmitted extends Component {
   onNext() {

@@ -34,7 +34,7 @@ class PurposeOfInvestment extends React.Component {
   handlePress() {
     const { screenProps, user } = this.props;
 
-    if(user.email){
+    if( /*user.personalDetailsLocked */ !user.email){
       screenProps.navigateTo(routeNames.FINAL_CONFIRMATION)
     } else {
       screenProps.navigateTo(routeNames.OCCUPATION);

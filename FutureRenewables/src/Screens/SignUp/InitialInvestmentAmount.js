@@ -76,11 +76,14 @@ class InitialInvestmentAmount extends React.Component {
         screenProps.toastDanger('Minimum investment amount is $5');
         return;
       }
-      // screenProps.Api.put(`accounts/${userInfo.id}`, {
-      //   initial_investment_amount: amount,
-      // }, () => {
-      // });
-      screenProps.navigateTo(routeNames.BANK_ACCOUNT);
+      screenProps.Api.post('/account', {
+        accountId: '',
+        iinitialInvestmentAmount: amount,
+      }, () => {
+        screenProps.navigateTo(routeNames.BANK_ACCOUNT);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 

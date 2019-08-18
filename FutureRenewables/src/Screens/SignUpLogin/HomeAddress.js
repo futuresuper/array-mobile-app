@@ -204,7 +204,21 @@ class HomeAddress extends React.Component {
     const formKey = showManualForm ? 1 : 0;
     const formIsValid = hocs.formIsValid(formKey);
     if (formIsValid) {
-      screenProps.navigateTo(routeNames.PLACE_OF_BIRTH);
+      const body = {
+        residentialAddressUnitNumber: hocs.form[1].unitNumber.value,
+        residentialAddressStreetNumber: hocs.form[1].streetNumber.value,
+        residenitalAddressStreet: hocs.form[1].streetName.value,
+        residentialAddressStreetType: hocs.form[1].streetType.value,
+        residentialAddressSuburb: hocs.form[1].suburb.value,
+        resedentialAddressState: hocs.form[1].state.value,
+        residentialAddressPostcode: hocs.form[1].postcode.value,
+        residentialAddressCountry: "Australia",
+      };
+      screenProps.Api.post('/user', body, () => {
+        screenProps.navigateTo(routeNames.PLACE_OF_BIRTH);
+      }, () => {
+        screenProps.toastDanger('Error. Try again.');
+      });
     }
   }
 
@@ -282,6 +296,13 @@ class HomeAddress extends React.Component {
             {showManualForm
               ? (
                 <View>
+                  {/* <Input
+                    formData={form[1]}
+                    dataKey={1}
+                    helper="Address Line 1"
+                    formKey="addressLineOne"
+                    onChangeText={hocs.handleInput}
+                  /> */}
                   <Input
                     formData={form[1]}
                     dataKey={1}

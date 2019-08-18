@@ -64,11 +64,21 @@ class BankAccount extends React.Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      if(user.email){
-        screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS)
-      } else {
-        screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
-      }
+      const body = {
+        accountId: '', // From response after Account Type
+        bankAccountName: hocs.form.accountName.value,
+        bankAccountBsb: `${hocs.form.bsb.value}`,
+        bankAccountNumber: `${hocs.form.accountNumber.value}`,
+      };
+      screenProps.Api.post('/account', body, () => {
+        if (/* user.personalDetailsLocked */ !user.email) {
+          screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
+        } else {
+          screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
+        }
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 
