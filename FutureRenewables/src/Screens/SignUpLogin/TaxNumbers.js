@@ -67,7 +67,17 @@ class TaxNumbers extends Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
+      const body = {
+        taxFileNumber: hocs.form.tfn.value,
+        usPerson: hocs.form.usPerson.value === '' ? false : true,
+        osTaxResident: hocs.form.resident.value === '' ? false : true,
+        certifiedAllTaxResidenciesProvided: hocs.form.check.value,
+      };
+      screenProps.Api.post('/user', body, () => {
+        screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 

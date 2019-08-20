@@ -52,17 +52,14 @@ class Occupation extends Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-
       const body = {
-        birthCityTown: hocs.form.city.value,
-        birthCountry: hocs.form.country.value,
+        birthCityTown: hocs.form.occupation.value,
       };
       screenProps.Api.post('/user', body, () => {
         screenProps.navigateTo(routeNames.PEP);
       }, () => {
         screenProps.toastDanger('Error. Try Again');
       });
-      
     }
   }
 

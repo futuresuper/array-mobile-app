@@ -23,11 +23,24 @@ import {
 class Pep extends Component {
   onNext(isPep = true) {
     const { screenProps } = this.props;
+    const body = {
+      pep: isPep,
+    };
+
 
     if (isPep) {
-      screenProps.navigateTo(routeNames.PEP_DESCRIPTION);
+      screenProps.Api.post('/user', body, () => {
+        screenProps.navigateTo(routeNames.PEP_DESCRIPTION);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     } else {
-      screenProps.navigateTo(routeNames.TAX_NUMBERS);
+      screenProps.Api.post('/user', body, () => {
+        screenProps.navigateTo(routeNames.TAX_NUMBERS);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
+      
     }
   }
 

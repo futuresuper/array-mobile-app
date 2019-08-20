@@ -25,8 +25,16 @@ import { finalConfirmation as styles } from './styles';
 class FinalConfirmation extends React.Component {
   handlePress() {
     const { screenProps } = this.props;
+    const body = {
+      accountId: '', // From response after Account Type
+      submittedApplication: true,
+    };
 
-    screenProps.navigateTo(routeNames.TAB_HOME);
+    screenProps.Api.post('/account', body, () => {
+      screenProps.navigateTo(routeNames.TAB_HOME);
+    }, () => {
+      screenProps.toastDanger('Error. Try Again');
+    });
   }
 
   renderLi(text) {
