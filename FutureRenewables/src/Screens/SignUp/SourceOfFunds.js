@@ -27,7 +27,17 @@ class SourceOfFunds extends React.Component {
 
   handlePress(type) {
     const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.PURPOSE_OF_INVESTMENT, { type });
+    const body = {
+        accountId: '', // From response after Account Type
+        sourceOfFunds: type,
+      };
+    screenProps.Api.post('/account', body, () => {
+      screenProps.navigateTo(routeNames.PURPOSE_OF_INVESTMENT, { type });
+    }, () => {
+      screenProps.toastDanger('Error. Try Again');
+    });
+
+    
   }
 
   render() {
