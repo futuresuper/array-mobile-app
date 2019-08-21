@@ -29,7 +29,7 @@ class PurposeOfInvestment extends React.Component {
       '/account',
       body,
       () => {
-        if (/* user.personalDetailsLocked */ !user.email) {
+        if (user.personalDetailsLocked) {
           screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
         } else {
           screenProps.navigateTo(routeNames.OCCUPATION);

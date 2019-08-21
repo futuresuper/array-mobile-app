@@ -57,8 +57,9 @@ class AccountType extends React.Component {
 
     screenProps.Api.post('/accounts', {}, () => {
       screenProps.navigateTo(route);
-    }, () => {
+    }, (err) => {
       // need to be deleted when requests will work
+      console.log('----------error', err);
       screenProps.navigateTo(route);
       // ////////
       screenProps.toast('Error. Try again.');

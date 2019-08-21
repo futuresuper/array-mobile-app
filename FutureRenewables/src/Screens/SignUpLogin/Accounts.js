@@ -46,9 +46,11 @@ class Accounts extends React.Component {
 
     this.getAppContent((appContent) => {
       const { user } = appContent;
+      const { screenProps } = this.props;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
-      if(/*user.personalDetailsLocked*/ !user.email){
+      console.log('----------user in getAppContent', user);
+      if (user.personalDetailsLocked) {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
       // this.nextScreen();
@@ -59,7 +61,8 @@ class Accounts extends React.Component {
     const { screenProps } = this.props;
     screenProps.Api.get('/appcontent', {},
       callback,
-      () => {
+      (resp) => {
+        console.log('----------response on appcontent', resp);
         screenProps.toast('Unknown error (appcontent)');
       });
   }

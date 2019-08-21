@@ -71,7 +71,7 @@ class BankAccount extends React.Component {
         bankAccountNumber: `${hocs.form.accountNumber.value}`,
       };
       screenProps.Api.post('/account', body, () => {
-        if (/* user.personalDetailsLocked */ !user.email) {
+        if (user.personalDetailsLocked) {
           screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
