@@ -9,12 +9,17 @@ import {
   Text,
   Button,
 } from 'native-base';
+import PropTypes from 'prop-types';
 
 // import { BottomInfo } from 'src/Components/BottomInfo';
 import {
   routeNames,
 } from 'src/Navigation';
 import signUpLoginUtils from 'src/Common/signUpLogin';
+
+import {
+  applicationIdSave,
+} from 'src/Redux/Auth';
 
 import {
   sg,
@@ -53,9 +58,10 @@ class AccountType extends React.Component {
   // }
 
   onButtonPress(route) {
-    const { screenProps } = this.props;
+    const { screenProps, applicationIdSaveConnect } = this.props;
 
-    screenProps.Api.post('/account', {}, () => {
+    screenProps.Api.post('/account', {}, (res) => {
+      applicationIdSaveConnect(res);
       screenProps.navigateTo(route);
     }, () => {
       screenProps.toast('Error. Try again.');
@@ -218,4 +224,12 @@ class AccountType extends React.Component {
   // }
 }
 
-export default connect()(AccountType);
+AccountType.propTypes = {
+  applicationIdSaveConnect: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+  applicationIdSaveConnect: applicationIdSave,
+};
+
+export default connect(null, mapDispatchToProps)(AccountType);

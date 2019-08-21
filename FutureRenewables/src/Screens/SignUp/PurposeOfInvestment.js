@@ -10,6 +10,9 @@ import { routeNames } from 'src/Navigation';
 import { sg } from 'src/Styles';
 
 import { userSelector } from 'src/Redux/AppContent';
+import {
+  applicationIdSelector,
+} from 'src/Redux/Auth';
 
 class PurposeOfInvestment extends React.Component {
   constructor(props) {
@@ -18,10 +21,10 @@ class PurposeOfInvestment extends React.Component {
   }
 
   handlePress(type) {
-    const { screenProps, user } = this.props;
+    const { screenProps, user, applicationId } = this.props;
 
     const body = {
-      accountId: '', // From response after Account Type
+      accountId: applicationId, // From response after Account Type
       purposeOfInvestment: type,
     };
 
@@ -76,12 +79,18 @@ class PurposeOfInvestment extends React.Component {
 
 PurposeOfInvestment.propTypes = {
   user: PropTypes.object.isRequired,
+  applicationId: PropTypes.string.isRequired,
+
 };
 
 const mapStateToProps = (state) => {
   const user = userSelector(state);
+  const applicationId = applicationIdSelector(state);
+
   return {
     user,
+    applicationId,
+
   };
 };
 

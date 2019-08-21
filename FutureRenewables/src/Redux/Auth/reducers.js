@@ -1,4 +1,3 @@
-
 import * as types from './actionTypes';
 
 const initialState = {
@@ -9,6 +8,7 @@ const initialState = {
     token_type: '',
     expires_in: 0,
   },
+  applicationId: '',
 };
 
 const ACTION_HANDLERS = {
@@ -44,6 +44,10 @@ const ACTION_HANDLERS = {
       user,
     };
   },
+  [types.APPLICATION_ID_SAVE]: (state, action) => ({
+    ...state,
+    applicationId: action.payload.PK2,
+  }),
 };
 
 const AuthReducer = (state = initialState, action) => {

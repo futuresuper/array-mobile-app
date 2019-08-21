@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import {
   View,
 } from 'react-native';
+import PropTypes from 'prop-types';
+
 import {
   Content,
   Button,
@@ -29,6 +31,10 @@ import {
 import {
   routeNames,
 } from 'src/Navigation';
+
+import {
+  applicationIdSelector,
+} from 'src/Redux/Auth';
 
 class InitialInvestmentAmount extends React.Component {
   constructor(props) {
@@ -63,9 +69,8 @@ class InitialInvestmentAmount extends React.Component {
   }
 
   handlePress() {
-    const { screenProps, hocs } = this.props;
-    const userInfo = screenProps.getUserInfo();
-
+    const { screenProps, hocs, applicationId } = this.props;
+    // const userInfo = screenProps.getUserInfo();
     const formIsValid = hocs.formIsValid({
       fieldError: true,
     });
@@ -77,7 +82,7 @@ class InitialInvestmentAmount extends React.Component {
         return;
       }
       screenProps.Api.post('/account', {
-        accountId: '',
+        accountId: applicationId,
         iinitialInvestmentAmount: amount,
       }, () => {
         screenProps.navigateTo(routeNames.BANK_ACCOUNT);
@@ -126,8 +131,19 @@ class InitialInvestmentAmount extends React.Component {
   }
 }
 
+InitialInvestmentAmount.propTypes = {
+  applicationId: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const applicationId = applicationIdSelector(state);
+  return {
+    applicationId,
+  };
+};
+
 const res = composeHoc([
   'FormHoc',
 ])(InitialInvestmentAmount);
 
-export default connect()(res);
+export default connect(mapStateToProps)(res);

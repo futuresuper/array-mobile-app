@@ -62,8 +62,7 @@ class Accounts extends React.Component {
     const { screenProps } = this.props;
     screenProps.Api.get('/appcontent', {},
       callback,
-      (resp) => {
-        console.log('----------response on appcontent', resp);
+      () => {
         screenProps.toast('Unknown error (appcontent)');
       });
   }
@@ -178,7 +177,6 @@ Accounts.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log('----------state',  state );
   const accounts = accountsSelector(state);
   return {
     accounts,

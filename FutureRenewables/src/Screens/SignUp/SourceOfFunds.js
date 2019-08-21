@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import {
   View,
 } from 'react-native';
@@ -18,6 +20,10 @@ import {
   routeNames,
 } from 'src/Navigation';
 
+import {
+  applicationIdSelector,
+} from 'src/Redux/Auth';
+
 class SourceOfFunds extends React.Component {
   constructor(props) {
     super(props);
@@ -26,9 +32,9 @@ class SourceOfFunds extends React.Component {
   }
 
   handlePress(type) {
-    const { screenProps } = this.props;
+    const { screenProps, applicationId } = this.props;
     const body = {
-        accountId: '', // From response after Account Type
+        accountId: applicationId,
         sourceOfFunds: type,
       };
     screenProps.Api.post('/account', body, () => {
@@ -36,8 +42,6 @@ class SourceOfFunds extends React.Component {
     }, () => {
       screenProps.toastDanger('Error. Try Again');
     });
-
-    
   }
 
   render() {
@@ -103,4 +107,15 @@ class SourceOfFunds extends React.Component {
   }
 }
 
-export default connect()(SourceOfFunds);
+SourceOfFunds.propTypes = {
+  applicationId: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const applicationId = applicationIdSelector(state);
+  return {
+    applicationId,
+  };
+};
+
+export default connect(mapStateToProps)(SourceOfFunds);
