@@ -49,10 +49,11 @@ class Accounts extends React.Component {
       const { screenProps } = this.props;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
-      console.log('----------user in getAppContent', user);
       if (user.personalDetailsLocked) {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
+      //dev purpose
+      // screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
       // this.nextScreen();
     });
   }
@@ -177,6 +178,7 @@ Accounts.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  console.log('----------state',  state );
   const accounts = accountsSelector(state);
   return {
     accounts,
