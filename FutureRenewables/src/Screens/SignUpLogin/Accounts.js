@@ -97,14 +97,14 @@ class Accounts extends React.Component {
                     <Col style={[sg.flexNull]}>
                       <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
 
-                      {account.balanceInDollars && (
+
                         <Text style={[sg.mL0, sg.fS16]} color4>
                           Balance:&nbsp;
                           <Text color4>
                             {formatAmountDollarCent(account.balanceInDollars)}
                           </Text>
                         </Text>
-                      )}
+                      
                     </Col>
                     <Col style={[sg.jCCenter, sg.aIEnd]}>
                       <Icon name="ios-arrow-forward" style={sg.fS20} />
