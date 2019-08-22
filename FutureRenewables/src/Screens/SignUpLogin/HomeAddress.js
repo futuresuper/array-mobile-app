@@ -38,7 +38,7 @@ class HomeAddress extends React.Component {
         },
         {
           unitNumber: {
-            validations: ['required'],
+            //validations: ['required'],
           },
           streetNumber: {
             validations: ['required'],
@@ -90,7 +90,7 @@ class HomeAddress extends React.Component {
         { value: 'ST', name: "Street", },
         { value: 'TCE', name: "Terrace", },
         { value: 'WAY', name: "Way", },
-        { value: '', name: "Other", },
+        { value: 'Other', name: "Other", },
       ],
       showManualForm: false,
     };
@@ -107,18 +107,14 @@ class HomeAddress extends React.Component {
     const { hocs } = this.props;
     const { form } = this.state;
     const {
-      // RecordId,
+      RecordId,
       AddressLine,
-      // Country,
-      // CountryCode,
       Postcode,
       Locality,
       State,
     } = item;
+    this.retrieveAddress(RecordId);
     const formValues = {
-      streetName: {
-        value: AddressLine,
-      },
       state: {
         value: State,
       },
@@ -135,10 +131,9 @@ class HomeAddress extends React.Component {
     hocs.setForm(form);
     this.initManualForm();
 
-    // this.retrieveAddress(RecordId);
   }
 
-  retrieveAddress(recordId) {
+  retrieveAddress = (recordId) => {
     const { form } = this.state;
     const { screenProps, hocs } = this.props;
 
@@ -314,7 +309,7 @@ class HomeAddress extends React.Component {
                     formData={form[1]}
                     helper="Street Type"
                     formKey="streetType"
-                    title="Please Select a Street Type"
+                    title={form[1].streetType.value ? form[1].streetType.value : "Street Type"}
                     list={streetTypes}
                     renderItem={({ item }) => (
                       <View>
