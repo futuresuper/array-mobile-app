@@ -83,7 +83,7 @@ class InitialInvestmentAmount extends React.Component {
       }
       screenProps.Api.post('/account', {
         accountId: applicationId,
-        iinitialInvestmentAmount: amount,
+        initialInvestmentAmount: amount,
       }, () => {
         screenProps.navigateTo(routeNames.BANK_ACCOUNT);
       }, () => {
