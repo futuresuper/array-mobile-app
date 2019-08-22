@@ -53,7 +53,14 @@ class PepDescription extends Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      screenProps.navigateTo(routeNames.TAX_NUMBERS);
+      const body = {
+        pepDescription: hocs.form.description.value,
+      };
+      screenProps.Api.post('/user', body, () => {
+        screenProps.navigateTo(routeNames.TAX_NUMBERS);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 

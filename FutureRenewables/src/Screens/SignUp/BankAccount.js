@@ -21,6 +21,10 @@ import {
   userSelector,
 } from 'src/Redux/AppContent';
 
+import {
+  applicationIdSelector,
+} from 'src/Redux/Auth';
+
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
@@ -60,18 +64,20 @@ class BankAccount extends React.Component {
   }
 
   handlePress() {
-    const { screenProps, hocs, user } = this.props;
+    const {
+      screenProps, hocs, user, applicationId,
+    } = this.props;
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
       const body = {
-        accountId: '', // From response after Account Type
+        accountId: applicationId,
         bankAccountName: hocs.form.accountName.value,
         bankAccountBsb: `${hocs.form.bsb.value}`,
         bankAccountNumber: `${hocs.form.accountNumber.value}`,
       };
       screenProps.Api.post('/account', body, () => {
-        if (/* user.personalDetailsLocked */ !user.email) {
+        if (user.personalDetailsLocked) {
           screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
@@ -151,12 +157,18 @@ class BankAccount extends React.Component {
 
 BankAccount.propTypes = {
   user: PropTypes.object.isRequired,
+  applicationId: PropTypes.string.isRequired,
+
 };
 
 const mapStateToProps = (state) => {
   const user = userSelector(state);
+  const applicationId = applicationIdSelector(state);
+
   return {
     user,
+    applicationId,
+
   };
 };
 

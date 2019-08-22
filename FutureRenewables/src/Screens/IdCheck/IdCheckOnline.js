@@ -55,8 +55,7 @@ class IdCheckOnline extends Component {
   onNext() {
     const { screenProps, hocs } = this.props;
 
-    const formIsValid = hocs.formIsValid();
-    if (formIsValid) {
+    if (hocs.form.check.value) {
       const body = {
         onlineIdConsent: true,
       };
@@ -65,6 +64,8 @@ class IdCheckOnline extends Component {
       }, () => {
         screenProps.toastDanger('Error. Try Again');
       });
+    } else {
+      screenProps.toastDanger('Please check the box to continue');
     }
   }
 

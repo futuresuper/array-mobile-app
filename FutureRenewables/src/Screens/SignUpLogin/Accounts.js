@@ -46,11 +46,14 @@ class Accounts extends React.Component {
 
     this.getAppContent((appContent) => {
       const { user } = appContent;
+      const { screenProps } = this.props;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
-      if(/*user.personalDetailsLocked*/ !user.email){
+      if (user.personalDetailsLocked) {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
+      //dev purpose
+      // screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
       // this.nextScreen();
     });
   }

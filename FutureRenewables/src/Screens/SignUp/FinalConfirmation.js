@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import {
   View,
   ScrollView,
@@ -20,13 +22,25 @@ import {
   routeNames,
 } from 'src/Navigation';
 
+import {
+  applicationIdSelector,
+} from 'src/Redux/Auth';
+
 import { finalConfirmation as styles } from './styles';
 
 class FinalConfirmation extends React.Component {
   handlePress() {
-    const { screenProps } = this.props;
+    const { screenProps, applicationId } = this.props;
+    const body = {
+      accountId: applicationId,
+      submittedApplication: true,
+    };
 
-    screenProps.navigateTo(routeNames.TAB_HOME);
+    screenProps.Api.post('/account', body, () => {
+      screenProps.navigateTo(routeNames.TAB_HOME);
+    }, () => {
+      screenProps.toastDanger('Error. Try Again');
+    });
   }
 
   renderLi(text) {
@@ -108,4 +122,15 @@ class FinalConfirmation extends React.Component {
   }
 }
 
-export default connect()(FinalConfirmation);
+FinalConfirmation.propTypes = {
+  applicationId: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const applicationId = applicationIdSelector(state);
+  return {
+    applicationId,
+  };
+};
+
+export default connect(mapStateToProps)(FinalConfirmation);

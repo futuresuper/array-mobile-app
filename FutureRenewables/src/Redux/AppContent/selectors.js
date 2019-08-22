@@ -1,5 +1,3 @@
-
-
 export const accountsSelector = state => state.appContent.accounts || [];
 
 export const impactStatsSelector = state => state.appContent.impactStats || [];
@@ -28,7 +26,7 @@ export const featuredSolarFarmSelector = (state) => {
     if (idItemMatch) {
       const idItem = idItemMatch[0];
 
-      return (idItem === featuredSolarFarm.id);
+      return idItem === featuredSolarFarm.id;
     }
 
     return false;

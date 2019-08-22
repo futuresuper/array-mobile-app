@@ -1,4 +1,3 @@
-
 import * as types from './actionTypes';
 
 export function tokenSave(data) {
@@ -30,6 +29,13 @@ export function authReset() {
 export function userUpdateAvatar(data) {
   return {
     type: types.USER_UPDATE_AVATAR,
+    payload: data,
+  };
+}
+
+export function applicationIdSave(data) {
+  return {
+    type: types.APPLICATION_ID_SAVE,
     payload: data,
   };
 }

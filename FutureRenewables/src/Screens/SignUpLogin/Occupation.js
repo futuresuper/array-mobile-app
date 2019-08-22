@@ -47,12 +47,19 @@ class Occupation extends Component {
     hocs.setForm(form);
   }
 
-  onNext() {
+  onNext(occupation) {
     const { screenProps, hocs } = this.props;
 
-    const formIsValid = hocs.formIsValid();
+    const formIsValid = occupation ? true : hocs.formIsValid();
     if (formIsValid) {
-      screenProps.navigateTo(routeNames.PEP);
+      const body = {
+        occupation: occupation || hocs.form.occupation.value,
+      };
+      screenProps.Api.post('/user', body, () => {
+        screenProps.navigateTo(routeNames.PEP);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 
@@ -79,7 +86,7 @@ class Occupation extends Component {
 
           <View>
             <Button
-              onPress={() => this.onNext()}
+              onPress={() => this.onNext('Not currently employed')}
               bordered
               dark
               block
@@ -89,7 +96,7 @@ class Occupation extends Component {
             </Button>
 
             <Button
-              onPress={() => this.onNext()}
+              onPress={() => this.onNext('Student')}
               bordered
               dark
               block
@@ -99,7 +106,7 @@ class Occupation extends Component {
             </Button>
 
             <Button
-              onPress={() => this.onNext()}
+              onPress={() => this.onNext('Retired')}
               bordered
               dark
               block

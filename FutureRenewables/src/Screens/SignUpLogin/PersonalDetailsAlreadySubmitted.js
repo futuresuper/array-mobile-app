@@ -26,11 +26,9 @@ import {
   userSelector,
 } from 'src/Redux/AppContent';
 
-import { personalDetailsAlreadySubmitted as styles } from './styles';
-
 class PersonalDetailsAlreadySubmitted extends Component {
   onNext() {
-    const { screenProps, user } = this.props;
+    const { screenProps } = this.props;
     screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
   }
 
@@ -46,11 +44,11 @@ class PersonalDetailsAlreadySubmitted extends Component {
 
 
             <H3 style={sg.mB20}>
-              Name: {user.fullName} 
+              Name: {user.fullName && user.fullName} 
             </H3>
 
             <H3 style={sg.mB20}>
-              Email: {user.email}
+              Email: {user.email && user.email}
             </H3>
 
             <H3 style={sg.mB20}>
