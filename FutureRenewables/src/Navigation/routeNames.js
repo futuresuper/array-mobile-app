@@ -48,6 +48,7 @@ export default {
   FINAL_CONFIRMATION: 'FinalConfirmation',
   ID_CHECK_FINISH: 'IdCheckFinish',
   ID_CHECK_DETAILS: 'IdCheckDetails',
-  ID_CHECK_ADD: 'IdCheckAdd',
   ID_CHECK_ONLINE: 'IdCheckOnline',
+  ID_CHECK: 'IdCheck',
+  POST_US_CERTIFIED_ID: 'PostUsCertifiedId',
 };

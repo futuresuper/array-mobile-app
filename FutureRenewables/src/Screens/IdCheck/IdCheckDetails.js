@@ -1,37 +1,19 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  Content,
-  Text,
-  View,
-  Button,
-} from 'native-base';
+import { Content, Text, View, Button } from 'native-base';
 import _ from 'lodash';
 
-import {
-  Input,
-} from 'src/Components/Form';
-import {
-  routeNames,
-} from 'src/Navigation';
+import { Input } from 'src/Components/Form';
+import { routeNames } from 'src/Navigation';
 
-import {
-  composeHoc,
-  hocNames,
-} from 'src/Common/Hocs';
+import { composeHoc, hocNames } from 'src/Common/Hocs';
 
 import idCheckUtils from 'src/Common/idCheck';
-import {
-  normalizeAmount,
-  formatShortDate,
-  isShortDateValid,
-} from 'src/Common/Helpers';
+import { normalizeAmount, formatShortDate, isShortDateValid } from 'src/Common/Helpers';
 
-import {
-  sg,
-} from 'src/Styles';
+import { sg } from 'src/Styles';
+import { userSelector } from 'src/Redux/AppContent';
 
 class IdCheckDetails extends Component {
   componentDidMount() {
@@ -48,81 +30,113 @@ class IdCheckDetails extends Component {
     const { hocs, screenProps } = this.props;
     const formIsValid = hocs.formIsValid();
 
-    if (!formIsValid) {
-      return;
+    if (formIsValid) {
+      const body = this.setReqBody(hocs.form);
+      screenProps.Api.post(
+        '/idcheck',
+        body,
+        res => {
+          if (res.idCheckComplete) {
+            screenProps.navigateTo(routeNames.HOME_ADDRESS);
+          } else {
+            // screenProps.navigateTo(routeNames.ID_CHECK);
+            screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
+          }
+        },
+        () => {
+          screenProps.toastDanger('Error. Try Again');
+        },
+      );
     }
+    return null;
+  }
 
-    screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
+  setReqBody(form) {
+    if (form.type.value === 'Passport') {
+      return {
+        idType: 'passport',
+        passportNumber: form.passportNumber.value,
+        passportFirstName: form.firstName.value,
+        passportMiddleNames: form.middleNames.value,
+        passportLastName: form.lastName.value,
+      };
+    } else if (form.type.value === 'DriversLicence') {
+      return {
+        idType: 'driversLicence',
+        driversLicenceState: form.state.value,
+        driversLicenceNumber: form.licenceNumber.value,
+        driversLicenceFirstName: form.firstName.value,
+        driversLicenceMiddleNames: form.middleNames.value,
+        driversLicenceLastName: form.lastName.value,
+      };
+    } else {
+      return {
+        idType: 'medicareCard',
+        medicareCardNumber: form.cardNumber.value,
+        medicareCardName: form.cardName.value,
+        medicareCardIndividualReferenceNumber: form.referenceNumber.value,
+        medicareCardExpiryDate: form.expiry.value,
+        medicareCardColour: form.colour.value,
+      };
+    }
   }
 
   getEmptyForm() {
-    const { newItemByType } = this.props;
+    const { newItemByType, user } = this.props;
 
     let res = {
       type: newItemByType,
-      name: '',
     };
-
     if (newItemByType === idCheckUtils.ID_TYPE.PASSPORT) {
       res = {
         ...res,
         passportNumber: '',
-        expiry: '',
-        country: '',
+        firstName: user.firstName || '',
+        middleNames: '',
+        lastName: user.lastName || '',
       };
     } else if (newItemByType === idCheckUtils.ID_TYPE.DRIVERS_LICENSE) {
       res = {
         ...res,
-        licenseNumber: '',
+        licenceNumber: '',
         state: '',
+        firstName: user.firstName || '',
+        middleNames: '',
+        lastName: user.lastName || '',
       };
     } else if (newItemByType === idCheckUtils.ID_TYPE.MEDICARE_CARD) {
       res = {
         ...res,
+        cardName: user.fullName || '',
         cardNumber: '',
         referenceNumber: '',
         expiry: '',
+        colour: 'Green',
       };
     }
-
     return res;
   }
 
   setForm(item) {
     const { hocs } = this.props;
-
     hocs.setFormFromObject(item).then(() => {
-      hocs.setFieldValidations('name', [
-        'required',
-      ]);
+      hocs.setFieldValidations('firstName', ['required']);
+      hocs.setFieldValidations('lastName', ['required']);
 
       if (item.type === idCheckUtils.ID_TYPE.PASSPORT) {
-        hocs.setFieldValidations('passportNumber', [
-          'required',
-        ]);
-        hocs.setFieldValidations('expiry', [
-          'required',
-          [isShortDateValid, 'Wrong date'],
-        ]);
+        hocs.setFieldValidations('passportNumber', ['required']);
+        hocs.setFieldValidations('expiry', ['required', [isShortDateValid, 'Wrong date']]);
 
         hocs.setFieldFormat('expiry', formatShortDate);
         hocs.setFieldNormalize('expiry', normalizeAmount);
 
-        hocs.setFieldValidations('country', [
-          'required',
-        ]);
+        hocs.setFieldValidations('country', ['required']);
       } else if (item.type === idCheckUtils.ID_TYPE.DRIVERS_LICENSE) {
-        hocs.setFieldValidations('licenseNumber', [
-          'required',
-        ]);
+        hocs.setFieldValidations('licenceNumber', ['required']);
 
-        hocs.setFieldValidations('state', [
-          'required',
-        ]);
+        hocs.setFieldValidations('state', ['required']);
       } else if (item.type === idCheckUtils.ID_TYPE.MEDICARE_CARD) {
-        hocs.setFieldValidations('passportNucardNumbermber', [
-          'required',
-        ]);
+        hocs.setFieldValidations('cardNumber', ['required']);
       }
     });
   }
@@ -132,7 +146,7 @@ class IdCheckDetails extends Component {
     let res = 'Update ID Details';
 
     if (newItemByType) {
-      res = `${idCheckUtils.getTypeName(newItemByType)} details`;
+      res = `${idCheckUtils.getTypeName(newItemByType)}`;
     }
 
     return res;
@@ -142,42 +156,55 @@ class IdCheckDetails extends Component {
     const { hocs, newItemByType } = this.props;
     let helper = '';
 
-    if ([
-      'type',
-      'verified',
-    ].includes(key)) {
+    if (['type', 'verified'].includes(key)) {
       return null;
     }
 
     switch (key) {
-      case 'name':
+      case 'firstName':
         if (newItemByType === idCheckUtils.ID_TYPE.PASSPORT) {
-          helper = 'Full name on passport';
+          helper = 'First name on passport';
         } else if (newItemByType === idCheckUtils.ID_TYPE.DRIVERS_LICENSE) {
-          helper = 'Full name on license';
+          helper = 'First name on license';
         } else {
-          helper = 'Full name on Medicare Card';
+          helper = 'First name on Medicare Card';
         }
-
+        break;
+      case 'lastName':
+        if (newItemByType === idCheckUtils.ID_TYPE.PASSPORT) {
+          helper = 'Last name on passport';
+        } else if (newItemByType === idCheckUtils.ID_TYPE.DRIVERS_LICENSE) {
+          helper = 'Last name on license';
+        } else {
+          helper = 'Last name on Medicare Card';
+        }
+        break;
+      case 'middleNames':
+        if (newItemByType === idCheckUtils.ID_TYPE.PASSPORT) {
+          helper = 'Middle names on passport';
+        } else if (newItemByType === idCheckUtils.ID_TYPE.DRIVERS_LICENSE) {
+          helper = 'Middle names on license';
+        } else {
+          helper = 'Middle names on Medicare Card';
+        }
         break;
       case 'passportNumber':
-        helper = 'Pasport number';
-
+        helper = 'Passport Number';
         break;
-      case 'licenseNumber':
+      case 'licenceNumber':
         helper = 'License number';
 
         break;
       case 'cardNumber':
-        helper = 'Card Number';
+        helper = 'Medicare Card Number';
 
         break;
       case 'referenceNumber':
-        helper = 'Reference number';
+        helper = 'Individual Reference Number';
 
         break;
       case 'state':
-        helper = 'State';
+        helper = 'State issued';
 
         break;
       case 'country':
@@ -185,8 +212,13 @@ class IdCheckDetails extends Component {
 
         break;
       case 'expiry':
-        helper = 'Expiry';
-
+        helper = 'Card Expiry Date';
+        break;
+      case 'colour':
+        helper = 'Card Colour';
+        break;
+      case 'cardName':
+        helper = 'Name exactly as appears on card';
         break;
       default:
         break;
@@ -246,23 +278,17 @@ class IdCheckDetails extends Component {
     );
   }
 
-
   render() {
     return (
       <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
         <View style={sg.spaceBetween}>
           <View>
-            <Text style={[sg.formHeading32]}>
-              {this.getTitle()}
-            </Text>
+            <Text style={[sg.formHeading32]}>{this.getTitle()}</Text>
 
             {this.renderForm()}
           </View>
 
-          <Button
-            block
-            onPress={() => this.onSubmit()}
-          >
+          <Button block onPress={() => this.onSubmit()}>
             <Text>Submit</Text>
           </Button>
         </View>
@@ -279,15 +305,18 @@ IdCheckDetails.defaultProps = {
 IdCheckDetails.propTypes = {
   item: PropTypes.object,
   newItemByType: PropTypes.string,
+  user: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  item: ownProps.navigation.getParam('item'),
-  newItemByType: ownProps.navigation.getParam('newItemByType'),
-});
+const mapStateToProps = (state, ownProps) => {
+  const user = userSelector(state);
+  return {
+    item: ownProps.navigation.getParam('item'),
+    newItemByType: ownProps.navigation.getParam('newItemByType'),
+    user,
+  };
+};
 
-const res = composeHoc([
-  hocNames.FORM,
-])(IdCheckDetails);
+const res = composeHoc([hocNames.FORM])(IdCheckDetails);
 
 export default connect(mapStateToProps)(res);

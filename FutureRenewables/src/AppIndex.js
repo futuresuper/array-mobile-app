@@ -176,6 +176,12 @@ class AppIndex extends Component {
     });
   }
 
+  toastSuccess(text) {
+    this.toast(text, {
+      type: 'success',
+    });
+  }
+
   render() {
     const { hydrated, navigation } = this.props;
     const { dark } = this.state;
@@ -193,6 +199,7 @@ class AppIndex extends Component {
       navState: navigation,
       toast: this.toast,
       toastDanger: this.toastDanger,
+      toastSuccess: this.toastSuccess,
       routeBack: this.routeBack,
       navigateTo: this.navigateTo,
       spinnerShow: this.spinnerShow,
@@ -246,6 +253,7 @@ class AppIndex extends Component {
               navigateTo={this.navigateTo}
               toast={this.toast}
               toastDanger={this.toastDanger}
+              toastSuccess={this.toastSuccess}
             />
 
             <AppWithNavigationState
