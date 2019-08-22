@@ -107,7 +107,7 @@ class Accounts extends React.Component {
                             {formatAmountDollarCent(account.balanceInDollars)}
                           </Text>
                         </Text>
-                      
+
                     </Col>
                     <Col style={[sg.jCCenter, sg.aIEnd]}>
                       <Icon name="ios-arrow-forward" style={sg.fS20} />
@@ -128,9 +128,6 @@ class Accounts extends React.Component {
     return (
       <Text>
         You don&apos;t have any accounts yet :(
-        {'\n'}
-        {'\n'}
-        The good news is you&apos;ll have the ability to start an account via the Array app very soon!
       </Text>
     );
   }
@@ -150,7 +147,6 @@ class Accounts extends React.Component {
             }
           </View>
 
-          {__DEV__ && (
             <KeyboardAvoidingView>
               <Button
                 onPress={() => {
@@ -162,7 +158,6 @@ class Accounts extends React.Component {
                 <Text>Start new application</Text>
               </Button>
             </KeyboardAvoidingView>
-          )}
 
         </View>
       </Content>
