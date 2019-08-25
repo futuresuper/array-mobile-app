@@ -1,14 +1,8 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Image, FlatList, TouchableOpacity } from 'react-native';
 
 import {
   Text,
@@ -30,27 +24,15 @@ import {
 
 import BottomInfo from 'src/Components/BottomInfo';
 import Balance from 'src/Components/Balance';
-import {
-  routeNames,
-} from 'src/Navigation';
+import { routeNames } from 'src/Navigation';
 import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
-import {
-  formatAmountDollarCent,
-} from 'src/Common/Helpers';
+import { formatAmountDollarCent } from 'src/Common/Helpers';
 
-import {
-  LineChart,
-} from 'src/Components/ChartKit';
-import {
-  impactStatsSelector,
-  latestSelector,
-  accountsSelector,
-} from 'src/Redux/AppContent';
+import { LineChart } from 'src/Components/ChartKit';
+import { impactStatsSelector, latestSelector, accountsSelector } from 'src/Redux/AppContent';
 
-import {
-  sg,
-} from 'src/Styles';
+import { sg } from 'src/Styles';
 
 import ArticleModal from './ArticleModal';
 import styles from './styles';
@@ -82,7 +64,6 @@ class TabHome extends Component {
   componentDidMount() {
     // const { navigation, screenProps } = this.props;
     // const { currentTime } = this.state;
-
     // screenProps.enableTheme(currentTime);
     // screenProps.setDarkTheme();
   }
@@ -117,10 +98,12 @@ class TabHome extends Component {
       <Grid>
         {impactStats.map(({ number, label }, index) => (
           <Col style={sg.aICenter} key={index.toString()}>
-            <Text style={[sg.headingS]}>
-              {number}
+            <Text style={[sg.headingS]}>{number}</Text>
+            <Text
+              style={[sg.textCenter, sg.fontBodySmall, sg.colorGray11, sg.mT10, styles.impactStats]}
+            >
+              {label}
             </Text>
-            <Text style={[sg.textCenter, sg.fontBodySmall, sg.colorGray11, sg.mT10]}>{label}</Text>
           </Col>
         ))}
       </Grid>
@@ -141,17 +124,23 @@ class TabHome extends Component {
         onPress={() => {
           this.openArticle(item);
         }}
-        style={[(actionToPage ? sg.m5 : {})]}
+        style={[actionToPage ? sg.m5 : {}]}
       >
         {image && (
           <Left style={[sg.mR10, sg.flexNull]}>
-            <Image source={{ uri: item.image }} resizeMode="cover" style={styles.contentItemSmallImage} />
+            <Image
+              source={{ uri: item.image }}
+              resizeMode="cover"
+              style={styles.contentItemSmallImage}
+            />
           </Left>
         )}
         <Body style={[sg.mL0]}>
           <Row style={[sg.aICenter]}>
             <Col>
-              <Text style={[sg.fS16, sg.fontMedium, (actionToPage ? sg.textCenter : {})]}>{item.headline}</Text>
+              <Text style={[sg.fS16, sg.fontMedium, actionToPage ? sg.textCenter : {}]}>
+                {item.headline}
+              </Text>
             </Col>
             {timeAgo && (
               <Col style={[sg.aIRight, sg.flex08]}>
@@ -178,7 +167,11 @@ class TabHome extends Component {
         }}
       >
         <Left style={[sg.mR20, sg.flexNull]}>
-          <Image source={{ uri: item.image }} resizeMode="cover" style={styles.contentItemLargeImage} />
+          <Image
+            source={{ uri: item.image }}
+            resizeMode="cover"
+            style={styles.contentItemLargeImage}
+          />
         </Left>
         <Body>
           <Grid>
@@ -207,12 +200,8 @@ class TabHome extends Component {
       cardItem = this.renderContentItemLarge(item);
     }
 
-    return (
-      <Card>
-        {cardItem}
-      </Card>
-    );
-  }
+    return <Card>{cardItem}</Card>;
+  };
 
   renderChart() {
     const { screenProps } = this.props;
@@ -221,19 +210,16 @@ class TabHome extends Component {
 
     return (
       <LineChart
-        ref={(c) => {
+        ref={c => {
           if (c) this.LineChart = c;
         }}
         data={{
           // labels: ['Mar 31', 'Apr 30', 'May 31', 'Jun 30'],
-          datasets: [{
-            data: [
-              10,
-              12,
-              14,
-              15,
-            ],
-          }],
+          datasets: [
+            {
+              data: [10, 12, 14, 15],
+            },
+          ],
         }}
         height={125}
         chartConfig={{
@@ -259,9 +245,7 @@ class TabHome extends Component {
         fillBottom
         activeDot={activeDot}
         style={{
-          // borderWidth: 1,
-          borderColor: 'red',
-          // padding: 10,
+          width: '100%',
         }}
         onLeftSwipeDot={() => {
           const prevDot = this.LineChart.getPreviousDot();
@@ -290,17 +274,14 @@ class TabHome extends Component {
 
     const accountIdActive = navigation.getParam('accountId', 'NO-ID');
 
-    return accounts.map((account) => {
+    return accounts.map(account => {
       if (account.id === accountIdActive) {
         const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
         const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
         const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
 
         return (
-          <View
-            style={[sg.aICenter, sg.mT50, sg.mB25]}
-            key={account.id}
-          >
+          <View style={[sg.aICenter, sg.mT50, sg.mB25]} key={account.id}>
             <Button
               transparent
               iconRight
@@ -331,16 +312,18 @@ class TabHome extends Component {
     const solarFarmTime = moment().format('hh:mma');
 
     return (
-      <Content bounces={false}>
-
+      <Content bounces>
         <View style={[sg.oFHidden]}>
           <View style={[sg.contentPadding2, sg.zIndex10]}>
-
             <View style={sg.mB40}>
               <Grid>
                 <Row>
                   <Col style={sg.aICenter}>
-                    <Icon type="FontAwesome5" name="map-marker" style={[sg.fS14, sg.colorPrimary]} />
+                    <Icon
+                      type="FontAwesome5"
+                      name="map-marker"
+                      style={[sg.fS14, sg.colorPrimary]}
+                    />
                     <TouchableOpacity
                       onPress={() => {
                         screenProps.navigateTo(routeNames.SOLAR_FARM);
@@ -357,7 +340,7 @@ class TabHome extends Component {
               </Grid>
             </View>
 
-            { this.renderBalance() }
+            {this.renderBalance()}
 
             <Button
               rounded
@@ -375,15 +358,12 @@ class TabHome extends Component {
             {this.renderGlow()}
             {this.renderChart()}
           </View>
-
         </View>
 
         <ViewNB style={styles.contentBl}>
           <H2 style={[sg.headingS, sg.colorGray11, sg.aSCenter]}>Impact</H2>
 
-          <View style={[sg.pT15, sg.pB30]}>
-            {this.renderImpactItem()}
-          </View>
+          <View style={[sg.pT15, sg.pB30]}>{this.renderImpactItem()}</View>
 
           <FlatList
             extraData={screenProps.theme}
@@ -391,7 +371,6 @@ class TabHome extends Component {
             keyExtractor={(item, index) => index.toString()}
             renderItem={this.renderContentItem}
           />
-
         </ViewNB>
 
         <ArticleModal
@@ -417,7 +396,7 @@ TabHome.propTypes = {
   accounts: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const impactStats = impactStatsSelector(state);
   const latest = latestSelector(state);
   const accounts = accountsSelector(state);

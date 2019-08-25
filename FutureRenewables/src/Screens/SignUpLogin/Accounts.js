@@ -27,7 +27,7 @@ class Accounts extends React.Component {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
       //dev purpose
-      // screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
+      // screenProps.navigateTo(routeNames.TAB_HOME);
       // this.nextScreen();
     });
   }
@@ -73,7 +73,6 @@ class Accounts extends React.Component {
                       <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
                         {account.nickName}
                       </Text>
-
                       {account.balanceInDollars && (
                         <Text style={[sg.mL0, sg.fS16]} color4>
                           Balance:&nbsp;
@@ -122,7 +121,6 @@ class Accounts extends React.Component {
               <Button
                 onPress={() => {
                   screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                  // screenProps.navigateTo(routeNames.TAB_HOME);
                 }}
                 block
               >

@@ -1,42 +1,20 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-  View,
-  FlatList,
-  Image,
-  ImageBackground,
-} from 'react-native';
+import { View, FlatList, Image, ImageBackground } from 'react-native';
 
-import {
-  Content,
-  Text,
-  H1,
-  Grid,
-  Col,
-  Card,
-  CardItem,
-  Body,
-} from 'native-base';
+import { Content, Text, H1, Grid, Col, Card, CardItem, Body } from 'native-base';
 
 import CloseButton from 'src/Components/CloseButton';
 import WeatherWidget from 'src/Components/WeatherWidget';
-import {
-  TabBarWrapper,
-} from 'src/Components/TabBar';
+import { TabBarWrapper } from 'src/Components/TabBar';
 
 import deviceUtils from 'src/Common/device';
 
-import {
-  featuredSolarFarmSelector,
-} from 'src/Redux/AppContent';
+import { featuredSolarFarmSelector } from 'src/Redux/AppContent';
 
-import {
-  sg,
-  sc,
-} from 'src/Styles';
+import { sg, sc } from 'src/Styles';
 
 import styles from './styles';
 
@@ -79,33 +57,38 @@ class SolarFarm extends Component {
     const photos = item.otherImages;
 
     return (
-      <Content contentContainerStyle={[sg.mT0]} bounces={false}>
-        <ImageBackground source={{ uri: imageUrl }} resizeMode="stretch" style={[{ height: (deviceUtils.screenHeight() - sc.footerHeight - 54) }]}>
-
+      <Content contentContainerStyle={[sg.mT0]} bounces>
+        <ImageBackground
+          source={{ uri: imageUrl }}
+          resizeMode="stretch"
+          style={[{ height: deviceUtils.screenHeight() - sc.footerHeight - 54 }]}
+        >
           <View style={[sg.aIEnd, sg.mT40]}>
             <CloseButton white {...this.props} />
           </View>
 
           <View style={[sg.aICenter, sg.spaceBetween]}>
             <View>
-              <WeatherWidget
-                coordinate={item.coordinate}
-                style={styles.solarFarmWeatherWidget}
-              />
+              <WeatherWidget coordinate={item.coordinate} style={styles.solarFarmWeatherWidget} />
 
               <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.name}</H1>
               <Text style={styles.solarFarmItemDescription}>{item.location}</Text>
             </View>
 
             <View style={sg.aICenter}>
-              {item.completionDate && <Text style={[styles.solarFarmFinishDate, sg.mB50]}>{`Projected finish date: ${item.completionDate}`}</Text>}
+              {item.completionDate && (
+                <Text
+                  style={[styles.solarFarmFinishDate, sg.mB50]}
+                >{`Projected finish date: ${item.completionDate}`}</Text>
+              )}
               {this.renderStats()}
             </View>
-
           </View>
         </ImageBackground>
 
-        <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>About</Text>
+        <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>
+          About
+        </Text>
         <Text style={[sg.contentMarginH, sg.mT20, sg.mB30, sg.lH26]}>{item.about}</Text>
 
         <FlatList
@@ -116,7 +99,6 @@ class SolarFarm extends Component {
           showsHorizontalScrollIndicator={false}
           style={sg.mB30}
         />
-
       </Content>
     );
   }
