@@ -1,7 +1,4 @@
-
-import {
-  sc,
-} from 'src/Styles';
+import { sc } from 'src/Styles';
 
 export default {
   textSinceJoining: {
@@ -51,10 +48,17 @@ export default {
     fontFamily: sc.font.bold,
     color: sc.color.white,
   },
+  imageUploadButtonsContainer: {
+    height: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    marginLeft: 10,
+    marginRight: 10,
+  },
 };
 
-export const manageAccounts = {
-};
+export const manageAccounts = {};
 
 export const referFriend = {
   shareButton: {

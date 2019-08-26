@@ -107,6 +107,7 @@ class AwsAmplify {
   // eslint-disable-next-line class-methods-use-this
   getRandomString(bytes) {
     let randomValues = new Uint8Array(bytes);
+    console.log('----------randomValues', randomValues);
     randomValues = randomValues.map(() => _.random(1, 999));
     return Array.from(randomValues)
       .map(this.intToHex)

@@ -89,7 +89,6 @@ class Accounts extends React.Component {
             </ListItem>
           );
         }
-
         return null;
       });
     }
