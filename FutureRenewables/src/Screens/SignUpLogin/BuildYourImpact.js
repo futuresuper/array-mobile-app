@@ -1,29 +1,16 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  View,
-  Image,
-  FlatList,
-} from 'react-native';
+import { View, Image, FlatList } from 'react-native';
 
-import {
-  Content,
-  Text,
-  Button,
-} from 'native-base';
+import { Content, Text, Button } from 'native-base';
 
-import {
-  routeNames,
-} from 'src/Navigation';
+import { routeNames } from 'src/Navigation';
 
 import SafeAreaView from 'src/Components/SafeAreaView';
 import BackButton from 'src/Components/BackButton';
 
-import {
-  sg,
-} from 'src/Styles';
+import { sg } from 'src/Styles';
 
 import Brigalow from 'src/assets/images/farms/Brigalow.png';
 import Chinchilla from 'src/assets/images/farms/Chinchilla.png';
@@ -40,16 +27,9 @@ class BuildYourImpact extends Component {
     return (
       <FlatList
         keyExtractor={(item, index) => index.toString()}
-        data={[
-          Brigalow,
-          Chinchilla,
-          SwanHill,
-          //SwanHill2,
-        ]}
+        data={[Brigalow, Chinchilla, SwanHill, SwanHill2]}
         renderItem={({ item }) => (
-          <View
-            style={[sg.farmImageShadow, sg.mR15]}
-          >
+          <View style={[sg.farmImageShadow, sg.mR15]}>
             <Image source={item} style={[sg.farmImage, { height: 240 * 0.8, width: 316 * 0.8 }]} />
           </View>
         )}
@@ -65,20 +45,12 @@ class BuildYourImpact extends Component {
 
     return (
       <Content contentContainerStyle={[sg.flexGrow]} bounces={false}>
-        <Image
-          source={buildYourImpact}
-          style={[sg.postitionAbsolute, sg.aSCenter]}
-        />
+        <Image source={buildYourImpact} style={[sg.postitionAbsolute, sg.aSCenter]} />
 
         <SafeAreaView forceInset={{ bottom: 'never' }}>
-          <BackButton
-            signup
-            header={false}
-            {...this.props}
-          />
+          <BackButton signup header={false} {...this.props} />
 
           <View style={[sg.spaceBetween, sg.contentPaddingH]}>
-
             <View>
               <Text style={[styles.header, sg.mB10, sg.mT60]}>
                 Build your
@@ -87,8 +59,7 @@ class BuildYourImpact extends Component {
               </Text>
 
               <Text style={sg.textCenter}>
-                Put your savings to work building &
-                {'\n'}
+                Put your savings to work building &{'\n'}
                 supporting real solar farms, like these
               </Text>
             </View>
@@ -105,7 +76,6 @@ class BuildYourImpact extends Component {
               <Text>Next</Text>
             </Button>
           </View>
-
         </SafeAreaView>
       </Content>
     );

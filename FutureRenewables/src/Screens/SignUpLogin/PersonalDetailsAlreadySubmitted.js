@@ -41,8 +41,6 @@ class PersonalDetailsAlreadySubmitted extends Component {
             <Text style={[sg.formHeading, sg.mB30]}>
             Personal details already submitted
             </Text>
-
-
             <H3 style={sg.mB20}>
               Name: {user.fullName && user.fullName} 
             </H3>

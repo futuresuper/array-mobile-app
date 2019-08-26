@@ -41,14 +41,14 @@ class IdCheckFinish extends Component {
         {
           type: idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
           name: 'Olivia King',
-          licenseNumber: '123123123',
+          licenceNumber: '123123123',
           state: 'NSW',
           verified: true,
         },
         {
           type: idCheckUtils.ID_TYPE.PASSPORT,
           name: 'Olivia King',
-          licenseNumber: '123123123',
+          licenceNumber: '123123123',
           state: 'NSW',
           verified: false,
         },
@@ -75,7 +75,7 @@ class IdCheckFinish extends Component {
             <Text style={[sg.colorDark3]}>{item.name}</Text>
             <Text style={[sg.colorDark3, sg.mV5]}>
               No.
-              {item.licenseNumber}
+              {item.licenceNumber}
             </Text>
             <Text style={[sg.colorDark3]}>
               State:
@@ -153,11 +153,10 @@ class IdCheckFinish extends Component {
             iconRight
             style={sg.mT10}
             onPress={() => {
-              screenProps.navigateTo(routeNames.ID_CHECK_ADD);
+              screenProps.navigateTo(routeNames.POST_US_CERTIFIED_ID);
             }}
           >
-            <Text>Add other ID</Text>
-            <Icon name="add" />
+            <Text>Post us certified ID</Text>
           </Button>
         </View>
       </Content>

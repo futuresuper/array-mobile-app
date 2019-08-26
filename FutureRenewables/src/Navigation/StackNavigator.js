@@ -1,26 +1,12 @@
-
-import {
-  createStackNavigator,
-  createBottomTabNavigator,
-} from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import Splash from 'src/Screens/Splash';
 
 import {
-  signRoutes,
-  signDataRoutes,
-  mainRoutes,
-  tabBarModalRootRoutes,
-  tabRoutes,
-  tabBarModalRoutes,
-  tabCardRoutes,
-  tmpRoutes,
+  signRoutes, signDataRoutes, mainRoutes, tabBarModalRootRoutes, tabRoutes, tabBarModalRoutes, tabCardRoutes, tmpRoutes,
 } from './routes';
 
-import {
-  tabBarOptions,
-  tabModalOptions,
-} from './navigationOptions';
+import { tabBarOptions, tabModalOptions } from './navigationOptions';
 
 import routeNames from './routeNames';
 
@@ -35,38 +21,23 @@ export const SplashStack = createStackNavigator(
   },
 );
 
-export const MainStack = createStackNavigator(
-  mainRoutes,
-  {
-    headerMode: 'float',
-  },
-);
+export const MainStack = createStackNavigator(mainRoutes, {
+  headerMode: 'float',
+});
 
-export const SignStack = createStackNavigator(
-  signRoutes,
-  {
-    headerMode: 'screen',
-  },
-);
+export const SignStack = createStackNavigator(signRoutes, {
+  headerMode: 'screen',
+});
 
-export const SignDataStack = createStackNavigator(
-  signDataRoutes,
-  {
-    headerMode: 'screen',
-  },
-);
+export const SignDataStack = createStackNavigator(signDataRoutes, {
+  headerMode: 'screen',
+});
 
-export const TmpStack = createStackNavigator(
-  tmpRoutes,
-  {
-    headerMode: 'none',
-  },
-);
+export const TmpStack = createStackNavigator(tmpRoutes, {
+  headerMode: 'none',
+});
 
-const TabBar = createBottomTabNavigator(
-  tabRoutes,
-  tabBarOptions,
-);
+const TabBar = createBottomTabNavigator(tabRoutes, tabBarOptions);
 
 const TabBarModalRootRoutes = () => {
   const tabBarModalRoutesKeys = Object.keys(tabBarModalRootRoutes);
@@ -75,11 +46,9 @@ const TabBarModalRootRoutes = () => {
     const modalRoutesConfigValue = tabBarModalRootRoutes[modalRouteKey];
     const modalRoute = tabModalOptions(modalRoutesConfigValue);
 
-    const stack = createStackNavigator(
-      {
-        [modalRouteKey]: modalRoute,
-      },
-    );
+    const stack = createStackNavigator({
+      [modalRouteKey]: modalRoute,
+    });
 
     allModalRoutes[modalRouteKey] = stack;
   });
@@ -87,15 +56,12 @@ const TabBarModalRootRoutes = () => {
   return allModalRoutes;
 };
 
-const TabBarModal = createBottomTabNavigator(
-  tabBarModalRoutes,
-  {
-    mode: 'modal',
-    headerMode: 'none',
-    ...tabBarOptions,
-    ...tabModalOptions(),
-  },
-);
+const TabBarModal = createBottomTabNavigator(tabBarModalRoutes, {
+  mode: 'modal',
+  headerMode: 'none',
+  ...tabBarOptions,
+  ...tabModalOptions(),
+});
 
 const TabWithModal = createStackNavigator(
   {
@@ -112,12 +78,9 @@ const TabWithModal = createStackNavigator(
   },
 );
 
-const TabCardsWithFooter = createStackNavigator(
-  tabCardRoutes,
-  {
-    mode: 'card',
-  },
-);
+const TabCardsWithFooter = createStackNavigator(tabCardRoutes, {
+  mode: 'card',
+});
 
 const TabCards = createBottomTabNavigator(
   {

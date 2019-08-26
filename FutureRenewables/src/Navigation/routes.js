@@ -129,6 +129,17 @@ const signDataRoutes = formatRoutes({
   [routeNames.ARTIST_NAME]: {
     screen: screens.ArtistName,
   },
+  [routeNames.ID_CHECK]: {
+    screen: screens.IdCheck,
+  },
+  [routeNames.ID_CHECK_DETAILS]: {
+    screen: screens.IdCheckDetails,
+    params: {},
+    ...tabCardOptions,
+  },
+  [routeNames.POST_US_CERTIFIED_ID]: {
+    screen: screens.PostUsCertifiedId,
+  },
 });
 
 const mainRoutes = formatRoutes({
@@ -335,16 +346,6 @@ const tabCardRoutes = {
     params: {
       routeReset: true,
     },
-    ...tabCardOptions,
-  },
-  [routeNames.ID_CHECK_DETAILS]: {
-    screen: screens.IdCheckDetails,
-    params: {},
-    ...tabCardOptions,
-  },
-  [routeNames.ID_CHECK_ADD]: {
-    screen: screens.IdCheckAdd,
-    params: {},
     ...tabCardOptions,
   },
 };

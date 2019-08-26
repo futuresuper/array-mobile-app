@@ -1,8 +1,4 @@
-
-import {
-  sc,
-  sg
-} from 'src/Styles';
+import { sc, sg } from 'src/Styles';
 
 export default {
   plusButton: {
@@ -36,17 +32,19 @@ export default {
   contentItemSmallImage: {
     height: 45,
     width: 45,
+    borderRadius: 5,
   },
   contentItemLargeImage: {
     height: 125,
     width: 125,
+    borderRadius: 10,
   },
   containerBg: {
     backgroundColor: sc.color.containerBgColor,
   },
   graphBl: {
     height: 130,
-    width: 350,
+    width: '100%',
     alignSelf: 'center',
     justifyContent: 'flex-end',
   },
@@ -76,11 +74,12 @@ export default {
     alignSelf: 'center',
     position: 'absolute',
     bottom: -75,
-    width: 381,
+    // width: 381,
+    width: '100%',
     height: 290,
   },
-  impact: {
-  },
+  impact: {},
+  impactStats: { width: 65 },
   mainAmount: {
     fontSize: 50,
     fontFamily: sc.font.bold,
@@ -89,6 +88,8 @@ export default {
   mainAmountCent: {
     color: sc.color.gray12,
     fontSize: 24,
+    marginTop: -3,
+    paddingTop: -3,
     fontFamily: sc.font.bold,
   },
   title: {
@@ -106,5 +107,13 @@ export const article = {
   image: {
     width: '100%',
     height: 180,
+  },
+  paragraphStyles: {
+    textAlign: 'justify',
+    lineHeight: 25,
+  },
+  header: {
+    height: 33,
+    paddingTop: 2,
   },
 };
