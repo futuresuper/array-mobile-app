@@ -39,6 +39,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera used so that users can update their profile picture</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app requires access to your location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -95,7 +97,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>Camera used so that users can update their profile picture</string>
 </dict>
 </plist>

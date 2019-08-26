@@ -1,13 +1,8 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-  View,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import { View, FlatList, TouchableOpacity } from 'react-native';
 
 import {
   Button,
@@ -25,26 +20,20 @@ import {
 } from 'native-base';
 
 import Intercom from 'react-native-intercom';
+import ImagePicker from 'react-native-image-picker';
 
-import {
-  routeNames,
-} from 'src/Navigation';
+import { routeNames } from 'src/Navigation';
 
 import moment from 'src/Common/moment';
 
-import {
-  userSelector,
-} from 'src/Redux/AppContent';
+import { userSelector } from 'src/Redux/AppContent';
 
-import {
-  userUpdateAvatar,
-} from 'src/Redux/Auth';
+import { userUpdateAvatar } from 'src/Redux/Auth';
 
 import Camera from 'src/Components/Camera';
+import ImageUploadModal from './ImageUploadModal';
 
-import {
-  sg,
-} from 'src/Styles';
+import { sg } from 'src/Styles';
 
 import styles from './styles';
 
@@ -54,6 +43,8 @@ class TabProfile extends Component {
 
     this.state = {
       cameraVisible: false,
+      filePath: {},
+      imageUploadModalIsVisible: false,
       listMenu: [
         // {
         //   name: 'Personal details',
@@ -109,31 +100,71 @@ class TabProfile extends Component {
     }
   }
 
-  onTakePhoto = (data) => {
+  onTakePhoto = data => {
     const { userUpdateAvatarConnect } = this.props;
     const { uri } = data;
-
+    console.log('----------data from camera', data);
     userUpdateAvatarConnect(uri);
     this.toggleCamera();
-  }
+    this.toggleImageUploadModal();
+  };
 
-  navigateTo = (screen) => {
+  navigateTo = screen => {
     const { screenProps } = this.props;
     screenProps.navigateTo(screen);
-  }
+  };
 
   logOut = () => {
     const { screenProps } = this.props;
 
     screenProps.disableTheme();
     screenProps.Api.logOut();
-  }
+  };
 
   toggleCamera = () => {
     this.setState(prev => ({
+      imageUploadModalIsVisible: !prev.imageUploadModalIsVisible,
       cameraVisible: !prev.cameraVisible,
     }));
-  }
+  };
+
+  toggleImageUploadModal = () => {
+    this.setState(prev => ({
+      imageUploadModalIsVisible: !prev.imageUploadModalIsVisible,
+    }));
+  };
+
+  chooseFile = () => {
+    const { userUpdateAvatarConnect } = this.props;
+    const options = {
+      title: 'Select Image',
+      customButtons: [],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.launchImageLibrary(options, response => {
+      // console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        alert('Please try one more time!');
+      } else {
+        const source = response.uri;
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+        this.setState({
+          filePath: source,
+          imageUploadModalIsVisible: false,
+        });
+        console.log('----------data from library', source);
+
+        userUpdateAvatarConnect(source);
+      }
+    });
+  };
 
   displayIntercom(props) {
     const { user, screenProps } = props;
@@ -141,7 +172,7 @@ class TabProfile extends Component {
     if (user.email) {
       Intercom.displayMessageComposer();
     } else {
-      screenProps.toast('You don\'t have email to talk to us');
+      screenProps.toast("You don't have email to talk to us");
     }
   }
 
@@ -163,11 +194,7 @@ class TabProfile extends Component {
     }
 
     const res = (
-      <TouchableOpacity
-        onPress={this.toggleCamera}
-      >
-        {childEl}
-      </TouchableOpacity>
+      <TouchableOpacity onPress={this.toggleImageUploadModal}>{childEl}</TouchableOpacity>
     );
 
     return res;
@@ -175,33 +202,33 @@ class TabProfile extends Component {
 
   render() {
     const { user, screenProps } = this.props;
-    const { listMenu, cameraVisible } = this.state;
+    const { listMenu, cameraVisible, imageUploadModalIsVisible } = this.state;
 
     if (!user.dateJoined) {
       user.dateJoined = '2019-03-15';
     }
-    const memberSince = `${moment(user.dateJoined).format('MMMM')}'s ${user.dateJoined.split('-')[0].substring(2)}`;
+    const memberSince = `${moment(user.dateJoined).format('MMMM')}'s ${user.dateJoined
+      .split('-')[0]
+      .substring(2)}`;
 
     return (
       <Content contentContainerStyle={[sg.pB30]}>
-
         <Grid style={[sg.mT20]}>
           <Col style={sg.aICenter}>
             {this.renderAvatar()}
 
             <View style={[sg.row, sg.mT25, sg.mB15]}>
-              {user.fullName
-                ? <H2 color2>{user.fullName}</H2>
-                : (
-                  <View>
-                    <H2 color2>
-                      {user.firstName || ''}
-                      &nbsp;
-                    </H2>
-                    <H2 color2>{user.lastName || ''}</H2>
-                  </View>
-                )
-              }
+              {user.fullName ? (
+                <H2 color2>{user.fullName}</H2>
+              ) : (
+                <View>
+                  <H2 color2>
+                    {user.firstName || ''}
+                    &nbsp;
+                  </H2>
+                  <H2 color2>{user.lastName || ''}</H2>
+                </View>
+              )}
             </View>
 
             {/*
@@ -209,7 +236,6 @@ class TabProfile extends Component {
             */}
           </Col>
         </Grid>
-
 
         <View>
           <List style={sg.contentMarginLeft}>
@@ -241,14 +267,7 @@ class TabProfile extends Component {
             />
           </List>
 
-          <Button
-            bordered
-            transparent
-            dark3
-            style={styles.logOut}
-            onPress={this.logOut}
-            block
-          >
+          <Button bordered transparent dark3 style={styles.logOut} onPress={this.logOut} block>
             <Text>Log out</Text>
           </Button>
         </View>
@@ -256,6 +275,16 @@ class TabProfile extends Component {
           visible={cameraVisible}
           onRequestClose={this.toggleCamera}
           onTakePhoto={this.onTakePhoto}
+        />
+        <ImageUploadModal
+          visible={imageUploadModalIsVisible}
+          toggleCamera={this.toggleCamera}
+          toggleLibrary={this.chooseFile}
+          onRequestClose={() => {
+            this.setState({
+              imageUploadModalIsVisible: false,
+            });
+          }}
         />
       </Content>
     );
@@ -267,7 +296,7 @@ TabProfile.propTypes = {
   userUpdateAvatarConnect: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const user = userSelector(state);
 
   return {
@@ -280,4 +309,7 @@ const mapDispatchToProps = {
   userUpdateAvatarConnect: userUpdateAvatar,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TabProfile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TabProfile);

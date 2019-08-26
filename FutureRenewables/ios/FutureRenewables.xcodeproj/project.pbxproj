@@ -81,6 +81,7 @@
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		F08D4451595B4696AB28C5F4 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACD3896B58244EABEBFB865 /* libRNCamera.a */; };
 		F306373992DF42A0813EF73A /* BwGradual-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = E8B811D484D54606AB734746 /* BwGradual-Black.otf */; };
+		F708FD54D9F24A3EACEA0944 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A78083E7DE9E4171862DEE22 /* libRNImagePicker.a */; };
 		F8119510486B4E648B8EF5CF /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 064A6913A7F14514A1C1E88F /* MaterialIcons.ttf */; };
 		FA3EEDD822BB38730073FD8B /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3EEDAA22BB38200073FD8B /* libART.a */; };
 		FA52827D22E15E7000A6FFB1 /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA52824A22E15E7000A6FFB1 /* Intercom.framework */; };
@@ -327,6 +328,34 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		86712EDB2312CB87001C61CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86712ECD2312CAC1001C61CD /* RCTCameraRoll.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
+			remoteInfo = RCTCameraRoll;
+		};
+		86712F0E2312CB8D001C61CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86712F0A2312CB8D001C61CD /* RCTCameraRoll.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
+			remoteInfo = RCTCameraRoll;
+		};
+		86B443C72312921A004D2580 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4DF8E44A03346A19619056A /* RNImagePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
+			remoteInfo = RNImagePicker;
+		};
+		86E7DC512313DD7E007988D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86E7DC422313DD7E007988D4 /* RCTCameraRoll.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
+			remoteInfo = RCTCameraRoll;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -556,9 +585,13 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		850A8B4B1ABB4E5D88A27724 /* WeatherIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = WeatherIcons.ttf; path = ../src/assets/fonts/WeatherIcons.ttf; sourceTree = "<group>"; };
+		86712ECD2312CAC1001C61CD /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
+		86712F0A2312CB8D001C61CD /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
+		86E7DC422313DD7E007988D4 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		8BC98D6426604AD2A2B4ED2F /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../src/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		92C69F27B19E4A7CA426D667 /* BwGradual-BoldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BwGradual-BoldItalic.otf"; path = "../src/assets/fonts/BwGradual-BoldItalic.otf"; sourceTree = "<group>"; };
 		97F9CC107FD64F8B816C0C87 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
+		A78083E7DE9E4171862DEE22 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		A8224CC6E1E84F1DB2CE232F /* BwGradual-ThinItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BwGradual-ThinItalic.otf"; path = "../src/assets/fonts/BwGradual-ThinItalic.otf"; sourceTree = "<group>"; };
 		AB0DD933368146C48800EF38 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		AB98EADCCF8B476AA03368D0 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
@@ -588,6 +621,7 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F0A0C8C5857C40E483235DBD /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BlackItalic.ttf"; path = "../src/assets/fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		F27EE44E7452418B8E97E47C /* libRNAWSCognito.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAWSCognito.a; sourceTree = "<group>"; };
+		F4DF8E44A03346A19619056A /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		F515B035A8E2407CB05DFCE4 /* RNCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
 		FA3EEDA322BB38200073FD8B /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		FA52824A22E15E7000A6FFB1 /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intercom.framework; path = opensource/intercom/Intercom.framework; sourceTree = "<group>"; };
@@ -631,6 +665,7 @@
 				394A166FB3684E40B2813F50 /* libRNIntercom.a in Frameworks */,
 				F08D4451595B4696AB28C5F4 /* libRNCamera.a in Frameworks */,
 				710BB0FA84C04116913251BE /* libRCTOrientation.a in Frameworks */,
+				F708FD54D9F24A3EACEA0944 /* libRNImagePicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,6 +816,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				86E7DC422313DD7E007988D4 /* RCTCameraRoll.xcodeproj */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
@@ -859,6 +895,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				86712ECD2312CAC1001C61CD /* RCTCameraRoll.xcodeproj */,
+				86712F0A2312CB8D001C61CD /* RCTCameraRoll.xcodeproj */,
 				FAE30C7022D48223004098FC /* RNSVG.xcodeproj */,
 				FA3EEDA322BB38200073FD8B /* ART.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -882,6 +920,7 @@
 				CE6898BDAD204275A6CAA26D /* RNIntercom.xcodeproj */,
 				F515B035A8E2407CB05DFCE4 /* RNCamera.xcodeproj */,
 				0ACE004A5A504023A439911B /* RCTOrientation.xcodeproj */,
+				F4DF8E44A03346A19619056A /* RNImagePicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -923,6 +962,38 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		86712ECE2312CAC1001C61CD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				86712EDC2312CB87001C61CD /* libRCTCameraRoll.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		86712F0B2312CB8D001C61CD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				86712F0F2312CB8D001C61CD /* libRCTCameraRoll.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		86B443C42312921A004D2580 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				86B443C82312921A004D2580 /* libRNImagePicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		86E7DC432313DD7E007988D4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				86E7DC522313DD7E007988D4 /* libRCTCameraRoll.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -955,6 +1026,7 @@
 				3ACD3896B58244EABEBFB865 /* libRNCamera.a */,
 				C04C275971BD479BABF21B66 /* libRCTOrientation.a */,
 				3B1330085D3B402EAF2AAECA /* libRCTOrientation-tvOS.a */,
+				A78083E7DE9E4171862DEE22 /* libRNImagePicker.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1135,8 +1207,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 377T2R9H7X;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 9T6L5PZY4F;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1185,6 +1257,18 @@
 				{
 					ProductGroup = ADBDB9201DFEBF0600ED6528 /* Products */;
 					ProjectRef = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = 86712ECE2312CAC1001C61CD /* Products */;
+					ProjectRef = 86712ECD2312CAC1001C61CD /* RCTCameraRoll.xcodeproj */;
+				},
+				{
+					ProductGroup = 86E7DC432313DD7E007988D4 /* Products */;
+					ProjectRef = 86E7DC422313DD7E007988D4 /* RCTCameraRoll.xcodeproj */;
+				},
+				{
+					ProductGroup = 86712F0B2312CB8D001C61CD /* Products */;
+					ProjectRef = 86712F0A2312CB8D001C61CD /* RCTCameraRoll.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -1241,6 +1325,10 @@
 				{
 					ProductGroup = FA1DB68622816D43001B3AEE /* Products */;
 					ProjectRef = 17536D052D9A4A5680947351 /* RNGestureHandler.xcodeproj */;
+				},
+				{
+					ProductGroup = 86B443C42312921A004D2580 /* Products */;
+					ProjectRef = F4DF8E44A03346A19619056A /* RNImagePicker.xcodeproj */;
 				},
 				{
 					ProductGroup = FA60B9D722E163700064C9B7 /* Products */;
@@ -1488,6 +1576,34 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		86712EDC2312CB87001C61CD /* libRCTCameraRoll.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCameraRoll.a;
+			remoteRef = 86712EDB2312CB87001C61CD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		86712F0F2312CB8D001C61CD /* libRCTCameraRoll.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCameraRoll.a;
+			remoteRef = 86712F0E2312CB8D001C61CD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		86B443C82312921A004D2580 /* libRNImagePicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNImagePicker.a;
+			remoteRef = 86B443C72312921A004D2580 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		86E7DC522313DD7E007988D4 /* libRCTCameraRoll.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCameraRoll.a;
+			remoteRef = 86E7DC512313DD7E007988D4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
@@ -1843,12 +1959,14 @@
 					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-orientation-locker/iOS/RCTOrientation",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = FutureRenewablesTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1887,12 +2005,14 @@
 					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-orientation-locker/iOS/RCTOrientation",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = FutureRenewablesTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1919,11 +2039,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 377T2R9H7X;
+				DEVELOPMENT_TEAM = 9T6L5PZY4F;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/opensource/intercom",
@@ -1939,6 +2059,7 @@
 					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-orientation-locker/iOS/RCTOrientation",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = FutureRenewables/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1949,7 +2070,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.FutureRenewablesTest;
 				PRODUCT_NAME = FutureRenewables;
-				PROVISIONING_PROFILE_SPECIFIER = FutureSuperTest;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1958,10 +2079,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 377T2R9H7X;
+				DEVELOPMENT_TEAM = 9T6L5PZY4F;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/opensource/intercom",
@@ -1977,6 +2098,7 @@
 					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-orientation-locker/iOS/RCTOrientation",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = FutureRenewables/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1987,7 +2109,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.FutureRenewablesTest;
 				PRODUCT_NAME = FutureRenewables;
-				PROVISIONING_PROFILE_SPECIFIER = FutureSuperTest;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -2015,11 +2137,13 @@
 					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-orientation-locker/iOS/RCTOrientation",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = "FutureRenewables-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2067,11 +2191,13 @@
 					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-orientation-locker/iOS/RCTOrientation",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = "FutureRenewables-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2118,11 +2244,13 @@
 					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-orientation-locker/iOS/RCTOrientation",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = "FutureRenewables-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2169,11 +2297,13 @@
 					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-orientation-locker/iOS/RCTOrientation",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = "FutureRenewables-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

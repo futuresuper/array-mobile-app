@@ -3,6 +3,7 @@ package com.futurerenewables;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import org.wonday.orientation.OrientationPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.robinpowered.react.Intercom.IntercomPackage;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
             new OrientationPackage(),
             new RNCameraPackage(),
             new IntercomPackage(),
