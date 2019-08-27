@@ -1,7 +1,4 @@
-
-import {
-  sc,
-} from 'src/Styles';
+import { sc } from 'src/Styles';
 
 export default {
   activityTabTitleBl: {
@@ -10,6 +7,7 @@ export default {
   },
   activityTabTitleBlActive: {
     borderBottomWidth: 2,
+    borderRadius: 0,
   },
   activityTabTitleText: {
     color: sc.color.gray12,
@@ -100,6 +98,10 @@ export default {
   investListItem: {
     paddingLeft: 10,
     paddingRigth: 20,
+  },
+  investGraph: {
+    height: 168,
+    width: 168,
   },
 };
 

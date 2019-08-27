@@ -1,32 +1,15 @@
-
 import React, { Component } from 'react';
-import {
-  Button,
-  View,
-  Text,
-  Icon,
-  H1,
-  Grid,
-  Row,
-  Col,
-} from 'native-base';
+import { Button, View, Text, Icon, H1, Grid, Row, Col } from 'native-base';
 
 import _ from 'lodash';
 
-import {
-  routeNames,
-} from 'src/Navigation';
+import { routeNames } from 'src/Navigation';
 
 import TextQuestion from 'src/Components/TextQuestion';
-import {
-  BottomInfo,
-  StatusInfo,
-} from 'src/Components/BottomInfo';
+import { BottomInfo, StatusInfo } from 'src/Components/BottomInfo';
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 
-import {
-  sg,
-} from 'src/Styles';
+import { sg } from 'src/Styles';
 
 import styles from './styles';
 
@@ -68,7 +51,7 @@ class Perfomance extends Component {
       plusMinusValue: amountValue,
       confirmDepositAmount: amountValue,
     });
-  }
+  };
 
   btnMinus = () => {
     const { plusMinusValue } = this.state;
@@ -78,13 +61,13 @@ class Perfomance extends Component {
       plusMinusValue: amountValue,
       confirmDepositAmount: amountValue,
     });
-  }
+  };
 
   confirmDeposit = () => {
     this.setState({
       confirmDepositAmount: 0,
     });
-  }
+  };
 
   renderActivityItem(item = {}, index = -1) {
     const { screenProps } = this.props;
@@ -103,7 +86,14 @@ class Perfomance extends Component {
     const styleText = isHeader ? sg.colorGray11 : {};
 
     return (
-      <Row key={index.toString()} style={[styles.activityRow, (isHeader ? styles.activityRowHeader : {}), sg.borderColor(theme.borderColorList)]}>
+      <Row
+        key={index.toString()}
+        style={[
+          styles.activityRow,
+          isHeader ? styles.activityRowHeader : {},
+          sg.borderColor(theme.borderColorList),
+        ]}
+      >
         <Col style={[styles.activityCol]}>
           <Text style={[styles.activityColText, styleText]}>{item.type || 'Type'}</Text>
         </Col>
@@ -111,10 +101,11 @@ class Perfomance extends Component {
           <Text style={[styles.activityColText, styleText]}>{item.date || 'Date'}</Text>
         </Col>
         <Col style={[styles.activityCol]}>
-          {(status)
-            ? <Text style={[styles.activityColText, sg.colorGray11, styleText]}>{status}</Text>
-            : <BadgeCheckmark inverted />
-          }
+          {status ? (
+            <Text style={[styles.activityColText, sg.colorGray11, styleText]}>{status}</Text>
+          ) : (
+            <BadgeCheckmark inverted />
+          )}
         </Col>
         <Col style={[styles.activityCol, sg.right]}>
           <Text style={[styles.activityColText, styleText]}>{item.amount || 'Amount'}</Text>
@@ -157,41 +148,33 @@ class Perfomance extends Component {
           </Col>
         </Grid>
 
-        {/*
         <View style={[sg.mT45]}>
-          <H1 style={[sg.fS24, sg.textCenter]} color2>Monthly Deposit</H1>
+          <H1 style={[sg.fS24, sg.textCenter]} color2>
+            Monthly Deposit
+          </H1>
         </View>
 
         <Grid style={[sg.center, sg.contentMarginH]}>
           <Col style={[styles.plusMinusBl]}>
-            <Button
-              dark5
-              disabled={!(plusMinusValue > 0)}
-              onPress={this.btnMinus}
-            >
+            <Button dark5 disabled={!(plusMinusValue > 0)} onPress={this.btnMinus}>
               <Icon name="remove" />
             </Button>
 
             <View style={[sg.row]}>
               <Text style={styles.plusMinusValue}>$</Text>
-              <Text style={styles.plusMinusValue} color2>{plusMinusValue}</Text>
+              <Text style={styles.plusMinusValue} color2>
+                {plusMinusValue}
+              </Text>
             </View>
 
-            <Button
-              dark5
-              onPress={this.btnPlus}
-            >
+            <Button dark5 onPress={this.btnPlus}>
               <Icon name="add" />
             </Button>
           </Col>
         </Grid>
 
         {confirmDepositAmount > 0 && (
-          <Button
-            style={[sg.contentMarginH, sg.mT5, sg.mB25]}
-            block
-            onPress={this.confirmDeposit}
-          >
+          <Button style={[sg.contentMarginH, sg.mT5, sg.mB25]} block onPress={this.confirmDeposit}>
             <Text>{`Confirm $${confirmDepositAmount} monthly deposit`}</Text>
           </Button>
         )}
@@ -201,8 +184,6 @@ class Perfomance extends Component {
           <Text style={styles.nextCollection}>Next collection: 20 April</Text>
         </View>
 
-
-
         <View style={[sg.contentMarginH2, sg.mT50]}>
           <H1 style={[sg.fS24, sg.textCenter, sg.mB30]}>Activity</H1>
           <Grid>
@@ -210,7 +191,6 @@ class Perfomance extends Component {
             {activity.map((item, index) => this.renderActivityItem(item, index))}
           </Grid>
         </View>
-        */}
       </View>
     );
   }

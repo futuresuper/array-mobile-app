@@ -1,21 +1,11 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  View,
-  Image,
-} from 'react-native';
+import { View, Image } from 'react-native';
 
-import {
-  Button,
-  Text,
-  Content,
-} from 'native-base';
+import { Button, Text, Content } from 'native-base';
 
-import {
-  accountsSelector
-} from 'src/Redux/AppContent';
+import { accountsSelector } from 'src/Redux/AppContent';
 
 import Br from 'src/Components/Br';
 import BottomInfo from 'src/Components/BottomInfo';
@@ -25,9 +15,7 @@ import SunGlow from 'src/Components/SunGlow';
 
 import GraphExample2 from 'src/assets/images/GraphExample2.png';
 
-import {
-  sg,
-} from 'src/Styles';
+import { sg } from 'src/Styles';
 import styles from './styles';
 
 import Perfomance from './Perfomance';
@@ -53,7 +41,7 @@ class TabActivity extends Component {
         isInvestment: false,
       },
     });
-  }
+  };
 
   setInvestmentSegment = () => {
     this.setState({
@@ -62,7 +50,7 @@ class TabActivity extends Component {
         isInvestment: true,
       },
     });
-  }
+  };
 
   renderGlow() {
     const { currentTime } = this.state;
@@ -73,14 +61,17 @@ class TabActivity extends Component {
   renderChart() {
     return (
       <View style={[sg.contentMarginH2]}>
-
         <View style={[styles.activityChartBl, sg.aICenter]}>
           <Image source={GraphExample2} style={styles.activityGraphExample} />
           {this.renderGlow()}
         </View>
         <View style={[sg.row, sg.spaceBetween]}>
-          <Text style={[sg.fS14, sg.fontMedium]} color3>Mar</Text>
-          <Text style={[sg.fS14, sg.fontMedium]} color3>Jun</Text>
+          <Text style={[sg.fS14, sg.fontMedium]} color3>
+            Mar
+          </Text>
+          <Text style={[sg.fS14, sg.fontMedium]} color3>
+            Jun
+          </Text>
         </View>
       </View>
     );
@@ -140,7 +131,6 @@ class TabActivity extends Component {
 
     return (
       <Content>
-        
         {/*
         <Balance
           onPress={() => {
@@ -158,27 +148,47 @@ class TabActivity extends Component {
             <Button
               transparent
               onPress={this.setPerfomanceSegment}
-              style={[styles.activityTabTitleBl, (segment.isPerfomance ? styles.activityTabTitleBlActive : {}), sg.mR70]}
+              style={[
+                styles.activityTabTitleBl,
+                segment.isPerfomance ? styles.activityTabTitleBlActive : {},
+                sg.mR70,
+              ]}
             >
-              <Text style={[styles.activityTabTitleTextActive, (!segment.isPerfomance ? styles.activityTabTitleText : {})]}>Perfomance</Text>
+              <Text
+                style={[
+                  styles.activityTabTitleTextActive,
+                  !segment.isPerfomance ? styles.activityTabTitleText : {},
+                ]}
+              >
+                Perfomance
+              </Text>
             </Button>
 
             <Button
               transparent
               onPress={this.setInvestmentSegment}
-              style={[styles.activityTabTitleBl, (segment.isInvestment ? styles.activityTabTitleBlActive : {})]}
+              style={[
+                styles.activityTabTitleBl,
+                segment.isInvestment ? styles.activityTabTitleBlActive : {},
+              ]}
             >
-              <Text style={[styles.activityTabTitleTextActive, (!segment.isInvestment ? styles.activityTabTitleText : {})]}>Investment</Text>
+              <Text
+                style={[
+                  styles.activityTabTitleTextActive,
+                  !segment.isInvestment ? styles.activityTabTitleText : {},
+                ]}
+              >
+                Investment
+              </Text>
             </Button>
           </View>
-
         </View>
-
 
         {segment.isPerfomance ? (
           <View>
             <Text style={[sg.fontMedium, sg.contentMarginH]}>
-              The Target Return of the Fund is 5.2%pa after fees and expenses and including distributions.
+              The Target Return of the Fund is 5.2%pa after fees and expenses and including
+              distributions.
             </Text>
             {this.renderChart()}
           </View>
@@ -187,17 +197,16 @@ class TabActivity extends Component {
         )}
 
         <Perfomance {...this.props} />
-
       </Content>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const accounts = accountsSelector(state);
 
   return {
-    accounts
+    accounts,
   };
 };
 

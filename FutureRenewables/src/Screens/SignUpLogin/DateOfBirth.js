@@ -1,28 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  View,
-} from 'react-native';
-import {
-  Content,
-  Button,
-  Text,
-  Grid,
-  Col,
-} from 'native-base';
+import { View } from 'react-native';
+import { Content, Button, Text, Grid, Col } from 'native-base';
 
-import {
-  routeNames,
-} from 'src/Navigation';
-import {
-  styleGlobal,
-} from 'src/Styles';
+import { routeNames } from 'src/Navigation';
+import { styleGlobal } from 'src/Styles';
 
 import composeHoc from 'src/Common/Hocs';
 import moment from 'src/Common/moment';
-import {
-  Input,
-} from 'src/Components/Form';
+import { Input } from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
 class DateOfBirth extends React.Component {
@@ -31,23 +17,14 @@ class DateOfBirth extends React.Component {
     this.state = {
       form: {
         day: {
-          validations: [
-            'required',
-            [this.isDayValid, 'Day not valid'],
-          ],
+          validations: ['required', [this.isDayValid, 'Day not valid']],
           format: this.formayDay,
         },
         month: {
-          validations: [
-            'required',
-            [this.isMonthValid, 'Month not valid'],
-          ],
+          validations: ['required', [this.isMonthValid, 'Month not valid']],
         },
         year: {
-          validations: [
-            'required',
-            [this.isYearValid, 'Year not valid'],
-          ],
+          validations: ['required', [this.isYearValid, 'Year not valid']],
         },
       },
     };
@@ -60,41 +37,35 @@ class DateOfBirth extends React.Component {
     hocs.setForm(form);
   }
 
-  isDayValid = (valInp) => {
+  isDayValid = valInp => {
     const val = parseInt(valInp, 10);
 
     if (!valInp.match(/^\d+$/)) {
       return false;
     }
 
-    if (
-      (val < 1)
-      || (val > 31)
-    ) {
+    if (val < 1 || val > 31) {
       return false;
     }
 
     return true;
-  }
+  };
 
-  isMonthValid = (valInp) => {
+  isMonthValid = valInp => {
     const val = parseInt(valInp, 10);
 
     if (!valInp.match(/^\d+$/)) {
       return false;
     }
 
-    if (
-      (val < 1)
-      || (val > 12)
-    ) {
+    if (val < 1 || val > 12) {
       return false;
     }
 
     return true;
-  }
+  };
 
-  isYearValid = (valInp) => {
+  isYearValid = valInp => {
     if (!valInp.match(/^\d+$/)) {
       return false;
     }
@@ -104,7 +75,7 @@ class DateOfBirth extends React.Component {
     }
 
     return true;
-  }
+  };
 
   pad(num) {
     const s = `0${num}`;
@@ -119,20 +90,27 @@ class DateOfBirth extends React.Component {
     });
 
     if (formIsValid) {
-      const birthDate = `${hocs.form.year.value}-${this.pad(hocs.form.month.value)}-${this.pad(hocs.form.day.value)}`;
-      const isEighteen = (moment().diff(birthDate, 'years') >= 18);
+      const birthDate = `${hocs.form.year.value}-${this.pad(hocs.form.month.value)}-${this.pad(
+        hocs.form.day.value,
+      )}`;
+      const isEighteen = moment().diff(birthDate, 'years') >= 18;
 
       if (!isEighteen) {
         screenProps.toastDanger('You must be over 18 to invest');
         return;
       }
-      screenProps.Api.post('/user', {
-        birthDate,
-      }, () => {
-        screenProps.navigateTo(routeNames.HOME_ADDRESS);
-      }, () => {
-        screenProps.toastDanger('Error. Try again.');
-      });
+      screenProps.Api.post(
+        '/user',
+        {
+          birthDate,
+        },
+        () => {
+          screenProps.navigateTo(routeNames.HOME_ADDRESS);
+        },
+        () => {
+          screenProps.toastDanger('Error. Try again.');
+        },
+      );
     }
   }
 
@@ -144,9 +122,7 @@ class DateOfBirth extends React.Component {
       <Content padder contentContainerStyle={styleGlobal.flexGrow}>
         <View style={styleGlobal.spaceBetween}>
           <View>
-            <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>
-              Date of birth
-            </Text>
+            <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>Date of birth</Text>
 
             <Grid>
               <Col>
@@ -179,10 +155,7 @@ class DateOfBirth extends React.Component {
             </Grid>
           </View>
           <KeyboardAvoidingView keyboardVerticalOffset={100}>
-            <Button
-              onPress={() => this.handlePress()}
-              block
-            >
+            <Button onPress={() => this.handlePress()} block>
               <Text>Next</Text>
             </Button>
           </KeyboardAvoidingView>
@@ -192,8 +165,6 @@ class DateOfBirth extends React.Component {
   }
 }
 
-const res = composeHoc([
-  'FormHoc',
-])(DateOfBirth);
+const res = composeHoc(['FormHoc'])(DateOfBirth);
 
 export default connect()(res);

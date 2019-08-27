@@ -1,18 +1,8 @@
-
 import React from 'react';
-import {
-  Image,
-} from 'react-native';
-import {
-  Button,
-  Footer,
-  FooterTab,
-} from 'native-base';
+import { Image } from 'react-native';
+import { Button, Footer, FooterTab } from 'native-base';
 
-import {
-  routeNames,
-  NavigationService,
-} from 'src/Navigation';
+import { routeNames, NavigationService } from 'src/Navigation';
 
 import ThemeService from 'src/Services/ThemeService';
 
@@ -27,7 +17,7 @@ import ChelInactive from './images/ChelInactive.png';
 
 import styles from './styles';
 
-const TabBar = (props) => {
+const TabBar = props => {
   const { navigation, screenProps } = props;
   const { state } = navigation;
   const { routeName } = NavigationService.getCurrentRoute(state);
@@ -52,7 +42,7 @@ const TabBar = (props) => {
 
   let iconFarms = SunInactive;
   let iconFarmsStyle = iconStyle;
-  if (routeName === routeNames.SOLAR_FARMS_LIST) {
+  if (routeName === routeNames.SOLAR_FARMS_LIST || routeName === routeNames.SOLAR_FARMS_MAP) {
     iconFarms = SunActive;
     iconFarmsStyle = {};
   }

@@ -1,11 +1,6 @@
+import { isIOS } from 'src/Common/Helpers';
 
-import {
-  isIOS,
-} from 'src/Common/Helpers';
-
-import {
-  sc,
-} from 'src/Styles';
+import { sc } from 'src/Styles';
 
 export default {
   markerIconMain: {
@@ -88,6 +83,7 @@ export default {
     fontSize: 14,
     fontFamily: sc.font.medium,
     textAlign: 'center',
+    width: 80,
   },
   solarFarmWeatherWidget: {
     marginTop: -20,
@@ -138,8 +134,7 @@ export const farmsList = {
     width: 31.2,
     height: 38.4,
   },
-  farmContainer: {
-  },
+  farmContainer: {},
   farmImage: {
     justifyContent: 'space-between',
     padding: 20,
