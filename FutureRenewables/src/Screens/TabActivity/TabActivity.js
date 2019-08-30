@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { View, Image } from 'react-native';
+import { View, Image, Dimensions } from 'react-native';
 
 import { Button, Text, Content } from 'native-base';
 
@@ -12,7 +12,14 @@ import BottomInfo from 'src/Components/BottomInfo';
 import Balance from 'src/Components/Balance';
 import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
-
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart,
+} from 'react-native-chart-kit';
 import GraphExample2 from 'src/assets/images/GraphExample2.png';
 
 import { sg } from 'src/Styles';
@@ -62,7 +69,40 @@ class TabActivity extends Component {
     return (
       <View style={[sg.contentMarginH2]}>
         <View style={[styles.activityChartBl, sg.aICenter]}>
-          <Image source={GraphExample2} style={styles.activityGraphExample} />
+          {/* <Image source={GraphExample2} style={styles.activityGraphExample} /> */}
+          <LineChart
+            data={{
+              labels: ['March', 'April', 'May', 'June'],
+              datasets: [
+                {
+                  data: [
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                  ],
+                },
+              ],
+            }}
+            width={Dimensions.get('window').width} // from react-native
+            height={220}
+            yAxisLabel={'$'}
+            chartConfig={{
+              backgroundColor: '#e26a00',
+              backgroundGradientFrom: '#fb8c00',
+              backgroundGradientTo: '#ffa726',
+              decimalPlaces: 2, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              style: {
+                borderRadius: 16,
+              },
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
+              borderRadius: 16,
+            }}
+          />
           {this.renderGlow()}
         </View>
         <View style={[sg.row, sg.spaceBetween]}>
