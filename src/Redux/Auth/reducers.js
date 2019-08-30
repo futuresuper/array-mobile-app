@@ -48,6 +48,19 @@ const ACTION_HANDLERS = {
     ...state,
     applicationId: action.payload.PK2,
   }),
+  [types.ID_CHECK_SAVE]: (state, action) => {
+    const { payload } = action;
+    const { user } = state;
+
+    if (user) {
+      user.idCheck = payload;
+    }
+
+    return {
+      ...state,
+      user,
+    };
+  },
 };
 
 const AuthReducer = (state = initialState, action) => {

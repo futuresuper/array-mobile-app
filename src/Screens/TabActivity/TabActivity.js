@@ -12,14 +12,16 @@ import BottomInfo from 'src/Components/BottomInfo';
 import Balance from 'src/Components/Balance';
 import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from 'react-native-chart-kit';
+// import {
+//   LineChart,
+//   BarChart,
+//   PieChart,
+//   ProgressChart,
+//   ContributionGraph,
+//   StackedBarChart,
+// } from 'react-native-chart-kit';
+import { LineChart } from 'src/Components/ChartKit';
+
 import GraphExample2 from 'src/assets/images/GraphExample2.png';
 
 import { sg } from 'src/Styles';
@@ -38,6 +40,8 @@ class TabActivity extends Component {
         isPerfomance: true,
         isInvestment: false,
       },
+      activeDot: 'Mar 8',
+      activeBalance: 0,
     };
   }
 
@@ -66,11 +70,14 @@ class TabActivity extends Component {
   }
 
   renderChart() {
+    const { screenProps } = this.props;
+    const { activeDot } = this.state;
+    const theme = screenProps.getTheme();
     return (
       <View style={[sg.contentMarginH2]}>
         <View style={[styles.activityChartBl, sg.aICenter]}>
-          {/* <Image source={GraphExample2} style={styles.activityGraphExample} /> */}
-          <LineChart
+          <Image source={GraphExample2} style={styles.activityGraphExample} />
+          {/* <LineChart
             data={{
               labels: ['March', 'April', 'May', 'June'],
               datasets: [
@@ -102,8 +109,72 @@ class TabActivity extends Component {
               marginVertical: 8,
               borderRadius: 16,
             }}
-          />
+          /> */}
           {this.renderGlow()}
+          {/* <LineChart
+            ref={c => {
+              if (c) this.LineChart = c;
+            }}
+            data={{
+              labels: ['Mar 31', 'Apr 30', 'May 31', 'Jun 30'],
+              datasets: [
+                {
+                  data: [10, 12, 14, 15],
+                  stroke: 'green',
+                  strokeWidth: '2',
+                },
+              ],
+            }}
+            height={125}
+            chartConfig={{
+              graphBackgroundColor: 'transparent',
+              label: {
+                color: 'gren',
+                colorDot: 'red',
+              },
+              color: 'gren',
+              colorDot: 'red',
+              stroke: 'green',
+              strokeWidth: '2',
+              // paddingRight2: 0,
+              // graphBackgroundColor: 'red',
+            }}
+            // chartConfig={{
+            //   graphBackgroundColor: 'green',
+            //   // backgroundColor: 'red',
+            //   // backgroundGradientFrom: 'red',
+            //   // backgroundGradientTo: 'green',
+            //   // decimalPlaces: 1, // optional, defaults to 2dp
+            //   // color: () => 'red',
+            //   // colorDot: 'green',
+            // }}
+            bezier
+            withDots
+            fillSides
+            fillBottom
+            activeDot={activeDot}
+            style={{
+              width: '100%',
+            }}
+            onLeftSwipeDot={() => {
+              const prevDot = this.LineChart.getPreviousDot();
+              if (prevDot) {
+                this.setState({
+                  activeDot: prevDot.label,
+                  activeBalance: prevDot.data,
+                });
+              }
+            }}
+            onRightSwipeDot={() => {
+              const nextDot = this.LineChart.getNextDot();
+              if (nextDot) {
+                this.setState({
+                  activeDot: nextDot.label,
+                  activeBalance: nextDot.data,
+                });
+              }
+            }}
+          /> */}
         </View>
         <View style={[sg.row, sg.spaceBetween]}>
           <Text style={[sg.fS14, sg.fontMedium]} color3>
@@ -183,7 +254,6 @@ class TabActivity extends Component {
 
         <View style={[sg.contentMarginH2, sg.mT30, sg.mB30]}>
           <Br style={[sg.footerBl]} />
-
           <View style={[sg.mH20, sg.row]}>
             <Button
               transparent
@@ -203,7 +273,6 @@ class TabActivity extends Component {
                 Perfomance
               </Text>
             </Button>
-
             <Button
               transparent
               onPress={this.setInvestmentSegment}

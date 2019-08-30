@@ -39,3 +39,10 @@ export function applicationIdSave(data) {
     payload: data,
   };
 }
+
+export function idCheckSave(data) {
+  return {
+    type: types.ID_CHECK_SAVE,
+    payload: data,
+  };
+}

@@ -26,6 +26,8 @@ class Accounts extends React.Component {
       if (user.personalDetailsLocked) {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
+      //dev purpose
+      // screenProps.navigateTo(routeNames.TAB_HOME);
       // this.nextScreen();
     });
   }
@@ -104,7 +106,6 @@ class Accounts extends React.Component {
 
   render() {
     const { screenProps } = this.props;
-
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
@@ -117,9 +118,8 @@ class Accounts extends React.Component {
             <KeyboardAvoidingView>
               <Button
                 onPress={() => {
-                  // screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                  // screenProps.navigateTo(routeNames.TAB_HOME);
-                  screenProps.navigateTo(routeNames.FINAL_CONFIRMATION)
+                  screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+                  //screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
                 }}
                 block
               >

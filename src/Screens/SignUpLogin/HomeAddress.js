@@ -26,7 +26,7 @@ class HomeAddress extends React.Component {
         },
         {
           unitNumber: {
-            //validations: ['required'],
+            validations: ['required'],
           },
           streetNumber: {
             validations: ['required'],
@@ -204,6 +204,22 @@ class HomeAddress extends React.Component {
     const button = (
       <Button onPress={() => this.handlePress()} block style={[sg.mT15]}>
         <Text>Next</Text>
+      </Button>
+    );
+
+    if (!showManualForm) {
+      return <KeyboardAvoidingView keyboardVerticalOffset={100}>{button}</KeyboardAvoidingView>;
+    }
+
+    return button;
+  }
+
+  renderButtonAddManually() {
+    const { showManualForm } = this.state;
+
+    const button = (
+      <Button onPress={() => this.handleToggleAddManually()} bordered dark block marginVert>
+        <Text>{showManualForm ? 'Search Address' : 'Add Address Manually'}</Text>
       </Button>
     );
 

@@ -1,40 +1,21 @@
-
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 
-import {
-  Content,
-  Button,
-  Text,
-} from 'native-base';
+import { Content, Button, Text } from 'native-base';
 
-import {
-  sg,
-} from 'src/Styles';
+import { sg } from 'src/Styles';
 
 import composeHoc from 'src/Common/Hocs';
-import {
-  Input,
-} from 'src/Components/Form';
+import { Input } from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
+import { formatAmountDollar, normalizeAmount } from 'src/Common/Helpers';
 
-import {
-  formatAmountDollar,
-  normalizeAmount,
-} from 'src/Common/Helpers';
+import { routeNames } from 'src/Navigation';
 
-import {
-  routeNames,
-} from 'src/Navigation';
-
-import {
-  applicationIdSelector,
-} from 'src/Redux/Auth';
+import { applicationIdSelector } from 'src/Redux/Auth';
 
 class InitialInvestmentAmount extends React.Component {
   constructor(props) {
@@ -42,9 +23,7 @@ class InitialInvestmentAmount extends React.Component {
     this.state = {
       form: {
         field: {
-          validations: [
-            'required',
-          ],
+          validations: ['required'],
           normalize: normalizeAmount,
           format: formatAmountDollar,
         },
@@ -81,14 +60,19 @@ class InitialInvestmentAmount extends React.Component {
         screenProps.toastDanger('Minimum investment amount is $5');
         return;
       }
-      screenProps.Api.post('/account', {
-        accountId: applicationId,
-        initialInvestmentAmount: amount,
-      }, () => {
-        screenProps.navigateTo(routeNames.BANK_ACCOUNT);
-      }, () => {
-        screenProps.toastDanger('Error. Try Again');
-      });
+      screenProps.Api.post(
+        '/account',
+        {
+          accountId: applicationId,
+          initialInvestmentAmount: amount,
+        },
+        () => {
+          screenProps.navigateTo(routeNames.BANK_ACCOUNT);
+        },
+        () => {
+          screenProps.toastDanger('Error. Try Again');
+        },
+      );
     }
   }
 
@@ -100,9 +84,7 @@ class InitialInvestmentAmount extends React.Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View>
-            <Text style={sg.formHeading}>
-              Initial Investment
-            </Text>
+            <Text style={sg.formHeading}>Initial Investment</Text>
 
             <Text style={sg.formHeadingDescription}>
               How much would you like to get started with?
@@ -118,10 +100,7 @@ class InitialInvestmentAmount extends React.Component {
           </View>
 
           <KeyboardAvoidingView keyboardVerticalOffset={100}>
-            <Button
-              onPress={() => this.handlePress()}
-              block
-            >
+            <Button onPress={() => this.handlePress()} block>
               <Text>Next</Text>
             </Button>
           </KeyboardAvoidingView>
@@ -135,15 +114,13 @@ InitialInvestmentAmount.propTypes = {
   applicationId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const applicationId = applicationIdSelector(state);
   return {
     applicationId,
   };
 };
 
-const res = composeHoc([
-  'FormHoc',
-])(InitialInvestmentAmount);
+const res = composeHoc(['FormHoc'])(InitialInvestmentAmount);
 
 export default connect(mapStateToProps)(res);

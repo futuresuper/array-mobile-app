@@ -14,6 +14,7 @@ import { normalizeAmount, formatShortDate, isShortDateValid } from 'src/Common/H
 
 import { sg } from 'src/Styles';
 import { userSelector } from 'src/Redux/AppContent';
+import { idCheckSave } from 'src/Redux/Auth';
 
 class IdCheckDetails extends Component {
   componentDidMount() {
@@ -27,8 +28,10 @@ class IdCheckDetails extends Component {
   }
 
   onSubmit() {
-    const { hocs, screenProps } = this.props;
+    const { hocs, screenProps, idCheckSaveConnect } = this.props;
     const formIsValid = hocs.formIsValid();
+    //dummy data need to be refactored
+    const dummyRes = this.setDummyRes(hocs.form);
 
     if (formIsValid) {
       const body = this.setReqBody(hocs.form);
@@ -36,20 +39,48 @@ class IdCheckDetails extends Component {
         '/idcheck',
         body,
         res => {
-          console.log(res);
           if (res.idCheckComplete) {
             screenProps.navigateTo(routeNames.HOME_ADDRESS);
           } else {
-            // screenProps.navigateTo(routeNames.ID_CHECK);
-            screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
+            idCheckSaveConnect(res);
+            screenProps.navigateTo(routeNames.ID_CHECK);
+            // // screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
           }
         },
         () => {
-          screenProps.toastDanger('Error. Try Again');
+          // screenProps.toastDanger('Error. Try Again');
+          idCheckSaveConnect(dummyRes);
+          screenProps.navigateTo(routeNames.ID_CHECK);
         },
       );
     }
     return null;
+  }
+
+  // needs to be deleted
+  setDummyRes(form) {
+    if (form.type.value === 'Passport') {
+      return {
+        idCheckComplete: false,
+        driversLicence: 'matchFailed',
+        australianPassport: 'matched',
+        medicareCard: 'notAttempted',
+      };
+    } else if (form.type.value === 'DriversLicence') {
+      return {
+        idCheckComplete: false,
+        driversLicence: 'matchFailed',
+        australianPassport: 'notAttempted',
+        medicareCard: 'notAttempted',
+      };
+    } else {
+      return {
+        idCheckComplete: false,
+        driversLicence: 'matchFailed',
+        australianPassport: 'matched',
+        medicareCard: 'matchFailed',
+      };
+    }
   }
 
   setReqBody(form) {
@@ -193,7 +224,7 @@ class IdCheckDetails extends Component {
         helper = 'Passport Number';
         break;
       case 'licenceNumber':
-        helper = 'License number';
+        helper = 'Licence number';
 
         break;
       case 'cardNumber':
@@ -301,12 +332,14 @@ class IdCheckDetails extends Component {
 IdCheckDetails.defaultProps = {
   item: null,
   newItemByType: null,
+  idCheckSaveConnect: () => {},
 };
 
 IdCheckDetails.propTypes = {
   item: PropTypes.object,
   newItemByType: PropTypes.string,
   user: PropTypes.object.isRequired,
+  idCheckSaveConnect: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -318,6 +351,13 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
+const mapDispatchToProps = {
+  idCheckSaveConnect: idCheckSave,
+};
+
 const res = composeHoc([hocNames.FORM])(IdCheckDetails);
 
-export default connect(mapStateToProps)(res);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(res);
