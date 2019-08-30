@@ -36,11 +36,12 @@ class IdCheckDetails extends Component {
         '/idcheck',
         body,
         res => {
+          console.log(res);
           if (res.idCheckComplete) {
             screenProps.navigateTo(routeNames.HOME_ADDRESS);
           } else {
             // screenProps.navigateTo(routeNames.ID_CHECK);
-            screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
+            screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
           }
         },
         () => {

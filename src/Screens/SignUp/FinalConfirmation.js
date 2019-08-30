@@ -27,11 +27,12 @@ class FinalConfirmation extends React.Component {
       '/account',
       body,
       res => {
+        console.log(res);
         if (res.idCheckComplete) {
           screenProps.navigateTo(routeNames.TAB_HOME);
         } else {
           // screenProps.navigateTo(routeNames.ID_CHECK);
-          screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
+          screenProps.navigateTo(routeNames.ID_CHECK);
         }
       },
       () => {
