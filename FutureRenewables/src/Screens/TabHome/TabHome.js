@@ -287,11 +287,11 @@ class TabHome extends Component {
               iconRight
               style={sg.aSCenter}
               onPress={() => {
-                // BottomInfo.showAccounts();
+                BottomInfo.showAccounts();
               }}
             >
               <Text style={styles.title}>{account.nickName}</Text>
-              {/* <Icon name="ios-arrow-down" style={styles.titleIcon} /> */}
+              <Icon name="ios-arrow-down" style={styles.titleIcon} />
             </Button>
 
             <View style={sg.row}>
