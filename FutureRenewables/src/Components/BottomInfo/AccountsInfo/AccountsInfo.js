@@ -40,25 +40,14 @@ class AccountsInfo extends Component {
     super(props);
 
     this.state = {
-      list: [
-        {
-          name: 'Hugh Jackman',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/World_Premiere_Logan_Berlinale_2017.jpg/220px-World_Premiere_Logan_Berlinale_2017.jpg',
-          active: true,
-        },
-        {
-          name: 'Cate Blanchett',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Cate_Blanchett_Deauville_2013_3.jpg/176px-Cate_Blanchett_Deauville_2013_3.jpg',
-          active: false,
-        },
-      ],
+      list: [],
     };
   }
 
   renderAccounts() {
     const { accounts, screenProps } = this.props;
 
-    return accounts.map(account => (
+    return accounts.map(account => account.status === accountUtils.STATUS.UNITS_ISSUED && (
       <ListItem
         button
         noIndent
@@ -73,6 +62,7 @@ class AccountsInfo extends Component {
       >
         <Body>
           <Grid>
+
             <Row>
               <Col style={[sg.flexNull]}>
                 <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>

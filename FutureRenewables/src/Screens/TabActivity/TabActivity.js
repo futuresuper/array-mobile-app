@@ -140,7 +140,7 @@ class TabActivity extends Component {
 
     return (
       <Content>
-        
+
         {/*
         <Balance
           onPress={() => {
