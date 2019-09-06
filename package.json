@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "postinstall": "cp attachWebsocketServer.js node_modules/react-native/local-cli/server/util/"
+    "postinstall": "cp src/attachWebsocketServer.js node_modules/react-native/local-cli/server/util/"
   },
   "dependencies": {
     "aws-amplify": "^1.1.26",
