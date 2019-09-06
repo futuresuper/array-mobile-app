@@ -9,10 +9,10 @@ import { noHeader, signOptions, tabCardOptions } from './navigationOptions';
 
 import routeNames from './routeNames';
 
-const formatRoutes = routesInp => {
+const formatRoutes = (routesInp) => {
   const routes = routesInp;
 
-  Object.keys(routes).forEach(key => {
+  Object.keys(routes).forEach((key) => {
     const item = routes[key];
     const { params } = item;
     let navigationOptions;
@@ -365,7 +365,7 @@ const routes = {
   tabCardRoutes,
 };
 
-const getRouteInfo = findScreenKey => {
+const getRouteInfo = (findScreenKey) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const keyRoute in routes) {
     if ({}.hasOwnProperty.call(routes, keyRoute)) {

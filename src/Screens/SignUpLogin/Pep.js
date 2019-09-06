@@ -40,7 +40,6 @@ class Pep extends Component {
       }, () => {
         screenProps.toastDanger('Error. Try Again');
       });
-      
     }
   }
 

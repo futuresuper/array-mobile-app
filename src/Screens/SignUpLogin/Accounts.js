@@ -36,6 +36,7 @@ class Accounts extends React.Component {
 
   getAppContent(callback) {
     const { screenProps } = this.props;
+    console.log(screenProps)
     screenProps.Api.get('/appcontent', {}, callback, () => {
       screenProps.toast('Unknown error (appcontent)');
     });
@@ -52,7 +53,6 @@ class Accounts extends React.Component {
     }
     if (activeAccounts > 0) {
       return accounts.map((account) => {
-        console.log(account)
         if (account.status === accountUtils.STATUS.UNITS_ISSUED) {
           return (
             <ListItem
