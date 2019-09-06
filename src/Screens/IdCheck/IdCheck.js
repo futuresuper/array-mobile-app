@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Image, TouchableOpacity } from 'react-native';
-import { Content, Text, Button, View, Icon, Grid, Row, Col } from 'native-base';
+import {
+  Content, Text, Button, View, Icon, Grid, Row, Col,
+} from 'native-base';
 import TextUnderline from 'src/Components/TextUnderline';
 
 import { routeNames } from 'src/Navigation';
@@ -48,6 +50,13 @@ class IdCheck extends Component {
     });
   }
 
+
+  onPressEditItem(item) {
+    const { screenProps } = this.props;
+
+    screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { item });
+  }
+
   renderButton(type) {
     const { screenProps } = this.props;
     const name = idCheckUtils.getTypeName(type);
@@ -61,15 +70,11 @@ class IdCheck extends Component {
           screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { newItemByType: type });
         }}
       >
-        <Text>Add {name}</Text>
+        <Text>
+          {`Add ${name}`}
+        </Text>
       </Button>
     );
-  }
-
-  onPressEditItem(item) {
-    const { screenProps } = this.props;
-
-    screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { item });
   }
 
   renderItem(docType, status, user, item) {
@@ -162,25 +167,25 @@ class IdCheck extends Component {
             )}
           </View>
           <View>
-            {user.idCheck &&
-              user.idCheck.driversLicence !== 'notAttempted' &&
-              this.renderItem(
+            {user.idCheck
+              && user.idCheck.driversLicence !== 'notAttempted'
+              && this.renderItem(
                 idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
                 user.idCheck.driversLicence,
                 user,
                 list[0],
               )}
-            {user.idCheck &&
-              user.idCheck.australianPassport !== 'notAttempted' &&
-              this.renderItem(
+            {user.idCheck
+              && user.idCheck.australianPassport !== 'notAttempted'
+              && this.renderItem(
                 idCheckUtils.ID_TYPE.PASSPORT,
                 user.idCheck.australianPassport,
                 user,
                 list[0],
               )}
-            {user.idCheck &&
-              user.idCheck.medicareCard !== 'notAttempted' &&
-              this.renderItem(
+            {user.idCheck
+              && user.idCheck.medicareCard !== 'notAttempted'
+              && this.renderItem(
                 idCheckUtils.ID_TYPE.MEDICARE_CARD,
                 user.idCheck.medicareCard,
                 user,
@@ -216,7 +221,7 @@ IdCheck.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const user = userSelector(state);
   return {
     user,

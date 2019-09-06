@@ -14,7 +14,9 @@ let Reactotron = null;
 let createStore = reduxCreateStore;
 
 if (__DEV__) {
+  // eslint-disable-next-line global-require
   Reactotron = require('reactotron-react-native').default;
+  // eslint-disable-next-line prefer-destructuring
   createStore = Reactotron.createStore;
 }
 

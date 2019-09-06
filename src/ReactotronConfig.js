@@ -1,3 +1,7 @@
+/* eslint-disable global-require */
+/* eslint-disable no-undef */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-global-assign */
 
 import {
   isIOS,
@@ -8,9 +12,9 @@ if (__DEV__) {
   openInEditor = require('reactotron-react-native').openInEditor;
   reactotronRedux = require('reactotron-redux').reactotronRedux;
 
-  let config = {};
+  const config = {};
   if (!isIOS()) {
-    config.host = '192.168.0.8'; // needs to be fixed
+    config.host = 'localhost';
   }
 
   Reactotron

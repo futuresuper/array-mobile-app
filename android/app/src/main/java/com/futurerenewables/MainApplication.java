@@ -3,12 +3,11 @@ package com.futurerenewables;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.imagepicker.ImagePickerPackage;
 import org.wonday.orientation.OrientationPackage;
 import org.reactnative.camera.RNCameraPackage;
-import com.robinpowered.react.Intercom.IntercomPackage;
-import io.intercom.android.sdk.Intercom;
 import com.horcrux.svg.SvgPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.robinpowered.react.Intercom.IntercomPackage;
 import com.amazonaws.RNAWSCognitoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -34,11 +33,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ImagePickerPackage(),
             new OrientationPackage(),
             new RNCameraPackage(),
-            new IntercomPackage(),
             new SvgPackage(),
+            new ImagePickerPackage(),
+            new IntercomPackage(),
             new RNAWSCognitoPackage(),
             new LinearGradientPackage(),
             new MapsPackage(),
@@ -62,6 +61,5 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    Intercom.initialize(this, "android_sdk-01bcaa4f2385e90cec08e17ffd4dbb47e1c5bc0d", "oqha580c");
   }
 }
