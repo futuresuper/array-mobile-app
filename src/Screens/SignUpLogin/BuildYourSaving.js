@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -25,7 +25,7 @@ import buildYourSaving from './images/buildYourSaving.png';
 import styles from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
-class BuildYourSaving extends Component {
+class BuildYourSaving extends PureComponent {
   render() {
     const { screenProps } = this.props;
 
@@ -35,15 +35,11 @@ class BuildYourSaving extends Component {
 
           <View>
             <Text style={[styles.header, sg.mB10, sg.mT60]}>
-              Build your
-              {'\n'}
-              savings
+              {'Build your\nsavings'}
             </Text>
 
             <Text style={[sg.colorDark2, sg.textCenter]}>
-              With a target return of 5.2%^, you can
-              {'\n'}
-              watch your money grow
+              {'With a target return of 5.2%^, you can\nwatch your money grow'}
             </Text>
 
           </View>

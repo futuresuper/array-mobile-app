@@ -76,23 +76,16 @@ class BuildMovement extends Component {
           <View style={[sg.spaceBetween, sg.pH0]}>
             <View>
               <Text style={[styles.header, sg.mB10, sg.mT60]}>
-                Build the
-                {'\n'}
-                movement
+                {'Build the\nmovement'}
               </Text>
-
               <Text style={sg.textCenter}>
-                Join the growing movement of people
-                {'\n'}
-                building a cleaner future for the planet
+                {'Join the growing movement of people\nbuilding a cleaner future for the planet'}
               </Text>
             </View>
-
             <Image
               source={buildMovementPeople}
               style={[centerImage ? {} : sg.mL20, { width: 416 * multiplier, height: 349 * multiplier, alignSelf: (centerImage ? 'center' : undefined) }]}
             />
-
             <Button
               style={[sg.contentMargin, sg.mT0]}
               block

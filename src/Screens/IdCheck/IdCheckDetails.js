@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Content, Text, View, Button } from 'native-base';
-import _ from 'lodash';
+import {
+  Content, Text, View, Button,
+} from 'native-base';
 
 import { Input } from 'src/Components/Form';
 import { routeNames } from 'src/Navigation';
@@ -30,7 +31,7 @@ class IdCheckDetails extends Component {
   onSubmit() {
     const { hocs, screenProps, idCheckSaveConnect } = this.props;
     const formIsValid = hocs.formIsValid();
-    //dummy data need to be refactored
+    // dummy data need to be refactored
     const dummyRes = this.setDummyRes(hocs.form);
 
     if (formIsValid) {
@@ -38,7 +39,7 @@ class IdCheckDetails extends Component {
       screenProps.Api.post(
         '/idcheck',
         body,
-        res => {
+        (res) => {
           if (res.idCheckComplete) {
             screenProps.navigateTo(routeNames.HOME_ADDRESS);
           } else {
@@ -66,21 +67,20 @@ class IdCheckDetails extends Component {
         australianPassport: 'matched',
         medicareCard: 'notAttempted',
       };
-    } else if (form.type.value === 'DriversLicence') {
+    } if (form.type.value === 'DriversLicence') {
       return {
         idCheckComplete: false,
         driversLicence: 'matchFailed',
         australianPassport: 'notAttempted',
         medicareCard: 'notAttempted',
       };
-    } else {
-      return {
-        idCheckComplete: false,
-        driversLicence: 'matchFailed',
-        australianPassport: 'matched',
-        medicareCard: 'matchFailed',
-      };
     }
+    return {
+      idCheckComplete: false,
+      driversLicence: 'matchFailed',
+      australianPassport: 'matched',
+      medicareCard: 'matchFailed',
+    };
   }
 
   setReqBody(form) {
@@ -92,7 +92,7 @@ class IdCheckDetails extends Component {
         passportMiddleNames: form.middleNames.value,
         passportLastName: form.lastName.value,
       };
-    } else if (form.type.value === 'DriversLicence') {
+    } if (form.type.value === 'DriversLicence') {
       return {
         idType: 'driversLicence',
         driversLicenceState: form.state.value,
@@ -101,16 +101,15 @@ class IdCheckDetails extends Component {
         driversLicenceMiddleNames: form.middleNames.value,
         driversLicenceLastName: form.lastName.value,
       };
-    } else {
-      return {
-        idType: 'medicareCard',
-        medicareCardNumber: form.cardNumber.value,
-        medicareCardName: form.cardName.value,
-        medicareCardIndividualReferenceNumber: form.referenceNumber.value,
-        medicareCardExpiryDate: form.expiry.value,
-        medicareCardColour: form.colour.value,
-      };
     }
+    return {
+      idType: 'medicareCard',
+      medicareCardNumber: form.cardNumber.value,
+      medicareCardName: form.cardName.value,
+      medicareCardIndividualReferenceNumber: form.referenceNumber.value,
+      medicareCardExpiryDate: form.expiry.value,
+      medicareCardColour: form.colour.value,
+    };
   }
 
   getEmptyForm() {

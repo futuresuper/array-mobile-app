@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 
-import { Button, Content, Text, Icon, Grid, Row, Col, ListItem, Body } from 'native-base';
+import {
+  Button, Content, Text, Icon, Grid, Row, Col, ListItem, Body,
+} from 'native-base';
 
 import { routeNames } from 'src/Navigation';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
@@ -18,7 +20,7 @@ class Accounts extends React.Component {
   componentDidMount() {
     const { userDataSaveConnect, appContentSaveConnect } = this.props;
 
-    this.getAppContent(appContent => {
+    this.getAppContent((appContent) => {
       const { user } = appContent;
       const { screenProps } = this.props;
       userDataSaveConnect(user);
@@ -26,7 +28,7 @@ class Accounts extends React.Component {
       if (user.personalDetailsLocked) {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
-      //dev purpose
+      // dev purpose
       // screenProps.navigateTo(routeNames.TAB_HOME);
       // this.nextScreen();
     });
@@ -48,9 +50,9 @@ class Accounts extends React.Component {
         activeAccounts += 1;
       }
     }
-
     if (activeAccounts > 0) {
-      return accounts.map(account => {
+      return accounts.map((account) => {
+        console.log(account)
         if (account.status === accountUtils.STATUS.UNITS_ISSUED) {
           return (
             <ListItem
@@ -73,7 +75,7 @@ class Accounts extends React.Component {
                       <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
                         {account.nickName}
                       </Text>
-                      {account.balanceInDollars && (
+                      {account.balanceInDollars !== 0 && (
                         <Text style={[sg.mL0, sg.fS16]} color4>
                           Balance:&nbsp;
                           <Text color4>{formatAmountDollarCent(account.balanceInDollars)}</Text>
@@ -95,11 +97,7 @@ class Accounts extends React.Component {
 
     return (
       <Text>
-        You don&apos;t have any accounts yet :(
-        {'\n'}
-        {'\n'}
-        The good news is you&apos;ll have the ability to start an account via the Array app very
-        soon!
+        {"You don't have any accounts yet :(\n\nThe good news is you'll have the ability to start an account via the Array app very soon!"}
       </Text>
     );
   }
@@ -113,13 +111,12 @@ class Accounts extends React.Component {
             <Text style={[sg.formHeading]}>Your accounts</Text>
             {this.renderAccounts()}
           </View>
-
           {__DEV__ && (
             <KeyboardAvoidingView>
               <Button
                 onPress={() => {
                   screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                  //screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
+                  // screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
                 }}
                 block
               >
@@ -139,7 +136,7 @@ Accounts.propTypes = {
   appContentSaveConnect: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
   return {
     accounts,

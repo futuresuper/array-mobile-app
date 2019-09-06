@@ -228,7 +228,6 @@ class AppIndex extends Component {
         <StyleProvider style={getTheme(theme)}>
           <Container>
             <StatusBar backgroundColor={theme.containerBgColor} barStyle={barStyle} translucent />
-
             <Spinner
               ref={(c) => {
                 this.Spinner = c;
@@ -237,13 +236,11 @@ class AppIndex extends Component {
               overlayColor="rgba(0,0,0,0.5)"
               size="large"
             />
-
             <Alert
               ref={(c) => {
                 this.AlertComp = c;
               }}
             />
-
             <Api
               setRef={(c) => {
                 if (c) Api.ApiInstance = c;
@@ -255,20 +252,16 @@ class AppIndex extends Component {
               toastDanger={this.toastDanger}
               toastSuccess={this.toastSuccess}
             />
-
             <AppWithNavigationState
               navigation={screenProps}
             />
-
             <Toast
               ref={(c) => {
                 if (c) Toast.toastInstance = c;
               }}
             />
-
             <BottomInfoModal screenProps={screenProps} />
           </Container>
-
         </StyleProvider>
       </Root>
     );

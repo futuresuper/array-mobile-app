@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { View, Image, FlatList } from 'react-native';
@@ -21,8 +21,7 @@ import buildYourImpact from './images/buildYourImpact.png';
 
 import styles from './styles';
 
-class BuildYourImpact extends Component {
-  // eslint-disable-next-line class-methods-use-this
+class BuildYourImpact extends PureComponent {
   renderFarms() {
     return (
       <FlatList
@@ -53,14 +52,10 @@ class BuildYourImpact extends Component {
           <View style={[sg.spaceBetween, sg.contentPaddingH]}>
             <View>
               <Text style={[styles.header, sg.mB10, sg.mT60]}>
-                Build your
-                {'\n'}
-                impact
+                {'Build your\nimpact'}
               </Text>
-
               <Text style={sg.textCenter}>
-                Put your savings to work building &{'\n'}
-                supporting real solar farms, like these
+                {'Put your savings to work building &\nsupporting real solar farms, like these'}
               </Text>
             </View>
 

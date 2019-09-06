@@ -71,11 +71,7 @@ class AppLanding extends Component {
         <View style={[styles.topBl, { height: screenHeight }]} onLayout={this.handleLayout}>
 
           <Text style={styles.textMiddle}>
-            A brighter
-            {'\n'}
-            future built
-            {'\n'}
-            by you
+            {'A brighter\nfuture built\nby you'}
           </Text>
 
           <View style={[sg.width100p, sg.pH30, sg.aICenter]}>
