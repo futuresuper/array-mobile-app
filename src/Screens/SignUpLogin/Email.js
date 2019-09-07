@@ -28,9 +28,7 @@ import {
 } from 'src/Styles';
 
 class Email extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       form: {
         emailAddress: {
           validations: [
@@ -40,48 +38,47 @@ class Email extends React.Component {
         },
       },
     };
-  }
 
-  componentDidMount() {
-    const { hocs } = this.props;
-    const { form } = this.state;
+    componentDidMount() {
+      const { hocs } = this.props;
+      const { form } = this.state;
 
-    hocs.setForm(form);
-  }
-
-  handlePress() {
-    const {
-      screenProps,
-      hocs,
-      isFeat,
-      accountType,
-    } = this.props;
-
-    const formIsValid = hocs.formIsValid();
-    if (formIsValid) {
-      const email = hocs.form.emailAddress.value;
-
-      screenProps.Api.post('/user', {
-        email,
-      }, () => {
-        if (isFeat) {
-          screenProps.navigateTo(routeNames.NOTIFICATIONS, { accountType });
-        } else {
-          screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
-        }
-      }, () => {
-        screenProps.tastDanger('Error. Try again.');
-      });
+      hocs.setForm(form);
     }
-  }
 
-  render() {
-    const { hocs } = this.props;
-    const { form } = hocs;
+    handlePress() {
+      const {
+        screenProps,
+        hocs,
+        isFeat,
+        accountType,
+      } = this.props;
 
-    return (
-      <Content padder contentContainerStyle={styleGlobal.flexGrow}>
-        <View style={styleGlobal.spaceBetween}>
+      const formIsValid = hocs.formIsValid();
+      if (formIsValid) {
+        const email = hocs.form.emailAddress.value;
+
+        screenProps.Api.post('/user', {
+          email,
+        }, () => {
+          if (isFeat) {
+            screenProps.navigateTo(routeNames.NOTIFICATIONS, { accountType });
+          } else {
+            screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
+          }
+        }, () => {
+          screenProps.tastDanger('Error. Try again.');
+        });
+      }
+    }
+
+    render() {
+      const { hocs } = this.props;
+      const { form } = hocs;
+
+      return (
+        <Content padder contentContainerStyle={styleGlobal.flexGrow}>
+          <View style={styleGlobal.spaceBetween}>
           <View>
             <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>
               Your email
@@ -106,9 +103,9 @@ class Email extends React.Component {
             </Button>
           </KeyboardAvoidingView>
         </View>
-      </Content>
-    );
-  }
+        </Content>
+      );
+    }
 }
 
 Email.propTypes = {

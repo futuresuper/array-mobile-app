@@ -37,92 +37,89 @@ import {
 } from 'src/Styles';
 
 class SmsCode extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       smsCode: '',
     };
-  }
 
-  getAppContent(callback) {
-    const { screenProps } = this.props;
-    screenProps.Api.get('/appcontent', {},
-      callback,
-      () => {
-        screenProps.toast('Unknown error (appcontent)');
-      });
-  }
-
-  handlePress() {
-    const {
-      screenProps,
-      userDataSaveConnect,
-      appContentSaveConnect,
-      mobile,
-    } = this.props;
-    const { Api, toast } = screenProps;
-    const { smsCode } = this.state;
-
-    if (!smsCode) {
-      toast('Specify SMS code');
-      return false;
+    getAppContent(callback) {
+      const { screenProps } = this.props;
+      screenProps.Api.get('/appcontent', {},
+        callback,
+        () => {
+          screenProps.toast('Unknown error (appcontent)');
+        });
     }
 
-    const dummySmsCode = Config.get().smsCode;
+    handlePress() {
+      const {
+        screenProps,
+        userDataSaveConnect,
+        appContentSaveConnect,
+        mobile,
+      } = this.props;
+      const { Api, toast } = screenProps;
+      const { smsCode } = this.state;
 
-    if (dummySmsCode && (smsCode === dummySmsCode)) {
-      this.nextScreen();
+      if (!smsCode) {
+        toast('Specify SMS code');
+        return false;
+      }
+
+      const dummySmsCode = Config.get().smsCode;
+
+      if (dummySmsCode && (smsCode === dummySmsCode)) {
+        this.nextScreen();
+        return true;
+      }
+
+      Api.answerCustomChallenge(smsCode).then((userData) => {
+        if (userData) {
+          Api.post('/user', {
+            mobile,
+            mobileVerified: true,
+          }, () => {
+            this.getAppContent((appContent) => {
+              const { user } = appContent;
+              userDataSaveConnect(user);
+              appContentSaveConnect(appContent);
+
+              this.nextScreen();
+            });
+          }, () => {
+            screenProps.toast('Unknown error');
+          });
+        } else {
+          screenProps.toast('Please enter the correct code');
+        }
+      }).catch(() => {
+        screenProps.toast('Unknown error.');
+      });
+
       return true;
     }
 
-    Api.answerCustomChallenge(smsCode).then((userData) => {
-      if (userData) {
-        Api.post('/user', {
-          mobile,
-          mobileVerified: true,
-        }, () => {
-          this.getAppContent((appContent) => {
-            const { user } = appContent;
-            userDataSaveConnect(user);
-            appContentSaveConnect(appContent);
+    nextScreen() {
+      const { screenProps } = this.props;
+      const { navigateTo } = screenProps;
 
-            this.nextScreen();
-          });
-        }, () => {
-          screenProps.toast('Unknown error');
-        });
-      } else {
-        screenProps.toast('Please enter the correct code');
-      }
-    }).catch(() => {
-      screenProps.toast('Unknown error.');
-    });
-
-    return true;
-  }
-
-  nextScreen() {
-    const { screenProps } = this.props;
-    const { navigateTo } = screenProps;
-
-    navigateTo(routeNames.ACCOUNTS);
-  }
-
-  render() {
-    let { mobile } = this.props;
-    const { smsCode } = this.state;
-
-    if (mobile) {
-      // If it's an Australian number, change to pretty display format, otherwise leave as is
-      if (mobile.substr(0, 3) === '+61') {
-        mobile = mobile.substr(3);
-        mobile = `0${mobile.substr(0, 3)} ${mobile.substr(3, 3)} ${mobile.substr(6, mobile.length)}`;
-      }
+      navigateTo(routeNames.ACCOUNTS);
     }
 
-    return (
-      <Content padder contentContainerStyle={styleGlobal.flexGrow}>
-        <View style={styleGlobal.spaceBetween}>
+    render() {
+      let { mobile } = this.props;
+      const { smsCode } = this.state;
+
+      if (mobile) {
+      // If it's an Australian number, change to pretty display format, otherwise leave as is
+        if (mobile.substr(0, 3) === '+61') {
+          mobile = mobile.substr(3);
+          mobile = `0${mobile.substr(0, 3)} ${mobile.substr(3, 3)} ${mobile.substr(6, mobile.length)}`;
+        }
+      }
+
+      return (
+        <Content padder contentContainerStyle={styleGlobal.flexGrow}>
+          <View style={styleGlobal.spaceBetween}>
           <View>
             <Text style={styleGlobal.formHeading}>
               Verify
@@ -155,9 +152,9 @@ class SmsCode extends Component {
           </KeyboardAvoidingView>
         </View>
 
-      </Content>
-    );
-  }
+        </Content>
+      );
+    }
 }
 
 SmsCode.propTypes = {

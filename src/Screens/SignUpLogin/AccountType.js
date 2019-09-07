@@ -26,12 +26,10 @@ import {
 } from 'src/Styles';
 
 class AccountType extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       // isBottomOpened: false,
     };
-  }
+
 
   onMyself = () => {
     const { screenProps } = this.props;

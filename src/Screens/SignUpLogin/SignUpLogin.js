@@ -27,85 +27,82 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 // import ListLinks from 'src/Components/ListLinks';
 
 class SignUpLogin extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       mobile: '',
       errors: '',
       submitted: false,
     };
-  }
 
-  getSms() {
-    const { screenProps } = this.props;
-    const { Api, toast, navigateTo } = screenProps;
-    const { mobile } = this.state;
-    let formattedMobile = this.formatAndValidateMobile(mobile);
+    getSms() {
+      const { screenProps } = this.props;
+      const { Api, toast, navigateTo } = screenProps;
+      const { mobile } = this.state;
+      let formattedMobile = this.formatAndValidateMobile(mobile);
 
-    if (!formattedMobile) return false;
+      if (!formattedMobile) return false;
 
-    formattedMobile = `+${formattedMobile}`;
-    Api.signIn(formattedMobile).then(() => {
-      navigateTo(routeNames.SMS_CODE, { mobile: formattedMobile });
-    }).catch((err) => {
-      screenProps.spinnerHide();
-      toast(err.message || 'Unknown error');
-    });
+      formattedMobile = `+${formattedMobile}`;
+      Api.signIn(formattedMobile).then(() => {
+        navigateTo(routeNames.SMS_CODE, { mobile: formattedMobile });
+      }).catch((err) => {
+        screenProps.spinnerHide();
+        toast(err.message || 'Unknown error');
+      });
 
-    return true;
-  }
+      return true;
+    }
 
-  formatAndValidateMobile(strPre) {
-    const str = strPre.replace(/[^0-9]+/g, '');
-    if (
-      (str[0] === '7' && str.length === 10)
+    formatAndValidateMobile(strPre) {
+      const str = strPre.replace(/[^0-9]+/g, '');
+      if (
+        (str[0] === '7' && str.length === 10)
       || (str[0] === '6' && str.length === 10)
       || (str[0] === '5' && str.length === 10)
       || (str[0] === '4' && str.length === 10)
       || (str[0] === '3' && str.length === 10)
       || (str[0] === '2' && str.length === 10)
-    ) {
-      this.setState({ errors: '' });
-      return `1${str}`;
-    } if (str[0] === '6' && str.length === 11) {
-      this.setState({ errors: '' });
-      return str;
-    // eslint-disable-next-line no-else-return
-    } else if (str[0] === '0' && str[1] === '4' && str.length === 10) {
-      this.setState({ errors: '' });
-      const replacedZero = str.replace('0', '61');
-      return replacedZero;
-    } else if (str[0] === '4' && str.length === 9) {
-      this.setState({ errors: '' });
-      return `61${str}`;
-    } else {
-      this.setState(
-        {
-          errors: 'Please enter a valid Australian mobile number',
-          submitted: true,
-        },
-      );
+      ) {
+        this.setState({ errors: '' });
+        return `1${str}`;
+      } if (str[0] === '6' && str.length === 11) {
+        this.setState({ errors: '' });
+        return str;
+        // eslint-disable-next-line no-else-return
+      } else if (str[0] === '0' && str[1] === '4' && str.length === 10) {
+        this.setState({ errors: '' });
+        const replacedZero = str.replace('0', '61');
+        return replacedZero;
+      } else if (str[0] === '4' && str.length === 9) {
+        this.setState({ errors: '' });
+        return `61${str}`;
+      } else {
+        this.setState(
+          {
+            errors: 'Please enter a valid Australian mobile number',
+            submitted: true,
+          },
+        );
 
-      return '';
-    }
-  }
-
-  handleChange(mobile) {
-    const { submitted } = this.state;
-    if (submitted) {
-      this.formatAndValidateMobile(mobile);
+        return '';
+      }
     }
 
-    this.setState({ mobile });
-  }
+    handleChange(mobile) {
+      const { submitted } = this.state;
+      if (submitted) {
+        this.formatAndValidateMobile(mobile);
+      }
 
-  render() {
-    const { screenProps } = this.props;
-    const { errors, mobile } = this.state;
+      this.setState({ mobile });
+    }
 
-    return (
-      <Content padder contentContainerStyle={[styleGlobal.flexGrow]}>
-        <View style={styleGlobal.spaceBetween}>
+    render() {
+      const { screenProps } = this.props;
+      const { errors, mobile } = this.state;
+
+      return (
+        <Content padder contentContainerStyle={[styleGlobal.flexGrow]}>
+          <View style={styleGlobal.spaceBetween}>
 
           <View>
             <Text style={styleGlobal.formHeading}>
@@ -136,7 +133,7 @@ class SignUpLogin extends Component {
 
         </View>
 
-        {/* <ListLinks
+          {/* <ListLinks
           absolute
           navigateTo={screenProps.navigateTo}
           data={[
@@ -147,9 +144,9 @@ class SignUpLogin extends Component {
           ]}
         /> */}
 
-      </Content>
-    );
-  }
+        </Content>
+      );
+    }
 }
 
 export default connect()(SignUpLogin);

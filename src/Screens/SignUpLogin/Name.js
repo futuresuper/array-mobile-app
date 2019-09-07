@@ -26,9 +26,7 @@ import {
 } from 'src/Styles';
 
 class Name extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       form: {
         /*
         title: {
@@ -77,45 +75,44 @@ class Name extends React.Component {
           name: 'Other',
         },
       ],
-    };
-  }
-
-  componentDidMount() {
-    const { hocs } = this.props;
-    const { form } = this.state;
-
-    hocs.setForm(form);
-  }
-
-  handlePress() {
-    const { screenProps, hocs } = this.props;
-
-    const formIsValid = hocs.formIsValid();
-    if (formIsValid) {
-      const firstName = hocs.form.firstName.value;
-      const middleNames = hocs.form.middleNames.value;
-      const lastName = hocs.form.lastName.value;
-
-      screenProps.Api.post('/user', {
-        firstName,
-        middleNames,
-        lastName,
-      }, () => {
-        screenProps.navigateTo(routeNames.EMAIL);
-      }, () => {
-        screenProps.toastDanger('Error. Try Again');
-      });
     }
-  }
 
-  render() {
-    const { hocs } = this.props;
-    const { form } = hocs;
-    const { titles } = this.state;
+    componentDidMount() {
+      const { hocs } = this.props;
+      const { form } = this.state;
 
-    return (
-      <Content padder contentContainerStyle={sg.flexGrow}>
-        <View style={sg.spaceBetween}>
+      hocs.setForm(form);
+    }
+
+    handlePress() {
+      const { screenProps, hocs } = this.props;
+
+      const formIsValid = hocs.formIsValid();
+      if (formIsValid) {
+        const firstName = hocs.form.firstName.value;
+        const middleNames = hocs.form.middleNames.value;
+        const lastName = hocs.form.lastName.value;
+
+        screenProps.Api.post('/user', {
+          firstName,
+          middleNames,
+          lastName,
+        }, () => {
+          screenProps.navigateTo(routeNames.EMAIL);
+        }, () => {
+          screenProps.toastDanger('Error. Try Again');
+        });
+      }
+    }
+
+    render() {
+      const { hocs } = this.props;
+      const { form } = hocs;
+      const { titles } = this.state;
+
+      return (
+        <Content padder contentContainerStyle={sg.flexGrow}>
+          <View style={sg.spaceBetween}>
           <View>
             <Text style={[sg.formHeading]}>
               Your name
@@ -172,9 +169,9 @@ class Name extends React.Component {
             </Button>
           </KeyboardAvoidingView>
         </View>
-      </Content>
-    );
-  }
+        </Content>
+      );
+    }
 }
 
 const res = composeHoc([

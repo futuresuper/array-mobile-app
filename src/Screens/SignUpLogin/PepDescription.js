@@ -29,48 +29,44 @@ import {
 } from 'src/Styles';
 
 class PepDescription extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+    state = {
       form: {
         description: {
           validations: ['required'],
         },
       },
     };
-  }
 
-  componentDidMount() {
-    const { hocs } = this.props;
-    const { form } = this.state;
+    componentDidMount() {
+      const { hocs } = this.props;
+      const { form } = this.state;
 
-    hocs.setForm(form);
-  }
-
-  onNext() {
-    const { screenProps, hocs } = this.props;
-
-    const formIsValid = hocs.formIsValid();
-    if (formIsValid) {
-      const body = {
-        pepDescription: hocs.form.description.value,
-      };
-      screenProps.Api.post('/user', body, () => {
-        screenProps.navigateTo(routeNames.TAX_NUMBERS);
-      }, () => {
-        screenProps.toastDanger('Error. Try Again');
-      });
+      hocs.setForm(form);
     }
-  }
 
-  render() {
-    const { hocs } = this.props;
-    const { form } = hocs;
+    onNext() {
+      const { screenProps, hocs } = this.props;
 
-    return (
-      <Content padder contentContainerStyle={sg.flexGrow}>
-        <View style={[sg.spaceBetween]}>
+      const formIsValid = hocs.formIsValid();
+      if (formIsValid) {
+        const body = {
+          pepDescription: hocs.form.description.value,
+        };
+        screenProps.Api.post('/user', body, () => {
+          screenProps.navigateTo(routeNames.TAX_NUMBERS);
+        }, () => {
+          screenProps.toastDanger('Error. Try Again');
+        });
+      }
+    }
+
+    render() {
+      const { hocs } = this.props;
+      const { form } = hocs;
+
+      return (
+        <Content padder contentContainerStyle={sg.flexGrow}>
+          <View style={[sg.spaceBetween]}>
           <View>
             <Text style={sg.formHeading}>
               PEP Description
@@ -104,9 +100,9 @@ class PepDescription extends Component {
             </Button>
           </KeyboardAvoidingView>
         </View>
-      </Content>
-    );
-  }
+        </Content>
+      );
+    }
 }
 
 const res = composeHoc([

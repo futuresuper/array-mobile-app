@@ -28,48 +28,44 @@ import {
 } from 'src/Styles';
 
 class Occupation extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+    state = {
       form: {
         occupation: {
           validations: ['required'],
         },
       },
     };
-  }
 
-  componentDidMount() {
-    const { hocs } = this.props;
-    const { form } = this.state;
+    componentDidMount() {
+      const { hocs } = this.props;
+      const { form } = this.state;
 
-    hocs.setForm(form);
-  }
-
-  onNext(occupation) {
-    const { screenProps, hocs } = this.props;
-
-    const formIsValid = occupation ? true : hocs.formIsValid();
-    if (formIsValid) {
-      const body = {
-        occupation: occupation || hocs.form.occupation.value,
-      };
-      screenProps.Api.post('/user', body, () => {
-        screenProps.navigateTo(routeNames.PEP);
-      }, () => {
-        screenProps.toastDanger('Error. Try Again');
-      });
+      hocs.setForm(form);
     }
-  }
 
-  render() {
-    const { hocs } = this.props;
-    const { form } = hocs;
+    onNext(occupation) {
+      const { screenProps, hocs } = this.props;
 
-    return (
-      <Content padder contentContainerStyle={sg.flexGrow}>
-        <View style={[sg.spaceBetween]}>
+      const formIsValid = occupation ? true : hocs.formIsValid();
+      if (formIsValid) {
+        const body = {
+          occupation: occupation || hocs.form.occupation.value,
+        };
+        screenProps.Api.post('/user', body, () => {
+          screenProps.navigateTo(routeNames.PEP);
+        }, () => {
+          screenProps.toastDanger('Error. Try Again');
+        });
+      }
+    }
+
+    render() {
+      const { hocs } = this.props;
+      const { form } = hocs;
+
+      return (
+        <Content padder contentContainerStyle={sg.flexGrow}>
+          <View style={[sg.spaceBetween]}>
           <View>
             <Text style={sg.formHeading}>
               Occupation
@@ -125,9 +121,9 @@ class Occupation extends Component {
             </Button>
           </View>
         </View>
-      </Content>
-    );
-  }
+        </Content>
+      );
+    }
 }
 
 const res = composeHoc([

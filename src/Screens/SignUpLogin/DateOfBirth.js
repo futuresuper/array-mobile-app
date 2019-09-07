@@ -14,9 +14,7 @@ import { Input } from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
 class DateOfBirth extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       form: {
         day: {
           validations: ['required', [this.isDayValid, 'Day not valid']],
@@ -30,14 +28,13 @@ class DateOfBirth extends React.Component {
         },
       },
     };
-  }
 
-  componentDidMount() {
-    const { hocs } = this.props;
-    const { form } = this.state;
+    componentDidMount() {
+      const { hocs } = this.props;
+      const { form } = this.state;
 
-    hocs.setForm(form);
-  }
+      hocs.setForm(form);
+    }
 
   isDayValid = (valInp) => {
     const val = parseInt(valInp, 10);

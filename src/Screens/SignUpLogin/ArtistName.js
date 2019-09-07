@@ -33,9 +33,7 @@ import {
 import { ArtistName as styles } from './styles';
 
 class ArtistName extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       form: {
         name: {
           validations: [
@@ -43,34 +41,33 @@ class ArtistName extends React.Component {
           ],
         },
       },
-    };
-  }
-
-  componentDidMount() {
-    const { hocs } = this.props;
-    const { form } = this.state;
-
-    hocs.setForm(form);
-  }
-
-  handlePress() {
-    const { screenProps, hocs } = this.props;
-
-    const formIsValid = hocs.formIsValid();
-    if (formIsValid) {
-      screenProps.navigateTo(routeNames.EMAIL, {
-        accountType: signUploginUtils.ACCOUNT_TYPE.FEAT,
-      });
     }
-  }
 
-  render() {
-    const { hocs } = this.props;
-    const { form } = hocs;
+    componentDidMount() {
+      const { hocs } = this.props;
+      const { form } = this.state;
 
-    return (
-      <Content padder contentContainerStyle={[sg.flexGrow]} bounces={false}>
-        <View style={[sg.spaceBetween]}>
+      hocs.setForm(form);
+    }
+
+    handlePress() {
+      const { screenProps, hocs } = this.props;
+
+      const formIsValid = hocs.formIsValid();
+      if (formIsValid) {
+        screenProps.navigateTo(routeNames.EMAIL, {
+          accountType: signUploginUtils.ACCOUNT_TYPE.FEAT,
+        });
+      }
+    }
+
+    render() {
+      const { hocs } = this.props;
+      const { form } = hocs;
+
+      return (
+        <Content padder contentContainerStyle={[sg.flexGrow]} bounces={false}>
+          <View style={[sg.spaceBetween]}>
           <View>
             <Text style={sg.formHeading}>Artist / Industry Participant Name</Text>
 
@@ -106,9 +103,9 @@ class ArtistName extends React.Component {
             <Text>Next</Text>
           </Button>
         </View>
-      </Content>
-    );
-  }
+        </Content>
+      );
+    }
 }
 
 const res = composeHoc([

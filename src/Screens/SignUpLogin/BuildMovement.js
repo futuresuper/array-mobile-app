@@ -31,13 +31,10 @@ import styles from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class BuildMovement extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    multiplier: 1,
+  };
 
-    this.state = {
-      multiplier: 1,
-    };
-  }
 
   onLayout = (event) => {
     const { height } = event.nativeEvent.layout;

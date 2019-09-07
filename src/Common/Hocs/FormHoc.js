@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import { mapValues, isNil, forOwn } from 'lodash';
 
 import {
   isEmail,
@@ -38,7 +38,7 @@ export default function FormHoc(WrappedComponent) {
       let form;
       if (Array.isArray(formInp)) {
         form = formInp.map((formItem) => {
-          const formTmp = _.mapValues(formItem, (itemInp) => {
+          const formTmp = mapValues(formItem, (itemInp) => {
             let item = itemInp;
             item = { ...fromKeys, ...item };
 
@@ -50,7 +50,7 @@ export default function FormHoc(WrappedComponent) {
           return formTmp;
         });
       } else {
-        form = _.mapValues(formInp, (itemInp) => {
+        form = mapValues(formInp, (itemInp) => {
           let item = itemInp;
           item = { ...fromKeys, ...item };
 
@@ -145,7 +145,7 @@ export default function FormHoc(WrappedComponent) {
       const { form: formOrig } = this.state;
       let res = true;
       let form;
-      if (!_.isNil(dataKey)) form = formOrig[dataKey];
+      if (!isNil(dataKey)) form = formOrig[dataKey];
       else form = formOrig;
       const formIsArray = (Array.isArray(form));
 
@@ -165,7 +165,7 @@ export default function FormHoc(WrappedComponent) {
 
       if (!res) {
         let formNew;
-        if (!_.isNil(dataKey)) {
+        if (!isNil(dataKey)) {
           formNew = formOrig;
           formNew[dataKey] = form;
         } else {
@@ -232,7 +232,7 @@ export default function FormHoc(WrappedComponent) {
       //   && (typeof inputItem.format === 'function')
       // ) {
       //   const valueFormat = inputItem.format(inputItem.value);
-      //   inputItem.valueDisplay = !_.isNil(valueFormat) ? valueFormat : fromKeys.valueDisplay;
+      //   inputItem.valueDisplay = !isNil(valueFormat) ? valueFormat : fromKeys.valueDisplay;
       // }
 
       inputItem = this.applyNormalizeFormat(inputItem, value);
@@ -262,7 +262,7 @@ export default function FormHoc(WrappedComponent) {
         return false;
       }
 
-      if (_.isNil(form[formKey])) {
+      if (isNil(form[formKey])) {
         return false;
       }
 
@@ -291,7 +291,7 @@ export default function FormHoc(WrappedComponent) {
         return false;
       }
 
-      if (_.isNil(form[formKey])) {
+      if (isNil(form[formKey])) {
         return false;
       }
 
@@ -306,7 +306,7 @@ export default function FormHoc(WrappedComponent) {
 
     applyNormalizeFormat(inputItemInp, valueInp = null) {
       const inputItem = inputItemInp;
-      const value = !_.isNil(valueInp) ? valueInp : inputItem.value;
+      const value = !isNil(valueInp) ? valueInp : inputItem.value;
 
       if (
         inputItem.normalize
@@ -320,7 +320,7 @@ export default function FormHoc(WrappedComponent) {
         && (typeof inputItem.format === 'function')
       ) {
         const valueFormat = inputItem.format(inputItem.value);
-        inputItem.valueDisplay = !_.isNil(valueFormat) ? valueFormat : fromKeys.valueDisplay;
+        inputItem.valueDisplay = !isNil(valueFormat) ? valueFormat : fromKeys.valueDisplay;
       }
 
       return inputItem;
@@ -357,7 +357,7 @@ export default function FormHoc(WrappedComponent) {
         form,
       };
 
-      _.forOwn(form, (item, key) => {
+      forOwn(form, (item, key) => {
         if (
           item.validations
           && Array.isArray(item.validations)
@@ -378,7 +378,6 @@ export default function FormHoc(WrappedComponent) {
       return res;
     }
 
-    // eslint-disable-next-line class-methods-use-this
     checkValidation(item) {
       const { validations, value } = item;
       const res = {

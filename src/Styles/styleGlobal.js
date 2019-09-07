@@ -30,6 +30,11 @@ export default {
     marginHorizontal: 20,
     paddingTop: 20,
   },
+  borderedContainer: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: styleConstants.color.gray10,
+  },
   textDescription: {
     color: styleConstants.color.gray,
     textAlign: 'center',
@@ -82,6 +87,11 @@ export default {
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     alignContent: 'flex-end',
+  },
+  left: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignContent: 'flex-start',
   },
   jCCenter: {
     justifyContent: 'center',

@@ -29,13 +29,10 @@ import poweredBy from './images/poweredBy.png';
 import { appLanding as styles } from './styles';
 
 class AppLanding extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    screenHeight: Device.screenHeight(),
+  };
 
-    this.state = {
-      screenHeight: Device.screenHeight(),
-    };
-  }
 
   handleLayout = () => {
     this.setState({

@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isNil } from 'lodash';
 
 import CheckBoxOrig from 'src/Components/CheckBox';
 
@@ -24,7 +24,7 @@ class CheckBox extends Component {
       <CheckBoxOrig
         error={(formData && formData[formKey].error) || false}
         {...this.props}
-        checked={(formData && !_.isNil(formData[formKey].value)) ? !!formData[formKey].value : !!value}
+        checked={(formData && !isNil(formData[formKey].value)) ? !!formData[formKey].value : !!value}
         onPress={() => { this.onPress(); }}
       />
     );
