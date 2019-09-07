@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import { Content, Button, Text, Grid, Col } from 'native-base';
+import {
+  Content, Button, Text, Grid, Col,
+} from 'native-base';
 
 import { routeNames } from 'src/Navigation';
 import { styleGlobal } from 'src/Styles';
@@ -37,7 +39,7 @@ class DateOfBirth extends React.Component {
     hocs.setForm(form);
   }
 
-  isDayValid = valInp => {
+  isDayValid = (valInp) => {
     const val = parseInt(valInp, 10);
 
     if (!valInp.match(/^\d+$/)) {
@@ -51,7 +53,7 @@ class DateOfBirth extends React.Component {
     return true;
   };
 
-  isMonthValid = valInp => {
+  isMonthValid = (valInp) => {
     const val = parseInt(valInp, 10);
 
     if (!valInp.match(/^\d+$/)) {
@@ -65,7 +67,7 @@ class DateOfBirth extends React.Component {
     return true;
   };
 
-  isYearValid = valInp => {
+  isYearValid = (valInp) => {
     if (!valInp.match(/^\d+$/)) {
       return false;
     }

@@ -34,35 +34,50 @@ class IdCheckDetails extends Component {
     // dummy data need to be refactored
     const dummyRes = this.setDummyRes(hocs.form);
 
+
     if (formIsValid) {
-      const body = this.setReqBody(hocs.form);
-      screenProps.Api.post(
-        '/idcheck',
-        body,
-        (res) => {
-          if (res.idCheckComplete) {
-            screenProps.navigateTo(routeNames.HOME_ADDRESS);
-          } else {
-            idCheckSaveConnect(res);
-            screenProps.navigateTo(routeNames.ID_CHECK);
-            // // screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
-          }
-        },
-        () => {
-          // screenProps.toastDanger('Error. Try Again');
-          idCheckSaveConnect(dummyRes);
-          screenProps.navigateTo(routeNames.ID_CHECK);
-        },
-      );
+      if (dummyRes.idCheckComplete) {
+        screenProps.navigateTo(routeNames.TAB_HOME);
+        screenProps.toastSuccess('ID verification complete');
+      } else {
+        screenProps.navigateTo(routeNames.ID_CHECK);
+        screenProps.toastDanger('ID verification failed');
+      }
+      idCheckSaveConnect(dummyRes);
     }
-    return null;
+
+
+    // if (formIsValid) {
+    //   const body = this.setReqBody(hocs.form);
+    //   screenProps.Api.post(
+    //     '/idcheck',
+    //     body,
+    //     (res) => {
+    //       if (res.idCheckComplete) {
+    //         screenProps.navigateTo(routeNames.HOME_ADDRESS);
+    //         screenProps.toastSuccess('ID verification complete');
+
+    //       } else {
+    //         idCheckSaveConnect(res);
+    //         screenProps.navigateTo(routeNames.ID_CHECK);
+    //         // // screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
+    //       }
+    //     },
+    //     () => {
+    //       // screenProps.toastDanger('Error. Try Again');
+    //       idCheckSaveConnect(dummyRes);
+    //       screenProps.navigateTo(routeNames.ID_CHECK);
+    //     },
+    //   );
+    // }
+    // return null;
   }
 
   // needs to be deleted
   setDummyRes(form) {
     if (form.type.value === 'Passport') {
       return {
-        idCheckComplete: false,
+        idCheckComplete: true,
         driversLicence: 'matchFailed',
         australianPassport: 'matched',
         medicareCard: 'notAttempted',

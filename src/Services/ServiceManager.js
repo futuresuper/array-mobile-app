@@ -1,10 +1,10 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import ThemeService from './ThemeService';
 
-class ServicesManager extends Component {
+class ServicesManager extends React.Component {
   constructor(props) {
     super(props);
 

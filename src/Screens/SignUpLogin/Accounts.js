@@ -31,12 +31,12 @@ class Accounts extends React.Component {
       // dev purpose
       // screenProps.navigateTo(routeNames.TAB_HOME);
       // this.nextScreen();
+      // screenProps.navigateTo(routeNames.ID_CHECK);
     });
   }
 
   getAppContent(callback) {
     const { screenProps } = this.props;
-    console.log(screenProps)
     screenProps.Api.get('/appcontent', {}, callback, () => {
       screenProps.toast('Unknown error (appcontent)');
     });

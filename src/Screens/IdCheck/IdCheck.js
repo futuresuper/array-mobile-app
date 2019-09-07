@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Image, TouchableOpacity } from 'react-native';
@@ -18,11 +18,8 @@ import { userSelector } from 'src/Redux/AppContent';
 import { sg } from 'src/Styles';
 import styles from './styles';
 
-class IdCheck extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+class IdCheck extends PureComponent {
+    state = {
       list: [
         {
           type: idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
@@ -40,55 +37,54 @@ class IdCheck extends Component {
         },
       ],
     };
-  }
 
-  componentDidMount() {
-    const { screenProps } = this.props;
-    screenProps.toast('Application Complete', {
-      iconType: 'MaterialCommunityIcons',
-      iconName: 'check-circle',
-    });
-  }
+    componentDidMount() {
+      const { screenProps } = this.props;
+      screenProps.toast('Application Complete', {
+        iconType: 'MaterialCommunityIcons',
+        iconName: 'check-circle',
+      });
+    }
 
 
-  onPressEditItem(item) {
-    const { screenProps } = this.props;
+    onPressEditItem(item) {
+      const { screenProps } = this.props;
 
-    screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { item });
-  }
+      screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { item });
+    }
 
-  renderButton(type) {
-    const { screenProps } = this.props;
-    const name = idCheckUtils.getTypeName(type);
+    renderButton(type) {
+      const { screenProps } = this.props;
+      const name = idCheckUtils.getTypeName(type);
 
-    return (
-      <Button
-        block
-        marginVert
-        style={sg.mT0}
-        onPress={() => {
-          screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { newItemByType: type });
-        }}
-      >
-        <Text>
-          {`Add ${name}`}
-        </Text>
-      </Button>
-    );
-  }
+      return (
+        <Button
+          block
+          marginVert
+          style={sg.mT0}
+          onPress={() => {
+            screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { newItemByType: type });
+          }}
+        >
+          <Text>
+            {`Add ${name}`}
+          </Text>
+        </Button>
+      );
+    }
 
-  renderItem(docType, status, user, item) {
-    const isVerified = status === 'matched';
-    const type = idCheckUtils.getTypeName(docType);
+    renderItem(docType, status, user, item) {
+      const isVerified = status === 'matched';
+      const type = idCheckUtils.getTypeName(docType);
 
-    return (
-      <View>
-        <Grid style={styles.itemBl}>
-          <Row>
-            <Col>
-              <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
+      return (
+        <View>
+          <Grid style={styles.itemBl}>
+            <Row>
+              <Col>
+                <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
 
-              {!isVerified && (
+                {!isVerified && (
                 <View>
                   <Text style={[sg.colorDark3]}>{user.fullName}</Text>
                   <Text style={[sg.colorDark3, sg.mV5]}>
@@ -100,51 +96,51 @@ class IdCheck extends Component {
                     {item.state}
                   </Text>
                 </View>
-              )}
-            </Col>
-            <Col style={sg.width20}>
-              {!isVerified && (
+                )}
+              </Col>
+              <Col style={sg.width20}>
+                {!isVerified && (
                 <TouchableOpacity onPress={() => this.onPressEditItem(item)}>
                   <Image source={EditIcon} />
                 </TouchableOpacity>
-              )}
-            </Col>
-          </Row>
-          {isVerified ? (
-            <Row style={[sg.mT15, sg.aICenter]}>
-              <Icon name="ios-close-circle" style={styles.itemStatusIconOk} />
-              <Text style={styles.itemStatusTextOk}>Verified</Text>
+                )}
+              </Col>
             </Row>
-          ) : (
-            <Row style={[sg.mT15, sg.aICenter]}>
-              <Icon name="ios-close-circle" style={styles.itemStatusIconErr} />
-              <Text style={styles.itemStatusTextErr}>Details didn’t match</Text>
-            </Row>
-          )}
-        </Grid>
-      </View>
-    );
-  }
-
-  render() {
-    const { user, screenProps } = this.props;
-    const { list } = this.state;
-    return (
-      <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
-        <View>
-          <Text style={sg.formHeading}>Your ID check</Text>
+            {isVerified ? (
+              <Row style={[sg.mT15, sg.aICenter]}>
+                <Icon name="ios-close-circle" style={styles.itemStatusIconOk} />
+                <Text style={styles.itemStatusTextOk}>Verified</Text>
+              </Row>
+            ) : (
+              <Row style={[sg.mT15, sg.aICenter]}>
+                <Icon name="ios-close-circle" style={styles.itemStatusIconErr} />
+                <Text style={styles.itemStatusTextErr}>Details didn’t match</Text>
+              </Row>
+            )}
+          </Grid>
         </View>
-        <View style={[sg.spaceBetween]}>
+      );
+    }
+
+    render() {
+      const { user, screenProps } = this.props;
+      const { list } = this.state;
+      return (
+        <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
           <View>
-            {!user.idCheck && (
+            <Text style={sg.formHeading}>Your ID check</Text>
+          </View>
+          <View style={[sg.spaceBetween]}>
+            <View>
+              {!user.idCheck && (
               <View>
                 <Text style={sg.formHeadingDescription}>
                   Please provide your Drivers Licence or Passport Number
                 </Text>
               </View>
-            )}
+              )}
 
-            {user.idCheck && user.idCheck.australianPassport !== 'matchFailed' && (
+              {user.idCheck && user.idCheck.australianPassport !== 'matchFailed' && (
               <View>
                 <Text style={sg.mB15}>
                   We weren’t able to verify you with the ID you provided. Please check the details
@@ -164,10 +160,10 @@ class IdCheck extends Component {
                   How to certify ID.
                 </TextUnderline>
               </View>
-            )}
-          </View>
-          <View>
-            {user.idCheck
+              )}
+            </View>
+            <View>
+              {user.idCheck
               && user.idCheck.driversLicence !== 'notAttempted'
               && this.renderItem(
                 idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
@@ -175,7 +171,7 @@ class IdCheck extends Component {
                 user,
                 list[0],
               )}
-            {user.idCheck
+              {user.idCheck
               && user.idCheck.australianPassport !== 'notAttempted'
               && this.renderItem(
                 idCheckUtils.ID_TYPE.PASSPORT,
@@ -183,7 +179,7 @@ class IdCheck extends Component {
                 user,
                 list[0],
               )}
-            {user.idCheck
+              {user.idCheck
               && user.idCheck.medicareCard !== 'notAttempted'
               && this.renderItem(
                 idCheckUtils.ID_TYPE.MEDICARE_CARD,
@@ -191,12 +187,12 @@ class IdCheck extends Component {
                 user,
                 list[0],
               )}
-          </View>
-          <View>
-            {this.renderButton(idCheckUtils.ID_TYPE.DRIVERS_LICENSE)}
-            {this.renderButton(idCheckUtils.ID_TYPE.PASSPORT)}
-            {this.renderButton(idCheckUtils.ID_TYPE.MEDICARE_CARD)}
-            {user.idCheck && user.idCheck.driversLicence === 'matchFailed' && (
+            </View>
+            <View>
+              {this.renderButton(idCheckUtils.ID_TYPE.DRIVERS_LICENSE)}
+              {this.renderButton(idCheckUtils.ID_TYPE.PASSPORT)}
+              {this.renderButton(idCheckUtils.ID_TYPE.MEDICARE_CARD)}
+              {user.idCheck && user.idCheck.driversLicence === 'matchFailed' && (
               <Button
                 bordered
                 dark
@@ -209,12 +205,12 @@ class IdCheck extends Component {
               >
                 <Text>Post us certified ID</Text>
               </Button>
-            )}
+              )}
+            </View>
           </View>
-        </View>
-      </Content>
-    );
-  }
+        </Content>
+      );
+    }
 }
 
 IdCheck.propTypes = {

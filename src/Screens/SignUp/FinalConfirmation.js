@@ -26,7 +26,7 @@ class FinalConfirmation extends React.Component {
     screenProps.Api.post(
       '/account',
       body,
-      res => {
+      (res) => {
         if (res.idCheckComplete) {
           screenProps.navigateTo(routeNames.TAB_HOME);
         } else {
@@ -59,7 +59,7 @@ class FinalConfirmation extends React.Component {
             Once you click ‘Agree & Submit Application’, we will debit your&nbsp;
             <Text style={sg.textBold}>bank account</Text>
             &nbsp;for your initial investment amount&nbsp;
-            <Text style={sg.textBold}></Text>
+            <Text style={sg.textBold} />
           </Text>
 
           <Text style={[sg.fS10, sg.textBold, sg.mT20]}>I make the following declarations:</Text>
@@ -176,7 +176,7 @@ FinalConfirmation.propTypes = {
   applicationId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const applicationId = applicationIdSelector(state);
   return {
     applicationId,
