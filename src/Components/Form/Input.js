@@ -12,7 +12,7 @@ import {
   Icon,
   Text,
 } from 'native-base';
-import _ from 'lodash';
+import { isEmpty, isNil, get } from 'lodash';
 
 import {
   sg,
@@ -133,7 +133,7 @@ class Input extends Component {
   renderHelper() {
     const { helper } = this.props;
 
-    if (_.isEmpty(helper)) {
+    if (isEmpty(helper)) {
       return null;
     }
 
@@ -154,15 +154,15 @@ class Input extends Component {
       inputLineColor,
     } = this.props;
 
-    // console.log('!!!', formData);
     let formValue;
+    const targetField = get(formData, formKey.split('.'));
     if (
       formData
     ) {
-      if (!_.isNil(formData[formKey].valueDisplay)) {
-        formValue = formData[formKey].valueDisplay;
-      } else if (formData[formKey].value) {
-        formValue = formData[formKey].value;
+      if (!isNil(targetField.valueDisplay)) {
+        formValue = targetField.valueDisplay;
+      } else if (targetField.value) {
+        formValue = targetField.value;
       }
     }
 
@@ -171,7 +171,7 @@ class Input extends Component {
         <Item
           // regular
           stackedLabel={!!label}
-          error={(formData && formData[formKey].error) || false}
+          error={(formData && targetField.error) || false}
           {...itemProps}
           style={[{ borderColor: inputLineColor }, disabled ? sg.noBorder : {}, itemProps.style ? itemProps.style : {}]}
           iconLeft={false}

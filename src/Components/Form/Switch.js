@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { get, isNil } from 'lodash';
 import {
   Grid,
   Row,
@@ -33,6 +33,8 @@ class Switch extends Component {
       ...restProps
     } = this.props;
 
+    const targetField = get(formData, formKey.split('.'));
+
     const trackColor = {
       true: sc.color.brightGreen,
       ...trackColorProps,
@@ -40,7 +42,7 @@ class Switch extends Component {
 
     return (
       <SwitchNB
-        value={(formData && !_.isNil(formData[formKey].value)) ? !!formData[formKey].value : !!value}
+        value={(formData && !isNil(targetField.value)) ? !!targetField.value : !!value}
         onValueChange={(...args) => { this.onPress(...args); }}
         style={sg.mB0}
         trackColor={trackColor}

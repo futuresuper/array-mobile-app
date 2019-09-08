@@ -1,5 +1,8 @@
+/* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
-import { mapValues, isNil, forOwn } from 'lodash';
+import {
+  mapValues, isNil, forOwn, get,
+} from 'lodash';
 
 import {
   isEmail,
@@ -26,39 +29,22 @@ const fromKeys = {
 
 export default function FormHoc(WrappedComponent) {
   const Def = class Def extends Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
+      state = {
         form: null,
       };
-    }
 
-    setForm = (formInp) => {
-      let form;
-      if (Array.isArray(formInp)) {
-        form = formInp.map((formItem) => {
-          const formTmp = mapValues(formItem, (itemInp) => {
-            let item = itemInp;
-            item = { ...fromKeys, ...item };
+    setForm = (obj) => {
+      const form = mapValues(obj, (i) => {
+        // added nested forms functionality
+        if (Array.isArray(i)) {
+          const arrayElement = i.map(element => mapValues(element, ei => this.attachFormKeys(ei)));
+          return arrayElement;
+        }
+        let formItem = this.attachFormKeys(i);
+        formItem = this.applyNormalizeFormat(formItem);
+        return formItem;
+      });
 
-            item = this.applyNormalizeFormat(item);
-
-            return item;
-          });
-
-          return formTmp;
-        });
-      } else {
-        form = mapValues(formInp, (itemInp) => {
-          let item = itemInp;
-          item = { ...fromKeys, ...item };
-
-          item = this.applyNormalizeFormat(item);
-
-          return item;
-        });
-      }
 
       return new Promise((resolve) => {
         this.setState({
@@ -66,6 +52,7 @@ export default function FormHoc(WrappedComponent) {
         }, resolve);
       });
     }
+
 
     setFormFromObject(data) {
       const form = {};
@@ -84,6 +71,10 @@ export default function FormHoc(WrappedComponent) {
       return this.setForm(form);
     }
 
+    attachFormKeys = obj => (
+      { ...fromKeys, ...obj }
+    )
+
     getFormAsObject = () => {
       const { form } = this.state;
       const res = {};
@@ -97,20 +88,9 @@ export default function FormHoc(WrappedComponent) {
       return res;
     }
 
-    setFormFieldValue = (value, field, dataKey = null, fieldProp = 'value') => {
+    setFormFieldValue = (value, field, fieldProp = 'value') => {
       const { form } = this.state;
-      const formIsArray = (Array.isArray(form));
-      if (formIsArray) {
-        if (dataKey && form[dataKey]) {
-          form[dataKey][field][fieldProp] = value;
-        }
-      } else {
-        // eslint-disable-next-line no-lonely-if
-        if (form[field]) {
-          form[field][fieldProp] = value;
-        }
-      }
-
+      form[field][fieldProp] = value;
       this.setState({
         form,
       });
@@ -124,6 +104,8 @@ export default function FormHoc(WrappedComponent) {
       this.setFormFieldValue(value, field, dataKey, 'title');
     };
 
+
+    // ???
     addFormItem = (data) => {
       const { form } = this.state;
       const formIsArray = (Array.isArray(form));
@@ -133,6 +115,7 @@ export default function FormHoc(WrappedComponent) {
 
       this.setState(form);
     }
+
 
     formIsValid = (dataKeyInp = null, showToastInp = true) => {
       const options = this.formIsValidOptions(dataKeyInp, showToastInp);
@@ -145,23 +128,12 @@ export default function FormHoc(WrappedComponent) {
       const { form: formOrig } = this.state;
       let res = true;
       let form;
-      if (!isNil(dataKey)) form = formOrig[dataKey];
+      if (!isNil(dataKey)) form = get(formOrig, dataKey.split('.'));
       else form = formOrig;
-      const formIsArray = (Array.isArray(form));
 
-      if (formIsArray) {
-        for (let i = 0; i < form.length; i += 1) {
-          const formTmp = form[i];
-          const itemValid = this.formItemIsValid(formTmp);
-
-          form[i] = itemValid.form;
-          if (!itemValid.isValid) res = false;
-        }
-      } else {
-        const itemValid = this.formItemIsValid(form);
-        ({ form } = itemValid);
-        res = itemValid.isValid;
-      }
+      const itemValid = this.formItemIsValid(form);
+      ({ form } = itemValid);
+      res = itemValid.isValid;
 
       if (!res) {
         let formNew;
@@ -177,13 +149,11 @@ export default function FormHoc(WrappedComponent) {
         });
 
         if (showToast) {
-          if (fieldError && !formIsArray) {
+          if (fieldError) {
             const errorKeys = Object.keys(form).filter(item => form[item].error);
             const { errorMessage } = form[errorKeys[0]];
 
             screenProps.toastDanger(errorMessage);
-          } else {
-            screenProps.toastDanger('Please enter valid values');
           }
         }
       }
@@ -202,15 +172,11 @@ export default function FormHoc(WrappedComponent) {
       this.handleInput(null, formKey, dataKey, 'checkbox');
     }
 
+
     handleInput = (value, formKey, dataKey = null, typeItem = 'input') => {
       const { form } = this.state;
-      const formIsArray = (Array.isArray(form));
       let inputItem;
-      if (formIsArray) {
-        inputItem = form[dataKey][formKey];
-      } else {
-        inputItem = form[formKey];
-      }
+      inputItem = get(form, formKey.split('.'));
 
       if (typeItem === 'checkbox') {
         const checkedValue = !!inputItem.value;
@@ -219,7 +185,7 @@ export default function FormHoc(WrappedComponent) {
         inputItem.value = value;
       }
 
-
+      // ??
       // if (
       //   inputItem.normalize
       //   && (typeof inputItem.normalize === 'function')
@@ -238,17 +204,12 @@ export default function FormHoc(WrappedComponent) {
       inputItem = this.applyNormalizeFormat(inputItem, value);
 
       const validation = this.checkValidation(inputItem);
-      if (formIsArray) {
-        form[dataKey][formKey] = {
-          ...inputItem,
-          ...validation,
-        };
-      } else {
-        form[formKey] = {
-          ...inputItem,
-          ...validation,
-        };
-      }
+
+      form[formKey] = {
+        ...inputItem,
+        ...validation,
+      };
+
 
       this.setState({
         form,
@@ -257,10 +218,6 @@ export default function FormHoc(WrappedComponent) {
 
     setFieldValidations = (formKey, validations) => {
       const { form } = this.state;
-      const formIsArray = (Array.isArray(form));
-      if (formIsArray) {
-        return false;
-      }
 
       if (isNil(form[formKey])) {
         return false;
@@ -286,16 +243,12 @@ export default function FormHoc(WrappedComponent) {
 
     setFieldKey = (formKey, formFieldKey, formFieldValue) => {
       const { form } = this.state;
-      const formIsArray = (Array.isArray(form));
-      if (formIsArray) {
+
+      if (isNil(get(form, formKey.split('.')))) {
         return false;
       }
 
-      if (isNil(form[formKey])) {
-        return false;
-      }
-
-      form[formKey][formFieldKey] = formFieldValue;
+      get(form, formKey)[formFieldKey] = formFieldValue;
 
       this.setState({
         form,
@@ -326,7 +279,6 @@ export default function FormHoc(WrappedComponent) {
       return inputItem;
     }
 
-    // eslint-disable-next-line class-methods-use-this
     formIsValidOptions(dataKey = null, showToast = true) {
       let options = {
         dataKey: null,
@@ -377,6 +329,7 @@ export default function FormHoc(WrappedComponent) {
 
       return res;
     }
+
 
     checkValidation(item) {
       const { validations, value } = item;
@@ -440,6 +393,43 @@ export default function FormHoc(WrappedComponent) {
       return res;
     }
 
+
+    /**
+     * Function for adding new or updating existing form fields.
+     *
+     * @param {data} - Form object to add. It can be initialized as empty,
+     *                 or contain regular form parameters. Supports arrays.
+     * @param {formKey} - A path domain to form location.
+     *                    Accepts nested values ex. element.0 for now supports 1 depths max for now.
+     */
+    addOrUpdateFormField = (data = {}, formKey = '') => {
+      const completeData = mapValues(data, value => this.attachFormKeys(value));
+      const pathArray = formKey.split('.');
+      this.updateFormState(pathArray, completeData);
+    }
+
+
+    // update dynamic key location
+    updateFormState(pathArray, data) {
+      const { form } = this.state;
+      const formClone = { ...form };
+
+      const nestedObject = pathArray
+        .slice(0, -1)
+        .reduce((object, part) => (object === undefined ? undefined : object[part]), formClone);
+
+      if (nestedObject !== undefined) {
+        // Obtain last key in path
+        const [pathTail] = pathArray.slice(-1);
+
+        // Update value of last key on target object to new value
+        nestedObject[pathTail] = data;
+      }
+
+      this.setState({ form: formClone });
+    }
+
+
     render() {
       const { hocs, forwardedRef, ...passThroughtProps } = this.props;
       const { form } = this.state;
@@ -461,6 +451,7 @@ export default function FormHoc(WrappedComponent) {
             formGetVal: this.formGetVal,
             formIsValid: this.formIsValid,
             addFormItem: this.addFormItem,
+            addOrUpdateFormField: this.addOrUpdateFormField,
             setFieldValidations: this.setFieldValidations,
             setFieldNormalize: this.setFieldNormalize,
             setFieldFormat: this.setFieldFormat,

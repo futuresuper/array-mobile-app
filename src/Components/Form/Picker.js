@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isNil, isEmpty, get } from 'lodash';
 import {
   View,
 } from 'react-native';
@@ -28,7 +28,7 @@ class Picker extends Component {
     const { formData: formDataPrev } = prevProp;
     const { formData: formDataNow } = this.props;
 
-    if (_.isNil(formDataPrev) && !_.isNil(formDataNow)) {
+    if (isNil(formDataPrev) && !isNil(formDataNow)) {
       this.onInit(this.props);
     }
   }
@@ -62,7 +62,7 @@ class Picker extends Component {
   renderHelper() {
     const { helper } = this.props;
 
-    if (_.isEmpty(helper)) {
+    if (isEmpty(helper)) {
       return null;
     }
 
@@ -86,13 +86,14 @@ class Picker extends Component {
 
     let titleText = title;
     let error = false;
+    const targetField = get(formData, formKey.split('.'));
 
-    if (formData && !_.isNil(formData[formKey])) {
-      if (formData[formKey].title) {
-        titleText = formData[formKey].title;
+    if (formData && !isNil(targetField)) {
+      if (targetField.title) {
+        titleText = targetField.title;
       }
 
-      ({ error } = formData[formKey]);
+      ({ error } = targetField);
     }
 
     return (

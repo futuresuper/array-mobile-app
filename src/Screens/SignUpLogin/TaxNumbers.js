@@ -43,7 +43,7 @@ class TaxNumbers extends Component {
         },
         usPerson: {
         },
-        tins: {},
+        tins: [],
         usTin: {
         },
         resident: {
@@ -82,14 +82,28 @@ class TaxNumbers extends Component {
       }
     }
 
-    // handles checkmark and adds appropriate validators to hoc
-    handleResidentSwich(e) {
+    // handles checkmark and adds appropriate validators and fields to hoc
+    handleResidentSwich(formKey) {
       const { hocs } = this.props;
       const { form } = hocs;
-      hocs.handleCheckBox(e);
-      const targetFormKey = e === 'usPerson' ? 'usTin' : 'tins';
-      const validator = form[e].value ? ['required'] : [];
-      hocs.setFieldValidations(targetFormKey, validator);
+      hocs.handleCheckBox(formKey);
+      let targetFormKey;
+      if (formKey === 'resident') {
+        targetFormKey = 'tins';
+        const intResObjSkeleton = {
+          country: { validations: ['required'] },
+          tin: { validations: [] },
+          unavailableReason: {},
+          unavailableReasonOther: {},
+        };
+        if (!form.tins.length) {
+          hocs.addOrUpdateFormField(intResObjSkeleton, 'tins.0');
+        }
+      } else {
+        targetFormKey = 'usTin';
+        const validator = form[formKey].value ? ['required'] : [];
+        hocs.setFieldValidations(targetFormKey, validator);
+      }
     }
 
     renderSwitch(formKey) {
@@ -131,72 +145,79 @@ class TaxNumbers extends Component {
     renderInternationalResidentTin() {
       const { hocs } = this.props;
       const { form } = hocs;
+
+      console.log(form);
+
+      const residentForms = [];
       if (form && form.resident.value) {
-        return (
-          <View style={[sg.mV20, sg.mH10]}>
-            <Grid style={[sg.borderedContainer, sg.p10, sg.mB10]}>
-              <Row>
-                <Input
-                  formData={form}
-                  formKey="tins"
-                  helper="Country of tax residence"
-                  onChangeText={hocs.handleInput}
-                />
-              </Row>
-              <Row>
-                <Input
-                  formData={form}
-                  formKey="tins"
-                  helper="TIN/TFN"
-                  onChangeText={hocs.handleInput}
-                />
-              </Row>
-              <Row>
-                <Text style={[sg.colorGray11, sg.fontMedium, sg.fS14]}>Or Select a reason that TIN/TFN is unavailable:</Text>
-              </Row>
-              <Row style={[sg.mT20]}>
-                <CheckBox
-                  formData={form}
-                  formKey="tins"
-                  onPress={hocs.handleCheckBox}
-                />
-                <Text style={[sg.colorGray11, sg.fontMedium, sg.fS14, sg.pL10, sg.pR20]}>
-                  {"THE COUNTRY WHERE THE ACCOUNT HOLDER IS LIABLE TO PAY TAX DOES NOT ISSUE TINS TO IT'S RESIDENTS."}
-                </Text>
-              </Row>
-              <Row style={[sg.mT20]}>
-                <CheckBox
-                  formData={form}
-                  formKey="tins"
-                  onPress={hocs.handleCheckBox}
-                />
-                <Text style={[sg.colorGray11, sg.fontMedium, sg.fS14, sg.pL10, sg.pR20]}>
-                  {'NO TIN IS REQUIRED.(NOTE: ONLY SELECT THIS REASON IF THE DOMESTIC LAW OF THE RELEVANT '}
-                  {'JURISDICTION DOES NOT REQUIRE THE COLLECTION OF THE TIN ISSUED BY SUCH JURISDICTION'}
-                </Text>
-              </Row>
-              <Row style={[sg.mT10]}>
-                <Input
-                  containerStyle={sg.pH20}
-                  formData={form}
-                  formKey="tins"
-                  helper="OTHER"
-                  onChangeText={hocs.handleInput}
-                />
-              </Row>
-            </Grid>
-            <Button bordered dark onPress={() => this.onNext()} block>
-              <Text>+ Add Another</Text>
-            </Button>
-          </View>
-        );
+        form.tins.forEach((tin, k) => {
+          residentForms.push(
+            <View key={Math.random(k)} style={[sg.mV20, sg.mH10]}>
+              <Grid style={[sg.borderedContainer, sg.p10, sg.mB10]}>
+                <Row>
+                  <Input
+                    formData={form}
+                    formKey={`tins.${k}.country`}
+                    helper="Country of tax residence"
+                    onChangeText={hocs.handleInput}
+                  />
+                </Row>
+                <Row>
+                  <Input
+                    formData={form}
+                    formKey={`tins.${k}.tin`}
+                    helper="TIN/TFN"
+                    onChangeText={hocs.handleInput}
+                  />
+                </Row>
+                <Row>
+                  <Text style={[sg.colorGray11, sg.fontMedium, sg.fS14]}>Or Select a reason that TIN/TFN is unavailable:</Text>
+                </Row>
+                <Row style={[sg.mT20]}>
+                  <CheckBox
+                    formData={form}
+                    formKey={`tins.${k}.unavailableReason`}
+                    onPress={hocs.handleCheckBox}
+                  />
+                  <Text style={[sg.colorGray11, sg.fontMedium, sg.fS14, sg.pL10, sg.pR20]}>
+                    {"THE COUNTRY WHERE THE ACCOUNT HOLDER IS LIABLE TO PAY TAX DOES NOT ISSUE TINS TO IT'S RESIDENTS."}
+                  </Text>
+                </Row>
+                <Row style={[sg.mT20]}>
+                  <CheckBox
+                    formData={form}
+                    formKey={`tins.${k}.unavailableReason`}
+                    onPress={hocs.handleCheckBox}
+                  />
+                  <Text style={[sg.colorGray11, sg.fontMedium, sg.fS14, sg.pL10, sg.pR20]}>
+                    {'NO TIN IS REQUIRED.(NOTE: ONLY SELECT THIS REASON IF THE DOMESTIC LAW OF THE RELEVANT '}
+                    {'JURISDICTION DOES NOT REQUIRE THE COLLECTION OF THE TIN ISSUED BY SUCH JURISDICTION'}
+                  </Text>
+                </Row>
+                <Row style={[sg.mT10]}>
+                  <Input
+                    containerStyle={sg.pH20}
+                    formData={form}
+                    formKey={`tins.${k}.unavailableReasonOther`}
+                    helper="OTHER"
+                    onChangeText={hocs.handleInput}
+                  />
+                </Row>
+              </Grid>
+              <Button bordered dark onPress={() => this.onNext()} block>
+                <Text>+ Add Another</Text>
+              </Button>
+            </View>,
+          );
+        });
       }
-      return null;
+      return residentForms;
     }
 
     render() {
       const { hocs } = this.props;
       const { form } = hocs;
+
 
       return (
         <Content padder contentContainerStyle={sg.flexGrow}>
