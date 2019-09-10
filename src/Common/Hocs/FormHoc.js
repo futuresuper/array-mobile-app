@@ -1,7 +1,7 @@
 /* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
 import {
-  mapValues, isNil, get,
+  mapValues, isNil, get, set,
 } from 'lodash';
 
 import {
@@ -62,7 +62,7 @@ export default function FormHoc(WrappedComponent) {
 
     setForm = (obj) => {
       const form = mapValues(obj, (i) => {
-        // added nested forms functionality
+        // added nested array forms functionality
         if (Array.isArray(i)) {
           const arrayElement = i.map(element => mapValues(element, ei => this.attachFormKeys(ei)));
           return arrayElement;
@@ -228,7 +228,6 @@ export default function FormHoc(WrappedComponent) {
       } else {
         pathArray = formKey.split('.');
       }
-      console.log(pathArray);
       if (format === 'collection') {
         completeData = mapValues(data, value => this.attachFormKeys(value));
       } else {
@@ -323,8 +322,13 @@ export default function FormHoc(WrappedComponent) {
     setFieldValidations = (formKey, validations) => {
       const { form } = this.state;
       const formClone = { ...form };
+      let pathArray;
 
-      const pathArray = formKey.split('.');
+      if (Array.isArray(formKey)) {
+        pathArray = formKey;
+      } else {
+        pathArray = formKey.split('.');
+      }
 
       if (isNil(get(formClone, pathArray))) {
         return false;
@@ -335,7 +339,8 @@ export default function FormHoc(WrappedComponent) {
         throw err;
       }
 
-      get(formClone, formKey.split('.')).validations = validations;
+      get(formClone, pathArray).validations = validations;
+
 
       this.setState({
         form: formClone,

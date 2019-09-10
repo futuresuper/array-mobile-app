@@ -137,6 +137,21 @@ const signDataRoutes = formatRoutes({
     params: {},
     ...tabCardOptions,
   },
+  [routeNames.ID_CHECK_DRIVERS_LICENCE]: {
+    screen: screens.IdCheckDriversLicence,
+    params: {},
+    ...tabCardOptions,
+  },
+  [routeNames.ID_CHECK_AUSTRALIAN_PASSPORT]: {
+    screen: screens.IdCheckAustralianPassport,
+    params: {},
+    ...tabCardOptions,
+  },
+  [routeNames.ID_CHECK_MEDICARE_CARD]: {
+    screen: screens.IdCheckMedicareCard,
+    params: {},
+    ...tabCardOptions,
+  },
   [routeNames.POST_US_CERTIFIED_ID]: {
     screen: screens.PostUsCertifiedId,
   },

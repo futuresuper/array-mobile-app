@@ -30,7 +30,7 @@ class Accounts extends React.Component {
       }
       // dev purpose
       // this.nextScreen();
-      screenProps.navigateTo(routeNames.PERSONAL_DETAILS);
+      // screenProps.navigateTo(routeNames.ID_CHECK);
     });
   }
 

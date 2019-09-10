@@ -137,8 +137,6 @@ class PersonalDetails extends Component {
       return null;
     }
 
-    console.log(form);
-
     return (
       <View>
         <Input

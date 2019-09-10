@@ -50,26 +50,50 @@ class IdCheck extends PureComponent {
     onPressEditItem(item) {
       const { screenProps } = this.props;
 
-      screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { item });
+      screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE, { item });
     }
 
-    renderButton(type) {
+    renderButtons() {
       const { screenProps } = this.props;
-      const name = idCheckUtils.getTypeName(type);
-
       return (
-        <Button
-          block
-          marginVert
-          style={sg.mT0}
-          onPress={() => {
-            screenProps.navigateTo(routeNames.ID_CHECK_DETAILS, { newItemByType: type });
-          }}
-        >
-          <Text>
-            {`Add ${name}`}
-          </Text>
-        </Button>
+        <View>
+          <Button
+            block
+            marginVert
+            style={sg.mT0}
+            onPress={() => {
+              screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE);
+            }}
+          >
+            <Text>
+              {'Add Drivers Licencse'}
+            </Text>
+          </Button>
+          <Button
+            block
+            marginVert
+            style={sg.mT0}
+            onPress={() => {
+              screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT);
+            }}
+          >
+            <Text>
+              {'Add Australian Passport'}
+            </Text>
+          </Button>
+          <Button
+            block
+            marginVert
+            style={sg.mT0}
+            onPress={() => {
+              screenProps.navigateTo(routeNames.ID_CHECK_MEDICARE_CARD);
+            }}
+          >
+            <Text>
+              {'Add Medicare Card'}
+            </Text>
+          </Button>
+        </View>
       );
     }
 
@@ -189,9 +213,7 @@ class IdCheck extends PureComponent {
               )}
             </View>
             <View>
-              {this.renderButton(idCheckUtils.ID_TYPE.DRIVERS_LICENSE)}
-              {this.renderButton(idCheckUtils.ID_TYPE.PASSPORT)}
-              {this.renderButton(idCheckUtils.ID_TYPE.MEDICARE_CARD)}
+              {this.renderButtons()}
               {user.idCheck && user.idCheck.driversLicence === 'matchFailed' && (
               <Button
                 bordered

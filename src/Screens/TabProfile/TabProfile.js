@@ -31,9 +31,9 @@ import { userSelector } from 'src/Redux/AppContent';
 import { userUpdateAvatar } from 'src/Redux/Auth';
 
 import Camera from 'src/Components/Camera';
+import { sg } from 'src/Styles';
 import ImageUploadModal from './ImageUploadModal';
 
-import { sg } from 'src/Styles';
 
 import styles from './styles';
 
@@ -96,7 +96,7 @@ class TabProfile extends Component {
     }
   }
 
-  onTakePhoto = data => {
+  onTakePhoto = (data) => {
     const { userUpdateAvatarConnect } = this.props;
     const { uri } = data;
     console.log('----------data from camera', data);
@@ -105,7 +105,7 @@ class TabProfile extends Component {
     this.toggleImageUploadModal();
   };
 
-  navigateTo = screen => {
+  navigateTo = (screen) => {
     const { screenProps } = this.props;
     screenProps.navigateTo(screen);
   };
@@ -140,7 +140,7 @@ class TabProfile extends Component {
         path: 'images',
       },
     };
-    ImagePicker.launchImageLibrary(options, response => {
+    ImagePicker.launchImageLibrary(options, (response) => {
       // console.log('Response = ', response);
 
       if (response.didCancel) {
@@ -227,8 +227,11 @@ class TabProfile extends Component {
               )}
             </View>
 
-            <Text style={[sg.colorGray11, sg.fS14]}>{`Member since ${memberSince ||
-              '2019-03-15'}`}</Text>
+            <Text style={[sg.colorGray11, sg.fS14]}>
+              {`Member since ${memberSince
+              || '2019-03-15'}`}
+
+            </Text>
           </Col>
         </Grid>
 
@@ -291,7 +294,7 @@ TabProfile.propTypes = {
   userUpdateAvatarConnect: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const user = userSelector(state);
 
   return {

@@ -30,9 +30,11 @@ import {
   sg,
 } from 'src/Styles';
 
+import styles from './styles';
+
 class Deposit extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       form: {
@@ -43,12 +45,10 @@ class Deposit extends Component {
           normalize: normalizeAmount,
           format: formatAmountDollar,
         },
-        /*
         from: {
-          validations: [
-            'required',
-          ],
+          validations: [this.fromValidator.bind(this)],
         },
+        /*
         frequency: {
           validations: [
             'required',
@@ -56,16 +56,17 @@ class Deposit extends Component {
         },
         */
       },
-      frequencyList: [
-        {
-          name: 'Monthly',
-          value: 'month',
-        },
-        {
-          name: 'Annual',
-          value: 'annual',
-        },
-      ],
+      // frequencyList: [
+      //   {
+      //     name: 'Monthly',
+      //     value: 'month',
+      //   },
+      //   {
+      //     name: 'Annual',
+      //     value: 'annual',
+      //   },
+      // ],
+      step: 0,
       accountList: [
         {
           name: 'ING Account',
@@ -94,109 +95,169 @@ class Deposit extends Component {
     const { hocs, screenProps } = this.props;
     const formIsValid = hocs.formIsValid();
 
+
     if (formIsValid) {
-      screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW_DONE);
+      // screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW_DONE);
+      this.setState({ step: 1 });
     }
   }
 
-  render() {
+
+  onConfirm() {
+    const { screenProps, hocs } = this.props;
+    const { form } = hocs;
+    const body = {
+      amount: form.amount.value,
+      paymentMethod: form.amount.value >= 5000 ? 'eft' : form.from.value,
+    };
+    screenProps.Api.post('/transaction', body, () => {
+      this.setState({ step: 2 });
+    }, () => {
+      screenProps.toastDanger('Error. Try Again');
+    });
+  }
+
+  fromValidator() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+    console.log(form.amount.value);
+    if (form.amount.value >= 5000) {
+      return false;
+    }
+    return true;
+  }
+
+  renderAccountSource() {
     const { hocs, screenProps } = this.props;
     const { form } = hocs;
-    const { frequencyList } = this.state;
+    // console.log(form);
     let { accountList } = this.state;
-
     accountList = accountList.concat([{
       id: 'custom',
       name: 'Add account',
     }]);
+    if (form && form.amount.value >= 5000) {
+      return (
+        <Text style={[sg.textBold, sg.pV20]}>
+          {'Investments over $5,000 can only be made by EFT.\n\n We’ll provide you with the bank details for the transfer by email after you confirm.'}
+        </Text>
+      );
+    }
+    return (
+      <Item style={[sg.noBorder]}>
+        <Picker
+          extraData={screenProps.theme}
+          formData={form}
+          formKey="from"
+          label="From"
+          title="My ING account"
+          list={accountList}
+          renderItem={({ item }) => {
+            if (item.id === 'custom') {
+              return (
+                <View
+                  style={[sg.row, sg.jCSpaceBetween]}
+                  onPress={() => {
+                  }}
+                >
+                  <Text style={sg.pickerItemAddText}>{item.name}</Text>
+                  <Icon name="add" style={sg.pickerItemAddIcon} color0 />
+                </View>
+              );
+            }
+
+            return (
+              <View>
+                <Text style={sg.pickerItemText} color2>{item.name}</Text>
+                <Text style={sg.pickerItemText2}>{item.number}</Text>
+              </View>
+            );
+          }}
+          onPressItem={({ item }, formKey) => {
+            hocs.addOrUpdateFormField({ title: item.number, value: item.number }, formKey);
+          }}
+        />
+      </Item>
+    );
+  }
+
+  renderStep1 = () => {
+    const { hocs } = this.props;
+    const { form } = hocs;
 
     return (
-
-      <View style={sg.spaceBetween}>
-        {/* <Text>
-          You'll be able to make a deposit here soon...
-        </Text> */}
+      <View style={[sg.spaceBetween]}>
         <View>
           <Input
             formData={form}
             formKey="amount"
             onChangeText={hocs.handleInput}
             keyboardType="numeric"
-          // style={[sg.fS24]}
             label="Amount"
             color2
           />
-
-
-          <Item
-            style={[sg.noBorder]}
-          >
-            <Picker
-              extraData={screenProps.theme}
-              formData={form}
-              formKey="from"
-              label="From"
-              title="My ING account"
-              list={accountList}
-              renderItem={({ item }) => {
-                if (item.id === 'custom') {
-                  return (
-                    <View
-                      style={[sg.row, sg.jCSpaceBetween]}
-                      onPress={() => {
-                      }}
-                    >
-                      <Text style={sg.pickerItemAddText}>{item.name}</Text>
-                      <Icon name="add" style={sg.pickerItemAddIcon} color0 />
-                    </View>
-                  );
-                }
-
-                return (
-                  <View>
-                    <Text style={sg.pickerItemText} color2>{item.name}</Text>
-                    <Text style={sg.pickerItemText2}>{item.number}</Text>
-                  </View>
-                );
-              }}
-              onPressItem={({ item }, formKey) => {
-                hocs.addOrUpdateFormField({ title: item.number, value: item.number }, formKey);
-              }}
-            />
-          </Item>
-
-          {/* <Item
-          style={[sg.noBorder]}
-        >
-        <Picker
-            formData={form}
-            formKey="frequency"
-            label="Frequency"
-            title="Frequence"
-            list={frequencyList}
-            renderItem={({ item }) => (
-              <View>
-              <Text style={sg.pickerItemText}>{item.name}</Text>
-              </View>
-            )}
-            onInit={(formKey) => {
-              const item = frequencyList[0];
-              hocs.addOrUpdateFormField({ title: item.name, value: item.value }, formKey);
-            }}
-            onPressItem={({ item }, formKey) => {
-              hocs.addOrUpdateFormField({ title: item.name, value: item.value }, formKey);
-            }}
-            />
-          </Item> */}
+          {this.renderAccountSource()}
         </View>
         <KeyboardAvoidingView>
-          <Button
-          // onPress={() => this.onNext()}
-            block
-          >
+          <Button style={[sg.m20]} onPress={() => this.onNext()} block>
             <Text>Next</Text>
           </Button>
         </KeyboardAvoidingView>
+      </View>
+    );
+  }
+
+  renderStep2 = () => {
+    const { hocs } = this.props;
+    const { form } = hocs;
+    const { amount, from } = form;
+    return (
+      <View style={[sg.spaceBetween]}>
+        <View style={sg.zIndex10}>
+          <View style={[styles.doneTextBl]}>
+            <Text style={styles.doneText} color2>
+              {"Confirming you'd like to invest "}
+              <Text style={styles.doneTextBold}>
+                {`$${amount.value}`}
+              </Text>
+              {amount.value < 5000 ? (
+                <Text>
+                  <Text style={styles.doneText}>
+                    {' from your '}
+                  </Text>
+                  <Text style={styles.doneTextBold}>
+                    {`${form.from.value} account`}
+                  </Text>
+                </Text>
+              ) : (
+                <Text>
+                  <Text style={styles.doneText}>
+                    {' which you will '}
+                  </Text>
+                  <Text style={styles.doneTextBold}>
+                    {'transfer via EFT'}
+                  </Text>
+                </Text>
+              )}
+            </Text>
+          </View>
+          <KeyboardAvoidingView>
+            <Button block style={sg.m20} onPress={() => this.onConfirm()}>
+              <Text>Confirm</Text>
+            </Button>
+          </KeyboardAvoidingView>
+        </View>
+      </View>
+    );
+  }
+
+  render() {
+    const { step } = this.state;
+
+    return (
+      <View style={[sg.spaceBetween, sg.spaceBetween]}>
+        {step === 0 && this.renderStep1()}
+        {step === 1 && this.renderStep2()}
       </View>
     );
   }

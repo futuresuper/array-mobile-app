@@ -18,14 +18,47 @@ import { userSelector } from 'src/Redux/AppContent';
 import { idCheckSave } from 'src/Redux/Auth';
 
 class IdCheckDetails extends Component {
-  componentDidMount() {
-    const { item, newItemByType } = this.props;
+  state = {
+    form: {
+      driversLicence: {
+        idType: { value: 'driversLicence' },
+        driversLicenceState: { validations: ['required'] },
+        driversLicenceNumber: { validations: ['required'] },
+        driversLicenceFirstName: { validations: ['required'] },
+        driversLicenceMiddleNames: { validations: ['required'] },
+        driversLicenceLastName: { validations: ['required'] },
+      },
+      australianPassport: {
+        idType: { value: 'passport' },
+        passportNumber: { validations: ['required'] },
+        passportFirstName: { validations: ['required'] },
+        passportMiddleNames: { validations: ['required'] },
+        passportLastName: { validations: ['required'] },
+      },
+      medicareCard: {
+        idType: { value: 'medicareCard' },
+        medicareCardNumber: { validations: ['required'] },
+        medicareCardName: { validations: ['required'] },
+        medicareCardIndividualReferenceNumber: { validations: ['required'] },
+        medicareCardExpiryDate: { validations: ['required'] },
+        medicareCardColour: { validations: ['required'] },
+      },
+    },
+    activeForm: '',
+  }
 
-    if (newItemByType) {
-      this.setForm(this.getEmptyForm());
-    } else {
-      this.setForm(item);
-    }
+  componentDidMount() {
+    // const { item, newItemByType } = this.props;
+
+
+    // if (newItemByType) {
+    //   this.setForm(this.getEmptyForm());
+    // } else {
+    //   this.setForm(item);
+    // }
+    const { hocs } = this.props;
+    const { form } = this.state;
+    hocs.setForm(form, 'multiple');
   }
 
   onSubmit() {
@@ -136,28 +169,28 @@ class IdCheckDetails extends Component {
     if (newItemByType === idCheckUtils.ID_TYPE.PASSPORT) {
       res = {
         ...res,
-        passportNumber: '',
-        firstName: user.firstName || '',
-        middleNames: '',
-        lastName: user.lastName || '',
+        passportNumber: { value: '' },
+        firstName: { value: user.firstName || '' },
+        middleNames: { value: '' },
+        lastName: { value: user.lastName || '' },
       };
     } else if (newItemByType === idCheckUtils.ID_TYPE.DRIVERS_LICENSE) {
       res = {
         ...res,
-        licenceNumber: '',
-        state: '',
-        firstName: user.firstName || '',
-        middleNames: '',
-        lastName: user.lastName || '',
+        licenceNumber: { value: '' },
+        state: { value: '' },
+        firstName: { value: user.firstName || '' },
+        middleNames: { value: '' },
+        lastName: { value: user.lastName || '' },
       };
     } else if (newItemByType === idCheckUtils.ID_TYPE.MEDICARE_CARD) {
       res = {
         ...res,
-        cardName: user.fullName || '',
-        cardNumber: '',
-        referenceNumber: '',
-        expiry: '',
-        colour: 'Green',
+        cardName: { value: user.fullName || '' },
+        cardNumber: { value: '' },
+        referenceNumber: { value: '' },
+        expiry: { value: '' },
+        colour: { value: 'Green' },
       };
     }
     return res;
@@ -165,7 +198,8 @@ class IdCheckDetails extends Component {
 
   setForm(item) {
     const { hocs } = this.props;
-    hocs.setFormFromObject(item).then(() => {
+    console.log(item);
+    hocs.setForm(item).then(() => {
       hocs.setFieldValidations('firstName', ['required']);
       hocs.setFieldValidations('lastName', ['required']);
 

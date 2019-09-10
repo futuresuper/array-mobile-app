@@ -184,13 +184,17 @@ class HomeAddress extends React.Component {
     const formIsValid = hocs.formIsValid(formKey);
     if (formIsValid) {
       const body = {
-        residentialAddressUnitNumber: hocs.form.unitNumber.value,
-        residentialAddressStreetNumber: hocs.form.streetNumber.value,
-        residenitalAddressStreet: hocs.form.streetName.value,
-        residentialAddressStreetType: hocs.form.streetType.value,
-        residentialAddressSuburb: hocs.form.suburb.value,
-        resedentialAddressState: hocs.form.state.value,
-        residentialAddressPostcode: hocs.form.postcode.value,
+        // residentialAddressUnitNumber: hocs.form.unitNumber.value,
+        residentialAddressUnitNumber: '12',
+        // residentialAddressStreetNumber: hocs.form.streetNumber.value,
+        residentialAddressStreetNumber: '35',
+        // residenitalAddressStreet: hocs.form.streetName.value,
+        residenitalAddressStreet: 'Example Street',
+        
+        // residentialAddressStreetType: hocs.form.streetType.value,
+        // residentialAddressSuburb: hocs.form.suburb.value,
+        // resedentialAddressState: hocs.form.state.value,
+        // residentialAddressPostcode: hocs.form.postcode.value,
         residentialAddressCountry: 'Australia',
       };
       screenProps.Api.post(
@@ -328,20 +332,26 @@ class HomeAddress extends React.Component {
                 />
               </View>
             ) : (
-              <Address
-                onPressItem={this.onPressListItem}
-                inputProps={{
-                  formData: form,
-                  formKey: 'address',
-                  onChangeText: hocs.handleInput,
-                }}
-                Api={screenProps.Api}
+              <Input
+                formData={form}
+                helper="Address"
+                formKey="address"
+                onChangeText={hocs.handleInput}
               />
+              // <Address
+              //   onPressItem={this.onPressListItem}
+              //   inputProps={{
+              //     formData: form,
+              //     formKey: 'address',
+              //     onChangeText: hocs.handleInput,
+              //   }}
+              //   Api={screenProps.Api}
+              // />
             )}
           </View>
           <View>
             {this.renderButtonNext()}
-            {this.renderButtonAddManually()}
+            {/* {this.renderButtonAddManually()} */}
           </View>
         </View>
       </Content>
