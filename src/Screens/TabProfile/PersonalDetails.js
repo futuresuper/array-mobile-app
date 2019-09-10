@@ -10,6 +10,7 @@ import {
   Button,
 } from 'native-base';
 
+import { mapValues, set } from 'lodash';
 import {
   composeHoc,
   hocNames,
@@ -68,23 +69,20 @@ class PersonalDetails extends Component {
     const { hocs } = this.props;
     const { details } = this.state;
 
-    details.address = details.residenitalAddressStreet;
-    details.tfn = 'Supplied';
-    details.touchFaceId = true;
-    details.pin = '123';
-    details.firstName = details.firstName || '';
-    details.email = details.email || '';
+    const detailsForm = mapValues(details, detail => ({
+      value: detail,
+    }));
 
-    hocs.setFormFromObject(details).then(() => {
-      hocs.setFieldValidations('email', [
-        'required',
-        'email',
-      ]);
+    set(detailsForm, 'address.value', details.residenitalAddressStreet);
+    set(detailsForm, 'address.validations', ['required']);
+    set(detailsForm, 'tfn.value', 'Supplied');
+    set(detailsForm, 'touchFaceId.value', true);
+    set(detailsForm, 'pin.value', 123);
+    set(detailsForm, 'firstName.value', details.firstName || '');
+    set(detailsForm, 'email.value', details.email || '');
+    set(detailsForm, 'email.validations', ['required', 'email']);
 
-      hocs.setFieldValidations('address', [
-        'required',
-      ]);
-    });
+    hocs.setForm(detailsForm);
   }
 
   readMode() {
@@ -110,8 +108,6 @@ class PersonalDetails extends Component {
   }
 
   displayHeaderRight() {
-
-    /*
     const { navigation } = this.props;
     const { isEdit } = this.state;
 
@@ -130,8 +126,6 @@ class PersonalDetails extends Component {
     navigation.setParams({
       headerRight,
     });
-    */
-
   }
 
   renderReadForm() {
@@ -142,6 +136,8 @@ class PersonalDetails extends Component {
     if (!form) {
       return null;
     }
+
+    console.log(form);
 
     return (
       <View>

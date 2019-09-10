@@ -7,7 +7,10 @@ import {
   Text,
   Item,
   Icon,
+  Button,
 } from 'native-base';
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
+
 
 import composeHoc from 'src/Common/Hocs';
 import {
@@ -108,64 +111,64 @@ class Deposit extends Component {
     }]);
 
     return (
-      <View>
-        <Text>
+
+      <View style={sg.spaceBetween}>
+        {/* <Text>
           You'll be able to make a deposit here soon...
-        </Text>
-        {/*
-        <Input
-          formData={form}
-          formKey="amount"
-          onChangeText={hocs.handleInput}
-          keyboardType="numeric"
-          //style={[sg.fS24]}
-          label="Amount"
-          color2
-        />
-
-
-        <Item
-          style={[sg.noBorder]}
-        >
-          <Picker
-            extraData={screenProps.theme}
+        </Text> */}
+        <View>
+          <Input
             formData={form}
-            formKey="from"
-            label="From"
-            title="My ING account"
-            list={accountList}
-            renderItem={({ item }) => {
-              if (item.id === 'custom') {
+            formKey="amount"
+            onChangeText={hocs.handleInput}
+            keyboardType="numeric"
+          // style={[sg.fS24]}
+            label="Amount"
+            color2
+          />
+
+
+          <Item
+            style={[sg.noBorder]}
+          >
+            <Picker
+              extraData={screenProps.theme}
+              formData={form}
+              formKey="from"
+              label="From"
+              title="My ING account"
+              list={accountList}
+              renderItem={({ item }) => {
+                if (item.id === 'custom') {
+                  return (
+                    <View
+                      style={[sg.row, sg.jCSpaceBetween]}
+                      onPress={() => {
+                      }}
+                    >
+                      <Text style={sg.pickerItemAddText}>{item.name}</Text>
+                      <Icon name="add" style={sg.pickerItemAddIcon} color0 />
+                    </View>
+                  );
+                }
+
                 return (
-                  <View
-                    style={[sg.row, sg.jCSpaceBetween]}
-                    onPress={() => {
-                    }}
-                  >
-                    <Text style={sg.pickerItemAddText}>{item.name}</Text>
-                    <Icon name="add" style={sg.pickerItemAddIcon} color0 />
+                  <View>
+                    <Text style={sg.pickerItemText} color2>{item.name}</Text>
+                    <Text style={sg.pickerItemText2}>{item.number}</Text>
                   </View>
                 );
-              }
+              }}
+              onPressItem={({ item }, formKey) => {
+                hocs.addOrUpdateFormField({ title: item.number, value: item.number }, formKey);
+              }}
+            />
+          </Item>
 
-              return (
-                <View>
-                  <Text style={sg.pickerItemText} color2>{item.name}</Text>
-                  <Text style={sg.pickerItemText2}>{item.number}</Text>
-                </View>
-              );
-            }}
-            onPressItem={({ item }, formKey, dataKey) => {
-              hocs.handlePicker(item.number, formKey, dataKey);
-              hocs.setFormTitle(item.number, formKey, dataKey);
-            }}
-          />
-        </Item>
-
-        <Item
+          {/* <Item
           style={[sg.noBorder]}
         >
-          <Picker
+        <Picker
             formData={form}
             formKey="frequency"
             label="Frequency"
@@ -173,23 +176,27 @@ class Deposit extends Component {
             list={frequencyList}
             renderItem={({ item }) => (
               <View>
-                <Text style={sg.pickerItemText}>{item.name}</Text>
+              <Text style={sg.pickerItemText}>{item.name}</Text>
               </View>
             )}
-            onInit={(formKey, dataKey) => {
+            onInit={(formKey) => {
               const item = frequencyList[0];
-
-              hocs.handlePicker(item.value, formKey, dataKey);
-              hocs.setFormTitle(item.name, formKey, dataKey);
+              hocs.addOrUpdateFormField({ title: item.name, value: item.value }, formKey);
             }}
-            onPressItem={({ item }, formKey, dataKey) => {
-              hocs.handlePicker(item.value, formKey, dataKey);
-              hocs.setFormTitle(item.name, formKey, dataKey);
+            onPressItem={({ item }, formKey) => {
+              hocs.addOrUpdateFormField({ title: item.name, value: item.value }, formKey);
             }}
-          />
-        </Item>
-        */}
-
+            />
+          </Item> */}
+        </View>
+        <KeyboardAvoidingView>
+          <Button
+          // onPress={() => this.onNext()}
+            block
+          >
+            <Text>Next</Text>
+          </Button>
+        </KeyboardAvoidingView>
       </View>
     );
   }

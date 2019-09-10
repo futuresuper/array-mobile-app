@@ -29,9 +29,8 @@ class Accounts extends React.Component {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
       // dev purpose
-      // screenProps.navigateTo(routeNames.TAB_HOME);
       // this.nextScreen();
-      screenProps.navigateTo(routeNames.JOIN_FUTURE_SUPER);
+      screenProps.navigateTo(routeNames.PERSONAL_DETAILS);
     });
   }
 

@@ -228,6 +228,7 @@ export default function FormHoc(WrappedComponent) {
       } else {
         pathArray = formKey.split('.');
       }
+      console.log(pathArray);
       if (format === 'collection') {
         completeData = mapValues(data, value => this.attachFormKeys(value));
       } else {
