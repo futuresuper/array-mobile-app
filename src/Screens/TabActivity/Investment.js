@@ -71,6 +71,7 @@ class Investment extends Component {
             'Fixed Interest and Cash investments such as ‘corporate bonds’ issued by companies that pass our strict ethical screens',
           )}
         </View>
+        {/*
         <TouchableOpacity
           style={[styles.allInvestHeader, sg.borderColor(theme.borderColorList)]}
           onPress={() => {
@@ -80,6 +81,7 @@ class Investment extends Component {
           <Text style={[sg.fontMedium]}>See all investments</Text>
           <Icon name="ios-arrow-forward" style={[sg.fS20]} />
         </TouchableOpacity>
+        */}
       </View>
     );
   }

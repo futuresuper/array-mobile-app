@@ -101,6 +101,16 @@ class AccountType extends React.Component {
             </Button>
 
             <Button
+              bordered
+              dark
+              block
+              marginVert
+            >
+              <Text>Other types coming soon...</Text>
+            </Button>
+
+            {/*
+            <Button
               // onPress={this.onFeat}
               bordered
               dark
@@ -116,7 +126,7 @@ class AccountType extends React.Component {
               block
               marginVert
             >
-              <Text>Company / Partnership</Text>
+              <Text>Company / Partnership (Coming Soon...)</Text>
             </Button>
 
             <Button
@@ -125,7 +135,7 @@ class AccountType extends React.Component {
               block
               marginVert
             >
-              <Text>Joint</Text>
+              <Text>Joint (Coming Soon...)</Text>
             </Button>
 
             <Button
@@ -134,7 +144,7 @@ class AccountType extends React.Component {
               block
               marginVert
             >
-              <Text>Adult for child</Text>
+              <Text>Adult for child (Coming Soon...)</Text>
             </Button>
 
             <Button
@@ -143,9 +153,9 @@ class AccountType extends React.Component {
               block
               marginVert
             >
-              <Text>SMSF / Trust / Super Fund</Text>
+              <Text>SMSF / Trust / Super Fund (Coming Soon...)</Text>
             </Button>
-
+*/}
           </View>
         </View>
       </Content>

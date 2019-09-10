@@ -285,20 +285,23 @@ class TabHome extends Component {
 
         return (
           <View style={[sg.aICenter, sg.mT50, sg.mB25]} key={account.id}>
+
             <Button
               transparent
               iconRight
               style={sg.aSCenter}
               onPress={() => {
-                BottomInfo.showAccounts();
+                // BottomInfo.showAccounts();
               }}
             >
               <Text style={styles.title}>{account.ownerName}</Text>
-              <Icon name="ios-arrow-down" style={styles.titleIcon} />
+              {/* <Icon name="ios-arrow-down" style={styles.titleIcon} /> */}
             </Button>
 
             <View style={sg.row}>
+              {/*
               <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance()} />
+              */}
               <H1 style={styles.mainAmount}>{balanceDollars}</H1>
               <Text style={styles.mainAmountCent}>{`.${balanceCents}`}</Text>
             </View>
@@ -346,6 +349,7 @@ class TabHome extends Component {
 
             {this.renderBalance()}
 
+            {/*
             <Button
               rounded
               primary
@@ -356,6 +360,7 @@ class TabHome extends Component {
             >
               <Icon name="add" style={styles.plusButtonIcon} />
             </Button>
+            */}
           </View>
 
           <View style={styles.graphBl}>

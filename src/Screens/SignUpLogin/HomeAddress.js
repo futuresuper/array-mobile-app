@@ -21,7 +21,7 @@ class HomeAddress extends React.Component {
           validations: ['required'],
         },
         unitNumber: {
-          validations: ['required'],
+          //validations: ['required'],
         },
         streetNumber: {
           validations: ['required'],
@@ -127,10 +127,10 @@ class HomeAddress extends React.Component {
       const body = {
         residentialAddressUnitNumber: hocs.form.unitNumber.value,
         residentialAddressStreetNumber: hocs.form.streetNumber.value,
-        residenitalAddressStreet: hocs.form.streetName.value,
+        residentialAddressStreet: hocs.form.streetName.value,
         residentialAddressStreetType: hocs.form.streetType.value,
         residentialAddressSuburb: hocs.form.suburb.value,
-        resedentialAddressState: hocs.form.state.value,
+        residentialAddressState: hocs.form.state.value,
         residentialAddressPostcode: hocs.form.postcode.value,
       };
       screenProps.Api.post(
@@ -185,7 +185,7 @@ class HomeAddress extends React.Component {
     const { hocs, screenProps } = this.props;
     const { form } = hocs;
     const { showManualForm, states, streetTypes } = this.state;
-    console.log(form);
+    //console.log(form);
     return (
       <Content padder bounces={false} contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>

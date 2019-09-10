@@ -31,6 +31,7 @@ class Accounts extends React.Component {
       // dev purpose
       // this.nextScreen
       // screenProps.navigateTo(routeNames.TAB_HOME);
+      // screenProps.navigateTo(routeNames.ID_CHECK);
     });
   }
 
@@ -62,11 +63,17 @@ class Accounts extends React.Component {
               noIndent
               key={account.id}
               onPress={() => {
-                // Navigate to the Home screen with the selected Account Active
-                // PK2 is the Account ID
-                screenProps.navigateTo(routeNames.TAB_HOME, {
-                  accountId: account.id,
-                });
+                if (account.status === "awaitingIdCheckAndMoney" || account.status === "awaitingIdCheck") {
+                  screenProps.navigateTo(routeNames.ID_CHECK, {
+                    accountId: account.id,
+                  });
+                } else {
+                  // Navigate to the Home screen with the selected Account Active
+                  // PK2 is the Account ID
+                  screenProps.navigateTo(routeNames.TAB_HOME, {
+                    accountId: account.id,
+                  });
+                }
               }}
               style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
             >
@@ -81,6 +88,11 @@ class Accounts extends React.Component {
                         <Text style={[sg.mL0, sg.fS16]} color4>
                           Balance:&nbsp;
                           <Text color4>{formatAmountDollarCent(account.balanceInDollars)}</Text>
+                        </Text>
+                      )}
+                      {(account.status === "awaitingIdCheckAndMoney" || account.status === "awaitingIdCheck") && (
+                        <Text style={[sg.mL0, sg.fS16]} color4>
+                          Complete ID Check
                         </Text>
                       )}
                     </Col>

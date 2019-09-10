@@ -56,30 +56,30 @@ class TabProfile extends Component {
         //     props.screenProps.toogleTheme();
         //   },
         // },
-        {
-          name: 'Manage accounts',
-          screen: routeNames.MANAGE_ACCOUNTS,
-        },
+        // {
+        //   name: 'Manage accounts',
+        //   screen: routeNames.MANAGE_ACCOUNTS,
+        // },
         {
           name: 'Personal details',
           screen: routeNames.PERSONAL_DETAILS,
         },
-        {
-          name: 'Refer a friend',
-          screen: routeNames.REFER_FRIEND,
-        },
+        // {
+        //   name: 'Refer a friend',
+        //   screen: routeNames.REFER_FRIEND,
+        // },
         {
           name: 'Talk to us',
           function: () => this.displayIntercom(props),
         },
-        {
-          name: 'Withdraw',
-          screen: routeNames.TAB_PROFILE,
-        },
-        {
-          name: 'Join Future Super',
-          screen: routeNames.JOIN_FUTURE_SUPER,
-        },
+        // {
+        //   name: 'Withdraw',
+        //   screen: routeNames.TAB_PROFILE,
+        // },
+        // {
+        //   name: 'Join Future Super',
+        //   screen: routeNames.JOIN_FUTURE_SUPER,
+        // },
         // {
         //   name: 'Onboarding & Sign Up',
         //   screen: routeNames.SCREENS_LIST,
@@ -227,11 +227,13 @@ class TabProfile extends Component {
               )}
             </View>
 
+            {/*
             <Text style={[sg.colorGray11, sg.fS14]}>
               {`Member since ${memberSince
               || '2019-03-15'}`}
 
             </Text>
+            */}
           </Col>
         </Grid>
 

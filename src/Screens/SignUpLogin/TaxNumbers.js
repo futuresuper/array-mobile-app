@@ -132,7 +132,7 @@ class TaxNumbers extends Component {
     if (formKey === 'resident') {
       targetFormKey = 'tins';
       if (!form.tins.length) {
-        this.addNewResidentForm(0);
+        //this.addNewResidentForm(0);
       }
     } else {
       targetFormKey = 'usTin';
@@ -179,11 +179,14 @@ class TaxNumbers extends Component {
 
 
   renderInternationalResidentTin() {
+    // Commented out until working.
+    /*
     const { hocs } = this.props;
     const { form } = hocs;
 
 
     const residentForms = [];
+
     if (form && form.resident.value) {
       form.tins.forEach((tin, k) => {
         residentForms.push(
@@ -253,6 +256,7 @@ class TaxNumbers extends Component {
       );
     }
     return null;
+    */
   }
 
   render() {
