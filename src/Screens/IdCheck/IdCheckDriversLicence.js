@@ -32,23 +32,36 @@ class IdCheckDriversLicence extends Component {
     this.initializeForm(form);
   }
 
-
   onSubmit() {
     const { hocs, idCheckSaveConnect, screenProps } = this.props;
     const isValid = hocs.formIsValid();
 
     if (isValid) {
-      const dummyRes = {
-        idCheckComplete: true,
-        driversLicence: 'matched',
-        australianPassport: 'notAttempted',
-        medicareCard: 'notAttempted',
-      };
-      idCheckSaveConnect(dummyRes);
-      screenProps.navigateTo(routeNames.TAB_HOME);
-      screenProps.toastSuccess('ID verification Succeeded');
+      const driversLicenceState = hocs.form.driversLicenceState.value;
+      const driversLicenceNumber = hocs.form.driversLicenceNumber.value;
+      const driversLicenceFirstName = hocs.form.driversLicenceFirstName.value;
+      const driversLicenceMiddleNames = hocs.form.driversLicenceMiddleNames.value;
+      const driversLicenceLastName = hocs.form.driversLicenceLastName.value;
 
-      console.log('valid');
+      screenProps.Api.post('/idcheck', {
+        driversLicenceState,
+        driversLicenceNumber,
+        driversLicenceFirstName,
+        driversLicenceMiddleNames,
+        driversLicenceLastName,
+        idType: "driversLicence"
+      }, (res) => {
+        console.log(res);
+        idCheckSaveConnect(res);
+        if (res.idCheckComplete) {
+          screenProps.navigateTo(routeNames.TAB_HOME);
+          screenProps.toastSuccess('ID verification Succeeded');
+        } else {
+          screenProps.navigateTo(routeNames.ID_CHECK);
+        }
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 

@@ -23,27 +23,34 @@ class IdCheck extends PureComponent {
       list: [
         {
           type: idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
+          /*
           name: 'Olivia King',
           licenceNumber: '123123123',
           state: 'NSW',
           verified: true,
+          */
         },
         {
           type: idCheckUtils.ID_TYPE.PASSPORT,
+          /*
           name: 'Olivia King',
           licenceNumber: '123123123',
           state: 'NSW',
           verified: false,
+          */
         },
       ],
     };
 
     componentDidMount() {
       const { screenProps } = this.props;
+      /*
+      // Commented out for now - need to show only if just finished app
       screenProps.toast('Application Complete', {
         iconType: 'MaterialCommunityIcons',
         iconName: 'check-circle',
       });
+      */
     }
 
 
