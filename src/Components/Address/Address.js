@@ -89,10 +89,7 @@ class Address extends Component {
     }
 
     return (
-      <TouchableOpacity
-        style={[styles.listItem, isLastItem ? sg.noBorder : {}]}
-        onPress={() => { this.onPressItem(item); }}
-      >
+      <TouchableOpacity style={[styles.listItem, isLastItem ? sg.noBorder : {}]} onPress={() => { this.onPressItem(item); }}>
         <Text style={styles.listItemText}>
           {`${item.AddressLine}, ${item.Locality}, ${item.Postcode}`}
         </Text>
@@ -131,7 +128,6 @@ class Address extends Component {
               this.textInput = ref;
             }}
             textCenter={false}
-            // value={null}
             onBlur={this.onBlur}
             {...inputProps}
             onChangeText={(e) => { this.onChangeText(e); }}
@@ -139,10 +135,7 @@ class Address extends Component {
         </View>
         {(list.length > 0)
           && (
-            <View
-              style={styles.listContainer}
-              onStartShouldSetResponderCapture={() => false}
-            >
+            <View style={styles.listContainer} onStartShouldSetResponderCapture={() => false}>
               {this.renderResultList()}
             </View>
           )

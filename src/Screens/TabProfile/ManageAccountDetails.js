@@ -123,6 +123,8 @@ class ManageAccountDetails extends Component {
       }
     });
 
+    console.log(form);
+
     hocs.setForm(form);
   }
 
@@ -276,11 +278,12 @@ class ManageAccountDetails extends Component {
   renderEditForm() {
     const { hocs } = this.props;
     const { form } = hocs;
+    console.log(form);
 
     return (
       <View style={sg.spaceBetween}>
         <View>
-          <Input
+          {/* <Input
             formData={form}
             formKey="nickName"
             label="Nickname"
@@ -288,7 +291,7 @@ class ManageAccountDetails extends Component {
             style={styles.input}
             containerStyle={styles.inputContainer}
             color2
-          />
+          /> */}
 
           <PickerIngAccount
             formData={form}

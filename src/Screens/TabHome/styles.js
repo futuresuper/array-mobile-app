@@ -101,6 +101,12 @@ export default {
     color: sc.color.gray13,
     marginTop: 4,
   },
+  amountIcon: {
+    fontSize: 19,
+    color: sc.color.gray13,
+    marginTop: 4,
+    marginRight: 4,
+  },
 };
 
 export const article = {

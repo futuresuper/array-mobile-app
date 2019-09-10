@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { View, Image, FlatList, TouchableOpacity } from 'react-native';
+import {
+  View, Image, FlatList, TouchableOpacity,
+} from 'react-native';
 
 import {
   Text,
@@ -210,7 +212,7 @@ class TabHome extends Component {
 
     return (
       <LineChart
-        ref={c => {
+        ref={(c) => {
           if (c) this.LineChart = c;
         }}
         data={{
@@ -269,12 +271,13 @@ class TabHome extends Component {
     );
   }
 
+
   renderBalance() {
     const { accounts, navigation } = this.props;
 
     const accountIdActive = navigation.getParam('accountId', 'NO-ID');
 
-    return accounts.map(account => {
+    return accounts.map((account) => {
       if (account.id === accountIdActive) {
         const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
         const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
@@ -290,11 +293,12 @@ class TabHome extends Component {
                 // BottomInfo.showAccounts();
               }}
             >
-              <Text style={styles.title}>{account.nickName}</Text>
-              {/* <Icon name="ios-arrow-down" style={styles.titleIcon} /> */}
+              <Text style={styles.title}>{account.ownerName}</Text>
+              <Icon name="ios-arrow-down" style={styles.titleIcon} />
             </Button>
 
             <View style={sg.row}>
+              <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance()} />
               <H1 style={styles.mainAmount}>{balanceDollars}</H1>
               <Text style={styles.mainAmountCent}>{`.${balanceCents}`}</Text>
             </View>
@@ -396,7 +400,7 @@ TabHome.propTypes = {
   accounts: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const impactStats = impactStatsSelector(state);
   const latest = latestSelector(state);
   const accounts = accountsSelector(state);

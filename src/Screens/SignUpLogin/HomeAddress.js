@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import { Content, Button, Text } from 'native-base';
 
-import _ from 'lodash';
+import _, { forOwn } from 'lodash';
 
 import { sg } from 'src/Styles';
 
@@ -17,33 +17,29 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 class HomeAddress extends React.Component {
     state = {
       form: {
-        auto: {
-          address: {
-            validations: ['required'],
-          },
+        address: {
+          validations: ['required'],
         },
-        manual: {
-          unitNumber: {
-            validations: ['required'],
-          },
-          streetNumber: {
-            validations: ['required'],
-          },
-          streetName: {
-            validations: ['required'],
-          },
-          streetType: {
-            validations: ['required'],
-          },
-          suburb: {
-            validations: ['required'],
-          },
-          state: {
-            validations: ['required'],
-          },
-          postcode: {
-            validations: ['required'],
-          },
+        unitNumber: {
+          validations: ['required'],
+        },
+        streetNumber: {
+          validations: ['required'],
+        },
+        streetName: {
+          validations: ['required'],
+        },
+        streetType: {
+          validations: ['required'],
+        },
+        suburb: {
+          validations: ['required'],
+        },
+        state: {
+          validations: ['required'],
+        },
+        postcode: {
+          validations: ['required'],
         },
 
       },
@@ -84,91 +80,38 @@ class HomeAddress extends React.Component {
     };
 
     componentDidMount() {
-      this.setForm();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-      // eslint-disable-next-line react/destructuring-assignment
-      if (this.state.showManualForm !== prevState.showManualForm) {
-        this.setForm();
-      }
-    }
-
-    setForm() {
       const { hocs } = this.props;
-      const { form, showManualForm } = this.state;
-      if (showManualForm) {
-        hocs.setForm(form.manual);
-      } else {
-        hocs.setForm(form.auto);
-      }
+      const { form } = this.state;
+      hocs.setForm(form);
     }
 
   onPressListItem = (item) => {
-    const { hocs } = this.props;
-    const {
-      RecordId, Postcode, Locality, State,
-    } = item;
-    this.retrieveAddress(RecordId);
-    const formValues = {
-      state: {
-        value: State,
-      },
-      postcode: {
-        value: Postcode,
-      },
-      suburb: {
-        value: Locality,
-      },
-    };
+    const { hocs, screenProps } = this.props;
+    const { RecordId } = item;
+    screenProps.Api.get('/addressdetails', { paf: RecordId }, (res) => {
+      if (!res || !res.addressDetails) {
+        return;
+      }
+      const {
+        UnitNumber, StreetNumber1, StreetName, StreetType, Postcode, Locality, State,
+      } = res.addressDetails;
 
-    _.forOwn(formValues, (v, k) => {
-      hocs.addOrUpdateFormField(v, k);
+      const formValues = {
+        state: State,
+        postcode: Postcode,
+        suburb: Locality,
+        unitNumber: UnitNumber,
+        streetNumber: StreetNumber1,
+        streetName: StreetName,
+        streetType: StreetType,
+      };
+      forOwn(formValues, (v, k) => {
+        hocs.handleInput(v, k);
+      });
+      this.initManualForm();
+    }, () => {
+      screenProps.toastDanger('Try again');
     });
-
-    this.initManualForm();
-  };
-
-  retrieveAddress = (recordId) => {
-    const { form } = this.state;
-    const { screenProps, hocs } = this.props;
-
-    screenProps.Api.get(
-      '/addressdetails',
-      {
-        paf: recordId,
-      },
-      (res) => {
-        if (!res || !res.addressDetails) {
-          return;
-        }
-
-        const {
-          UnitNumber, StreetNumber1, StreetName, StreetType,
-        } = res.addressDetails;
-
-        const formValues = {
-          unitNumber: {
-            value: UnitNumber,
-          },
-          streetNumber: {
-            value: StreetNumber1,
-          },
-          streetName: {
-            value: StreetName,
-          },
-          streetType: {
-            value: StreetType,
-          },
-        };
-
-        form[1] = _.merge(form[1], formValues);
-
-        hocs.setForm(form);
-      },
-      null,
-      false,
-    );
   };
 
   initManualForm() {
@@ -179,23 +122,16 @@ class HomeAddress extends React.Component {
 
   handlePress() {
     const { screenProps, hocs } = this.props;
-    const { showManualForm } = this.state;
-    const formKey = showManualForm ? 1 : 0;
-    const formIsValid = hocs.formIsValid(formKey);
+    const formIsValid = hocs.formIsValid();
     if (formIsValid) {
       const body = {
-        // residentialAddressUnitNumber: hocs.form.unitNumber.value,
-        residentialAddressUnitNumber: '12',
-        // residentialAddressStreetNumber: hocs.form.streetNumber.value,
-        residentialAddressStreetNumber: '35',
-        // residenitalAddressStreet: hocs.form.streetName.value,
-        residenitalAddressStreet: 'Example Street',
-        
-        // residentialAddressStreetType: hocs.form.streetType.value,
-        // residentialAddressSuburb: hocs.form.suburb.value,
-        // resedentialAddressState: hocs.form.state.value,
-        // residentialAddressPostcode: hocs.form.postcode.value,
-        residentialAddressCountry: 'Australia',
+        residentialAddressUnitNumber: hocs.form.unitNumber.value,
+        residentialAddressStreetNumber: hocs.form.streetNumber.value,
+        residenitalAddressStreet: hocs.form.streetName.value,
+        residentialAddressStreetType: hocs.form.streetType.value,
+        residentialAddressSuburb: hocs.form.suburb.value,
+        resedentialAddressState: hocs.form.state.value,
+        residentialAddressPostcode: hocs.form.postcode.value,
       };
       screenProps.Api.post(
         '/user',
@@ -234,17 +170,14 @@ class HomeAddress extends React.Component {
 
   renderButtonAddManually() {
     const { showManualForm } = this.state;
-
     const button = (
       <Button onPress={() => this.handleToggleAddManually()} bordered dark block marginVert>
         <Text>{showManualForm ? 'Search Address' : 'Add Address Manually'}</Text>
       </Button>
     );
-
     if (!showManualForm) {
       return <KeyboardAvoidingView keyboardVerticalOffset={100}>{button}</KeyboardAvoidingView>;
     }
-
     return button;
   }
 
@@ -258,16 +191,8 @@ class HomeAddress extends React.Component {
         <View style={sg.spaceBetween}>
           <View style={sg.zIndex10}>
             <Text style={[sg.formHeading, sg.mB50]}>Home address</Text>
-
             {showManualForm ? (
               <View>
-                {/* <Input
-                    formData={form[1]}
-                    dataKey={1}
-                    helper="Address Line 1"
-                    formKey="addressLineOne"
-                    onChangeText={hocs.handleInput}
-                  /> */}
                 <Input
                   formData={form}
                   helper="Unit Number"
@@ -298,8 +223,8 @@ class HomeAddress extends React.Component {
                     </View>
                   )}
                   onPressItem={({ item }, formKey) => {
-                    hocs.handlePicker(item.value, formKey, 1);
-                    hocs.setFormTitle(item.name, formKey, 1);
+                    hocs.addOrUpdateFormField({ title: item.name, value: item.value }, formKey);
+
                   }}
                 />
                 <Input
@@ -320,8 +245,7 @@ class HomeAddress extends React.Component {
                     </View>
                   )}
                   onPressItem={({ item }, formKey) => {
-                    hocs.handlePicker(item.name, formKey, 1);
-                    hocs.setFormTitle(item.name, formKey, 1);
+                    hocs.addOrUpdateFormField({ title: item.name, value: item.name }, formKey);
                   }}
                 />
                 <Input
@@ -332,26 +256,20 @@ class HomeAddress extends React.Component {
                 />
               </View>
             ) : (
-              <Input
-                formData={form}
-                helper="Address"
-                formKey="address"
-                onChangeText={hocs.handleInput}
+              <Address
+                onPressItem={this.onPressListItem}
+                inputProps={{
+                  formData: form,
+                  formKey: 'address',
+                  onChangeText: hocs.handleInput,
+                }}
+                Api={screenProps.Api}
               />
-              // <Address
-              //   onPressItem={this.onPressListItem}
-              //   inputProps={{
-              //     formData: form,
-              //     formKey: 'address',
-              //     onChangeText: hocs.handleInput,
-              //   }}
-              //   Api={screenProps.Api}
-              // />
             )}
           </View>
           <View>
             {this.renderButtonNext()}
-            {/* {this.renderButtonAddManually()} */}
+            {this.renderButtonAddManually()}
           </View>
         </View>
       </Content>

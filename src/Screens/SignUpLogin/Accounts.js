@@ -29,8 +29,8 @@ class Accounts extends React.Component {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
       // dev purpose
-      // this.nextScreen();
-      // screenProps.navigateTo(routeNames.ID_CHECK);
+      // this.nextScreen
+      // screenProps.navigateTo(routeNames.TAB_HOME);
     });
   }
 
@@ -44,15 +44,18 @@ class Accounts extends React.Component {
   renderAccounts() {
     const { accounts, screenProps } = this.props;
 
-    let activeAccounts = 0;
-    for (let i = 0; i < accounts.length; i += 1) {
-      if (accounts[i].status === accountUtils.STATUS.UNITS_ISSUED) {
-        activeAccounts += 1;
-      }
-    }
-    if (activeAccounts > 0) {
+    console.log(accounts);
+    // let activeAccounts = 0;
+    // for (let i = 0; i < accounts.length; i += 1) {
+    //   if (accounts[i].status === accountUtils.STATUS.UNITS_ISSUED) {
+    //     activeAccounts += 1;
+    //   }
+    // }
+    // if (activeAccounts > 0) {
+    if (true) {
       return accounts.map((account) => {
-        if (account.status === accountUtils.STATUS.UNITS_ISSUED) {
+        // if (account.status === accountUtils.STATUS.UNITS_ISSUED) {
+        if (true) {
           return (
             <ListItem
               button
@@ -72,7 +75,7 @@ class Accounts extends React.Component {
                   <Row>
                     <Col style={[sg.flexNull]}>
                       <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
-                        {account.nickName}
+                        {account.ownerName}
                       </Text>
                       {account.balanceInDollars !== 0 && (
                         <Text style={[sg.mL0, sg.fS16]} color4>

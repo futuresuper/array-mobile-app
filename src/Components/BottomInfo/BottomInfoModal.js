@@ -25,7 +25,7 @@ class BottomInfoModal extends Component {
   }
 
   static showBalance() {
-    BottomInfoModal.show(<BalanceInfo />);
+    BottomInfoModal.show(BalanceInfo);
   }
 
   static hide() {
