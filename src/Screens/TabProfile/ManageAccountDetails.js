@@ -297,9 +297,8 @@ class ManageAccountDetails extends Component {
             title={form.bankAccountName.value}
             titleStyle={styles.input}
             containerStyle={styles.inputContainer}
-            onPressItem={({ item }, formKey, dataKey) => {
-              hocs.handlePicker(item.number, formKey, dataKey);
-              hocs.setFormTitle(item.number, formKey, dataKey);
+            onPressItem={({ item }, formKey) => {
+              hocs.addOrUpdateFormField({ title: item.number, value: item.number }, formKey);
             }}
           />
 

@@ -114,7 +114,7 @@ InitialInvestmentAmount.propTypes = {
   applicationId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const applicationId = applicationIdSelector(state);
   return {
     applicationId,

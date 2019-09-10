@@ -16,13 +16,13 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
 class HomeAddress extends React.Component {
     state = {
-      form: [
-        {
+      form: {
+        auto: {
           address: {
             validations: ['required'],
           },
         },
-        {
+        manual: {
           unitNumber: {
             validations: ['required'],
           },
@@ -45,7 +45,8 @@ class HomeAddress extends React.Component {
             validations: ['required'],
           },
         },
-      ],
+
+      },
       states: [
         { id: 1, name: 'NSW' },
         { id: 2, name: 'VIC' },
@@ -83,15 +84,28 @@ class HomeAddress extends React.Component {
     };
 
     componentDidMount() {
-      const { hocs } = this.props;
-      const { form } = this.state;
+      this.setForm();
+    }
 
-      hocs.setForm(form);
+    componentDidUpdate(prevProps, prevState) {
+      // eslint-disable-next-line react/destructuring-assignment
+      if (this.state.showManualForm !== prevState.showManualForm) {
+        this.setForm();
+      }
+    }
+
+    setForm() {
+      const { hocs } = this.props;
+      const { form, showManualForm } = this.state;
+      if (showManualForm) {
+        hocs.setForm(form.manual);
+      } else {
+        hocs.setForm(form.auto);
+      }
     }
 
   onPressListItem = (item) => {
     const { hocs } = this.props;
-    const { form } = this.state;
     const {
       RecordId, Postcode, Locality, State,
     } = item;
@@ -108,9 +122,10 @@ class HomeAddress extends React.Component {
       },
     };
 
-    form[1] = _.merge(form[1], formValues);
+    _.forOwn(formValues, (v, k) => {
+      hocs.addOrUpdateFormField(v, k);
+    });
 
-    hocs.setForm(form);
     this.initManualForm();
   };
 
@@ -169,13 +184,13 @@ class HomeAddress extends React.Component {
     const formIsValid = hocs.formIsValid(formKey);
     if (formIsValid) {
       const body = {
-        residentialAddressUnitNumber: hocs.form[1].unitNumber.value,
-        residentialAddressStreetNumber: hocs.form[1].streetNumber.value,
-        residenitalAddressStreet: hocs.form[1].streetName.value,
-        residentialAddressStreetType: hocs.form[1].streetType.value,
-        residentialAddressSuburb: hocs.form[1].suburb.value,
-        resedentialAddressState: hocs.form[1].state.value,
-        residentialAddressPostcode: hocs.form[1].postcode.value,
+        residentialAddressUnitNumber: hocs.form.unitNumber.value,
+        residentialAddressStreetNumber: hocs.form.streetNumber.value,
+        residenitalAddressStreet: hocs.form.streetName.value,
+        residentialAddressStreetType: hocs.form.streetType.value,
+        residentialAddressSuburb: hocs.form.suburb.value,
+        resedentialAddressState: hocs.form.state.value,
+        residentialAddressPostcode: hocs.form.postcode.value,
         residentialAddressCountry: 'Australia',
       };
       screenProps.Api.post(
@@ -192,11 +207,9 @@ class HomeAddress extends React.Component {
   }
 
   handleToggleAddManually() {
-    const { showManualForm } = this.state;
-
-    this.setState({
-      showManualForm: !showManualForm,
-    });
+    this.setState(prevState => ({
+      showManualForm: !prevState.showManualForm,
+    }));
   }
 
   renderButtonNext() {
@@ -235,6 +248,7 @@ class HomeAddress extends React.Component {
     const { hocs, screenProps } = this.props;
     const { form } = hocs;
     const { showManualForm, states, streetTypes } = this.state;
+    console.log(form);
     return (
       <Content padder bounces={false} contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
@@ -251,31 +265,28 @@ class HomeAddress extends React.Component {
                     onChangeText={hocs.handleInput}
                   /> */}
                 <Input
-                  formData={form[1]}
-                  dataKey={1}
+                  formData={form}
                   helper="Unit Number"
                   formKey="unitNumber"
                   onChangeText={hocs.handleInput}
                 />
                 <Input
-                  formData={form[1]}
-                  dataKey={1}
+                  formData={form}
                   helper="Street Number"
                   formKey="streetNumber"
                   onChangeText={hocs.handleInput}
                 />
                 <Input
-                  formData={form[1]}
-                  dataKey={1}
+                  formData={form}
                   helper="Street Name"
                   formKey="streetName"
                   onChangeText={hocs.handleInput}
                 />
                 <Picker
-                  formData={form[1]}
+                  formData={form}
                   helper="Street Type"
                   formKey="streetType"
-                  title={form[1].streetType.value ? form[1].streetType.value : 'Street Type'}
+                  title={form.streetType.value ? form.streetType.value : 'Street Type'}
                   list={streetTypes}
                   renderItem={({ item }) => (
                     <View>
@@ -288,17 +299,16 @@ class HomeAddress extends React.Component {
                   }}
                 />
                 <Input
-                  formData={form[1]}
-                  dataKey={1}
+                  formData={form}
                   helper="Suburb"
                   formKey="suburb"
                   onChangeText={hocs.handleInput}
                 />
                 <Picker
-                  formData={form[1]}
+                  formData={form}
                   helper="State"
                   formKey="state"
-                  title={form[1].state.value ? form[1].state.value : 'Please Select a State'}
+                  title={form.state.value ? form.state.value : 'Please Select a State'}
                   list={states}
                   renderItem={({ item }) => (
                     <View>
@@ -311,8 +321,7 @@ class HomeAddress extends React.Component {
                   }}
                 />
                 <Input
-                  formData={form[1]}
-                  dataKey={1}
+                  formData={form}
                   helper="Postcode"
                   formKey="postcode"
                   onChangeText={hocs.handleInput}
@@ -322,8 +331,7 @@ class HomeAddress extends React.Component {
               <Address
                 onPressItem={this.onPressListItem}
                 inputProps={{
-                  formData: form && form[0] ? form[0] : null,
-                  dataKey: 0,
+                  formData: form,
                   formKey: 'address',
                   onChangeText: hocs.handleInput,
                 }}

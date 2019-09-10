@@ -31,7 +31,7 @@ class Accounts extends React.Component {
       // dev purpose
       // screenProps.navigateTo(routeNames.TAB_HOME);
       // this.nextScreen();
-      screenProps.navigateTo(routeNames.TAX_NUMBERS);
+      screenProps.navigateTo(routeNames.JOIN_FUTURE_SUPER);
     });
   }
 

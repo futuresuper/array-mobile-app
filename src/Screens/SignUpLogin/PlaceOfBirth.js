@@ -278,47 +278,41 @@ class PlaceOfBirth extends Component {
       return (
         <Content padder contentContainerStyle={sg.flexGrow}>
           <View style={[sg.spaceBetween]}>
-          <View>
-            <Text style={sg.formHeading}>
+            <View>
+              <Text style={sg.formHeading}>
               Place of Birth
-            </Text>
-
-            <Input
-              formData={form}
-              helper="City / Town"
-              formKey="city"
-              onChangeText={hocs.handleInput}
-            />
-
-            <Picker
-              formData={form}
-              formKey="country"
-              helper="Country"
-              title="Australia"
-              list={countries}
-              renderItem={({ item }) => (
-                <View>
-                  <Text style={sg.pickerItemText}>{item.name}</Text>
-                </View>
-              )}
-              onPressItem={({ item }, formKey, dataKey) => {
-                hocs.handlePicker(item.name, formKey, dataKey);
-                hocs.setFormTitle(item.name, formKey, dataKey);
-              }}
-            />
-
+              </Text>
+              <Input
+                formData={form}
+                helper="City / Town"
+                formKey="city"
+                onChangeText={hocs.handleInput}
+              />
+              <Picker
+                formData={form}
+                formKey="country"
+                helper="Country"
+                title="Australia"
+                list={countries}
+                renderItem={({ item }) => (
+                  <View>
+                    <Text style={sg.pickerItemText}>{item.name}</Text>
+                  </View>
+                )}
+                onPressItem={({ item }, formKey) => {
+                  hocs.addOrUpdateFormField({ title: item.name, value: item.name }, formKey);
+                }}
+              />
+            </View>
+            <KeyboardAvoidingView keyboardVerticalOffset={100}>
+              <Button
+                onPress={() => this.onNext()}
+                block
+              >
+                <Text>Next</Text>
+              </Button>
+            </KeyboardAvoidingView>
           </View>
-
-
-          <KeyboardAvoidingView keyboardVerticalOffset={100}>
-            <Button
-              onPress={() => this.onNext()}
-              block
-            >
-              <Text>Next</Text>
-            </Button>
-          </KeyboardAvoidingView>
-        </View>
         </Content>
       );
     }

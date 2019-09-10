@@ -1,7 +1,7 @@
 /* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
 import {
-  mapValues, isNil, forOwn, get, uniq, map,
+  mapValues, isNil, get,
 } from 'lodash';
 
 import {
@@ -81,23 +81,6 @@ export default function FormHoc(WrappedComponent) {
     }
 
 
-    setFormFromObject(data) {
-      const form = {};
-
-      Object.keys(data).forEach((key) => {
-        const value = data[key];
-
-        form[key] = {
-          value,
-          validations: [
-            'reduired',
-          ],
-        };
-      });
-
-      return this.setForm(form);
-    }
-
     attachFormKeys = obj => (
       { ...fromKeys, ...obj }
     )
@@ -127,10 +110,6 @@ export default function FormHoc(WrappedComponent) {
       this.setFormFieldValue(value, field, dataKey);
     };
 
-    setFormTitle = (value, field, dataKey = null) => {
-      this.setFormFieldValue(value, field, dataKey, 'title');
-    };
-
 
     // ???
     addFormItem = (data) => {
@@ -141,53 +120,6 @@ export default function FormHoc(WrappedComponent) {
       form.push(data);
 
       this.setState(form);
-    }
-
-
-    formIsValid = (dataKeyInp = null, showToastInp = true) => {
-      const options = this.formIsValidOptions(dataKeyInp, showToastInp);
-      const {
-        dataKey,
-        showToast,
-        fieldError,
-      } = options;
-      const { screenProps } = this.props;
-      const { form: formOrig } = this.state;
-      let res = true;
-      let form;
-      if (!isNil(dataKey)) form = get(formOrig, dataKey);
-      else form = formOrig;
-
-
-      const itemValid = this.formItemIsValid(form);
-
-      ({ form } = itemValid);
-      res = itemValid.isValid;
-
-      if (!res) {
-        let formNew;
-        if (!isNil(dataKey)) {
-          formNew = formOrig;
-          formNew[dataKey] = form;
-        } else {
-          formNew = form;
-        }
-
-        this.setState({
-          form: formNew,
-        });
-
-        if (showToast) {
-          if (fieldError) {
-            const errorKeys = Object.keys(form).filter(item => form[item].error);
-            const { errorMessage } = form[errorKeys[0]];
-
-            screenProps.toastDanger(errorMessage);
-          }
-        }
-      }
-
-      return res;
     }
 
     handleSubmit = () => {
@@ -204,8 +136,17 @@ export default function FormHoc(WrappedComponent) {
 
     handleInput = (value, formKey, dataKey = null, typeItem = 'input') => {
       const { form } = this.state;
+      const formClone = { ...form };
+
       let inputItem;
-      inputItem = get(form, formKey.split('.'));
+      let targetArray;
+      if (Array.isArray(formKey)) {
+        targetArray = formKey;
+      } else {
+        targetArray = formKey.split('.');
+      }
+
+      inputItem = get(form, targetArray);
 
       if (typeItem === 'checkbox') {
         const checkedValue = !!inputItem.value;
@@ -214,56 +155,17 @@ export default function FormHoc(WrappedComponent) {
         inputItem.value = value;
       }
 
-      // ??
-      // if (
-      //   inputItem.normalize
-      //   && (typeof inputItem.normalize === 'function')
-      // ) {
-      //   inputItem.value = inputItem.normalize(value) || fromKeys.value;
-      // }
-
-      // if (
-      //   inputItem.format
-      //   && (typeof inputItem.format === 'function')
-      // ) {
-      //   const valueFormat = inputItem.format(inputItem.value);
-      //   inputItem.valueDisplay = !isNil(valueFormat) ? valueFormat : fromKeys.valueDisplay;
-      // }
-
       inputItem = this.applyNormalizeFormat(inputItem, value);
 
-      const validation = this.checkValidation(inputItem);
 
-      form[formKey] = {
+      formClone[targetArray] = {
         ...inputItem,
-        ...validation,
       };
 
 
       this.setState({
-        form,
+        form: formClone,
       });
-    }
-
-    setFieldValidations = (formKey, validations) => {
-      const { form } = this.state;
-
-      if (isNil(form[formKey])) {
-        return false;
-      }
-
-      if (!Array.isArray(validations)) {
-        const err = `FormHoc.setFieldValidations, field "${formKey}": Wrong validation argument. Expected "Array" type`;
-        throw err;
-      }
-
-      form[formKey].validations = validations;
-
-      this.setState({
-        form,
-      });
-
-      return true;
     }
 
     setFieldNormalize = (formKey, value) => this.setFieldKey(formKey, 'normalize', value);
@@ -308,136 +210,36 @@ export default function FormHoc(WrappedComponent) {
       return inputItem;
     }
 
-    formIsValidOptions(dataKey = null, showToast = true) {
-      let options = {
-        dataKey: null,
-        showToast: true,
-        fieldError: false,
-      };
-
-      if (typeof dataKey !== 'object') {
-        options = {
-          ...options,
-          dataKey,
-          showToast,
-        };
-      } else {
-        options = {
-          ...options,
-          ...dataKey,
-        };
-      }
-
-      return options;
-    }
-
-    formItemIsValid(formInp) {
-      const form = formInp;
-      const res = {
-        isValid: true,
-        form,
-      };
-
-      forOwn(form, (item, key) => {
-        if (
-          item.validations
-          && Array.isArray(item.validations)
-          && item.validations.length
-        ) {
-          const validation = this.checkValidation(item);
-          if (validation.error) {
-            res.form[key] = {
-              ...form[key],
-              ...validation,
-            };
-
-            res.isValid = false;
-          }
-        }
-      });
-      return res;
-    }
-
-
-    checkValidation(item) {
-      const { validations, value } = item;
-      const res = {
-        error: false,
-        errorMessage: '',
-      };
-
-      for (let i = 0; i < validations.length; i += 1) {
-        let errorMessage;
-        let validation;
-        let isValid = true;
-        const validationItem = validations[i];
-        const validationIsArray = Array.isArray(validationItem);
-
-        if (validationIsArray) {
-          [validation, errorMessage] = validationItem;
-        } else {
-          validation = validationItem;
-        }
-
-        const validationIsFunction = (typeof validation === 'function');
-
-        if (validationIsFunction) {
-          res.errorMessage = errorMessage || errorValidators.invalid.text;
-
-          isValid = validation(value);
-        } else {
-          res.errorMessage = errorMessage || errorValidators[validation].text || errorValidators.invalid.text;
-
-          switch (validation) {
-            case 'required': {
-              if (!value) {
-                isValid = false;
-              }
-              break;
-            }
-            case 'email': {
-              isValid = isEmail(value);
-              break;
-            }
-            case 'date': {
-              isValid = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-              isValid = !!isValid;
-
-              break;
-            }
-            default: {
-              isValid = true;
-            }
-          }
-        }
-
-        if (!isValid) {
-          res.error = true;
-
-          return res;
-        }
-      }
-
-      return res;
-    }
-
 
     /**
      * Function for adding new or updating existing form fields.
      *
      * @param {data} - Form object to add. It can be initialized as empty,
-     *                 or contain regular form parameters. Supports arrays.
+     *                 or contain regular form parameters.
      * @param {formKey} - A path domain to form location.
      *                    Accepts nested values ex. element.0 for now supports 1 depths max for now.
+     * @param {format} - Single or Collection for multiple objects
      */
-    addOrUpdateFormField = (data = {}, formKey = '') => {
-      const completeData = mapValues(data, value => this.attachFormKeys(value));
-      const pathArray = formKey.split('.');
+    addOrUpdateFormField = (data = {}, formKey = '', format = 'single') => {
+      let completeData;
+      let pathArray;
+      if (Array.isArray(formKey)) {
+        pathArray = formKey;
+      } else {
+        pathArray = formKey.split('.');
+      }
+      if (format === 'collection') {
+        completeData = mapValues(data, value => this.attachFormKeys(value));
+      } else {
+        completeData = this.attachFormKeys(data);
+      }
       this.updateFormState(pathArray, completeData);
     }
 
 
-    // update dynamic key location
+    /**
+     * Function for updating dynamic key location
+     */
     updateFormState(pathArray, data) {
       const { form } = this.state;
       const formClone = { ...form };
@@ -457,24 +259,29 @@ export default function FormHoc(WrappedComponent) {
       this.setState({ form: formClone });
     }
 
-    formIsValid2 = () => {
+
+    /**
+     * Function for checking form validity.
+     */
+    formIsValid = () => {
       const { form } = this.state;
       let isValid = true;
-      const validatedForm = mapValues(form, (field) => {
+      const validatedForm = mapValues(form, (field, key) => {
         // write more scalable way
         if (Array.isArray(field)) {
-          const nestedForm = field.map((nForm) => {
-            const nValidatedForm = mapValues(nForm, (nfField) => {
-              const nValidatedField = this.validateField(nfField);
+          const nestedForm = field.map((nForm, nKey) => {
+            const nValidatedForm = mapValues(nForm, (nfField, nfKey) => {
+              const nValidatedField = this.validateField(nfField, `${key}.${nKey}.${nfKey}`);
               if (nValidatedField.error) {
                 isValid = false;
               }
+              return nValidatedField;
             });
             return nValidatedForm;
           });
           return nestedForm;
         }
-        const validatedField = this.validateField(field);
+        const validatedField = this.validateField(field, key);
         if (validatedField.error) {
           isValid = false;
         }
@@ -485,13 +292,15 @@ export default function FormHoc(WrappedComponent) {
       return isValid;
     }
 
-    /* Validates single field with custom or standard validators */
-    validateField = (field) => {
+    /*
+      Validates single field with custom or standard validators
+    */
+    validateField = (field, formKey) => {
       const element = field;
 
       element.validations.forEach((val) => {
         if (typeof val === 'function') {
-          element.error = val(element.value);
+          element.error = val(element.value, formKey);
           element.errorMessage = errorValidators.invalid.text;
         }
         mapValues(errorValidators, (e, k) => {
@@ -505,9 +314,40 @@ export default function FormHoc(WrappedComponent) {
     }
 
 
+    /**
+     * Adds new validation array
+     * @param {formKey} - key to location,
+     * @param {validations} - new validations array
+    */
+    setFieldValidations = (formKey, validations) => {
+      const { form } = this.state;
+      const formClone = { ...form };
+
+      const pathArray = formKey.split('.');
+
+      if (isNil(get(formClone, pathArray))) {
+        return false;
+      }
+
+      if (!Array.isArray(validations)) {
+        const err = `FormHoc.setFieldValidations, field "${formKey}": Wrong validation argument. Expected "Array" type`;
+        throw err;
+      }
+
+      get(formClone, formKey.split('.')).validations = validations;
+
+      this.setState({
+        form: formClone,
+      });
+
+      return true;
+    }
+
+
     render() {
       const { hocs, forwardedRef, ...passThroughtProps } = this.props;
       const { form } = this.state;
+
 
       return (
         <WrappedComponent
@@ -517,11 +357,9 @@ export default function FormHoc(WrappedComponent) {
             handleSubmit: this.handleSubmit,
             handleInput: this.handleInput,
             handleCheckBox: this.handleCheckBox,
-            handlePicker: this.handlePicker,
             setForm: this.setForm,
             setFormFromObject: this.setFormFromObject,
             setFormValue: this.setFormValue,
-            setFormTitle: this.setFormTitle,
             getFormAsObject: this.getFormAsObject,
             formGetVal: this.formGetVal,
             formIsValid: this.formIsValid,
@@ -530,7 +368,6 @@ export default function FormHoc(WrappedComponent) {
             setFieldValidations: this.setFieldValidations,
             setFieldNormalize: this.setFieldNormalize,
             setFieldFormat: this.setFieldFormat,
-            formIsValid2: this.formIsValid2,
           }}
           {...passThroughtProps}
           ref={forwardedRef}
