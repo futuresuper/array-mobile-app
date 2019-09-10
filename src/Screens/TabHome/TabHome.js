@@ -290,7 +290,7 @@ class TabHome extends Component {
               iconRight
               style={sg.aSCenter}
               onPress={() => {
-                // BottomInfo.showAccounts();
+                BottomInfo.showAccounts();
               }}
             >
               <Text style={styles.title}>{account.ownerName}</Text>
