@@ -19,45 +19,26 @@ import { sg } from 'src/Styles';
 import styles from './styles';
 
 class IdCheck extends PureComponent {
-    state = {
-      list: [
-        {
-          type: idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
-          /*
-          name: 'Olivia King',
-          licenceNumber: '123123123',
-          state: 'NSW',
-          verified: true,
-          */
-        },
-        {
-          type: idCheckUtils.ID_TYPE.PASSPORT,
-          /*
-          name: 'Olivia King',
-          licenceNumber: '123123123',
-          state: 'NSW',
-          verified: false,
-          */
-        },
-      ],
-    };
+    // const { user } = this.props;
+    state = {};
 
     componentDidMount() {
       const { screenProps } = this.props;
-      /*
+
       // Commented out for now - need to show only if just finished app
-      screenProps.toast('Application Complete', {
-        iconType: 'MaterialCommunityIcons',
-        iconName: 'check-circle',
-      });
-      */
+      // screenProps.toast('Application Complete', {
+      //   iconType: 'MaterialCommunityIcons',
+      //   iconName: 'check-circle',
+      // });
+
     }
 
-
-    onPressEditItem(item) {
+    onPressEditItem(type) {
       const { screenProps } = this.props;
-
-      screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE, { item });
+      console.log("type: " + type);
+      type === "Drivers Licence" ?
+        screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE)
+        : screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT)
     }
 
     renderButtons() {
@@ -73,7 +54,7 @@ class IdCheck extends PureComponent {
             }}
           >
             <Text>
-              {'Add Drivers Licencse'}
+              {'Add Drivers Licence'}
             </Text>
           </Button>
           <Button
@@ -88,6 +69,7 @@ class IdCheck extends PureComponent {
               {'Add Australian Passport'}
             </Text>
           </Button>
+          {/* Commented out for now - need to add conditions
           <Button
             block
             marginVert
@@ -96,15 +78,17 @@ class IdCheck extends PureComponent {
               screenProps.navigateTo(routeNames.ID_CHECK_MEDICARE_CARD);
             }}
           >
+
             <Text>
               {'Add Medicare Card'}
             </Text>
           </Button>
+          */}
         </View>
       );
     }
 
-    renderItem(docType, status, user, item) {
+    renderItem(docType, status, user) {
       const isVerified = status === 'matched';
       const type = idCheckUtils.getTypeName(docType);
 
@@ -115,23 +99,24 @@ class IdCheck extends PureComponent {
               <Col>
                 <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
 
-                {!isVerified && (
+                {!isVerified && type === "Drivers Licence" && (
                 <View>
-                  <Text style={[sg.colorDark3]}>{user.fullName}</Text>
+                  <Text style={[sg.colorDark3]}>{user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceLastName}</Text>
                   <Text style={[sg.colorDark3, sg.mV5]}>
                     No.
-                    {item.licenceNumber}
+                    {user.idCheck.driversLicenceNumber}
                   </Text>
                   <Text style={[sg.colorDark3]}>
                     State:
-                    {item.state}
+                    {user.idCheck.driversLicenceState}
                   </Text>
                 </View>
                 )}
+
               </Col>
               <Col style={sg.width20}>
                 {!isVerified && (
-                <TouchableOpacity onPress={() => this.onPressEditItem(item)}>
+                <TouchableOpacity onPress={() => this.onPressEditItem(type)}>
                   <Image source={EditIcon} />
                 </TouchableOpacity>
                 )}
@@ -155,7 +140,7 @@ class IdCheck extends PureComponent {
 
     render() {
       const { user, screenProps } = this.props;
-      const { list } = this.state;
+      //const { list } = this.state;
       return (
         <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
           <View>
@@ -171,7 +156,9 @@ class IdCheck extends PureComponent {
               </View>
               )}
 
-              {user.idCheck && user.idCheck.australianPassport !== 'matchFailed' && (
+              {user.idCheck
+                && (user.idCheck.australianPassport === 'matchFailed' || user.idCheck.driversLicence === 'matchFailed')
+                && (
               <View>
                 <Text style={sg.mB15}>
                   We weren’t able to verify you with the ID you provided. Please check the details
@@ -200,7 +187,7 @@ class IdCheck extends PureComponent {
                 idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
                 user.idCheck.driversLicence,
                 user,
-                list[0],
+                //list[0],
               )}
               {user.idCheck
               && user.idCheck.australianPassport !== 'notAttempted'
@@ -208,7 +195,7 @@ class IdCheck extends PureComponent {
                 idCheckUtils.ID_TYPE.PASSPORT,
                 user.idCheck.australianPassport,
                 user,
-                list[0],
+                //list[0],
               )}
               {user.idCheck
               && user.idCheck.medicareCard !== 'notAttempted'
@@ -216,12 +203,14 @@ class IdCheck extends PureComponent {
                 idCheckUtils.ID_TYPE.MEDICARE_CARD,
                 user.idCheck.medicareCard,
                 user,
-                list[0],
+                //list[0],
               )}
             </View>
             <View>
               {this.renderButtons()}
-              {user.idCheck && user.idCheck.driversLicence === 'matchFailed' && (
+              {user.idCheck
+                && (user.idCheck.australianPassport !== 'matchFailed' || user.idCheck.driversLicence !== 'matchFailed')
+                && (
               <Button
                 bordered
                 dark

@@ -57,7 +57,9 @@ class FinalConfirmation extends React.Component {
 
           <Text>
             Once you click ‘Agree & Submit Application’, we will debit your&nbsp;
-            <Text style={sg.textBold}>bank account</Text>
+            <Text
+              // style={sg.textBold}
+            >bank account</Text>
             &nbsp;for your initial investment amount&nbsp;
             <Text style={sg.textBold} />
           </Text>

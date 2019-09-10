@@ -304,8 +304,9 @@ class TabActivity extends Component {
         ) : (
           <Investment {...this.props} />
         )}
-
+        {/*
         <Perfomance {...this.props} />
+        */}
       </Content>
     );
   }

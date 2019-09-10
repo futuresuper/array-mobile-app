@@ -17,7 +17,7 @@ import { idCheckSave } from 'src/Redux/Auth';
 class IdCheckAustralianPassport extends Component {
   state = {
     form: {
-      idType: { value: 'passport' },
+      idType: { value: 'australianPassport' },
       passportNumber: { validations: ['required'] },
       passportFirstName: { validations: ['required'] },
       passportMiddleNames: {},
@@ -37,17 +37,29 @@ class IdCheckAustralianPassport extends Component {
     const isValid = hocs.formIsValid();
 
     if (isValid) {
-      const dummyRes = {
-        idCheckComplete: true,
-        driversLicence: 'matchFailed',
-        australianPassport: 'matchFailed',
-        medicareCard: 'notAttempted',
-      };
-      idCheckSaveConnect(dummyRes);
-      screenProps.navigateTo(routeNames.ID_CHECK);
-      screenProps.toastDanger('ID verification failed');
+      const passportFirstName = hocs.form.passportFirstName.value;
+      const passportMiddleNames = hocs.form.passportMiddleNames.value;
+      const passportLastName = hocs.form.passportLastName.value;
+      const passportNumber = hocs.form.passportNumber.value;
 
-      console.log('valid');
+      screenProps.Api.post('/idcheck', {
+        passportFirstName,
+        passportMiddleNames,
+        passportLastName,
+        passportNumber,
+        idType: "australianPassport"
+      }, (res) => {
+        console.log(res);
+        idCheckSaveConnect(res);
+        if (res.idCheckComplete) {
+          screenProps.navigateTo(routeNames.ACCOUNTS);
+          screenProps.toastSuccess('ID verification Succeeded');
+        } else {
+          screenProps.navigateTo(routeNames.ID_CHECK);
+        }
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 

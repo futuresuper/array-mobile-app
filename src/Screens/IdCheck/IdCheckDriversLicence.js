@@ -5,7 +5,7 @@ import {
   Content, Text, View, Button,
 } from 'native-base';
 
-import { Input } from 'src/Components/Form';
+import { Input, Picker } from 'src/Components/Form';
 import { routeNames } from 'src/Navigation';
 
 import { composeHoc, hocNames } from 'src/Common/Hocs';
@@ -24,6 +24,16 @@ class IdCheckDriversLicence extends Component {
       driversLicenceMiddleNames: {},
       driversLicenceLastName: { validations: ['required'] },
     },
+    states: [
+      { id: 1, name: 'NSW' },
+      { id: 2, name: 'VIC' },
+      { id: 3, name: 'QLD' },
+      { id: 4, name: 'WA' },
+      { id: 5, name: 'SA' },
+      { id: 6, name: 'TAS' },
+      { id: 7, name: 'ACT' },
+      { id: 8, name: 'NT' },
+    ],
   }
 
 
@@ -54,7 +64,7 @@ class IdCheckDriversLicence extends Component {
         console.log(res);
         idCheckSaveConnect(res);
         if (res.idCheckComplete) {
-          screenProps.navigateTo(routeNames.TAB_HOME);
+          screenProps.navigateTo(routeNames.ACCOUNTS);
           screenProps.toastSuccess('ID verification Succeeded');
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
@@ -77,6 +87,7 @@ class IdCheckDriversLicence extends Component {
   render() {
     const { hocs } = this.props;
     const { form } = hocs;
+    const { states } = this.state;
 
     return (
       <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
@@ -111,12 +122,29 @@ class IdCheckDriversLicence extends Component {
               onChangeText={hocs.handleInput}
               color2
             />
+            {/*
             <Input
               formData={form}
               formKey="driversLicenceState"
               helper="State Issued"
               onChangeText={hocs.handleInput}
               color2
+            />
+            */}
+            <Picker
+              formData={form}
+              helper="State Issued"
+              formKey="driversLicenceState"
+              //title={form.driversLicenceState.value ? form.driversLicenceState.value : 'Please Select a State'}
+              list={states}
+              renderItem={({ item }) => (
+                <View>
+                  <Text style={sg.pickerItemText}>{item.name}</Text>
+                </View>
+              )}
+              onPressItem={({ item }, formKey) => {
+                hocs.addOrUpdateFormField({ title: item.name, value: item.name }, formKey);
+              }}
             />
           </View>
 

@@ -31,6 +31,7 @@ class Accounts extends React.Component {
       // dev purpose
       // this.nextScreen
       // screenProps.navigateTo(routeNames.TAB_HOME);
+      // screenProps.navigateTo(routeNames.ID_CHECK);
     });
   }
 
@@ -62,7 +63,7 @@ class Accounts extends React.Component {
               noIndent
               key={account.id}
               onPress={() => {
-                if (account.status === "awaitingIdCheckAndMoney") {
+                if (account.status === "awaitingIdCheckAndMoney" || account.status === "awaitingIdCheck") {
                   screenProps.navigateTo(routeNames.ID_CHECK, {
                     accountId: account.id,
                   });
@@ -89,7 +90,7 @@ class Accounts extends React.Component {
                           <Text color4>{formatAmountDollarCent(account.balanceInDollars)}</Text>
                         </Text>
                       )}
-                      {account.status === "awaitingIdCheckAndMoney" && (
+                      {(account.status === "awaitingIdCheckAndMoney" || account.status === "awaitingIdCheck") && (
                         <Text style={[sg.mL0, sg.fS16]} color4>
                           Complete ID Check
                         </Text>

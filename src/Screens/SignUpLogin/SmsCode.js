@@ -82,8 +82,9 @@ class SmsCode extends Component {
               const { user } = appContent;
               userDataSaveConnect(user);
               appContentSaveConnect(appContent);
-
-              this.nextScreen();
+              //console.log("user: " + JSON.stringify(user));
+              //console.log("appContent: " + JSON.stringify(appContent));
+              this.nextScreen(appContent.accounts.length);
             });
           }, () => {
             screenProps.toast('Unknown error');
@@ -98,11 +99,10 @@ class SmsCode extends Component {
       return true;
     }
 
-    nextScreen() {
+    nextScreen(numAccounts) {
       const { screenProps } = this.props;
       const { navigateTo } = screenProps;
-
-      navigateTo(routeNames.ACCOUNTS);
+      numAccounts > 0 ? navigateTo(routeNames.ACCOUNTS) : navigateTo(routeNames.ACCOUNT_TYPE);
     }
 
     render() {

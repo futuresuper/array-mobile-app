@@ -40,17 +40,31 @@ class IdCheckMedicareCard extends Component {
     const isValid = hocs.formIsValid();
 
     if (isValid) {
-      const dummyRes = {
-        idCheckComplete: false,
-        driversLicence: 'matchFailed',
-        australianPassport: 'mathcFailed',
-        medicareCard: 'matchFailed',
-      };
-      idCheckSaveConnect(dummyRes);
-      screenProps.navigateTo(routeNames.ID_CHECK);
-      screenProps.toastDanger('ID verification failed');
+      const medicareCardName = hocs.form.medicareCardName.value;
+      const medicareCardNumber = hocs.form.medicareCardNumber.value;
+      const medicareCardIndividualReferenceNumber = hocs.form.medicareCardIndividualReferenceNumber.value;
+      const medicareCardExpiryDate = hocs.form.medicareCardExpiryDate.value;
+      const medicareCardColour = hocs.form.medicareCardColour.value;
 
-      console.log('valid');
+      screenProps.Api.post('/idcheck', {
+        medicareCardName,
+        medicareCardNumber,
+        medicareCardIndividualReferenceNumber,
+        medicareCardExpiryDate,
+        medicareCardColour,
+        idType: "medicareCard"
+      }, (res) => {
+        console.log(res);
+        idCheckSaveConnect(res);
+        if (res.idCheckComplete) {
+          screenProps.navigateTo(routeNames.ACCOUNTS);
+          screenProps.toastSuccess('ID verification Succeeded');
+        } else {
+          screenProps.navigateTo(routeNames.ID_CHECK);
+        }
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
+      });
     }
   }
 
