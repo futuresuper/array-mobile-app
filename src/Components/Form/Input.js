@@ -130,6 +130,13 @@ class Input extends Component {
     );
   }
 
+  renderErrorMessage(data) {
+    if (data && data.error) {
+      return <Text style={styles.errorBl}>{data.errorMessage}</Text>;
+    }
+    return null;
+  }
+
   renderHelper() {
     const { helper } = this.props;
 
@@ -165,7 +172,6 @@ class Input extends Component {
         formValue = targetField.value;
       }
     }
-
     return (
       <View style={[sg.mB15, containerStyle]}>
         <Item
@@ -196,6 +202,7 @@ class Input extends Component {
             {this.renderRightComponent()}
           </View>
         </Item>
+        {this.renderErrorMessage(targetField)}
         {this.renderHelper()}
       </View>
     );

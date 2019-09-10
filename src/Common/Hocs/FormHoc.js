@@ -1,7 +1,7 @@
 /* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
 import {
-  mapValues, isNil, forOwn, get,
+  mapValues, isNil, forOwn, get, uniq, map,
 } from 'lodash';
 
 import {
@@ -9,11 +9,37 @@ import {
 } from 'src/Common/Helpers';
 import CopyModuleHoc from './CopyModuleHoc';
 
-const errorMessages = {
-  invalid: 'not a valid value',
-  required: 'field is required',
-  email: 'must be a valid email address',
-  date: 'not a valid date',
+const errorValidators = {
+  invalid: {
+    text: 'This is not a valid value',
+  },
+  required: {
+    text: 'This field is required',
+    validatorMethod(value) {
+      if (value) {
+        return false;
+      }
+      return true;
+    },
+  },
+  email: {
+    text: 'This must be a valid email address',
+    validatorMethod(value) {
+      if (isEmail(value)) {
+        return false;
+      }
+      return true;
+    },
+  },
+  date: {
+    text: 'This is not a valid date',
+    validatorMethod(value) {
+      if (value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/)) {
+        return false;
+      }
+      return true;
+    },
+  },
 };
 
 const fromKeys = {
@@ -30,6 +56,7 @@ const fromKeys = {
 export default function FormHoc(WrappedComponent) {
   const Def = class Def extends Component {
       state = {
+        formError: false,
         form: null,
       };
 
@@ -128,10 +155,12 @@ export default function FormHoc(WrappedComponent) {
       const { form: formOrig } = this.state;
       let res = true;
       let form;
-      if (!isNil(dataKey)) form = get(formOrig, dataKey.split('.'));
+      if (!isNil(dataKey)) form = get(formOrig, dataKey);
       else form = formOrig;
 
+
       const itemValid = this.formItemIsValid(form);
+
       ({ form } = itemValid);
       res = itemValid.isValid;
 
@@ -326,7 +355,6 @@ export default function FormHoc(WrappedComponent) {
           }
         }
       });
-
       return res;
     }
 
@@ -354,11 +382,11 @@ export default function FormHoc(WrappedComponent) {
         const validationIsFunction = (typeof validation === 'function');
 
         if (validationIsFunction) {
-          res.errorMessage = errorMessage || errorMessages.invalid;
+          res.errorMessage = errorMessage || errorValidators.invalid.text;
 
           isValid = validation(value);
         } else {
-          res.errorMessage = errorMessage || errorMessages[validation] || errorMessages.invalid;
+          res.errorMessage = errorMessage || errorValidators[validation].text || errorValidators.invalid.text;
 
           switch (validation) {
             case 'required': {
@@ -429,6 +457,53 @@ export default function FormHoc(WrappedComponent) {
       this.setState({ form: formClone });
     }
 
+    formIsValid2 = () => {
+      const { form } = this.state;
+      let isValid = true;
+      const validatedForm = mapValues(form, (field) => {
+        // write more scalable way
+        if (Array.isArray(field)) {
+          const nestedForm = field.map((nForm) => {
+            const nValidatedForm = mapValues(nForm, (nfField) => {
+              const nValidatedField = this.validateField(nfField);
+              if (nValidatedField.error) {
+                isValid = false;
+              }
+            });
+            return nValidatedForm;
+          });
+          return nestedForm;
+        }
+        const validatedField = this.validateField(field);
+        if (validatedField.error) {
+          isValid = false;
+        }
+        return validatedField;
+      });
+      this.setState({ form: validatedForm });
+
+      return isValid;
+    }
+
+    /* Validates single field with custom or standard validators */
+    validateField = (field) => {
+      const element = field;
+
+      element.validations.forEach((val) => {
+        if (typeof val === 'function') {
+          element.error = val(element.value);
+          element.errorMessage = errorValidators.invalid.text;
+        }
+        mapValues(errorValidators, (e, k) => {
+          if (k === val) {
+            element.error = e.validatorMethod(element.value);
+            element.errorMessage = e.text;
+          }
+        });
+      });
+      return element;
+    }
+
 
     render() {
       const { hocs, forwardedRef, ...passThroughtProps } = this.props;
@@ -455,6 +530,7 @@ export default function FormHoc(WrappedComponent) {
             setFieldValidations: this.setFieldValidations,
             setFieldNormalize: this.setFieldNormalize,
             setFieldFormat: this.setFieldFormat,
+            formIsValid2: this.formIsValid2,
           }}
           {...passThroughtProps}
           ref={forwardedRef}

@@ -33,6 +33,23 @@ export const input = {
     marginTop: 12,
     marginLeft: 3,
   },
+  errorBl: {
+    fontSize: 14,
+    color: sc.color.danger,
+    fontFamily: sc.font.bold,
+    marginTop: 5,
+    marginLeft: 3,
+  },
+};
+
+export const checkbox = {
+  errorBl: {
+    fontSize: 14,
+    color: sc.color.danger,
+    fontFamily: sc.font.bold,
+    marginTop: 5,
+    marginLeft: 3,
+  },
 };
 
 export const picker = {

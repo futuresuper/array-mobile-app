@@ -13,6 +13,7 @@ class CheckBox extends Component {
     }
   }
 
+
   render() {
     const {
       formData,

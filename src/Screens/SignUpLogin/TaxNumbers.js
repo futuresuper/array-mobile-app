@@ -65,21 +65,25 @@ class TaxNumbers extends Component {
       const { screenProps, hocs } = this.props;
       const { form } = hocs;
 
-      const formIsValid = hocs.formIsValid();
-      if (formIsValid) {
-        const body = {
-          taxFileNumber: form.tfn.value,
-          usPerson: form.usPerson.value !== '',
-          usTin: form.usTin.value,
-          osTaxResident: form.resident.value !== '',
-          certifiedAllTaxResidenciesProvided: form.check.value,
-        };
-        screenProps.Api.post('/user', body, () => {
-          screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
-        }, () => {
-          screenProps.toastDanger('Error. Try Again');
-        });
-      }
+      const formIsValid2 = hocs.formIsValid2();
+
+      console.log(formIsValid2);
+
+      // const formIsValid = hocs.formIsValid();
+      // if (formIsValid) {
+      //   const body = {
+      //     taxFileNumber: form.tfn.value,
+      //     usPerson: form.usPerson.value !== '',
+      //     usTin: form.usTin.value,
+      //     osTaxResident: form.resident.value !== '',
+      //     certifiedAllTaxResidenciesProvided: form.check.value,
+      //   };
+      //   screenProps.Api.post('/user', body, () => {
+      //     screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
+      //   }, () => {
+      //     screenProps.toastDanger('Error. Try Again');
+      //   });
+      // }
     }
 
     // handles checkmark and adds appropriate validators and fields to hoc
@@ -146,7 +150,7 @@ class TaxNumbers extends Component {
       const { hocs } = this.props;
       const { form } = hocs;
 
-      console.log(form);
+      // console.log(form);
 
       const residentForms = [];
       if (form && form.resident.value) {
@@ -217,6 +221,8 @@ class TaxNumbers extends Component {
     render() {
       const { hocs } = this.props;
       const { form } = hocs;
+
+      // console.log(form)
 
 
       return (
