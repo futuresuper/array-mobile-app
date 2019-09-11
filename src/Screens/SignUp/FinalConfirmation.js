@@ -28,28 +28,22 @@ class FinalConfirmation extends React.Component {
       '/account',
       body,
       (res) => {
-
         this.getAppContent((appContent) => {
           const { user } = appContent;
           console.log(JSON.stringify(user));
           console.log(JSON.stringify(appContent));
-
           userDataSaveConnect(user);
           appContentSaveConnect(appContent);
-
-          screenProps.navigateTo(routeNames.TAB_HOME, {
-            accountId: applicationId,
-          });
+          if (res.idCheckComplete) {
+            screenProps.navigateTo(routeNames.TAB_HOME, {
+              accountId: applicationId,
+            });
+          } else {
+            screenProps.navigateTo(routeNames.ID_CHECK, {
+              accountId: applicationId,
+            });
+          }
         });
-
-        /*
-        if (res.idCheckComplete) {
-          screenProps.navigateTo(routeNames.TAB_HOME);
-        } else {
-          screenProps.navigateTo(routeNames.ID_CHECK);
-          // screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
-        }
-        */
       },
       () => {
         screenProps.toastDanger('Error. Try Again');
