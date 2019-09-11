@@ -64,7 +64,7 @@ class IdCheckDriversLicence extends Component {
         console.log(res);
         idCheckSaveConnect(res);
         if (res.idCheckComplete) {
-          screenProps.navigateTo(routeNames.ACCOUNTS);
+          screenProps.navigateTo(routeNames.TAB_HOME);
           screenProps.toastSuccess('ID verification Succeeded');
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
