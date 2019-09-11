@@ -94,6 +94,30 @@ class IdCheckDriversLicence extends Component {
         <View style={sg.spaceBetween}>
           <View>
             <Text style={[sg.formHeading32]}>Drivers Licence</Text>
+
+            <Input
+              formData={form}
+              formKey="driversLicenceNumber"
+              helper="Licence Number"
+              onChangeText={hocs.handleInput}
+              color2
+            />
+
+            <Picker
+              formData={form}
+              helper="State Issued"
+              formKey="driversLicenceState"
+              //title={form.driversLicenceState.value ? form.driversLicenceState.value : 'Please Select a State'}
+              list={states}
+              renderItem={({ item }) => (
+                <View>
+                  <Text style={sg.pickerItemText}>{item.name}</Text>
+                </View>
+              )}
+              onPressItem={({ item }, formKey) => {
+                hocs.addOrUpdateFormField({ title: item.name, value: item.name }, formKey);
+              }}
+            />
             <Input
               formData={form}
               formKey="driversLicenceFirstName"
@@ -115,37 +139,8 @@ class IdCheckDriversLicence extends Component {
               onChangeText={hocs.handleInput}
               color2
             />
-            <Input
-              formData={form}
-              formKey="driversLicenceNumber"
-              helper="Licence Number"
-              onChangeText={hocs.handleInput}
-              color2
-            />
-            {/*
-            <Input
-              formData={form}
-              formKey="driversLicenceState"
-              helper="State Issued"
-              onChangeText={hocs.handleInput}
-              color2
-            />
-            */}
-            <Picker
-              formData={form}
-              helper="State Issued"
-              formKey="driversLicenceState"
-              //title={form.driversLicenceState.value ? form.driversLicenceState.value : 'Please Select a State'}
-              list={states}
-              renderItem={({ item }) => (
-                <View>
-                  <Text style={sg.pickerItemText}>{item.name}</Text>
-                </View>
-              )}
-              onPressItem={({ item }, formKey) => {
-                hocs.addOrUpdateFormField({ title: item.name, value: item.name }, formKey);
-              }}
-            />
+
+
           </View>
 
           <Button block onPress={() => this.onSubmit()}>
