@@ -72,13 +72,13 @@
 		C22B7228C47A4E38B2315B9A /* libRNAWSCognito.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F27EE44E7452418B8E97E47C /* libRNAWSCognito.a */; };
 		C820CCD59E7D4D078FE8713F /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B0E65665A914AC1AB1A9A6E /* SimpleLineIcons.ttf */; };
 		CE8D0C16A3A54E35BB289470 /* BwGradual-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E1C7FA2AD7424A36BBC5D746 /* BwGradual-BlackItalic.otf */; };
+		D02505E42328758B0015FA7B /* libRNIntercom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D02505E32328753F0015FA7B /* libRNIntercom.a */; };
 		D72879482D9A43A2844D62E5 /* BwGradual-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E9CD1EF629FB454B9CC70B73 /* BwGradual-LightItalic.otf */; };
 		D809A79F6DD0407699E2858D /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5780748419C04FF9B29D833B /* libBVLinearGradient.a */; };
 		DCB0EBB741AC4DF386F4A617 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9FAEAEB88CF44F5BA86A1A6 /* Ionicons.ttf */; };
 		DD97510B0176436389BFF0E3 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1FE8A799C1B427A93414954 /* EvilIcons.ttf */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
-		F2F3A1E739104AA190D9E188 /* libRNIntercom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7E21E47049A433C8292265A /* libRNIntercom.a */; };
 		F306373992DF42A0813EF73A /* BwGradual-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = E8B811D484D54606AB734746 /* BwGradual-Black.otf */; };
 		F328B2BBAFF64F53A7764ED4 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C07EA75232447E1BC36F0D9 /* libRNCamera.a */; };
 		F44242D5182F48EBAF82A1AE /* WeatherIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A425ACAA0AD242C893A975B2 /* WeatherIcons.ttf */; };
@@ -361,13 +361,6 @@
 			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
 			remoteInfo = RNImagePicker;
 		};
-		D025058A232863CC0015FA7B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4170F8198C174013A8051290 /* RNIntercom.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 112EE36D1CC0AB8A00BF6BB8;
-			remoteInfo = RNIntercom;
-		};
 		D025058E232863CC0015FA7B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 87AC07D9C7C048A2881D9DC5 /* RNSVG.xcodeproj */;
@@ -381,6 +374,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 94DDAC5C1F3D024300EED511;
 			remoteInfo = "RNSVG-tvOS";
+		};
+		D02505E22328753F0015FA7B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D02505DE2328753F0015FA7B /* RNIntercom.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 112EE36D1CC0AB8A00BF6BB8;
+			remoteInfo = RNIntercom;
 		};
 		FA1DB67C22816D43001B3AEE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -497,7 +497,6 @@
 		34B313376F7E4970B39ED896 /* BwGradual-Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BwGradual-Thin.otf"; path = "../src/assets/fonts/BwGradual-Thin.otf"; sourceTree = "<group>"; };
 		371732FED7424A359FC4F129 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		3E7B803A231B44D3A23606AF /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		4170F8198C174013A8051290 /* RNIntercom.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNIntercom.xcodeproj; path = "../node_modules/react-native-intercom/iOS/RNIntercom.xcodeproj"; sourceTree = "<group>"; };
 		45918BBE42B54A1D9D8B1EE9 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		473A6FC4294F489F9D3DF667 /* RNAWSCognito.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNAWSCognito.xcodeproj; path = "../node_modules/amazon-cognito-identity-js/ios/RNAWSCognito.xcodeproj"; sourceTree = "<group>"; };
 		4C555514613142BD9A437A56 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../src/assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -538,6 +537,7 @@
 		C1284FA342374D09A36769C5 /* Lato-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Italic.ttf"; path = "../src/assets/fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
 		C25FD08BC76B4E2187509721 /* BwGradual-MediumItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BwGradual-MediumItalic.otf"; path = "../src/assets/fonts/BwGradual-MediumItalic.otf"; sourceTree = "<group>"; };
 		C2E843D8152245DD8AC41FC3 /* BwGradual-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BwGradual-ExtraBold.otf"; path = "../src/assets/fonts/BwGradual-ExtraBold.otf"; sourceTree = "<group>"; };
+		D02505DE2328753F0015FA7B /* RNIntercom.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNIntercom.xcodeproj; path = "../node_modules/react-native-intercom/iOS/RNIntercom.xcodeproj"; sourceTree = "<group>"; };
 		D11ED5EE26AB4F84AB958066 /* BwGradual-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BwGradual-Light.otf"; path = "../src/assets/fonts/BwGradual-Light.otf"; sourceTree = "<group>"; };
 		D5D433B512884B4E8B09E8B6 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		D7E21E47049A433C8292265A /* libRNIntercom.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNIntercom.a; sourceTree = "<group>"; };
@@ -570,6 +570,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02505E42328758B0015FA7B /* libRNIntercom.a in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
@@ -588,7 +589,6 @@
 				95FB4681DB284053919C8799 /* libAirMaps.a in Frameworks */,
 				D809A79F6DD0407699E2858D /* libBVLinearGradient.a in Frameworks */,
 				C22B7228C47A4E38B2315B9A /* libRNAWSCognito.a in Frameworks */,
-				F2F3A1E739104AA190D9E188 /* libRNIntercom.a in Frameworks */,
 				73A17061FF6343ECAFFF0F4D /* libRNImagePicker.a in Frameworks */,
 				F69EFEA7ED3348D989921587 /* libRNSVG.a in Frameworks */,
 				F328B2BBAFF64F53A7764ED4 /* libRNCamera.a in Frameworks */,
@@ -822,6 +822,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D02505DE2328753F0015FA7B /* RNIntercom.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -839,7 +840,6 @@
 				97F9CC107FD64F8B816C0C87 /* AirMaps.xcodeproj */,
 				76C0D0EE503548CC892537B3 /* BVLinearGradient.xcodeproj */,
 				473A6FC4294F489F9D3DF667 /* RNAWSCognito.xcodeproj */,
-				4170F8198C174013A8051290 /* RNIntercom.xcodeproj */,
 				EBC5AA3220874284B4EE227A /* RNImagePicker.xcodeproj */,
 				87AC07D9C7C048A2881D9DC5 /* RNSVG.xcodeproj */,
 				EF425ABBE96B400585874D1D /* RNCamera.xcodeproj */,
@@ -893,14 +893,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D0250573232863CC0015FA7B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D025058B232863CC0015FA7B /* libRNIntercom.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D0250575232863CC0015FA7B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -931,6 +923,14 @@
 			children = (
 				D0250580232863CC0015FA7B /* libRCTOrientation.a */,
 				D0250582232863CC0015FA7B /* libRCTOrientation-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D02505DF2328753F0015FA7B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D02505E32328753F0015FA7B /* libRNIntercom.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1193,8 +1193,8 @@
 					ProjectRef = EBC5AA3220874284B4EE227A /* RNImagePicker.xcodeproj */;
 				},
 				{
-					ProductGroup = D0250573232863CC0015FA7B /* Products */;
-					ProjectRef = 4170F8198C174013A8051290 /* RNIntercom.xcodeproj */;
+					ProductGroup = D02505DF2328753F0015FA7B /* Products */;
+					ProjectRef = D02505DE2328753F0015FA7B /* RNIntercom.xcodeproj */;
 				},
 				{
 					ProductGroup = D0250577232863CC0015FA7B /* Products */;
@@ -1471,13 +1471,6 @@
 			remoteRef = D0250587232863CC0015FA7B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D025058B232863CC0015FA7B /* libRNIntercom.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNIntercom.a;
-			remoteRef = D025058A232863CC0015FA7B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		D025058F232863CC0015FA7B /* libRNSVG.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1490,6 +1483,13 @@
 			fileType = archive.ar;
 			path = "libRNSVG-tvOS.a";
 			remoteRef = D0250590232863CC0015FA7B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D02505E32328753F0015FA7B /* libRNIntercom.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNIntercom.a;
+			remoteRef = D02505E22328753F0015FA7B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		FA1DB67D22816D43001B3AEE /* libjsi.a */ = {
