@@ -11,7 +11,7 @@ import { routeNames } from 'src/Navigation';
 import { composeHoc, hocNames } from 'src/Common/Hocs';
 
 import { sg } from 'src/Styles';
-import { userSelector } from 'src/Redux/AppContent';
+import { userSelector, accountsSelector } from 'src/Redux/AppContent';
 import { idCheckSave } from 'src/Redux/Auth';
 
 class IdCheckAustralianPassport extends Component {
@@ -52,7 +52,14 @@ class IdCheckAustralianPassport extends Component {
         console.log(res);
         idCheckSaveConnect(res);
         if (res.idCheckComplete) {
-          screenProps.navigateTo(routeNames.TAB_HOME);
+          console.log("accounts length: " + accounts.length);
+          if (accounts.length === 1) {
+            screenProps.navigateTo(routeNames.TAB_HOME, {
+              accountId: accounts[0].id,
+            });
+          } else {
+            screenProps.navigateTo(routeNames.ACCOUNTS);
+          };
           screenProps.toastSuccess('ID verification Succeeded');
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
@@ -136,10 +143,12 @@ IdCheckAustralianPassport.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const user = userSelector(state);
+  const accounts = accountsSelector(state);
   return {
     item: ownProps.navigation.getParam('item'),
     newItemByType: ownProps.navigation.getParam('newItemByType'),
     user,
+    accounts,
   };
 };
 

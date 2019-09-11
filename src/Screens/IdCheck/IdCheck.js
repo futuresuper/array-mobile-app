@@ -89,53 +89,61 @@ class IdCheck extends PureComponent {
     }
 
     renderItem(docType, status, user) {
+      const matchFailed = status === 'matchFailed';
       const isVerified = status === 'matched';
       const type = idCheckUtils.getTypeName(docType);
 
-      return (
-        <View>
-          <Grid style={styles.itemBl}>
-            <Row>
-              <Col>
-                <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
+      if (matchFailed || isVerified) {
+        return (
+          <View>
+            <Grid style={styles.itemBl}>
+              <Row>
+                <Col>
+                  <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
 
-                {!isVerified && type === "Drivers Licence" && (
-                <View>
-                  <Text style={[sg.colorDark3]}>{user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceLastName}</Text>
-                  <Text style={[sg.colorDark3, sg.mV5]}>
-                    No.
-                    {user.idCheck.driversLicenceNumber}
-                  </Text>
-                  <Text style={[sg.colorDark3]}>
-                    State:
-                    {user.idCheck.driversLicenceState}
-                  </Text>
-                </View>
-                )}
+                  {/*
 
-              </Col>
-              <Col style={sg.width20}>
-                {!isVerified && (
-                <TouchableOpacity onPress={() => this.onPressEditItem(type)}>
-                  <Image source={EditIcon} />
-                </TouchableOpacity>
-                )}
-              </Col>
-            </Row>
-            {isVerified ? (
-              <Row style={[sg.mT15, sg.aICenter]}>
-                <Icon name="ios-close-circle" style={styles.itemStatusIconOk} />
-                <Text style={styles.itemStatusTextOk}>Verified</Text>
+                    matchFailed && type === "Drivers Licence" && (
+                  <View>
+                    <Text style={[sg.colorDark3]}>{user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceLastName}</Text>
+                    <Text style={[sg.colorDark3, sg.mV5]}>
+                      No.
+                      {user.idCheck.driversLicenceNumber}
+                    </Text>
+                    <Text style={[sg.colorDark3]}>
+                      State:
+                      {user.idCheck.driversLicenceState}
+                    </Text>
+                  </View>
+                  )
+                  */}
+
+                </Col>
+                <Col style={sg.width20}>
+                  {matchFailed && (
+                  <TouchableOpacity onPress={() => this.onPressEditItem(type)}>
+                    <Image source={EditIcon} />
+                  </TouchableOpacity>
+                  )}
+                </Col>
               </Row>
-            ) : (
-              <Row style={[sg.mT15, sg.aICenter]}>
-                <Icon name="ios-close-circle" style={styles.itemStatusIconErr} />
-                <Text style={styles.itemStatusTextErr}>Details didn’t match</Text>
-              </Row>
-            )}
-          </Grid>
-        </View>
-      );
+              {isVerified ? (
+                <Row style={[sg.mT15, sg.aICenter]}>
+                  <Icon name="ios-close-circle" style={styles.itemStatusIconOk} />
+                  <Text style={styles.itemStatusTextOk}>Verified</Text>
+                </Row>
+              ) : (
+                <Row style={[sg.mT15, sg.aICenter]}>
+                  <Icon name="ios-close-circle" style={styles.itemStatusIconErr} />
+                  <Text style={styles.itemStatusTextErr}>Details didn’t match</Text>
+                </Row>
+              )}
+            </Grid>
+          </View>
+        );
+      } else {
+        return null;
+      }
     }
 
     render() {
@@ -165,6 +173,7 @@ class IdCheck extends PureComponent {
                   below are accurate or try another ID.
                 </Text>
 
+                {/*
                 <TextUnderline
                   iconRight={{
                     type: 'Feather',
@@ -177,6 +186,7 @@ class IdCheck extends PureComponent {
                 >
                   How to certify ID.
                 </TextUnderline>
+                */}
               </View>
               )}
             </View>
@@ -186,30 +196,27 @@ class IdCheck extends PureComponent {
               && this.renderItem(
                 idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
                 user.idCheck.driversLicence,
-                user,
-                //list[0],
+                user
               )}
               {user.idCheck
               && user.idCheck.australianPassport !== 'notAttempted'
               && this.renderItem(
                 idCheckUtils.ID_TYPE.PASSPORT,
                 user.idCheck.australianPassport,
-                user,
-                //list[0],
+                user
               )}
               {user.idCheck
               && user.idCheck.medicareCard !== 'notAttempted'
               && this.renderItem(
                 idCheckUtils.ID_TYPE.MEDICARE_CARD,
                 user.idCheck.medicareCard,
-                user,
-                //list[0],
+                user
               )}
             </View>
             <View>
               {this.renderButtons()}
               {user.idCheck
-                && (user.idCheck.australianPassport !== 'matchFailed' || user.idCheck.driversLicence !== 'matchFailed')
+                && (user.idCheck.australianPassport === 'matchFailed' || user.idCheck.driversLicence === 'matchFailed')
                 && (
               <Button
                 bordered

@@ -116,11 +116,13 @@ class PersonalDetails extends Component {
     }
 
     const headerRight = (
+      {/*
       <EditButton
         onPress={() => {
           this.editMode();
         }}
       />
+      */}
     );
 
     navigation.setParams({
