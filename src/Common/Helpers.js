@@ -4,7 +4,7 @@ import {
   Platform,
 } from 'react-native';
 
-import _ from 'lodash';
+import { isNil } from 'lodash';
 
 import moment from './moment';
 
@@ -55,11 +55,11 @@ export function navGetParam(nav_state, param_key, default_res = null) {
   const current_screen = navGetCurrentScreen(nav_state);
 
   if (
-    !_.isNil(current_screen)
-    && !_.isNil(current_screen.params)
+    !isNil(current_screen)
+    && !isNil(current_screen.params)
   ) {
     const param_value = current_screen.params[param_key];
-    if (!_.isNil(param_value)) res = param_value;
+    if (!isNil(param_value)) res = param_value;
   }
 
   return res;
@@ -102,6 +102,27 @@ export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thou
     return 'error';
   }
 }
+
+export function formatFullDate(dateInp) {
+  const date = dateInp;
+  const slashNum = (dateInp.match(/\//) || []).length;
+  let formatedDate;
+  if (slashNum < 2) {
+    if (date.length === 2 || date.length === 5) {
+      formatedDate = `${date.slice(0, date.length)}${'/'}${date.slice(date.length)}`;
+    }
+  }
+  return formatedDate;
+}
+
+export const normalizeFullDate = (valueInp) => {
+  let value = valueInp;
+  if (value) {
+    value = value.replace(/[^0-9]/g, '');
+  }
+
+  return value;
+};
 
 export const formatAmountDollar = (inputInp, decimalCountInp = 0) => {
   let input = inputInp;

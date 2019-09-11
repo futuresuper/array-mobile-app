@@ -30,8 +30,7 @@ class Accounts extends React.Component {
       }
       // dev purpose
       // this.nextScreen
-      // screenProps.navigateTo(routeNames.TAB_HOME);
-      // screenProps.navigateTo(routeNames.ID_CHECK);
+      screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
     });
   }
 
@@ -45,7 +44,7 @@ class Accounts extends React.Component {
   renderAccounts() {
     const { accounts, screenProps } = this.props;
 
-    console.log(accounts);
+    // console.log(accounts);
     // let activeAccounts = 0;
     // for (let i = 0; i < accounts.length; i += 1) {
     //   if (accounts[i].status === accountUtils.STATUS.UNITS_ISSUED) {
@@ -63,7 +62,7 @@ class Accounts extends React.Component {
               noIndent
               key={account.id}
               onPress={() => {
-                if (account.status === "awaitingIdCheckAndMoney" || account.status === "awaitingIdCheck") {
+                if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
                   screenProps.navigateTo(routeNames.ID_CHECK, {
                     accountId: account.id,
                   });
@@ -90,7 +89,7 @@ class Accounts extends React.Component {
                           <Text color4>{formatAmountDollarCent(account.balanceInDollars)}</Text>
                         </Text>
                       )}
-                      {(account.status === "awaitingIdCheckAndMoney" || account.status === "awaitingIdCheck") && (
+                      {(account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') && (
                         <Text style={[sg.mL0, sg.fS16]} color4>
                           Complete ID Check
                         </Text>
