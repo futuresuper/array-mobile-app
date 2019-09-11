@@ -98,7 +98,8 @@ class Name extends React.Component {
           middleNames,
           lastName,
         }, () => {
-          screenProps.navigateTo(routeNames.EMAIL);
+          //screenProps.navigateTo(routeNames.EMAIL);
+          screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
         }, () => {
           screenProps.toastDanger('Error. Try Again');
         });

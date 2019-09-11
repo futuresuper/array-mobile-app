@@ -11,13 +11,14 @@ import { sg } from 'src/Styles';
 
 import { routeNames } from 'src/Navigation';
 
-import { applicationIdSelector } from 'src/Redux/Auth';
+import { userDataSave, applicationIdSelector } from 'src/Redux/Auth';
+import { appContentSave } from 'src/Redux/AppContent';
 
 import { finalConfirmation as styles } from './styles';
 
 class FinalConfirmation extends React.Component {
   handlePress() {
-    const { screenProps, applicationId } = this.props;
+    const { screenProps, applicationId, userDataSaveConnect, appContentSaveConnect } = this.props;
     const body = {
       accountId: applicationId,
       submittedApplication: true,
@@ -27,17 +28,40 @@ class FinalConfirmation extends React.Component {
       '/account',
       body,
       (res) => {
+
+        this.getAppContent((appContent) => {
+          const { user } = appContent;
+          console.log(JSON.stringify(user));
+          console.log(JSON.stringify(appContent));
+
+          userDataSaveConnect(user);
+          appContentSaveConnect(appContent);
+
+          screenProps.navigateTo(routeNames.TAB_HOME, {
+            accountId: applicationId,
+          });
+        });
+
+        /*
         if (res.idCheckComplete) {
           screenProps.navigateTo(routeNames.TAB_HOME);
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
           // screenProps.navigateTo(routeNames.ID_CHECK_FINISH);
         }
+        */
       },
       () => {
         screenProps.toastDanger('Error. Try Again');
       },
     );
+  }
+
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {}, callback, () => {
+      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
+    });
   }
 
   renderLi(text) {
@@ -185,4 +209,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(FinalConfirmation);
+const mapDispatchToProps = {
+  userDataSaveConnect: userDataSave,
+  appContentSaveConnect: appContentSave,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FinalConfirmation);

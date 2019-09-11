@@ -38,7 +38,7 @@ class Accounts extends React.Component {
   getAppContent(callback) {
     const { screenProps } = this.props;
     screenProps.Api.get('/appcontent', {}, callback, () => {
-      screenProps.toast('Something went wrong :( Please try refreshing your app, or contact us');
+      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
     });
   }
 
