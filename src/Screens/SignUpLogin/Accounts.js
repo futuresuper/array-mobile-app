@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 
 import {
-  Button, Content, Text, Icon, Grid, Row, Col, ListItem, Body,
+  Button, Content, Text, Icon, Grid, Row, Col, List, ListItem, Body,
 } from 'native-base';
 
 import { routeNames } from 'src/Navigation';
@@ -12,7 +12,6 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import { formatAmountDollarCent } from 'src/Common/Helpers';
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave, accountsSelector } from 'src/Redux/AppContent';
-import accountUtils from 'src/Common/account';
 
 import { sg } from 'src/Styles';
 
@@ -29,7 +28,6 @@ class Accounts extends React.Component {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
       // dev purpose
-      // this.nextScreen
       // screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
     });
   }
@@ -57,10 +55,9 @@ class Accounts extends React.Component {
   }
 
 
-  renderAccounts() {
-    const { accounts } = this.props;
-
-    return accounts.map(account => (
+  renderAccount = (account) => {
+    console.log(account);
+    return (
       <ListItem
         button
         noIndent
@@ -75,37 +72,53 @@ class Accounts extends React.Component {
                 <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
                   {account.ownerName}
                 </Text>
-                {account.balanceInDollars !== 0 && (
                 <Text style={[sg.mL0, sg.fS16]} color4>
-                          Balance:&nbsp;
-                  <Text color4>{formatAmountDollarCent(account.balanceInDollars)}</Text>
+                  Balance:&nbsp;
+                  <Text color4>
+                    {formatAmountDollarCent(account.balanceInDollars)}
+                  </Text>
                 </Text>
-                )}
                 {(account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') && (
                 <Text style={[sg.mL0, sg.fS16]} color4>
-                          Complete ID Check
+                  Complete ID Check
                 </Text>
                 )}
+
               </Col>
               <Col style={[sg.jCCenter, sg.aIEnd]}>
                 <Icon name="ios-arrow-forward" style={sg.fS20} />
               </Col>
             </Row>
+            {!account.complete && (
+            <Row>
+              <Col style={[sg.flexNull]}>
+                <View style={[sg.incAppBl, sg.aSCenter]}>
+                  <Text style={[sg.incAppText]}>Incomplete application</Text>
+                </View>
+              </Col>
+              <Col style={sg.aIEnd}>
+                <Text style={[sg.textBold]}>Resume</Text>
+              </Col>
+            </Row>
+            )}
+
           </Grid>
         </Body>
       </ListItem>
-    ));
+    );
   }
 
 
   render() {
-    const { screenProps } = this.props;
+    const { screenProps, accounts } = this.props;
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
           <View>
             <Text style={[sg.formHeading]}>Your accounts</Text>
-            {this.renderAccounts()}
+            <List>
+              {accounts.map(account => this.renderAccount(account))}
+            </List>
           </View>
           {__DEV__ && (
             <KeyboardAvoidingView>
