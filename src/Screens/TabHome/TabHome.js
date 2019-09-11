@@ -282,6 +282,7 @@ class TabHome extends Component {
         const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
         const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
         const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
+        account.amountAwaitingDirectDebit = account.amountAwaitingDirectDebit ? account.amountAwaitingDirectDebit : 0;
 
         return (
           <View style={[sg.aICenter, sg.mT50, sg.mB25]} key={account.id}>
@@ -305,6 +306,12 @@ class TabHome extends Component {
               <H1 style={styles.mainAmount}>{balanceDollars}</H1>
               <Text style={styles.mainAmountCent}>{`.${balanceCents}`}</Text>
             </View>
+
+            {account.amountAwaitingDirectDebit > 0 && (
+              <View>
+                <Text style={styles.awaitingDebit}>{formatAmountDollarCent(account.amountAwaitingDirectDebit)} awaiting direct debit</Text>
+              </View>
+            )}
           </View>
         );
       }

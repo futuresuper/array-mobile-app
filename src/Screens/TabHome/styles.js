@@ -92,6 +92,13 @@ export default {
     paddingTop: -3,
     fontFamily: sc.font.bold,
   },
+  awaitingDebit: {
+    color: sc.color.gray12,
+    fontSize: 14,
+    marginTop: 4,
+    marginBottom: 4,
+    fontFamily: sc.font.bold,
+  },
   title: {
     ...sg.headingS,
     paddingRight: 7,
