@@ -22,6 +22,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -37,8 +39,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to use your camera to take picture</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need access to your location information</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string>We need access to your location information</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need to access photo library to get a image</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -88,8 +96,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>
 </plist>
