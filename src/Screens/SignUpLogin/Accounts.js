@@ -30,8 +30,23 @@ class Accounts extends React.Component {
       }
       // dev purpose
       // this.nextScreen
-      screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
+      // screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
     });
+  }
+
+  onAccountSelect(account) {
+    const { screenProps } = this.props;
+    if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
+      screenProps.navigateTo(routeNames.ID_CHECK, {
+        accountId: account.id,
+      });
+    } else {
+      // Navigate to the Home screen with the selected Account Active
+      // PK2 is the Account ID
+      screenProps.navigateTo(routeNames.TAB_HOME, {
+        accountId: account.id,
+      });
+    }
   }
 
   getAppContent(callback) {
@@ -41,79 +56,47 @@ class Accounts extends React.Component {
     });
   }
 
+
   renderAccounts() {
-    const { accounts, screenProps } = this.props;
+    const { accounts } = this.props;
 
-    // console.log(accounts);
-    // let activeAccounts = 0;
-    // for (let i = 0; i < accounts.length; i += 1) {
-    //   if (accounts[i].status === accountUtils.STATUS.UNITS_ISSUED) {
-    //     activeAccounts += 1;
-    //   }
-    // }
-    // if (activeAccounts > 0) {
-    if (true) {
-      return accounts.map((account) => {
-        // if (account.status === accountUtils.STATUS.UNITS_ISSUED) {
-        if (true) {
-          return (
-            <ListItem
-              button
-              noIndent
-              key={account.id}
-              onPress={() => {
-                if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
-                  screenProps.navigateTo(routeNames.ID_CHECK, {
-                    accountId: account.id,
-                  });
-                } else {
-                  // Navigate to the Home screen with the selected Account Active
-                  // PK2 is the Account ID
-                  screenProps.navigateTo(routeNames.TAB_HOME, {
-                    accountId: account.id,
-                  });
-                }
-              }}
-              style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
-            >
-              <Body>
-                <Grid>
-                  <Row>
-                    <Col style={[sg.flexNull]}>
-                      <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
-                        {account.ownerName}
-                      </Text>
-                      {account.balanceInDollars !== 0 && (
-                        <Text style={[sg.mL0, sg.fS16]} color4>
+    return accounts.map(account => (
+      <ListItem
+        button
+        noIndent
+        key={account.id}
+        onPress={() => this.onAccountSelect(account)}
+        style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
+      >
+        <Body>
+          <Grid>
+            <Row>
+              <Col style={[sg.flexNull]}>
+                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
+                  {account.ownerName}
+                </Text>
+                {account.balanceInDollars !== 0 && (
+                <Text style={[sg.mL0, sg.fS16]} color4>
                           Balance:&nbsp;
-                          <Text color4>{formatAmountDollarCent(account.balanceInDollars)}</Text>
-                        </Text>
-                      )}
-                      {(account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') && (
-                        <Text style={[sg.mL0, sg.fS16]} color4>
+                  <Text color4>{formatAmountDollarCent(account.balanceInDollars)}</Text>
+                </Text>
+                )}
+                {(account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') && (
+                <Text style={[sg.mL0, sg.fS16]} color4>
                           Complete ID Check
-                        </Text>
-                      )}
-                    </Col>
-                    <Col style={[sg.jCCenter, sg.aIEnd]}>
-                      <Icon name="ios-arrow-forward" style={sg.fS20} />
-                    </Col>
-                  </Row>
-                </Grid>
-              </Body>
-            </ListItem>
-          );
-        }
-        return null;
-      });
-    }
-
-    return (
-      <Text>
-        {"You don't have any accounts yet :(\n\nThe good news is you'll have the ability to start an account via the Array app very soon!"}
-      </Text>
-    );
+                </Text>
+                )}
+              </Col>
+              <Col style={[sg.jCCenter, sg.aIEnd]}>
+                <Icon name="ios-arrow-forward" style={sg.fS20} />
+              </Col>
+            </Row>
+          </Grid>
+        </Body>
+      </ListItem>
+    ));
   }
+
 
   render() {
     const { screenProps } = this.props;

@@ -13,6 +13,7 @@ import {
   Icon,
   H1,
   H2,
+  H3,
   Grid,
   Col,
   Row,
@@ -271,6 +272,12 @@ class TabHome extends Component {
     );
   }
 
+  renderAwaitingDirectDebit = (data) => {
+    if (data) {
+      return <Text>{`$${data} awaiting direct debit`}</Text>;
+    }
+    return null;
+  }
 
   renderBalance() {
     const { accounts, navigation } = this.props;
@@ -305,6 +312,7 @@ class TabHome extends Component {
               <H1 style={styles.mainAmount}>{balanceDollars}</H1>
               <Text style={styles.mainAmountCent}>{`.${balanceCents}`}</Text>
             </View>
+            {this.renderAwaitingDirectDebit(account.amountAwaitingDirectDebit)}
           </View>
         );
       }
