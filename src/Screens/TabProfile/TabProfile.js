@@ -60,10 +60,10 @@ class TabProfile extends Component {
         //   name: 'Manage accounts',
         //   screen: routeNames.MANAGE_ACCOUNTS,
         // },
-        {
-          name: 'Personal details',
-          screen: routeNames.PERSONAL_DETAILS,
-        },
+        // {
+        //   name: 'Personal details',
+        //   screen: routeNames.PERSONAL_DETAILS,
+        // },
         // {
         //   name: 'Refer a friend',
         //   screen: routeNames.REFER_FRIEND,
