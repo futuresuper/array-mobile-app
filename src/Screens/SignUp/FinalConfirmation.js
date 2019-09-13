@@ -43,6 +43,10 @@ class FinalConfirmation extends React.Component {
           console.log(JSON.stringify(appContent));
           userDataSaveConnect(user);
           appContentSaveConnect(appContent);
+          screenProps.toast('Application Complete', {
+            iconType: 'MaterialCommunityIcons',
+            iconName: 'check-circle',
+          });
           if (res.idCheckComplete) {
             screenProps.navigateTo(routeNames.TAB_HOME, {
               accountId: applicationId,

@@ -65,6 +65,15 @@ class Pep extends Component {
 
 
           <View>
+
+            <Button
+              onPress={() => this.onNext(false)}
+              block
+              marginVert
+              style={sg.mB0}
+            >
+              <Text>No I&apos;m not</Text>
+            </Button>
             <Button
               onPress={() => this.onNext()}
               bordered
@@ -75,14 +84,7 @@ class Pep extends Component {
               <Text>Yes I am</Text>
             </Button>
 
-            <Button
-              onPress={() => this.onNext(false)}
-              block
-              marginVert
-              style={sg.mB0}
-            >
-              <Text>No I&apos;m not</Text>
-            </Button>
+
           </View>
         </View>
       </Content>
