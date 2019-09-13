@@ -17,8 +17,17 @@ import { appContentSave } from 'src/Redux/AppContent';
 import { finalConfirmation as styles } from './styles';
 
 class FinalConfirmation extends React.Component {
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {}, callback, () => {
+      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
+    });
+  }
+
   handlePress() {
-    const { screenProps, applicationId, userDataSaveConnect, appContentSaveConnect } = this.props;
+    const {
+      screenProps, applicationId, userDataSaveConnect, appContentSaveConnect,
+    } = this.props;
     const body = {
       accountId: applicationId,
       submittedApplication: true,
@@ -51,12 +60,6 @@ class FinalConfirmation extends React.Component {
     );
   }
 
-  getAppContent(callback) {
-    const { screenProps } = this.props;
-    screenProps.Api.get('/appcontent', {}, callback, () => {
-      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
-    });
-  }
 
   renderLi(text) {
     return (
@@ -75,9 +78,10 @@ class FinalConfirmation extends React.Component {
 
           <Text>
             Once you click ‘Agree & Submit Application’, we will debit your&nbsp;
-            <Text
-              // style={sg.textBold}
-            >bank account</Text>
+            <Text>
+            bank account
+
+            </Text>
             &nbsp;for your initial investment amount&nbsp;
             <Text style={sg.textBold} />
           </Text>

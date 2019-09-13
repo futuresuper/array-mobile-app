@@ -4,12 +4,13 @@ import {
 } from 'src/Redux/Auth';
 import * as types from './actionTypes';
 
-const initialState = {};
+const initialState = {
+  selectedAccount: '',
+};
 
 const ACTION_HANDLERS = {
   [types.APP_CONTENT_SAVE]: (state, action) => {
     const { payload } = action;
-
     return {
       ...state,
       ...payload,

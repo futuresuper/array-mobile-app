@@ -38,6 +38,7 @@ import Api from 'src/Common/Api';
 import Spinner from 'src/Components/Spinner';
 import Alert from 'src/Components/Alert';
 import { AppWithNavigationState } from 'src/Navigation/AppNavigator';
+import { accountSelector } from 'src/Redux/Account/selectors';
 import {
   navigateTo,
   routeBack,
@@ -68,6 +69,11 @@ class AppIndex extends Component {
   getUserInfo = () => {
     const { auth } = this.props;
     return auth.user || {};
+  }
+
+  getAccountInfo = () => {
+    const { account } = this.props;
+    return account;
   }
 
   alert = (options) => {
@@ -206,6 +212,7 @@ class AppIndex extends Component {
       spinnerHide: this.spinnerHide,
       alert: this.alert,
       getUserInfo: this.getUserInfo,
+      accountInfo: this.getAccountInfo,
       setDarkTheme: this.setDarkTheme,
       setLightTheme: this.setLightTheme,
       enableTheme: this.enableTheme,
@@ -276,6 +283,7 @@ AppIndex.propTypes = {
   }).isRequired,
   routeBackConnect: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  account: PropTypes.object.isRequired,
   hydrated: PropTypes.bool.isRequired,
 };
 
@@ -289,6 +297,7 @@ function bindAction(dispatch) {
 const mapStateToProps = state => ({
   navigation: state.navigationCard,
   auth: state.auth,
+  account: accountSelector(state.account),
 });
 
 export default connect(mapStateToProps, bindAction)(AppIndex);

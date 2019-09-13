@@ -12,6 +12,7 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import { formatAmountDollarCent } from 'src/Common/Helpers';
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave, accountsSelector } from 'src/Redux/AppContent';
+import { accountSelectSave } from 'src/Redux/Account';
 
 import { sg } from 'src/Styles';
 
@@ -33,16 +34,25 @@ class Accounts extends React.Component {
   }
 
   onAccountSelect(account) {
-    const { screenProps } = this.props;
-    if (!account.complete) {
-      screenProps.navigateTo(routeNames.ACCOUNT_TYPE, {
-        accountId: account.id,
-      });
-    } else {
-      screenProps.navigateTo(routeNames.TAB_HOME, {
-        accountId: account.id,
-      });
-    }
+    const { accountSelectSaveConnect } = this.props;
+    accountSelectSaveConnect(account);
+
+    // const { screenProps } = this.props;
+    // screenProps.Api.get(`/accounts/${id}`, {}, (account) => {
+    //   accountSelectAction(account);
+    // }, () => {
+    //   screenProps.toastDanger('Something went wrong. Try Again');
+    // });
+
+    // if (!account.complete) {
+    //   screenProps.navigateTo(routeNames.ACCOUNT_TYPE, {
+    //     accountId: account.id,
+    //   });
+    // } else {
+    //   screenProps.navigateTo(routeNames.TAB_HOME, {
+    //     accountId: account.id,
+    //   });
+    // }
   }
 
   getAppContent(callback) {
@@ -59,7 +69,7 @@ class Accounts extends React.Component {
       noIndent
       key={account.id}
       onPress={() => this.onAccountSelect(account)}
-      style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
+      style={[sg.pL0, sg.pT25, sg.pB25]}
     >
       <Body>
         <Grid>
@@ -97,7 +107,6 @@ class Accounts extends React.Component {
               </Col>
             </Row>
           )}
-
         </Grid>
       </Body>
     </ListItem>
@@ -111,10 +120,10 @@ class Accounts extends React.Component {
         <View style={sg.spaceBetween}>
           <View>
             <Text style={[sg.formHeading]}>Your accounts</Text>
-            <List>
-              {accounts.map(account => this.renderAccount(account))}
-            </List>
           </View>
+          <List>
+            {accounts.map(account => this.renderAccount(account))}
+          </List>
           {__DEV__ && (
             <KeyboardAvoidingView>
               <Button
@@ -138,6 +147,7 @@ Accounts.propTypes = {
   accounts: PropTypes.array.isRequired,
   userDataSaveConnect: PropTypes.func.isRequired,
   appContentSaveConnect: PropTypes.func.isRequired,
+  accountSelectSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -150,6 +160,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   userDataSaveConnect: userDataSave,
   appContentSaveConnect: appContentSave,
+  accountSelectSaveConnect: accountSelectSave,
 };
 
 export default connect(

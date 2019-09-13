@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import {
   View,
   Text,
@@ -16,22 +17,32 @@ class Splash extends Component {
     this.proc();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    const { hydrated } = this.props;
+    const { hydrated: hydratedPrevious } = prevProps;
+    console.log(hydrated);
+    // if (hydrated !== hydratedPrevious) {
     this.proc();
+    // }
   }
 
   proc() {
     const { screenProps } = this.props;
-    const { navigateTo, hydrated, getUserInfo } = screenProps;
+    const {
+      navigateTo, hydrated, getUserInfo, accountInfo,
+    } = screenProps;
 
     if (!hydrated) {
       return;
     }
 
     const userInfo = getUserInfo();
-    const isAuth = (userInfo && !_.isEmpty(userInfo));
+    const isAuth = (userInfo && !isEmpty(userInfo));
+    const hasSelectedAccount = !isEmpty(accountInfo());
 
     if (isAuth) {
+      console.log(hasSelectedAccount);
+      // navigateTo(routeNames.TAB_HOME);
       navigateTo(routeNames.ACCOUNTS);
     } else {
       navigateTo(routeNames.APP_LANDING);
@@ -58,5 +69,10 @@ class Splash extends Component {
     );
   }
 }
+
+Splash.propTypes = {
+  hydrated: PropTypes.bool.isRequired,
+};
+
 
 export default connect()(Splash);
