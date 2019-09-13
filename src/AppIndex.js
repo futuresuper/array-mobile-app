@@ -189,7 +189,7 @@ class AppIndex extends Component {
   }
 
   render() {
-    const { hydrated, navigation } = this.props;
+    const { navigation } = this.props;
     const { dark } = this.state;
     const barStyle = dark ? 'light-content' : 'dark-content';
     let theme;
@@ -201,7 +201,6 @@ class AppIndex extends Component {
     }
 
     const screenProps = {
-      hydrated,
       navState: navigation,
       toast: this.toast,
       toastDanger: this.toastDanger,
@@ -284,7 +283,6 @@ AppIndex.propTypes = {
   routeBackConnect: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   account: PropTypes.object.isRequired,
-  hydrated: PropTypes.bool.isRequired,
 };
 
 function bindAction(dispatch) {

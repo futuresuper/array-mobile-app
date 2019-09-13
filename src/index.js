@@ -25,7 +25,7 @@ class Root extends PureComponent {
       <Provider store={myStore}>
         <PersistGate loading={null} persistor={myPersistor}>
           <ServiceManager />
-          <AppIndex hydrated />
+          <AppIndex />
         </PersistGate>
       </Provider>
     );

@@ -17,24 +17,15 @@ class Splash extends Component {
     this.proc();
   }
 
-  componentDidUpdate(prevProps) {
-    const { hydrated } = this.props;
-    const { hydrated: hydratedPrevious } = prevProps;
-    console.log(hydrated);
-    // if (hydrated !== hydratedPrevious) {
+  componentDidUpdate() {
     this.proc();
-    // }
   }
 
   proc() {
     const { screenProps } = this.props;
     const {
-      navigateTo, hydrated, getUserInfo, accountInfo,
+      navigateTo, getUserInfo, accountInfo,
     } = screenProps;
-
-    if (!hydrated) {
-      return;
-    }
 
     const userInfo = getUserInfo();
     const isAuth = (userInfo && !isEmpty(userInfo));
@@ -69,10 +60,6 @@ class Splash extends Component {
     );
   }
 }
-
-Splash.propTypes = {
-  hydrated: PropTypes.bool.isRequired,
-};
 
 
 export default connect()(Splash);
