@@ -25,34 +25,21 @@ class Accounts extends React.Component {
       const { screenProps } = this.props;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
-      if (user.personalDetailsLocked) {
-        screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-      }
       // dev purpose
       // screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
     });
   }
 
   onAccountSelect(account) {
-    const { accountSelectSaveConnect } = this.props;
+    const { accountSelectSaveConnect, screenProps } = this.props;
     accountSelectSaveConnect(account);
-
-    // const { screenProps } = this.props;
-    // screenProps.Api.get(`/accounts/${id}`, {}, (account) => {
-    //   accountSelectAction(account);
-    // }, () => {
-    //   screenProps.toastDanger('Something went wrong. Try Again');
-    // });
-
-    // if (!account.complete) {
-    //   screenProps.navigateTo(routeNames.ACCOUNT_TYPE, {
-    //     accountId: account.id,
-    //   });
-    // } else {
-    //   screenProps.navigateTo(routeNames.TAB_HOME, {
-    //     accountId: account.id,
-    //   });
-    // }
+    if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
+      screenProps.navigateTo(routeNames.ID_CHECK);
+    } else {
+      screenProps.navigateTo(routeNames.TAB_HOME, {
+        accountId: account.id,
+      });
+    }
   }
 
   getAppContent(callback) {
@@ -62,56 +49,61 @@ class Accounts extends React.Component {
     });
   }
 
-
-  renderAccount = account => (
-    <ListItem
-      button
-      noIndent
-      key={account.id}
-      onPress={() => this.onAccountSelect(account)}
-      style={[sg.pL0, sg.pT25, sg.pB25]}
-    >
-      <Body>
-        <Grid>
-          <Row>
-            <Col style={[sg.flexNull]}>
-              <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
-                {account.ownerName}
-              </Text>
-              <Text style={[sg.mL0, sg.fS16]} color4>
-                  Balance:&nbsp;
-                <Text color4>
-                  {formatAmountDollarCent(account.balanceInDollars)}
-                </Text>
-              </Text>
-              {(account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') && (
-                <Text style={[sg.mL0, sg.fS16]} color4>
-                  Complete ID Check
-                </Text>
+  renderAccount = account => {
+    if (account.status && account.status !== "incompleteApp") {
+      const displayName = account.nickName ? account.nickName : account.ownerName;
+      const showBalance = account.balanceInDollars > 0;
+      const awaitingIdCheck = (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck');
+      const appIncomplete = (account.status === "incompleteApp");
+      return (
+        <ListItem
+          button
+          noIndent
+          key={account.id}
+          onPress={() => this.onAccountSelect(account)}
+          style={[sg.pL0, sg.pT25, sg.pB25]}
+        >
+          <Body>
+            <Grid>
+              <Row>
+                <Col style={[sg.flexNull]}>
+                  <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
+                    {displayName}
+                  </Text>
+                  {showBalance && (
+                    <Text style={[sg.mL0, sg.fS16]} color4>
+                        {formatAmountDollarCent(account.balanceInDollars)}
+                    </Text>
+                  )}
+                </Col>
+                <Col style={[sg.jCCenter, sg.aIEnd]}>
+                  <Icon name="ios-arrow-forward" style={sg.fS20} />
+                </Col>
+              </Row>
+              {awaitingIdCheck && (
+                <Row>
+                  <Col style={[sg.flexNull]}>
+                    <View style={[sg.incAppBl, sg.aSCenter]}>
+                      <Text style={[sg.incAppText]}>Complete ID Check</Text>
+                    </View>
+                  </Col>
+                </Row>
               )}
-
-            </Col>
-            <Col style={[sg.jCCenter, sg.aIEnd]}>
-              <Icon name="ios-arrow-forward" style={sg.fS20} />
-            </Col>
-          </Row>
-          {!account.complete && (
-            <Row>
-              <Col style={[sg.flexNull]}>
-                <View style={[sg.incAppBl, sg.aSCenter]}>
-                  <Text style={[sg.incAppText]}>Incomplete application</Text>
-                </View>
-              </Col>
-              <Col style={sg.aIEnd}>
-                <Text style={[sg.textBold]}>Resume</Text>
-              </Col>
-            </Row>
-          )}
-        </Grid>
-      </Body>
-    </ListItem>
-  )
-
+              {appIncomplete && (
+                <Row>
+                  <Col style={[sg.flexNull]}>
+                    <View style={[sg.incAppBl, sg.aSCenter]}>
+                      <Text style={[sg.incAppText]}>Incomplete application</Text>
+                    </View>
+                  </Col>
+                </Row>
+              )}
+            </Grid>
+          </Body>
+        </ListItem>
+      )
+    }
+  }
 
   render() {
     const { screenProps, accounts } = this.props;
@@ -119,24 +111,24 @@ class Accounts extends React.Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
           <View>
-            <Text style={[sg.formHeading]}>Your accounts</Text>
+            <View>
+              <Text style={[sg.formHeading]}>Your accounts</Text>
+            </View>
+            <List>
+              {accounts.map(account => this.renderAccount(account))}
+            </List>
           </View>
-          <List>
-            {accounts.map(account => this.renderAccount(account))}
-          </List>
-          {__DEV__ && (
-            <KeyboardAvoidingView>
-              <Button
-                onPress={() => {
-                  screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                  // screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
-                }}
-                block
-              >
-                <Text>Start new application</Text>
-              </Button>
-            </KeyboardAvoidingView>
-          )}
+          <KeyboardAvoidingView>
+            <Button
+              onPress={() => {
+                screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+                // screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
+              }}
+              block
+            >
+              <Text>Start new application</Text>
+            </Button>
+          </KeyboardAvoidingView>
         </View>
       </Content>
     );

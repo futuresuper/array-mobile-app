@@ -274,7 +274,7 @@ class TabHome extends Component {
 
   renderAwaitingDirectDebit = (data) => {
     if (data) {
-      return <Text>{`$${data} awaiting direct debit`}</Text>;
+      return <Text style={styles.awaitingDebit}>{formatAmountDollarCent(data)} awaiting direct debit</Text>;
     }
     return null;
   }
