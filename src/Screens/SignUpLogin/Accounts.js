@@ -118,17 +118,19 @@ class Accounts extends React.Component {
               {accounts.map(account => this.renderAccount(account))}
             </List>
           </View>
-          <KeyboardAvoidingView>
-            <Button
-              onPress={() => {
-                screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                // screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
-              }}
-              block
-            >
-              <Text>Start new application</Text>
-            </Button>
-          </KeyboardAvoidingView>
+          {__DEV__ && (
+            <KeyboardAvoidingView>
+              <Button
+                onPress={() => {
+                  screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+                  // screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
+                }}
+                block
+              >
+                <Text>Start new application</Text>
+              </Button>
+            </KeyboardAvoidingView>
+          )}
         </View>
       </Content>
     );

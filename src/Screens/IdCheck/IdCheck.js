@@ -25,11 +25,6 @@ class IdCheck extends PureComponent {
     componentDidMount() {
       const { screenProps } = this.props;
 
-      // Commented out for now - need to show only if just finished app
-      // screenProps.toast('Application Complete', {
-      //   iconType: 'MaterialCommunityIcons',
-      //   iconName: 'check-circle',
-      // });
     }
 
     onPressEditItem(type) {
@@ -151,11 +146,13 @@ class IdCheck extends PureComponent {
       // const { list } = this.state;
       return (
         <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
+
           <View>
             <Text style={sg.formHeading}>Your ID check</Text>
           </View>
           <View style={[sg.spaceBetween]}>
             <View>
+
               {!user.idCheck && (
               <View>
                 <Text style={sg.formHeadingDescription}>
