@@ -47,7 +47,7 @@ class IdCheckAustralianPassport extends Component {
         passportMiddleNames,
         passportLastName,
         passportNumber,
-        idType: "australianPassport"
+        idType: 'australianPassport',
       }, (res) => {
         console.log(res);
         idCheckSaveConnect(res);

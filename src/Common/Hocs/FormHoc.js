@@ -299,6 +299,12 @@ export default function FormHoc(WrappedComponent) {
       const element = field;
 
       element.validations.forEach((val) => {
+        if (Array.isArray(val)) {
+          const func = val[0];
+          const errMsg = val[1];
+          element.error = func(element.value, formKey);
+          element.errorMessage = errMsg;
+        }
         if (typeof val === 'function') {
           element.error = val(element.value, formKey);
           element.errorMessage = errorValidators.invalid.text;

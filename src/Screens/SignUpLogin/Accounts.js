@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 
 import {
-  Button, Content, Text, Icon, Grid, Row, Col, ListItem, Body,
+  Button, Content, Text, Icon, Grid, Row, Col, List, ListItem, Body,
 } from 'native-base';
 
 import { routeNames } from 'src/Navigation';
@@ -12,7 +12,7 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import { formatAmountDollarCent } from 'src/Common/Helpers';
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave, accountsSelector } from 'src/Redux/AppContent';
-import accountUtils from 'src/Common/account';
+import { accountSelectSave } from 'src/Redux/Account';
 
 import { sg } from 'src/Styles';
 
@@ -29,10 +29,30 @@ class Accounts extends React.Component {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
       // dev purpose
-      // this.nextScreen
-      // screenProps.navigateTo(routeNames.TAB_HOME);
-      // screenProps.navigateTo(routeNames.ID_CHECK);
+      // screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
     });
+  }
+
+  onAccountSelect(account) {
+    const { accountSelectSaveConnect } = this.props;
+    accountSelectSaveConnect(account);
+
+    // const { screenProps } = this.props;
+    // screenProps.Api.get(`/accounts/${id}`, {}, (account) => {
+    //   accountSelectAction(account);
+    // }, () => {
+    //   screenProps.toastDanger('Something went wrong. Try Again');
+    // });
+
+    // if (!account.complete) {
+    //   screenProps.navigateTo(routeNames.ACCOUNT_TYPE, {
+    //     accountId: account.id,
+    //   });
+    // } else {
+    //   screenProps.navigateTo(routeNames.TAB_HOME, {
+    //     accountId: account.id,
+    //   });
+    // }
   }
 
   getAppContent(callback) {
@@ -42,89 +62,68 @@ class Accounts extends React.Component {
     });
   }
 
-  renderAccounts() {
-    const { accounts, screenProps } = this.props;
 
-    console.log(accounts);
-    // let activeAccounts = 0;
-    // for (let i = 0; i < accounts.length; i += 1) {
-    //   if (accounts[i].status === accountUtils.STATUS.UNITS_ISSUED) {
-    //     activeAccounts += 1;
-    //   }
-    // }
-    // if (activeAccounts > 0) {
-    if (true) {
-      return accounts.map((account) => {
-        // if (account.status === accountUtils.STATUS.UNITS_ISSUED) {
-        if (true) {
-          return (
-            <ListItem
-              button
-              noIndent
-              key={account.id}
-              onPress={() => {
-                if (account.status === "awaitingIdCheckAndMoney" || account.status === "awaitingIdCheck") {
-                  screenProps.navigateTo(routeNames.ID_CHECK, {
-                    accountId: account.id,
-                  });
-                } else {
-                  // Navigate to the Home screen with the selected Account Active
-                  // PK2 is the Account ID
-                  screenProps.navigateTo(routeNames.TAB_HOME, {
-                    accountId: account.id,
-                  });
-                }
-              }}
-              style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
-            >
-              <Body>
-                <Grid>
-                  <Row>
-                    <Col style={[sg.flexNull]}>
-                      <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
-                        {account.ownerName}
-                      </Text>
-                      {account.balanceInDollars !== 0 && (
-                        <Text style={[sg.mL0, sg.fS16]} color4>
-                          Balance:&nbsp;
-                          <Text color4>{formatAmountDollarCent(account.balanceInDollars)}</Text>
-                        </Text>
-                      )}
-                      {(account.status === "awaitingIdCheckAndMoney" || account.status === "awaitingIdCheck") && (
-                        <Text style={[sg.mL0, sg.fS16]} color4>
-                          Complete ID Check
-                        </Text>
-                      )}
-                    </Col>
-                    <Col style={[sg.jCCenter, sg.aIEnd]}>
-                      <Icon name="ios-arrow-forward" style={sg.fS20} />
-                    </Col>
-                  </Row>
-                </Grid>
-              </Body>
-            </ListItem>
-          );
-        }
-        return null;
-      });
-    }
+  renderAccount = account => (
+    <ListItem
+      button
+      noIndent
+      key={account.id}
+      onPress={() => this.onAccountSelect(account)}
+      style={[sg.pL0, sg.pT25, sg.pB25]}
+    >
+      <Body>
+        <Grid>
+          <Row>
+            <Col style={[sg.flexNull]}>
+              <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
+                {account.ownerName}
+              </Text>
+              <Text style={[sg.mL0, sg.fS16]} color4>
+                  Balance:&nbsp;
+                <Text color4>
+                  {formatAmountDollarCent(account.balanceInDollars)}
+                </Text>
+              </Text>
+              {(account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') && (
+                <Text style={[sg.mL0, sg.fS16]} color4>
+                  Complete ID Check
+                </Text>
+              )}
 
-    return (
-      <Text>
-        {"You don't have any accounts yet :(\n\nThe good news is you'll have the ability to start an account via the Array app very soon!"}
-      </Text>
-    );
-  }
+            </Col>
+            <Col style={[sg.jCCenter, sg.aIEnd]}>
+              <Icon name="ios-arrow-forward" style={sg.fS20} />
+            </Col>
+          </Row>
+          {!account.complete && (
+            <Row>
+              <Col style={[sg.flexNull]}>
+                <View style={[sg.incAppBl, sg.aSCenter]}>
+                  <Text style={[sg.incAppText]}>Incomplete application</Text>
+                </View>
+              </Col>
+              <Col style={sg.aIEnd}>
+                <Text style={[sg.textBold]}>Resume</Text>
+              </Col>
+            </Row>
+          )}
+        </Grid>
+      </Body>
+    </ListItem>
+  )
+
 
   render() {
-    const { screenProps } = this.props;
+    const { screenProps, accounts } = this.props;
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
           <View>
             <Text style={[sg.formHeading]}>Your accounts</Text>
-            {this.renderAccounts()}
           </View>
+          <List>
+            {accounts.map(account => this.renderAccount(account))}
+          </List>
           {__DEV__ && (
             <KeyboardAvoidingView>
               <Button
@@ -148,6 +147,7 @@ Accounts.propTypes = {
   accounts: PropTypes.array.isRequired,
   userDataSaveConnect: PropTypes.func.isRequired,
   appContentSaveConnect: PropTypes.func.isRequired,
+  accountSelectSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -160,6 +160,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   userDataSaveConnect: userDataSave,
   appContentSaveConnect: appContentSave,
+  accountSelectSaveConnect: accountSelectSave,
 };
 
 export default connect(

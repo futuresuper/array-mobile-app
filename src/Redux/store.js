@@ -20,24 +20,30 @@ if (__DEV__) {
   createStore = Reactotron.createStore;
 }
 
-export default (onCompletion) => {
-  const persistConfig = {
-    key: 'primary',
-    storage: AsyncStorage,
-    whitelist: ['auth'],
-  };
-  const persistReducers = persistCombineReducers(persistConfig, reducers);
-
-
-  const store = createStore(
-    persistReducers,
-    undefined,
-    enhancers(
-      applyMiddleware(thunk, navReduxMiddleware),
-    ),
-  );
-
-  persistStore(store, null, onCompletion);
-
-  return store;
+const persistConfig = {
+  key: 'primary',
+  storage: AsyncStorage,
+  whitelist: ['auth'],
 };
+const persistReducers = persistCombineReducers(persistConfig, reducers);
+
+
+const store = createStore(
+  persistReducers,
+  undefined,
+  enhancers(
+    applyMiddleware(thunk, navReduxMiddleware),
+  ),
+);
+const persistor = persistStore(store);
+
+const getPersistor = () => persistor;
+const getStore = () => store;
+const getState = () => store.getState();
+
+export {
+  getStore,
+  getState,
+  getPersistor,
+};
+// persistStore(store, null, onCompletion);

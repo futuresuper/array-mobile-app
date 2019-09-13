@@ -30,15 +30,16 @@ class IdCheck extends PureComponent {
       //   iconType: 'MaterialCommunityIcons',
       //   iconName: 'check-circle',
       // });
-
     }
 
     onPressEditItem(type) {
       const { screenProps } = this.props;
-      console.log("type: " + type);
-      type === "Drivers Licence" ?
-        screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE)
-        : screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT)
+      console.log(`type: ${type}`);
+      if (type === 'Drivers Licence') {
+        screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE);
+      } else {
+        screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT);
+      }
     }
 
     renderButtons() {
@@ -141,14 +142,13 @@ class IdCheck extends PureComponent {
             </Grid>
           </View>
         );
-      } else {
-        return null;
       }
+      return null;
     }
 
     render() {
       const { user, screenProps } = this.props;
-      //const { list } = this.state;
+      // const { list } = this.state;
       return (
         <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
           <View>
@@ -167,13 +167,13 @@ class IdCheck extends PureComponent {
               {user.idCheck
                 && (user.idCheck.australianPassport === 'matchFailed' || user.idCheck.driversLicence === 'matchFailed')
                 && (
-              <View>
-                <Text style={sg.mB15}>
+                <View>
+                  <Text style={sg.mB15}>
                   We weren’t able to verify you with the ID you provided. Please check the details
                   below are accurate or try another ID.
-                </Text>
+                  </Text>
 
-                {/*
+                  {/*
                 <TextUnderline
                   iconRight={{
                     type: 'Feather',
@@ -187,8 +187,8 @@ class IdCheck extends PureComponent {
                   How to certify ID.
                 </TextUnderline>
                 */}
-              </View>
-              )}
+                </View>
+                )}
             </View>
             <View>
               {user.idCheck
@@ -196,21 +196,21 @@ class IdCheck extends PureComponent {
               && this.renderItem(
                 idCheckUtils.ID_TYPE.DRIVERS_LICENSE,
                 user.idCheck.driversLicence,
-                user
+                user,
               )}
               {user.idCheck
               && user.idCheck.australianPassport !== 'notAttempted'
               && this.renderItem(
                 idCheckUtils.ID_TYPE.PASSPORT,
                 user.idCheck.australianPassport,
-                user
+                user,
               )}
               {user.idCheck
               && user.idCheck.medicareCard !== 'notAttempted'
               && this.renderItem(
                 idCheckUtils.ID_TYPE.MEDICARE_CARD,
                 user.idCheck.medicareCard,
-                user
+                user,
               )}
             </View>
             <View>
@@ -218,19 +218,19 @@ class IdCheck extends PureComponent {
               {user.idCheck
                 && (user.idCheck.australianPassport === 'matchFailed' || user.idCheck.driversLicence === 'matchFailed')
                 && (
-              <Button
-                bordered
-                dark
-                block
-                marginVert
-                style={sg.mT0}
-                onPress={() => {
-                  screenProps.navigateTo(routeNames.POST_US_CERTIFIED_ID);
-                }}
-              >
-                <Text>Post us certified ID</Text>
-              </Button>
-              )}
+                <Button
+                  bordered
+                  dark
+                  block
+                  marginVert
+                  style={sg.mT0}
+                  onPress={() => {
+                    screenProps.navigateTo(routeNames.POST_US_CERTIFIED_ID);
+                  }}
+                >
+                  <Text>Post us certified ID</Text>
+                </Button>
+                )}
             </View>
           </View>
         </Content>

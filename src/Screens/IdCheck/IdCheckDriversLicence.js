@@ -59,7 +59,7 @@ class IdCheckDriversLicence extends Component {
         driversLicenceFirstName,
         driversLicenceMiddleNames,
         driversLicenceLastName,
-        idType: "driversLicence"
+        idType: 'driversLicence',
       }, (res) => {
         console.log(res);
         idCheckSaveConnect(res);
@@ -114,7 +114,7 @@ class IdCheckDriversLicence extends Component {
               formData={form}
               helper="State Issued"
               formKey="driversLicenceState"
-              //title={form.driversLicenceState.value ? form.driversLicenceState.value : 'Please Select a State'}
+              // title={form.driversLicenceState.value ? form.driversLicenceState.value : 'Please Select a State'}
               list={states}
               renderItem={({ item }) => (
                 <View>
