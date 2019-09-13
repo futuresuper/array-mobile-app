@@ -78,10 +78,15 @@ class Name extends React.Component {
     }
 
     componentDidMount() {
-      const { hocs } = this.props;
+      const { hocs, screenProps } = this.props;
       const { form } = this.state;
 
-      hocs.setForm(form);
+      hocs.setForm(form).then(() => {
+        const userDetails = screenProps.getUserInfo();
+        hocs.handleInput(userDetails.firstName || '', 'firstName');
+        hocs.handleInput(userDetails.lastName || '', 'lastName');
+        hocs.handleInput(userDetails.middleNames || '', 'middleNames');
+      });
     }
 
     handlePress() {
@@ -113,12 +118,12 @@ class Name extends React.Component {
       return (
         <Content padder contentContainerStyle={sg.flexGrow}>
           <View style={sg.spaceBetween}>
-          <View>
-            <Text style={[sg.formHeading]}>
+            <View>
+              <Text style={[sg.formHeading]}>
               Your name
-            </Text>
+              </Text>
 
-            {/*
+              {/*
             <Picker
               containerStyle={sg.width100}
               formData={form}
@@ -138,37 +143,37 @@ class Name extends React.Component {
             />
             */}
 
-            <Input
-              formData={form}
-              formKey="firstName"
-              helper="First name"
-              onChangeText={hocs.handleInput}
-            />
+              <Input
+                formData={form}
+                formKey="firstName"
+                helper="First name"
+                onChangeText={hocs.handleInput}
+              />
 
-            <Input
-              formData={form}
-              formKey="middleNames"
-              helper="Middle names"
-              onChangeText={hocs.handleInput}
-            />
+              <Input
+                formData={form}
+                formKey="middleNames"
+                helper="Middle names"
+                onChangeText={hocs.handleInput}
+              />
 
-            <Input
-              formData={form}
-              formKey="lastName"
-              helper="Last name"
-              onChangeText={hocs.handleInput}
-            />
+              <Input
+                formData={form}
+                formKey="lastName"
+                helper="Last name"
+                onChangeText={hocs.handleInput}
+              />
 
+            </View>
+            <KeyboardAvoidingView>
+              <Button
+                onPress={() => this.handlePress()}
+                block
+              >
+                <Text>Next</Text>
+              </Button>
+            </KeyboardAvoidingView>
           </View>
-          <KeyboardAvoidingView>
-            <Button
-              onPress={() => this.handlePress()}
-              block
-            >
-              <Text>Next</Text>
-            </Button>
-          </KeyboardAvoidingView>
-        </View>
         </Content>
       );
     }

@@ -34,13 +34,11 @@ class Accounts extends React.Component {
 
   onAccountSelect(account) {
     const { screenProps } = this.props;
-    if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
-      screenProps.navigateTo(routeNames.ID_CHECK, {
+    if (!account.complete) {
+      screenProps.navigateTo(routeNames.ACCOUNT_TYPE, {
         accountId: account.id,
       });
     } else {
-      // Navigate to the Home screen with the selected Account Active
-      // PK2 is the Account ID
       screenProps.navigateTo(routeNames.TAB_HOME, {
         accountId: account.id,
       });
@@ -55,41 +53,39 @@ class Accounts extends React.Component {
   }
 
 
-  renderAccount = (account) => {
-    console.log(account);
-    return (
-      <ListItem
-        button
-        noIndent
-        key={account.id}
-        onPress={() => this.onAccountSelect(account)}
-        style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
-      >
-        <Body>
-          <Grid>
-            <Row>
-              <Col style={[sg.flexNull]}>
-                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
-                  {account.ownerName}
-                </Text>
-                <Text style={[sg.mL0, sg.fS16]} color4>
+  renderAccount = account => (
+    <ListItem
+      button
+      noIndent
+      key={account.id}
+      onPress={() => this.onAccountSelect(account)}
+      style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
+    >
+      <Body>
+        <Grid>
+          <Row>
+            <Col style={[sg.flexNull]}>
+              <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
+                {account.ownerName}
+              </Text>
+              <Text style={[sg.mL0, sg.fS16]} color4>
                   Balance:&nbsp;
-                  <Text color4>
-                    {formatAmountDollarCent(account.balanceInDollars)}
-                  </Text>
+                <Text color4>
+                  {formatAmountDollarCent(account.balanceInDollars)}
                 </Text>
-                {(account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') && (
+              </Text>
+              {(account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') && (
                 <Text style={[sg.mL0, sg.fS16]} color4>
                   Complete ID Check
                 </Text>
-                )}
+              )}
 
-              </Col>
-              <Col style={[sg.jCCenter, sg.aIEnd]}>
-                <Icon name="ios-arrow-forward" style={sg.fS20} />
-              </Col>
-            </Row>
-            {!account.complete && (
+            </Col>
+            <Col style={[sg.jCCenter, sg.aIEnd]}>
+              <Icon name="ios-arrow-forward" style={sg.fS20} />
+            </Col>
+          </Row>
+          {!account.complete && (
             <Row>
               <Col style={[sg.flexNull]}>
                 <View style={[sg.incAppBl, sg.aSCenter]}>
@@ -100,13 +96,12 @@ class Accounts extends React.Component {
                 <Text style={[sg.textBold]}>Resume</Text>
               </Col>
             </Row>
-            )}
+          )}
 
-          </Grid>
-        </Body>
-      </ListItem>
-    );
-  }
+        </Grid>
+      </Body>
+    </ListItem>
+  )
 
 
   render() {
