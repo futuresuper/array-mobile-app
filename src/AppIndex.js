@@ -15,7 +15,7 @@ import {
   StyleProvider,
 } from 'native-base';
 
-import _ from 'lodash';
+import { isNil } from 'lodash';
 
 import { clearThemeCache } from 'native-base-shoutem-theme';
 
@@ -35,6 +35,8 @@ import {
 } from 'src/Common/Helpers';
 
 import Api from 'src/Common/Api';
+import ProtectedRoutes from 'src/Common/ProtectedRoutes';
+
 import Spinner from 'src/Components/Spinner';
 import Alert from 'src/Components/Alert';
 import { AppWithNavigationState } from 'src/Navigation/AppNavigator';
@@ -69,11 +71,6 @@ class AppIndex extends Component {
   getUserInfo = () => {
     const { auth } = this.props;
     return auth.user || {};
-  }
-
-  getAccountInfo = () => {
-    const { account } = this.props;
-    return account;
   }
 
   alert = (options) => {
@@ -154,7 +151,7 @@ class AppIndex extends Component {
     const { navigation, routeBackConnect } = this.props;
     let back_screen;
 
-    if (!_.isNil(inp_back_screen)) {
+    if (!isNil(inp_back_screen)) {
       back_screen = inp_back_screen;
     } else {
       back_screen = navGetParam(navigation, 'back_screen');
@@ -189,7 +186,7 @@ class AppIndex extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, account } = this.props;
     const { dark } = this.state;
     const barStyle = dark ? 'light-content' : 'dark-content';
     let theme;
@@ -211,7 +208,7 @@ class AppIndex extends Component {
       spinnerHide: this.spinnerHide,
       alert: this.alert,
       getUserInfo: this.getUserInfo,
-      accountInfo: this.getAccountInfo,
+      account,
       setDarkTheme: this.setDarkTheme,
       setLightTheme: this.setLightTheme,
       enableTheme: this.enableTheme,
@@ -257,6 +254,10 @@ class AppIndex extends Component {
               toast={this.toast}
               toastDanger={this.toastDanger}
               toastSuccess={this.toastSuccess}
+            />
+            <ProtectedRoutes
+              navigateTo={this.navigateTo}
+              account={account}
             />
             <AppWithNavigationState
               navigation={screenProps}

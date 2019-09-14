@@ -1,6 +1,6 @@
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import {
@@ -12,28 +12,22 @@ import {
   routeNames,
 } from 'src/Navigation';
 
-class Splash extends Component {
+class Splash extends PureComponent {
   componentDidMount() {
     this.proc();
   }
 
-  componentDidUpdate() {
-    this.proc();
-  }
 
   proc() {
     const { screenProps } = this.props;
     const {
-      navigateTo, getUserInfo, accountInfo,
+      navigateTo, getUserInfo,
     } = screenProps;
 
     const userInfo = getUserInfo();
     const isAuth = (userInfo && !isEmpty(userInfo));
-    const hasSelectedAccount = !isEmpty(accountInfo());
 
     if (isAuth) {
-      console.log(hasSelectedAccount);
-      // navigateTo(routeNames.TAB_HOME);
       navigateTo(routeNames.ACCOUNTS);
     } else {
       navigateTo(routeNames.APP_LANDING);
@@ -60,6 +54,5 @@ class Splash extends Component {
     );
   }
 }
-
 
 export default connect()(Splash);

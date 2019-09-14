@@ -1,5 +1,5 @@
 
-import { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   connect,
@@ -8,7 +8,7 @@ import {
   Platform,
 } from 'react-native';
 
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { API } from 'aws-amplify';
 
 import AwsAmplify from 'src/Common/AwsAmplify';
@@ -27,7 +27,7 @@ const apiError = {
 };
 
 
-class Api extends Component {
+class Api extends React.Component {
   static headers() {
     return {
       Accept: 'application/json',
@@ -156,14 +156,13 @@ class Api extends Component {
     authResetConnect();
   }
 
-  // eslint-disable-next-line class-methods-use-this
   proc(parameters, bodyQuery, onSuccess = null, onError = null, method, spinner = false) {
     const { toast, navigateTo, authResetConnect } = this.props;
     const { apiName, path } = this.getParameters(parameters);
     const options = {};
     let errorResponseMessage = null;
 
-    if (bodyQuery && !_.isEmpty(bodyQuery)) {
+    if (bodyQuery && !isEmpty(bodyQuery)) {
       if (method === 'post') {
         options.body = bodyQuery;
       } else {
@@ -229,7 +228,6 @@ class Api extends Component {
     spinnerHide();
   }
 
-  // eslint-disable-next-line class-methods-use-this
   render() {
     return null;
   }
