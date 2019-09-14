@@ -29,7 +29,7 @@ class Accounts extends React.Component {
         screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
       }
       // dev purpose
-      // screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
+      screenProps.navigateTo(routeNames.TAX_NUMBERS);
     });
   }
 
