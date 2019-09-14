@@ -106,7 +106,7 @@ class DateOfBirth extends React.Component {
     const birthday = hocs.form.birthDate.value;
 
     if (formIsValid) {
-      const isEighteen = moment().diff(birthday.split('/')[2], 'years') >= 18;
+      const isEighteen = moment().diff(moment(birthday.split('/')[2], 'YYYY'), 'years') >= 18;
 
       if (!isEighteen) {
         screenProps.toastDanger('You must be over 18 to invest');
