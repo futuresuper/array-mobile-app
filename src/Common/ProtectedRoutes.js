@@ -18,7 +18,7 @@ class ProtectedRoutes extends React.Component {
       if (account.completed) {
         this.navigateToRoute(routeNames.TAB_HOME);
       } else {
-        this.navigateToRoute(routeNames.NAME);
+        this.navigateToRoute(routeNames.ACCOUNT_TYPE);
       }
     }
   }

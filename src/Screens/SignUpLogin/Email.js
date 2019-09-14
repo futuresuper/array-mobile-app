@@ -40,10 +40,13 @@ class Email extends React.Component {
     };
 
     componentDidMount() {
-      const { hocs } = this.props;
+      const { hocs, screenProps } = this.props;
       const { form } = this.state;
 
-      hocs.setForm(form);
+      hocs.setForm(form).then(() => {
+        const userDetails = screenProps.getUserInfo();
+        hocs.handleInput(userDetails.email || '', 'emailAddress');
+      });
     }
 
     handlePress() {
@@ -79,30 +82,30 @@ class Email extends React.Component {
       return (
         <Content padder contentContainerStyle={styleGlobal.flexGrow}>
           <View style={styleGlobal.spaceBetween}>
-          <View>
-            <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>
+            <View>
+              <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>
               Your email
-            </Text>
+              </Text>
 
-            <Input
-              formData={form}
-              formKey="emailAddress"
-              helper="Email address"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              onChangeText={hocs.handleInput}
-            />
+              <Input
+                formData={form}
+                formKey="emailAddress"
+                helper="Email address"
+                autoCapitalize="none"
+                keyboardType="email-address"
+                onChangeText={hocs.handleInput}
+              />
+            </View>
+
+            <KeyboardAvoidingView keyboardVerticalOffset={100}>
+              <Button
+                onPress={() => this.handlePress()}
+                block
+              >
+                <Text>Next</Text>
+              </Button>
+            </KeyboardAvoidingView>
           </View>
-
-          <KeyboardAvoidingView keyboardVerticalOffset={100}>
-            <Button
-              onPress={() => this.handlePress()}
-              block
-            >
-              <Text>Next</Text>
-            </Button>
-          </KeyboardAvoidingView>
-        </View>
         </Content>
       );
     }
