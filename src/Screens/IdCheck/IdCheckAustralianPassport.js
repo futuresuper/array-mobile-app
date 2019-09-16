@@ -65,7 +65,7 @@ class IdCheckAustralianPassport extends Component {
           screenProps.navigateTo(routeNames.ID_CHECK);
         }
       }, () => {
-        screenProps.toastDanger('Error. Try Again');
+        screenProps.toastDanger('Error - Please try again or contact us for assistance.');
       });
     }
   }

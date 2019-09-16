@@ -39,47 +39,53 @@ class IdCheck extends PureComponent {
     }
 
     renderButtons() {
-      const { screenProps } = this.props;
+      const { user, screenProps } = this.props;
       return (
         <View>
-          <Button
-            block
-            marginVert
-            style={sg.mT0}
-            onPress={() => {
-              screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE);
-            }}
-          >
-            <Text>
-              {'Add Drivers Licence'}
-            </Text>
-          </Button>
-          <Button
-            block
-            marginVert
-            style={sg.mT0}
-            onPress={() => {
-              screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT);
-            }}
-          >
-            <Text>
-              {'Add Australian Passport'}
-            </Text>
-          </Button>
-          {/* Commented out for now - need to add conditions
-          <Button
-            block
-            marginVert
-            style={sg.mT0}
-            onPress={() => {
-              screenProps.navigateTo(routeNames.ID_CHECK_MEDICARE_CARD);
-            }}
-          >
-
-            <Text>
-              {'Add Medicare Card'}
-            </Text>
-          </Button>
+          {(!user.idCheck.driversLicence || user.idCheck.driversLicence === "notAttempted") &&
+            <Button
+              block
+              marginVert
+              style={sg.mT0}
+              onPress={() => {
+                screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE);
+              }}
+            >
+              <Text>
+                {'Add Drivers Licence'}
+              </Text>
+            </Button>
+          }
+          {(!user.idCheck.australianPassport || user.idCheck.australianPassport === "notAttempted") &&
+            <Button
+              block
+              marginVert
+              style={sg.mT0}
+              onPress={() => {
+                screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT);
+              }}
+            >
+              <Text>
+                {'Add Australian Passport'}
+              </Text>
+            </Button>
+          }
+          {/* NEED TO IMPROVE MEDICARE CARD SCREEN AND TEST BEFORE WE TURN THIS ON
+            
+            (!user.idCheck.medicareCard || user.idCheck.medicareCard === "notAttempted")
+          && (user.idCheck.australianPassport === "matched" || user.idCheck.driversLicence === "matched")
+          && <Button
+              block
+              marginVert
+              style={sg.mT0}
+              onPress={() => {
+                  screenProps.navigateTo(routeNames.ID_CHECK_MEDICARE_CARD);
+                }}
+              >
+              <Text>
+                {'Add Medicare Card'}
+              </Text>
+            </Button>
           */}
         </View>
       );
@@ -98,22 +104,20 @@ class IdCheck extends PureComponent {
                 <Col>
                   <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
 
-                  {/*
-
-                    matchFailed && type === "Drivers Licence" && (
+                  {matchFailed && type === "Drivers Licence" && (
                   <View>
                     <Text style={[sg.colorDark3]}>{user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceLastName}</Text>
                     <Text style={[sg.colorDark3, sg.mV5]}>
-                      No.
+                      No.&nbsp;
                       {user.idCheck.driversLicenceNumber}
                     </Text>
                     <Text style={[sg.colorDark3]}>
-                      State:
+                      State:&nbsp;
                       {user.idCheck.driversLicenceState}
                     </Text>
                   </View>
                   )
-                  */}
+                  }
 
                 </Col>
                 <Col style={sg.width20}>

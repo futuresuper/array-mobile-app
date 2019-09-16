@@ -31,7 +31,6 @@ class Accounts extends React.Component {
   }
 
   onAccountSelect(account) {
-    console.log("Account ID: " + account.id);
     const { accountSelectSaveConnect, screenProps } = this.props;
     if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
       screenProps.navigateTo(routeNames.ID_CHECK);
