@@ -140,7 +140,7 @@ class DateOfBirth extends React.Component {
             <Input
               formData={form}
               formKey="birthDate"
-              placeholder="dd/mm/yyyy"
+              placeholder="DD/MM/YYYY"
               maxLength={10}
               helper="Birth Date"
               onChangeText={hocs.handleInput}
