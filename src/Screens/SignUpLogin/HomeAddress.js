@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import { Content, Button, Text } from 'native-base';
 
-import _, { forOwn } from 'lodash';
+import { forOwn } from 'lodash';
 
 import { sg } from 'src/Styles';
 
@@ -21,7 +21,7 @@ class HomeAddress extends React.Component {
           validations: ['required'],
         },
         unitNumber: {
-          //validations: ['required'],
+          // validations: ['required'],
         },
         streetNumber: {
           validations: ['required'],
@@ -80,8 +80,9 @@ class HomeAddress extends React.Component {
     };
 
     componentDidMount() {
-      const { hocs } = this.props;
+      const { hocs, screenProps } = this.props;
       const { form } = this.state;
+
       hocs.setForm(form);
     }
 
@@ -185,7 +186,6 @@ class HomeAddress extends React.Component {
     const { hocs, screenProps } = this.props;
     const { form } = hocs;
     const { showManualForm, states, streetTypes } = this.state;
-    //console.log(form);
     return (
       <Content padder bounces={false} contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
@@ -224,7 +224,6 @@ class HomeAddress extends React.Component {
                   )}
                   onPressItem={({ item }, formKey) => {
                     hocs.addOrUpdateFormField({ title: item.name, value: item.value }, formKey);
-
                   }}
                 />
                 <Input

@@ -280,45 +280,40 @@ class TabHome extends Component {
   }
 
   renderBalance() {
-    const { accounts, navigation } = this.props;
+    const { accounts, navigation, screenProps } = this.props;
+    const { account } = screenProps;
 
-    const accountIdActive = navigation.getParam('accountId', 'NO-ID');
+    if (account) {
+      const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
+      const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
+      const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
+      return (
+        <View style={[sg.aICenter, sg.mT50, sg.mB25]} key={account.id}>
 
-    return accounts.map((account) => {
-      if (account.id === accountIdActive) {
-        const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
-        const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
-        const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
+          <Button
+            transparent
+            iconRight
+            style={sg.aSCenter}
+            onPress={() => {
+              // BottomInfo.showAccounts();
+            }}
+          >
+            <Text style={styles.title}>{account.ownerName}</Text>
+            {/* <Icon name="ios-arrow-down" style={styles.titleIcon} /> */}
+          </Button>
 
-        return (
-          <View style={[sg.aICenter, sg.mT50, sg.mB25]} key={account.id}>
-
-            <Button
-              transparent
-              iconRight
-              style={sg.aSCenter}
-              onPress={() => {
-                // BottomInfo.showAccounts();
-              }}
-            >
-              <Text style={styles.title}>{account.ownerName}</Text>
-              {/* <Icon name="ios-arrow-down" style={styles.titleIcon} /> */}
-            </Button>
-
-            <View style={sg.row}>
-              {/*
-              <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance()} />
-              */}
-              <H1 style={styles.mainAmount}>{balanceDollars}</H1>
-              <Text style={styles.mainAmountCent}>{`.${balanceCents}`}</Text>
-            </View>
-            {this.renderAwaitingDirectDebit(account.amountAwaitingDirectDebit)}
+          <View style={sg.row}>
+            {/*
+                <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance()} />
+                */}
+            <H1 style={styles.mainAmount}>{balanceDollars}</H1>
+            <Text style={styles.mainAmountCent}>{`.${balanceCents}`}</Text>
           </View>
-        );
-      }
-
-      return null;
-    });
+          {this.renderAwaitingDirectDebit(account.amountAwaitingDirectDebit)}
+        </View>
+      );
+    }
+    return null;
   }
 
   render() {

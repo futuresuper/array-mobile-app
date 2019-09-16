@@ -26,7 +26,7 @@ class Accounts extends React.Component {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      // screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
+      // screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
     });
   }
 

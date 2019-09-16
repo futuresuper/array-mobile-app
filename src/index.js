@@ -23,6 +23,7 @@ class Root extends PureComponent {
 
     return (
       <Provider store={myStore}>
+        {/* potential add splash screen here instead of blank(null) one */}
         <PersistGate loading={null} persistor={myPersistor}>
           <ServiceManager />
           <AppIndex />

@@ -78,8 +78,6 @@ class DateOfBirth extends React.Component {
   isYearValid = (valInp) => {
     const year = valInp.split('/')[2];
 
-    console.log(year);
-
     if (!year) {
       return false;
     }
@@ -108,13 +106,13 @@ class DateOfBirth extends React.Component {
     const birthday = hocs.form.birthDate.value;
 
     if (formIsValid) {
-      const isEighteen = moment().diff(birthday.split('/')[2], 'years') >= 18;
+      const isEighteen = moment().diff(moment(birthday.split('/')[2], 'YYYY'), 'years') >= 18;
 
       if (!isEighteen) {
         screenProps.toastDanger('You must be over 18 to invest');
         return;
       }
-      const birthDate = hocs.form.birthDate.value.replace('/', '-');
+      const birthDate = hocs.form.birthDate.value.replace(/\//g, '-');
       screenProps.Api.post(
         '/user',
         {
