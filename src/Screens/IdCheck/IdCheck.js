@@ -24,8 +24,9 @@ class IdCheck extends PureComponent {
 
     componentDidMount() {
       const { screenProps } = this.props;
-
+      console.log("ID CHECK SCREEN")
     }
+
 
     onPressEditItem(type) {
       const { screenProps } = this.props;
