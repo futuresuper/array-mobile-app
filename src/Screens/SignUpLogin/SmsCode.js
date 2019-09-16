@@ -60,6 +60,7 @@ class SmsCode extends Component {
       const { Api, toast } = screenProps;
       const { smsCode } = this.state;
 
+
       if (!smsCode) {
         toast('Specify SMS code');
         return false;
@@ -93,7 +94,8 @@ class SmsCode extends Component {
           screenProps.toast('Please enter the correct code');
         }
       }).catch(() => {
-        screenProps.toast('Unknown error.');
+        screenProps.toast('Code timed out - Please try again');
+        screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
       });
 
       return true;
