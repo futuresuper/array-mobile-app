@@ -37,9 +37,6 @@ class Accounts extends React.Component {
       screenProps.navigateTo(routeNames.ID_CHECK);
     } else {
       accountSelectSaveConnect(account);
-      screenProps.navigateTo(routeNames.TAB_HOME, {
-        accountId: account.id,
-      });
     }
   }
 
