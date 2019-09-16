@@ -110,6 +110,7 @@ class IdCheck extends PureComponent {
                 <Col>
                   <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
 
+
                   {matchFailed && docType === "DriversLicence" && (
                   <View>
                     <Text style={[sg.colorDark3]}>{user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceLastName}</Text>
