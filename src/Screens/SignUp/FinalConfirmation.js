@@ -12,8 +12,8 @@ import { sg } from 'src/Styles';
 import { routeNames } from 'src/Navigation';
 
 import { userDataSave, applicationIdSelector } from 'src/Redux/Auth';
-import { appContentSave } from 'src/Redux/AppContent';
-
+import { appContentSave, accountsSelector } from 'src/Redux/AppContent';
+import { accountSelectSave } from 'src/Redux/Account';
 import { finalConfirmation as styles } from './styles';
 
 class FinalConfirmation extends React.Component {
@@ -26,7 +26,7 @@ class FinalConfirmation extends React.Component {
 
   handlePress() {
     const {
-      screenProps, applicationId, userDataSaveConnect, appContentSaveConnect,
+      screenProps, applicationId, userDataSaveConnect, appContentSaveConnect, accountSelectSaveConnect
     } = this.props;
     const body = {
       accountId: applicationId,
@@ -39,8 +39,6 @@ class FinalConfirmation extends React.Component {
       (res) => {
         this.getAppContent((appContent) => {
           const { user } = appContent;
-          console.log(JSON.stringify(user));
-          console.log(JSON.stringify(appContent));
           userDataSaveConnect(user);
           appContentSaveConnect(appContent);
           screenProps.toast('Application Complete', {
@@ -48,13 +46,9 @@ class FinalConfirmation extends React.Component {
             iconName: 'check-circle',
           });
           if (res.idCheckComplete) {
-            screenProps.navigateTo(routeNames.TAB_HOME, {
-              accountId: applicationId,
-            });
+            screenProps.navigateTo(routeNames.ACCOUNTS);
           } else {
-            screenProps.navigateTo(routeNames.ID_CHECK, {
-              accountId: applicationId,
-            });
+            screenProps.navigateTo(routeNames.ID_CHECK);
           }
         });
       },
@@ -206,14 +200,17 @@ FinalConfirmation.propTypes = {
 
 const mapStateToProps = (state) => {
   const applicationId = applicationIdSelector(state);
+  const accounts = accountsSelector(state);
   return {
     applicationId,
+    accounts,
   };
 };
 
 const mapDispatchToProps = {
   userDataSaveConnect: userDataSave,
   appContentSaveConnect: appContentSave,
+  accountSelectSaveConnect: accountSelectSave
 };
 
 export default connect(

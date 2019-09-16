@@ -16,12 +16,8 @@ import { aboutAppForm as styles } from './styles';
 
 class AboutAppForm extends Component {
   onNext() {
-    const { screenProps, user } = this.props;
-    if (user.personalDetailsLocked) {
-      screenProps.navigateTo(routeNames.PERSONAL_DETAILS_ALREADY_SUBMITTED);
-    } else {
-      screenProps.navigateTo(routeNames.ACCOUNT_TYPE);
-    }
+    const { screenProps } = this.props;
+    screenProps.navigateTo(routeNames.ACCOUNT_TYPE);
   }
 
   clickOnLink() {

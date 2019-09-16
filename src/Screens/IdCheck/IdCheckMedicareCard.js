@@ -83,7 +83,7 @@ class IdCheckMedicareCard extends Component {
       <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
         <View style={sg.spaceBetween}>
           <View>
-            <Text style={[sg.formHeading32]}>Meducare Card</Text>
+            <Text style={[sg.formHeading32]}>Medicare Card</Text>
             <Input
               formData={form}
               formKey="medicareCardName"
@@ -94,7 +94,7 @@ class IdCheckMedicareCard extends Component {
             <Input
               formData={form}
               formKey="medicareCardNumber"
-              helper="Number exactly as appears on card"
+              helper="Card Number"
               onChangeText={hocs.handleInput}
               color2
             />

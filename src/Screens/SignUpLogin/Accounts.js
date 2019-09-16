@@ -31,14 +31,12 @@ class Accounts extends React.Component {
   }
 
   onAccountSelect(account) {
+    console.log("ACCOUNT: " + JSON.stringify(account));
     const { accountSelectSaveConnect, screenProps } = this.props;
-    accountSelectSaveConnect(account);
     if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
       screenProps.navigateTo(routeNames.ID_CHECK);
     } else {
-      screenProps.navigateTo(routeNames.TAB_HOME, {
-        accountId: account.id,
-      });
+      accountSelectSaveConnect(account);
     }
   }
 

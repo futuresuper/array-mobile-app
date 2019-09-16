@@ -52,20 +52,13 @@ class IdCheckAustralianPassport extends Component {
         console.log(res);
         idCheckSaveConnect(res);
         if (res.idCheckComplete) {
-          console.log(`accounts length: ${accounts.length}`);
-          if (accounts.length === 1) {
-            screenProps.navigateTo(routeNames.TAB_HOME, {
-              accountId: accounts[0].id,
-            });
-          } else {
-            screenProps.navigateTo(routeNames.ACCOUNTS);
-          }
+          screenProps.navigateTo(routeNames.ACCOUNTS);
           screenProps.toastSuccess('ID verification Succeeded');
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
         }
       }, () => {
-        screenProps.toastDanger('Error. Try Again');
+        screenProps.toastDanger('Error - Please try again or contact us for assistance.');
       });
     }
   }
