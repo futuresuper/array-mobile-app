@@ -50,6 +50,7 @@ class BalanceInfo extends PureComponent {
               &nbsp;for your currently selected account in the Future Renewables Fund.
             </Text>
 
+            {/*
             <Grid style={sg.mT15}>
               {this.renderInfoRow('Account', 'Grace Palos - 10001-FRF-001')}
               {this.renderInfoRow('Unit Balance', '1,000')}
@@ -57,6 +58,7 @@ class BalanceInfo extends PureComponent {
               {this.renderInfoRow('Account Balance', '$1,078')}
               {this.renderInfoRow('Pending Transactions', '$200')}
             </Grid>
+            */}
 
             <Text style={[styles.text, sg.mT15]}>
               Pending Transactions are your application monies that have been received by us,

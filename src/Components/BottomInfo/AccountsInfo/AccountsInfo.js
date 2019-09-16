@@ -35,6 +35,10 @@ import {
   sg,
 } from 'src/Styles';
 
+import { accountSelectSave } from 'src/Redux/Account';
+
+import BottomInfoModal from 'src/Components/BottomInfo';
+
 class AccountsInfo extends Component {
   constructor(props) {
     super(props);
@@ -44,27 +48,29 @@ class AccountsInfo extends Component {
     };
   }
 
+  onAccountSelect(account) {
+    console.log("ACCOUNT: " + JSON.stringify(account));
+    const { accountSelectSaveConnect } = this.props;
+    accountSelectSaveConnect(account);
+    BottomInfoModal.hide();
+  }
+
   renderAccounts() {
     const { accounts, screenProps } = this.props;
 
-    return accounts.map(account => account.status === accountUtils.STATUS.UNITS_ISSUED && (
+    return accounts.map(account => account.status !== accountUtils.STATUS.INCOMPLETE_APP && (
       <ListItem
         button
         noIndent
         key={account.id}
-        onPress={() => {
-          // Navigate to the Home screen with the selected Account Active
-          screenProps.navigateTo(routeNames.TAB_HOME, {
-            accountId: account.id,
-          });
-        }}
+        onPress={() => this.onAccountSelect(account)}
         style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
       >
         <Body>
           <Grid>
             <Row>
               <Col style={[sg.flexNull]}>
-                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
+                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.ownerName}</Text>
 
                 {account.status === accountUtils.STATUS.UNITS_ISSUED && account.balance && (
                   <Text style={[sg.mL0, sg.fS16]} color4>
@@ -88,38 +94,24 @@ class AccountsInfo extends Component {
   }
 
   render() {
-    const { superAccount } = this.props;
+    const { superAccount } = false; // this.props;
+    const { screenProps } = this.props;
     const { list } = this.state;
 
     return (
       <View style={sg.mH5}>
         <List>
           {this.renderAccounts()}
-          {/*
-          <FlatList
-            data={list}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <ListItem noIndent style={[styles.listItem, (index === 0 ? sg.pT0 : {})]}>
-                <Left style={[sg.flexNull]}>
-                  <Thumbnail source={{ uri: item.image }} style={styles.thumbnail} />
-                </Left>
-                <Body>
-                  <Text style={[sg.fontMedium, sg.fS20, sg.colorDark2, sg.mL20]}>{item.name}</Text>
-                </Body>
-                <Right style={[sg.flexNull, sg.width30]}>
-                  <BadgeCheckmark inverted checked={item.active} style={sg.aSEnd} />
-                </Right>
-              </ListItem>
-            )}
-          />
-          */}
         </List>
 
         <View style={[sg.mT30, sg.mH10]}>
           <Button
             block
             iconRight
+            onPress={() => {
+              screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+              BottomInfoModal.hide();
+            }}
           >
             <Text>Add account</Text>
             <Icon name="add" />
@@ -157,10 +149,16 @@ AccountsInfo.propTypes = {
 
 const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
-
   return {
     accounts,
   };
 };
 
-export default connect(mapStateToProps)(AccountsInfo);
+const mapDispatchToProps = {
+  accountSelectSaveConnect: accountSelectSave,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AccountsInfo);
