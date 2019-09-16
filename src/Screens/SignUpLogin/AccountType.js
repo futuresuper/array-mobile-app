@@ -21,6 +21,8 @@ import {
   applicationIdSave,
 } from 'src/Redux/Auth';
 
+import { userSelector } from 'src/Redux/AppContent';
+
 import {
   sg,
 } from 'src/Styles';
@@ -55,12 +57,16 @@ class AccountType extends React.Component {
   //   });
   // }
 
-  onButtonPress(route) {
-    const { screenProps, applicationIdSaveConnect } = this.props;
+  onButtonPress(appType) {
+    const { screenProps, applicationIdSaveConnect, user } = this.props;
 
     screenProps.Api.post('/account', {}, (res) => {
       applicationIdSaveConnect(res);
-      screenProps.navigateTo(route);
+      if (user.personalDetailsLocked) {
+        screenProps.navigateTo(routeNames.PERSONAL_DETAILS_ALREADY_SUBMITTED);
+      } else {
+        screenProps.navigateTo(routeNames.NAME);
+      }
     }, () => {
       screenProps.toast('Error. Try again.');
     });
@@ -92,7 +98,7 @@ class AccountType extends React.Component {
 
           <View>
             <Button
-              onPress={() => this.onButtonPress(routeNames.NAME)}
+              onPress={() => this.onButtonPress("individual")}
               block
               marginVert
               style={sg.mT0}
@@ -240,4 +246,11 @@ const mapDispatchToProps = {
   applicationIdSaveConnect: applicationIdSave,
 };
 
-export default connect(null, mapDispatchToProps)(AccountType);
+const mapStateToProps = state => {
+  const user = userSelector(state);
+  return {
+    user,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountType);

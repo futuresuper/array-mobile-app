@@ -20,35 +20,40 @@ class PersonalDetailsAlreadySubmitted extends Component {
     screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
   }
 
+  renderLi(text, subLi = false) {
+    const paddingLeft = sg.mL20;
+    const style = subLi ? paddingLeft : {};
+
+    return (
+      <View style={[sg.row, sg.mT10, style]}>
+        <Text style={sg.fS11}>{'\u2022'}</Text>
+        <Text style={[paddingLeft]}>{text}</Text>
+      </View>
+    );
+  }
+
   render() {
     const { user } = this.props;
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View>
-            <Text style={[sg.formHeading, sg.mB30]}>Personal details already submitted</Text>
-            <H3 style={sg.mB20}>
-              Name:
-              {' '}
-              {user.fullName && user.fullName}
-            </H3>
-
-            <H3 style={sg.mB20}>
-              Email:
-              {' '}
-              {user.email && user.email}
-            </H3>
-
-            <H3 style={sg.mB20}>
-              Phone:
-              {' '}
-              {user.mobile && user.mobile.number}
-            </H3>
-            <H3 style={sg.mB20}>
-              Pretty:
-              {' '}
-              {user.mobile.pretty && user.mobile.pretty}
-            </H3>
+            <Text style={[sg.formHeading, sg.mB30]}>Your details</Text>
+            <Text style={[sg.formHeadingDescription, sg.mB10]}>
+              For this application, we'll use the following personal details which you have already provided:
+            </Text>
+            {this.renderLi('Name')}
+            {this.renderLi('Email')}
+            {this.renderLi('Phone Number')}
+            {this.renderLi('Home Address')}
+            {this.renderLi('Date of Birth')}
+            {this.renderLi('Occupation')}
+            {this.renderLi('Place of Birth')}
+            {this.renderLi('Tax information')} 
+            {this.renderLi('Politically Exposed Person Status')}
+            <Text style={[sg.formHeadingDescriptionm, sg.mT20]}>
+              Please contact us on 1300 731 640 if you need to update any of your personal details.
+            </Text>
           </View>
 
           <Button onPress={() => this.onNext()} block>

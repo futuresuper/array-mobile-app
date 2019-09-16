@@ -71,7 +71,7 @@ class IdCheck extends PureComponent {
             </Button>
           }
           {/* NEED TO IMPROVE MEDICARE CARD SCREEN AND TEST BEFORE WE TURN THIS ON
-            
+
             (!user.idCheck.medicareCard || user.idCheck.medicareCard === "notAttempted")
           && (user.idCheck.australianPassport === "matched" || user.idCheck.driversLicence === "matched")
           && <Button
@@ -95,6 +95,12 @@ class IdCheck extends PureComponent {
       const matchFailed = status === 'matchFailed';
       const isVerified = status === 'matched';
       const type = idCheckUtils.getTypeName(docType);
+      const passportName = user.idCheck.passportMiddleNames ?
+        user.idCheck.passportFirstName + " " + user.idCheck.passportMiddleNames + " " + user.idCheck.passportLastName
+        : user.idCheck.passportFirstName + " " + user.idCheck.passportLastName;
+      const dlName = user.idCheck.driversLicenceMiddleNames ?
+        user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceMiddleNames + " " + user.idCheck.driversLicenceLastName
+        : user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceLastName;
 
       if (matchFailed || isVerified) {
         return (
@@ -104,7 +110,7 @@ class IdCheck extends PureComponent {
                 <Col>
                   <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
 
-                  {matchFailed && type === "Drivers Licence" && (
+                  {matchFailed && docType === "DriversLicence" && (
                   <View>
                     <Text style={[sg.colorDark3]}>{user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceLastName}</Text>
                     <Text style={[sg.colorDark3, sg.mV5]}>
@@ -114,6 +120,17 @@ class IdCheck extends PureComponent {
                     <Text style={[sg.colorDark3]}>
                       State:&nbsp;
                       {user.idCheck.driversLicenceState}
+                    </Text>
+                  </View>
+                  )
+                  }
+
+                  {matchFailed && docType === "Passport" && (
+                  <View>
+                    <Text style={[sg.colorDark3]}>{passportName}</Text>
+                    <Text style={[sg.colorDark3, sg.mV5]}>
+                      No.&nbsp;
+                      {user.idCheck.passportNumber}
                     </Text>
                   </View>
                   )
@@ -158,7 +175,8 @@ class IdCheck extends PureComponent {
           <View style={[sg.spaceBetween]}>
             <View>
 
-              {!user.idCheck && (
+              {(!user.idCheck || user.idCheck.australianPassport !== 'matchFailed' && user.idCheck.driversLicence !== 'matchFailed')
+              && (
               <View>
                 <Text style={sg.formHeadingDescription}>
                   Please provide your Drivers Licence or Passport Number
