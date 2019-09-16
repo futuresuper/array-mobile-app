@@ -120,7 +120,6 @@ export const normalizeFullDate = (valueInp) => {
   if (value) {
     value = value.replace(/[^0-9]/g, '');
   }
-
   return value;
 };
 
