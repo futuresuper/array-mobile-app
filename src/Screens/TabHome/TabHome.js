@@ -30,7 +30,7 @@ import Balance from 'src/Components/Balance';
 import { routeNames } from 'src/Navigation';
 import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
-import { formatAmountDollarCent } from 'src/Common/Helpers';
+import { formatAmountDollar, formatAmountDollarCent } from 'src/Common/Helpers';
 
 import { LineChart } from 'src/Components/ChartKit';
 import { impactStatsSelector, latestSelector, accountsSelector } from 'src/Redux/AppContent';
@@ -274,12 +274,7 @@ class TabHome extends Component {
 
   renderAwaitingDirectDebit = (data) => {
     if (data) {
-      return (
-        <Text style={styles.awaitingDebit}>
-          {formatAmountDollarCent(data)}
-          {' awaiting direct debit'}
-        </Text>
-      );
+      return <Text style={styles.awaitingDebit}>{formatAmountDollar(data)} awaiting direct debit</Text>;
     }
     return null;
   }
@@ -300,17 +295,15 @@ class TabHome extends Component {
             iconRight
             style={sg.aSCenter}
             onPress={() => {
-              // BottomInfo.showAccounts();
+              BottomInfo.showAccounts();
             }}
           >
             <Text style={styles.title}>{account.ownerName}</Text>
-            {/* <Icon name="ios-arrow-down" style={styles.titleIcon} /> */}
+            <Icon name="ios-arrow-down" style={styles.titleIcon} />
           </Button>
 
           <View style={sg.row}>
-            {/*
-                <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance()} />
-                */}
+            <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance()} />
             <H1 style={styles.mainAmount}>{balanceDollars}</H1>
             <Text style={styles.mainAmountCent}>{`.${balanceCents}`}</Text>
           </View>
