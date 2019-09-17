@@ -31,15 +31,15 @@ class Accounts extends React.PureComponent {
   }
 
   onAccountSelect(account) {
-    console.log(`ACCOUNT: ${JSON.stringify(account)}`);
-    /*
-    I wrote ProtectedRoutes (src/Common/ProtectedRoutes.js) hoc component which handles route for selected account globally.
-    The idea behind it was to avoid writing checkers throughout application(ex. when user switches between accounts in the future)
-    We can write all the checkers and appropriate redirects there.
-    Saving selected account on this place is enough and the hoc will do the rest.
-    */
-    const { accountSelectSaveConnect } = this.props;
-    accountSelectSaveConnect(account);
+    const { accountSelectSaveConnect, screenProps } = this.props;
+    if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
+      screenProps.navigateTo(routeNames.ID_CHECK);
+    } else if (account.status === 'incompleteApp') {
+      // To be added
+    } else {
+      // Route is changed in ProtectedRoutes (src/Common/ProtectedRoutes.js)
+      accountSelectSaveConnect(account);
+    }
   }
 
   getAppContent(callback) {
@@ -49,9 +49,12 @@ class Accounts extends React.PureComponent {
     });
   }
 
-  renderAccount = (account) => {
-    if (account.status && account.status !== 'incompleteApp') {
-      const displayName = account.nickName ? account.nickName : account.ownerName;
+  renderAccount = (account, user) => {
+    if (account.status !== 'incompleteApp') {
+      let displayName;
+      if (account.nickName) {displayName = account.nickName}
+      else if (account.ownerName) {displayName = account.ownerName}
+      else {displayName = "Incomplete Application"};
       const showBalance = account.balanceInDollars > 0;
       const awaitingIdCheck = (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck');
       const appIncomplete = (account.status === 'incompleteApp');
@@ -119,22 +122,20 @@ class Accounts extends React.PureComponent {
               {accounts.map(account => this.renderAccount(account))}
             </List>
           </View>
-          <List>
-            {accounts.map(account => this.renderAccount(account))}
-          </List>
-          {__DEV__ && (
+          {
+            // __DEV__ && (
             <KeyboardAvoidingView>
               <Button
                 onPress={() => {
                   screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                  // screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
                 }}
                 block
               >
                 <Text>Start new application</Text>
               </Button>
             </KeyboardAvoidingView>
-          )}
+            // )
+          }
         </View>
       </Content>
     );
