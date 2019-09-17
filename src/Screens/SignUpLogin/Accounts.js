@@ -49,12 +49,13 @@ class Accounts extends React.PureComponent {
     });
   }
 
-  renderAccount = (account, user) => {
-    if (account.status !== 'incompleteApp') {
+  renderAccount = (account) => {
+    if (account.status !== "incompleteApp") {
       let displayName;
       if (account.nickName) {displayName = account.nickName}
       else if (account.ownerName) {displayName = account.ownerName}
       else {displayName = "Incomplete Application"};
+
       const showBalance = account.balanceInDollars > 0;
       const awaitingIdCheck = (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck');
       const appIncomplete = (account.status === 'incompleteApp');

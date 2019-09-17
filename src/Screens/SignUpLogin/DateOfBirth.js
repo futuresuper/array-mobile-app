@@ -112,7 +112,8 @@ class DateOfBirth extends React.Component {
         screenProps.toastDanger('You must be over 18 to invest');
         return;
       }
-      const birthDate = hocs.form.birthDate.value.replace(/\//g, '-');
+      const b = hocs.form.birthDate.value;
+      const birthDate = b[6]+b[7]+b[8]+b[9]+"-"+b[3]+b[4]+"-"+b[0]+b[1];
       screenProps.Api.post(
         '/user',
         {

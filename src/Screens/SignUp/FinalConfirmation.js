@@ -53,7 +53,6 @@ class FinalConfirmation extends React.Component {
             }
           }
           if (!res.fsMember) {
-            console.log('aaaa!');
             screenProps.navigateTo(routeNames.JOIN_FUTURE);
           }
         });

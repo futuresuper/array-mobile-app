@@ -43,6 +43,8 @@ class JoinFuture extends React.PureComponent {
               </Text>
               <Text>
                 {'Future Super (who created Array) is Australia’s most renewables-focussed super fund.\n\n'}
+              </Text>
+              <Text style={[sg.bold]}>
                 {'Now that you’ve signed up for Array, you can also switch to Future Super in just a few taps.'}
               </Text>
             </View>
