@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  Content, Text, View, Button,
-} from 'native-base';
-
+import { Content, Text, View, Button } from 'native-base';
 import { Input } from 'src/Components/Form';
 import { routeNames } from 'src/Navigation';
-
 import { composeHoc, hocNames } from 'src/Common/Hocs';
-
 import { sg } from 'src/Styles';
-import { userSelector, accountsSelector } from 'src/Redux/AppContent';
-import { idCheckSave } from 'src/Redux/Auth';
+import { userSelector, accountsSelector, appContentSave } from 'src/Redux/AppContent';
+import { idCheckSave, userDataSave, applicationIdSelector } from 'src/Redux/Auth';
+import { accountSelectSave } from 'src/Redux/Account';
 
 class IdCheckAustralianPassport extends Component {
   state = {
@@ -31,9 +27,15 @@ class IdCheckAustralianPassport extends Component {
     this.initializeForm(form);
   }
 
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {}, callback, () => {
+      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
+    });
+  }
 
   onSubmit() {
-    const { hocs, idCheckSaveConnect, screenProps } = this.props;
+    const { hocs, idCheckSaveConnect, userDataSaveConnect, appContentSaveConnect, screenProps, accounts } = this.props;
     const isValid = hocs.formIsValid();
 
     if (isValid) {
@@ -49,18 +51,31 @@ class IdCheckAustralianPassport extends Component {
         passportNumber,
         idType: 'australianPassport',
       }, (res) => {
-        console.log(res);
         idCheckSaveConnect(res);
         if (res.idCheckComplete) {
-          screenProps.navigateTo(routeNames.ACCOUNTS);
-          screenProps.toastSuccess('ID verification Succeeded');
+          this.getAppContent((appContent) => {
+            const { user } = appContent;
+            userDataSaveConnect(user);
+            appContentSaveConnect(appContent);
+            screenProps.toastSuccess('ID verification Succeeded');
+            if (accounts.length === 1) {
+              this.goToAccountHome();
+            } else {
+              screenProps.navigateTo(routeNames.ACCOUNTS);
+            }
+          });
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
         }
       }, () => {
-        screenProps.toastDanger('Error - Please try again or contact us for assistance.');
+        screenProps.toastDanger('Something went wrong. Please try again, or contact us: hello@arrayapp.co');
       });
     }
+  }
+
+  goToAccountHome() {
+    const { accountSelectSaveConnect, accounts } = this.props;
+    accountSelectSaveConnect(accounts[0]);
   }
 
   initializeForm(form) {
@@ -147,6 +162,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   idCheckSaveConnect: idCheckSave,
+  userDataSaveConnect: userDataSave,
+  appContentSaveConnect: appContentSave,
+  accountSelectSaveConnect: accountSelectSave,
 };
 
 const res = composeHoc([hocNames.FORM])(IdCheckAustralianPassport);

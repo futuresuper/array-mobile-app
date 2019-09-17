@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  Content, Text, View, Button,
-} from 'native-base';
-
+import { Content, Text, View, Button } from 'native-base';
 import { Input, Picker } from 'src/Components/Form';
 import { routeNames } from 'src/Navigation';
-
 import { composeHoc, hocNames } from 'src/Common/Hocs';
-
 import { sg } from 'src/Styles';
 import { userSelector, accountsSelector, appContentSave } from 'src/Redux/AppContent';
 import { idCheckSave, userDataSave, applicationIdSelector } from 'src/Redux/Auth';
@@ -68,7 +63,6 @@ class IdCheckDriversLicence extends Component {
         driversLicenceLastName,
         idType: 'driversLicence',
       }, (res) => {
-        console.log(res);
         idCheckSaveConnect(res);
         if (res.idCheckComplete) {
           this.getAppContent((appContent) => {
@@ -86,7 +80,7 @@ class IdCheckDriversLicence extends Component {
           screenProps.navigateTo(routeNames.ID_CHECK);
         }
       }, () => {
-        screenProps.toastDanger('Error - Please try again or contact us for assistance.');
+        screenProps.toastDanger('Something went wrong. Please try again, or contact us: hello@arrayapp.co');
       });
     }
   }
@@ -128,7 +122,7 @@ class IdCheckDriversLicence extends Component {
               formData={form}
               helper="State Issued"
               formKey="driversLicenceState"
-              // title={form.driversLicenceState.value ? form.driversLicenceState.value : 'Please Select a State'}
+              //title={form.driversLicenceState.value ? form.driversLicenceState.value : 'Select a State'}
               list={states}
               renderItem={({ item }) => (
                 <View>
