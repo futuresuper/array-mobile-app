@@ -298,7 +298,7 @@ class TabHome extends Component {
               BottomInfo.showAccounts();
             }}
           >
-            <Text style={styles.title}>{account.ownerName}</Text>
+            <Text style={styles.title}>{account.nickName}</Text>
             <Icon name="ios-arrow-down" style={styles.titleIcon} />
           </Button>
 

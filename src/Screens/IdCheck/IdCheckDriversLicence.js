@@ -11,8 +11,8 @@ import { routeNames } from 'src/Navigation';
 import { composeHoc, hocNames } from 'src/Common/Hocs';
 
 import { sg } from 'src/Styles';
-import { userSelector, accountsSelector } from 'src/Redux/AppContent';
-import { idCheckSave } from 'src/Redux/Auth';
+import { userSelector, accountsSelector, appContentSave } from 'src/Redux/AppContent';
+import { idCheckSave, userDataSave, applicationIdSelector } from 'src/Redux/Auth';
 
 class IdCheckDriversLicence extends Component {
   state = {
@@ -36,14 +36,20 @@ class IdCheckDriversLicence extends Component {
     ],
   }
 
-
   componentDidMount() {
     const { form } = this.state;
     this.initializeForm(form);
   }
 
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {}, callback, () => {
+      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
+    });
+  }
+
   onSubmit() {
-    const { hocs, idCheckSaveConnect, screenProps, accounts } = this.props;
+    const { hocs, idCheckSaveConnect, userDataSaveConnect, appContentSaveConnect, screenProps, accounts } = this.props;
     const isValid = hocs.formIsValid();
 
     if (isValid) {
@@ -64,8 +70,13 @@ class IdCheckDriversLicence extends Component {
         console.log(res);
         idCheckSaveConnect(res);
         if (res.idCheckComplete) {
-          screenProps.navigateTo(routeNames.ACCOUNTS);
-          screenProps.toastSuccess('ID verification Succeeded');
+          this.getAppContent((appContent) => {
+            const { user } = appContent;
+            userDataSaveConnect(user);
+            appContentSaveConnect(appContent);
+            screenProps.navigateTo(routeNames.ACCOUNTS);
+            screenProps.toastSuccess('ID verification Succeeded');
+          });
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
         }
@@ -179,6 +190,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   idCheckSaveConnect: idCheckSave,
+  userDataSaveConnect: userDataSave,
+  appContentSaveConnect: appContentSave,
 };
 
 const res = composeHoc([hocNames.FORM])(IdCheckDriversLicence);

@@ -70,7 +70,7 @@ class AccountsInfo extends Component {
           <Grid>
             <Row>
               <Col style={[sg.flexNull]}>
-                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.ownerName}</Text>
+                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
 
                 {account.status === accountUtils.STATUS.UNITS_ISSUED && account.balance && (
                   <Text style={[sg.mL0, sg.fS16]} color4>
