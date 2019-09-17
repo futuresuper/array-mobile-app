@@ -14,14 +14,15 @@ const CheckBox = ({ onPress, checked, error }) => (
   <TouchableOpacity
     style={[
       styles.container,
-      (error ? styles.containerError : {}),
+      (error && styles.containerError),
+      (checked && styles.containerChecked),
     ]}
     onPress={onPress}
   >
     <Icon
       style={[
         styles.icon,
-        { color: checked === true ? 'green' : 'transparent' },
+        (checked && styles.iconChecked),
       ]}
       name="md-checkmark"
     />

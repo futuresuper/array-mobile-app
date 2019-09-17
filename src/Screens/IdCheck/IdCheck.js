@@ -22,9 +22,15 @@ class IdCheck extends PureComponent {
     // const { user } = this.props;
     state = {};
 
+    componentDidMount() {
+      const { screenProps } = this.props;
+      console.log('ID CHECK SCREEN');
+    }
+
+
     onPressEditItem(type) {
       const { screenProps } = this.props;
-
+      console.log(`type: ${type}`);
       if (type === 'Drivers Licence') {
         screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE);
       } else {
@@ -36,7 +42,8 @@ class IdCheck extends PureComponent {
       const { user, screenProps } = this.props;
       return (
         <View>
-          {(!user.idCheck.driversLicence || user.idCheck.driversLicence === 'notAttempted') && (
+          {(!user.idCheck.driversLicence || user.idCheck.driversLicence === 'notAttempted')
+            && (
             <Button
               block
               marginVert
@@ -49,8 +56,10 @@ class IdCheck extends PureComponent {
                 {'Add Drivers Licence'}
               </Text>
             </Button>
-          )}
-          {(!user.idCheck.australianPassport || user.idCheck.australianPassport === 'notAttempted') && (
+            )
+          }
+          {(!user.idCheck.australianPassport || user.idCheck.australianPassport === 'notAttempted')
+            && (
             <Button
               block
               marginVert
@@ -63,26 +72,25 @@ class IdCheck extends PureComponent {
                 {'Add Australian Passport'}
               </Text>
             </Button>
-          )}
-          {
-            /* NEED TO IMPROVE MEDICARE CARD SCREEN AND TEST BEFORE WE TURN THIS ON
+            )
+          }
+          {/* NEED TO IMPROVE MEDICARE CARD SCREEN AND TEST BEFORE WE TURN THIS ON
 
             (!user.idCheck.medicareCard || user.idCheck.medicareCard === "notAttempted")
-              && (user.idCheck.australianPassport === "matched" || user.idCheck.driversLicence === "matched")
-              && <Button
-                  block
-                  marginVert
-                  style={sg.mT0}
-                  onPress={() => {
-                      screenProps.navigateTo(routeNames.ID_CHECK_MEDICARE_CARD);
-                    }}
-                  >
-                  <Text>
-                    {'Add Medicare Card'}
-                  </Text>
-                </Button>
-              */
-          }
+          && (user.idCheck.australianPassport === "matched" || user.idCheck.driversLicence === "matched")
+          && <Button
+              block
+              marginVert
+              style={sg.mT0}
+              onPress={() => {
+                  screenProps.navigateTo(routeNames.ID_CHECK_MEDICARE_CARD);
+                }}
+              >
+              <Text>
+                {'Add Medicare Card'}
+              </Text>
+            </Button>
+          */}
         </View>
       );
     }

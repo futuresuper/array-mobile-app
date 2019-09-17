@@ -31,6 +31,7 @@ class Accounts extends React.PureComponent {
   }
 
   onAccountSelect(account) {
+    console.log(`ACCOUNT: ${JSON.stringify(account)}`);
     /*
     I wrote ProtectedRoutes (src/Common/ProtectedRoutes.js) hoc component which handles route for selected account globally.
     The idea behind it was to avoid writing checkers throughout application(ex. when user switches between accounts in the future)

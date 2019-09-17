@@ -15,6 +15,8 @@ export default {
   EMAIL: 'Email',
   DATE_OF_BIRTH: 'DateOfBirth',
   HOME_ADDRESS: 'HomeAddress',
+  JOIN_FUTURE: 'JoinFuture',
+  JOIN_FUTURE_FORM: 'JoinFutureForm',
   PLACE_OF_BIRTH: 'PlaceOfBirth',
   NOTIFICATIONS: 'Notifications',
   THANKS_SHARE: 'ThanksShare',

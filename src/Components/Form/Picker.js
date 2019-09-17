@@ -96,6 +96,10 @@ class Picker extends Component {
       ({ error } = targetField);
     }
 
+    if (isEmpty(formData)) {
+      return null;
+    }
+
     return (
       <View style={[sg.flex, sg.mB15]}>
         <Item

@@ -27,6 +27,8 @@ import EntityOverseasTaxStatus from './EntityOverseasTaxStatus';
 import EntityTaxFileNumber from './EntityTaxFileNumber';
 import BeneficialOwners from './BeneficialOwners';
 import Partners from './Partners';
+import JoinFuture from './JoinFuture';
+import JoinFutureForm from './JoinFutureForm';
 
 export {
   ApplicationType,
@@ -57,4 +59,6 @@ export {
   EntityTaxFileNumber,
   BeneficialOwners,
   Partners,
+  JoinFuture,
+  JoinFutureForm,
 };

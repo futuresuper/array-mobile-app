@@ -26,7 +26,7 @@ class FinalConfirmation extends React.Component {
 
   handlePress() {
     const {
-      screenProps, applicationId, userDataSaveConnect, appContentSaveConnect, accountSelectSaveConnect
+      screenProps, applicationId, userDataSaveConnect, appContentSaveConnect, accountSelectSaveConnect,
     } = this.props;
     const body = {
       accountId: applicationId,
@@ -45,10 +45,16 @@ class FinalConfirmation extends React.Component {
             iconType: 'MaterialCommunityIcons',
             iconName: 'check-circle',
           });
-          if (res.idCheckComplete) {
-            screenProps.navigateTo(routeNames.ACCOUNTS);
-          } else {
-            screenProps.navigateTo(routeNames.ID_CHECK);
+          if (res.fsMember) {
+            if (res.idCheckComplete) {
+              screenProps.navigateTo(routeNames.ACCOUNTS);
+            } else {
+              screenProps.navigateTo(routeNames.ID_CHECK);
+            }
+          }
+          if (!res.fsMember) {
+            console.log('aaaa!');
+            screenProps.navigateTo(routeNames.JOIN_FUTURE);
           }
         });
       },
@@ -81,7 +87,6 @@ class FinalConfirmation extends React.Component {
 
             </Text>
             &nbsp;for your initial investment amount&nbsp;
-            <Text style={sg.textBold} />
           </Text>
 
           <Text style={[sg.fS10, sg.textBold, sg.mT20]}>I make the following declarations:</Text>
