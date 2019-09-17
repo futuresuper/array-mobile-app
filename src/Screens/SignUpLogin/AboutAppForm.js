@@ -77,7 +77,7 @@ AboutAppForm.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const user = userSelector(state);
   return {
     user,

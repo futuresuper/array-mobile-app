@@ -15,11 +15,16 @@ class ProtectedRoutes extends React.Component {
     const { account } = this.props;
     const { account: prevAccount } = prevProps;
     if (account.id !== prevAccount.id) {
-      if (account.completed) {
-        this.navigateToRoute(routeNames.TAB_HOME);
-      } else {
-        this.navigateToRoute(routeNames.TAB_HOME);
-      }
+      this.redirects(account);
+    }
+  }
+
+  redirects(account) {
+    const { status } = account;
+    if (status === 'awaitingIdCheckAndMoney' || status === 'awaitingIdCheck') {
+      this.navigateToRoute(routeNames.ID_CHECK);
+    } else {
+      this.navigateToRoute(routeNames.TAB_HOME);
     }
   }
 

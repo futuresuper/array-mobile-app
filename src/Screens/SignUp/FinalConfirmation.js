@@ -196,6 +196,8 @@ class FinalConfirmation extends React.Component {
 
 FinalConfirmation.propTypes = {
   applicationId: PropTypes.string.isRequired,
+  appContentSaveConnect: PropTypes.func.isRequired,
+  userDataSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -210,7 +212,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   userDataSaveConnect: userDataSave,
   appContentSaveConnect: appContentSave,
-  accountSelectSaveConnect: accountSelectSave
+  accountSelectSaveConnect: accountSelectSave,
 };
 
 export default connect(
