@@ -13,6 +13,7 @@ import { composeHoc, hocNames } from 'src/Common/Hocs';
 import { sg } from 'src/Styles';
 import { userSelector, accountsSelector, appContentSave } from 'src/Redux/AppContent';
 import { idCheckSave, userDataSave, applicationIdSelector } from 'src/Redux/Auth';
+import { accountSelectSave } from 'src/Redux/Account';
 
 class IdCheckDriversLicence extends Component {
   state = {
@@ -74,8 +75,12 @@ class IdCheckDriversLicence extends Component {
             const { user } = appContent;
             userDataSaveConnect(user);
             appContentSaveConnect(appContent);
-            screenProps.navigateTo(routeNames.ACCOUNTS);
             screenProps.toastSuccess('ID verification Succeeded');
+            if (accounts.length === 1) {
+              this.goToAccountHome();
+            } else {
+              screenProps.navigateTo(routeNames.ACCOUNTS);
+            }
           });
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
@@ -84,6 +89,11 @@ class IdCheckDriversLicence extends Component {
         screenProps.toastDanger('Error - Please try again or contact us for assistance.');
       });
     }
+  }
+
+  goToAccountHome() {
+    const { accountSelectSaveConnect, accounts } = this.props;
+    accountSelectSaveConnect(accounts[0]);
   }
 
   initializeForm(form) {
@@ -192,6 +202,7 @@ const mapDispatchToProps = {
   idCheckSaveConnect: idCheckSave,
   userDataSaveConnect: userDataSave,
   appContentSaveConnect: appContentSave,
+  accountSelectSaveConnect: accountSelectSave,
 };
 
 const res = composeHoc([hocNames.FORM])(IdCheckDriversLicence);

@@ -26,7 +26,7 @@ class Accounts extends React.PureComponent {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      // screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
+      screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE);
     });
   }
 
