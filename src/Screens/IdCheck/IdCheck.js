@@ -24,7 +24,7 @@ class IdCheck extends PureComponent {
 
     componentDidMount() {
       const { screenProps } = this.props;
-      console.log("ID CHECK SCREEN")
+      console.log('ID CHECK SCREEN');
     }
 
 
@@ -40,9 +40,11 @@ class IdCheck extends PureComponent {
 
     renderButtons() {
       const { user, screenProps } = this.props;
+      console.log(user)
       return (
         <View>
-          {(!user.idCheck.driversLicence || user.idCheck.driversLicence === "notAttempted") &&
+          {(!user.idCheck.driversLicence || user.idCheck.driversLicence === 'notAttempted')
+            && (
             <Button
               block
               marginVert
@@ -55,8 +57,10 @@ class IdCheck extends PureComponent {
                 {'Add Drivers Licence'}
               </Text>
             </Button>
+            )
           }
-          {(!user.idCheck.australianPassport || user.idCheck.australianPassport === "notAttempted") &&
+          {(!user.idCheck.australianPassport || user.idCheck.australianPassport === 'notAttempted')
+            && (
             <Button
               block
               marginVert
@@ -69,6 +73,7 @@ class IdCheck extends PureComponent {
                 {'Add Australian Passport'}
               </Text>
             </Button>
+            )
           }
           {/* NEED TO IMPROVE MEDICARE CARD SCREEN AND TEST BEFORE WE TURN THIS ON
 
@@ -95,12 +100,12 @@ class IdCheck extends PureComponent {
       const matchFailed = status === 'matchFailed';
       const isVerified = status === 'matched';
       const type = idCheckUtils.getTypeName(docType);
-      const passportName = user.idCheck.passportMiddleNames ?
-        user.idCheck.passportFirstName + " " + user.idCheck.passportMiddleNames + " " + user.idCheck.passportLastName
-        : user.idCheck.passportFirstName + " " + user.idCheck.passportLastName;
-      const dlName = user.idCheck.driversLicenceMiddleNames ?
-        user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceMiddleNames + " " + user.idCheck.driversLicenceLastName
-        : user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceLastName;
+      const passportName = user.idCheck.passportMiddleNames
+        ? `${user.idCheck.passportFirstName} ${user.idCheck.passportMiddleNames} ${user.idCheck.passportLastName}`
+        : `${user.idCheck.passportFirstName} ${user.idCheck.passportLastName}`;
+      const dlName = user.idCheck.driversLicenceMiddleNames
+        ? `${user.idCheck.driversLicenceFirstName} ${user.idCheck.driversLicenceMiddleNames} ${user.idCheck.driversLicenceLastName}`
+        : `${user.idCheck.driversLicenceFirstName} ${user.idCheck.driversLicenceLastName}`;
 
       if (matchFailed || isVerified) {
         return (
@@ -111,9 +116,9 @@ class IdCheck extends PureComponent {
                   <Text style={[sg.textBold, sg.fS20, sg.colorDark2, sg.mB10]}>{type}</Text>
 
 
-                  {matchFailed && docType === "DriversLicence" && (
+                  {matchFailed && docType === 'DriversLicence' && (
                   <View>
-                    <Text style={[sg.colorDark3]}>{user.idCheck.driversLicenceFirstName + " " + user.idCheck.driversLicenceLastName}</Text>
+                    <Text style={[sg.colorDark3]}>{`${user.idCheck.driversLicenceFirstName} ${user.idCheck.driversLicenceLastName}`}</Text>
                     <Text style={[sg.colorDark3, sg.mV5]}>
                       No.&nbsp;
                       {user.idCheck.driversLicenceNumber}
@@ -126,7 +131,7 @@ class IdCheck extends PureComponent {
                   )
                   }
 
-                  {matchFailed && docType === "Passport" && (
+                  {matchFailed && docType === 'Passport' && (
                   <View>
                     <Text style={[sg.colorDark3]}>{passportName}</Text>
                     <Text style={[sg.colorDark3, sg.mV5]}>

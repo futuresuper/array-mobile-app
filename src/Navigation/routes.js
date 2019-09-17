@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isNil, omit } from 'lodash';
 
 import * as screens from 'src/Screens';
 import ScreensList from 'src/Screens/ScreensList';
@@ -17,7 +17,7 @@ const formatRoutes = (routesInp) => {
     const { params } = item;
     let navigationOptions;
 
-    if (params && !_.isNil(params.noHeader) && params.noHeader) {
+    if (params && !isNil(params.noHeader) && params.noHeader) {
       navigationOptions = noHeader;
     } else {
       navigationOptions = signOptions;
@@ -93,6 +93,12 @@ const signDataRoutes = formatRoutes({
   [routeNames.INITIAL_INVESTMENT_AMOUNT]: {
     screen: screens.InitialInvestmentAmount,
   },
+  [routeNames.ELECTROINIC_FUND_TRANSFER_INFO]: {
+    screen: screens.ElectronicFundTransferInfo,
+  },
+  [routeNames.ELECTROINIC_FUND_TRANSFER_DETAILS]: {
+    screen: screens.ElectronicFundTransferDetails,
+  },
   [routeNames.BANK_ACCOUNT]: {
     screen: screens.BankAccount,
   },
@@ -154,6 +160,14 @@ const signDataRoutes = formatRoutes({
   },
   [routeNames.POST_US_CERTIFIED_ID]: {
     screen: screens.PostUsCertifiedId,
+  },
+  [routeNames.JOIN_FUTURE]: {
+    screen: screens.JoinFuture,
+  },
+  [routeNames.JOIN_FUTURE_FORM]: {
+    screen: screens.JoinFutureForm,
+    params: {},
+    ...tabCardOptions,
   },
 });
 
@@ -392,7 +406,7 @@ const getRouteInfo = (findScreenKey) => {
           let screenInfo = routeInfo[keyScreen];
 
           if (findScreenKey === keyScreen) {
-            screenInfo = _.omit(screenInfo, ['screen', 'navigationOptions']);
+            screenInfo = omit(screenInfo, ['screen', 'navigationOptions']);
             if (!screenInfo.params) screenInfo.params = {};
 
             return screenInfo;

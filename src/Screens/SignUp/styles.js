@@ -81,3 +81,31 @@ export const finalConfirmation = {
     elevation: 0,
   },
 };
+
+export const joinFutureForm = {
+  scrollContainer: {
+    backgroundColor: sc.color.white,
+    marginHorizontal: sc.contentPadding,
+    flex: 1,
+    paddingLeft: 25,
+    paddingRight: 15,
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  scrollView: {
+    marginRight: 20,
+  },
+  finalConfFooter: {
+    backgroundColor: sc.color.containerBgColor,
+    height: null,
+    paddingLeft: sc.contentPadding,
+    paddingRight: sc.contentPadding,
+    paddingTop: sc.contentPadding,
+    paddingBottom: sc.contentPadding,
+    shadowColor: null,
+    shadowOffset: null,
+    shadowRadius: null,
+    shadowOpacity: null,
+    elevation: 0,
+  },
+};

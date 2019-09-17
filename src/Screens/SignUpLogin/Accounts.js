@@ -16,7 +16,7 @@ import { accountSelectSave } from 'src/Redux/Account';
 
 import { sg } from 'src/Styles';
 
-class Accounts extends React.Component {
+class Accounts extends React.PureComponent {
   componentDidMount() {
     const { userDataSaveConnect, appContentSaveConnect } = this.props;
 
@@ -31,13 +31,15 @@ class Accounts extends React.Component {
   }
 
   onAccountSelect(account) {
-    console.log("ACCOUNT: " + JSON.stringify(account));
-    const { accountSelectSaveConnect, screenProps } = this.props;
-    if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
-      screenProps.navigateTo(routeNames.ID_CHECK);
-    } else {
-      accountSelectSaveConnect(account);
-    }
+    console.log(`ACCOUNT: ${JSON.stringify(account)}`);
+    /*
+    I wrote ProtectedRoutes (src/Common/ProtectedRoutes.js) hoc component which handles route for selected account globally.
+    The idea behind it was to avoid writing checkers throughout application(ex. when user switches between accounts in the future)
+    We can write all the checkers and appropriate redirects there.
+    Saving selected account on this place is enough and the hoc will do the rest.
+    */
+    const { accountSelectSaveConnect } = this.props;
+    accountSelectSaveConnect(account);
   }
 
   getAppContent(callback) {
@@ -47,12 +49,12 @@ class Accounts extends React.Component {
     });
   }
 
-  renderAccount = account => {
-    if (account.status && account.status !== "incompleteApp") {
+  renderAccount = (account) => {
+    if (account.status && account.status !== 'incompleteApp') {
       const displayName = account.nickName ? account.nickName : account.ownerName;
       const showBalance = account.balanceInDollars > 0;
       const awaitingIdCheck = (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck');
-      const appIncomplete = (account.status === "incompleteApp");
+      const appIncomplete = (account.status === 'incompleteApp');
       return (
         <ListItem
           button
@@ -99,8 +101,9 @@ class Accounts extends React.Component {
             </Grid>
           </Body>
         </ListItem>
-      )
+      );
     }
+    return null;
   }
 
   render() {
@@ -116,6 +119,9 @@ class Accounts extends React.Component {
               {accounts.map(account => this.renderAccount(account))}
             </List>
           </View>
+          <List>
+            {accounts.map(account => this.renderAccount(account))}
+          </List>
           {__DEV__ && (
             <KeyboardAvoidingView>
               <Button

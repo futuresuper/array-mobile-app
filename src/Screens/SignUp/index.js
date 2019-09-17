@@ -2,6 +2,8 @@
 import ApplicationType from './ApplicationType';
 import InitialInvestmentAmount from './InitialInvestmentAmount';
 import RegularInvestmentAmount from './RegularInvestmentAmount';
+import ElectronicFundTransferInfo from './ElectronicFundTransferInfo';
+import ElectronicFundTransferDetails from './ElectronicFundTransferDetails';
 import BankAccount from './BankAccount';
 import DirectDebitAuth from './DirectDebitAuth';
 import SourceOfFunds from './SourceOfFunds';
@@ -27,11 +29,15 @@ import EntityOverseasTaxStatus from './EntityOverseasTaxStatus';
 import EntityTaxFileNumber from './EntityTaxFileNumber';
 import BeneficialOwners from './BeneficialOwners';
 import Partners from './Partners';
+import JoinFuture from './JoinFuture';
+import JoinFutureForm from './JoinFutureForm';
 
 export {
   ApplicationType,
   InitialInvestmentAmount,
   RegularInvestmentAmount,
+  ElectronicFundTransferInfo,
+  ElectronicFundTransferDetails,
   BankAccount,
   DirectDebitAuth,
   SourceOfFunds,
@@ -57,4 +63,6 @@ export {
   EntityTaxFileNumber,
   BeneficialOwners,
   Partners,
+  JoinFuture,
+  JoinFutureForm,
 };
