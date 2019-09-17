@@ -33,12 +33,12 @@ export default {
   },
   listItem: {
     marginHorizontal: 18,
-    paddingVertical: 30,
+    paddingVertical: 18,
     borderBottomWidth: 1,
     borderColor: sc.color.gray12,
   },
   listItemText: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: sc.font.bold,
   },
   input: {

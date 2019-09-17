@@ -9,7 +9,7 @@ import {
 
 import { routeNames } from 'src/Navigation';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
-import { formatAmountDollarCent } from 'src/Common/Helpers';
+import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave, accountsSelector } from 'src/Redux/AppContent';
 import { accountSelectSave } from 'src/Redux/Account';
@@ -26,20 +26,20 @@ class Accounts extends React.PureComponent {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      // screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
+      // screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT);
     });
   }
 
   onAccountSelect(account) {
-    console.log(`ACCOUNT: ${JSON.stringify(account)}`);
-    /*
-    I wrote ProtectedRoutes (src/Common/ProtectedRoutes.js) hoc component which handles route for selected account globally.
-    The idea behind it was to avoid writing checkers throughout application(ex. when user switches between accounts in the future)
-    We can write all the checkers and appropriate redirects there.
-    Saving selected account on this place is enough and the hoc will do the rest.
-    */
-    const { accountSelectSaveConnect } = this.props;
-    accountSelectSaveConnect(account);
+    const { accountSelectSaveConnect, screenProps } = this.props;
+    if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
+      screenProps.navigateTo(routeNames.ID_CHECK);
+    } else if (account.status === 'incompleteApp') {
+      // To be added
+    } else {
+      // Route is changed in ProtectedRoutes (src/Common/ProtectedRoutes.js)
+      accountSelectSaveConnect(account);
+    }
   }
 
   getAppContent(callback) {
@@ -50,11 +50,13 @@ class Accounts extends React.PureComponent {
   }
 
   renderAccount = (account) => {
-    if (account.status && account.status !== 'incompleteApp') {
-      const displayName = account.nickName ? account.nickName : account.ownerName;
-      const showBalance = account.balanceInDollars > 0;
-      const awaitingIdCheck = (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck');
-      const appIncomplete = (account.status === 'incompleteApp');
+    if (account.status !== "incompleteApp") {
+      let showBalance = false, showAwaitingDebit = false, awaitingIdCheck = false, appIncomplete = false;
+      if (account.status === 'incompleteApp') { appIncomplete = true }
+      else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true }
+      else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true }
+      else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true };
+
       return (
         <ListItem
           button
@@ -68,11 +70,16 @@ class Accounts extends React.PureComponent {
               <Row>
                 <Col style={[sg.flexNull]}>
                   <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
-                    {displayName}
+                    {account.nickName}
                   </Text>
                   {showBalance && (
                     <Text style={[sg.mL0, sg.fS16]} color4>
-                        {formatAmountDollarCent(account.balanceInDollars)}
+                        {formatAmountDollar(account.balanceInDollars)}
+                    </Text>
+                  )}
+                  {showAwaitingDebit && (
+                    <Text style={[sg.mL0, sg.fS16]} color4>
+                        {formatAmountDollar(account.amountAwaitingDirectDebit)} awaiting debit
                     </Text>
                   )}
                 </Col>
@@ -119,22 +126,20 @@ class Accounts extends React.PureComponent {
               {accounts.map(account => this.renderAccount(account))}
             </List>
           </View>
-          <List>
-            {accounts.map(account => this.renderAccount(account))}
-          </List>
-          {__DEV__ && (
+          {
+            // __DEV__ && (
             <KeyboardAvoidingView>
               <Button
                 onPress={() => {
                   screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                  // screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
                 }}
                 block
               >
                 <Text>Start new application</Text>
               </Button>
             </KeyboardAvoidingView>
-          )}
+            // )
+          }
         </View>
       </Content>
     );

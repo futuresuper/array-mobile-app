@@ -49,7 +49,6 @@ class AccountsInfo extends Component {
   }
 
   onAccountSelect(account) {
-    console.log("ACCOUNT: " + JSON.stringify(account));
     const { accountSelectSaveConnect } = this.props;
     accountSelectSaveConnect(account);
     BottomInfoModal.hide();
@@ -70,7 +69,7 @@ class AccountsInfo extends Component {
           <Grid>
             <Row>
               <Col style={[sg.flexNull]}>
-                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.ownerName}</Text>
+                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
 
                 {account.status === accountUtils.STATUS.UNITS_ISSUED && account.balance && (
                   <Text style={[sg.mL0, sg.fS16]} color4>
@@ -94,7 +93,7 @@ class AccountsInfo extends Component {
   }
 
   render() {
-    const { superAccount } = false; // this.props;
+    const { superAccount } = this.props;
     const { screenProps } = this.props;
     const { list } = this.state;
 
@@ -125,11 +124,17 @@ class AccountsInfo extends Component {
                 dark
                 block
                 style={sg.mT15}
+                onPress={() => {
+                  screenProps.navigateTo(routeNames.JOIN_FUTURE, {
+                      showBackButton:false
+                    }
+                  );
+                  BottomInfoModal.hide();
+                }}
               >
-                <Text>Future Super Account</Text>
+                <Text>Add Future Super Account</Text>
               </Button>
-
-              <TextUnderline style={[sg.mT25]}>What&apos;s a Future Super Account?</TextUnderline>
+              {/* <TextUnderline style={[sg.mT25]}>What&apos;s a Future Super Account?</TextUnderline> */}
             </View>
           )}
         </View>
