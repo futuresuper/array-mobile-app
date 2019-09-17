@@ -212,6 +212,7 @@ class Picker extends Component {
               </View>
 
             </TouchableWithoutFeedback>
+          
           </Modal>
 
         )}

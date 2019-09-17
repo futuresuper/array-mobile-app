@@ -38,9 +38,9 @@ class JoinFutureForm extends React.Component {
       { value: 'Other', name: 'Other' },
     ],
     investmentOptionList: [
-      { value: 'renewablesPlus', name: 'Future Super Renewables Plus Growth' },
-      { value: 'balancedImpact', name: 'Future Super Balanced Impact' },
-      { value: 'balancedIndex', name: 'Future Super Balanced Index' },
+      { value: 'renewablesPlus', name: 'Renewables Plus Growth' },
+      { value: 'balancedImpact', name: 'Balanced Impact' },
+      { value: 'balancedIndex', name: 'Balanced Index' },
     ],
     submitSuccess: false,
   }
@@ -111,7 +111,7 @@ class JoinFutureForm extends React.Component {
               list={genderList}
               renderItem={({ item }) => (
                 <View>
-                  <Text style={sg.pickerItemText}>{item.name}</Text>
+                  <Text style={[sg.pickerItemText, sg.fS14]}>{item.name}</Text>
                 </View>
               )}
               onPressItem={({ item }, formKey) => {
@@ -121,12 +121,12 @@ class JoinFutureForm extends React.Component {
             <Picker
               formData={form}
               formKey="investmentOption"
-              helper="Investment Option"
+              helper="Investment Option (You can change this later)"
               title="Investment Option"
               list={investmentOptionList}
               renderItem={({ item }) => (
                 <View>
-                  <Text style={sg.pickerItemText}>{item.name}</Text>
+                  <Text style={[sg.pickerItemText, sg.fS14]}>{item.name}</Text>
                 </View>
               )}
               onPressItem={({ item }, formKey) => {

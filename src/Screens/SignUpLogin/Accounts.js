@@ -9,7 +9,7 @@ import {
 
 import { routeNames } from 'src/Navigation';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
-import { formatAmountDollarCent } from 'src/Common/Helpers';
+import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave, accountsSelector } from 'src/Redux/AppContent';
 import { accountSelectSave } from 'src/Redux/Account';
@@ -51,9 +51,12 @@ class Accounts extends React.PureComponent {
 
   renderAccount = (account) => {
     if (account.status !== "incompleteApp") {
-      const showBalance = account.balanceInDollars > 0;
-      const awaitingIdCheck = (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck');
-      const appIncomplete = (account.status === 'incompleteApp');
+      let showBalance = false, showAwaitingDebit = false, awaitingIdCheck = false, appIncomplete = false;
+      if (account.status === 'incompleteApp') { appIncomplete = true }
+      else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true }
+      else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true }
+      else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true };
+
       return (
         <ListItem
           button
@@ -71,7 +74,12 @@ class Accounts extends React.PureComponent {
                   </Text>
                   {showBalance && (
                     <Text style={[sg.mL0, sg.fS16]} color4>
-                        {formatAmountDollarCent(account.balanceInDollars)}
+                        {formatAmountDollar(account.balanceInDollars)}
+                    </Text>
+                  )}
+                  {showAwaitingDebit && (
+                    <Text style={[sg.mL0, sg.fS16]} color4>
+                        {formatAmountDollar(account.amountAwaitingDirectDebit)} awaiting debit
                     </Text>
                   )}
                 </Col>
