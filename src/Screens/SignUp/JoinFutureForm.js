@@ -81,8 +81,8 @@ class JoinFutureForm extends React.Component {
   renderLi(text) {
     return (
       <View style={[sg.row, sg.mB10]}>
-        <Text style={sg.fS11}>{'\u2022'}</Text>
-        <Text style={[sg.fS10, sg.mL20]}>{text}</Text>
+        <Text style={sg.fS12}>{'\u2022'}</Text>
+        <Text style={[sg.fS12, sg.mL20]}>{text}</Text>
       </View>
     );
   }
@@ -133,7 +133,7 @@ class JoinFutureForm extends React.Component {
                 hocs.addOrUpdateFormField({ title: item.name, value: item.name }, formKey);
               }}
             />
-            <Text style={[sg.fS10, sg.textBold, sg.mV20]}>I make the following declarations:</Text>
+            <Text style={[sg.fS12, sg.textBold, sg.mV20]}>I make the following declarations:</Text>
             <View style={styles.scrollContainer}>
               <ScrollView
                 contentContainerStyle={styles.scrollView}
@@ -159,12 +159,12 @@ class JoinFutureForm extends React.Component {
               />
             </Col>
             <Col>
-              <Text style={[sg.textBold, sg.fS10]}>
+              <Text style={[sg.fS12]}>
                 {'I have read, understood and agree to the above declaration.'}
               </Text>
             </Col>
           </Grid>
-          <Grid style={sg.mV25}>
+          <Grid style={sg.mB25}>
             <Col style={sg.width50}>
               <CheckBox
                 formData={form}
@@ -173,7 +173,7 @@ class JoinFutureForm extends React.Component {
               />
             </Col>
             <Col>
-              <Text style={[sg.textBold, sg.fS10]}>
+              <Text style={[sg.fS12]}>
                 {'I consent to Future Super Services Pty Ltd receiving a fee from Future Super that is the balance of the total fee minus the investment and administration fees and the fund expense and operational risk reserves accrued in the calculation of the unit price. This fee is estimated to be approximately 0.263% of the funds under management per annum for the 2018-19 financial year.'}
               </Text>
             </Col>

@@ -85,7 +85,7 @@ export const finalConfirmation = {
 export const joinFutureForm = {
   scrollContainer: {
     backgroundColor: sc.color.white,
-    marginHorizontal: sc.contentPadding,
+    //marginHorizontal: sc.contentPadding,
     flex: 1,
     paddingLeft: 25,
     paddingRight: 15,

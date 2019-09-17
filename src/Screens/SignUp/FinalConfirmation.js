@@ -47,13 +47,13 @@ class FinalConfirmation extends React.Component {
           });
           if (res.fsMember) {
             if (res.idCheckComplete) {
-              screenProps.navigateTo(routeNames.ACCOUNTS);
+              screenProps.navigateTo(routeNames.ACCOUNTS, { showBackButton:false });
             } else {
-              screenProps.navigateTo(routeNames.ID_CHECK);
+              screenProps.navigateTo(routeNames.ID_CHECK, { showBackButton:false });
             }
           }
           if (!res.fsMember) {
-            screenProps.navigateTo(routeNames.JOIN_FUTURE);
+            screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton:false });
           }
         });
       },
