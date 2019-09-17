@@ -51,11 +51,6 @@ class Accounts extends React.PureComponent {
 
   renderAccount = (account) => {
     if (account.status !== "incompleteApp") {
-      let displayName;
-      if (account.nickName) {displayName = account.nickName}
-      else if (account.ownerName) {displayName = account.ownerName}
-      else {displayName = "Incomplete Application"};
-
       const showBalance = account.balanceInDollars > 0;
       const awaitingIdCheck = (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck');
       const appIncomplete = (account.status === 'incompleteApp');
@@ -72,7 +67,7 @@ class Accounts extends React.PureComponent {
               <Row>
                 <Col style={[sg.flexNull]}>
                   <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
-                    {displayName}
+                    {account.nickName}
                   </Text>
                   {showBalance && (
                     <Text style={[sg.mL0, sg.fS16]} color4>
