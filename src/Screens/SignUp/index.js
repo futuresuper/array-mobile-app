@@ -2,6 +2,8 @@
 import ApplicationType from './ApplicationType';
 import InitialInvestmentAmount from './InitialInvestmentAmount';
 import RegularInvestmentAmount from './RegularInvestmentAmount';
+import ElectronicFundTransferInfo from './ElectronicFundTransferInfo';
+import ElectronicFundTransferDetails from './ElectronicFundTransferDetails';
 import BankAccount from './BankAccount';
 import DirectDebitAuth from './DirectDebitAuth';
 import SourceOfFunds from './SourceOfFunds';
@@ -34,6 +36,8 @@ export {
   ApplicationType,
   InitialInvestmentAmount,
   RegularInvestmentAmount,
+  ElectronicFundTransferInfo,
+  ElectronicFundTransferDetails,
   BankAccount,
   DirectDebitAuth,
   SourceOfFunds,

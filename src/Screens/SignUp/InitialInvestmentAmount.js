@@ -47,7 +47,6 @@ class InitialInvestmentAmount extends React.PureComponent {
 
     handlePress() {
       const { screenProps, hocs, applicationId } = this.props;
-      // const userInfo = screenProps.getUserInfo();
       const formIsValid = hocs.formIsValid({
         fieldError: true,
       });
@@ -65,7 +64,11 @@ class InitialInvestmentAmount extends React.PureComponent {
             initialInvestmentAmount: amount,
           },
           () => {
-            screenProps.navigateTo(routeNames.BANK_ACCOUNT);
+            if (amount >= 5000) {
+              screenProps.navigateTo(routeNames.ELECTRINIC_FUND_TRANSFER_INFO);
+            } else {
+              screenProps.navigateTo(routeNames.BANK_ACCOUNT);
+            }
           },
           () => {
             screenProps.toastDanger('Error. Try Again');
