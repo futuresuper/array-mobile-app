@@ -20,10 +20,9 @@ import {
 import {
   userSelector,
 } from 'src/Redux/AppContent';
-
 import {
-  applicationIdSelector,
-} from 'src/Redux/Auth';
+  accountIdSelector, accountUpdateSave,
+} from 'src/Redux/Account';
 
 import composeHoc from 'src/Common/Hocs';
 import {
@@ -65,18 +64,19 @@ class BankAccount extends React.Component {
 
   handlePress() {
     const {
-      screenProps, hocs, user, applicationId,
+      screenProps, hocs, user, accountId, accountUpdateSaveConnect,
     } = this.props;
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
       const body = {
-        accountId: applicationId,
+        accountId,
         bankAccountName: hocs.form.accountName.value,
         bankAccountBsb: `${hocs.form.bsb.value}`,
         bankAccountNumber: `${hocs.form.accountNumber.value}`,
       };
-      screenProps.Api.post('/account', body, () => {
+      screenProps.Api.post('/account', body, (res) => {
+        accountUpdateSaveConnect(res);
         if (user.personalDetailsLocked) {
           screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
         } else {
@@ -157,24 +157,28 @@ class BankAccount extends React.Component {
 
 BankAccount.propTypes = {
   user: PropTypes.object.isRequired,
-  applicationId: PropTypes.string.isRequired,
-
+  accountId: PropTypes.string.isRequired,
+  accountUpdateSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const user = userSelector(state);
-  const applicationId = applicationIdSelector(state);
+  const accountId = accountIdSelector(state);
 
   return {
     user,
-    applicationId,
-
+    accountId,
   };
 };
+
+const mapDispatchToProps = {
+  accountUpdateSaveConnect: accountUpdateSave,
+};
+
 
 const res = composeHoc([
   'FormHoc',
 ])(BankAccount);
 
 
-export default connect(mapStateToProps)(res);
+export default connect(mapStateToProps, mapDispatchToProps)(res);

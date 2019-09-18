@@ -18,8 +18,8 @@ import {
 import signUpLoginUtils from 'src/Common/signUpLogin';
 
 import {
-  applicationIdSave,
-} from 'src/Redux/Auth';
+  accountSelectSave,
+} from 'src/Redux/Account';
 
 import { userSelector } from 'src/Redux/AppContent';
 
@@ -58,10 +58,10 @@ class AccountType extends React.Component {
   // }
 
   onButtonPress(appType) {
-    const { screenProps, applicationIdSaveConnect, user } = this.props;
+    const { screenProps, accountSelectSaveConnect, user } = this.props;
 
     screenProps.Api.post('/account', {}, (res) => {
-      applicationIdSaveConnect(res);
+      accountSelectSaveConnect(res);
       if (user.personalDetailsLocked) {
         screenProps.navigateTo(routeNames.PERSONAL_DETAILS_ALREADY_SUBMITTED);
       } else {
@@ -98,7 +98,7 @@ class AccountType extends React.Component {
 
           <View>
             <Button
-              onPress={() => this.onButtonPress("individual")}
+              onPress={() => this.onButtonPress('individual')}
               block
               marginVert
               style={sg.mT0}
@@ -239,14 +239,15 @@ class AccountType extends React.Component {
 }
 
 AccountType.propTypes = {
-  applicationIdSaveConnect: PropTypes.func.isRequired,
+  accountSelectSaveConnect: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
 
 const mapDispatchToProps = {
-  applicationIdSaveConnect: applicationIdSave,
+  accountSelectSaveConnect: accountSelectSave,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const user = userSelector(state);
   return {
     user,

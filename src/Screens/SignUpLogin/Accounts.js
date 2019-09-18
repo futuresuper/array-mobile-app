@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
+import amplitude from 'amplitude-js';
+
 
 import {
   Button, Content, Text, Icon, Grid, Row, Col, List, ListItem, Body,
@@ -28,6 +30,8 @@ class Accounts extends React.PureComponent {
       // dev purpose
       // screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT);
     });
+
+    amplitude.getInstance().logEvent('Viewed Accounts Page', {});
   }
 
   onAccountSelect(account) {

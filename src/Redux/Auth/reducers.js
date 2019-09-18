@@ -8,7 +8,6 @@ const initialState = {
     token_type: '',
     expires_in: 0,
   },
-  applicationId: '',
 };
 
 const ACTION_HANDLERS = {
@@ -44,10 +43,6 @@ const ACTION_HANDLERS = {
       user,
     };
   },
-  [types.APPLICATION_ID_SAVE]: (state, action) => ({
-    ...state,
-    applicationId: action.payload.PK2,
-  }),
   [types.ID_CHECK_SAVE]: (state, action) => {
     const { payload } = action;
     const { user } = state;

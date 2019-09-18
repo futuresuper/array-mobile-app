@@ -8,6 +8,8 @@ import {
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import amplitude from 'amplitude-js';
+
 
 import {
   Root,
@@ -63,9 +65,15 @@ class AppIndex extends Component {
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', () => {
       this.routeBack();
-
       return true;
     });
+    this.setAnalyticsUser();
+  }
+
+  setAnalyticsUser() {
+    const { auth } = this.props;
+    const { id } = auth.user;
+    amplitude.getInstance().setUserId(id);
   }
 
   getUserInfo = () => {

@@ -10,12 +10,12 @@ import { sg } from 'src/Styles';
 import composeHoc from 'src/Common/Hocs';
 import { Input } from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
+import { accountIdSelector, accountUpdateSave } from 'src/Redux/Account';
 
 import { formatAmountDollar, normalizeAmount } from 'src/Common/Helpers';
 
 import { routeNames } from 'src/Navigation';
 
-import { applicationIdSelector } from 'src/Redux/Auth';
 
 class InitialInvestmentAmount extends React.PureComponent {
     state = {
@@ -46,7 +46,9 @@ class InitialInvestmentAmount extends React.PureComponent {
     }
 
     handlePress() {
-      const { screenProps, hocs, applicationId } = this.props;
+      const {
+        screenProps, hocs, accountId, accountUpdateSaveConnect,
+      } = this.props;
       const formIsValid = hocs.formIsValid({
         fieldError: true,
       });
@@ -60,12 +62,13 @@ class InitialInvestmentAmount extends React.PureComponent {
         screenProps.Api.post(
           '/account',
           {
-            accountId: applicationId,
+            accountId,
             initialInvestmentAmount: amount,
           },
-          () => {
+          (res) => {
+            accountUpdateSaveConnect(res);
             if (amount >= 5000) {
-              screenProps.navigateTo(routeNames.ELECTRINIC_FUND_TRANSFER_INFO);
+              screenProps.navigateTo(routeNames.ELECTROINIC_FUND_TRANSFER_INFO);
             } else {
               screenProps.navigateTo(routeNames.BANK_ACCOUNT);
             }
@@ -112,16 +115,21 @@ class InitialInvestmentAmount extends React.PureComponent {
 }
 
 InitialInvestmentAmount.propTypes = {
-  applicationId: PropTypes.string.isRequired,
+  accountId: PropTypes.string.isRequired,
+  accountUpdateSaveConnect: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+  accountUpdateSaveConnect: accountUpdateSave,
 };
 
 const mapStateToProps = (state) => {
-  const applicationId = applicationIdSelector(state);
+  const accountId = accountIdSelector(state);
   return {
-    applicationId,
+    accountId,
   };
 };
 
 const res = composeHoc(['FormHoc'])(InitialInvestmentAmount);
 
-export default connect(mapStateToProps)(res);
+export default connect(mapStateToProps, mapDispatchToProps)(res);

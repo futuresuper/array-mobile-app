@@ -33,13 +33,6 @@ export function userUpdateAvatar(data) {
   };
 }
 
-export function applicationIdSave(data) {
-  return {
-    type: types.APPLICATION_ID_SAVE,
-    payload: data,
-  };
-}
-
 export function idCheckSave(data) {
   return {
     type: types.ID_CHECK_SAVE,

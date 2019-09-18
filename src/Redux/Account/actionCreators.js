@@ -7,3 +7,10 @@ export function accountSelectSave(account) {
     payload: account,
   };
 }
+
+export function accountUpdateSave(account) {
+  return {
+    type: types.ACCOUNT_UPDATE,
+    payload: account,
+  };
+}
