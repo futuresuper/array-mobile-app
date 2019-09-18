@@ -72,8 +72,10 @@ class AppIndex extends Component {
 
   setAnalyticsUser() {
     const { auth } = this.props;
-    const { id } = auth.user;
-    amplitude.getInstance().setUserId(id);
+    if (auth.user) {
+      const { id } = auth.user;
+      amplitude.getInstance().setUserId(id);
+    }
   }
 
   getUserInfo = () => {
