@@ -14,7 +14,7 @@ class ProtectedRoutes extends React.Component {
   componentDidUpdate(prevProps) {
     const { account } = this.props;
     const { account: prevAccount } = prevProps;
-    if (account.id !== prevAccount.id) {
+    if (account.id !== prevAccount.id  && account.status !== "incompleteApp") {
       this.accountRedirects(account);
     }
   }

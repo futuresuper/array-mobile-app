@@ -49,7 +49,7 @@ class PersonalDetailsAlreadySubmitted extends Component {
             {this.renderLi('Date of Birth')}
             {this.renderLi('Occupation')}
             {this.renderLi('Place of Birth')}
-            {this.renderLi('Tax information')} 
+            {this.renderLi('Tax information')}
             {this.renderLi('Politically Exposed Person Status')}
             <Text style={[sg.formHeadingDescriptionm, sg.mT20]}>
               Please contact us on 1300 731 640 if you need to update any of your personal details.
