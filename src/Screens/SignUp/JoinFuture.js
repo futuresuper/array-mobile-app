@@ -23,12 +23,12 @@ class JoinFuture extends React.PureComponent {
   }
 
   handleSkip() {
-    const { screenProps } = this.props;
+    const { accountSelectSaveConnect, screenProps } = this.props;
     const { account, navigateTo } = screenProps;
     if (account.status === 'awaitingIdCheckAndMoney') {
       navigateTo(routeNames.ID_CHECK);
     } else {
-      navigateTo(routeNames.TAB_HOME);
+      navigateTo(routeNames.ACCOUNTS);
     }
   }
 
