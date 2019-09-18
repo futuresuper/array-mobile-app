@@ -28,7 +28,7 @@ class Accounts extends React.PureComponent {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      // screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT);
+      //screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS);
     });
 
     amplitude.getInstance().logEvent('Viewed Accounts Page', {});
