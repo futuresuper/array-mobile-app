@@ -26,7 +26,7 @@ import {
 } from 'src/Navigation';
 
 import {
-  formatAmountDollarCent,
+  formatAmountDollarCent, formatAmountDollar
 } from 'src/Common/Helpers';
 import accountUtils from 'src/Common/account';
 
@@ -54,53 +54,78 @@ class AccountsInfo extends Component {
     BottomInfoModal.hide();
   }
 
-  renderAccounts() {
-    const { accounts, screenProps } = this.props;
+  renderAccount = (account) => {
+    if (account.status !== "incompleteApp") {
+      let showBalance = false, showAwaitingDebit = false, awaitingIdCheck = false, appIncomplete = false;
+      if (account.status === 'incompleteApp') { appIncomplete = true }
+      else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true }
+      else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true }
+      else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true };
 
-    return accounts.map(account => account.status !== accountUtils.STATUS.INCOMPLETE_APP && (
-      <ListItem
-        button
-        noIndent
-        key={account.id}
-        onPress={() => this.onAccountSelect(account)}
-        style={[sg.pL0, sg.pT25, sg.pB25, sg.pR35]}
-      >
-        <Body>
-          <Grid>
-            <Row>
-              <Col style={[sg.flexNull]}>
-                <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>{account.nickName}</Text>
-
-                {account.status === accountUtils.STATUS.UNITS_ISSUED && account.balance && (
-                  <Text style={[sg.mL0, sg.fS16]} color4>
-                    Balance:&nbsp;
-                    <Text color4>
-                      {formatAmountDollarCent(account.balance)}
-                    </Text>
+      return (
+        <ListItem
+          button
+          noIndent
+          key={account.id}
+          onPress={() => this.onAccountSelect(account)}
+          style={[sg.pL0, sg.pT25, sg.pB25]}
+        >
+          <Body>
+            <Grid>
+              <Row>
+                <Col style={[sg.flexNull]}>
+                  <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
+                    {account.nickName}
                   </Text>
-                )}
-              </Col>
-              <Col style={[sg.jCCenter, sg.aIEnd]}>
-                <Icon name="ios-arrow-forward" style={sg.fS20} />
-              </Col>
-            </Row>
-
-          </Grid>
-
-        </Body>
-      </ListItem>
-    ));
+                  {showBalance && (
+                    <Text style={[sg.mL0, sg.fS16]} color4>
+                        {formatAmountDollar(account.balanceInDollars)}
+                    </Text>
+                  )}
+                  {showAwaitingDebit && (
+                    <Text style={[sg.mL0, sg.fS16]} color4>
+                        {formatAmountDollar(account.amountAwaitingDirectDebit)} awaiting debit
+                    </Text>
+                  )}
+                </Col>
+                <Col style={[sg.jCCenter, sg.aIEnd]}>
+                  <Icon name="ios-arrow-forward" style={sg.fS20} />
+                </Col>
+              </Row>
+              {awaitingIdCheck && (
+                <Row>
+                  <Col style={[sg.flexNull]}>
+                    <View style={[sg.incAppBl, sg.aSCenter]}>
+                      <Text style={[sg.incAppText]}>Complete ID Check</Text>
+                    </View>
+                  </Col>
+                </Row>
+              )}
+              {appIncomplete && (
+                <Row>
+                  <Col style={[sg.flexNull]}>
+                    <View style={[sg.incAppBl, sg.aSCenter]}>
+                      <Text style={[sg.incAppText]}>Incomplete application</Text>
+                    </View>
+                  </Col>
+                </Row>
+              )}
+            </Grid>
+          </Body>
+        </ListItem>
+      );
+    }
+    return null;
   }
 
   render() {
-    const { superAccount } = this.props;
-    const { screenProps } = this.props;
+    const { superAccount, screenProps, accounts } = this.props;
     const { list } = this.state;
 
     return (
       <View style={sg.mH5}>
         <List>
-          {this.renderAccounts()}
+          {accounts.map(account => this.renderAccount(account))}
         </List>
 
         <View style={[sg.mT30, sg.mH10]}>
