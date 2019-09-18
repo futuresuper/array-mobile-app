@@ -93,10 +93,10 @@ const signDataRoutes = formatRoutes({
   [routeNames.INITIAL_INVESTMENT_AMOUNT]: {
     screen: screens.InitialInvestmentAmount,
   },
-  [routeNames.ELECTROINIC_FUND_TRANSFER_INFO]: {
+  [routeNames.ELECTRONIC_FUND_TRANSFER_INFO]: {
     screen: screens.ElectronicFundTransferInfo,
   },
-  [routeNames.ELECTROINIC_FUND_TRANSFER_DETAILS]: {
+  [routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS]: {
     screen: screens.ElectronicFundTransferDetails,
   },
   [routeNames.BANK_ACCOUNT]: {
