@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   View,
@@ -15,6 +16,9 @@ import {
   Text,
 } from 'native-base';
 import { composeHoc, hocNames } from 'src/Common/Hocs';
+import {
+  accountIdSelector, accountUpdateSave,
+} from 'src/Redux/Account';
 
 import { random } from 'lodash';
 
@@ -35,7 +39,7 @@ class ElectronicFundTransferDetails extends React.Component {
 
     componentDidMount() {
       const { screenProps } = this.props;
-      const { getUserInfo, account } = screenProps;
+      const { getUserInfo } = screenProps;
       const lname = getUserInfo().lastName;
       const accountRef = random(100, 999); // account.bankAccountNumber.slice(-3); when it becomes available from api
       const reference = `${lname}${accountRef}`;
@@ -49,14 +53,16 @@ class ElectronicFundTransferDetails extends React.Component {
     };
 
     handleNext() {
-      const { screenProps } = this.props;
+      const { screenProps, accountId, accountUpdateSaveConnect } = this.props;
 
       screenProps.Api.post(
         '/account',
         {
+          accountId,
           advisedTransferMade: true,
         },
-        () => {
+        (res) => {
+          accountUpdateSaveConnect(res);
           screenProps.navigateTo(routeNames.TAB_HOME);
         },
         () => {
@@ -116,9 +122,28 @@ class ElectronicFundTransferDetails extends React.Component {
     }
 }
 
+
+ElectronicFundTransferDetails.propTypes = {
+  accountId: PropTypes.string.isRequired,
+  accountUpdateSaveConnect: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const accountId = accountIdSelector(state);
+
+  return {
+    accountId,
+  };
+};
+
+const mapDispatchToProps = {
+  accountUpdateSaveConnect: accountUpdateSave,
+};
+
+
 const res = composeHoc([
   hocNames.FORM,
 ])(ElectronicFundTransferDetails);
 
 
-export default connect()(res);
+export default connect(mapDispatchToProps, mapStateToProps)(res);

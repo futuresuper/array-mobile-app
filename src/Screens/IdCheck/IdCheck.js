@@ -40,7 +40,6 @@ class IdCheck extends PureComponent {
 
     renderButtons() {
       const { user, screenProps } = this.props;
-      console.log(user)
       return (
         <View>
           {(!user.idCheck.driversLicence || user.idCheck.driversLicence === 'notAttempted')

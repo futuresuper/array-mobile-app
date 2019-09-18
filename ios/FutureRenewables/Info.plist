@@ -39,6 +39,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>We require FaceID access to allows you quick and secure access.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to use your camera to take picture</string>
 	<key>NSLocationAlwaysUsageDescription</key>

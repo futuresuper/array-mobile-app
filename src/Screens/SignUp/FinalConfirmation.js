@@ -11,9 +11,10 @@ import { sg } from 'src/Styles';
 
 import { routeNames } from 'src/Navigation';
 
-import { userDataSave, applicationIdSelector } from 'src/Redux/Auth';
+
+import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave, accountsSelector } from 'src/Redux/AppContent';
-import { accountSelectSave } from 'src/Redux/Account';
+import { accountSelectSave, accountIdSelector, accountUpdateSave } from 'src/Redux/Account';
 import { finalConfirmation as styles } from './styles';
 
 class FinalConfirmation extends React.Component {
@@ -26,10 +27,10 @@ class FinalConfirmation extends React.Component {
 
   handlePress() {
     const {
-      screenProps, applicationId, userDataSaveConnect, appContentSaveConnect, accountSelectSaveConnect,
+      screenProps, userDataSaveConnect, appContentSaveConnect, accountId, accountUpdateSaveConnect,
     } = this.props;
     const body = {
-      accountId: applicationId,
+      accountId,
       submittedApplication: true,
     };
 
@@ -39,6 +40,7 @@ class FinalConfirmation extends React.Component {
       (res) => {
         this.getAppContent((appContent) => {
           const { user } = appContent;
+          accountUpdateSaveConnect(res);
           userDataSaveConnect(user);
           appContentSaveConnect(appContent);
           screenProps.toast('Application Complete', {
@@ -199,17 +201,18 @@ class FinalConfirmation extends React.Component {
 }
 
 FinalConfirmation.propTypes = {
-  applicationId: PropTypes.string.isRequired,
   appContentSaveConnect: PropTypes.func.isRequired,
   userDataSaveConnect: PropTypes.func.isRequired,
+  accountId: PropTypes.string.isRequired,
+  accountUpdateSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const applicationId = applicationIdSelector(state);
   const accounts = accountsSelector(state);
+  const accountId = accountIdSelector(state);
   return {
-    applicationId,
     accounts,
+    accountId,
   };
 };
 
@@ -217,6 +220,7 @@ const mapDispatchToProps = {
   userDataSaveConnect: userDataSave,
   appContentSaveConnect: appContentSave,
   accountSelectSaveConnect: accountSelectSave,
+  accountUpdateSaveConnect: accountUpdateSave,
 };
 
 export default connect(

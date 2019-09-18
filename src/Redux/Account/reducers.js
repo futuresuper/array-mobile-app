@@ -9,6 +9,13 @@ const ACTION_HANDLERS = {
     ...state,
     selectedAccount: action.payload,
   }),
+  [types.ACCOUNT_UPDATE]: (state, action) => ({
+    ...state,
+    selectedAccount: {
+      ...state.selectedAccount,
+      ...action.payload,
+    },
+  }),
 };
 
 const AuthReducer = (state = initialState, action) => {

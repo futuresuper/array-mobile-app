@@ -19,10 +19,8 @@ import {
 import {
   routeNames,
 } from 'src/Navigation';
+import { accountIdSelector, accountUpdateSave } from 'src/Redux/Account';
 
-import {
-  applicationIdSelector,
-} from 'src/Redux/Auth';
 
 class SourceOfFunds extends React.Component {
   constructor(props) {
@@ -32,12 +30,13 @@ class SourceOfFunds extends React.Component {
   }
 
   handlePress(type) {
-    const { screenProps, applicationId } = this.props;
+    const { screenProps, accountId, accountUpdateSaveConnect } = this.props;
     const body = {
-        accountId: applicationId,
-        sourceOfFunds: type,
-      };
-    screenProps.Api.post('/account', body, () => {
+      accountId,
+      sourceOfFunds: type,
+    };
+    screenProps.Api.post('/account', body, (res) => {
+      accountUpdateSaveConnect(res);
       screenProps.navigateTo(routeNames.PURPOSE_OF_INVESTMENT, { type });
     }, () => {
       screenProps.toastDanger('Error. Try Again');
@@ -108,14 +107,20 @@ class SourceOfFunds extends React.Component {
 }
 
 SourceOfFunds.propTypes = {
-  applicationId: PropTypes.string.isRequired,
+  accountId: PropTypes.string.isRequired,
+  accountUpdateSaveConnect: PropTypes.func.isRequired,
 };
 
+const mapDispatchToProps = {
+  accountUpdateSaveConnect: accountUpdateSave,
+};
+
+
 const mapStateToProps = (state) => {
-  const applicationId = applicationIdSelector(state);
+  const accountId = accountIdSelector(state);
   return {
-    applicationId,
+    accountId,
   };
 };
 
-export default connect(mapStateToProps)(SourceOfFunds);
+export default connect(mapStateToProps, mapDispatchToProps)(SourceOfFunds);

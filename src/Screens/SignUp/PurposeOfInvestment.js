@@ -10,9 +10,8 @@ import { routeNames } from 'src/Navigation';
 import { sg } from 'src/Styles';
 
 import { userSelector } from 'src/Redux/AppContent';
-import {
-  applicationIdSelector,
-} from 'src/Redux/Auth';
+import { accountIdSelector, accountUpdateSave } from 'src/Redux/Account';
+
 
 class PurposeOfInvestment extends React.Component {
   constructor(props) {
@@ -21,17 +20,20 @@ class PurposeOfInvestment extends React.Component {
   }
 
   handlePress(type) {
-    const { screenProps, user, applicationId } = this.props;
+    const {
+      screenProps, user, accountId, accountUpdateSaveConnect,
+    } = this.props;
 
     const body = {
-      accountId: applicationId, // From response after Account Type
+      accountId, // From response after Account Type
       purposeOfInvestment: type,
     };
 
     screenProps.Api.post(
       '/account',
       body,
-      () => {
+      (res) => {
+        accountUpdateSaveConnect(res);
         if (user.personalDetailsLocked) {
           screenProps.navigateTo(routeNames.FINAL_CONFIRMATION);
         } else {
@@ -79,19 +81,23 @@ class PurposeOfInvestment extends React.Component {
 
 PurposeOfInvestment.propTypes = {
   user: PropTypes.object.isRequired,
-  applicationId: PropTypes.string.isRequired,
-
+  accountId: PropTypes.string.isRequired,
+  accountUpdateSaveConnect: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = {
+  accountUpdateSaveConnect: accountUpdateSave,
+};
+
 
 const mapStateToProps = (state) => {
   const user = userSelector(state);
-  const applicationId = applicationIdSelector(state);
+  const accountId = accountIdSelector(state);
 
   return {
     user,
-    applicationId,
-
+    accountId,
   };
 };
 
-export default connect(mapStateToProps)(PurposeOfInvestment);
+export default connect(mapStateToProps, mapDispatchToProps)(PurposeOfInvestment);
