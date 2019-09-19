@@ -107,7 +107,7 @@ export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thou
 let oldDateInp;
 export function formatFullDate(dateInp) {
   const date = dateInp;
-  const isBackspace = oldDateInp > dateInp;
+  const isBackspace = oldDateInp >= dateInp;
   const slashNum = (dateInp.match(/\//) || []).length;
   let formatedDate;
   if (isBackspace) {
