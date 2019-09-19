@@ -103,22 +103,25 @@ export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thou
   }
 }
 
-// ToDO: rewrite
-let oldDateInp;
-export function formatFullDate(dateInp) {
-  const date = dateInp;
-  const isBackspace = oldDateInp >= dateInp;
-  const slashNum = (dateInp.match(/\//) || []).length;
-  let formatedDate;
+let oldDateStripped;
+export function formatFullDate(newDate) {
+  if (!newDate) {return newDate};
+  const newDateStripped = newDate.replace(/\D/g,'');
+  const isBackspace = oldDateStripped >= newDateStripped;
+  let finalDate;
+  let f = newDateStripped;
   if (isBackspace) {
-    formatedDate = date;
-  } else if (slashNum < 2) {
-    if (date.length === 2 || date.length === 5) {
-      formatedDate = `${date.slice(0, date.length)}${'/'}${date.slice(date.length)}`;
-    }
+    f = (newDateStripped.length === 2 && oldDateStripped.length === 2
+      || newDateStripped.length === 4 && oldDateStripped.length === 4)
+      ? newDateStripped.substring(0, newDateStripped.length - 1)
+      : newDateStripped;
   }
-  oldDateInp = dateInp;
-  return formatedDate;
+  oldDateStripped = f;
+  let final;
+  if (f.length < 2) { final = f }
+  else if (f.length < 4) { final = `${f.slice(0,2)}${'/'}${f.slice(2,4)}` }
+  else { final = `${f.slice(0,2)}${'/'}${f.slice(2,4)}${'/'}${f.slice(4,8)}` }
+  return final;
 }
 
 export const normalizeFullDate = (valueInp) => {
