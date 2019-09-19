@@ -22,6 +22,7 @@ import { input as styles } from './styles';
 
 class Input extends Component {
   onChangeText(e) {
+    console.log(e)
     const { onChangeText, formKey, dataKey } = this.props;
     if (onChangeText) {
       onChangeText(e, formKey, dataKey);
