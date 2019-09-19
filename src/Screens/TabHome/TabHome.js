@@ -33,7 +33,7 @@ import SunGlow from 'src/Components/SunGlow';
 import { formatAmountDollar, formatAmountDollarCent } from 'src/Common/Helpers';
 
 import { LineChart } from 'src/Components/ChartKit';
-import { impactStatsSelector, latestSelector, accountsSelector } from 'src/Redux/AppContent';
+import { impactStatsSelector, latestSelector, accountsSelector, userSelector } from 'src/Redux/AppContent';
 
 import { sg } from 'src/Styles';
 
@@ -280,13 +280,29 @@ class TabHome extends Component {
   }
 
   renderBalance() {
-    const { accounts, navigation, screenProps } = this.props;
+    const { accounts, user, navigation, screenProps } = this.props;
     const { account } = screenProps;
 
     if (account) {
-      const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
-      const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
-      const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
+      let balanceDollars, balanceCents;
+      if (account.balanceIncludingPendingInDollars) {
+        const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
+        balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
+        balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
+      } else {
+        balanceDollars = "$0";
+        balanceCents = "00";
+      }
+
+      let nickName;
+      if (account.nickName) {
+        nickName = account.nickName;
+      } else if (user && user.firstName) {
+        nickName = user.firstName;
+      } else {
+        nickName = "Accounts";
+      }
+
       return (
         <View style={[sg.aICenter, sg.mT50, sg.mB25]} key={account.id}>
 
@@ -298,7 +314,7 @@ class TabHome extends Component {
               BottomInfo.showAccounts();
             }}
           >
-            <Text style={styles.title}>{account.nickName}</Text>
+            <Text style={styles.title}>{nickName}</Text>
             <Icon name="ios-arrow-down" style={styles.titleIcon} />
           </Button>
 
@@ -348,7 +364,9 @@ class TabHome extends Component {
               </Grid>
             </View>
 
-            {this.renderBalance()}
+            {
+              this.renderBalance()
+            }
 
             {/*
             <Button
@@ -410,11 +428,13 @@ const mapStateToProps = (state) => {
   const impactStats = impactStatsSelector(state);
   const latest = latestSelector(state);
   const accounts = accountsSelector(state);
+  const user = userSelector(state);
 
   return {
     impactStats,
     latest,
     accounts,
+    user
   };
 };
 
