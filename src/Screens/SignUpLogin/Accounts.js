@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import amplitude from 'amplitude-js';
-
 
 import {
   Button, Content, Text, Icon, Grid, Row, Col, List, ListItem, Body,
@@ -30,8 +28,6 @@ class Accounts extends React.PureComponent {
       // dev purpose
       // screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT);
     });
-
-    amplitude.getInstance().logEvent('Viewed Accounts Page', {});
   }
 
   onAccountSelect(account) {
@@ -54,12 +50,12 @@ class Accounts extends React.PureComponent {
   }
 
   renderAccount = (account) => {
-    if (account.status !== "incompleteApp") {
-      let showBalance = false, showAwaitingDebit = false, awaitingIdCheck = false, appIncomplete = false;
-      if (account.status === 'incompleteApp') { appIncomplete = true }
-      else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true }
-      else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true }
-      else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true };
+    if (account.status !== 'incompleteApp') {
+      let showBalance = false,
+        showAwaitingDebit = false,
+        awaitingIdCheck = false,
+        appIncomplete = false;
+      if (account.status === 'incompleteApp') { appIncomplete = true; } else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true; } else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true; } else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true; }
 
       return (
         <ListItem
@@ -83,7 +79,8 @@ class Accounts extends React.PureComponent {
                   )}
                   {showAwaitingDebit && (
                     <Text style={[sg.mL0, sg.fS16]} color4>
-                        {formatAmountDollar(account.amountAwaitingDirectDebit)} awaiting debit
+                      {formatAmountDollar(account.amountAwaitingDirectDebit)}
+                      {' awaiting debit'}
                     </Text>
                   )}
                 </Col>
