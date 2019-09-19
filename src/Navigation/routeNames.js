@@ -58,4 +58,6 @@ export default {
   ID_CHECK_ONLINE: 'IdCheckOnline',
   ID_CHECK: 'IdCheck',
   POST_US_CERTIFIED_ID: 'PostUsCertifiedId',
+  BIOMETRICS_SETUP: 'BiometricsSetup',
+  PIN_SETUP: 'PinSetup',
 };
