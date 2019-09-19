@@ -22,7 +22,6 @@ import { input as styles } from './styles';
 
 class Input extends Component {
   onChangeText(e) {
-    console.log(e)
     const { onChangeText, formKey, dataKey } = this.props;
     if (onChangeText) {
       onChangeText(e, formKey, dataKey);
@@ -196,7 +195,7 @@ class Input extends Component {
               // textCenter
               autoCorrect={false}
               {...this.props}
-              onChangeText={(e) => { this.onChangeText(e); }}
+              onChangeText={e => this.onChangeText(e)}
               value={formValue || value}
             />
             {this.renderInputRightIcon()}

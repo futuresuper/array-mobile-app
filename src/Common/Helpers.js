@@ -103,15 +103,21 @@ export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thou
   }
 }
 
+// ToDO: rewrite
+let oldDateInp;
 export function formatFullDate(dateInp) {
   const date = dateInp;
+  const isBackspace = oldDateInp > dateInp;
   const slashNum = (dateInp.match(/\//) || []).length;
   let formatedDate;
-  if (slashNum < 2) {
+  if (isBackspace) {
+    formatedDate = date;
+  } else if (slashNum < 2) {
     if (date.length === 2 || date.length === 5) {
       formatedDate = `${date.slice(0, date.length)}${'/'}${date.slice(date.length)}`;
     }
   }
+  oldDateInp = dateInp;
   return formatedDate;
 }
 

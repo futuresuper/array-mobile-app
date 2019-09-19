@@ -25,7 +25,7 @@ class ProtectedRoutes extends React.Component {
   accountRedirects(account) {
     const { status } = account;
     if (status === 'awaitingIdCheckAndMoney' || status === 'awaitingIdCheck') {
-      this.navigateToRoute(routeNames.ID_CHECK);
+      this.navigateToRoute(routeNames.DATE_OF_BIRTH);
     } else {
       this.navigateToRoute(routeNames.TAB_HOME);
     }
