@@ -74,17 +74,18 @@ class TaxNumbers extends Component {
     const formIsValid = hocs.formIsValid();
 
     if (formIsValid) {
+      console.log(form);
       const body = {
         taxFileNumber: form.tfn.value,
         usPerson: form.usPerson.value !== '',
         usTin: form.usTin.value,
         osTaxResident: form.resident.value !== '',
-        // tins: form.tins ? form.tins.map(t => ({
-        //   country: t.country.value,
-        //   tin: t.tin.value,
-        //   unavailableReason: t.unavailableReason.value,
-        //   unavailableReasonOther: t.unavailableReasonOther.value,
-        // })) : '',
+        tins: form.tins ? form.tins.map(t => ({
+          country: t.country.value,
+          tin: t.tin.value,
+          unavailableReason: t.reasonDoesntExist.value,
+          unavailableReasonOther: t.reasonOther.value,
+        })) : '',
         certifiedAllTaxResidenciesProvided: form.check.value,
       };
       screenProps.Api.post('/user', body, () => {
@@ -101,11 +102,17 @@ class TaxNumbers extends Component {
     const { hocs } = this.props;
     const { form } = hocs;
     const arrayTarget = key.split('.').slice(0, -1);
-    if (get(form, arrayTarget)) {
-      if (!get(form, arrayTarget).tin.value) {
-        return true;
-      }
+    const tinForm = get(form, arrayTarget);
+    if (!form.resident.value) {
       return false;
+    }
+    if (tinForm) {
+      if (tinForm.reasonDoesntIssue.value
+      || tinForm.reasonDoesntExist.value
+      || tinForm.reasonOther.value) {
+        return false;
+      }
+      return true;
     }
     return false;
   }
@@ -132,7 +139,7 @@ class TaxNumbers extends Component {
     if (formKey === 'resident') {
       targetFormKey = 'tins';
       if (!form.tins.length) {
-        // this.addNewResidentForm(0);
+        this.addNewResidentForm(0);
       }
     } else {
       targetFormKey = 'usTin';
@@ -180,7 +187,6 @@ class TaxNumbers extends Component {
 
   renderInternationalResidentTin() {
     // Commented out until working.
-    /*
     const { hocs } = this.props;
     const { form } = hocs;
 
@@ -256,14 +262,11 @@ class TaxNumbers extends Component {
       );
     }
     return null;
-    */
   }
 
   render() {
     const { hocs } = this.props;
     const { form } = hocs;
-
-    console.log(this.props);
 
 
     return (

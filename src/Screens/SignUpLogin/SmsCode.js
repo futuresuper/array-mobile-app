@@ -1,6 +1,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import amplitude from 'amplitude-js';
+
 
 import {
   View,
@@ -83,18 +85,21 @@ class SmsCode extends Component {
               const { user } = appContent;
               userDataSaveConnect(user);
               appContentSaveConnect(appContent);
-              //console.log("user: " + JSON.stringify(user));
-              //console.log("appContent: " + JSON.stringify(appContent));
+              // console.log("user: " + JSON.stringify(user));
+              // console.log("appContent: " + JSON.stringify(appContent));
               this.nextScreen(appContent.accounts.length);
+              amplitude.getInstance().logEvent('Entered SMS Code - Success', {});
             });
           }, () => {
             screenProps.toast('Unknown error');
+            amplitude.getInstance().logEvent('Entered SMS Code - Failed', {});
           });
         } else {
           screenProps.toast('Please enter the correct code');
         }
       }).catch(() => {
         screenProps.toast('Code timed out - Please try again');
+        amplitude.getInstance().logEvent('Entered SMS Code - TimedOut', {});
         screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
       });
 
@@ -104,7 +109,11 @@ class SmsCode extends Component {
     nextScreen(numAccounts) {
       const { screenProps } = this.props;
       const { navigateTo } = screenProps;
-      numAccounts > 0 ? navigateTo(routeNames.ACCOUNTS) : navigateTo(routeNames.ACCOUNT_TYPE);
+      if (numAccounts > 0) {
+        navigateTo(routeNames.ACCOUNTS);
+      } else {
+        navigateTo(routeNames.ACCOUNT_TYPE);
+      }
     }
 
     render() {
@@ -122,37 +131,37 @@ class SmsCode extends Component {
       return (
         <Content padder contentContainerStyle={styleGlobal.flexGrow}>
           <View style={styleGlobal.spaceBetween}>
-          <View>
-            <Text style={styleGlobal.formHeading}>
+            <View>
+              <Text style={styleGlobal.formHeading}>
               Verify
-            </Text>
+              </Text>
 
-            <Text style={styleGlobal.mB30}>
+              <Text style={styleGlobal.mB30}>
               We&apos;ve just texted you a code to
-              {'\n'}
-              <Text style={styleGlobal.textBold}>{mobile}</Text>
+                {'\n'}
+                <Text style={styleGlobal.textBold}>{mobile}</Text>
               &nbsp;to verify your number
-            </Text>
+              </Text>
 
-            <Input
-              helper="Code"
-              returnKeyType="next"
-              keyboardType="numeric"
-              value={smsCode}
-              onChangeText={(e) => { this.setState({ smsCode: e }); }}
-            />
+              <Input
+                helper="Code"
+                returnKeyType="next"
+                keyboardType="numeric"
+                value={smsCode}
+                onChangeText={(e) => { this.setState({ smsCode: e }); }}
+              />
 
+            </View>
+
+            <KeyboardAvoidingView keyboardVerticalOffset={100}>
+              <Button
+                onPress={() => this.handlePress()}
+                block
+              >
+                <Text>Next</Text>
+              </Button>
+            </KeyboardAvoidingView>
           </View>
-
-          <KeyboardAvoidingView keyboardVerticalOffset={100}>
-            <Button
-              onPress={() => this.handlePress()}
-              block
-            >
-              <Text>Next</Text>
-            </Button>
-          </KeyboardAvoidingView>
-        </View>
 
         </Content>
       );

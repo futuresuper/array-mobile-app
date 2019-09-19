@@ -9,4 +9,5 @@ export * from './TabFarms';
 export * from './DepositWithdraw';
 export * from './TabProfile';
 export * from './IdCheck';
+export * from './LocalAuthentication';
 export * from './Example';

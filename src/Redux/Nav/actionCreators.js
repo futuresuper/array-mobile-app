@@ -2,8 +2,10 @@
 import {
   getRouteInfo,
 } from 'src/Navigation/routes';
+import amplitude from 'amplitude-js';
 
 export function routePush(route, params = null) {
+  amplitude.getInstance().logEvent(`Viewed ${route} screen`, {});
   return {
     type: 'ROUTE_PUSH',
     route_name: route,

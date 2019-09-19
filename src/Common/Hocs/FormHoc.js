@@ -40,6 +40,15 @@ const errorValidators = {
       return true;
     },
   },
+  pin: {
+    text: 'Pin must be 4 numbers long',
+    validatorMethod(value) {
+      if (value.length === 4) {
+        return false;
+      }
+      return true;
+    },
+  },
 };
 
 const fromKeys = {

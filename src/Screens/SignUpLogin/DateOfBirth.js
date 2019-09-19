@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import {
-  Content, Button, Text, Grid, Col,
+  Content, Button, Text,
 } from 'native-base';
 
 import { routeNames } from 'src/Navigation';
@@ -113,7 +113,7 @@ class DateOfBirth extends React.Component {
         return;
       }
       const b = hocs.form.birthDate.value;
-      const birthDate = b[6]+b[7]+b[8]+b[9]+"-"+b[3]+b[4]+"-"+b[0]+b[1];
+      const birthDate = `${b[6] + b[7] + b[8] + b[9]}-${b[3]}${b[4]}-${b[0]}${b[1]}`;
       screenProps.Api.post(
         '/user',
         {

@@ -7,6 +7,8 @@ import {
 import {
   Platform,
 } from 'react-native';
+import amplitude from 'amplitude-js';
+
 
 import { isEmpty } from 'lodash';
 import { API } from 'aws-amplify';
@@ -85,6 +87,7 @@ class Api extends React.Component {
 
   static async logOut() {
     await AwsAmplify.logOut();
+    amplitude.getInstance().logEvent('Logged out', {});
     this.ApiInstance.authReset();
     this.ApiInstance.navigateToSplash();
   }

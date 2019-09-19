@@ -167,7 +167,14 @@ const signDataRoutes = formatRoutes({
   [routeNames.JOIN_FUTURE_FORM]: {
     screen: screens.JoinFutureForm,
     params: {},
-    ...tabCardOptions,
+  },
+  [routeNames.BIOMETRICS_SETUP]: {
+    screen: screens.BiometricsSetup,
+    params: {},
+  },
+  [routeNames.PIN_SETUP]: {
+    screen: screens.PinSetup,
+    params: {},
   },
 });
 

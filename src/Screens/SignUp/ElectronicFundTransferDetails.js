@@ -73,7 +73,7 @@ class ElectronicFundTransferDetails extends React.Component {
 
     renderCopyContainer(key, value) {
       return (
-        <Grid style={[sg.mT20, sg.bGWhite, sg.pV10, sg.pH10]}>
+        <Grid style={[sg.mT20, sg.bGWhite, sg.pV10, sg.pH10]} onPress={() => this.writeToClipboard(value)}>
           <Col>
             <Text style={[sg.colorGray, sg.fS14, sg.mB10]}>{key}</Text>
             <Text style={[sg.textBold, sg.fS14]}>
@@ -81,7 +81,7 @@ class ElectronicFundTransferDetails extends React.Component {
             </Text>
           </Col>
           <Col style={sg.width30}>
-            <Icon style={{ color: sc.color.primary }} onPress={() => this.writeToClipboard(value)} type="MaterialIcons" name="content-copy" />
+            <Icon style={{ color: sc.color.primary }} type="MaterialIcons" name="content-copy" />
           </Col>
         </Grid>
       );
@@ -130,7 +130,6 @@ ElectronicFundTransferDetails.propTypes = {
 
 const mapStateToProps = (state) => {
   const accountId = accountIdSelector(state);
-
   return {
     accountId,
   };
@@ -146,4 +145,4 @@ const res = composeHoc([
 ])(ElectronicFundTransferDetails);
 
 
-export default connect(mapDispatchToProps, mapStateToProps)(res);
+export default connect(mapStateToProps, mapDispatchToProps)(res);
