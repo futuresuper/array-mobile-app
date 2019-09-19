@@ -31,16 +31,11 @@ class Accounts extends React.PureComponent {
   }
 
   onAccountSelect(account) {
-    const { accountSelectSaveConnect, screenProps } = this.props;
-    if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') {
-      screenProps.navigateTo(routeNames.ID_CHECK);
-    } else if (account.status === 'incompleteApp') {
-      // To be added
-    } else {
-      // Route is changed in ProtectedRoutes (src/Common/ProtectedRoutes.js)
-      accountSelectSaveConnect(account);
-    }
+    const { accountSelectSaveConnect } = this.props;
+    // Route is changed in ProtectedRoutes (src/Common/ProtectedRoutes.js)
+    accountSelectSaveConnect(account);
   }
+
 
   getAppContent(callback) {
     const { screenProps } = this.props;

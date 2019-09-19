@@ -9,12 +9,15 @@ import {
   routeNames,
 } from 'src/Navigation';
 
+import {
+  accountIdSelector,
+} from 'src/Redux/Account';
 
 class ProtectedRoutes extends React.Component {
   componentDidUpdate(prevProps) {
-    const { account } = this.props;
-    const { account: prevAccount } = prevProps;
-    if (account.id !== prevAccount.id) {
+    const { accountId, account } = this.props;
+    const { accountId: prevAccountId } = prevProps;
+    if (accountId !== prevAccountId) {
       this.accountRedirects(account);
     }
   }
@@ -22,7 +25,7 @@ class ProtectedRoutes extends React.Component {
   accountRedirects(account) {
     const { status } = account;
     if (status === 'awaitingIdCheckAndMoney' || status === 'awaitingIdCheck') {
-      this.navigateToRoute(routeNames.ID_CHECK);
+      this.navigateToRoute(routeNames.ELECTROINIC_FUND_TRANSFER_DETAILS);
     } else {
       this.navigateToRoute(routeNames.TAB_HOME);
     }
@@ -38,10 +41,22 @@ class ProtectedRoutes extends React.Component {
   }
 }
 
+ProtectedRoutes.defaultProps = {
+  accountId: '',
+};
+
 ProtectedRoutes.propTypes = {
   navigateTo: PropTypes.func.isRequired,
   account: PropTypes.object.isRequired,
+  accountId: PropTypes.string,
+};
+
+const mapStateToProps = (state) => {
+  const accountId = accountIdSelector(state);
+  return {
+    accountId,
+  };
 };
 
 
-export default connect()(ProtectedRoutes);
+export default connect(mapStateToProps)(ProtectedRoutes);

@@ -130,7 +130,6 @@ ElectronicFundTransferDetails.propTypes = {
 
 const mapStateToProps = (state) => {
   const accountId = accountIdSelector(state);
-
   return {
     accountId,
   };
@@ -146,4 +145,4 @@ const res = composeHoc([
 ])(ElectronicFundTransferDetails);
 
 
-export default connect(mapDispatchToProps, mapStateToProps)(res);
+export default connect(mapStateToProps, mapDispatchToProps)(res);
