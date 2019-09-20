@@ -194,7 +194,7 @@ class JoinFutureForm extends React.Component {
             {'Thanks for joining Future Super!'}
           </Text>
           <Text>
-            {'You’ll get an email from our Future Super team in the next few days, to assist you with setting up your account and rolling in your other super.'}
+            {'Our Future Super team will get in touch in the next few days, to assist you with setting up your account and rolling in your other super.'}
           </Text>
         </View>
       </View>
