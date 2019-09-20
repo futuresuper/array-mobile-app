@@ -47,21 +47,18 @@ class FinalConfirmation extends React.Component {
             iconType: 'MaterialCommunityIcons',
             iconName: 'check-circle',
           });
-          /* Can uncomment when EFT Details page is working
+          // Can uncomment when EFT Details page is working
           if (res.initialInvestmentAmount > 5000) {
-            screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS, { showBackButton:false });
-          }
-          else */ if (res.fsMember) {
+            screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS, { showBackButton: false });
+          } else if (res.fsMember) {
             if (res.idCheckComplete) {
-              screenProps.navigateTo(routeNames.ACCOUNTS, { showBackButton:false });
+              screenProps.navigateTo(routeNames.ACCOUNTS, { showBackButton: false });
             } else {
-              screenProps.navigateTo(routeNames.ID_CHECK, { showBackButton:false });
+              screenProps.navigateTo(routeNames.ID_CHECK, { showBackButton: false });
             }
+          } else {
+            screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton: false });
           }
-          else {
-            screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton:false });
-          }
-
         });
       },
       () => {

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Text,
   View,
@@ -8,8 +10,6 @@ import {
 } from 'native-base';
 
 import FingerprintScanner from 'react-native-fingerprint-scanner';
-
-
 import {
   sg,
 } from 'src/Styles';
@@ -20,12 +20,16 @@ class BiometricsInput extends React.Component {
   };
 
   componentDidMount() {
+    const { onSuccess, onError } = this.props;
+
     FingerprintScanner
       .authenticate({ onAttempt: this.handleAuthenticationAttempted })
       .then(() => {
+        onSuccess();
         this.setState({ message: 'Authenticated successfully' });
       })
       .catch((error) => {
+        onError(error);
         this.setState({ message: error.message });
       });
   }
@@ -58,5 +62,11 @@ class BiometricsInput extends React.Component {
     );
   }
 }
+
+BiometricsInput.propTypes = {
+  onSuccess: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+};
+
 
 export default BiometricsInput;

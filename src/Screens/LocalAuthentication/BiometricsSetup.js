@@ -42,6 +42,10 @@ class BiometricsSetup extends React.Component {
 
   }
 
+  handleBiometricsError(error) {
+
+  }
+
   render() {
     const { biometrics } = this.state;
     return (
@@ -66,7 +70,7 @@ class BiometricsSetup extends React.Component {
             </View>
             {biometrics && (
             <View style={[styleGlobal.center, styleGlobal.mT50]}>
-              <BiometricsInput onSuccess={() => this.onBiometricsSuccess()}/>
+              <BiometricsInput onSuccess={() => this.handleBiometricsSuccess()} onError={error => this.handleBiometricsError(error)} />
             </View>
             )}
           </View>
