@@ -70,7 +70,7 @@ class BiometricsSetup extends React.Component {
               </Text>
             </View>
             <View style={[styleGlobal.center, styleGlobal.mT50]}>
-              <Button onPress={() => this.openBiometrics()} block>
+              <Button onPress={() => this.handleOpenBiometrics()} block>
                 <Text>
                   {biometrics ? 'Disable' : 'Enable'}
                   {' Face/Touch ID'}

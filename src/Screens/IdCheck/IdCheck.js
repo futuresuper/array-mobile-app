@@ -25,11 +25,10 @@ class IdCheck extends PureComponent {
 
     componentDidMount() {
       const { screenProps, localAuth } = this.props;
-      if (!localAuth.pin) {
+      if (localAuth.pin) {
         screenProps.navigateTo(routeNames.PIN_SETUP);
-      }
-      if (!localAuth.biometrics) {
-        screenProps.navigateTo(routeNames.BIOMETRICS_SETUP);
+      } else {
+        screenProps.navigateTo(routeNames, PIN_VALIDATE);
       }
     }
 

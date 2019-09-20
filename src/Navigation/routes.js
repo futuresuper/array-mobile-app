@@ -168,6 +168,9 @@ const signDataRoutes = formatRoutes({
     screen: screens.JoinFutureForm,
     params: {},
   },
+});
+
+const localAuthRoutes = formatRoutes({
   [routeNames.BIOMETRICS_SETUP]: {
     screen: screens.BiometricsSetup,
     params: {},
@@ -395,6 +398,7 @@ const tmpRoutes = {
 const routes = {
   signRoutes,
   signDataRoutes,
+  localAuthRoutes,
   mainRoutes,
   tabBarModalRootRoutes,
   tabRoutes,
@@ -431,6 +435,7 @@ export {
   getRouteInfo,
   signRoutes,
   signDataRoutes,
+  localAuthRoutes,
   mainRoutes,
   tabBarModalRootRoutes,
   tabRoutes,
