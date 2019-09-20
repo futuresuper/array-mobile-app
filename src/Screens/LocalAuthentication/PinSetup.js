@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   View,
@@ -8,6 +9,8 @@ import {
   Button,
   Text,
 } from 'native-base';
+
+import { pinSave, localAuthSelector } from 'src/Redux/Auth';
 
 
 import {
@@ -36,8 +39,12 @@ class PinSetup extends React.Component {
 
 
     componentDidMount() {
-      const { hocs } = this.props;
+      const { hocs, localAuth } = this.props;
       const { form } = this.state;
+
+      if (localAuth.pin) {
+        // go to verification instead
+      }
 
       hocs.setForm(form);
     }
@@ -46,6 +53,7 @@ class PinSetup extends React.Component {
       const {
         screenProps,
         hocs,
+        pinSaveConnect,
       } = this.props;
 
       const formIsValid = hocs.formIsValid();
@@ -53,6 +61,7 @@ class PinSetup extends React.Component {
         const pin = hocs.form.pin.value;
 
         screenProps.Api.post('/user', { pin }, () => {
+          pinSaveConnect(true);
           screenProps.navigateTo(routeNames.BIOMETRICS_SETUP);
         }, () => {
           screenProps.tastDanger('Error. Try again.');
@@ -100,8 +109,24 @@ class PinSetup extends React.Component {
     }
 }
 
+PinSetup.propTypes = {
+  pinSaveConnect: PropTypes.func.isRequired,
+  localAuth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const localAuth = localAuthSelector(state);
+  return {
+    localAuth,
+  };
+};
+
+const mapDispatchToProps = {
+  pinSaveConnect: pinSave,
+};
+
 const res = composeHoc([
   hocNames.FORM,
 ])(PinSetup);
 
-export default connect()(res);
+export default connect(mapStateToProps, mapDispatchToProps)(res);

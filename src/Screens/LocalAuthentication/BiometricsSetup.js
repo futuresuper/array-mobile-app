@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   View,
@@ -9,6 +10,7 @@ import {
   Text,
 } from 'native-base';
 
+import { localAuthSelector, biometricsSave } from 'src/Redux/Auth';
 
 import {
   routeNames,
@@ -31,6 +33,13 @@ class BiometricsSetup extends React.Component {
     biometrics: false,
   }
 
+  componentDidMount() {
+    const { localAuth } = this.props;
+    if (localAuth.biometrics) {
+      // goToValidation
+    }
+  }
+
   handleSkip() {
   }
 
@@ -39,11 +48,11 @@ class BiometricsSetup extends React.Component {
   }
 
   handleBiometricsSuccess() {
-
+    const { biometricsSaveConnect } = this.props;
+    biometricsSaveConnect(false);
   }
 
   handleBiometricsError(error) {
-
   }
 
   render() {
@@ -94,8 +103,24 @@ class BiometricsSetup extends React.Component {
   }
 }
 
+BiometricsSetup.propTypes = {
+  biometricsSaveConnect: PropTypes.func.isRequired,
+  localAuth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const localAuth = localAuthSelector(state);
+  return {
+    localAuth,
+  };
+};
+
+const mapDispatchToProps = {
+  biometricsSaveConnect: biometricsSave,
+};
+
 const res = composeHoc([
   hocNames.FORM,
 ])(BiometricsSetup);
 
-export default connect()(res);
+export default connect(mapStateToProps, mapDispatchToProps)(res);

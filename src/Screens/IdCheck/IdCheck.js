@@ -14,17 +14,23 @@ import idCheckUtils from 'src/Common/idCheck';
 import EditIcon from 'src/assets/images/Edit.png';
 
 import { userSelector } from 'src/Redux/AppContent';
+import { localAuthSelector } from 'src/Redux/Auth';
+
 
 import { sg } from 'src/Styles';
 import styles from './styles';
 
 class IdCheck extends PureComponent {
-    // const { user } = this.props;
     state = {};
 
     componentDidMount() {
-      const { screenProps } = this.props;
-      console.log('ID CHECK SCREEN');
+      const { screenProps, localAuth } = this.props;
+      if (!localAuth.pin) {
+        screenProps.navigateTo(routeNames.PIN_SETUP);
+      }
+      if (!localAuth.biometrics) {
+        screenProps.navigateTo(routeNames.BIOMETRICS_SETUP);
+      }
     }
 
 
@@ -265,12 +271,15 @@ class IdCheck extends PureComponent {
 
 IdCheck.propTypes = {
   user: PropTypes.object.isRequired,
+  localAuth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const user = userSelector(state);
+  const localAuth = localAuthSelector(state);
   return {
     user,
+    localAuth,
   };
 };
 
