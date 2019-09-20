@@ -268,6 +268,7 @@ class AppIndex extends Component {
             <ProtectedRoutes
               navigateTo={this.navigateTo}
               account={account}
+              navState={navigation}
             />
             <AppWithNavigationState
               navigation={screenProps}

@@ -1,7 +1,7 @@
 
 import { AppNavigator } from 'src/Navigation/AppNavigator';
 import { NavigationActions, StackActions } from 'react-navigation';
-import _ from 'lodash';
+import { isNil } from 'lodash';
 
 export default function (state, action) {
   let res;
@@ -26,7 +26,7 @@ export default function (state, action) {
       let navBack;
       const { back_screen, params } = action.payload;
 
-      if (!_.isNil(back_screen)) {
+      if (!isNil(back_screen)) {
         navBack = NavigationActions.navigate({
           routeName: back_screen,
           params: { ...params },

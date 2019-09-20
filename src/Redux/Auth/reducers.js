@@ -79,7 +79,7 @@ const ACTION_HANDLERS = {
     ...state,
     localAuth: {
       ...state.localAuth,
-      expires_in: Math.floor(Date.now() / 1000) + (60 * 30), // sets expiery date to 30 minutes from now
+      expires_in: Math.floor(Date.now() / 1000) + 60, // sets expiery date to 30 minutes from now
     },
   }),
 };

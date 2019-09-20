@@ -13,12 +13,24 @@ import {
   accountIdSelector,
 } from 'src/Redux/Account';
 
+import {
+  localAuthSelector,
+} from 'src/Redux/Auth';
+
+import {
+  navGetCurrentScreen,
+} from 'src/Common/Helpers';
+
 class ProtectedRoutes extends React.Component {
   componentDidUpdate(prevProps) {
-    const { accountId, account } = this.props;
+    const { accountId, account, navState } = this.props;
     const { accountId: prevAccountId } = prevProps;
+    const currentRoute = navGetCurrentScreen(navState);
     if (accountId !== prevAccountId) {
       this.accountRedirects(account);
+    }
+    if (currentRoute.params.protected) {
+      this.validateProtectedRoute(currentRoute);
     }
   }
 
@@ -31,9 +43,18 @@ class ProtectedRoutes extends React.Component {
     }
   }
 
-  navigateToRoute(route) {
+  validateProtectedRoute(route) {
+    const { localAuth } = this.props;
+    if (localAuth.expires_in < Math.floor(Date.now() / 1000)) {
+      this.navigateToRoute(routeNames.LOCAL_AUTH_HANDLER, {
+        next: route.routeName,
+      });
+    }
+  }
+
+  navigateToRoute(route, params) {
     const { navigateTo } = this.props;
-    navigateTo(route);
+    navigateTo(route, params);
   }
 
   render() {
@@ -49,12 +70,16 @@ ProtectedRoutes.propTypes = {
   navigateTo: PropTypes.func.isRequired,
   account: PropTypes.object.isRequired,
   accountId: PropTypes.string,
+  localAuth: PropTypes.object.isRequired,
+  navState: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const accountId = accountIdSelector(state);
+  const localAuth = localAuthSelector(state);
   return {
     accountId,
+    localAuth,
   };
 };
 

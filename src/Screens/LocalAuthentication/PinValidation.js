@@ -38,6 +38,7 @@ class PinValidation extends React.Component {
 
 
     componentDidMount() {
+      console.log(this.props.navigation.getParam('next'));
       const { hocs } = this.props;
       const { form } = this.state;
       hocs.setForm(form);
