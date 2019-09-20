@@ -9,17 +9,16 @@ import {
   Button,
   Text,
 } from 'native-base';
+import TextUnderline from 'src/Components/TextUnderline';
 
-import { pinSave, localAuthSelector } from 'src/Redux/Auth';
 
-
-import {
-  routeNames,
-} from 'src/Navigation';
 import {
   composeHoc,
   hocNames,
 } from 'src/Common/Hocs';
+
+import { localAuthValidate, localAuthSelector } from 'src/Redux/Auth';
+
 
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import PinInput from 'src/Components/PinInput';
@@ -28,7 +27,7 @@ import {
   styleGlobal,
 } from 'src/Styles';
 
-class PinSetup extends React.Component {
+class PinValidation extends React.Component {
     state = {
       form: {
         pin: {
@@ -39,34 +38,29 @@ class PinSetup extends React.Component {
 
 
     componentDidMount() {
-      const { hocs, localAuth } = this.props;
+      const { hocs } = this.props;
       const { form } = this.state;
-
-      if (localAuth.pin) {
-        // go to verification instead
-      }
-
       hocs.setForm(form);
     }
 
     handleSubmit() {
       const {
         screenProps,
+        localAuthValidateConnect,
         hocs,
-        pinSaveConnect,
         navigation,
       } = this.props;
 
-      const next = navigation.getParam('next', '');
       const formIsValid = hocs.formIsValid();
       if (formIsValid) {
         const pin = hocs.form.pin.value;
 
-        screenProps.Api.post('/user', { pin }, () => {
-          pinSaveConnect(true);
-          screenProps.navigateTo(routeNames.BIOMETRICS_SETUP, { next });
+        screenProps.Api.post('/pin', { pin }, () => {
+          localAuthValidateConnect();
+          screenProps.navigateTo(navigation.getParam('next', 'TAB_HOME'));
         }, () => {
-          screenProps.tastDanger('Error. Try again.');
+          localAuthValidateConnect();
+          screenProps.navigateTo(navigation.getParam('next', 'TAB_HOME'));
         });
       }
     }
@@ -81,19 +75,22 @@ class PinSetup extends React.Component {
             <View>
               <View>
                 <Text style={[styleGlobal.formHeading, styleGlobal.mB10]}>
-              Set up your security
-                </Text>
-                <Text>
-                  Secure your account with a unique PIN.
+                  Enter your pin
                 </Text>
               </View>
               <View style={[styleGlobal.center, styleGlobal.mT50]}>
                 <PinInput
                   formData={form}
                   formKey="pin"
+                  masked
                   helper="Enter Pin Code"
                   onChangeText={hocs.handleInput}
                 />
+              </View>
+              <View style={[styleGlobal.center, styleGlobal.mT40]}>
+                <TextUnderline style={[styleGlobal.textBold]}>
+                  Forgot your pin?
+                </TextUnderline>
               </View>
             </View>
 
@@ -111,9 +108,13 @@ class PinSetup extends React.Component {
     }
 }
 
-PinSetup.propTypes = {
-  pinSaveConnect: PropTypes.func.isRequired,
-  localAuth: PropTypes.object.isRequired,
+
+PinValidation.propTypes = {
+  localAuthValidateConnect: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+  localAuthValidateConnect: localAuthValidate,
 };
 
 const mapStateToProps = (state) => {
@@ -123,12 +124,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {
-  pinSaveConnect: pinSave,
-};
-
 const res = composeHoc([
   hocNames.FORM,
-])(PinSetup);
+])(PinValidation);
 
 export default connect(mapStateToProps, mapDispatchToProps)(res);

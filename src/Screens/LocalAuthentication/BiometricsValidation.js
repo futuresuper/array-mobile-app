@@ -13,6 +13,9 @@ import {
 import { localAuthSelector, biometricsSave } from 'src/Redux/Auth';
 
 import {
+  routeNames,
+} from 'src/Navigation';
+import {
   composeHoc,
   hocNames,
 } from 'src/Common/Hocs';
@@ -25,7 +28,7 @@ import {
   styleGlobal,
 } from 'src/Styles';
 
-class BiometricsSetup extends React.Component {
+class BiometricsValidation extends React.Component {
   state = {
     biometrics: false,
   }
@@ -38,10 +41,6 @@ class BiometricsSetup extends React.Component {
   }
 
   handleSkip() {
-    const { screenProps, navigation } = this.props;
-    const next = navigation.getParam('next', 'TAB_HOME');
-
-    screenProps.navigateTo(next);
   }
 
   handleOpenBiometrics() {
@@ -49,15 +48,11 @@ class BiometricsSetup extends React.Component {
   }
 
   handleBiometricsSuccess() {
-    const { biometricsSaveConnect, screenProps, navigation } = this.props;
-    const next = navigation.getParam('next', 'TAB_HOME');
-    screenProps.navigateTo(next);
-
+    const { biometricsSaveConnect } = this.props;
     biometricsSaveConnect(false);
   }
 
   handleBiometricsError(error) {
-    alert(error);
   }
 
   render() {
@@ -108,7 +103,7 @@ class BiometricsSetup extends React.Component {
   }
 }
 
-BiometricsSetup.propTypes = {
+BiometricsValidation.propTypes = {
   biometricsSaveConnect: PropTypes.func.isRequired,
   localAuth: PropTypes.object.isRequired,
 };
@@ -126,6 +121,6 @@ const mapDispatchToProps = {
 
 const res = composeHoc([
   hocNames.FORM,
-])(BiometricsSetup);
+])(BiometricsValidation);
 
 export default connect(mapStateToProps, mapDispatchToProps)(res);

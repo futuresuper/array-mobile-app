@@ -5,6 +5,7 @@ const initialState = {
   localAuth: {
     pin: false,
     biometrics: false,
+    expires_in: '',
   },
   token: {
     access_token: '',
@@ -72,6 +73,13 @@ const ACTION_HANDLERS = {
     localAuth: {
       ...state.localAuth,
       biometrics: action.payload,
+    },
+  }),
+  [types.LOCAL_AUTH_VALIDATE]: state => ({
+    ...state,
+    localAuth: {
+      ...state.localAuth,
+      expires_in: Math.floor(Date.now() / 1000) + (60 * 30), // sets expiery date to 30 minutes from now
     },
   }),
 };

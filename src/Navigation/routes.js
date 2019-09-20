@@ -179,6 +179,18 @@ const localAuthRoutes = formatRoutes({
     screen: screens.PinSetup,
     params: {},
   },
+  [routeNames.BIOMETRICS_VALIDATION]: {
+    screen: screens.BiometricsValidation,
+    params: {},
+  },
+  [routeNames.PIN_VALIDATION]: {
+    screen: screens.PinValidation,
+    params: {},
+  },
+  [routeNames.LOCAL_AUTH_HANDLER]: {
+    screen: screens.LocalAuthHandler,
+    params: {},
+  },
 });
 
 const mainRoutes = formatRoutes({

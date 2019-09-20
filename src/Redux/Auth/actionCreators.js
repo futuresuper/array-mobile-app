@@ -53,3 +53,9 @@ export function biometricsSave(data) {
     payload: data,
   };
 }
+
+export function localAuthValidate() {
+  return {
+    type: types.LOCAL_AUTH_VALIDATE,
+  };
+}
