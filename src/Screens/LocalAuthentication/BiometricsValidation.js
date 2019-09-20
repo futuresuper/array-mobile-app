@@ -6,21 +6,14 @@ import {
 } from 'react-native';
 import {
   Content,
-  Button,
-  Text,
 } from 'native-base';
 
-import { localAuthSelector, biometricsSave } from 'src/Redux/Auth';
-
-import {
-  routeNames,
-} from 'src/Navigation';
 import {
   composeHoc,
   hocNames,
 } from 'src/Common/Hocs';
+import { localAuthValidate } from 'src/Redux/Auth';
 
-import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import BiometricsInput from 'src/Components/BiometricsInput';
 
 
@@ -28,75 +21,24 @@ import {
   styleGlobal,
 } from 'src/Styles';
 
-class BiometricsValidation extends React.Component {
-  state = {
-    biometrics: false,
-  }
-
-  componentDidMount() {
-    const { localAuth } = this.props;
-    if (localAuth.biometrics) {
-      // goToValidation
-    }
-  }
-
-  handleSkip() {
-  }
-
-  handleOpenBiometrics() {
-    this.setState(prevState => ({ biometrics: !prevState.biometrics }));
-  }
-
+class BiometricsValidation extends React.PureComponent {
   handleBiometricsSuccess() {
-    const { biometricsSaveConnect } = this.props;
-    biometricsSaveConnect(false);
+    const { localAuthValidateConnect, screenProps, navigation } = this.props;
+    localAuthValidateConnect();
+    screenProps.navigateTo(navigation.getParam('next', 'TAB_HOME'));
   }
 
   handleBiometricsError(error) {
+    console.log(error);
   }
 
   render() {
-    const { biometrics } = this.state;
     return (
       <Content padder contentContainerStyle={styleGlobal.flexGrow}>
         <View style={styleGlobal.spaceBetween}>
-          <View>
-            <View>
-              <Text style={[styleGlobal.formHeading, styleGlobal.mB10]}>
-                Set up your security
-              </Text>
-              <Text>
-                Your PIN is set. You can also use Face/Touch ID for future log ins:
-              </Text>
-            </View>
-            <View style={[styleGlobal.center, styleGlobal.mT50]}>
-              <Button onPress={() => this.handleOpenBiometrics()} block>
-                <Text>
-                  {biometrics ? 'Disable' : 'Enable'}
-                  {' Face/Touch ID'}
-                </Text>
-              </Button>
-            </View>
-            {biometrics && (
-            <View style={[styleGlobal.center, styleGlobal.mT50]}>
-              <BiometricsInput onSuccess={() => this.handleBiometricsSuccess()} onError={error => this.handleBiometricsError(error)} />
-            </View>
-            )}
+          <View style={[styleGlobal.center, styleGlobal.mT50]}>
+            <BiometricsInput onSuccess={() => this.handleBiometricsSuccess()} onError={error => this.handleBiometricsError(error)} />
           </View>
-
-          {!biometrics && (
-          <KeyboardAvoidingView keyboardVerticalOffset={100}>
-            <Button
-              bordered
-              dark
-              block
-              marginVert
-              onPress={() => this.handleSkip()}
-            >
-              <Text>Next</Text>
-            </Button>
-          </KeyboardAvoidingView>
-          )}
         </View>
       </Content>
     );
@@ -104,20 +46,17 @@ class BiometricsValidation extends React.Component {
 }
 
 BiometricsValidation.propTypes = {
-  biometricsSaveConnect: PropTypes.func.isRequired,
-  localAuth: PropTypes.object.isRequired,
+  localAuthValidateConnect: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const localAuth = localAuthSelector(state);
-  return {
-    localAuth,
-  };
-};
 
 const mapDispatchToProps = {
-  biometricsSaveConnect: biometricsSave,
+  localAuthValidateConnect: localAuthValidate,
 };
+
+const mapStateToProps = state => ({
+});
+
 
 const res = composeHoc([
   hocNames.FORM,

@@ -30,13 +30,6 @@ class BiometricsSetup extends React.Component {
     biometrics: false,
   }
 
-  componentDidMount() {
-    const { localAuth } = this.props;
-    if (localAuth.biometrics) {
-      // goToValidation
-    }
-  }
-
   handleSkip() {
     const { screenProps, navigation } = this.props;
     const next = navigation.getParam('next', 'TAB_HOME');
@@ -51,9 +44,8 @@ class BiometricsSetup extends React.Component {
   handleBiometricsSuccess() {
     const { biometricsSaveConnect, screenProps, navigation } = this.props;
     const next = navigation.getParam('next', 'TAB_HOME');
+    biometricsSaveConnect(true);
     screenProps.navigateTo(next);
-
-    biometricsSaveConnect(false);
   }
 
   handleBiometricsError(error) {

@@ -25,8 +25,8 @@ class BiometricsInput extends React.Component {
     FingerprintScanner
       .authenticate({ onAttempt: this.handleAuthenticationAttempted })
       .then(() => {
-        onSuccess();
         this.setState({ message: 'Authenticated successfully' });
+        onSuccess();
       })
       .catch((error) => {
         onError(error);

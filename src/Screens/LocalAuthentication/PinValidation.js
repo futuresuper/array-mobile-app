@@ -17,7 +17,7 @@ import {
   hocNames,
 } from 'src/Common/Hocs';
 
-import { localAuthValidate, localAuthSelector } from 'src/Redux/Auth';
+import { localAuthValidate } from 'src/Redux/Auth';
 
 
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
@@ -38,11 +38,17 @@ class PinValidation extends React.Component {
 
 
     componentDidMount() {
-      console.log(this.props.navigation.getParam('next'));
       const { hocs } = this.props;
       const { form } = this.state;
       hocs.setForm(form);
     }
+
+    logOut = () => {
+      const { screenProps } = this.props;
+
+      screenProps.disableTheme();
+      screenProps.Api.logOut();
+    };
 
     handleSubmit() {
       const {
@@ -65,6 +71,7 @@ class PinValidation extends React.Component {
         });
       }
     }
+
 
     render() {
       const { hocs } = this.props;
@@ -89,7 +96,7 @@ class PinValidation extends React.Component {
                 />
               </View>
               <View style={[styleGlobal.center, styleGlobal.mT40]}>
-                <TextUnderline style={[styleGlobal.textBold]}>
+                <TextUnderline style={[styleGlobal.textBold]} onPress={() => this.logOut()}>
                   Forgot your pin?
                 </TextUnderline>
               </View>
@@ -118,12 +125,7 @@ const mapDispatchToProps = {
   localAuthValidateConnect: localAuthValidate,
 };
 
-const mapStateToProps = (state) => {
-  const localAuth = localAuthSelector(state);
-  return {
-    localAuth,
-  };
-};
+const mapStateToProps = state => ({});
 
 const res = composeHoc([
   hocNames.FORM,
