@@ -47,7 +47,6 @@ class FinalConfirmation extends React.Component {
             iconType: 'MaterialCommunityIcons',
             iconName: 'check-circle',
           });
-          // Can uncomment when EFT Details page is working
           if (res.initialInvestmentAmount > 5000) {
             screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS, { showBackButton: false });
           } else if (res.fsMember) {

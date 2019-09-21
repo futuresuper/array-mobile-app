@@ -105,8 +105,8 @@ export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thou
 
 let oldDateStripped;
 export function formatFullDate(newDate) {
-  if (!newDate) {return newDate};
-  const newDateStripped = newDate.replace(/\D/g,'');
+  if (!newDate) { return newDate; }
+  const newDateStripped = newDate.replace(/\D/g, '');
   const isBackspace = oldDateStripped >= newDateStripped;
   let finalDate;
   let f = newDateStripped;
@@ -118,9 +118,13 @@ export function formatFullDate(newDate) {
   }
   oldDateStripped = f;
   let final;
-  if (f.length < 2) { final = f }
-  else if (f.length < 4) { final = `${f.slice(0,2)}${'/'}${f.slice(2,4)}` }
-  else { final = `${f.slice(0,2)}${'/'}${f.slice(2,4)}${'/'}${f.slice(4,8)}` }
+  if (f.length < 2) {
+    final = f;
+  } else if (f.length < 4) {
+    final = `${f.slice(0, 2)}${'/'}${f.slice(2, 4)}`;
+  } else {
+    final = `${f.slice(0, 2)}${'/'}${f.slice(2, 4)}${'/'}${f.slice(4, 8)}`;
+  }
   return final;
 }
 
