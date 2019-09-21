@@ -35,18 +35,12 @@ class DateOfBirth extends React.Component {
     hocs.setForm(form);
   }
 
-  isDayValid = (valInp) => {
-    const day = valInp.split('/')[0];
-
+  isDayValid = (day) => {
     if (!day) {
       return false;
     }
 
-    const val = parseInt(day, 10);
-
-    if (!day.match(/^\d+$/)) {
-      return false;
-    }
+    const val = parseInt(day);
 
     if (val < 1 || val > 31) {
       return false;
@@ -55,9 +49,7 @@ class DateOfBirth extends React.Component {
     return true;
   };
 
-  isMonthValid = (valInp) => {
-    const month = valInp.split('/')[1];
-
+  isMonthValid = (month) => {
     if (!month) {
       return false;
     }
@@ -75,19 +67,17 @@ class DateOfBirth extends React.Component {
     return true;
   };
 
-  isYearValid = (valInp) => {
-    const year = valInp.split('/')[2];
-
+  isYearValid = (year) => {
     if (!year) {
       return false;
     }
 
     if (!year.match(/^\d+$/)) {
-      console.log(year.match(/^\d+$/));
+      //console.log(year.match(/^\d+$/));
       return false;
     }
 
-    if (year.length !== 3) {
+    if (year.length !== 4) {
       return false;
     }
 
@@ -106,6 +96,22 @@ class DateOfBirth extends React.Component {
     const birthday = hocs.form.birthDate.value;
 
     if (formIsValid) {
+
+      if (birthday.length !== 10) {
+        screenProps.toastDanger('Please enter your date of birth in the format DD/MM/YYYY');
+        return;
+      }
+
+      if (!this.isDayValid(birthday.slice(0,2))) {
+        screenProps.toastDanger('Please enter your date of birth in the format DD/MM/YYYY');
+        return;
+      }
+
+      if (!this.isMonthValid(birthday.slice(3,5))) {
+        screenProps.toastDanger('Please enter your date of birth in the format DD/MM/YYYY');
+        return;
+      }
+
       const isEighteen = moment().diff(moment(birthday.split('/')[2], 'YYYY'), 'years') >= 18;
 
       if (!isEighteen) {
