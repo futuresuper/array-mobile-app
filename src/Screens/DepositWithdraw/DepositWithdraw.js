@@ -64,59 +64,12 @@ class DepositWithdraw extends Component {
 
     return (
       <Content padder contentContainerStyle={[sg.flexGrow]}>
-        <View style={sg.spaceBetween}>
-          <View>
-            <View style={[sg.row]}>
-              <Text style={[styles.tabTextActive, (!segment.isDeposit ? styles.tabText : {}), sg.mB40]}>Make a Deposit</Text>
-              {/*
-              <Button
-                transparent
-                onPress={this.segmentDeposit}
-                style={[sg.mT0, sg.pT0, sg.heightNull]}
-              >
-                <Text style={[styles.tabTextActive, (!segment.isDeposit ? styles.tabText : {})]}>Make a Deposit</Text>
-              </Button>
-
-              <Button
-                transparent
-                onPress={this.segmentWithdraw}
-                style={[sg.mT0, sg.pT0, sg.heightNull]}
-              >
-                <Text style={[styles.tabTextActive, sg.mL10, (!segment.isWithdraw ? styles.tabText : {})]}>Withdraw</Text>
-              </Button>
-              */}
-            </View>
-
-            {segment.isDeposit && (
-              <Deposit
-                ref={(ref) => {
-                  if (ref) this.Deposit = ref;
-                }}
-                {...this.props}
-              />
-            )}
-          </View>
-
-          <View>
-            {segment.isWithdraw
-              && (
-                <Text style={[sg.colorGray, sg.mB20]}>
-                  Just a reminder that withdrawals can take up to 30 days to reach your account.
-                  <Text style={sg.textBold}> Why?</Text>
-                </Text>
-              )
-            }
-
-            {/*
-            <Button
-              block
-              onPress={this.onNext}
-            >
-              <Text>{segment.isDeposit ? 'Next' : 'Confirm'}</Text>
-            </Button>
-            */}
-          </View>
-        </View>
+        <Deposit
+          ref={(ref) => {
+            if (ref) this.Deposit = ref;
+          }}
+          {...this.props}
+        />
       </Content>
     );
   }

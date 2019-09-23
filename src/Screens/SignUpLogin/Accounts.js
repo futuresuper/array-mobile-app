@@ -19,14 +19,13 @@ import { sg } from 'src/Styles';
 class Accounts extends React.PureComponent {
   componentDidMount() {
     const { userDataSaveConnect, appContentSaveConnect } = this.props;
-
     this.getAppContent((appContent) => {
       const { user } = appContent;
       const { screenProps } = this.props;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      //screenProps.navigateTo(routeNames.TAB_HOME);
+      screenProps.navigateTo(routeNames.TAB_HOME);
     });
   }
 
@@ -40,6 +39,7 @@ class Accounts extends React.PureComponent {
   getAppContent(callback) {
     const { screenProps } = this.props;
     screenProps.Api.get('/appcontent', {}, callback, () => {
+      //screenProps.navigateTo(routeNames.APP_LANDING);
       screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
     });
   }
