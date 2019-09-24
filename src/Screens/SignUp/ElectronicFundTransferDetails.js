@@ -106,9 +106,9 @@ class ElectronicFundTransferDetails extends React.Component {
                 {'Transfer Details'}
               </Text>
               <Text>
-                {'To make your initial investment of'}
+                {'To make your initial investment of '}
                 { formatAmountDollar(account.initialInvestmentAmount) }
-                {'you’ll need to make an EFT. Tap to copy the below details to make the transfer.'}
+                {' you’ll need to make an EFT. Tap to copy the below details to make the transfer.'}
               </Text>
             </View>
             {this.renderCopyContainer('ACCOUNT NAME', accountName)}
