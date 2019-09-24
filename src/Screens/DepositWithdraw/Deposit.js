@@ -12,6 +12,7 @@ import {
   Col,
 } from 'native-base';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
+// import { connect } from 'react-redux';
 
 
 import composeHoc from 'src/Common/Hocs';
@@ -22,6 +23,8 @@ import {
 import {
   routeNames,
 } from 'src/Navigation';
+
+// import { accountUpdateSave } from 'src/Redux/Account';
 
 import {
   formatAmountDollar,
@@ -96,7 +99,7 @@ class Deposit extends Component {
   }
 
   onConfirm() {
-    const { screenProps, hocs } = this.props;
+    const { screenProps, hocs, accountUpdateSaveConnect } = this.props;
     const { form } = hocs;
     const { account } = screenProps;
     const body = {
@@ -110,16 +113,24 @@ class Deposit extends Component {
           step: 2
         })
       } else {
-        screenProps.toast('That amount will be debited from your bank account in the next few days', {
+        if (account.amountAwaitingDirectDebit) {
+          account.amountAwaitingDirectDebit = parseInt(account.amountAwaitingDirectDebit) + parseInt(body.amount);
+        }
+        screenProps.toast(`${formatAmountDollar(body.amount)} will be debited from your bank account in the next few days`, {
           iconType: 'MaterialCommunityIcons',
           iconName: 'check-circle',
         });
-        // To do - update amount awaiting direct debit
-
         screenProps.navigateTo(routeNames.TAB_HOME);
       }
     }, () => {
       screenProps.toastDanger('Error. Try Again');
+    });
+  }
+
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {}, callback, () => {
+      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
     });
   }
 
@@ -293,6 +304,12 @@ class Deposit extends Component {
     );
   }
 }
+
+/*
+const mapDispatchToProps = {
+  accountUpdateSaveConnect: accountUpdateSave,
+};
+*/
 
 const res = composeHoc([
   'FormHoc',
