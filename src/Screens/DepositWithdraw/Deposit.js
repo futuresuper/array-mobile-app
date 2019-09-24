@@ -8,8 +8,11 @@ import {
   Item,
   Icon,
   Button,
+  Grid,
+  Col,
 } from 'native-base';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
+// import { connect } from 'react-redux';
 
 
 import composeHoc from 'src/Common/Hocs';
@@ -21,13 +24,18 @@ import {
   routeNames,
 } from 'src/Navigation';
 
+// import { accountUpdateSave } from 'src/Redux/Account';
+
 import {
   formatAmountDollar,
   normalizeAmount,
 } from 'src/Common/Helpers';
 
+import { random } from 'lodash';
+
 import {
   sg,
+  sc
 } from 'src/Styles';
 
 import styles from './styles';
@@ -49,14 +57,23 @@ class Deposit extends Component {
         },
       },
       step: 0,
+      accountName: 'ONE REGISTRY SERVICES PTY LIMITED APPLICATIONS ACCOUNT 12',
+      bsb: '332 127',
+      accNo: '555 250 206',
+      reference: '',
     };
   }
 
   componentDidMount() {
     const { hocs } = this.props;
     const { form } = this.state;
-
     hocs.setForm(form);
+    const { screenProps } = this.props;
+    const { getUserInfo } = screenProps;
+    const lname = getUserInfo().lastName;
+    const accountRef = random(100, 999); // account.bankAccountNumber.slice(-3); when it becomes available from api
+    const reference = `${lname}${accountRef}`;
+    this.setState({ reference });
   }
 
   onNext = () => {
@@ -82,7 +99,7 @@ class Deposit extends Component {
   }
 
   onConfirm() {
-    const { screenProps, hocs } = this.props;
+    const { screenProps, hocs, accountUpdateSaveConnect } = this.props;
     const { form } = hocs;
     const { account } = screenProps;
     const body = {
@@ -91,9 +108,29 @@ class Deposit extends Component {
       accountId: account.id
     };
     screenProps.Api.post('/transaction', body, () => {
-      this.setState({ step: 2 });
+      if (body.amount > 5000) {
+        this.setState({
+          step: 2
+        })
+      } else {
+        if (account.amountAwaitingDirectDebit) {
+          account.amountAwaitingDirectDebit = parseInt(account.amountAwaitingDirectDebit) + parseInt(body.amount);
+        }
+        screenProps.toast(`${formatAmountDollar(body.amount)} will be debited from your bank account in the next few days`, {
+          iconType: 'MaterialCommunityIcons',
+          iconName: 'check-circle',
+        });
+        screenProps.navigateTo(routeNames.TAB_HOME);
+      }
     }, () => {
       screenProps.toastDanger('Error. Try Again');
+    });
+  }
+
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {}, callback, () => {
+      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
     });
   }
 
@@ -101,7 +138,7 @@ class Deposit extends Component {
     const { hocs, screenProps } = this.props;
     const { form } = hocs;
 
-    if (form && form.amount.value >= 5000) {
+    if (form && form.amount.value > 5000) {
       return (
         <Text style={[sg.pV20]}>
           {'Investments over $5,000 can be made by EFT.\n\nWe’ll provide you with the bank details for the transfer by email after you confirm.'}
@@ -191,6 +228,70 @@ class Deposit extends Component {
     );
   }
 
+  renderCopyContainer(key, value) {
+    return (
+      <Grid style={[sg.mT20, sg.bGWhite, sg.pV10, sg.pH10]} onPress={() => this.writeToClipboard(value)}>
+        <Col>
+          <Text style={[sg.colorGray, sg.fS14, sg.mB10]}>{key}</Text>
+          <Text style={[sg.textBold, sg.fS14]}>
+            {value}
+          </Text>
+        </Col>
+        <Col style={sg.width30}>
+          <Icon style={{ color: sc.color.primary }} type="MaterialIcons" name="content-copy" />
+        </Col>
+      </Grid>
+    );
+  }
+
+  handleMadeTransfer() {
+    const { screenProps } = this.props;
+    screenProps.toast('Thanks for confirming you made the transfer!', {
+      iconType: 'MaterialCommunityIcons',
+      iconName: 'check-circle',
+    });
+    screenProps.navigateTo(routeNames.TAB_HOME);
+  }
+
+  renderEftDetails() {
+    const {
+      accountName, bsb, accNo, reference,
+    } = this.state;
+    const { hocs } = this.props;
+    const { form } = hocs;
+    const { amount } = form;
+    return (
+      <View>
+        <View>
+          <View style={[sg.left]}>
+            <Text style={sg.formHeading}>
+              {'Transfer Details'}
+            </Text>
+            <Text>
+              {'To make your additional investment of '}
+              { formatAmountDollar(amount.value) }
+              {' you’ll need to make an EFT. Tap to copy the below details to make the transfer.'}
+            </Text>
+          </View>
+          {this.renderCopyContainer('ACCOUNT NAME', accountName)}
+          <Text style={[sg.pV10, sg.fS12, sg.pH10]}>
+            {"It's not issue if the full name doesn't quiet fit"}
+          </Text>
+          {this.renderCopyContainer('BSB', bsb)}
+          {this.renderCopyContainer('Acc No.', accNo)}
+          {this.renderCopyContainer('Reference', reference)}
+        </View>
+        <View style={sg.mT20}>
+          <Button onPress={() => this.handleMadeTransfer()} block marginVert>
+            <Text>
+              {"I've made the transfer"}
+            </Text>
+          </Button>
+        </View>
+      </View>
+    );
+  }
+
   render() {
     const { step } = this.state;
 
@@ -198,10 +299,17 @@ class Deposit extends Component {
       <View style={[sg.spaceBetween, sg.spaceBetween]}>
         {step === 0 && this.renderStep1()}
         {step === 1 && this.renderStep2()}
+        {step === 2 && this.renderEftDetails()}
       </View>
     );
   }
 }
+
+/*
+const mapDispatchToProps = {
+  accountUpdateSaveConnect: accountUpdateSave,
+};
+*/
 
 const res = composeHoc([
   'FormHoc',
