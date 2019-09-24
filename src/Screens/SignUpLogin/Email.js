@@ -54,7 +54,7 @@ class Email extends React.Component {
                       if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === "B_NORMAL_ONBOARDING") {
                           this.setAmplitudeTestGroup("B_NORMAL_ONBOARDING")
                       }
-                      screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
+                      screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
                   }
               });
             }, () => {

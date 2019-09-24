@@ -11,7 +11,7 @@ import { routeNames } from 'src/Navigation';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
 import { userDataSave } from 'src/Redux/Auth';
-import { appContentSave, accountsSelector } from 'src/Redux/AppContent';
+import { appContentSave, accountsSelector, userSelector } from 'src/Redux/AppContent';
 import { accountSelectSave } from 'src/Redux/Account';
 
 import { sg } from 'src/Styles';
@@ -25,7 +25,7 @@ class Accounts extends React.PureComponent {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      screenProps.navigateTo(routeNames.TAB_HOME);
+      // screenProps.navigateTo(routeNames.TAB_HOME);
     });
   }
 
@@ -110,7 +110,7 @@ class Accounts extends React.PureComponent {
   }
 
   render() {
-    const { screenProps, accounts } = this.props;
+    const { screenProps, accounts, user } = this.props;
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
@@ -122,20 +122,32 @@ class Accounts extends React.PureComponent {
               {accounts.map(account => this.renderAccount(account))}
             </List>
           </View>
-          {
-            // __DEV__ && (
-            <KeyboardAvoidingView>
-              <Button
-                onPress={() => {
-                  screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+          <View>
+            <Button
+              onPress={() => {
+                screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+              }}
+              block
+            >
+              <Text>Start new application</Text>
+            </Button>
+            { user.experiments
+              && user.experiments.EXPERIMENT_REVERSE_ONBOARDING
+              && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === "A_REVERSE_ONBOARDED"
+              && !user.personalDetailsLocked // exclude users that have already submitted an application
+              &&
+              <Button onPress={() => {
+                  screenProps.navigateTo(routeNames.TAB_HOME);
                 }}
+                bordered
+                dark
                 block
+                marginVert
               >
-                <Text>Start new application</Text>
+                <Text>Explore Array</Text>
               </Button>
-            </KeyboardAvoidingView>
-            // )
-          }
+            }
+          </View>
         </View>
       </Content>
     );
@@ -151,8 +163,10 @@ Accounts.propTypes = {
 
 const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
+  const user = userSelector(state);
   return {
     accounts,
+    user
   };
 };
 
