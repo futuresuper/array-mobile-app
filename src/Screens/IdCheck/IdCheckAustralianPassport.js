@@ -58,12 +58,8 @@ class IdCheckAustralianPassport extends Component {
             const { user } = appContent;
             userDataSaveConnect(user);
             appContentSaveConnect(appContent);
-            screenProps.toastSuccess('ID verification Succeeded');
-            if (account.initialInvestmentAmount > 5000) {
-              screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS, { showBackButton:false });
-            } else {
-              screenProps.navigateTo(routeNames.BANK_ACCOUNT, { showBackButton:false });
-            }
+            screenProps.toastSuccess("ID verification Succeeded - you're all done!");
+            screenProps.navigateTo(routeNames.TAB_HOME);
           });
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);

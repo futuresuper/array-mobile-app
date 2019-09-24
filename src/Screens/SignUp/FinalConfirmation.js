@@ -51,11 +51,7 @@ class FinalConfirmation extends React.Component {
             screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton:false });
           } else {
             if (res.idCheckComplete) {
-              if (res.initialInvestmentAmount > 5000) {
-                screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS, { showBackButton:false });
-              } else {
-                screenProps.navigateTo(routeNames.BANK_ACCOUNT, { showBackButton:false });
-              }
+              screenProps.navigateTo(routeNames.TAB_HOME);
             } else {
               screenProps.navigateTo(routeNames.ID_CHECK, { showBackButton:false });
             }

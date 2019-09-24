@@ -67,14 +67,14 @@ class InitialInvestmentAmount extends React.PureComponent {
           },
           (res) => {
             accountUpdateSaveConnect(res);
-            screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
-            /*
+            // screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
+
             if (amount > 5000) {
               screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_INFO);
             } else {
               screenProps.navigateTo(routeNames.BANK_ACCOUNT);
             }
-            */
+
           },
           () => {
             screenProps.toastDanger('Error. Try Again');

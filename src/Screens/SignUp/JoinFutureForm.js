@@ -74,7 +74,7 @@ class JoinFutureForm extends React.Component {
     if (account.status === 'awaitingIdCheckAndMoney') {
       navigateTo(routeNames.ID_CHECK);
     } else {
-      navigateTo(routeNames.ACCOUNTS);
+      navigateTo(routeNames.TAB_HOME);
     }
   }
 

@@ -25,7 +25,7 @@ class Accounts extends React.PureComponent {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      // screenProps.navigateTo(routeNames.JOIN_FUTURE_FORM);
+      // screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
     });
   }
 
@@ -48,9 +48,13 @@ class Accounts extends React.PureComponent {
     if (account.status !== 'incompleteApp') {
       let showBalance = false,
         showAwaitingDebit = false,
+        showAwaitingMoney = false,
         awaitingIdCheck = false,
         appIncomplete = false;
-      if (account.status === 'incompleteApp') { appIncomplete = true; } else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true; } else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true; } else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true; }
+      if (account.status === 'incompleteApp') { appIncomplete = true; }
+      else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true; }
+      else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true; }
+      else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true; }
 
       return (
         <ListItem
