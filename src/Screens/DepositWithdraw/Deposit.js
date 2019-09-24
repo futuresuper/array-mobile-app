@@ -32,6 +32,8 @@ import {
 
 import styles from './styles';
 
+
+
 class Deposit extends Component {
   constructor() {
     super();
@@ -45,42 +47,8 @@ class Deposit extends Component {
           normalize: normalizeAmount,
           format: formatAmountDollar,
         },
-        from: {
-          validations: [this.fromValidator.bind(this)],
-        },
-        /*
-        frequency: {
-          validations: [
-            'required',
-          ],
-        },
-        */
       },
-      // frequencyList: [
-      //   {
-      //     name: 'Monthly',
-      //     value: 'month',
-      //   },
-      //   {
-      //     name: 'Annual',
-      //     value: 'annual',
-      //   },
-      // ],
       step: 0,
-      accountList: [
-        {
-          name: 'ING Account',
-          number: 'BSB 92300 Acc 0981928',
-        },
-        {
-          name: 'ING Account',
-          number: 'BSB 92300 Acc 222',
-        },
-        {
-          name: 'ING Account',
-          number: 'BSB 92300 Acc 333',
-        },
-      ],
     };
   }
 
@@ -94,21 +62,33 @@ class Deposit extends Component {
   onNext = () => {
     const { hocs, screenProps } = this.props;
     const formIsValid = hocs.formIsValid();
-
-
+    const amount = hocs.form.amount.value;
+    if (!this.withinMinMax(amount)) {
+      screenProps.toastDanger('Minimum investment amount is $5');
+      return;
+    }
     if (formIsValid) {
       // screenProps.navigateTo(routeNames.DEPOSIT_WITHDRAW_DONE);
       this.setState({ step: 1 });
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  withinMinMax(value) {
+    if (value < 5 || value > 1000000) {
+      return false;
+    }
+    return true;
+  }
 
   onConfirm() {
     const { screenProps, hocs } = this.props;
     const { form } = hocs;
+    const { account } = screenProps;
     const body = {
       amount: form.amount.value,
-      paymentMethod: form.amount.value >= 5000 ? 'eft' : form.from.value,
+      paymentMethod: form.amount.value > 5000 ? 'eft' : 'dd',
+      accountId: account.id
     };
     screenProps.Api.post('/transaction', body, () => {
       this.setState({ step: 2 });
@@ -117,89 +97,50 @@ class Deposit extends Component {
     });
   }
 
-  fromValidator() {
-    const { hocs } = this.props;
-    const { form } = hocs;
-    console.log(form.amount.value);
-    if (form.amount.value >= 5000) {
-      return false;
-    }
-    return true;
-  }
-
   renderAccountSource() {
     const { hocs, screenProps } = this.props;
     const { form } = hocs;
-    // console.log(form);
-    let { accountList } = this.state;
-    accountList = accountList.concat([{
-      id: 'custom',
-      name: 'Add account',
-    }]);
+
     if (form && form.amount.value >= 5000) {
       return (
-        <Text style={[sg.textBold, sg.pV20]}>
-          {'Investments over $5,000 can only be made by EFT.\n\n We’ll provide you with the bank details for the transfer by email after you confirm.'}
+        <Text style={[sg.pV20]}>
+          {'Investments over $5,000 can be made by EFT.\n\nWe’ll provide you with the bank details for the transfer by email after you confirm.'}
+        </Text>
+      );
+    } else {
+      return (
+        <Text style={[sg.pV20]}>
+          {'To be direct debited from your linked bank account.'}
         </Text>
       );
     }
-    return (
-      <Item style={[sg.noBorder]}>
-        <Picker
-          extraData={screenProps.theme}
-          formData={form}
-          formKey="from"
-          label="From"
-          title="My ING account"
-          list={accountList}
-          renderItem={({ item }) => {
-            if (item.id === 'custom') {
-              return (
-                <View
-                  style={[sg.row, sg.jCSpaceBetween]}
-                  onPress={() => {
-                  }}
-                >
-                  <Text style={sg.pickerItemAddText}>{item.name}</Text>
-                  <Icon name="add" style={sg.pickerItemAddIcon} color0 />
-                </View>
-              );
-            }
 
-            return (
-              <View>
-                <Text style={sg.pickerItemText} color2>{item.name}</Text>
-                <Text style={sg.pickerItemText2}>{item.number}</Text>
-              </View>
-            );
-          }}
-          onPressItem={({ item }, formKey) => {
-            hocs.addOrUpdateFormField({ title: item.number, value: item.number }, formKey);
-          }}
-        />
-      </Item>
-    );
   }
+
 
   renderStep1 = () => {
     const { hocs } = this.props;
     const { form } = hocs;
-
     return (
       <View style={[sg.spaceBetween]}>
         <View>
-          <Input
-            formData={form}
-            formKey="amount"
-            onChangeText={hocs.handleInput}
-            keyboardType="numeric"
-            label="Amount"
-            color2
-          />
+          <Text style={[sg.formHeading]}>
+          Make a deposit
+          </Text>
+          <View>
+            <Input
+              formData={form}
+              formKey="amount"
+              onChangeText={hocs.handleInput}
+              keyboardType="numeric"
+              label="Amount"
+              color2
+            />
+          </View>
           {this.renderAccountSource()}
         </View>
         <KeyboardAvoidingView>
-          <Button style={[sg.m20]} onPress={() => this.onNext()} block>
+          <Button onPress={() => this.onNext()} block>
             <Text>Next</Text>
           </Button>
         </KeyboardAvoidingView>
@@ -218,31 +159,30 @@ class Deposit extends Component {
             <Text style={styles.doneText} color2>
               {"Confirming you'd like to invest "}
               <Text style={styles.doneTextBold}>
-                {`$${amount.value}`}
+                {`${formatAmountDollar(amount.value)}`}
               </Text>
               {amount.value < 5000 ? (
                 <Text>
                   <Text style={styles.doneText}>
-                    {' from your '}
-                  </Text>
-                  <Text style={styles.doneTextBold}>
-                    {`${form.from.value} account`}
+                    {' from your linked bank account '}
                   </Text>
                 </Text>
               ) : (
                 <Text>
                   <Text style={styles.doneText}>
-                    {' which you will '}
-                  </Text>
-                  <Text style={styles.doneTextBold}>
-                    {'transfer via EFT'}
+                    {' which you will transfer via EFT '}
                   </Text>
                 </Text>
               )}
             </Text>
           </View>
+        </View>
+        <View>
+          <Text style={[sg.mB30, sg.fS11]}>
+            {'Additional investments are made on the basis of the PDS and any updates to the PDS, on the same terms and conditions as in your original Application Form. We’ll send you notification of any updates when they happen.'}
+          </Text>
           <KeyboardAvoidingView>
-            <Button block style={sg.m20} onPress={() => this.onConfirm()}>
+            <Button block onPress={() => this.onConfirm()}>
               <Text>Confirm</Text>
             </Button>
           </KeyboardAvoidingView>

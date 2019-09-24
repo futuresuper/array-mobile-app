@@ -65,7 +65,7 @@ class AccountType extends React.Component {
       if (user.personalDetailsLocked) {
         screenProps.navigateTo(routeNames.PERSONAL_DETAILS_ALREADY_SUBMITTED);
       } else {
-        screenProps.navigateTo(routeNames.NAME);
+        screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
       }
     }, () => {
       screenProps.toast('Error. Try again.');

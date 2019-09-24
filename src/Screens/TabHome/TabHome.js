@@ -368,7 +368,7 @@ class TabHome extends Component {
               this.renderBalance()
             }
 
-            {/*
+
             <Button
               rounded
               primary
@@ -379,7 +379,7 @@ class TabHome extends Component {
             >
               <Icon name="add" style={styles.plusButtonIcon} />
             </Button>
-            */}
+
           </View>
 
           <View style={styles.graphBl}>

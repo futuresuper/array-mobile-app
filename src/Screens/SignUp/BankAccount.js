@@ -77,11 +77,11 @@ class BankAccount extends React.Component {
       };
       screenProps.Api.post('/account', body, (res) => {
         accountUpdateSaveConnect(res);
-        if (user.personalDetailsLocked) {
-          screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
-        } else {
-          screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
-        }
+        screenProps.toast('All done!', {
+          iconType: 'MaterialCommunityIcons',
+          iconName: 'check-circle',
+        });
+        screenProps.navigateTo(routeNames.TAB_HOME);
       }, () => {
         screenProps.toastDanger('Error. Try Again');
       });

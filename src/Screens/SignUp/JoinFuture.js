@@ -26,9 +26,13 @@ class JoinFuture extends React.PureComponent {
     const { accountSelectSaveConnect, screenProps } = this.props;
     const { account, navigateTo } = screenProps;
     if (account.status === 'awaitingIdCheckAndMoney') {
-      navigateTo(routeNames.ID_CHECK);
+      navigateTo(routeNames.ID_CHECK, { showBackButton:false });
     } else {
-      navigateTo(routeNames.ACCOUNTS);
+      if (account.initialInvestmentAmount > 5000) {
+        screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS, { showBackButton:false });
+      } else {
+        screenProps.navigateTo(routeNames.BANK_ACCOUNT, { showBackButton:false });
+      }
     }
   }
 

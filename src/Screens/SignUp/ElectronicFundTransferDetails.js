@@ -19,6 +19,7 @@ import { composeHoc, hocNames } from 'src/Common/Hocs';
 import {
   accountIdSelector, accountUpdateSave,
 } from 'src/Redux/Account';
+import { formatAmountDollar } from 'src/Common/Helpers';
 
 import { random } from 'lodash';
 
@@ -63,6 +64,10 @@ class ElectronicFundTransferDetails extends React.Component {
         },
         (res) => {
           accountUpdateSaveConnect(res);
+          screenProps.toast('All done!', {
+            iconType: 'MaterialCommunityIcons',
+            iconName: 'check-circle',
+          });
           screenProps.navigateTo(routeNames.TAB_HOME);
         },
         () => {
@@ -91,6 +96,8 @@ class ElectronicFundTransferDetails extends React.Component {
       const {
         accountName, bsb, accNo, reference,
       } = this.state;
+      const { screenProps } = this.props;
+      const { account } = screenProps;
       return (
         <Content padder contentContainerStyle={sg.flexGrow}>
           <View>
@@ -99,7 +106,9 @@ class ElectronicFundTransferDetails extends React.Component {
                 {'Transfer Details'}
               </Text>
               <Text>
-                {'To make your initial investment of $6,000 you’ll need to make an EFT. Tap to copy the below details to make the transfer.'}
+                {'To make your initial investment of'}
+                { formatAmountDollar(account.initialInvestmentAmount) }
+                {'you’ll need to make an EFT. Tap to copy the below details to make the transfer.'}
               </Text>
             </View>
             {this.renderCopyContainer('ACCOUNT NAME', accountName)}

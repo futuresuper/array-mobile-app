@@ -17,16 +17,13 @@ export default {
     paddingRight: 0,
   },
   doneTextBl: {
-    flex: 1,
-    width: 260,
-    alignSelf: 'center',
-    justifyContent: 'center',
+    marginTop: 40,
   },
   doneText: {
     fontSize: 24,
     lineHeight: 36,
     fontFamily: sc.font.regular,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   get doneTextBold() {
     return {
