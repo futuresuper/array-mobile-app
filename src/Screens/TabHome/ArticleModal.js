@@ -29,18 +29,15 @@ class ArticleModal extends Component {
     return (
       <View>
         {item.subhead && (
-          <Text style={[sg.textCenter, sg.fontMedium, sg.fS14, sg.colorGray11]}>
+          <Text style={[sg.fontMedium, sg.fS14, sg.colorGray11, sg.contentMarginH]}>
             {item.subhead}
           </Text>
         )}
         <H3
           style={[
             sg.fS24,
-            sg.textCenter,
-            sg.aSCenter,
             sg.mT30,
-            sg.width150,
-            sg.width300,
+            sg.contentMarginH,
             styles.header,
           ]}
         >
@@ -77,11 +74,8 @@ class ArticleModal extends Component {
                 <H3
                   style={[
                     sg.fS24,
-                    sg.textCenter,
-                    sg.aSCenter,
-                    sg.mT20,
-                    sg.width150,
-                    sg.width300,
+                    sg.mT30,
+                    sg.contentMarginH,
                     styles.header,
                   ]}
                 >

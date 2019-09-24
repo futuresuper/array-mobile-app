@@ -122,11 +122,11 @@ export const article = {
     height: 180,
   },
   paragraphStyles: {
-    textAlign: 'justify',
+    textAlign: 'left',
     lineHeight: 25,
   },
   header: {
-    height: 33,
     paddingTop: 2,
+    lineHeight: 30
   },
 };
