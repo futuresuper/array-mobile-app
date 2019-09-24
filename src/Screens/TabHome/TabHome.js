@@ -379,7 +379,7 @@ class TabHome extends Component {
             >
               <Icon name="add" style={styles.plusButtonIcon} />
             </Button>
-            
+
           </View>
 
           <View style={styles.graphBl}>

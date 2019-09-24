@@ -36,6 +36,7 @@ class IdCheckAustralianPassport extends Component {
 
   onSubmit() {
     const { hocs, idCheckSaveConnect, userDataSaveConnect, appContentSaveConnect, screenProps, accounts } = this.props;
+    const { account } = screenProps;
     const isValid = hocs.formIsValid();
 
     if (isValid) {
@@ -58,10 +59,10 @@ class IdCheckAustralianPassport extends Component {
             userDataSaveConnect(user);
             appContentSaveConnect(appContent);
             screenProps.toastSuccess('ID verification Succeeded');
-            if (accounts.length === 1) {
-              this.goToAccountHome();
+            if (account.initialInvestmentAmount > 5000) {
+              screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS, { showBackButton:false });
             } else {
-              screenProps.navigateTo(routeNames.ACCOUNTS);
+              screenProps.navigateTo(routeNames.BANK_ACCOUNT, { showBackButton:false });
             }
           });
         } else {
