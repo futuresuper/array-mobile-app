@@ -25,7 +25,7 @@ class Accounts extends React.PureComponent {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      // screenProps.navigateTo(routeNames.TAB_HOME);
+      // screenProps.navigateTo(routeNames.JOIN_FUTURE_FORM);
     });
   }
 

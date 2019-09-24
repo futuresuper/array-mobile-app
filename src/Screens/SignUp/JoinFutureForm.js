@@ -133,7 +133,7 @@ class JoinFutureForm extends React.Component {
                 hocs.addOrUpdateFormField({ title: item.name, value: item.name }, formKey);
               }}
             />
-            <Text style={[sg.fS12, sg.textBold, sg.mV20]}>I make the following declarations:</Text>
+            <Text style={[sg.fS12, sg.textBold, sg.mV20]}>By completing this form I declare that:</Text>
             <View style={styles.scrollContainer}>
               <ScrollView
                 contentContainerStyle={styles.scrollView}
@@ -141,10 +141,14 @@ class JoinFutureForm extends React.Component {
                 alwaysBounceVertical={false}
                 indicatorStyle="black"
               >
-                {this.renderLi('All the details I have provided are true and correct.')}
-                {this.renderLi('I have read and understood the Product Disclosure Statement, Additional Information Booklet, Insurance Guide, Financial Services Guide, Privacy Policy and other important information about joining Future Super.')}
-                {this.renderLi('By providing my email address, I consent and authorise Future Super to send communications or information in electronic format, including information required by law, to you via email or similar technologies.')}
-                {this.renderLi('I have chosen an investment option and I understand that 100% of the balance of my Future Super account will be invested in the investment option I chose.')}
+                {this.renderLi('I have received all of the information I require in order to exercise the choices I have made. All the details I have provided in this application form are true and correct. ')}
+                {this.renderLi('I have made an informed decision because I have read and understood the PDS, Additional Information Booklet, Insurance Guide and Privacy policy to which this application applies.')}
+                {this.renderLi('By providing my email address, I consent and authorise Future Super to send communications or information, including information required by law, to me via email or similar technologies.')}
+                {this.renderLi('I have selected an investment option and understand that 100% of the balance of my Future Super account will be invested in the option that I selected.')}
+                {this.renderLi('I acknowledge that no representations have been made to me by or on behalf of Future Super other than those contained in the PDS.')}
+                {this.renderLi('I accept that I will be bound by the provisions of the trust deed and rules which govern the operations of Future Super.')}
+                {this.renderLi('I understand the nature of the risks attached to the investments I am applying for and acknowledge that neither Future Super, nor the Trustee of the Fund, guarantee a return of capital or the performance of my investment.')}
+
               </ScrollView>
             </View>
           </View>
@@ -174,7 +178,7 @@ class JoinFutureForm extends React.Component {
             </Col>
             <Col>
               <Text style={[sg.fS12]}>
-                {'I consent to Future Super Services Pty Ltd receiving a fee from Future Super that is the balance of the total fee minus the investment and administration fees and the fund expense and operational risk reserves accrued in the calculation of the unit price. This fee is estimated to be approximately 0.263% of the funds under management per annum for the 2018-19 financial year.'}
+                {'I consent to Future Super Investment Services Pty Ltd, in its role as Fund Promoter, receiving a portion of the management fees (being the total fees and costs charged to members of Future Super) equal to the balance of the total fee minus the investment and administration fees and the fund expense and operational risk reserves accrued in the calculation of the unit price. This fee is estimated to be approximately 0.283% of the funds under management per annum for the 2019-20 financial year.'}
               </Text>
             </Col>
           </Grid>
