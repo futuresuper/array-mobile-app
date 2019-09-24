@@ -101,7 +101,7 @@ class Deposit extends Component {
     const { hocs, screenProps } = this.props;
     const { form } = hocs;
 
-    if (form && form.amount.value >= 5000) {
+    if (form && form.amount.value > 5000) {
       return (
         <Text style={[sg.pV20]}>
           {'Investments over $5,000 can be made by EFT.\n\nWe’ll provide you with the bank details for the transfer by email after you confirm.'}
