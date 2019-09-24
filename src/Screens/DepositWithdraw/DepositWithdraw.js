@@ -78,7 +78,7 @@ class DepositWithdraw extends Component {
         <KeyboardAvoidingView>
           <Button
             onPress={() => {
-              screenProps.navigateTo(routeNames.DATE_OF_BIRTH);
+              screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
             }}
             block
           >

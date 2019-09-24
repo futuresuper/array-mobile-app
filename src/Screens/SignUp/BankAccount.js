@@ -81,7 +81,7 @@ class BankAccount extends React.Component {
           iconType: 'MaterialCommunityIcons',
           iconName: 'check-circle',
         });
-        screenProps.navigateTo(routeNames.HOME);
+        screenProps.navigateTo(routeNames.TAB_HOME);
       }, () => {
         screenProps.toastDanger('Error. Try Again');
       });

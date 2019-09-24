@@ -39,8 +39,8 @@ class Accounts extends React.PureComponent {
   getAppContent(callback) {
     const { screenProps } = this.props;
     screenProps.Api.get('/appcontent', {}, callback, () => {
-      //screenProps.navigateTo(routeNames.APP_LANDING);
-      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
+      screenProps.navigateTo(routeNames.APP_LANDING);
+      // screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
     });
   }
 
