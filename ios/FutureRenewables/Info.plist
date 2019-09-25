@@ -2,6 +2,42 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AntDesign.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>Roboto_medium.ttf</string>
+		<string>Roboto.ttf</string>
+		<string>rubicon-icon-font.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
+		<string>BwGradual-Black.otf</string>
+		<string>BwGradual-BlackItalic.otf</string>
+		<string>BwGradual-Bold.otf</string>
+		<string>BwGradual-BoldItalic.otf</string>
+		<string>BwGradual-ExtraBold.otf</string>
+		<string>BwGradual-ExtraBoldItalic.otf</string>
+		<string>BwGradual-Light.otf</string>
+		<string>BwGradual-LightItalic.otf</string>
+		<string>BwGradual-Medium.otf</string>
+		<string>BwGradual-MediumItalic.otf</string>
+		<string>BwGradual-Regular.otf</string>
+		<string>BwGradual-RegularItalic.otf</string>
+		<string>BwGradual-Thin.otf</string>
+		<string>BwGradual-ThinItalic.otf</string>
+		<string>WeatherIcons.ttf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
