@@ -1,12 +1,22 @@
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+
+import {createStackNavigator} from 'react-navigation-stack';
 
 import Splash from 'src/Screens/Splash';
 
 import {
-  signRoutes, signDataRoutes, localAuthRoutes, mainRoutes, tabBarModalRootRoutes, tabRoutes, tabBarModalRoutes, tabCardRoutes, tmpRoutes,
+  signRoutes,
+  signDataRoutes,
+  localAuthRoutes,
+  mainRoutes,
+  tabBarModalRootRoutes,
+  tabRoutes,
+  tabBarModalRoutes,
+  tabCardRoutes,
+  tmpRoutes,
 } from './routes';
 
-import { tabBarOptions, tabModalOptions } from './navigationOptions';
+import {tabBarOptions, tabModalOptions} from './navigationOptions';
 
 import routeNames from './routeNames';
 
@@ -46,7 +56,7 @@ const TabBar = createBottomTabNavigator(tabRoutes, tabBarOptions);
 const TabBarModalRootRoutes = () => {
   const tabBarModalRoutesKeys = Object.keys(tabBarModalRootRoutes);
   const allModalRoutes = {};
-  tabBarModalRoutesKeys.forEach((modalRouteKey) => {
+  tabBarModalRoutesKeys.forEach(modalRouteKey => {
     const modalRoutesConfigValue = tabBarModalRootRoutes[modalRouteKey];
     const modalRoute = tabModalOptions(modalRoutesConfigValue);
 

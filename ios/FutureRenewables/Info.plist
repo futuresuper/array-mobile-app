@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Array</string>
+	<string>FutureRenewables</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,13 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -39,52 +37,8 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSFaceIDUsageDescription</key>
-	<string>We require FaceID access to allows you quick and secure access.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>We need access to use your camera to take picture</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We need access to your location information</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need access to your location information</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need to access photo library to get a image</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>AntDesign.ttf</string>
-		<string>Entypo.ttf</string>
-		<string>EvilIcons.ttf</string>
-		<string>Feather.ttf</string>
-		<string>FontAwesome.ttf</string>
-		<string>FontAwesome5_Brands.ttf</string>
-		<string>FontAwesome5_Regular.ttf</string>
-		<string>FontAwesome5_Solid.ttf</string>
-		<string>Foundation.ttf</string>
-		<string>Ionicons.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-		<string>MaterialIcons.ttf</string>
-		<string>Octicons.ttf</string>
-		<string>Roboto_medium.ttf</string>
-		<string>Roboto.ttf</string>
-		<string>rubicon-icon-font.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
-		<string>BwGradual-Black.otf</string>
-		<string>BwGradual-BlackItalic.otf</string>
-		<string>BwGradual-Bold.otf</string>
-		<string>BwGradual-BoldItalic.otf</string>
-		<string>BwGradual-ExtraBold.otf</string>
-		<string>BwGradual-ExtraBoldItalic.otf</string>
-		<string>BwGradual-Light.otf</string>
-		<string>BwGradual-LightItalic.otf</string>
-		<string>BwGradual-Medium.otf</string>
-		<string>BwGradual-MediumItalic.otf</string>
-		<string>BwGradual-Regular.otf</string>
-		<string>BwGradual-RegularItalic.otf</string>
-		<string>BwGradual-Thin.otf</string>
-		<string>BwGradual-ThinItalic.otf</string>
-		<string>WeatherIcons.ttf</string>
-	</array>
+	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

@@ -129,7 +129,7 @@ export default class Spinner extends React.Component {
     this.setState({ visible: false });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     // const { visible, textContent, onStop } = nextProps;
     // this.setState({ visible, textContent, onStop });
   }

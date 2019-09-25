@@ -1,37 +1,28 @@
-/* eslint-disable global-require */
-/* eslint-disable no-undef */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-global-assign */
+import Reactotron from 'reactotron-react-native';
+import {reactotronRedux} from 'reactotron-redux';
+import {isIOS} from 'src/Common/Helpers';
 
-import {
-  isIOS,
-} from 'src/Common/Helpers';
-
-if (__DEV__) {
-  Reactotron = require('reactotron-react-native').default;
-  openInEditor = require('reactotron-react-native').openInEditor;
-  reactotronRedux = require('reactotron-redux').reactotronRedux;
-
-  const config = {};
-  if (!isIOS()) {
-    config.host = 'localhost';
-  }
-
-  Reactotron
-    .configure(config) // controls connection & communication settings
-    .useReactNative() // add all built-in react native plugins
-    .use(reactotronRedux())
-    .use(openInEditor());
-
-  const nativeLog = console.log;
-  console.log = (...args) => {
-    nativeLog(...args);
-
-    Reactotron.display({
-      name: 'LOG',
-      important: true,
-      value: args,
-      preview: args.length ? JSON.stringify(args) : args[0],
-    });
-  };
+let reactotron;
+const config = {
+  name: 'Future Renewables',
+};
+if (!isIOS()) {
+  config.host = 'localhost';
 }
+
+reactotron = Reactotron.configure(config)
+  .use(reactotronRedux())
+  .connect();
+
+// monkey patch console.log to send log to reactotron
+const yeOldeConsoleLog = console.log;
+console.log = (...args) => {
+  yeOldeConsoleLog(...args);
+  Reactotron.display({
+    name: 'CONSOLE.LOG',
+    value: args,
+    preview: args.length > 0 && typeof args[0] === 'string' ? args[0] : null,
+  });
+};
+
+export default reactotron;
