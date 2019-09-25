@@ -30,9 +30,10 @@ class Accounts extends React.PureComponent {
   }
 
   onAccountSelect(account) {
-    const { accountSelectSaveConnect } = this.props;
+    const { accountSelectSaveConnect, screenProps } = this.props;
     // Route is changed in ProtectedRoutes (src/Common/ProtectedRoutes.js)
     accountSelectSaveConnect(account);
+    screenProps.navigateTo(routeNames.TAB_HOME);
   }
 
 
