@@ -48,7 +48,7 @@ class FinalConfirmation extends React.Component {
             iconName: 'check-circle',
           });
           if (!user.fsMember) {
-            screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton:false });
+            screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton: false });
           } else if (res.idCheckComplete) {
             screenProps.navigateTo(routeNames.TAB_HOME);
           } else {

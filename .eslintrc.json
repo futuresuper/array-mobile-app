@@ -37,6 +37,7 @@
         "_root"
       ]
     }],
+    "react/state-in-constructor": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "import/extensions": ["error", "ignorePackages", { "js": "never" }],
     "react/forbid-prop-types": [1, { "forbid": ["any"] }],
@@ -47,7 +48,7 @@
     "arrow-body-style" : "warn",
     "linebreak-style": 0,
     "import/no-unresolved": "off",
-    "properties": "never",
+    "properties": "off",
     "no-alert": "off",
     "no-console": "off",
     "camelcase": 0,
