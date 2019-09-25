@@ -791,12 +791,13 @@
 				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = FutureRenewables/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.FutureRenewablesTest;
 				PRODUCT_NAME = FutureRenewables;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -810,12 +811,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = FutureRenewables/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.FutureRenewablesTest;
 				PRODUCT_NAME = FutureRenewables;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
