@@ -46,8 +46,8 @@ class IdCheckDriversLicence extends Component {
 
   onSubmit() {
     const { hocs, idCheckSaveConnect, userDataSaveConnect, appContentSaveConnect, screenProps, accounts } = this.props;
+    const { account } = screenProps;
     const isValid = hocs.formIsValid();
-
     if (isValid) {
       const driversLicenceState = hocs.form.driversLicenceState.value;
       const driversLicenceNumber = hocs.form.driversLicenceNumber.value;
@@ -69,12 +69,8 @@ class IdCheckDriversLicence extends Component {
             const { user } = appContent;
             userDataSaveConnect(user);
             appContentSaveConnect(appContent);
-            screenProps.toastSuccess('ID verification Succeeded');
-            if (accounts.length === 1) {
-              this.goToAccountHome();
-            } else {
-              screenProps.navigateTo(routeNames.ACCOUNTS);
-            }
+            screenProps.toastSuccess("ID verification Succeeded - you're all done!");
+            screenProps.navigateTo(routeNames.TAB_HOME);
           });
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
@@ -188,7 +184,7 @@ const mapStateToProps = (state, ownProps) => {
     item: ownProps.navigation.getParam('item'),
     newItemByType: ownProps.navigation.getParam('newItemByType'),
     user,
-    accounts,
+    accounts
   };
 };
 

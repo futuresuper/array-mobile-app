@@ -47,16 +47,12 @@ class FinalConfirmation extends React.Component {
             iconType: 'MaterialCommunityIcons',
             iconName: 'check-circle',
           });
-          if (res.initialInvestmentAmount > 5000) {
-            screenProps.navigateTo(routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS, { showBackButton: false });
-          } else if (res.fsMember) {
-            if (res.idCheckComplete) {
-              screenProps.navigateTo(routeNames.ACCOUNTS, { showBackButton: false });
-            } else {
-              screenProps.navigateTo(routeNames.ID_CHECK, { showBackButton: false });
-            }
+          if (!user.fsMember) {
+            screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton:false });
+          } else if (res.idCheckComplete) {
+            screenProps.navigateTo(routeNames.TAB_HOME);
           } else {
-            screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton: false });
+            screenProps.navigateTo(routeNames.ID_CHECK, { showBackButton: false });
           }
         });
       },

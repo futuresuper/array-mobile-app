@@ -88,6 +88,7 @@ class SmsCode extends Component {
               // console.log("user: " + JSON.stringify(user));
               // console.log("appContent: " + JSON.stringify(appContent));
               this.nextScreen(appContent.accounts.length);
+              amplitude.getInstance().setUserId(user.id);
               amplitude.getInstance().logEvent('Entered SMS Code - Success', {});
             });
           }, () => {
@@ -112,7 +113,7 @@ class SmsCode extends Component {
       if (numAccounts > 0) {
         navigateTo(routeNames.ACCOUNTS);
       } else {
-        navigateTo(routeNames.ACCOUNT_TYPE);
+        navigateTo(routeNames.NAME);
       }
     }
 

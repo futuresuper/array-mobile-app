@@ -12,10 +12,14 @@ import {
   Content,
 } from 'native-base';
 
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
+
 import {
   sg,
 } from 'src/Styles';
-
+import {
+  routeNames,
+} from 'src/Navigation';
 import Deposit from './Deposit';
 
 import styles from './styles';
@@ -59,64 +63,48 @@ class DepositWithdraw extends Component {
     }
   }
 
+  renderContinueApp() {
+    const { screenProps } = this.props;
+    return (
+      <View style={sg.spaceBetween}>
+        <View>
+          <Text style={[sg.formHeading]}>
+          Before you make a deposit...
+          </Text>
+          <Text>
+            Before you make a deposit, we need some extra details to complete your application and ID check.
+          </Text>
+        </View>
+        <KeyboardAvoidingView>
+          <Button
+            onPress={() => {
+              screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+            }}
+            block
+          >
+            <Text>Complete an application</Text>
+          </Button>
+        </KeyboardAvoidingView>
+      </View>
+    )
+  }
+
   render() {
     const { segment } = this.state;
-
+    const { screenProps } = this.props;
+    const { account } = screenProps;
     return (
       <Content padder contentContainerStyle={[sg.flexGrow]}>
-        <View style={sg.spaceBetween}>
-          <View>
-            <View style={[sg.row]}>
-              <Text style={[styles.tabTextActive, (!segment.isDeposit ? styles.tabText : {}), sg.mB40]}>Make a Deposit</Text>
-              {/*
-              <Button
-                transparent
-                onPress={this.segmentDeposit}
-                style={[sg.mT0, sg.pT0, sg.heightNull]}
-              >
-                <Text style={[styles.tabTextActive, (!segment.isDeposit ? styles.tabText : {})]}>Make a Deposit</Text>
-              </Button>
 
-              <Button
-                transparent
-                onPress={this.segmentWithdraw}
-                style={[sg.mT0, sg.pT0, sg.heightNull]}
-              >
-                <Text style={[styles.tabTextActive, sg.mL10, (!segment.isWithdraw ? styles.tabText : {})]}>Withdraw</Text>
-              </Button>
-              */}
-            </View>
+        {account.id && <Deposit
+          ref={(ref) => {
+            if (ref) this.Deposit = ref;
+          }}
+          {...this.props}
+        />}
 
-            {segment.isDeposit && (
-              <Deposit
-                ref={(ref) => {
-                  if (ref) this.Deposit = ref;
-                }}
-                {...this.props}
-              />
-            )}
-          </View>
+        {!account.id && this.renderContinueApp()}
 
-          <View>
-            {segment.isWithdraw
-              && (
-                <Text style={[sg.colorGray, sg.mB20]}>
-                  Just a reminder that withdrawals can take up to 30 days to reach your account.
-                  <Text style={sg.textBold}> Why?</Text>
-                </Text>
-              )
-            }
-
-            {/*
-            <Button
-              block
-              onPress={this.onNext}
-            >
-              <Text>{segment.isDeposit ? 'Next' : 'Confirm'}</Text>
-            </Button>
-            */}
-          </View>
-        </View>
       </Content>
     );
   }
