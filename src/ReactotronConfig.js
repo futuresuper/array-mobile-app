@@ -1,4 +1,4 @@
-import Reactotron from 'reactotron-react-native';
+import Reactotron, {openInEditor} from 'reactotron-react-native';
 import {reactotronRedux} from 'reactotron-redux';
 import {isIOS} from 'src/Common/Helpers';
 
@@ -10,8 +10,11 @@ if (!isIOS()) {
   config.host = 'localhost';
 }
 
-reactotron = Reactotron.configure(config)
+reactotron = Reactotron
+  .configure(config)
+  .useReactNative()
   .use(reactotronRedux())
+  .use(openInEditor())
   .connect();
 
 // monkey patch console.log to send log to reactotron
@@ -19,7 +22,8 @@ const yeOldeConsoleLog = console.log;
 console.log = (...args) => {
   yeOldeConsoleLog(...args);
   Reactotron.display({
-    name: 'CONSOLE.LOG',
+    name: 'LOG',
+    important: true,
     value: args,
     preview: args.length > 0 && typeof args[0] === 'string' ? args[0] : null,
   });

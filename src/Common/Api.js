@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {Platform} from 'react-native';
+import { connect } from 'react-redux';
+import { Platform } from 'react-native';
 import amplitude from 'amplitude-js';
 
-import {isEmpty} from 'lodash';
-import {API} from 'aws-amplify';
+import { isEmpty } from 'lodash';
+import { API } from 'aws-amplify';
 
 import AwsAmplify from 'src/Common/AwsAmplify';
-import {authReset} from 'src/Redux/Auth';
-import {routeNames} from 'src/Navigation';
+import { authReset } from 'src/Redux/Auth';
+import { routeNames } from 'src/Navigation';
 
 const UNAUTHORIZED = 401;
 const apiError = {
@@ -123,12 +123,12 @@ class Api extends React.Component {
   }
 
   componentDidMount() {
-    const {ownProps} = this.props;
+    const { ownProps } = this.props;
     ownProps.setRef(this);
   }
 
   componentWillUnmount() {
-    const {ownProps} = this.props;
+    const { ownProps } = this.props;
     ownProps.setRef(null);
   }
 
@@ -155,12 +155,12 @@ class Api extends React.Component {
   }
 
   navigateToSplash() {
-    const {navigateTo} = this.props;
+    const { navigateTo } = this.props;
     navigateTo(routeNames.SPLASH);
   }
 
   authReset() {
-    const {authResetConnect} = this.props;
+    const { authResetConnect } = this.props;
     authResetConnect();
   }
 
@@ -172,8 +172,8 @@ class Api extends React.Component {
     method,
     spinner = false,
   ) {
-    const {toast, navigateTo, authResetConnect} = this.props;
-    const {apiName, path} = this.getParameters(parameters);
+    const { toast, navigateTo, authResetConnect } = this.props;
+    const { apiName, path } = this.getParameters(parameters);
     const options = {};
     let errorResponseMessage = null;
 
@@ -194,14 +194,14 @@ class Api extends React.Component {
     }
 
     API[method](apiName, path, options)
-      .then(res => {
+      .then((res) => {
         this.spinnerHide();
 
         if (onSuccess) {
           onSuccess(res);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         this.spinnerHide();
 
         try {
@@ -217,9 +217,9 @@ class Api extends React.Component {
           navigateTo('SignUpLogin');
           toast(apiError.unauthenticated);
         } else if (
-          err.request &&
-          err.request.status === 403 &&
-          errorResponseMessage.includes('token')
+          err.request
+          && err.request.status === 403
+          && errorResponseMessage.includes('token')
         ) {
           navigateTo('SignUpLogin');
           toast(apiError.tokenError);
@@ -233,12 +233,12 @@ class Api extends React.Component {
   }
 
   spinnerShow() {
-    const {spinnerShow} = this.props;
+    const { spinnerShow } = this.props;
     spinnerShow();
   }
 
   spinnerHide() {
-    const {spinnerHide} = this.props;
+    const { spinnerHide } = this.props;
     spinnerHide();
   }
 
