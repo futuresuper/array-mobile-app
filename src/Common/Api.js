@@ -1,15 +1,25 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Platform } from 'react-native';
+import {
+  connect,
+} from 'react-redux';
+import {
+  Platform,
+} from 'react-native';
 import amplitude from 'amplitude-js';
+
 
 import { isEmpty } from 'lodash';
 import { API } from 'aws-amplify';
 
 import AwsAmplify from 'src/Common/AwsAmplify';
-import { authReset } from 'src/Redux/Auth';
-import { routeNames } from 'src/Navigation';
+import {
+  authReset,
+} from 'src/Redux/Auth';
+import {
+  routeNames,
+} from 'src/Navigation';
 
 const UNAUTHORIZED = 401;
 const apiError = {
@@ -17,6 +27,7 @@ const apiError = {
   unauthenticated: 'Unauthenticated',
   tokenError: 'token error',
 };
+
 
 class Api extends React.Component {
   static headers() {
@@ -67,9 +78,7 @@ class Api extends React.Component {
     this.ApiInstance.spinnerShow();
 
     return new Promise((resolve, reject) => {
-      AwsAmplify.answerCustomChallenge(answer)
-        .then(resolve)
-        .catch(reject)
+      AwsAmplify.answerCustomChallenge(answer).then(resolve).catch(reject)
         .finally(() => {
           this.ApiInstance.spinnerHide();
         });
@@ -101,28 +110,14 @@ class Api extends React.Component {
   // }
 
   static get(path, query, onSuccess = null, onError = null, spinner = true) {
-    return this.ApiInstance.proc(
-      path,
-      query,
-      onSuccess,
-      onError,
-      'get',
-      spinner,
-    );
+    return this.ApiInstance.proc(path, query, onSuccess, onError, 'get', spinner);
   }
 
   static post(path, body, onSuccess = null, onError = null, spinner = true) {
-    return this.ApiInstance.proc(
-      path,
-      body,
-      onSuccess,
-      onError,
-      'post',
-      spinner,
-    );
+    return this.ApiInstance.proc(path, body, onSuccess, onError, 'post', spinner);
   }
 
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     const { ownProps } = this.props;
     ownProps.setRef(this);
   }
@@ -164,14 +159,7 @@ class Api extends React.Component {
     authResetConnect();
   }
 
-  proc(
-    parameters,
-    bodyQuery,
-    onSuccess = null,
-    onError = null,
-    method,
-    spinner = false,
-  ) {
+  proc(parameters, bodyQuery, onSuccess = null, onError = null, method, spinner = false) {
     const { toast, navigateTo, authResetConnect } = this.props;
     const { apiName, path } = this.getParameters(parameters);
     const options = {};
@@ -193,43 +181,44 @@ class Api extends React.Component {
       this.spinnerShow();
     }
 
-    API[method](apiName, path, options)
-      .then((res) => {
-        this.spinnerHide();
+    API[method](apiName, path, options).then((res) => {
+      this.spinnerHide();
 
-        if (onSuccess) {
-          onSuccess(res);
-        }
-      })
-      .catch((err) => {
-        this.spinnerHide();
+      if (onSuccess) {
+        onSuccess(res);
+      }
+    }).catch((err) => {
+      this.spinnerHide();
 
-        try {
-          // eslint-disable-next-line no-underscore-dangle
-          errorResponseMessage = JSON.parse(err.request._response).message;
-          errorResponseMessage = errorResponseMessage.toLowerCase();
-        } catch (e) {
-          // empty
-        }
+      try {
+        // eslint-disable-next-line no-underscore-dangle
+        errorResponseMessage = JSON.parse(err.request._response).message;
+        errorResponseMessage = errorResponseMessage.toLowerCase();
+      } catch (e) {
+        // empty
+      }
 
-        if (err.request && err.request.status === UNAUTHORIZED) {
-          authResetConnect();
-          navigateTo('SignUpLogin');
-          toast(apiError.unauthenticated);
-        } else if (
-          err.request
-          && err.request.status === 403
-          && errorResponseMessage.includes('token')
-        ) {
-          navigateTo('SignUpLogin');
-          toast(apiError.tokenError);
-        } else {
-          // eslint-disable-next-line no-lonely-if
-          if (onError) {
-            onError(err);
-          }
+      if (
+        err.request
+        && (err.request.status === UNAUTHORIZED)
+      ) {
+        authResetConnect();
+        navigateTo('SignUpLogin');
+        toast(apiError.unauthenticated);
+      } else if (
+        err.request
+        && (err.request.status === 403)
+        && (errorResponseMessage.includes('token'))
+      ) {
+        navigateTo('SignUpLogin');
+        toast(apiError.tokenError);
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (onError) {
+          onError(err);
         }
-      });
+      }
+    });
   }
 
   spinnerShow() {
@@ -265,7 +254,4 @@ const mapDispatchToProps = {
   authResetConnect: authReset,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Api);
+export default connect(mapStateToProps, mapDispatchToProps)(Api);

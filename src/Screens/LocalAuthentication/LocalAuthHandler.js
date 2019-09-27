@@ -7,7 +7,7 @@ import {
   routeNames,
 } from 'src/Navigation';
 
-class LocalAuthHandler extends React.PureComponent {
+class LocalAuthHandler extends React.Component {
   componentDidMount() {
     const { localAuth, navigation, screenProps } = this.props;
     const next = navigation.getParam('next', '');

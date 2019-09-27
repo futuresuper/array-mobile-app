@@ -18,7 +18,7 @@ import {
   sg,
 } from 'src/Styles';
 
-class ElectronicFundTransferInfo extends React.PureComponent {
+class ElectronicFundTransferInfo extends React.Component {
   handleNext() {
     const { screenProps } = this.props;
     screenProps.navigateTo(routeNames.BANK_ACCOUNT);

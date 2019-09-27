@@ -16,7 +16,7 @@ import {
   sg,
 } from 'src/Styles';
 
-class JoinFuture extends React.PureComponent {
+class JoinFuture extends React.Component {
   handleNext() {
     const { screenProps } = this.props;
     screenProps.navigateTo(routeNames.JOIN_FUTURE_FORM);

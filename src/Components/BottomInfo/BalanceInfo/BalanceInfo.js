@@ -1,5 +1,5 @@
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import {
   View,
   ScrollView,
@@ -18,7 +18,7 @@ import {
 
 import styles from './styles';
 
-class BalanceInfo extends PureComponent {
+class BalanceInfo extends Component {
   renderInfoRow(textLeft, textRight) {
     return (
       <Row>

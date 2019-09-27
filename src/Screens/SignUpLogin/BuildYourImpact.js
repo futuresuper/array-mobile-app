@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { View, Image, FlatList } from 'react-native';
@@ -21,7 +21,7 @@ import buildYourImpact from './images/buildYourImpact.png';
 
 import styles from './styles';
 
-class BuildYourImpact extends PureComponent {
+class BuildYourImpact extends Component {
   renderFarms() {
     return (
       <FlatList

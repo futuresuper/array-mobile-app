@@ -16,7 +16,7 @@ import { accountSelectSave } from 'src/Redux/Account';
 
 import { sg } from 'src/Styles';
 
-class Accounts extends React.PureComponent {
+class Accounts extends React.Component {
   componentDidMount() {
     const { userDataSaveConnect, appContentSaveConnect } = this.props;
     this.getAppContent((appContent) => {

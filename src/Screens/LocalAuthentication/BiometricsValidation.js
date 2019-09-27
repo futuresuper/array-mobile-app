@@ -21,7 +21,7 @@ import {
   styleGlobal,
 } from 'src/Styles';
 
-class BiometricsValidation extends React.PureComponent {
+class BiometricsValidation extends React.Component {
   handleBiometricsSuccess() {
     const { localAuthValidateConnect, screenProps, navigation } = this.props;
     localAuthValidateConnect();

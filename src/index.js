@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {PersistGate} from 'redux-persist/integration/react';
 import {AppRegistry} from 'react-native';
 import amplitude from 'amplitude-js';
@@ -8,7 +8,7 @@ import {name as appName} from '../app.json';
 import {getStore, getPersistor} from './Redux/store';
 import AppIndex from './AppIndex';
 
-class Root extends PureComponent {
+class Root extends Component {
   componentDidMount() {
     this.initAnalytics();
   }

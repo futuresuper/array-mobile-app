@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Image, TouchableOpacity } from 'react-native';
@@ -20,7 +20,7 @@ import { localAuthSelector } from 'src/Redux/Auth';
 import { sg } from 'src/Styles';
 import styles from './styles';
 
-class IdCheck extends PureComponent {
+class IdCheck extends Component {
   onPressEditItem(type) {
     const { screenProps } = this.props;
     console.log(`type: ${type}`);

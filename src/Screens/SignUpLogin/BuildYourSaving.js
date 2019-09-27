@@ -1,5 +1,5 @@
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -25,7 +25,7 @@ import buildYourSaving from './images/buildYourSaving.png';
 import styles from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
-class BuildYourSaving extends PureComponent {
+class BuildYourSaving extends Component {
   render() {
     const { screenProps } = this.props;
 

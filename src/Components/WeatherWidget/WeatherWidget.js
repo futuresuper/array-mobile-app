@@ -1,15 +1,23 @@
 /* eslint-disable global-require */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import axios from 'axios';
-import {View} from 'react-native';
-import {Text} from 'native-base';
+import {
+  View,
+} from 'react-native';
+import {
+  Text,
+} from 'native-base';
 
-import {Config} from 'src/Common/config';
+import {
+  Config,
+} from 'src/Common/config';
 
-import {sc} from 'src/Styles';
+import {
+  sc,
+} from 'src/Styles';
 
 import WeatherIcon from './WeatherIcon';
 import styles from './styles';
@@ -57,31 +65,30 @@ class WeatherWidget extends Component {
     this.apiRequest(this.props);
   }
 
-  componentDidUpdate(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.apiRequest(nextProps);
   }
 
   setStateSync(state) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.setState(state, resolve);
     });
   }
 
   async apiRequest(props) {
-    const {coordinate: coordinateProp} = props;
-    const {coordinate: coordinateState} = this.state;
+    const { coordinate: coordinateProp } = props;
+    const { coordinate: coordinateState } = this.state;
     const apiKey = Config.get().darkSkyKey;
-    const url = `https://api.darksky.net/forecast/${apiKey}/${
-      coordinateProp.latitude
-    },${coordinateProp.longitude}`;
+    const url = `https://api.darksky.net/forecast/${apiKey}/${coordinateProp.latitude},${coordinateProp.longitude}`;
+
 
     if (_.isNil(coordinateProp.latitude) && _.isNil(coordinateProp.longitude)) {
       return;
     }
 
     if (
-      coordinateProp.latitude === coordinateState.latitude &&
-      coordinateProp.longitude === coordinateState.longitude
+      (coordinateProp.latitude === coordinateState.latitude)
+      && (coordinateProp.longitude === coordinateState.longitude)
     ) {
       return;
     }
@@ -95,31 +102,29 @@ class WeatherWidget extends Component {
       url,
       timeout: 5000,
       method: 'GET',
-    })
-      .then(res => {
-        if (res && res.data) {
-          const {data} = res;
-
-          this.setState({
-            summary: data.currently.summary,
-            icon: data.currently.icon,
-          });
-        }
+    }).then((res) => {
+      if (res && res.data) {
+        const { data } = res;
 
         this.setState({
-          isLoading: false,
+          summary: data.currently.summary,
+          icon: data.currently.icon,
         });
-      })
-      .catch(() => {
-        this.setState({
-          isLoading: false,
-        });
+      }
+
+      this.setState({
+        isLoading: false,
       });
+    }).catch(() => {
+      this.setState({
+        isLoading: false,
+      });
+    });
   }
 
   render() {
-    const {style, showSummary} = this.props;
-    const {isLoading, summary, icon} = this.state;
+    const { style, showSummary } = this.props;
+    const { isLoading, summary, icon } = this.state;
 
     if (isLoading) {
       return null;
@@ -131,11 +136,7 @@ class WeatherWidget extends Component {
 
     return (
       <View style={[styles.container, style]}>
-        <WeatherIcon
-          style={styles.icon}
-          name={weatherIcons[icon] || weatherIcons.default}
-          color={sc.color.dark3}
-        />
+        <WeatherIcon style={styles.icon} name={weatherIcons[icon] || weatherIcons.default} color={sc.color.dark3} />
         {showSummary && <Text style={styles.summary}>{summary}</Text>}
       </View>
     );
@@ -156,7 +157,10 @@ WeatherWidget.propTypes = {
     latitude: PropTypes.number,
     longitude: PropTypes.number,
   }),
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
   showSummary: PropTypes.bool,
 };
 
