@@ -240,7 +240,7 @@ class AppIndex extends Component {
       >
         <StyleProvider style={getTheme(theme)}>
           <Container>
-            <StatusBar backgroundColor={theme.containerBgColor} barStyle={barStyle} translucent />
+            <StatusBar backgroundColor={theme.containerBgColor} barStyle={barStyle} />
             <Spinner
               ref={(c) => {
                 this.Spinner = c;

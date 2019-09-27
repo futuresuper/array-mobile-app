@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-import AsyncStorage from '@react-native-community/async-storage';
+import { AsyncStorage } from 'react-native';
 import { createStore as reduxCreateStore, applyMiddleware, compose } from 'redux';
 import reducers from 'src/Redux/reducers';
 import { persistStore, persistCombineReducers } from 'redux-persist';

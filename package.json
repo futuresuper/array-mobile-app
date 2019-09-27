@@ -8,7 +8,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.6.2",
     "amazon-cognito-identity-js": "^3.0.15",
     "amplitude-js": "^4.7.0-react-native",
     "aws-amplify": "^1.1.40",
