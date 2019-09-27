@@ -76,7 +76,7 @@ class AppLanding extends Component {
             <Button
               block
               onPress={() => {
-                screenProps.navigateTo(routeNames.BUILD_YOUR_SAVING);
+                screenProps.navigateTo(routeNames.SMS_CODE);
               }}
             >
               <Text>Next</Text>

@@ -1,12 +1,12 @@
-import {AsyncStorage} from 'react-native';
-import {createStore as reduxCreateStore, applyMiddleware, compose} from 'redux';
+/* eslint-disable global-require */
+import { AsyncStorage } from 'react-native';
+import { createStore as reduxCreateStore, applyMiddleware, compose } from 'redux';
 import reducers from 'src/Redux/reducers';
-import {persistStore, persistCombineReducers} from 'redux-persist';
+import { persistStore, persistCombineReducers } from 'redux-persist';
 import thunk from 'redux-thunk';
-import {navReduxMiddleware} from 'src/Navigation/navMiddlewareListener';
-import Reactotron from 'src/ReactotronConfig';
+import { navReduxMiddleware } from 'src/Navigation/navMiddlewareListener';
 
-let createStore = reduxCreateStore;
+const createStore = reduxCreateStore;
 
 const persistConfig = {
   key: 'primary',
@@ -18,6 +18,7 @@ const middleware = applyMiddleware(thunk, navReduxMiddleware);
 const enhancer = [middleware];
 
 if (__DEV__) {
+  const Reactotron = require('src/ReactotronConfig').default;
   enhancer.push(Reactotron.createEnhancer());
 }
 
@@ -28,5 +29,5 @@ const getPersistor = () => persistor;
 const getStore = () => store;
 const getState = () => store.getState();
 
-export {getStore, getState, getPersistor};
+export { getStore, getState, getPersistor };
 // persistStore(store, null, onCompletion);
