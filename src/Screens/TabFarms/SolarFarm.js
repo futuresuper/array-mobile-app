@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { View, FlatList, Image, ImageBackground } from 'react-native';
+import {
+  View, FlatList, Image, ImageBackground,
+} from 'react-native';
 
-import { Content, Text, H1, Grid, Col, Card, CardItem, Body } from 'native-base';
+import {
+  Content, Text, H1, Grid, Col, Card, CardItem, Body,
+} from 'native-base';
 
 import CloseButton from 'src/Components/CloseButton';
 import WeatherWidget from 'src/Components/WeatherWidget';
@@ -79,7 +83,10 @@ class SolarFarm extends Component {
               {item.completionDate && (
                 <Text
                   style={[styles.solarFarmFinishDate, sg.mB50]}
-                >{`Projected finish date: ${item.completionDate}`}</Text>
+                >
+                  {`Projected finish date: ${item.completionDate}`}
+
+                </Text>
               )}
               {this.renderStats()}
             </View>

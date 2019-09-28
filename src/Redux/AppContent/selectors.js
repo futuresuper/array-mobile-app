@@ -1,16 +1,16 @@
-export const accountsSelector = state => state.appContent.accounts || [];
+export const accountsSelector = (state) => state.appContent.accounts || [];
 
-export const impactStatsSelector = state => state.appContent.impactStats || [];
+export const impactStatsSelector = (state) => state.appContent.impactStats || [];
 
-export const investmentsSelector = state => state.appContent.investments || [];
+export const investmentsSelector = (state) => state.appContent.investments || [];
 
-export const latestSelector = state => state.appContent.latest || [];
+export const latestSelector = (state) => state.appContent.latest || [];
 
-export const solarFarmsSelector = state => state.appContent.solarFarms || [];
+export const solarFarmsSelector = (state) => state.appContent.solarFarms || [];
 
-export const unitPricesSelector = state => state.appContent.unitPrices || [];
+export const unitPricesSelector = (state) => state.appContent.unitPrices || [];
 
-export const userSelector = state => state.appContent.user || {};
+export const userSelector = (state) => state.appContent.user || {};
 
 export const featuredSolarFarmSelector = (state) => {
   const { featuredSolarFarm } = state.appContent;

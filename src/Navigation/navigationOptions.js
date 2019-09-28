@@ -16,12 +16,14 @@ import NavigationService from './NavigationService';
 const isIOSv = isIOS();
 
 export const signOptions = (props) => {
-  const { navigation } = props;
+  const { navigation, screenProps } = props;
   const { state } = navigation;
   const params = state.params || {};
   const title = params.title || '';
   const headerStyle = navigation.getParam('headerStyle', {});
   const showBackButton = navigation.getParam('showBackButton', true);
+  const backgroundColor = params.backgroundColor || screenProps.getTheme().containerBgColor;
+
   const backButton = (
     <BackButton
       {...props}
@@ -34,7 +36,7 @@ export const signOptions = (props) => {
     title,
     headerLeft: showBackButton ? backButton : null,
     headerStyle: {
-      backgroundColor: sc.color.containerBgColor,
+      backgroundColor,
       borderBottomWidth: 0,
       elevation: 0,
       ...headerStyle,
@@ -47,7 +49,7 @@ export const noHeader = () => ({
 });
 
 export const tabBarOptions = {
-  tabBarComponent: props => <TabBar {...props} />,
+  tabBarComponent: (props) => <TabBar {...props} />,
   tabBarPosition: 'bottom',
   navigationOptions: (props) => {
     const { navigation, screenProps } = props;

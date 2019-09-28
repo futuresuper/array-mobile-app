@@ -99,6 +99,7 @@ class SmsCode extends Component {
           screenProps.toast('Please enter the correct code');
         }
       }).catch((e) => {
+        console.log(e)
         screenProps.toast('Code timed out - Please try again');
         amplitude.getInstance().logEvent('Entered SMS Code - TimedOut', {});
         screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);

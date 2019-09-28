@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 
-import _ from 'lodash';
+import { isNil } from 'lodash';
 
 import {
   Text,
@@ -246,7 +246,7 @@ class TabFarms extends Component {
               if (c) this.farmsFlarList = c;
             }}
             data={farms}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={(...args) => this.renderFarmCard(...args)}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -257,7 +257,7 @@ class TabFarms extends Component {
               let nextIndex = 0;
 
               this.offset = currentOffset;
-              this.currentIndex = _.isNil(this.currentIndex) ? 0 : this.currentIndex;
+              this.currentIndex = isNil(this.currentIndex) ? 0 : this.currentIndex;
 
               if (direction === 'left') {
                 if (this.currentIndex >= maxIndex) {
