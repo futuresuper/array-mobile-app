@@ -35,6 +35,7 @@ import {
   navGetParam,
   getTimeLapse,
 } from 'src/Common/Helpers';
+import moment from 'src/Common/moment';
 
 import Api from 'src/Common/Api';
 import ProtectedRoutes from 'src/Common/ProtectedRoutes';
@@ -68,6 +69,7 @@ class AppIndex extends Component {
       return true;
     });
     this.setAnalyticsUser();
+    this.initializeTheme();
   }
 
   setAnalyticsUser() {
@@ -87,6 +89,7 @@ class AppIndex extends Component {
     this.AlertComp.showDialog(options);
   }
 
+
   setDarkTheme = () => {
     const { dark } = this.state;
     if (dark) {
@@ -101,6 +104,7 @@ class AppIndex extends Component {
       this.forceUpdate();
     });
   }
+
 
   setLightTheme = () => {
     const { dark } = this.state;
@@ -127,7 +131,8 @@ class AppIndex extends Component {
     }
   }
 
-  enableTheme = (currentTime) => {
+  enableTheme = () => {
+    const currentTime = moment().format();
     const timeLapse = getTimeLapse(currentTime);
 
     if (timeLapse.isSunrise || timeLapse.isDay) {
@@ -143,6 +148,13 @@ class AppIndex extends Component {
 
   getTheme = () => ThemeService.getTheme()
   isDarkTheme = () => ThemeService.isDark()
+
+  initializeTheme() {
+    const { auth } = this.props;
+    if (auth.user) {
+      this.enableTheme();
+    }
+  }
 
   navigateTo(route_name, params = {}) {
     const { navigateToConnect } = this.props;
@@ -240,7 +252,7 @@ class AppIndex extends Component {
       >
         <StyleProvider style={getTheme(theme)}>
           <Container>
-            <StatusBar backgroundColor={theme.containerBgColor} barStyle={barStyle} translucent />
+            <StatusBar backgroundColor={theme.containerBgColor} barStyle={barStyle} />
             <Spinner
               ref={(c) => {
                 this.Spinner = c;
@@ -268,6 +280,7 @@ class AppIndex extends Component {
             <ProtectedRoutes
               navigateTo={this.navigateTo}
               account={account}
+              navState={navigation}
             />
             <AppWithNavigationState
               navigation={screenProps}
@@ -303,10 +316,10 @@ function bindAction(dispatch) {
   };
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   navigation: state.navigationCard,
   auth: state.auth,
-  account: accountSelector(state.account),
+  account: accountSelector(state),
 });
 
 export default connect(mapStateToProps, bindAction)(AppIndex);

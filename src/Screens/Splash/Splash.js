@@ -1,5 +1,5 @@
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
@@ -12,7 +12,7 @@ import {
   routeNames,
 } from 'src/Navigation';
 
-class Splash extends PureComponent {
+class Splash extends Component {
   componentDidMount() {
     this.proc();
   }

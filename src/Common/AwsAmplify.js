@@ -1,5 +1,5 @@
 import Amplify, { Auth } from 'aws-amplify';
-import _ from 'lodash';
+import { random } from 'lodash';
 
 import { Config } from 'src/Common/config';
 
@@ -94,7 +94,6 @@ class AwsAmplify {
     return null;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   async isAuthenticated() {
     try {
       await Auth.currentAuthenticatedUser();
@@ -104,17 +103,15 @@ class AwsAmplify {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getRandomString(bytes) {
     let randomValues = new Uint8Array(bytes);
     console.log('----------randomValues', randomValues);
-    randomValues = randomValues.map(() => _.random(1, 999));
+    randomValues = randomValues.map(() => random(1, 999));
     return Array.from(randomValues)
       .map(this.intToHex)
       .join('');
   }
 
-  // eslint-disable-next-line class-methods-use-this
   intToHex(nr) {
     return nr.toString(16).padStart(2, '0');
   }

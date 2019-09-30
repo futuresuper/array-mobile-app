@@ -52,7 +52,7 @@ export default function withAnimation(WrappedComponent, indeterminateProgress) {
       }
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
       if (props.indeterminate !== this.props.indeterminate) {
         if (props.indeterminate) {
           this.spin();

@@ -50,12 +50,12 @@ class TabProfile extends Component {
         //   name: 'ID Check',
         //   screen: routeNames.ID_CHECK_FINISH,
         // },
-        // {
-        //   name: 'Change Theme',
-        //   function: () => {
-        //     props.screenProps.toogleTheme();
-        //   },
-        // },
+        {
+          name: 'Change Theme',
+          function: () => {
+            props.screenProps.toogleTheme();
+          },
+        },
         // {
         //   name: 'Manage accounts',
         //   screen: routeNames.MANAGE_ACCOUNTS,
@@ -118,14 +118,14 @@ class TabProfile extends Component {
   };
 
   toggleCamera = () => {
-    this.setState(prev => ({
+    this.setState((prev) => ({
       imageUploadModalIsVisible: !prev.imageUploadModalIsVisible,
       cameraVisible: !prev.cameraVisible,
     }));
   };
 
   toggleImageUploadModal = () => {
-    this.setState(prev => ({
+    this.setState((prev) => ({
       imageUploadModalIsVisible: !prev.imageUploadModalIsVisible,
     }));
   };
@@ -164,7 +164,7 @@ class TabProfile extends Component {
 
   displayIntercom(props) {
     const { user, screenProps } = props;
-
+    Intercom.registerUnidentifiedUser();
     if (user.email) {
       Intercom.displayMessageComposer();
     } else {

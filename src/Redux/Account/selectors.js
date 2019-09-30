@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export const accountSelector = state => state.selectedAccount;
+export const accountSelector = (state) => state.account.selectedAccount;
 export const accountIdSelector = (state) => {
   const { selectedAccount } = state.account;
   if (selectedAccount.id) {

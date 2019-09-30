@@ -63,7 +63,7 @@ export class ProgressCircle extends Component {
     this.progressValue = 0;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.animated) {
       this.props.progress.addListener(event => {
         this.progressValue = event.value;

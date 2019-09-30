@@ -65,7 +65,7 @@ class WeatherWidget extends Component {
     this.apiRequest(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.apiRequest(nextProps);
   }
 

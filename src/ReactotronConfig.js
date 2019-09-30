@@ -1,37 +1,31 @@
-/* eslint-disable global-require */
-/* eslint-disable no-undef */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-global-assign */
+import Reactotron, { openInEditor } from 'reactotron-react-native';
+import { AsyncStorage } from 'react-native';
+import { reactotronRedux } from 'reactotron-redux';
+import { isIOS } from 'src/Common/Helpers';
 
-import {
-  isIOS,
-} from 'src/Common/Helpers';
 
-if (__DEV__) {
-  Reactotron = require('reactotron-react-native').default;
-  openInEditor = require('reactotron-react-native').openInEditor;
-  reactotronRedux = require('reactotron-redux').reactotronRedux;
-
-  const config = {};
-  if (!isIOS()) {
-    config.host = 'localhost';
-  }
-
-  Reactotron
-    .configure(config) // controls connection & communication settings
-    .useReactNative() // add all built-in react native plugins
-    .use(reactotronRedux())
-    .use(openInEditor());
-
-  const nativeLog = console.log;
-  console.log = (...args) => {
-    nativeLog(...args);
-
-    Reactotron.display({
-      name: 'LOG',
-      important: true,
-      value: args,
-      preview: args.length ? JSON.stringify(args) : args[0],
-    });
-  };
+const config = {
+  name: 'Future Renewables',
+};
+if (!isIOS()) {
+  config.host = 'localhost';
 }
+
+export default Reactotron
+  .configure(config)
+  .useReactNative()
+  .use(reactotronRedux())
+  .setAsyncStorageHandler(AsyncStorage)
+  .use(openInEditor())
+  .connect();
+
+const yeOldeConsoleLog = console.log;
+console.log = (...args) => {
+  yeOldeConsoleLog(...args);
+  Reactotron.display({
+    name: 'LOG',
+    important: true,
+    value: args,
+    preview: args.length > 0 && typeof args[0] === 'string' ? args[0] : null,
+  });
+};

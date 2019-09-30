@@ -13,7 +13,6 @@ import {
   Icon,
   H1,
   H2,
-  H3,
   Grid,
   Col,
   Row,
@@ -26,14 +25,18 @@ import {
 } from 'native-base';
 
 import BottomInfo from 'src/Components/BottomInfo';
-import Balance from 'src/Components/Balance';
 import { routeNames } from 'src/Navigation';
 import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
 import { formatAmountDollar, formatAmountDollarCent } from 'src/Common/Helpers';
 
 import { LineChart } from 'src/Components/ChartKit';
-import { impactStatsSelector, latestSelector, accountsSelector, userSelector } from 'src/Redux/AppContent';
+import {
+  impactStatsSelector, latestSelector, accountsSelector, userSelector,
+} from 'src/Redux/AppContent';
+import {
+  accountSelector,
+} from 'src/Redux/Account';
 
 import { sg } from 'src/Styles';
 
@@ -54,7 +57,7 @@ class TabHome extends Component {
     super(props);
 
     this.state = {
-      currentTime: moment().format(),
+      currentTime: moment().utcOffset(600),
       article: {
         visible: false,
         item: null,
@@ -64,12 +67,6 @@ class TabHome extends Component {
     };
   }
 
-  componentDidMount() {
-    // const { navigation, screenProps } = this.props;
-    // const { currentTime } = this.state;
-    // screenProps.enableTheme(currentTime);
-    // screenProps.setDarkTheme();
-  }
 
   openArticle(item) {
     const { screenProps } = this.props;
@@ -115,7 +112,7 @@ class TabHome extends Component {
 
   renderGlow() {
     const { currentTime } = this.state;
-    return <SunGlow currentTime={currentTime} style={styles.circleDay} {...this.props} />;
+    return <SunGlow currentTime={currentTime.format()} style={styles.circleDay} {...this.props} />;
   }
 
   renderContentItemSmall(item) {
@@ -274,37 +271,40 @@ class TabHome extends Component {
 
   renderAwaitingDirectDebit = (data) => {
     if (data) {
-      return <Text style={styles.awaitingDebit}>{formatAmountDollar(data)} awaiting direct debit</Text>;
+      return (
+        <Text style={styles.awaitingDebit}>
+          {`${formatAmountDollar(data)} awaiting direct debit`}
+        </Text>
+      );
     }
     return null;
   }
 
   renderBalance() {
-    const { accounts, user, navigation, screenProps } = this.props;
-    const { account } = screenProps;
+    const { user, selectedAccount } = this.props;
 
-    if (account) {
-      let balanceDollars, balanceCents;
-      if (account.balanceIncludingPendingInDollars) {
-        const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
-        balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
-        balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
+    if (selectedAccount) {
+      const balance = {};
+      if (selectedAccount.balanceIncludingPendingInDollars) {
+        const rawBalance = formatAmountDollarCent(selectedAccount.balanceIncludingPendingInDollars);
+        balance.dollars = rawBalance.substring(0, rawBalance.length - 3);
+        balance.cents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
       } else {
-        balanceDollars = "$0";
-        balanceCents = "00";
+        balance.dollars = '$0';
+        balance.cents = '00';
       }
 
       let nickName;
-      if (account.nickName) {
-        nickName = account.nickName;
+      if (selectedAccount.nickName) {
+        nickName = selectedAccount.nickName;
       } else if (user && user.firstName) {
         nickName = user.firstName;
       } else {
-        nickName = "Accounts";
+        nickName = 'Accounts';
       }
 
       return (
-        <View style={[sg.aICenter, sg.mT50, sg.mB25]} key={account.id}>
+        <View style={[sg.aICenter, sg.mT50, sg.mB25]}>
 
           <Button
             transparent
@@ -320,10 +320,10 @@ class TabHome extends Component {
 
           <View style={sg.row}>
             <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance()} />
-            <H1 style={styles.mainAmount}>{balanceDollars}</H1>
-            <Text style={styles.mainAmountCent}>{`.${balanceCents}`}</Text>
+            <H1 style={styles.mainAmount}>{balance.dollars}</H1>
+            <Text style={styles.mainAmountCent}>{`.${balance.cents}`}</Text>
           </View>
-          {this.renderAwaitingDirectDebit(account.amountAwaitingDirectDebit)}
+          {this.renderAwaitingDirectDebit(selectedAccount.amountAwaitingDirectDebit)}
         </View>
       );
     }
@@ -332,8 +332,8 @@ class TabHome extends Component {
 
   render() {
     const { screenProps, latest } = this.props;
-    const { article, activeBalance } = this.state;
-    const solarFarmTime = moment().format('hh:mma');
+    const { article, currentTime } = this.state;
+    const solarFarmTime = currentTime.format('hh:mma');
 
     return (
       <Content bounces>
@@ -422,19 +422,23 @@ TabHome.propTypes = {
   impactStats: PropTypes.array.isRequired,
   latest: PropTypes.array.isRequired,
   accounts: PropTypes.array.isRequired,
+  selectedAccount: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const impactStats = impactStatsSelector(state);
   const latest = latestSelector(state);
   const accounts = accountsSelector(state);
+  const selectedAccount = accountSelector(state);
   const user = userSelector(state);
 
   return {
     impactStats,
     latest,
     accounts,
-    user
+    selectedAccount,
+    user,
   };
 };
 

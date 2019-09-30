@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { View, Image, FlatList, ImageBackground, TouchableOpacity } from 'react-native';
+import {
+  View, Image, FlatList, ImageBackground, TouchableOpacity,
+} from 'react-native';
 import { Content, Text } from 'native-base';
 
 import WeatherWidget from 'src/Components/WeatherWidget';
@@ -50,7 +52,7 @@ class SolarFarmsList extends Component {
                 borderColor={sc.color.gray6}
               />
               <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15]}>
-                {item.percentComplete}% Completed
+                {`${item.percentComplete}% Completed`}
               </Text>
             </View>
           )}
@@ -66,9 +68,7 @@ class SolarFarmsList extends Component {
       <Content padder>
         <View style={[sg.aICenter, sg.mB20]}>
           <Text style={[sg.fS24, sg.textBold]} color2>
-            Explore your
-            {'\n'}
-            Solar Farms
+            {'Explore your\n Solar Farms'}
           </Text>
 
           <TouchableOpacity
@@ -83,7 +83,7 @@ class SolarFarmsList extends Component {
 
         <FlatList
           data={farms}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={(...args) => this.renderFarmCard(...args)}
         />
       </Content>
@@ -95,7 +95,7 @@ SolarFarmsList.propTypes = {
   farms: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const solarFarms = solarFarmsSelector(state);
 
   return {

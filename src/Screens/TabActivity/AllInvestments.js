@@ -1,5 +1,5 @@
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -28,7 +28,7 @@ import {
 import { allInvestments as styles } from './styles';
 
 
-class AllInvestments extends PureComponent {
+class AllInvestments extends Component {
   render() {
     const { screenProps, investments } = this.props;
     const theme = screenProps.getTheme();

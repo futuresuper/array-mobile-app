@@ -117,7 +117,7 @@ class Api extends React.Component {
     return this.ApiInstance.proc(path, body, onSuccess, onError, 'post', spinner);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { ownProps } = this.props;
     ownProps.setRef(this);
   }

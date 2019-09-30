@@ -137,6 +137,9 @@ const signDataRoutes = formatRoutes({
   },
   [routeNames.ID_CHECK]: {
     screen: screens.IdCheck,
+    params: {
+      protected: true,
+    },
   },
   [routeNames.ID_CHECK_DETAILS]: {
     screen: screens.IdCheckDetails,
@@ -168,12 +171,27 @@ const signDataRoutes = formatRoutes({
     screen: screens.JoinFutureForm,
     params: {},
   },
+});
+
+const localAuthRoutes = formatRoutes({
   [routeNames.BIOMETRICS_SETUP]: {
     screen: screens.BiometricsSetup,
     params: {},
   },
   [routeNames.PIN_SETUP]: {
     screen: screens.PinSetup,
+    params: {},
+  },
+  [routeNames.BIOMETRICS_VALIDATION]: {
+    screen: screens.BiometricsValidation,
+    params: {},
+  },
+  [routeNames.PIN_VALIDATION]: {
+    screen: screens.PinValidation,
+    params: {},
+  },
+  [routeNames.LOCAL_AUTH_HANDLER]: {
+    screen: screens.LocalAuthHandler,
     params: {},
   },
 });
@@ -395,6 +413,7 @@ const tmpRoutes = {
 const routes = {
   signRoutes,
   signDataRoutes,
+  localAuthRoutes,
   mainRoutes,
   tabBarModalRootRoutes,
   tabRoutes,
@@ -431,6 +450,7 @@ export {
   getRouteInfo,
   signRoutes,
   signDataRoutes,
+  localAuthRoutes,
   mainRoutes,
   tabBarModalRootRoutes,
   tabRoutes,

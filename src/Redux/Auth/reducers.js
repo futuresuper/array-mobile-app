@@ -2,6 +2,11 @@ import * as types from './actionTypes';
 
 const initialState = {
   user: null,
+  localAuth: {
+    pin: false,
+    biometrics: false,
+    expires_in: '',
+  },
   token: {
     access_token: '',
     refresh_token: '',
@@ -56,6 +61,27 @@ const ACTION_HANDLERS = {
       user,
     };
   },
+  [types.PIN_SAVE]: (state, action) => ({
+    ...state,
+    localAuth: {
+      ...state.localAuth,
+      pin: action.payload,
+    },
+  }),
+  [types.BIOMETRICS_SAVE]: (state, action) => ({
+    ...state,
+    localAuth: {
+      ...state.localAuth,
+      biometrics: action.payload,
+    },
+  }),
+  [types.LOCAL_AUTH_VALIDATE]: state => ({
+    ...state,
+    localAuth: {
+      ...state.localAuth,
+      expires_in: Math.floor(Date.now() / 1000) + 60, // sets expiery date to 30 minutes from now
+    },
+  }),
 };
 
 const AuthReducer = (state = initialState, action) => {

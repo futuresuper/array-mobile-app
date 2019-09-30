@@ -4,7 +4,7 @@ import {
 } from 'react-navigation-redux-helpers';
 
 const navReduxMiddleware = createReactNavigationReduxMiddleware(
-  state => state.navigationCard,
+  (state) => state.navigationCard,
 );
 
 export {

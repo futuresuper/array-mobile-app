@@ -39,3 +39,23 @@ export function idCheckSave(data) {
     payload: data,
   };
 }
+
+export function pinSave(data) {
+  return {
+    type: types.PIN_SAVE,
+    payload: data,
+  };
+}
+
+export function biometricsSave(data) {
+  return {
+    type: types.BIOMETRICS_SAVE,
+    payload: data,
+  };
+}
+
+export function localAuthValidate() {
+  return {
+    type: types.LOCAL_AUTH_VALIDATE,
+  };
+}

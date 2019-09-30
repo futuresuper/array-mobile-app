@@ -17,7 +17,7 @@ import { formatAmountDollar, normalizeAmount } from 'src/Common/Helpers';
 import { routeNames } from 'src/Navigation';
 
 
-class InitialInvestmentAmount extends React.PureComponent {
+class InitialInvestmentAmount extends React.Component {
     state = {
       form: {
         field: {
@@ -74,7 +74,6 @@ class InitialInvestmentAmount extends React.PureComponent {
             } else {
               screenProps.navigateTo(routeNames.BANK_ACCOUNT);
             }
-
           },
           () => {
             screenProps.toastDanger('Error. Try Again');

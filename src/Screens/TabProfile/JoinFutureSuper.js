@@ -1,5 +1,5 @@
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -17,7 +17,7 @@ import {
   sg,
 } from 'src/Styles';
 
-class JoinFutureSuper extends PureComponent {
+class JoinFutureSuper extends Component {
   goToAddress() {
     const { auth } = this.props;
     const { user } = auth;

@@ -1,7 +1,7 @@
 
 import {
-  AsyncStorage,
   Platform,
+  AsyncStorage,
 } from 'react-native';
 
 import { isNil } from 'lodash';
@@ -105,8 +105,8 @@ export function formatAmount(amountInp, decimalCountInp = 0, decimal = '.', thou
 
 let oldDateStripped;
 export function formatFullDate(newDate) {
-  if (!newDate) {return newDate};
-  const newDateStripped = newDate.replace(/\D/g,'');
+  if (!newDate) { return newDate; }
+  const newDateStripped = newDate.replace(/\D/g, '');
   const isBackspace = oldDateStripped >= newDateStripped;
   let finalDate;
   let f = newDateStripped;
@@ -118,9 +118,7 @@ export function formatFullDate(newDate) {
   }
   oldDateStripped = f;
   let final;
-  if (f.length < 2) { final = f }
-  else if (f.length < 4) { final = `${f.slice(0,2)}${'/'}${f.slice(2,4)}` }
-  else { final = `${f.slice(0,2)}${'/'}${f.slice(2,4)}${'/'}${f.slice(4,8)}` }
+  if (f.length < 2) { final = f; } else if (f.length < 4) { final = `${f.slice(0, 2)}${'/'}${f.slice(2, 4)}`; } else { final = `${f.slice(0, 2)}${'/'}${f.slice(2, 4)}${'/'}${f.slice(4, 8)}`; }
   return final;
 }
 
@@ -150,7 +148,7 @@ export const formatAmountDollar = (inputInp, decimalCountInp = 0) => {
   return input;
 };
 
-export const formatAmountDollarCent = val => formatAmountDollar(val, 2);
+export const formatAmountDollarCent = (val) => formatAmountDollar(val, 2);
 
 export const formatShortDate = (valInp) => {
   let val = valInp;
@@ -163,7 +161,7 @@ export const formatShortDate = (valInp) => {
   return res;
 };
 
-export const isShortDateValid = valInp => (valInp.length >= 6);
+export const isShortDateValid = (valInp) => (valInp.length >= 6);
 
 export const rgbaByHex = (hexInp, opacity) => {
   const hex = hexInp.replace('#', '');
@@ -175,7 +173,7 @@ export const rgbaByHex = (hexInp, opacity) => {
   return res;
 };
 
-export const ucFirst = string => string.charAt(0).toUpperCase() + string.slice(1);
+export const ucFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 export const getTimeLapse = (currentTimeInp = null) => {
   let currentTime;
