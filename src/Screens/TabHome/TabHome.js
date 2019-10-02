@@ -67,6 +67,19 @@ class TabHome extends Component {
     };
   }
 
+  // TODO: write spearate clock component
+  componentDidMount() {
+    this.clock = setInterval(() => {
+      this.setState({
+        currentAuTime: moment().utcOffset(600),
+      });
+    }, 60000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
 
   openArticle(item) {
     const { screenProps } = this.props;
