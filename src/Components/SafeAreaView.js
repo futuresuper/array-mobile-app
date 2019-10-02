@@ -31,7 +31,7 @@ SafeAreaView.defaultProps = {
 
 SafeAreaView.propTypes = {
   children: PropTypes.node.isRequired,
-  theme: PropTypes.object.isRequired,
+  theme: PropTypes.object,
   forceInset: PropTypes.object,
   style: PropTypes.oneOfType([
     PropTypes.object,

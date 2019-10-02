@@ -197,12 +197,13 @@ class TabProfile extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, screenProps } = this.props;
     const { listMenu, cameraVisible, imageUploadModalIsVisible } = this.state;
 
     if (!user.dateJoined) {
       user.dateJoined = '2019-03-15';
     }
+    const theme = screenProps.getTheme();
     const memberSince = `${moment(user.dateJoined).format('MMMM')}'s ${user.dateJoined
       .split('-')[0]
       .substring(2)}`;
@@ -276,6 +277,7 @@ class TabProfile extends Component {
           onTakePhoto={this.onTakePhoto}
         />
         <ImageUploadModal
+          theme={theme}
           visible={imageUploadModalIsVisible}
           toggleCamera={this.toggleCamera}
           toggleLibrary={this.chooseFile}

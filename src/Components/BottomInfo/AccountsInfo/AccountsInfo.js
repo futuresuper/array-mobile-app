@@ -26,7 +26,7 @@ import {
 } from 'src/Navigation';
 
 import {
-  formatAmountDollarCent, formatAmountDollar
+  formatAmountDollarCent, formatAmountDollar,
 } from 'src/Common/Helpers';
 import accountUtils from 'src/Common/account';
 
@@ -55,12 +55,12 @@ class AccountsInfo extends Component {
   }
 
   renderAccount = (account) => {
-    if (account.status !== "incompleteApp") {
-      let showBalance = false, showAwaitingDebit = false, awaitingIdCheck = false, appIncomplete = false;
-      if (account.status === 'incompleteApp') { appIncomplete = true }
-      else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true }
-      else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true }
-      else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true };
+    if (account.status !== 'incompleteApp') {
+      let showBalance = false,
+        showAwaitingDebit = false,
+        awaitingIdCheck = false,
+        appIncomplete = false;
+      if (account.status === 'incompleteApp') { appIncomplete = true; } else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true; } else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true; } else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true; }
 
       return (
         <ListItem
@@ -84,7 +84,9 @@ class AccountsInfo extends Component {
                   )}
                   {showAwaitingDebit && (
                     <Text style={[sg.mL0, sg.fS16]} color4>
-                        {formatAmountDollar(account.amountAwaitingDirectDebit)} awaiting debit
+                        {formatAmountDollar(account.amountAwaitingDirectDebit)}
+                        {' '}
+                        awaiting debit
                     </Text>
                   )}
                 </Col>
@@ -125,7 +127,7 @@ class AccountsInfo extends Component {
     return (
       <View style={sg.mH5}>
         <List>
-          {accounts.map(account => this.renderAccount(account))}
+          {accounts.map((account) => this.renderAccount(account))}
         </List>
 
         <View style={[sg.mT30, sg.mH10]}>
@@ -151,9 +153,8 @@ class AccountsInfo extends Component {
                 style={sg.mT15}
                 onPress={() => {
                   screenProps.navigateTo(routeNames.JOIN_FUTURE, {
-                      showBackButton:false
-                    }
-                  );
+                    showBackButton: false,
+                  });
                   BottomInfoModal.hide();
                 }}
               >

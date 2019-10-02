@@ -53,11 +53,6 @@ import {
 class AppIndex extends Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      dark: false,
-    };
-
     this.routeBack = this.routeBack.bind(this);
     this.navigateTo = this.navigateTo.bind(this);
     this.spinnerShow = this.spinnerShow.bind(this);
@@ -201,7 +196,6 @@ class AppIndex extends Component {
 
   render() {
     const { navigation, account, theme: themeMode } = this.props;
-    const { dark } = this.state;
     let barStyle;
     let theme;
     if (themeMode === 'dark') {
@@ -232,9 +226,6 @@ class AppIndex extends Component {
       getTheme: this.getTheme,
       isDarkTheme: this.isDarkTheme,
       Api,
-      theme: {
-        dark,
-      },
     };
 
     return (
@@ -284,7 +275,7 @@ class AppIndex extends Component {
                 if (c) Toast.toastInstance = c;
               }}
             />
-            <BottomInfoModal screenProps={screenProps} />
+            <BottomInfoModal screenProps={screenProps} theme={this.getTheme} />
           </Container>
         </StyleProvider>
       </Root>
