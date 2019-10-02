@@ -18,9 +18,9 @@ const ACTION_HANDLERS = {
   }),
 };
 
-const AuthReducer = (state = initialState, action) => {
+const AccountReducer = (state = initialState, action) => {
   const handler = ACTION_HANDLERS[action.type];
   return handler ? handler(state, action) : state;
 };
 
-export default AuthReducer;
+export default AccountReducer;

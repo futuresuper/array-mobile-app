@@ -38,6 +38,7 @@ import {
 import moment from 'src/Common/moment';
 
 import Api from 'src/Common/Api';
+import ThemePlug from 'src/Common/ThemePlug';
 import ProtectedRoutes from 'src/Common/ProtectedRoutes';
 
 import Spinner from 'src/Components/Spinner';
@@ -277,6 +278,7 @@ class AppIndex extends Component {
               toastDanger={this.toastDanger}
               toastSuccess={this.toastSuccess}
             />
+            <ThemePlug />
             <ProtectedRoutes
               navigateTo={this.navigateTo}
               account={account}
