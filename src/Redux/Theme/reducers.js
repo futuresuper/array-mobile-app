@@ -1,34 +1,34 @@
 import * as types from './actionTypes';
 
 const initialState = {
-  name: '',
+  mode: 'light',
 };
 
 const ACTION_HANDLERS = {
   [types.SET_DARK_THEME]: (state) => ({
     ...state,
-    name: 'dark',
+    mode: 'dark',
   }),
   [types.SET_LIGHT_THEME]: (state) => ({
     ...state,
-    name: 'light',
+    mode: 'light',
   }),
   [types.TOGGLE_THEME]: (state) => {
-    if (state.name === 'dark') {
+    if (state.mode === 'dark') {
       return ({
         ...state,
-        name: 'light',
+        mode: 'light',
       });
     }
-    if (state.name === 'light') {
+    if (state.mode === 'light') {
       return ({
         ...state,
-        name: 'dark',
+        mode: 'dark',
       });
     }
     return ({
       ...state,
-      name: 'light',
+      mode: 'light',
     });
   },
 

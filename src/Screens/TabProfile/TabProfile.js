@@ -197,7 +197,7 @@ class TabProfile extends Component {
   }
 
   render() {
-    const { user, screenProps } = this.props;
+    const { user } = this.props;
     const { listMenu, cameraVisible, imageUploadModalIsVisible } = this.state;
 
     if (!user.dateJoined) {
@@ -242,7 +242,6 @@ class TabProfile extends Component {
             <ListItem style={[sg.pT15, sg.mL0]} />
 
             <FlatList
-              extraData={screenProps.theme}
               data={listMenu}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (

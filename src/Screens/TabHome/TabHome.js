@@ -402,6 +402,7 @@ class TabHome extends Component {
         </ViewNB>
 
         <ArticleModal
+          theme={screenProps.getTheme()}
           visible={article.visible}
           item={article.item}
           onRequestClose={() => {

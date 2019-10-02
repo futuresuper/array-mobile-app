@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
-import {PersistGate} from 'redux-persist/integration/react';
-import {AppRegistry} from 'react-native';
+import React, { Component } from 'react';
+import { PersistGate } from 'redux-persist/integration/react';
+import { AppRegistry } from 'react-native';
 import amplitude from 'amplitude-js';
-import {Provider} from 'react-redux';
-import ServiceManager from 'src/Services';
-import {name as appName} from '../app.json';
-import {getStore, getPersistor} from './Redux/store';
+import { Provider } from 'react-redux';
+import { name as appName } from '../app.json';
+import { getStore, getPersistor } from './Redux/store';
 import AppIndex from './AppIndex';
 
 class Root extends Component {
@@ -33,7 +32,6 @@ class Root extends Component {
       <Provider store={myStore}>
         {/* potential add splash screen here instead of blank(null) one */}
         <PersistGate loading={null} persistor={myPersistor}>
-          <ServiceManager />
           <AppIndex />
         </PersistGate>
       </Provider>

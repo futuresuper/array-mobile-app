@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SafeAreaView as RNSafeAreaView } from 'react-navigation';
-import ThemeService from 'src/Services/ThemeService';
 
 const defaultForceInset = {
   top: 'always',
@@ -14,10 +13,12 @@ const defaultStyle = {
   flex: 1,
 };
 
-const SafeAreaView = ({ children, forceInset, style }) => (
+const SafeAreaView = ({
+  children, forceInset, style, theme,
+}) => (
   <RNSafeAreaView
     forceInset={{ ...defaultForceInset, ...forceInset }}
-    style={[defaultStyle, { backgroundColor: ThemeService.getTheme().containerBgColor }, style]}
+    style={[defaultStyle, { backgroundColor: theme.containerBgColor }, style]}
   >
     {children}
   </RNSafeAreaView>
@@ -30,6 +31,7 @@ SafeAreaView.defaultProps = {
 
 SafeAreaView.propTypes = {
   children: PropTypes.node.isRequired,
+  theme: PropTypes.object.isRequired,
   forceInset: PropTypes.object,
   style: PropTypes.oneOfType([
     PropTypes.object,
