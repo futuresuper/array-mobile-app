@@ -155,7 +155,8 @@ class Api extends React.Component {
   }
 
   authReset() {
-    const { authResetConnect } = this.props;
+    const { authResetConnect, disableTheme } = this.props;
+    disableTheme();
     authResetConnect();
   }
 
@@ -242,6 +243,7 @@ Api.propTypes = {
   navigateTo: PropTypes.func.isRequired,
   authResetConnect: PropTypes.func.isRequired,
   toast: PropTypes.func.isRequired,
+  disableTheme: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   ownProps: PropTypes.any.isRequired,
 };

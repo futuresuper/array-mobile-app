@@ -32,7 +32,6 @@ import {
 
 import {
   navGetParam,
-  getTimeLapse,
 } from 'src/Common/Helpers';
 import moment from 'src/Common/moment';
 
@@ -71,7 +70,7 @@ class AppIndex extends Component {
       return true;
     });
     this.setAnalyticsUser();
-    // this.initializeTheme();
+    this.initializeTheme();
   }
 
   setAnalyticsUser() {
@@ -99,7 +98,6 @@ class AppIndex extends Component {
     clearThemeCache();
   }
 
-
   setLightTheme = () => {
     const { setLightThemeConnect } = this.props;
     setLightThemeConnect();
@@ -113,10 +111,9 @@ class AppIndex extends Component {
   }
 
   enableTheme = () => {
-    const currentTime = moment().format();
-    const timeLapse = getTimeLapse(currentTime);
-
-    if (timeLapse.isSunrise || timeLapse.isDay) {
+    const currentTime = moment();
+    const format = 'hh:mm A';
+    if (currentTime.isBetween(moment('06:00 AM', format), moment('07:00 PM', format))) {
       this.setLightTheme();
     } else {
       this.setDarkTheme();
@@ -272,6 +269,7 @@ class AppIndex extends Component {
               toast={this.toast}
               toastDanger={this.toastDanger}
               toastSuccess={this.toastSuccess}
+              disableTheme={this.disableTheme}
             />
             <ProtectedRoutes
               navigateTo={this.navigateTo}
