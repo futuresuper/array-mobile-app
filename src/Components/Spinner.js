@@ -22,7 +22,7 @@ import {
   View,
   // Text,
   Modal,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 
 import {
@@ -30,7 +30,7 @@ import {
   Text,
 } from 'native-base';
 
-import _ from 'lodash';
+import { isNil } from 'lodash';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     left: 0,
-    right: 0
+    right: 0,
   },
   background: {
     position: 'absolute',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textContainer: {
     flex: 1,
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     top: -40,
     height: 50,
     fontSize: 20,
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });
 
 const ANIMATION = ['none', 'slide', 'fade'];
@@ -75,48 +75,22 @@ const SIZES = ['small', 'normal', 'large'];
 export default class Spinner extends React.Component {
   constructor(props) {
     super(props);
+    const { visible, textContent, onStop } = this.props;
     this.state = {
-      visible: this.props.visible,
-      textContent: this.props.textContent,
-      onStop: this.props.onStop,
+      visible,
+      textContent,
+      onStop,
     };
   }
 
-  static propTypes = {
-    visible: PropTypes.bool,
-    cancelable: PropTypes.bool,
-    textContent: PropTypes.string,
-    onStop: PropTypes.func,
-    animation: PropTypes.oneOf(ANIMATION),
-    color: PropTypes.string,
-    size: PropTypes.oneOf(SIZES),
-    overlayColor: PropTypes.string,
-    textStyle: PropTypes.object,
-  };
 
-  static defaultProps = {
-    visible: false,
-    cancelable: false,
-    textContent: '',
-    onStop: null,
-    animation: 'none',
-    color: 'white',
-    size: 'large', // 'normal',
-    overlayColor: 'rgba(0, 0, 0, 0.25)',
-    textStyle: {},
-  };
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   // const { visible, textContent, onStop } = nextProps;
+  //   // this.setState({ visible, textContent, onStop });
+  // }
 
-  show(config) {
-    config = Object.assign({
-      text: '',
-      onStop: null,
-    }, config);
-
-    this.setState({
-      visible: true,
-      textContent: config.text,
-      onStop: config.onStop,
-    });
+  close() {
+    this.setState({ visible: false });
   }
 
   hide() {
@@ -125,81 +99,102 @@ export default class Spinner extends React.Component {
     });
   }
 
-  close() {
-    this.setState({ visible: false });
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    // const { visible, textContent, onStop } = nextProps;
-    // this.setState({ visible, textContent, onStop });
+  show(config) {
+    const conf = {
+      text: '',
+      onStop: null,
+      ...config,
+    };
+    this.setState({
+      visible: true,
+      textContent: conf.text,
+      onStop: conf.onStop,
+    });
   }
 
   _handleOnRequestClose() {
-    if (this.props.cancelable) {
+    const { cancelable } = this.props;
+    if (cancelable) {
       this.close();
     }
   }
 
   _renderDefaultContent() {
-    const { textStyle, trans } = this.props;
+    const {
+      textStyle, trans, color, size,
+    } = this.props;
+
+    const {
+      textContent, onStop,
+    } = this.state;
 
     return (
       <View style={styles.background}>
         <ActivityIndicator
-          color={this.props.color}
-          size={this.props.size}
-          style={{flex: 1}}
+          color={color}
+          size={size}
+          style={{ flex: 1 }}
         />
 
-        {(this.state.textContent !== '') &&
+        {(textContent !== '')
+          && (
           <View style={styles.textContainer}>
-            <Text style={[styles.textContent, textStyle]}>{this.state.textContent}</Text>
+            <Text style={[styles.textContent, textStyle]}>{textContent}</Text>
           </View>
-        }
+          )}
 
-        {!_.isNil(this.state.onStop) &&
+        {!isNil(onStop)
+          && (
           <View style={styles.textContainer}>
-            <Button warning small
+            <Button
+              warning
+              small
               style={{
                 alignSelf: 'center',
                 top: 50,
               }}
               onPress={() => {
                 this.close();
-                this.state.onStop();
+                onStop();
               }}
             >
               <Text>{trans.cancel}</Text>
             </Button>
           </View>
-        }
-      </View>);
+          )}
+      </View>
+    );
   }
 
   _renderSpinner() {
     const { visible } = this.state;
+    const { overlayColor, children, animation } = this.props;
 
     if (!visible) {
       return null;
     }
 
     const spinner = (
-      <View style={[
-        styles.container,
-        { backgroundColor: this.props.overlayColor }
-      ]} key={`spinner_${Date.now()}`}>
-        {this.props.children ? this.props.children : this._renderDefaultContent()}
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: overlayColor },
+        ]}
+        key={`spinner_${Date.now()}`}
+      >
+        {children || this._renderDefaultContent()}
       </View>
     );
 
     return (
       <Modal
-        style={{zIndex: 200}}
-        animationType={this.props.animation}
+        style={{ zIndex: 200 }}
+        animationType={animation}
         onRequestClose={() => this._handleOnRequestClose()}
         supportedOrientations={['landscape', 'portrait']}
         transparent
-        visible={visible}>
+        visible={visible}
+      >
         {spinner}
       </Modal>
     );
@@ -209,3 +204,29 @@ export default class Spinner extends React.Component {
     return this._renderSpinner();
   }
 }
+
+
+Spinner.defaultProps = {
+  visible: false,
+  cancelable: false,
+  textContent: '',
+  onStop: null,
+  animation: 'none',
+  color: 'white',
+  size: 'large', // 'normal',
+  overlayColor: 'rgba(0, 0, 0, 0.25)',
+  textStyle: {},
+};
+
+
+Spinner.propTypes = {
+  visible: PropTypes.bool,
+  cancelable: PropTypes.bool,
+  textContent: PropTypes.string,
+  onStop: PropTypes.func,
+  animation: PropTypes.oneOf(ANIMATION),
+  color: PropTypes.string,
+  size: PropTypes.oneOf(SIZES),
+  overlayColor: PropTypes.string,
+  textStyle: PropTypes.object,
+};

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, Modal, ScrollView } from 'react-native';
+import {
+  View, Image, Modal, ScrollView,
+} from 'react-native';
 import { H3, Text } from 'native-base';
 
 import SafeAreaView from 'src/Components/SafeAreaView';
@@ -100,11 +102,11 @@ class ArticleModal extends Component {
   }
 
   render() {
-    const { visible } = this.props;
+    const { visible, theme } = this.props;
 
     return (
       <Modal animated visible={visible} onRequestClose={() => this.onRequestClose()} transparent>
-        <SafeAreaView>
+        <SafeAreaView theme={theme}>
           <ScrollView>
             <View style={[sg.contentMarginV2]}>
               <View style={[sg.aIEnd]}>

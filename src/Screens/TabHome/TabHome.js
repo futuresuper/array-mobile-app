@@ -57,7 +57,7 @@ class TabHome extends Component {
     super(props);
 
     this.state = {
-      currentTime: moment().utcOffset(600),
+      currentAuTime: moment().utcOffset(600),
       article: {
         visible: false,
         item: null,
@@ -65,6 +65,19 @@ class TabHome extends Component {
       activeDot: 'Mar 8',
       activeBalance: 0,
     };
+  }
+
+  // TODO: write spearate clock component
+  componentDidMount() {
+    this.clock = setInterval(() => {
+      this.setState({
+        currentAuTime: moment().utcOffset(600),
+      });
+    }, 60000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
   }
 
 
@@ -111,8 +124,8 @@ class TabHome extends Component {
   }
 
   renderGlow() {
-    const { currentTime } = this.state;
-    return <SunGlow currentTime={currentTime.format()} style={styles.circleDay} {...this.props} />;
+    const { currentAuTime } = this.state;
+    return <SunGlow currentFarmTime={currentAuTime} style={styles.circleDay} {...this.props} />;
   }
 
   renderContentItemSmall(item) {
@@ -281,7 +294,7 @@ class TabHome extends Component {
   }
 
   renderBalance() {
-    const { user, selectedAccount } = this.props;
+    const { user, selectedAccount, screenProps } = this.props;
 
     if (selectedAccount) {
       const balance = {};
@@ -311,7 +324,7 @@ class TabHome extends Component {
             iconRight
             style={sg.aSCenter}
             onPress={() => {
-              BottomInfo.showAccounts();
+              screenProps.navigateTo(routeNames.ACCOUNTS); // CHANGE TO MODAL BOTTOM WHEN FIXED
             }}
           >
             <Text style={styles.title}>{nickName}</Text>
@@ -332,8 +345,8 @@ class TabHome extends Component {
 
   render() {
     const { screenProps, latest } = this.props;
-    const { article, currentTime } = this.state;
-    const solarFarmTime = currentTime.format('hh:mma');
+    const { article, currentAuTime } = this.state;
+    const solarFarmTime = currentAuTime.format('hh:mma');
 
     return (
       <Content bounces>
@@ -402,6 +415,7 @@ class TabHome extends Component {
         </ViewNB>
 
         <ArticleModal
+          theme={screenProps.getTheme()}
           visible={article.visible}
           item={article.item}
           onRequestClose={() => {

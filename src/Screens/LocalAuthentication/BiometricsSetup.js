@@ -10,7 +10,7 @@ import {
   Text,
 } from 'native-base';
 
-import { localAuthSelector, biometricsSave } from 'src/Redux/Auth';
+import { biometricsSave } from 'src/Redux/Auth';
 
 import {
   composeHoc,
@@ -38,7 +38,7 @@ class BiometricsSetup extends React.Component {
   }
 
   handleOpenBiometrics() {
-    this.setState(prevState => ({ biometrics: !prevState.biometrics }));
+    this.setState((prevState) => ({ biometrics: !prevState.biometrics }));
   }
 
   handleBiometricsSuccess() {
@@ -76,7 +76,7 @@ class BiometricsSetup extends React.Component {
             </View>
             {biometrics && (
             <View style={[styleGlobal.center, styleGlobal.mT50]}>
-              <BiometricsInput onSuccess={() => this.handleBiometricsSuccess()} onError={error => this.handleBiometricsError(error)} />
+              <BiometricsInput onSuccess={() => this.handleBiometricsSuccess()} onError={(error) => this.handleBiometricsError(error)} />
             </View>
             )}
           </View>
@@ -102,15 +102,9 @@ class BiometricsSetup extends React.Component {
 
 BiometricsSetup.propTypes = {
   biometricsSaveConnect: PropTypes.func.isRequired,
-  localAuth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const localAuth = localAuthSelector(state);
-  return {
-    localAuth,
-  };
-};
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
   biometricsSaveConnect: biometricsSave,

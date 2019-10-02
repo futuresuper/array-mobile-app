@@ -4,8 +4,6 @@ import { Button, Footer, FooterTab } from 'native-base';
 
 import { routeNames, NavigationService } from 'src/Navigation';
 
-import ThemeService from 'src/Services/ThemeService';
-
 import HomeActive from './images/HomeActive.png';
 import HomeInactive from './images/HomeInactive.png';
 import DollarActive from './images/DollarActive.png';
@@ -17,11 +15,11 @@ import ChelInactive from './images/ChelInactive.png';
 
 import styles from './styles';
 
-const TabBar = props => {
+const TabBar = (props) => {
   const { navigation, screenProps } = props;
   const { state } = navigation;
   const { routeName } = NavigationService.getCurrentRoute(state);
-  const theme = ThemeService.getTheme();
+  const theme = screenProps.getTheme();
   const iconStyle = {
     tintColor: theme.footerIconColor,
   };

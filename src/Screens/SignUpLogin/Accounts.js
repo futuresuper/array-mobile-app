@@ -21,11 +21,11 @@ class Accounts extends React.Component {
     const { userDataSaveConnect, appContentSaveConnect } = this.props;
     this.getAppContent((appContent) => {
       const { user } = appContent;
-      const { screenProps } = this.props;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      // screenProps.navigateTo(routeNames.INITIAL_INVESTMENT_AMOUNT);
+      // const { screenProps } = this.props;
+      // screenProps.navigateTo(routeNames.BUILD_YOUR_IMPACT);
     });
   }
 

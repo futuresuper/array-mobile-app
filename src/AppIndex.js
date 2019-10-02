@@ -23,7 +23,6 @@ import { clearThemeCache } from 'native-base-shoutem-theme';
 
 import Toast from 'src/Components/Toast';
 import BottomInfoModal from 'src/Components/BottomInfo';
-import ThemeService from 'src/Services/ThemeService';
 
 import {
   getTheme,
@@ -33,7 +32,6 @@ import {
 
 import {
   navGetParam,
-  getTimeLapse,
 } from 'src/Common/Helpers';
 import moment from 'src/Common/moment';
 
@@ -45,6 +43,9 @@ import Alert from 'src/Components/Alert';
 import { AppWithNavigationState } from 'src/Navigation/AppNavigator';
 import { accountSelector } from 'src/Redux/Account/selectors';
 import {
+  themeSelector, setLightThemeAction, setDarkThemeAction, toggleThemeAction,
+} from 'src/Redux/Theme';
+import {
   navigateTo,
   routeBack,
 } from 'src/Redux/Nav';
@@ -52,11 +53,6 @@ import {
 class AppIndex extends Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      dark: false,
-    };
-
     this.routeBack = this.routeBack.bind(this);
     this.navigateTo = this.navigateTo.bind(this);
     this.spinnerShow = this.spinnerShow.bind(this);
@@ -89,53 +85,30 @@ class AppIndex extends Component {
     this.AlertComp.showDialog(options);
   }
 
+  // THEMEING RELATED STUFF
 
   setDarkTheme = () => {
-    const { dark } = this.state;
-    if (dark) {
-      return;
-    }
-
-    ThemeService.setDark();
-    this.setState({
-      dark: true,
-    }, () => {
-      clearThemeCache();
-      this.forceUpdate();
-    });
+    const { setDarkThemeConnect } = this.props;
+    setDarkThemeConnect();
+    clearThemeCache();
   }
 
-
   setLightTheme = () => {
-    const { dark } = this.state;
-    if (!dark) {
-      return;
-    }
-
-    ThemeService.setLight();
-    this.setState({
-      dark: false,
-    }, () => {
-      clearThemeCache();
-      this.forceUpdate();
-    });
+    const { setLightThemeConnect } = this.props;
+    setLightThemeConnect();
+    clearThemeCache();
   }
 
   toogleTheme = () => {
-    const { dark } = this.state;
-
-    if (dark) {
-      this.setLightTheme();
-    } else {
-      this.setDarkTheme();
-    }
+    const { toggleThemeConnect } = this.props;
+    toggleThemeConnect();
+    clearThemeCache();
   }
 
   enableTheme = () => {
-    const currentTime = moment().format();
-    const timeLapse = getTimeLapse(currentTime);
-
-    if (timeLapse.isSunrise || timeLapse.isDay) {
+    const currentTime = moment();
+    const format = 'hh:mm A';
+    if (currentTime.isBetween(moment('06:00 AM', format), moment('07:00 PM', format))) {
       this.setLightTheme();
     } else {
       this.setDarkTheme();
@@ -146,8 +119,18 @@ class AppIndex extends Component {
     this.setLightTheme();
   }
 
-  getTheme = () => ThemeService.getTheme()
-  isDarkTheme = () => ThemeService.isDark()
+  getTheme = () => {
+    const { theme } = this.props;
+    if (theme === 'dark') {
+      return themeDark;
+    }
+    return themeLight;
+  }
+
+  isDarkTheme = () => {
+    const { theme } = this.props;
+    return theme === 'dark';
+  }
 
   initializeTheme() {
     const { auth } = this.props;
@@ -155,6 +138,10 @@ class AppIndex extends Component {
       this.enableTheme();
     }
   }
+
+
+  // /////////////////////////////////////////////////////////////
+
 
   navigateTo(route_name, params = {}) {
     const { navigateToConnect } = this.props;
@@ -208,15 +195,15 @@ class AppIndex extends Component {
   }
 
   render() {
-    const { navigation, account } = this.props;
-    const { dark } = this.state;
-    const barStyle = dark ? 'light-content' : 'dark-content';
+    const { navigation, account, theme: themeMode } = this.props;
+    let barStyle;
     let theme;
-
-    if (dark) {
+    if (themeMode === 'dark') {
       theme = themeDark;
+      barStyle = 'light-content';
     } else {
       theme = themeLight;
+      barStyle = 'dark-content';
     }
 
     const screenProps = {
@@ -239,9 +226,6 @@ class AppIndex extends Component {
       getTheme: this.getTheme,
       isDarkTheme: this.isDarkTheme,
       Api,
-      theme: {
-        dark,
-      },
     };
 
     return (
@@ -276,6 +260,7 @@ class AppIndex extends Component {
               toast={this.toast}
               toastDanger={this.toastDanger}
               toastSuccess={this.toastSuccess}
+              disableTheme={this.disableTheme}
             />
             <ProtectedRoutes
               navigateTo={this.navigateTo}
@@ -290,13 +275,14 @@ class AppIndex extends Component {
                 if (c) Toast.toastInstance = c;
               }}
             />
-            <BottomInfoModal screenProps={screenProps} />
+            <BottomInfoModal screenProps={screenProps} theme={this.getTheme} />
           </Container>
         </StyleProvider>
       </Root>
     );
   }
 }
+
 
 AppIndex.propTypes = {
   navigateToConnect: PropTypes.func.isRequired,
@@ -307,12 +293,19 @@ AppIndex.propTypes = {
   routeBackConnect: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   account: PropTypes.object.isRequired,
+  theme: PropTypes.string.isRequired,
+  setLightThemeConnect: PropTypes.func.isRequired,
+  setDarkThemeConnect: PropTypes.func.isRequired,
+  toggleThemeConnect: PropTypes.func.isRequired,
 };
 
 function bindAction(dispatch) {
   return {
     navigateToConnect: (route, params) => dispatch(navigateTo(route, params)),
     routeBackConnect: (back_screen, params) => dispatch(routeBack(back_screen, params)),
+    setDarkThemeConnect: () => dispatch(setDarkThemeAction()),
+    setLightThemeConnect: () => dispatch(setLightThemeAction()),
+    toggleThemeConnect: () => dispatch(toggleThemeAction()),
   };
 }
 
@@ -320,6 +313,7 @@ const mapStateToProps = (state) => ({
   navigation: state.navigationCard,
   auth: state.auth,
   account: accountSelector(state),
+  theme: themeSelector(state),
 });
 
 export default connect(mapStateToProps, bindAction)(AppIndex);

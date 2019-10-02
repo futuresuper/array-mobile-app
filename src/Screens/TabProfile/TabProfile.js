@@ -203,6 +203,7 @@ class TabProfile extends Component {
     if (!user.dateJoined) {
       user.dateJoined = '2019-03-15';
     }
+    const theme = screenProps.getTheme();
     const memberSince = `${moment(user.dateJoined).format('MMMM')}'s ${user.dateJoined
       .split('-')[0]
       .substring(2)}`;
@@ -242,7 +243,6 @@ class TabProfile extends Component {
             <ListItem style={[sg.pT15, sg.mL0]} />
 
             <FlatList
-              extraData={screenProps.theme}
               data={listMenu}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
@@ -277,6 +277,7 @@ class TabProfile extends Component {
           onTakePhoto={this.onTakePhoto}
         />
         <ImageUploadModal
+          theme={theme}
           visible={imageUploadModalIsVisible}
           toggleCamera={this.toggleCamera}
           toggleLibrary={this.chooseFile}

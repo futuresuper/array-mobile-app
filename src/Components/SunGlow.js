@@ -17,27 +17,27 @@ import CircleNight2 from 'src/assets/images/CircleNight2.png';
 
 class SunGlow extends Component {
   getImage() {
-    const { currentTime } = this.props;
-    const timeLapse = getTimeLapse(currentTime);
+    const { currentFarmTime } = this.props;
+    const timeLapse = getTimeLapse(currentFarmTime);
     let image = CircleNight2;
 
-    if (timeLapse.isSunrise) {
+    if (timeLapse.isDawn) {
       image = CircleSunrise;
     } else if (timeLapse.isDay) {
       image = CircleDay;
-    } else if (timeLapse.isSunset) {
+    } else if (timeLapse.isDusk) {
       image = CircleSunset;
+    } else if (timeLapse.isEvening) {
+      image = CircleNight2;
+    } else if (timeLapse.isNight) {
+      image = CircleNight2;
     }
-
-    // temporary
-    image = CircleSunrise;
 
     return image;
   }
 
   render() {
-    // const image = this.getImage();
-    const image = CircleSunrise;
+    const image = this.getImage();
 
     return (
       <Image source={image} {...this.props} />
@@ -46,7 +46,7 @@ class SunGlow extends Component {
 }
 
 SunGlow.propTypes = {
-  currentTime: PropTypes.string.isRequired,
+  currentFarmTime: PropTypes.object.isRequired,
 };
 
 export default SunGlow;

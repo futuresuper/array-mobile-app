@@ -175,23 +175,14 @@ export const rgbaByHex = (hexInp, opacity) => {
 
 export const ucFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-export const getTimeLapse = (currentTimeInp = null) => {
-  let currentTime;
-  if (currentTimeInp) {
-    currentTime = moment(currentTimeInp);
-  } else {
-    currentTime = moment();
-  }
-
-  const format = 'HH:mm';
-  const currentTimeFormat = currentTime.format(format);
-  const currentHour = moment(currentTimeFormat, format);
-
+export const getTimeLapse = (time) => {
+  const format = 'hh:mm A';
   const res = {
-    isSunrise: currentHour.isBetween(moment('05:00', format), moment('09:59', format)),
-    isDay: currentHour.isBetween(moment('10:00', format), moment('15:59', format)),
-    isSunset: currentHour.isBetween(moment('16:00', format), moment('18:59', format)),
-    isNight: currentHour.isBetween(moment('19:00', format), moment('04:59', format)),
+    isDawn: time.isBetween(moment('06:00 AM', format), moment('10:00 AM', format)),
+    isDay: time.isBetween(moment('10:00 AM', format), moment('04:00 PM', format)),
+    isDusk: time.isBetween(moment('04:00 PM', format), moment('07:00 PM', format)),
+    isEvening: time.isBetween(moment('07:00 PM', format), moment('10:00 PM', format)),
+    isNight: time.isBetween(moment('10:00 PM', format), moment('06:00 AM', format)),
   };
 
   return res;

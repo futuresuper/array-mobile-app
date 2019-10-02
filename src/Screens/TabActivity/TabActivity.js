@@ -35,7 +35,7 @@ class TabActivity extends Component {
     super(props);
 
     this.state = {
-      currentTime: moment().format(),
+      currentAuTime: moment().utcOffset(600),
       segment: {
         isPerfomance: true,
         isInvestment: false,
@@ -64,15 +64,14 @@ class TabActivity extends Component {
   };
 
   renderGlow() {
-    const { currentTime } = this.state;
+    const { currentAuTime } = this.state;
 
-    return <SunGlow currentTime={currentTime} style={styles.activityCircleDay} {...this.props} />;
+    return <SunGlow currentFarmTime={currentAuTime} style={styles.activityCircleDay} {...this.props} />;
   }
 
   renderChart() {
     const { screenProps } = this.props;
     const { activeDot } = this.state;
-    const theme = screenProps.getTheme();
     return (
       <View style={[sg.contentMarginH2]}>
         <View style={[styles.activityChartBl, sg.aICenter]}>
@@ -312,7 +311,7 @@ class TabActivity extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
 
   return {
