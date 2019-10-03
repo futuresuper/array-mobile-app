@@ -25,6 +25,7 @@ import {
 } from 'native-base';
 
 import BottomInfo from 'src/Components/BottomInfo';
+import LiveClock from 'src/Components/LiveClock';
 import { routeNames } from 'src/Navigation';
 import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
@@ -57,7 +58,7 @@ class TabHome extends Component {
     super(props);
 
     this.state = {
-      currentAuTime: moment().utcOffset(600),
+      currentTime: moment(),
       article: {
         visible: false,
         item: null,
@@ -65,19 +66,6 @@ class TabHome extends Component {
       activeDot: 'Mar 8',
       activeBalance: 0,
     };
-  }
-
-  // TODO: write spearate clock component
-  componentDidMount() {
-    this.clock = setInterval(() => {
-      this.setState({
-        currentAuTime: moment().utcOffset(600),
-      });
-    }, 60000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalID);
   }
 
 
@@ -124,8 +112,8 @@ class TabHome extends Component {
   }
 
   renderGlow() {
-    const { currentAuTime } = this.state;
-    return <SunGlow currentFarmTime={currentAuTime} style={styles.circleDay} {...this.props} />;
+    const { currentTime } = this.state;
+    return <SunGlow currentFarmTime={currentTime.utcOffset(600)} style={styles.circleDay} {...this.props} />;
   }
 
   renderContentItemSmall(item) {
@@ -345,8 +333,7 @@ class TabHome extends Component {
 
   render() {
     const { screenProps, latest } = this.props;
-    const { article, currentAuTime } = this.state;
-    const solarFarmTime = currentAuTime.format('hh:mma');
+    const { article, currentTime } = this.state;
 
     return (
       <Content bounces>
@@ -372,7 +359,8 @@ class TabHome extends Component {
                   </Col>
                 </Row>
                 <Row style={sg.jCCenter}>
-                  <Text style={styles.localTime}>{`${solarFarmTime} local time`}</Text>
+                  <LiveClock style={styles.localTime} time={currentTime} utcOffset={600} />
+                  <Text style={styles.localTime}> local time</Text>
                 </Row>
               </Grid>
             </View>
