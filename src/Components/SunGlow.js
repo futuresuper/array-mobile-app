@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import {
   Image,
 } from 'react-native';
@@ -17,8 +18,9 @@ import CircleNight2 from 'src/assets/images/CircleNight2.png';
 
 class SunGlow extends Component {
   getImage() {
-    const { currentFarmTime } = this.props;
-    const timeLapse = getTimeLapse(currentFarmTime);
+    const { utcOffset } = this.props;
+    const time = moment().utcOffset(utcOffset);
+    const timeLapse = getTimeLapse(time);
     let image = CircleNight2;
 
     if (timeLapse.isDawn) {
@@ -45,8 +47,12 @@ class SunGlow extends Component {
   }
 }
 
+SunGlow.defaultProps = {
+  utcOffset: 0,
+};
+
 SunGlow.propTypes = {
-  currentFarmTime: PropTypes.object.isRequired,
+  utcOffset: PropTypes.number,
 };
 
 export default SunGlow;

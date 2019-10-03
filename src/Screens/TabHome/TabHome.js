@@ -27,7 +27,6 @@ import {
 import BottomInfo from 'src/Components/BottomInfo';
 import LiveClock from 'src/Components/LiveClock';
 import { routeNames } from 'src/Navigation';
-import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
 import { formatAmountDollar, formatAmountDollarCent } from 'src/Common/Helpers';
 
@@ -58,7 +57,6 @@ class TabHome extends Component {
     super(props);
 
     this.state = {
-      currentTime: moment(),
       article: {
         visible: false,
         item: null,
@@ -112,8 +110,7 @@ class TabHome extends Component {
   }
 
   renderGlow() {
-    const { currentTime } = this.state;
-    return <SunGlow currentFarmTime={currentTime.utcOffset(600)} style={styles.circleDay} {...this.props} />;
+    return <SunGlow utcOffset={600} style={styles.circleDay} {...this.props} />;
   }
 
   renderContentItemSmall(item) {
@@ -333,7 +330,7 @@ class TabHome extends Component {
 
   render() {
     const { screenProps, latest } = this.props;
-    const { article, currentTime } = this.state;
+    const { article } = this.state;
 
     return (
       <Content bounces>
@@ -359,7 +356,7 @@ class TabHome extends Component {
                   </Col>
                 </Row>
                 <Row style={sg.jCCenter}>
-                  <LiveClock style={styles.localTime} time={currentTime} utcOffset={600} />
+                  <LiveClock style={styles.localTime} utcOffset={600} />
                   <Text style={styles.localTime}> local time</Text>
                 </Row>
               </Grid>

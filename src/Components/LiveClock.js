@@ -14,10 +14,10 @@ export class LiveClock extends Component {
 
 
   componentDidMount() {
-    const { time, utcOffset, format } = this.props;
+    const { utcOffset, format } = this.props;
     this.clock = setInterval(() => {
       this.setState({
-        time: time.utcOffset(utcOffset).format(format),
+        time: moment().utcOffset(utcOffset).format(format),
       });
     }, 30000);
   }
@@ -37,13 +37,11 @@ export class LiveClock extends Component {
 
 LiveClock.defaultProps = {
   utcOffset: 0,
-  time: moment(),
   format: 'hh:mma',
   style: {},
 };
 
 LiveClock.propTypes = {
-  time: PropTypes.object,
   utcOffset: PropTypes.number,
   format: PropTypes.string,
   style: PropTypes.object,
