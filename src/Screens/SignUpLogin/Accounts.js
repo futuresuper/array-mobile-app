@@ -8,8 +8,7 @@ import {
 } from 'native-base';
 
 import { routeNames } from 'src/Navigation';
-import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
-import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
+import { formatAmountDollar } from 'src/Common/Helpers';
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave, accountsSelector, userSelector } from 'src/Redux/AppContent';
 import { accountSelectSave } from 'src/Redux/Account';
@@ -24,8 +23,8 @@ class Accounts extends React.Component {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      // const { screenProps } = this.props;
-      // screenProps.navigateTo(routeNames.BUILD_YOUR_IMPACT);
+      const { screenProps } = this.props;
+      screenProps.navigateTo(routeNames.EMAIL);
     });
   }
 
@@ -52,10 +51,7 @@ class Accounts extends React.Component {
         showAwaitingMoney = false,
         awaitingIdCheck = false,
         appIncomplete = false;
-      if (account.status === 'incompleteApp') { appIncomplete = true; }
-      else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true; }
-      else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true; }
-      else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true; }
+      if (account.status === 'incompleteApp') { appIncomplete = true; } else if (account.status === 'awaitingIdCheckAndMoney' || account.status === 'awaitingIdCheck') { awaitingIdCheck = true; } else if (account.balanceInDollarsIncludingPending > 0) { showBalance = true; } else if (account.amountAwaitingDirectDebit > 0) { showAwaitingDebit = true; }
 
       return (
         <ListItem
@@ -124,7 +120,7 @@ class Accounts extends React.Component {
               <Text style={[sg.formHeading]}>Your accounts</Text>
             </View>
             <List>
-              {accounts.map(account => this.renderAccount(account))}
+              {accounts.map((account) => this.renderAccount(account))}
             </List>
           </View>
           <View>
@@ -138,10 +134,11 @@ class Accounts extends React.Component {
             </Button>
             { user.experiments
               && user.experiments.EXPERIMENT_REVERSE_ONBOARDING
-              && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === "A_REVERSE_ONBOARDED"
+              && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'A_REVERSE_ONBOARDED'
               && !user.personalDetailsLocked // exclude users that have already submitted an application
-              &&
-              <Button onPress={() => {
+              && (
+              <Button
+                onPress={() => {
                   screenProps.navigateTo(routeNames.TAB_HOME);
                 }}
                 bordered
@@ -151,7 +148,7 @@ class Accounts extends React.Component {
               >
                 <Text>Explore Array</Text>
               </Button>
-            }
+              )}
           </View>
         </View>
       </Content>
@@ -171,7 +168,7 @@ const mapStateToProps = (state) => {
   const user = userSelector(state);
   return {
     accounts,
-    user
+    user,
   };
 };
 

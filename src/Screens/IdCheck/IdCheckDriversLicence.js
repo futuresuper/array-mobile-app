@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Content, Text, View, Button } from 'native-base';
+import {
+  Content, Text, View, Button,
+} from 'native-base';
 import { Input, Picker } from 'src/Components/Form';
 import { routeNames } from 'src/Navigation';
 import { composeHoc, hocNames } from 'src/Common/Hocs';
 import { sg } from 'src/Styles';
 import { userSelector, accountsSelector, appContentSave } from 'src/Redux/AppContent';
-import { idCheckSave, userDataSave, applicationIdSelector } from 'src/Redux/Auth';
+import { idCheckSave, userDataSave } from 'src/Redux/Auth';
 import { accountSelectSave } from 'src/Redux/Account';
 
 class IdCheckDriversLicence extends Component {
@@ -37,16 +39,10 @@ class IdCheckDriversLicence extends Component {
     this.initializeForm(form);
   }
 
-  getAppContent(callback) {
-    const { screenProps } = this.props;
-    screenProps.Api.get('/appcontent', {}, callback, () => {
-      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
-    });
-  }
-
   onSubmit() {
-    const { hocs, idCheckSaveConnect, userDataSaveConnect, appContentSaveConnect, screenProps, accounts } = this.props;
-    const { account } = screenProps;
+    const {
+      hocs, idCheckSaveConnect, userDataSaveConnect, appContentSaveConnect, screenProps,
+    } = this.props;
     const isValid = hocs.formIsValid();
     if (isValid) {
       const driversLicenceState = hocs.form.driversLicenceState.value;
@@ -80,6 +76,14 @@ class IdCheckDriversLicence extends Component {
       });
     }
   }
+
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {}, callback, () => {
+      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
+    });
+  }
+
 
   goToAccountHome() {
     const { accountSelectSaveConnect, accounts } = this.props;
@@ -118,7 +122,7 @@ class IdCheckDriversLicence extends Component {
               formData={form}
               helper="State Issued"
               formKey="driversLicenceState"
-              //title={form.driversLicenceState.value ? form.driversLicenceState.value : 'Select a State'}
+              // title={form.driversLicenceState.value ? form.driversLicenceState.value : 'Select a State'}
               list={states}
               renderItem={({ item }) => (
                 <View>
@@ -175,6 +179,10 @@ IdCheckDriversLicence.defaultProps = {
 IdCheckDriversLicence.propTypes = {
   user: PropTypes.object,
   idCheckSaveConnect: PropTypes.func,
+  accounts: PropTypes.array.isRequired,
+  userDataSaveConnect: PropTypes.func.isRequired,
+  accountSelectSaveConnect: PropTypes.func.isRequired,
+  appContentSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -184,7 +192,7 @@ const mapStateToProps = (state, ownProps) => {
     item: ownProps.navigation.getParam('item'),
     newItemByType: ownProps.navigation.getParam('newItemByType'),
     user,
-    accounts
+    accounts,
   };
 };
 

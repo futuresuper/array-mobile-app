@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
-import { Content, Button, Text, } from 'native-base';
+import { Content, Button, Text } from 'native-base';
 import { routeNames } from 'src/Navigation';
 import { composeHoc, hocNames } from 'src/Common/Hocs';
 import signUpLoginUtils from 'src/Common/signUpLogin';
@@ -35,36 +35,9 @@ class Email extends React.Component {
       });
     }
 
-    handlePress() {
-        const { screenProps, hocs, userDataSaveConnect, appContentSaveConnect } = this.props;
-        const formIsValid = hocs.formIsValid();
-        if (formIsValid) {
-            const email = hocs.form.emailAddress.value;
-            screenProps.Api.post('/user', {
-              email,
-            }, () => {
-              this.getAppContent((appContent) => {
-                  const { user } = appContent;
-                  userDataSaveConnect(user);
-                  appContentSaveConnect(appContent);
-                  if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === "A_REVERSE_ONBOARDED") {
-                      this.setAmplitudeTestGroup("A_REVERSE_ONBOARDED")
-                      screenProps.navigateTo(routeNames.TAB_HOME);
-                  } else {
-                      if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === "B_NORMAL_ONBOARDING") {
-                          this.setAmplitudeTestGroup("B_NORMAL_ONBOARDING")
-                      }
-                      screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                  }
-              });
-            }, () => {
-              screenProps.toastDanger('Error. Try again.');
-            });
-        }
-    }
 
     setAmplitudeTestGroup(group) {
-      let identify = new amplitude.Identify().set('EXPERIMENT_REVERSE_ONBOARDING', group);
+      const identify = new amplitude.Identify().set('EXPERIMENT_REVERSE_ONBOARDING', group);
       amplitude.getInstance().identify(identify);
     }
 
@@ -73,6 +46,36 @@ class Email extends React.Component {
       screenProps.Api.get('/appcontent', {}, callback, () => {
         screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
       });
+    }
+
+    handlePress() {
+      const {
+        screenProps, hocs, userDataSaveConnect, appContentSaveConnect,
+      } = this.props;
+      const formIsValid = hocs.formIsValid();
+      if (formIsValid) {
+        const email = hocs.form.emailAddress.value;
+        screenProps.Api.post('/user', {
+          email,
+        }, () => {
+          this.getAppContent((appContent) => {
+            const { user } = appContent;
+            userDataSaveConnect(user);
+            appContentSaveConnect(appContent);
+            if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'A_REVERSE_ONBOARDED') {
+              this.setAmplitudeTestGroup('A_REVERSE_ONBOARDED');
+              screenProps.navigateTo(routeNames.TAB_HOME);
+            } else {
+              if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'B_NORMAL_ONBOARDING') {
+                this.setAmplitudeTestGroup('B_NORMAL_ONBOARDING');
+              }
+              screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+            }
+          });
+        }, () => {
+          screenProps.toastDanger('Error. Try again.');
+        });
+      }
     }
 
     render() {
@@ -111,6 +114,11 @@ class Email extends React.Component {
     }
 }
 
+Email.propTypes = {
+  userDataSaveConnect: PropTypes.func.isRequired,
+  appContentSaveConnect: PropTypes.func.isRequired,
+};
+
 
 const mapStateToProps = (state, ownProps) => {
   const { accountType, isFeat } = signUpLoginUtils.getAccountType(ownProps.navigation);
@@ -123,8 +131,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   userDataSaveConnect: userDataSave,
-  appContentSaveConnect: appContentSave
-}
+  appContentSaveConnect: appContentSave,
+};
 
 const res = composeHoc([
   hocNames.FORM,
@@ -132,5 +140,5 @@ const res = composeHoc([
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(res);
