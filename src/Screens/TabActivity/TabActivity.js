@@ -69,7 +69,7 @@ class TabActivity extends Component {
     const { screenProps } = this.props;
     const { activeDot } = this.state;
     return (
-      <View style={[sg.contentMarginH2]}>
+      <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
           <Image source={GraphExample2} style={styles.activityGraphExample} />
           {/* <LineChart
@@ -171,7 +171,7 @@ class TabActivity extends Component {
             }}
           /> */}
         </View>
-        <View style={[sg.row, sg.spaceBetween]}>
+        <View style={[sg.row, sg.spaceBetween, sg.contentMarginH2]}>
           <Text style={[sg.fS14, sg.fontMedium]} color3>
             Mar
           </Text>
