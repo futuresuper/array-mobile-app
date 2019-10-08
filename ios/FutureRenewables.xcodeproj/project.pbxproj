@@ -52,6 +52,7 @@
 		4A9BCA2A233BA425005F008C /* BwGradual-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4A9BCA09233BA425005F008C /* BwGradual-ThinItalic.otf */; };
 		4A9BCA2B233BA425005F008C /* BwGradual-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4A9BCA0A233BA425005F008C /* BwGradual-LightItalic.otf */; };
 		4CE3ADDA84683616CF928484 /* libPods-FutureRenewables-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE72EFA18490D7750648393F /* libPods-FutureRenewables-tvOS.a */; };
+		6F4D0E2A234BC96E00B2DA55 /* Font Awesome 5 Free-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6F4D0E29234BC96E00B2DA55 /* Font Awesome 5 Free-Solid-900.otf */; };
 		FD4C5444A6294EF8569D81B2 /* libPods-FutureRenewables-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E170ACC6B3FB1EAEF376996E /* libPods-FutureRenewables-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,7 @@
 		4A9BCA0A233BA425005F008C /* BwGradual-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "BwGradual-LightItalic.otf"; path = "../../android/app/src/main/assets/fonts/BwGradual-LightItalic.otf"; sourceTree = "<group>"; };
 		56B8F6BA3B002F586BCBEBC0 /* Pods-FutureRenewables-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureRenewables-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-FutureRenewables-tvOS/Pods-FutureRenewables-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5E58A76D9E05A61183381859 /* Pods-FutureRenewablesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureRenewablesTests.release.xcconfig"; path = "Target Support Files/Pods-FutureRenewablesTests/Pods-FutureRenewablesTests.release.xcconfig"; sourceTree = "<group>"; };
+		6F4D0E29234BC96E00B2DA55 /* Font Awesome 5 Free-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Free-Solid-900.otf"; sourceTree = "<group>"; };
 		7324FF00D624B12E4945D839 /* Pods-FutureRenewablesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureRenewablesTests.debug.xcconfig"; path = "Target Support Files/Pods-FutureRenewablesTests/Pods-FutureRenewablesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		75E601CD3E8DA3C5ACEC50C2 /* libPods-FutureRenewablesTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FutureRenewablesTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81BECBB821AED5BCFE070A70 /* Pods-FutureRenewables-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureRenewables-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-FutureRenewables-tvOSTests/Pods-FutureRenewables-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		4A9BC9E9233BA39B005F008C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6F4D0E29234BC96E00B2DA55 /* Font Awesome 5 Free-Solid-900.otf */,
 				4A9BC9FF233BA425005F008C /* AntDesign.ttf */,
 				4A9BC9EE233BA424005F008C /* BwGradual-Black.otf */,
 				4A9BC9EF233BA424005F008C /* BwGradual-BlackItalic.otf */,
@@ -475,6 +478,7 @@
 				4A9BCA1C233BA425005F008C /* EvilIcons.ttf in Resources */,
 				4A9BCA1E233BA425005F008C /* SimpleLineIcons.ttf in Resources */,
 				4A9BCA11233BA425005F008C /* Entypo.ttf in Resources */,
+				6F4D0E2A234BC96E00B2DA55 /* Font Awesome 5 Free-Solid-900.otf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				4A9BCA19233BA425005F008C /* BwGradual-BoldItalic.otf in Resources */,
 				4A9BCA29233BA425005F008C /* Foundation.ttf in Resources */,

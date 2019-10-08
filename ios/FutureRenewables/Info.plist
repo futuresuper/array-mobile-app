@@ -49,6 +49,7 @@
 	<string>We need to access photo library to get a image</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Font Awesome 5 Free-Solid-900.otf</string>
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
