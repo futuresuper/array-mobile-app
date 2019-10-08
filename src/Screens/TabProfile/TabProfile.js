@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { View, FlatList, TouchableOpacity } from 'react-native';
+import {
+  View, FlatList, TouchableOpacity, Alert,
+} from 'react-native';
 
 import {
   Button,
@@ -54,6 +56,20 @@ class TabProfile extends Component {
           name: 'Change Theme',
           function: () => {
             props.screenProps.toogleTheme();
+          },
+        },
+        {
+          name: 'Allow Push Notifications',
+          function: () => {
+            Alert.alert(
+              'Subscribe to Push Notifications',
+              'Subscribe to recieve Push Notifications in the future.',
+              [
+                { text: 'Cancel', onPress: () => console.log('Cancel pressed') },
+                { text: 'Subscribe', onPress: () => console.log('Subscribe Pressed') },
+              ],
+              { cancelable: false },
+            );
           },
         },
         // {

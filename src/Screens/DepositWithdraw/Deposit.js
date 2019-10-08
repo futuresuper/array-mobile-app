@@ -5,26 +5,21 @@ import {
 } from 'react-native';
 import {
   Text,
-  Item,
   Icon,
   Button,
   Grid,
   Col,
 } from 'native-base';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
-// import { connect } from 'react-redux';
 
 
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
-  Picker,
 } from 'src/Components/Form';
 import {
   routeNames,
 } from 'src/Navigation';
-
-// import { accountUpdateSave } from 'src/Redux/Account';
 
 import {
   formatAmountDollar,
@@ -35,11 +30,10 @@ import { random } from 'lodash';
 
 import {
   sg,
-  sc
+  sc,
 } from 'src/Styles';
 
 import styles from './styles';
-
 
 
 class Deposit extends Component {
@@ -90,28 +84,21 @@ class Deposit extends Component {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  withinMinMax(value) {
-    if (value < 5 || value > 1000000) {
-      return false;
-    }
-    return true;
-  }
 
   onConfirm() {
-    const { screenProps, hocs, accountUpdateSaveConnect } = this.props;
+    const { screenProps, hocs } = this.props;
     const { form } = hocs;
     const { account } = screenProps;
     const body = {
       amount: form.amount.value,
       paymentMethod: form.amount.value > 5000 ? 'eft' : 'dd',
-      accountId: account.id
+      accountId: account.id,
     };
     screenProps.Api.post('/transaction', body, () => {
       if (body.amount > 5000) {
         this.setState({
-          step: 2
-        })
+          step: 2,
+        });
       } else {
         if (account.amountAwaitingDirectDebit) {
           account.amountAwaitingDirectDebit = parseInt(account.amountAwaitingDirectDebit) + parseInt(body.amount);
@@ -134,24 +121,12 @@ class Deposit extends Component {
     });
   }
 
-  renderAccountSource() {
-    const { hocs, screenProps } = this.props;
-    const { form } = hocs;
-
-    if (form && form.amount.value > 5000) {
-      return (
-        <Text style={[sg.pV20]}>
-          {'Investments over $5,000 can be made by EFT.\n\nWe’ll provide you with the bank details for the transfer by email after you confirm.'}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={[sg.pV20]}>
-          {'To be direct debited from your linked bank account.'}
-        </Text>
-      );
+  // eslint-disable-next-line class-methods-use-this
+  withinMinMax(value) {
+    if (value < 5 || value > 1000000) {
+      return false;
     }
-
+    return true;
   }
 
 
@@ -188,7 +163,7 @@ class Deposit extends Component {
   renderStep2 = () => {
     const { hocs } = this.props;
     const { form } = hocs;
-    const { amount, from } = form;
+    const { amount } = form;
     return (
       <View style={[sg.spaceBetween]}>
         <View style={sg.zIndex10}>
@@ -228,6 +203,15 @@ class Deposit extends Component {
     );
   }
 
+  handleMadeTransfer() {
+    const { screenProps } = this.props;
+    screenProps.toast('Thanks for confirming you made the transfer!', {
+      iconType: 'MaterialCommunityIcons',
+      iconName: 'check-circle',
+    });
+    screenProps.navigateTo(routeNames.TAB_HOME);
+  }
+
   renderCopyContainer(key, value) {
     return (
       <Grid style={[sg.mT20, sg.bGWhite, sg.pV10, sg.pH10]} onPress={() => this.writeToClipboard(value)}>
@@ -244,13 +228,22 @@ class Deposit extends Component {
     );
   }
 
-  handleMadeTransfer() {
-    const { screenProps } = this.props;
-    screenProps.toast('Thanks for confirming you made the transfer!', {
-      iconType: 'MaterialCommunityIcons',
-      iconName: 'check-circle',
-    });
-    screenProps.navigateTo(routeNames.TAB_HOME);
+  renderAccountSource() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
+    if (form && form.amount.value > 5000) {
+      return (
+        <Text style={[sg.pV20]}>
+          {'Investments over $5,000 can be made by EFT.\n\nWe’ll provide you with the bank details for the transfer by email after you confirm.'}
+        </Text>
+      );
+    }
+    return (
+      <Text style={[sg.pV20]}>
+        {'To be direct debited from your linked bank account.'}
+      </Text>
+    );
   }
 
   renderEftDetails() {

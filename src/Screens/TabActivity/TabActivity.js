@@ -10,7 +10,6 @@ import { accountsSelector } from 'src/Redux/AppContent';
 import Br from 'src/Components/Br';
 import BottomInfo from 'src/Components/BottomInfo';
 import Balance from 'src/Components/Balance';
-import moment from 'src/Common/moment';
 import SunGlow from 'src/Components/SunGlow';
 // import {
 //   LineChart,
@@ -35,7 +34,6 @@ class TabActivity extends Component {
     super(props);
 
     this.state = {
-      currentAuTime: moment().utcOffset(600),
       segment: {
         isPerfomance: true,
         isInvestment: false,
@@ -64,16 +62,14 @@ class TabActivity extends Component {
   };
 
   renderGlow() {
-    const { currentAuTime } = this.state;
-
-    return <SunGlow currentFarmTime={currentAuTime} style={styles.activityCircleDay} {...this.props} />;
+    return <SunGlow utcOffset={600} style={styles.activityCircleDay} {...this.props} />;
   }
 
   renderChart() {
     const { screenProps } = this.props;
     const { activeDot } = this.state;
     return (
-      <View style={[sg.contentMarginH2]}>
+      <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
           <Image source={GraphExample2} style={styles.activityGraphExample} />
           {/* <LineChart
@@ -175,7 +171,7 @@ class TabActivity extends Component {
             }}
           /> */}
         </View>
-        <View style={[sg.row, sg.spaceBetween]}>
+        <View style={[sg.row, sg.spaceBetween, sg.contentMarginH2]}>
           <Text style={[sg.fS14, sg.fontMedium]} color3>
             Mar
           </Text>
