@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 
+// import PushNotification from 'react-native-push-notification';
+
 import {
   Button, Content, Text, Icon, Grid, Row, Col, List, ListItem, Body,
 } from 'native-base';
@@ -23,8 +25,8 @@ class Accounts extends React.Component {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      const { screenProps } = this.props;
-      screenProps.navigateTo(routeNames.EMAIL);
+      // const { screenProps } = this.props;
+      // screenProps.navigateTo(routeNames.EMAIL);
     });
   }
 

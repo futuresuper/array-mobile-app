@@ -4,7 +4,7 @@ import {
   View, Image, Modal, ScrollView,
 } from 'react-native';
 import { H3, Text } from 'native-base';
-
+import Video from 'react-native-video';
 import SafeAreaView from 'src/Components/SafeAreaView';
 import CloseButton from 'src/Components/CloseButton';
 import { sg } from 'src/Styles';
@@ -48,8 +48,7 @@ class ArticleModal extends Component {
 
         {article.map((artItem, index) => {
           let res = null;
-          const { contentType, content, description } = artItem;
-
+          const { contentType, content, description, url } = artItem;
           switch (contentType) {
             case 'paragraph':
               res = (
@@ -61,7 +60,6 @@ class ArticleModal extends Component {
                 <View style={[sg.contentMarginH2, sg.mT15]}>
                   <Image
                     source={{ uri: content }}
-                    // resizeMode="contain"
                     style={styles.image}
                     borderRadius={8}
                   />
@@ -69,6 +67,14 @@ class ArticleModal extends Component {
                     <Text style={[sg.mT15, sg.colorGray, sg.fS14]}>{description}</Text>
                   )}
                 </View>
+              );
+              break;
+            case 'video':
+              res = (
+                <Video
+                  source={{ uri: url }} // Test with real response
+                  style={sg.width100p}
+                />
               );
               break;
             case 'heading':
@@ -131,6 +137,7 @@ ArticleModal.propTypes = {
   item: PropTypes.object,
   visible: PropTypes.bool,
   onRequestClose: PropTypes.func,
+  theme: PropTypes.object.isRequired,
 };
 
 export default ArticleModal;
