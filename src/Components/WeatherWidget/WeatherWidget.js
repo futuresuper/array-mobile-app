@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {isNil} from 'lodash';
 import axios from 'axios';
 import {
   View,
@@ -82,7 +82,7 @@ class WeatherWidget extends Component {
     const url = `https://api.darksky.net/forecast/${apiKey}/${coordinateProp.latitude},${coordinateProp.longitude}`;
 
 
-    if (_.isNil(coordinateProp.latitude) && _.isNil(coordinateProp.longitude)) {
+    if (isNil(coordinateProp.latitude) && isNil(coordinateProp.longitude)) {
       return;
     }
 

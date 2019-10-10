@@ -110,6 +110,8 @@ PODS:
   - RNAWSCognito (3.0.15):
     - JKBigInteger2 (= 0.0.5)
     - React
+  - RNCPushNotificationIOS (1.0.2):
+    - React
   - RNGestureHandler (1.4.1):
     - React
   - RNReanimated (1.2.0):
@@ -148,6 +150,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
   - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
+  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -218,6 +221,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/WebSocket"
   RNAWSCognito:
     :path: "../node_modules/amazon-cognito-identity-js"
+  RNCPushNotificationIOS:
+    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -260,6 +265,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
   RNAWSCognito: b0b908817ce6547cdddaa7842bc166b4c5e7c128
+  RNCPushNotificationIOS: 0b8d06ff190d84627dd17501bfb96652375970e4
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
   RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
   RNSVG: 435cda60cd9e1ea6188eb0e21c12fc0f85def8e8
