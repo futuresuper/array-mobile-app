@@ -69,7 +69,7 @@ TextUnderline.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]),
-  theme: PropTypes.bool,
+  theme: PropTypes.string,
   theme2: PropTypes.bool,
   iconRight: PropTypes.shape({
     type: PropTypes.string,

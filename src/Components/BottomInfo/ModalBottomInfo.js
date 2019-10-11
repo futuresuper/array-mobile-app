@@ -62,8 +62,7 @@ class ModalBottomInfo extends Component {
             </BottomInfo>
           ) : (
             <View />
-          )
-        }
+          )}
       </Modal>
     );
   }

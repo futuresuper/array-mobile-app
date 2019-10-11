@@ -35,7 +35,8 @@ class SunGlow extends Component {
       image = CircleNight2;
     }
 
-    return image;
+    // return image;
+    return CircleDay;
   }
 
   render() {

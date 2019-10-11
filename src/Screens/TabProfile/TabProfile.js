@@ -58,20 +58,20 @@ class TabProfile extends Component {
             props.screenProps.toogleTheme();
           },
         },
-        {
-          name: 'Allow Push Notifications',
-          function: () => {
-            Alert.alert(
-              'Subscribe to Push Notifications',
-              'Subscribe to recieve Push Notifications in the future.',
-              [
-                { text: 'Cancel', onPress: () => console.log('Cancel pressed') },
-                { text: 'Subscribe', onPress: () => console.log('Subscribe Pressed') },
-              ],
-              { cancelable: false },
-            );
-          },
-        },
+        // {
+        //   name: 'Allow Push Notifications',
+        //   function: () => {
+        //     Alert.alert(
+        //       'Subscribe to Push Notifications',
+        //       'Subscribe to recieve Push Notifications in the future.',
+        //       [
+        //         { text: 'Cancel', onPress: () => console.log('Cancel pressed') },
+        //         { text: 'Subscribe', onPress: () => console.log('Subscribe Pressed') },
+        //       ],
+        //       { cancelable: false },
+        //     );
+        //   },
+        // },
         // {
         //   name: 'Manage accounts',
         //   screen: routeNames.MANAGE_ACCOUNTS,
@@ -84,10 +84,10 @@ class TabProfile extends Component {
         //   name: 'Refer a friend',
         //   screen: routeNames.REFER_FRIEND,
         // },
-        {
-          name: 'Talk to us',
-          function: () => this.displayIntercom(props),
-        },
+        // {
+        //   name: 'Talk to us',
+        //   function: () => this.displayIntercom(props),
+        // },
         // {
         //   name: 'Withdraw',
         //   screen: routeNames.TAB_PROFILE,

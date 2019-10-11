@@ -19,6 +19,7 @@ import { sg } from 'src/Styles';
 
 class Accounts extends React.Component {
   componentDidMount() {
+    // console.log(PushNotification);
     const { userDataSaveConnect, appContentSaveConnect } = this.props;
     this.getAppContent((appContent) => {
       const { user } = appContent;
