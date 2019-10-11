@@ -27,7 +27,8 @@ import MapView from 'react-native-maps';
 import {
   routeNames,
 } from 'src/Navigation';
-import CircularProgress from 'src/Components/CircularProgress';
+import { CircularProgress } from 'react-native-circular-progress';
+
 import BackButton from 'src/Components/BackButton';
 import DeviceUtils from 'src/Common/device';
 
@@ -192,11 +193,13 @@ class TabFarms extends Component {
           </Body>
           <Right style={styles.farmCardRight}>
             <CircularProgress
-              progress={item.percentComplete / 100}
-              borderWidth={1}
+              fill={item.percentComplete}
               size={24}
-              color={sc.color.primary}
-              borderColor={sc.color.gray6}
+              rotation={360}
+              width={3}
+              backgroundWidth={1}
+              backgroundColor={sc.color.gray6}
+              tintColor={sc.color.primary}
             />
           </Right>
         </CardItem>

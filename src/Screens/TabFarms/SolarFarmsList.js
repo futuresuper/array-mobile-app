@@ -7,7 +7,7 @@ import {
 import { Content, Text } from 'native-base';
 
 import WeatherWidget from 'src/Components/WeatherWidget';
-import CircularProgress from 'src/Components/CircularProgress';
+import { CircularProgress } from 'react-native-circular-progress';
 import routeNames from 'src/Navigation/routeNames';
 
 import { solarFarmsSelector } from 'src/Redux/AppContent';
@@ -45,11 +45,13 @@ class SolarFarmsList extends Component {
           {item.percentComplete < 100 && (
             <View style={[sg.row, sg.aICenter]}>
               <CircularProgress
-                progress={item.percentComplete / 100}
-                borderWidth={1}
+                fill={item.percentComplete}
                 size={18}
-                color={sc.color.primary}
-                borderColor={sc.color.gray6}
+                rotation={360}
+                width={3}
+                backgroundWidth={1}
+                backgroundColor={sc.color.gray6}
+                tintColor={sc.color.primary}
               />
               <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15]}>
                 {`${item.percentComplete}% Completed`}
