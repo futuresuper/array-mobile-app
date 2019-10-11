@@ -71,7 +71,7 @@ class TabActivity extends Component {
     return (
       <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
-          <Image source={GraphExample2} style={styles.activityGraphExample} />
+          <Image source={GraphExample2} style={styles.activityGraph} />
           {/* <LineChart
             data={{
               labels: ['March', 'April', 'May', 'June'],
@@ -299,9 +299,6 @@ class TabActivity extends Component {
         ) : (
           <Investment {...this.props} />
         )}
-        {/*
-        <Perfomance {...this.props} />
-        */}
       </Content>
     );
   }

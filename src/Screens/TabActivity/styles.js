@@ -1,6 +1,9 @@
 import { sc } from 'src/Styles';
 
 export default {
+  activityGraph: {
+    zIndex: 2,
+  },
   activityTabTitleBl: {
     paddingBottom: 0,
     paddingHorizontal: 1,
