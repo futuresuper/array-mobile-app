@@ -107,13 +107,13 @@ class AppIndex extends Component {
 
   enableTheme = () => {
     /* uncoment to make dark/light auto swiching on */
-    // const currentTime = moment();
-    // const format = 'hh:mm A';
-    // if (currentTime.isBetween(moment('06:00 AM', format), moment('07:00 PM', format))) {
-    //   this.setLightTheme();
-    // } else {
-    //   this.setDarkTheme();
-    // }
+    const currentTime = moment();
+    const format = 'hh:mm A';
+    if (currentTime.isBetween(moment('06:00 AM', format), moment('07:00 PM', format))) {
+      this.setLightTheme();
+    } else {
+      this.setDarkTheme();
+    }
     this.setLightTheme();
   }
 

@@ -20,7 +20,6 @@ export default {
     };
   },
   formHeadingDescription: {
-    color: styleConstants.color.dark3,
     fontSize: 16,
     marginBottom: 30,
   },
