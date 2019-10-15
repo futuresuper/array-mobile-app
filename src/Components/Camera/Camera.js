@@ -14,9 +14,6 @@ import {
 } from 'native-base';
 import { RNCamera } from 'react-native-camera';
 import Orientation from 'react-native-orientation-locker';
-
-import SafeAreaView from 'src/Components/SafeAreaView';
-
 import {
   isIOS,
 } from 'src/Common/Helpers';
@@ -196,12 +193,10 @@ class Camera extends Component {
             hidden={isIOS()}
           />
 
-          <SafeAreaView style={sg.bGDark}>
-            <View style={sg.flex}>
-              {this.renderCamera()}
-              {this.renderButtons()}
-            </View>
-          </SafeAreaView>
+          <View style={sg.flex}>
+            {this.renderCamera()}
+            {this.renderButtons()}
+          </View>
         </View>
       </Modal>
     );

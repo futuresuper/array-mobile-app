@@ -16,15 +16,15 @@ class ImageUploadModal extends Component {
 
   render() {
     const {
-      visible, toggleCamera, toggleLibrary, theme,
+      visible, toggleCamera, toggleLibrary, screenProps,
     } = this.props;
 
     return (
       <Modal animated visible={visible} onRequestClose={() => this.onRequestClose()} transparent>
-        <SafeAreaView theme={theme}>
+        <SafeAreaView theme={screenProps.getTheme()}>
           <View style={[sg.contentMarginV2]}>
             <View style={[sg.aIEnd]}>
-              <CloseButton white onPress={() => this.onRequestClose()} />
+              <CloseButton white onPress={() => this.onRequestClose()} {...this.props} />
             </View>
             <View style={styles.imageUploadButtonsContainer}>
               <Button
@@ -68,7 +68,6 @@ ImageUploadModal.defaultProps = {
 
 ImageUploadModal.propTypes = {
   visible: PropTypes.bool,
-  theme: PropTypes.object,
   onRequestClose: PropTypes.func,
   toggleCamera: PropTypes.func,
   toggleLibrary: PropTypes.func,

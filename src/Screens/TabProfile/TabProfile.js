@@ -21,7 +21,7 @@ import {
   ListItem,
 } from 'native-base';
 
-import Intercom from 'react-native-intercom';
+// import Intercom from 'react-native-intercom';
 import ImagePicker from 'react-native-image-picker';
 
 import { routeNames } from 'src/Navigation';
@@ -104,13 +104,13 @@ class TabProfile extends Component {
     };
   }
 
-  componentDidMount() {
-    const { user } = this.props;
+  // componentDidMount() {
+  //   const { user } = this.props;
 
-    if (user.email) {
-      Intercom.registerIdentifiedUser({ email: user.email });
-    }
-  }
+  //   if (user.email) {
+  //     Intercom.registerIdentifiedUser({ email: user.email });
+  //   }
+  // }
 
   onTakePhoto = (data) => {
     const { userUpdateAvatarConnect } = this.props;
@@ -178,15 +178,15 @@ class TabProfile extends Component {
     });
   };
 
-  displayIntercom(props) {
-    const { user, screenProps } = props;
-    Intercom.registerUnidentifiedUser();
-    if (user.email) {
-      Intercom.displayMessageComposer();
-    } else {
-      screenProps.toast("You don't have email to talk to us");
-    }
-  }
+  // displayIntercom(props) {
+  //   const { user, screenProps } = props;
+  //   Intercom.registerUnidentifiedUser();
+  //   if (user.email) {
+  //     Intercom.displayMessageComposer();
+  //   } else {
+  //     screenProps.toast("You don't have email to talk to us");
+  //   }
+  // }
 
   renderAvatar() {
     const { user } = this.props;
@@ -302,6 +302,7 @@ class TabProfile extends Component {
               imageUploadModalIsVisible: false,
             });
           }}
+          {...this.props}
         />
       </Content>
     );
