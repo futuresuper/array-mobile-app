@@ -810,7 +810,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.FutureRenewablesTest;
 				PRODUCT_NAME = FutureRenewables;
-				PROVISIONING_PROFILE_SPECIFIER = FutureSuperTest;
+				PROVISIONING_PROFILE_SPECIFIER = "Bitrise app-store - (org.FutureRenewablesTest)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -834,7 +834,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.FutureRenewablesTest;
 				PRODUCT_NAME = FutureRenewables;
-				PROVISIONING_PROFILE_SPECIFIER = FutureSuperTest;
+				PROVISIONING_PROFILE_SPECIFIER = "Bitrise app-store - (org.FutureRenewablesTest)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
