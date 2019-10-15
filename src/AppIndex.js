@@ -227,6 +227,7 @@ class AppIndex extends Component {
       toogleTheme: this.toogleTheme,
       getTheme: this.getTheme,
       isDarkTheme: this.isDarkTheme,
+      themeMode,
       Api,
     };
 

@@ -16,10 +16,10 @@ import styles from './styles';
 
 class CloseButton extends Component {
   renderImage() {
-    const { screenProps } = this.props;
+    const { themeMode } = this.props;
     let image = CloseCircle;
 
-    if (screenProps.isDarkTheme()) {
+    if (themeMode === 'dark') {
       image = CloseCircleDark;
     }
 
@@ -42,8 +42,7 @@ class CloseButton extends Component {
       >
         {white
           ? this.renderImage()
-          : <Icon name="close" style={styles.icon} />
-        }
+          : <Icon name="close" style={styles.icon} />}
       </Button>
     );
   }
@@ -56,6 +55,7 @@ CloseButton.defaultProps = {
 
 CloseButton.propTypes = {
   white: PropTypes.bool,
+  themeMode: PropTypes.string.isRequired,
   style: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,

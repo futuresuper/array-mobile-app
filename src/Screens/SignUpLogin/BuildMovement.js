@@ -63,7 +63,7 @@ class BuildMovement extends Component {
           style={sg.postitionAbsoluteRight}
         />
 
-        <SafeAreaView forceInset={{ bottom: 'never' }} theme={screenProps.getTheme()}>
+        <SafeAreaView forceInset={{ bottom: 'never' }} themeMode={screenProps.themeMode}>
           <BackButton
             signup
             header={false}
