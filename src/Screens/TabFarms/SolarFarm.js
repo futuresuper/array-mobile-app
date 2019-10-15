@@ -68,7 +68,7 @@ class SolarFarm extends Component {
           style={[{ height: deviceUtils.screenHeight() - sc.footerHeight - 54 }]}
         >
           <View style={[sg.aIEnd, sg.mT40]}>
-            <CloseButton white {...this.props} />
+            <CloseButton white themeMode="light" {...this.props} />
           </View>
 
           <View style={[sg.aICenter, sg.spaceBetween]}>
