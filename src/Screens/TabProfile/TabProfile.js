@@ -52,12 +52,12 @@ class TabProfile extends Component {
         //   name: 'ID Check',
         //   screen: routeNames.ID_CHECK_FINISH,
         // },
-        {
-          name: 'Change Theme',
-          function: () => {
-            props.screenProps.toogleTheme();
-          },
-        },
+        // {
+        //   name: 'Change Theme',
+        //   function: () => {
+        //     props.screenProps.toogleTheme();
+        //   },
+        // },
         // {
         //   name: 'Allow Push Notifications',
         //   function: () => {
@@ -83,6 +83,10 @@ class TabProfile extends Component {
         // {
         //   name: 'Refer a friend',
         //   screen: routeNames.REFER_FRIEND,
+        // },
+        // {
+        //   name: 'Talk to us',
+        //   screen: routeNames.CONTACT_US,
         // },
         // {
         //   name: 'Talk to us',
