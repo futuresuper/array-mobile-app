@@ -3,19 +3,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import { View, ScrollView } from 'react-native';
 import { Button, Text, Footer } from 'native-base';
-
 import { sg } from 'src/Styles';
-
 import { routeNames } from 'src/Navigation';
-
-
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave, accountsSelector } from 'src/Redux/AppContent';
 import { accountSelectSave, accountIdSelector, accountUpdateSave } from 'src/Redux/Account';
 import { finalConfirmation as styles } from './styles';
+import amplitude from 'amplitude-js';
+
 
 class FinalConfirmation extends React.Component {
   getAppContent(callback) {
@@ -47,6 +44,7 @@ class FinalConfirmation extends React.Component {
             iconType: 'MaterialCommunityIcons',
             iconName: 'check-circle',
           });
+          amplitude.getInstance().logEvent('Submitted FRF Application on Array App', {});
           if (!user.fsMember) {
             screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton: false });
           } else if (res.idCheckComplete) {
