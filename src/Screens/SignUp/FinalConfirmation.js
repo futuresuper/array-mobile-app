@@ -29,6 +29,7 @@ class FinalConfirmation extends React.Component {
     const body = {
       accountId,
       submittedApplication: true,
+      submittedVia: "Array App"
     };
 
     screenProps.Api.post(
