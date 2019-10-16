@@ -143,26 +143,28 @@ class AccountsInfo extends Component {
             <Icon name="add" />
           </Button>
 
-          {superAccount && (
-            <View>
-              <Button
-                transparent
-                bordered
-                dark
-                block
-                style={sg.mT15}
-                onPress={() => {
-                  screenProps.navigateTo(routeNames.JOIN_FUTURE, {
-                    showBackButton: false,
-                  });
-                  BottomInfoModal.hide();
-                }}
-              >
-                <Text>Add Future Super Account</Text>
-              </Button>
-              {/* <TextUnderline style={[sg.mT25]}>What&apos;s a Future Super Account?</TextUnderline> */}
-            </View>
-          )}
+          {
+          //   superAccount && (
+          //   <View>
+          //     <Button
+          //       transparent
+          //       bordered
+          //       dark
+          //       block
+          //       style={sg.mT15}
+          //       onPress={() => {
+          //         screenProps.navigateTo(routeNames.JOIN_FUTURE, {
+          //           showBackButton: false,
+          //         });
+          //         BottomInfoModal.hide();
+          //       }}
+          //     >
+          //       <Text>Add Future Super Account</Text>
+          //     </Button>
+          //     <TextUnderline style={[sg.mT25]}>What&apos;s a Future Super Account?</TextUnderline>
+          //   </View>
+          // )
+          }
         </View>
       </View>
     );
