@@ -45,9 +45,10 @@ class FinalConfirmation extends React.Component {
             iconName: 'check-circle',
           });
           amplitude.getInstance().logEvent('Submitted FRF Application on Array App', {});
-          if (!user.fsMember) {
-            screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton: false });
-          } else if (res.idCheckComplete) {
+          // if (!user.fsMember) {
+          //   screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton: false });
+          // } else if (res.idCheckComplete) {
+          if (res.idCheckComplete) {
             screenProps.navigateTo(routeNames.TAB_HOME);
           } else {
             screenProps.navigateTo(routeNames.ID_CHECK, { showBackButton: false });
