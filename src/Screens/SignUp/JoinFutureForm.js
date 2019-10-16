@@ -20,6 +20,7 @@ import {
   sg,
 } from 'src/Styles';
 import { joinFutureForm as styles } from './styles';
+import amplitude from 'amplitude-js';
 
 
 class JoinFutureForm extends React.Component {
@@ -62,6 +63,7 @@ class JoinFutureForm extends React.Component {
       };
       screenProps.Api.post('/user', body, () => {
         this.setState({ submitSuccess: true });
+        amplitude.getInstance().logEvent('Joined Future Super on Array App', {});
       }, () => {
         screenProps.toastDanger('Error. Try Again');
       });
