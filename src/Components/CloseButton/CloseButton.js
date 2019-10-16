@@ -19,9 +19,9 @@ class CloseButton extends Component {
     const { screenProps } = this.props;
     let image = CloseCircle;
 
-    if (screenProps.isDarkTheme()) {
-      image = CloseCircleDark;
-    }
+    // if (screenProps.isDarkTheme()) {
+    //   image = CloseCircleDark;
+    // }
 
     return <Image source={image} />;
   }
