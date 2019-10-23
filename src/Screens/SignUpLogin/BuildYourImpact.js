@@ -47,11 +47,9 @@ class BuildYourImpact extends Component {
         <Image source={buildYourImpact} style={[sg.postitionAbsolute, sg.aSCenter]} />
 
         <SafeAreaView forceInset={{ bottom: 'never' }} theme={screenProps.getTheme()}>
-          <BackButton signup header={false} {...this.props} />
-
           <View style={[sg.spaceBetween, sg.contentPaddingH]}>
             <View>
-              <Text style={[styles.header, sg.mB10, sg.mT60]}>
+              <Text style={[styles.header, sg.mB10]}>
                 {'Build your\nimpact'}
               </Text>
               <Text style={sg.textCenter}>

@@ -18,6 +18,7 @@ import {
   routeNames,
 } from 'src/Navigation';
 import Device from 'src/Common/device';
+import SafeAreaView from 'src/Components/SafeAreaView';
 
 import {
   sg,
@@ -31,6 +32,10 @@ import { appLanding as styles } from './styles';
 class AppLanding extends Component {
   state = {
     screenHeight: Device.screenHeight(),
+  };
+
+  static navigationOptions = {
+    headerLeft: () => null,
   };
 
 
@@ -65,7 +70,7 @@ class AppLanding extends Component {
       <Content bounces={false}>
         <Image source={appLanding} style={[styles.image]} />
 
-        <View style={[styles.topBl, { height: screenHeight }]} onLayout={this.handleLayout}>
+        <View style={[styles.topBl, { height: screenHeight * 0.8 }]} onLayout={this.handleLayout}>
 
           <Text style={styles.textMiddle}>
             {'A brighter\nfuture built\nby you'}
