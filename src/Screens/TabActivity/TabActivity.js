@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { View, Image, Dimensions } from 'react-native';
+import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
 
-import { Button, Text, Content } from 'native-base';
+import {
+  Button, Text, Content, Icon, H1,
+} from 'native-base';
 
-import { accountsSelector } from 'src/Redux/AppContent';
+import { accountsSelector, userSelector } from 'src/Redux/AppContent';
+
+import {
+  accountSelector,
+} from 'src/Redux/Account';
+
 
 import Br from 'src/Components/Br';
 import BottomInfo from 'src/Components/BottomInfo';
@@ -183,69 +192,34 @@ class TabActivity extends Component {
     );
   }
 
-  /*
-  renderBalance() {
 
-    const { accounts, navigation } = this.props;
-
-    const accountIdActive = navigation.getParam('accountId', 'NO-ID');
-
-    console.log("Accounts: " + JSON.stringify(accounts));
-    console.log("Account ID Selected: " + JSON.stringify(accountIdActive));
-
-    return accounts.map((account) => {
-
-      if (account.id === accountIdActive) {
-
-        const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
-        const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
-        const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
-
-        return (
-          <View
-            style={[sg.aICenter, sg.mT50, sg.mB25]}
-            key={account.id}
-          >
-            <Button
-              transparent
-              iconRight
-              style={sg.aSCenter}
-              onPress={() => {
-                BottomInfo.showAccounts();
-              }}
-            >
-              <Text style={styles.title}>{account.nickName}</Text>
-              <Icon name="ios-arrow-down" style={styles.titleIcon} />
-            </Button>
-
-            <View style={sg.row}>
-              <H1 style={styles.mainAmount}>{balanceDollars}</H1>
-              <Text style={styles.mainAmountCent}>.{balanceCents}</Text>
-            </View>
-          </View>
-        )
-      }
-
-    });
-
-
+  renderAwaitingDirectDebit = (data) => {
+    if (data) {
+      return (
+        <Text style={styles.awaitingDebit}>
+          {`${formatAmountDollar(data)} awaiting direct debit`}
+        </Text>
+      );
+    }
+    return null;
   }
-  */
 
   render() {
     const { segment } = this.state;
+    const { selectedAccount, user } = this.props;
 
     return (
       <Content>
-        {/*
+
         <Balance
+          account={selectedAccount}
+          user={user}
           onPress={() => {
             BottomInfo.showAccounts({
               superAccount: false,
             });
           }}
         />
-        */}
 
         <View style={[sg.contentMarginH2, sg.mT30, sg.mB30]}>
           <Br style={[sg.footerBl]} />
@@ -304,12 +278,23 @@ class TabActivity extends Component {
   }
 }
 
+TabActivity.propTypes = {
+  accounts: PropTypes.array.isRequired,
+  selectedAccount: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+
+};
+
+
 const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
-
+  const selectedAccount = accountSelector(state);
+  const user = userSelector(state);
   return {
     accounts,
+    selectedAccount,
+    user,
   };
 };
 
-export default connect()(TabActivity);
+export default connect(mapStateToProps)(TabActivity);
