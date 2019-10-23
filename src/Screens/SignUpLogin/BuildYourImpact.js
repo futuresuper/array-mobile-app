@@ -46,7 +46,7 @@ class BuildYourImpact extends Component {
       <Content contentContainerStyle={[sg.flexGrow]} bounces={false}>
         <Image source={buildYourImpact} style={[sg.postitionAbsolute, sg.aSCenter]} />
 
-        <SafeAreaView forceInset={{ bottom: 'never' }} theme={screenProps.themeMode}>
+        <SafeAreaView forceInset={{ bottom: 'never' }} themeMode={screenProps.themeMode}>
           <View style={[sg.spaceBetween, sg.contentPaddingH]}>
             <View>
               <Text style={[styles.header, sg.mB10]}>

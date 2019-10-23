@@ -63,7 +63,7 @@ class BuildMovement extends Component {
           style={sg.postitionAbsoluteRight}
         />
 
-        <SafeAreaView forceInset={{ bottom: 'never' }} theme={screenProps.themeMode}>
+        <SafeAreaView forceInset={{ bottom: 'never' }} themeMode={screenProps.themeMode}>
           <View style={[sg.spaceBetween, sg.pH0]}>
             <View>
               <Text style={[styles.header, sg.mB10]}>
