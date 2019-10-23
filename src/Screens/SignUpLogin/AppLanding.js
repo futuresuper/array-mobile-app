@@ -64,8 +64,9 @@ class AppLanding extends Component {
     return (
       <Content bounces={false}>
         <Image source={appLanding} style={[styles.image]} />
+    
 
-        <View style={[styles.topBl, { height: screenHeight }]} onLayout={this.handleLayout}>
+        <View style={[styles.topBl, { height: screenHeight * 0.9 }]} onLayout={this.handleLayout}>
 
           <Text style={styles.textMiddle}>
             {'A brighter\nfuture built\nby you'}
