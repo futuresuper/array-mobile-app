@@ -62,13 +62,18 @@ class PinValidation extends React.Component {
 
       if (formIsValid) {
         const pin = hocs.form.pin.value;
-
-        screenProps.Api.post('/pin', { pin }, () => {
-          localAuthValidateConnect();
-          screenProps.navigateTo(navigation.getParam('next', 'TAB_HOME'));
+        screenProps.Api.post('/pin', { pin }, (res) => {
+          if (res.matched) {
+            localAuthValidateConnect();
+            screenProps.navigateTo(navigation.getParam('next', 'TAB_HOME'));
+          }
+          if (res.tooManyAttempts) {
+            screenProps.toastDanger('Too many incorrect attempts - please login with your phone instead');
+          } else {
+            screenProps.toastDanger('Error. Try again.');
+          }
         }, () => {
-          localAuthValidateConnect();
-          screenProps.navigateTo(navigation.getParam('next', 'TAB_HOME'));
+          screenProps.toastDanger('Error. Try again.');
         });
       }
     }
