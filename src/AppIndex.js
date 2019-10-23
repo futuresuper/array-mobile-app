@@ -33,6 +33,7 @@ import {
 import {
   navGetParam,
 } from 'src/Common/Helpers';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import moment from 'src/Common/moment';
 
 import Api from 'src/Common/Api';
@@ -231,6 +232,7 @@ class AppIndex extends Component {
     };
 
     return (
+      <SafeAreaProvider>
       <Root
         ref={(c) => {
           this._root = c;
@@ -281,6 +283,7 @@ class AppIndex extends Component {
           </Container>
         </StyleProvider>
       </Root>
+      </SafeAreaProvider>
     );
   }
 }
