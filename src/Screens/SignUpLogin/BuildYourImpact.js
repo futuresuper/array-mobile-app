@@ -46,12 +46,10 @@ class BuildYourImpact extends Component {
       <Content contentContainerStyle={[sg.flexGrow]} bounces={false}>
         <Image source={buildYourImpact} style={[sg.postitionAbsolute, sg.aSCenter]} />
 
-        <SafeAreaView forceInset={{ bottom: 'never' }} themeMode={screenProps.themeMode}>
-          <BackButton signup header={false} {...this.props} />
-
+        <SafeAreaView forceInset={{ bottom: 'never' }} theme={screenProps.themeMode}>
           <View style={[sg.spaceBetween, sg.contentPaddingH]}>
             <View>
-              <Text style={[styles.header, sg.mB10, sg.mT60]}>
+              <Text style={[styles.header, sg.mB10]}>
                 {'Build your\nimpact'}
               </Text>
               <Text style={sg.textCenter}>

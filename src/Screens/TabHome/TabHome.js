@@ -309,7 +309,8 @@ class TabHome extends Component {
             iconRight
             style={sg.aSCenter}
             onPress={() => {
-              screenProps.navigateTo(routeNames.ACCOUNTS); // CHANGE TO MODAL BOTTOM WHEN FIXED
+              BottomInfo.showAccounts();
+              // screenProps.navigateTo(routeNames.ACCOUNTS); // CHANGE TO MODAL BOTTOM WHEN FIXED
             }}
           >
             <Text style={styles.title}>{nickName}</Text>
