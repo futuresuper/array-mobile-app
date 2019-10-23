@@ -33,7 +33,7 @@ const signRoutes = formatRoutes({
   [routeNames.APP_LANDING]: {
     screen: screens.AppLanding,
     params: {
-      noHeader: true,
+      showBackButton: false,
     },
   },
   [routeNames.BUILD_YOUR_SAVING]: {
@@ -41,15 +41,9 @@ const signRoutes = formatRoutes({
   },
   [routeNames.BUILD_YOUR_IMPACT]: {
     screen: screens.BuildYourImpact,
-    params: {
-      noHeader: true,
-    },
   },
   [routeNames.BUILD_MOVEMENT]: {
     screen: screens.BuildMovement,
-    params: {
-      noHeader: true,
-    },
   },
   [routeNames.SIGN_UP_LOGIN]: {
     screen: screens.SignUpLogin,
