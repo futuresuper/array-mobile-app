@@ -14,6 +14,7 @@ import { formatAmountDollar } from 'src/Common/Helpers';
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave, accountsSelector, userSelector } from 'src/Redux/AppContent';
 import { accountSelectSave } from 'src/Redux/Account';
+import SafeAreaView from 'src/Components/SafeAreaView';
 
 import { sg } from 'src/Styles';
 
@@ -116,45 +117,47 @@ class Accounts extends React.Component {
   render() {
     const { screenProps, accounts, user } = this.props;
     return (
-      <Content padder contentContainerStyle={sg.flexGrow}>
-        <View style={sg.spaceBetween}>
-          <View>
+      <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
+        <Content padder contentContainerStyle={sg.flexGrow}>
+          <View style={sg.spaceBetween}>
             <View>
-              <Text style={[sg.formHeading]}>Your accounts</Text>
+              <View>
+                <Text style={[sg.formHeading]}>Your accounts</Text>
+              </View>
+              <List>
+                {accounts.map((account) => this.renderAccount(account))}
+              </List>
             </View>
-            <List>
-              {accounts.map((account) => this.renderAccount(account))}
-            </List>
-          </View>
-          <View>
-            <Button
-              onPress={() => {
-                screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-              }}
-              block
-            >
-              <Text>Start new application</Text>
-            </Button>
-            { user.experiments
+            <View>
+              <Button
+                onPress={() => {
+                  screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+                }}
+                block
+              >
+                <Text>Start new application</Text>
+              </Button>
+              { user.experiments
               && user.experiments.EXPERIMENT_REVERSE_ONBOARDING
               && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'A_REVERSE_ONBOARDED'
               && !user.personalDetailsLocked // exclude users that have already submitted an application
               && (
-              <Button
-                onPress={() => {
-                  screenProps.navigateTo(routeNames.TAB_HOME);
-                }}
-                bordered
-                dark
-                block
-                marginVert
-              >
-                <Text>Explore Array</Text>
-              </Button>
+                <Button
+                  onPress={() => {
+                    screenProps.navigateTo(routeNames.TAB_HOME);
+                  }}
+                  bordered
+                  dark
+                  block
+                  marginVert
+                >
+                  <Text>Explore Array</Text>
+                </Button>
               )}
+            </View>
           </View>
-        </View>
-      </Content>
+        </Content>
+      </SafeAreaView>
     );
   }
 }

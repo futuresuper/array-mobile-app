@@ -18,7 +18,6 @@ import {
 } from 'src/Navigation';
 
 import SafeAreaView from 'src/Components/SafeAreaView';
-import BackButton from 'src/Components/BackButton';
 
 import {
   sg,
@@ -57,38 +56,41 @@ class BuildMovement extends Component {
     const centerImage = (multiplier < 0.9);
 
     return (
-      <Content contentContainerStyle={[sg.flexGrow]} bounces={false} onLayout={this.onLayout}>
-        <Image
-          source={buildMovement}
-          style={sg.postitionAbsoluteRight}
-        />
+      <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
 
-        <SafeAreaView forceInset={{ bottom: 'never' }} themeMode={screenProps.themeMode}>
-          <View style={[sg.spaceBetween, sg.pH0]}>
-            <View>
-              <Text style={[styles.header, sg.mB10]}>
-                {'Build the\nmovement'}
-              </Text>
-              <Text style={sg.textCenter}>
-                {'Join the growing movement of people\nbuilding a cleaner future for the planet'}
-              </Text>
+        <Content contentContainerStyle={[sg.flexGrow]} bounces={false} onLayout={this.onLayout}>
+          <Image
+            source={buildMovement}
+            style={sg.postitionAbsoluteRight}
+          />
+
+          <SafeAreaView forceInset={{ bottom: 'never' }} themeMode={screenProps.themeMode}>
+            <View style={[sg.spaceBetween, sg.pH0]}>
+              <View>
+                <Text style={[styles.header, sg.mB10]}>
+                  {'Build the\nmovement'}
+                </Text>
+                <Text style={sg.textCenter}>
+                  {'Join the growing movement of people\nbuilding a cleaner future for the planet'}
+                </Text>
+              </View>
+              <Image
+                source={buildMovementPeople}
+                style={[centerImage ? {} : sg.mL20, { width: 416 * multiplier, height: 349 * multiplier, alignSelf: (centerImage ? 'center' : undefined) }]}
+              />
+              <Button
+                style={[sg.contentMargin, sg.mT0]}
+                block
+                onPress={() => {
+                  screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
+                }}
+              >
+                <Text>Next</Text>
+              </Button>
             </View>
-            <Image
-              source={buildMovementPeople}
-              style={[centerImage ? {} : sg.mL20, { width: 416 * multiplier, height: 349 * multiplier, alignSelf: (centerImage ? 'center' : undefined) }]}
-            />
-            <Button
-              style={[sg.contentMargin, sg.mT0]}
-              block
-              onPress={() => {
-                screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
-              }}
-            >
-              <Text>Next</Text>
-            </Button>
-          </View>
-        </SafeAreaView>
-      </Content>
+          </SafeAreaView>
+        </Content>
+      </SafeAreaView>
     );
   }
 }

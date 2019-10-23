@@ -38,6 +38,9 @@ import {
   styleGlobal,
 } from 'src/Styles';
 
+import SafeAreaView from 'src/Components/SafeAreaView';
+
+
 class SmsCode extends Component {
     state = {
       smsCode: '',
@@ -119,6 +122,7 @@ class SmsCode extends Component {
 
     render() {
       let { mobile } = this.props;
+      const { screenProps } = this.props;
       const { smsCode } = this.state;
 
       if (mobile) {
@@ -130,41 +134,43 @@ class SmsCode extends Component {
       }
 
       return (
-        <Content padder contentContainerStyle={styleGlobal.flexGrow}>
-          <View style={styleGlobal.spaceBetween}>
-            <View>
-              <Text style={styleGlobal.formHeading}>
+        <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
+          <Content padder contentContainerStyle={styleGlobal.flexGrow}>
+            <View style={styleGlobal.spaceBetween}>
+              <View>
+                <Text style={styleGlobal.formHeading}>
               Verify
-              </Text>
+                </Text>
 
-              <Text style={styleGlobal.mB30}>
+                <Text style={styleGlobal.mB30}>
               We&apos;ve just texted you a code to
-                {'\n'}
-                <Text style={styleGlobal.textBold}>{mobile}</Text>
+                  {'\n'}
+                  <Text style={styleGlobal.textBold}>{mobile}</Text>
               &nbsp;to verify your number
-              </Text>
+                </Text>
 
-              <Input
-                helper="Code"
-                returnKeyType="next"
-                keyboardType="numeric"
-                value={smsCode}
-                onChangeText={(e) => { this.setState({ smsCode: e }); }}
-              />
+                <Input
+                  helper="Code"
+                  returnKeyType="next"
+                  keyboardType="numeric"
+                  value={smsCode}
+                  onChangeText={(e) => { this.setState({ smsCode: e }); }}
+                />
 
+              </View>
+
+              <KeyboardAvoidingView keyboardVerticalOffset={100}>
+                <Button
+                  onPress={() => this.handlePress()}
+                  block
+                >
+                  <Text>Next</Text>
+                </Button>
+              </KeyboardAvoidingView>
             </View>
 
-            <KeyboardAvoidingView keyboardVerticalOffset={100}>
-              <Button
-                onPress={() => this.handlePress()}
-                block
-              >
-                <Text>Next</Text>
-              </Button>
-            </KeyboardAvoidingView>
-          </View>
-
-        </Content>
+          </Content>
+        </SafeAreaView>
       );
     }
 }

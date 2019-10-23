@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  View, FlatList, Image, Modal, ImageBackground,
+  View, FlatList, Image, Modal, ImageBackground, ScrollView,
 } from 'react-native';
 
 import {
-  Content, Text, H1, Grid, Col, Card, CardItem, Body,
+  Text, H1, Grid, Col, Card, CardItem, Body,
 } from 'native-base';
 
 import CloseButton from 'src/Components/CloseButton';
@@ -63,52 +63,55 @@ class SolarFarm extends Component {
 
     return (
       <Modal onRequestClose={() => this.onRequestClose()} transparent>
-        <SafeAreaView themeMode={screenProps.themeMode}>
+        <SafeAreaView forceInset={{ top: 'never' }} themeMode={screenProps.themeMode}>
+          <ScrollView>
 
-          <ImageBackground
-            source={{ uri: imageUrl }}
-            resizeMode="stretch"
-            style={[{ height: deviceUtils.screenHeight() - sc.footerHeight - 54 }]}
-          >
-            <View style={[sg.aIEnd, sg.mT40]}>
-              <CloseButton white themeMode="light" {...this.props} />
-            </View>
-
-            <View style={[sg.aICenter, sg.spaceBetween]}>
-              <View>
-                <WeatherWidget coordinate={item.coordinate} style={styles.solarFarmWeatherWidget} />
-
-                <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.name}</H1>
-                <Text style={styles.solarFarmItemDescription}>{item.location}</Text>
+            <ImageBackground
+              source={{ uri: imageUrl }}
+              resizeMode="stretch"
+              style={[{ height: deviceUtils.screenHeight() - sc.footerHeight - 54 }]}
+            >
+              <View style={[sg.aIEnd, sg.mT40]}>
+                <CloseButton white themeMode="light" {...this.props} />
               </View>
 
-              <View style={sg.aICenter}>
-                {item.completionDate && (
-                <Text
-                  style={[styles.solarFarmFinishDate, sg.mB50]}
-                >
-                  {`Projected finish date: ${item.completionDate}`}
+              <View style={[sg.aICenter, sg.spaceBetween]}>
+                <View>
+                  <WeatherWidget coordinate={item.coordinate} style={styles.solarFarmWeatherWidget} />
 
-                </Text>
-                )}
-                {this.renderStats()}
+                  <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.name}</H1>
+                  <Text style={styles.solarFarmItemDescription}>{item.location}</Text>
+                </View>
+
+                <View style={sg.aICenter}>
+                  {item.completionDate && (
+                  <Text
+                    style={[styles.solarFarmFinishDate, sg.mB50]}
+                  >
+                    {`Projected finish date: ${item.completionDate}`}
+
+                  </Text>
+                  )}
+                  {this.renderStats()}
+                </View>
               </View>
-            </View>
-          </ImageBackground>
+            </ImageBackground>
 
-          <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>
+            <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>
           About
-          </Text>
-          <Text style={[sg.contentMarginH, sg.mT20, sg.mB30, sg.lH26]}>{item.about}</Text>
+            </Text>
+            <Text style={[sg.contentMarginH, sg.mT20, sg.mB30, sg.lH26]}>{item.about}</Text>
 
-          <FlatList
-            data={photos}
-            keyExtractor={(i, index) => index.toString()}
-            renderItem={(...args) => this.renderPhotoItem(...args)}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={sg.mB30}
-          />
+            <FlatList
+              data={photos}
+              keyExtractor={(i, index) => index.toString()}
+              renderItem={(...args) => this.renderPhotoItem(...args)}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={sg.mB30}
+            />
+          </ScrollView>
+
         </SafeAreaView>
       </Modal>
     );
