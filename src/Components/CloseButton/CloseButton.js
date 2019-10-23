@@ -51,11 +51,12 @@ class CloseButton extends Component {
 CloseButton.defaultProps = {
   white: false,
   style: {},
+  themeMode: 'light',
 };
 
 CloseButton.propTypes = {
   white: PropTypes.bool,
-  themeMode: PropTypes.string.isRequired,
+  themeMode: PropTypes.string,
   style: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,
