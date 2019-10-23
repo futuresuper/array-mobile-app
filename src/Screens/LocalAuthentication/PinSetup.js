@@ -60,16 +60,13 @@ class PinSetup extends React.Component {
       const next = navigation.getParam('next', '');
       const formIsValid = hocs.formIsValid();
       if (formIsValid) {
-        pinSaveConnect(true);
-        screenProps.navigateTo(routeNames.BIOMETRICS_SETUP, { next });
-
-        // const pin = hocs.form.pin.value;
-      //   screenProps.Api.post('/user', { pin }, () => {
-      //     pinSaveConnect(true);
-      //     screenProps.navigateTo(routeNames.BIOMETRICS_SETUP, { next });
-      //   }, () => {
-      //     screenProps.tastDanger('Error. Try again.');
-      //   });
+        const pin = hocs.form.pin.value;
+        screenProps.Api.post('/user', { pin }, () => {
+          pinSaveConnect(true);
+          screenProps.navigateTo(routeNames.BIOMETRICS_SETUP, { next });
+        }, () => {
+          screenProps.tastDanger('Error. Try again.');
+        });
       }
     }
 

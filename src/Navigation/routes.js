@@ -138,7 +138,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.ID_CHECK]: {
     screen: screens.IdCheck,
     params: {
-      protected: false,
+      protected: true,
     },
   },
   [routeNames.ID_CHECK_DETAILS]: {
