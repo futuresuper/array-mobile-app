@@ -108,15 +108,15 @@ class ArticleModal extends Component {
   }
 
   render() {
-    const { visible, theme } = this.props;
+    const { visible, themeMode } = this.props;
 
     return (
       <Modal animated visible={visible} onRequestClose={() => this.onRequestClose()} transparent>
-        <SafeAreaView theme={theme}>
+        <SafeAreaView themeMode={themeMode}>
           <ScrollView>
             <View style={[sg.contentMarginV2]}>
               <View style={[sg.aIEnd]}>
-                <CloseButton white onPress={() => this.onRequestClose()} />
+                <CloseButton themeMode={themeMode} white onPress={() => this.onRequestClose()} />
               </View>
               {this.renderContent()}
             </View>
@@ -137,7 +137,7 @@ ArticleModal.propTypes = {
   item: PropTypes.object,
   visible: PropTypes.bool,
   onRequestClose: PropTypes.func,
-  theme: PropTypes.object.isRequired,
+  themeMode: PropTypes.string.isRequired,
 };
 
 export default ArticleModal;

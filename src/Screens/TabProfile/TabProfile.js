@@ -108,14 +108,6 @@ class TabProfile extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const { user } = this.props;
-
-  //   if (user.email) {
-  //     Intercom.registerIdentifiedUser({ email: user.email });
-  //   }
-  // }
-
   onTakePhoto = (data) => {
     const { userUpdateAvatarConnect } = this.props;
     const { uri } = data;
@@ -182,16 +174,6 @@ class TabProfile extends Component {
     });
   };
 
-  // displayIntercom(props) {
-  //   const { user, screenProps } = props;
-  //   Intercom.registerUnidentifiedUser();
-  //   if (user.email) {
-  //     Intercom.displayMessageComposer();
-  //   } else {
-  //     screenProps.toast("You don't have email to talk to us");
-  //   }
-  // }
-
   renderAvatar() {
     const { user } = this.props;
     let childEl;
@@ -218,15 +200,13 @@ class TabProfile extends Component {
 
   render() {
     const { user, screenProps } = this.props;
+    const { themeMode } = screenProps;
     const { listMenu, cameraVisible, imageUploadModalIsVisible } = this.state;
 
     if (!user.dateJoined) {
       user.dateJoined = '2019-03-15';
     }
     const theme = screenProps.getTheme();
-    const memberSince = `${moment(user.dateJoined).format('MMMM')}'s ${user.dateJoined
-      .split('-')[0]
-      .substring(2)}`;
 
     return (
       <Content contentContainerStyle={[sg.pB30]}>
@@ -247,23 +227,15 @@ class TabProfile extends Component {
                 </View>
               )}
             </View>
-
-            {/*
-            <Text style={[sg.colorGray11, sg.fS14]}>
-              {`Member since ${memberSince
-              || '2019-03-15'}`}
-
-            </Text>
-            */}
           </Col>
         </Grid>
 
         <View>
           <List style={sg.contentMarginLeft}>
             <ListItem style={[sg.pT15, sg.mL0]} />
-
             <FlatList
               data={listMenu}
+              extraData={themeMode}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
                 <ListItem
@@ -297,7 +269,6 @@ class TabProfile extends Component {
           onTakePhoto={this.onTakePhoto}
         />
         <ImageUploadModal
-          theme={theme}
           visible={imageUploadModalIsVisible}
           toggleCamera={this.toggleCamera}
           toggleLibrary={this.chooseFile}

@@ -16,6 +16,8 @@ import {
   Input,
 } from 'src/Components/Form';
 
+import SafeAreaView from 'src/Components/SafeAreaView';
+
 import {
   styleGlobal,
 } from 'src/Styles';
@@ -101,39 +103,41 @@ class SignUpLogin extends Component {
       const { errors, mobile } = this.state;
 
       return (
-        <Content padder contentContainerStyle={[styleGlobal.flexGrow]}>
-          <View style={styleGlobal.spaceBetween}>
+        <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
 
-          <View>
-            <Text style={styleGlobal.formHeading}>
+          <Content padder contentContainerStyle={[styleGlobal.flexGrow]}>
+            <View style={styleGlobal.spaceBetween}>
+
+              <View>
+                <Text style={styleGlobal.formHeading}>
               Mobile Number
-            </Text>
+                </Text>
 
-            <Input
-              helper="Your mobile number"
-              returnKeyType="next"
-              keyboardType="numeric"
-              value={mobile}
-              onChangeText={(e) => { this.handleChange(e); }}
-            />
+                <Input
+                  helper="Your mobile number"
+                  returnKeyType="next"
+                  keyboardType="numeric"
+                  value={mobile}
+                  onChangeText={(e) => { this.handleChange(e); }}
+                />
 
-            <Text style={styleGlobal.formError}>
-              {errors}
-            </Text>
-          </View>
+                <Text style={styleGlobal.formError}>
+                  {errors}
+                </Text>
+              </View>
 
-          <KeyboardAvoidingView keyboardVerticalOffset={100}>
-            <Button
-              onPress={() => this.getSms()}
-              block
-            >
-              <Text>Next</Text>
-            </Button>
-          </KeyboardAvoidingView>
+              <KeyboardAvoidingView keyboardVerticalOffset={100}>
+                <Button
+                  onPress={() => this.getSms()}
+                  block
+                >
+                  <Text>Next</Text>
+                </Button>
+              </KeyboardAvoidingView>
 
-        </View>
+            </View>
 
-          {/* <ListLinks
+            {/* <ListLinks
           absolute
           navigateTo={screenProps.navigateTo}
           data={[
@@ -144,7 +148,8 @@ class SignUpLogin extends Component {
           ]}
         /> */}
 
-        </Content>
+          </Content>
+        </SafeAreaView>
       );
     }
 }

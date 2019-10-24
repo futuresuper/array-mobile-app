@@ -33,8 +33,7 @@ import {
 import {
   navGetParam,
 } from 'src/Common/Helpers';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SafeAreaView from 'react-native-safe-area-view';
+
 import moment from 'src/Common/moment';
 
 import Api from 'src/Common/Api';
@@ -109,13 +108,13 @@ class AppIndex extends Component {
 
   enableTheme = () => {
     /* uncoment to make dark/light auto swiching on */
-    // const currentTime = moment();
-    // const format = 'hh:mm A';
-    // if (currentTime.isBetween(moment('06:00 AM', format), moment('07:00 PM', format))) {
-    //   this.setLightTheme();
-    // } else {
-    //   this.setDarkTheme();
-    // }
+    const currentTime = moment();
+    const format = 'hh:mm A';
+    if (currentTime.isBetween(moment('06:00 AM', format), moment('07:00 PM', format))) {
+      this.setLightTheme();
+    } else {
+      this.setDarkTheme();
+    }
     this.setLightTheme();
   }
 
@@ -229,62 +228,61 @@ class AppIndex extends Component {
       toogleTheme: this.toogleTheme,
       getTheme: this.getTheme,
       isDarkTheme: this.isDarkTheme,
+      themeMode,
       Api,
     };
 
     return (
-      <SafeAreaProvider>
-        <Root
-          ref={(c) => {
-            this._root = c;
-          }}
-        >
-          <StyleProvider style={getTheme(theme)}>
-            <Container>
-              <StatusBar backgroundColor={theme.containerBgColor} barStyle={barStyle} />
-              <Spinner
-                ref={(c) => {
-                  this.Spinner = c;
-                }}
-                textStyle={{ color: '#FFF' }}
-                overlayColor="rgba(0,0,0,0.5)"
-                size="large"
-              />
-              <Alert
-                ref={(c) => {
-                  this.AlertComp = c;
-                }}
-              />
-              <Api
-                setRef={(c) => {
-                  if (c) Api.ApiInstance = c;
-                }}
-                spinnerShow={this.spinnerShow}
-                spinnerHide={this.spinnerHide}
-                navigateTo={this.navigateTo}
-                toast={this.toast}
-                toastDanger={this.toastDanger}
-                toastSuccess={this.toastSuccess}
-                disableTheme={this.disableTheme}
-              />
-              <ProtectedRoutes
-                navigateTo={this.navigateTo}
-                account={account}
-                navState={navigation}
-              />
-              <AppWithNavigationState
-                navigation={screenProps}
-              />
-              <Toast
-                ref={(c) => {
-                  if (c) Toast.toastInstance = c;
-                }}
-              />
-              <BottomInfoModal screenProps={screenProps} theme={this.getTheme} />
-            </Container>
-          </StyleProvider>
-        </Root>
-      </SafeAreaProvider>
+      <Root
+        ref={(c) => {
+          this._root = c;
+        }}
+      >
+        <StyleProvider style={getTheme(theme)}>
+          <Container>
+            <StatusBar backgroundColor={theme.containerBgColor} barStyle={barStyle} />
+            <Spinner
+              ref={(c) => {
+                this.Spinner = c;
+              }}
+              textStyle={{ color: '#FFF' }}
+              overlayColor="rgba(0,0,0,0.5)"
+              size="large"
+            />
+            <Alert
+              ref={(c) => {
+                this.AlertComp = c;
+              }}
+            />
+            <Api
+              setRef={(c) => {
+                if (c) Api.ApiInstance = c;
+              }}
+              spinnerShow={this.spinnerShow}
+              spinnerHide={this.spinnerHide}
+              navigateTo={this.navigateTo}
+              toast={this.toast}
+              toastDanger={this.toastDanger}
+              toastSuccess={this.toastSuccess}
+              disableTheme={this.disableTheme}
+            />
+            <ProtectedRoutes
+              navigateTo={this.navigateTo}
+              account={account}
+              navState={navigation}
+            />
+            <AppWithNavigationState
+              navigation={screenProps}
+            />
+            <Toast
+              ref={(c) => {
+                if (c) Toast.toastInstance = c;
+              }}
+            />
+            <BottomInfoModal screenProps={screenProps} theme={this.getTheme} />
+          </Container>
+        </StyleProvider>
+      </Root>
     );
   }
 }

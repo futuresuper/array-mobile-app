@@ -386,7 +386,7 @@ class TabHome extends Component {
           <View style={[sg.pT15, sg.pB30]}>{this.renderImpactItem()}</View>
 
           <FlatList
-            extraData={screenProps.theme}
+            extraData={screenProps.themeMode}
             data={latest}
             keyExtractor={(item, index) => index.toString()}
             renderItem={this.renderContentItem}
@@ -394,7 +394,7 @@ class TabHome extends Component {
         </ViewNB>
 
         <ArticleModal
-          theme={screenProps.getTheme()}
+          themeMode={screenProps.themeMode}
           visible={article.visible}
           item={article.item}
           onRequestClose={() => {
