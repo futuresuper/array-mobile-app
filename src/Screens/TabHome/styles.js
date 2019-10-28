@@ -120,6 +120,10 @@ export const article = {
     width: '100%',
     height: 180,
   },
+  video: {
+    width: '100%',
+    height: 180,
+  },
   paragraphStyles: {
     textAlign: 'left',
     lineHeight: 25,

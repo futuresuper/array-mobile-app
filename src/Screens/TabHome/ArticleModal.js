@@ -71,10 +71,14 @@ class ArticleModal extends Component {
               break;
             case 'video':
               res = (
-                <Video
-                  source={{ uri: url }} // Test with real response
-                  style={sg.width100p}
-                />
+                <View style={[sg.contentMarginH2, sg.mT15]}>
+                  <Video
+                    source={{ uri: url }}
+                    style={styles.video}
+                    controls
+                    muted
+                  />
+                </View>
               );
               break;
             case 'heading':
