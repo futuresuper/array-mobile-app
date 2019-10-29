@@ -381,9 +381,9 @@ class TabHome extends Component {
         </View>
 
         <ViewNB style={styles.contentBl}>
-          <H2 style={[sg.headingS, sg.colorGray11, sg.aSCenter]}>Impact</H2>
+          <H2 style={[sg.headingS, sg.colorGray11, sg.aSCenter, sg.mB20]}>Updates</H2>
 
-          <View style={[sg.pT15, sg.pB30]}>{this.renderImpactItem()}</View>
+          {/* <View style={[sg.pT15, sg.pB30]}>{this.renderImpactItem()}</View> */}
 
           <FlatList
             extraData={screenProps.themeMode}
