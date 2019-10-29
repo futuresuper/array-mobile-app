@@ -59,7 +59,7 @@ class IdCheckAustralianPassport extends Component {
             userDataSaveConnect(user);
             appContentSaveConnect(appContent);
             screenProps.toastSuccess("ID verification Succeeded - you're all done!");
-            screenProps.navigateTo(routeNames.TAB_HOME);
+            screenProps.navigateTo(routeNames.ACCOUNTS);
           });
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);
