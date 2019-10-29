@@ -15,7 +15,7 @@ import { sg } from 'src/Styles';
 import Brigalow from 'src/assets/images/farms/Brigalow.png';
 import Chinchilla from 'src/assets/images/farms/Chinchilla.png';
 import SwanHill from 'src/assets/images/farms/SwanHill.png';
-import SwanHill2 from 'src/assets/images/farms/SwanHill2.png';
+// import SwanHill2 from 'src/assets/images/farms/SwanHill2.png';
 
 import buildYourImpact from './images/buildYourImpact.png';
 import styles from './styles';
@@ -25,7 +25,7 @@ class BuildYourImpact extends Component {
     return (
       <FlatList
         keyExtractor={(item, index) => index.toString()}
-        data={[Brigalow, Chinchilla, SwanHill, SwanHill2]}
+        data={[Brigalow, Chinchilla, SwanHill]}
         renderItem={({ item }) => (
           <View style={[sg.farmImageShadow, sg.mR15]}>
             <Image source={item} style={[sg.farmImage, { height: 240 * 0.8, width: 316 * 0.8 }]} />
@@ -63,7 +63,7 @@ class BuildYourImpact extends Component {
                 style={[sg.mH0, sg.contentMarginV]}
                 block
                 onPress={() => {
-                  screenProps.navigateTo(routeNames.BUILD_MOVEMENT);
+                  screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
                 }}
               >
                 <Text>Next</Text>

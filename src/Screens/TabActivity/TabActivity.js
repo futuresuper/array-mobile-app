@@ -5,8 +5,12 @@ import { connect } from 'react-redux';
 import { View, Image, Dimensions } from 'react-native';
 import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
 
+import BadgeCheckmark from 'src/Components/BadgeCheckmark';
+
+import _ from 'lodash';
+
 import {
-  Button, Text, Content, Icon, H1,
+  Button, Text, Content, Icon, H1, Grid, Row, Col
 } from 'native-base';
 
 import { accountsSelector, userSelector } from 'src/Redux/AppContent';
@@ -49,6 +53,26 @@ class TabActivity extends Component {
       },
       activeDot: 'Mar 8',
       activeBalance: 0,
+      activity: [
+        {
+          type: 'Deposit',
+          date: '29 Fed',
+          status: 1,
+          amount: '+$20.00',
+        },
+        {
+          type: 'Deposit',
+          date: '19 Fed',
+          status: 2,
+          amount: '+$20.00',
+        },
+        {
+          type: 'Deposit',
+          date: '09 Fed',
+          status: 3,
+          amount: '+$0.50',
+        },
+      ],
     };
   }
 
@@ -204,9 +228,69 @@ class TabActivity extends Component {
     return null;
   }
 
+  renderActivityItem(item = {}, index = -1) {
+    const { screenProps } = this.props;
+    const theme = screenProps.getTheme();
+    const isHeader = _.isEmpty(item);
+    let status;
+
+    if (item.status === "awaitingMoney" && item.paymentMethod === "dd") {
+      status = 'Requested';
+    } else if (item.status === "pending") {
+      status = 'Pending';
+    } else if (item.status === "processed") {
+      status = 'Processed';
+    } else if (item.status === undefined) {
+      status = 'Status';
+    }
+
+    const amount = item.amountInDollars ? formatAmountDollarCent(item.amountInDollars) : "Amount";
+    const date = item.date ? item.date : "Date";
+
+    let type;
+    if (item.type && item.type === "deposit") {
+      type = "Deposit";
+    } else if (item.type && item.type === "withdrawal") {
+      type = "Withdrawal";
+    } else {
+      type = "Type";
+    }
+
+    const styleText = isHeader ? sg.colorGray11 : {};
+
+    return (
+      <Row
+        key={index.toString()}
+        style={[
+          styles.activityRow,
+          isHeader ? styles.activityRowHeader : {},
+          sg.borderColor(theme.borderColorList),
+        ]}
+      >
+        <Col style={[styles.activityCol]}>
+          <Text style={[styles.activityColText, styleText]}>{type}</Text>
+        </Col>
+        <Col style={[styles.activityCol]}>
+          <Text style={[styles.activityColText, styleText]}>{date}</Text>
+        </Col>
+        <Col style={[styles.activityCol]}>
+          {status === "Processed" ? (
+            <BadgeCheckmark inverted />
+          ) : (
+            <Text style={[styles.activityColText, sg.colorGray11, styleText]}>{status}</Text>
+          )}
+        </Col>
+        <Col style={[styles.activityCol, sg.right]}>
+          <Text style={[styles.activityColText, styleText]}>{amount}</Text>
+        </Col>
+      </Row>
+    );
+  }
+
   render() {
     const { segment } = this.state;
     const { selectedAccount, user } = this.props;
+    const activity = selectedAccount.transactions;
 
     return (
       <Content>
@@ -239,7 +323,7 @@ class TabActivity extends Component {
                   !segment.isPerfomance ? styles.activityTabTitleText : {},
                 ]}
               >
-                Perfomance
+                Performance
               </Text>
             </Button>
             <Button
@@ -256,7 +340,7 @@ class TabActivity extends Component {
                   !segment.isInvestment ? styles.activityTabTitleText : {},
                 ]}
               >
-                Investment
+                Investments
               </Text>
             </Button>
           </View>
@@ -269,6 +353,15 @@ class TabActivity extends Component {
               distributions.
             </Text>
             {this.renderChart()}
+
+            <View style={[sg.contentMarginH2, sg.mT50]}>
+              <H1 style={[sg.fS24, sg.textCenter, sg.mB30]}>Activity</H1>
+              <Grid>
+                {this.renderActivityItem()}
+                {activity.map((item, index) => this.renderActivityItem(item, index))}
+              </Grid>
+            </View>
+
           </View>
         ) : (
           <Investment {...this.props} />
