@@ -4949,6 +4949,11 @@ iterall@1.1.x:
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.1.4.tgz#0db40d38fdcf53ae14dc8ec674e62ab190d52cfc"
   integrity sha512-eaDsM/PY8D/X5mYQhecVc5/9xvSHED7yPON+ffQroBeTuqUVm7dfphMkK8NksXuImqZlVRoKtrNfMIVCYIqaUQ==
 
+jail-monkey@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/jail-monkey/-/jail-monkey-2.3.0.tgz#b52fc502e03216b57070d02582ee183854c76cce"
+  integrity sha512-WFSa0Fn9/Z+76ybFy/0hdM38cAUqFyPKfjGgLi1bpaz/uS8AzfZWZxmWYbkqIzOqHhshlfimh2MxmpixbRWBnw==
+
 jest-changed-files@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-24.9.0.tgz#08d8c15eb79a7fa3fc98269bc14b451ee82f8039"
