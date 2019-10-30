@@ -29,6 +29,9 @@ class Accounts extends React.Component {
       // dev purpose
       // const { screenProps } = this.props;
       // screenProps.navigateTo(routeNames.EMAIL);
+      if (!user.firstName || !user.lastName || !user.email) {
+        screenProps.navigateTo(routeNames.APP_LANDING);
+      }
     });
   }
 
