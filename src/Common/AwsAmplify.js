@@ -52,10 +52,6 @@ class AwsAmplify {
     console.log('!!!', { conf });
     console.log('!!!', { currentUser });
 
-    if (currentUser) {
-      await currentUser.signOut();
-    }
-
     try {
       await Auth.signOut({ global: true });
     } catch (e) {
