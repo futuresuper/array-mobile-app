@@ -305,16 +305,16 @@ class TabActivity extends Component {
           }}
         />
 
-        <View style={[sg.contentMarginH2, sg.mT30, sg.mB30]}>
+        <View style={[sg.mT30, sg.mB30]}>
           <Br style={[sg.footerBl]} />
-          <View style={[sg.mH20, sg.row]}>
+          <View style={[sg.mH20, sg.row, sg.flex]}>
             <Button
               transparent
               onPress={this.setPerfomanceSegment}
               style={[
                 styles.activityTabTitleBl,
+                sg.flex05,
                 segment.isPerfomance ? styles.activityTabTitleBlActive : {},
-                sg.mR70,
               ]}
             >
               <Text
@@ -331,12 +331,14 @@ class TabActivity extends Component {
               onPress={this.setInvestmentSegment}
               style={[
                 styles.activityTabTitleBl,
+                sg.flex05,
                 segment.isInvestment ? styles.activityTabTitleBlActive : {},
               ]}
             >
               <Text
                 style={[
                   styles.activityTabTitleTextActive,
+                  sg.textCenter,
                   !segment.isInvestment ? styles.activityTabTitleText : {},
                 ]}
               >
