@@ -195,7 +195,7 @@ class Input extends Component {
               // textCenter
               autoCorrect={false}
               {...this.props}
-              onChangeText={e => this.onChangeText(e)}
+              onChangeText={(e) => this.onChangeText(e)}
               value={formValue || value}
             />
             {this.renderInputRightIcon()}

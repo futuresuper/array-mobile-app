@@ -6,6 +6,7 @@ import amplitude from 'amplitude-js';
 
 import {
   View,
+  Keyboard,
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -65,6 +66,7 @@ class SmsCode extends Component {
       const { Api, toast } = screenProps;
       const { smsCode } = this.state;
 
+      Keyboard.dismiss();
 
       if (!smsCode) {
         toast('Specify SMS code');
@@ -88,8 +90,6 @@ class SmsCode extends Component {
               const { user } = appContent;
               userDataSaveConnect(user);
               appContentSaveConnect(appContent);
-              // console.log("user: " + JSON.stringify(user));
-              // console.log("appContent: " + JSON.stringify(appContent));
               this.nextScreen(appContent.accounts.length);
               amplitude.getInstance().setUserId(user.id);
               amplitude.getInstance().logEvent('Entered SMS Code - Success', {});
@@ -139,14 +139,14 @@ class SmsCode extends Component {
             <View style={styleGlobal.spaceBetween}>
               <View>
                 <Text style={styleGlobal.formHeading}>
-              Verify
+                  Verify
                 </Text>
 
                 <Text style={styleGlobal.mB30}>
-              We&apos;ve just texted you a code to
+                  We&apos;ve just texted you a code to
                   {'\n'}
                   <Text style={styleGlobal.textBold}>{mobile}</Text>
-              &nbsp;to verify your number
+                    &nbsp;to verify your number
                 </Text>
 
                 <Input

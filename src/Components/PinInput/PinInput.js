@@ -3,9 +3,6 @@ import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { isNil, get } from 'lodash';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
-import {
-  sg,
-} from 'src/Styles';
 
 import styles from './styles';
 
