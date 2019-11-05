@@ -9,6 +9,8 @@ import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 
 import _ from 'lodash';
 
+import { routeNames } from 'src/Navigation';
+
 import {
   Button, Text, Content, Icon, H1, Grid, Row, Col
 } from 'native-base';
@@ -289,7 +291,7 @@ class TabActivity extends Component {
 
   render() {
     const { segment } = this.state;
-    const { selectedAccount, user } = this.props;
+    const { selectedAccount, user, screenProps } = this.props;
     const activity = selectedAccount.transactions;
 
     return (
@@ -360,7 +362,23 @@ class TabActivity extends Component {
               <H1 style={[sg.fS24, sg.textCenter, sg.mB30]}>Activity</H1>
               <Grid>
                 {this.renderActivityItem()}
-                {activity.map((item, index) => this.renderActivityItem(item, index))}
+                {activity ? activity.map((item, index) => this.renderActivityItem(item, index)) : (
+                  <View>
+                    <Text style={[sg.mT20, sg.mB20]}>
+                      Transactions will appear here once you start an account.
+                    </Text>
+                    <Button
+                      onPress={() => {
+                        screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+                      }}
+                      block
+                      style={[sg.mB40]}
+                    >
+                      <Text>Start an account</Text>
+                    </Button>
+                  </View>
+
+                )}
               </Grid>
             </View>
 
