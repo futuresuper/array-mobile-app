@@ -6,6 +6,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 
 import {
@@ -33,7 +34,17 @@ import { appLanding as styles } from './styles';
 class AppLanding extends Component {
   state = {
     screenHeight: Device.screenHeight(),
+    opacity: new Animated.Value(0),
   };
+
+  onLoad = () => {
+    const { opacity } = this.state;
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }
 
 
   handleLayout = () => {
@@ -62,13 +73,41 @@ class AppLanding extends Component {
   render() {
     const { screenProps } = this.props;
     const { screenHeight } = this.state;
+    const { opacity } = this.state;
 
     return (
       <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
         <Content bounces={false}>
-          <Image source={appLanding} style={[styles.image]} />
+          <Animated.Image
+            onLoad={this.onLoad}
+            source={appLanding}
+            style={[{
+              opacity,
+              transform: [
+                {
+                  scale: opacity.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0.85, 1],
+                  }),
+                },
+              ],
+            }, styles.image]}
+          />
 
-          <View style={[styles.topBl, { height: screenHeight * 0.9 }]} onLayout={this.handleLayout}>
+          <Animated.View
+            style={[styles.topBl, { height: screenHeight * 0.9 }, {
+              opacity,
+              transform: [
+                {
+                  scale: opacity.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0.85, 1],
+                  }),
+                },
+              ],
+            }]}
+            onLayout={this.handleLayout}
+          >
 
             <Text style={styles.textMiddle}>
               {'A brighter\nfuture built\nby you'}
@@ -87,7 +126,7 @@ class AppLanding extends Component {
 
               {this.renderPoweredBy()}
             </View>
-          </View>
+          </Animated.View>
 
           <View style={sg.disclaimerBl}>
             <Text style={sg.disclaimer}>ABOUT THE ARRAY APP</Text>
