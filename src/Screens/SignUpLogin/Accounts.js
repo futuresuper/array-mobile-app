@@ -28,7 +28,7 @@ class Accounts extends React.Component {
       appContentSaveConnect(appContent);
       // dev purpose
       // const { screenProps } = this.props;
-      // screenProps.navigateTo(routeNames.EMAIL);
+      // screenProps.navigateTo(routeNames.TAX_NUMBERS);
     });
   }
 

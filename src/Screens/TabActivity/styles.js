@@ -5,6 +5,7 @@ export default {
     zIndex: 2,
   },
   activityTabTitleBl: {
+    justifyContent: 'center',
     paddingBottom: 0,
     paddingHorizontal: 1,
   },
