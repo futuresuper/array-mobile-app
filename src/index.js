@@ -15,7 +15,7 @@ class Root extends Component {
 
   componentDidMount() {
     this.initAnalytics();
-    this.rootedCheck();
+    // this.rootedCheck();
   }
 
   rootedCheck() {
