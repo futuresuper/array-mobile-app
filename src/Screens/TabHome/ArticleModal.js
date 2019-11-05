@@ -3,17 +3,26 @@ import PropTypes from 'prop-types';
 import {
   View, Image, Modal, ScrollView,
 } from 'react-native';
+import amplitude from 'amplitude-js';
 import { H3, Text } from 'native-base';
 import Video from 'react-native-video';
 import SafeAreaView from 'src/Components/SafeAreaView';
 import CloseButton from 'src/Components/CloseButton';
 import { sg } from 'src/Styles';
 
-import CloseCircle from 'src/assets/images/CloseCircle.png';
-
 import { article as styles } from './styles';
 
 class ArticleModal extends Component {
+  componentDidUpdate(prevProps) {
+    const { item } = this.props;
+    if (prevProps.item !== item && !prevProps.item) {
+      const { headline } = item;
+      if (headline) {
+        amplitude.getInstance().logEvent(`Viewed Article: ${headline}`, {});
+      }
+    }
+  }
+
   onRequestClose() {
     const { onRequestClose } = this.props;
     onRequestClose();
@@ -48,7 +57,9 @@ class ArticleModal extends Component {
 
         {article.map((artItem, index) => {
           let res = null;
-          const { contentType, content, description, url } = artItem;
+          const {
+            contentType, content, description, url,
+          } = artItem;
           switch (contentType) {
             case 'paragraph':
               res = (
