@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   View, Image, FlatList, ImageBackground, TouchableOpacity,
 } from 'react-native';
-import { Content, Text } from 'native-base';
+import { Content, Text, Icon } from 'native-base';
 
 import WeatherWidget from 'src/Components/WeatherWidget';
 import { CircularProgress } from 'react-native-circular-progress';
@@ -42,7 +42,21 @@ class SolarFarmsList extends Component {
             <WeatherWidget coordinate={item.coordinate} showSummary={false} />
           </View>
 
-          {item.percentComplete < 100 && (
+          {item.name === 'Brigalow' && (
+            <View style={[sg.row, sg.aICenter]}>
+              <Icon
+                type="FontAwesome5"
+                name="wrench"
+                style={{ color: sc.color.primary }}
+                size={20}
+              />
+              <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15]}>
+                {'Being built right now\nDue for completion in December'}
+              </Text>
+            </View>
+          )}
+
+          {item.name !== 'Brigalow' && item.percentComplete < 100 && (
             <View style={[sg.row, sg.aICenter]}>
               <CircularProgress
                 fill={item.percentComplete}
