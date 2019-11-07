@@ -32,7 +32,7 @@ import { formatAmountDollar, formatAmountDollarCent } from 'src/Common/Helpers';
 
 import { LineChart } from 'src/Components/ChartKit';
 import {
-  impactStatsSelector, latestSelector, accountsSelector, userSelector,
+  impactStatsSelector, updatesSelector, accountsSelector, userSelector,
 } from 'src/Redux/AppContent';
 import {
   accountSelector,
@@ -40,6 +40,7 @@ import {
 
 import { sg } from 'src/Styles';
 
+import ArticleCard from 'src/Components/ArticleCard';
 import ArticleModal from './ArticleModal';
 import styles from './styles';
 
@@ -197,8 +198,8 @@ class TabHome extends Component {
     } else {
       cardItem = this.renderContentItemLarge(item);
     }
-
-    return <Card>{cardItem}</Card>;
+    // return <Card>{cardItem}</Card>;
+    return <ArticleCard {...item} onPressOpen={(i) => console.log(i)} />;
   };
 
   renderChart() {
@@ -212,7 +213,6 @@ class TabHome extends Component {
           if (c) this.LineChart = c;
         }}
         data={{
-          // labels: ['Mar 31', 'Apr 30', 'May 31', 'Jun 30'],
           datasets: [
             {
               data: [10, 12, 14, 15],
@@ -330,7 +330,7 @@ class TabHome extends Component {
   }
 
   render() {
-    const { screenProps, latest } = this.props;
+    const { screenProps, updates } = this.props;
     const { article } = this.state;
 
     return (
@@ -387,7 +387,7 @@ class TabHome extends Component {
 
           <FlatList
             extraData={screenProps.themeMode}
-            data={latest}
+            data={updates}
             keyExtractor={(item, index) => index.toString()}
             renderItem={this.renderContentItem}
           />
@@ -413,7 +413,7 @@ class TabHome extends Component {
 
 TabHome.propTypes = {
   impactStats: PropTypes.array.isRequired,
-  latest: PropTypes.array.isRequired,
+  updates: PropTypes.array.isRequired,
   accounts: PropTypes.array.isRequired,
   selectedAccount: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
@@ -421,16 +421,16 @@ TabHome.propTypes = {
 
 const mapStateToProps = (state) => {
   const impactStats = impactStatsSelector(state);
-  const latest = latestSelector(state);
+  const updates = updatesSelector(state);
   const accounts = accountsSelector(state);
   const selectedAccount = accountSelector(state);
   const user = userSelector(state);
 
   return {
     impactStats,
-    latest,
     accounts,
     selectedAccount,
+    updates,
     user,
   };
 };

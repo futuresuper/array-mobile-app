@@ -62,7 +62,7 @@ class SolarFarm extends Component {
     const photos = item.otherImages;
 
     return (
-      <Modal onRequestClose={() => this.onRequestClose()} transparent>
+      <Modal transparent>
         <SafeAreaView forceInset={{ top: 'never' }} themeMode={screenProps.themeMode}>
           <ScrollView>
 
