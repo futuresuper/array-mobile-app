@@ -14,6 +14,8 @@ PODS:
     - glog
   - glog (0.3.5)
   - Intercom (5.5.1)
+  - jail-monkey (2.3.0):
+    - React
   - JKBigInteger2 (0.0.5)
   - React (0.60.5):
     - React-Core (= 0.60.5)
@@ -79,8 +81,6 @@ PODS:
     - React
   - react-native-orientation-locker (1.1.6):
     - React
-  - react-native-safe-area-context (0.5.0):
-    - React
   - react-native-video (5.0.2):
     - React
     - react-native-video/Video (= 5.0.2)
@@ -127,6 +127,7 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - jail-monkey (from `../node_modules/jail-monkey`)
   - React (from `../node_modules/react-native/`)
   - React-Core (from `../node_modules/react-native/React`)
   - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
@@ -140,7 +141,6 @@ DEPENDENCIES:
   - react-native-intercom (from `../node_modules/react-native-intercom`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
-  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -174,6 +174,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  jail-monkey:
+    :path: "../node_modules/jail-monkey"
   React:
     :path: "../node_modules/react-native/"
   React-Core:
@@ -200,8 +202,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-orientation-locker:
     :path: "../node_modules/react-native-orientation-locker"
-  react-native-safe-area-context:
-    :path: "../node_modules/react-native-safe-area-context"
   react-native-video:
     :path: "../node_modules/react-native-video"
   React-RCTActionSheet:
@@ -244,6 +244,7 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   Intercom: a9dac939be35ba163304fbbdc101817a47992992
+  jail-monkey: 0830c18bb6f085938a4c8529d554f9b29230a5a4
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
   React-Core: ba421f6b4f4cbe2fb17c0b6fc675f87622e78a64
@@ -258,7 +259,6 @@ SPEC CHECKSUMS:
   react-native-intercom: da0c625fe87597a7df94bc872df5a343cec9bfa1
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   react-native-orientation-locker: 23918c400376a7043e752c639c122fcf6bce8f1c
-  react-native-safe-area-context: 13004a45f3021328fdd9ee1f987c3131fb65928d
   react-native-video: d01ed7ff1e38fa7dcc6c15c94cf505e661b7bfd0
   React-RCTActionSheet: b0f1ea83f4bf75fb966eae9bfc47b78c8d3efd90
   React-RCTAnimation: 359ba1b5690b1e87cc173558a78e82d35919333e
