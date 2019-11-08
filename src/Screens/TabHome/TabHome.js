@@ -101,9 +101,7 @@ class TabHome extends Component {
     );
   }
 
-  renderGlow() {
-    return <SunGlow utcOffset={600} style={styles.circleDay} {...this.props} />;
-  }
+  renderGlow = () => <SunGlow utcOffset={600} style={styles.circleDay} {...this.props} />;
 
   renderContentItem = ({ item }) => <ArticleCard {...item} onPressOpen={(i) => this.openArticle(i)} key={item.id} />;
 

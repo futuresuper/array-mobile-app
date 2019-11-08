@@ -19,12 +19,12 @@ import styles from './styles';
 
 const ArticleCard = (props) => {
   const {
-    image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked,
+    image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked, article
   } = props;
   return (
     <Card>
       <CardItem
-        button
+        button={!!article}
         onPress={() => {
           onPressOpen(props);
         }}
@@ -37,7 +37,7 @@ const ArticleCard = (props) => {
       {image && (
         <CardItem
           cardBody
-          button
+          button={!!article}
           onPress={() => {
             onPressOpen(props);
           }}
