@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  View, Image, FlatList, TouchableOpacity,
+  View, FlatList, TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -16,11 +16,6 @@ import {
   Grid,
   Col,
   Row,
-  Card,
-  CardItem,
-  Body,
-  Left,
-  Right,
   View as ViewNB,
 } from 'native-base';
 
@@ -44,10 +39,6 @@ import ArticleCard from 'src/Components/ArticleCard';
 import ArticleModal from './ArticleModal';
 import styles from './styles';
 
-const cardTypeConst = {
-  SMALL: 'small',
-  LARGE: 'large',
-};
 
 const actionToPageConst = {
   desposit: 'Deposit',
@@ -114,93 +105,7 @@ class TabHome extends Component {
     return <SunGlow utcOffset={600} style={styles.circleDay} {...this.props} />;
   }
 
-  renderContentItemSmall(item) {
-    const { timeAgo, actionToPage, image } = item;
-
-    return (
-      <CardItem
-        button={!!actionToPage}
-        onPress={() => {
-          this.openArticle(item);
-        }}
-        style={[actionToPage ? sg.m5 : {}]}
-      >
-        {image && (
-          <Left style={[sg.mR10, sg.flexNull]}>
-            <Image
-              source={{ uri: item.image }}
-              resizeMode="cover"
-              style={styles.contentItemSmallImage}
-            />
-          </Left>
-        )}
-        <Body style={[sg.mL0]}>
-          <Row style={[sg.aICenter]}>
-            <Col>
-              <Text style={[sg.fS16, sg.fontMedium, actionToPage ? sg.textCenter : {}]}>
-                {item.headline}
-              </Text>
-            </Col>
-            {timeAgo && (
-              <Col style={[sg.aIRight, sg.flex08]}>
-                <Text style={[sg.fontMedium, sg.fS14, sg.colorGray12]}>{item.timeAgo}</Text>
-              </Col>
-            )}
-          </Row>
-        </Body>
-        {actionToPage && (
-          <Right style={[sg.width30, sg.flexNull]}>
-            <Icon name="md-arrow-forward" style={[sg.colorPrimary, sg.fS24]} />
-          </Right>
-        )}
-      </CardItem>
-    );
-  }
-
-  renderContentItemLarge(item) {
-    return (
-      <CardItem
-        button
-        onPress={() => {
-          this.openArticle(item);
-        }}
-      >
-        <Left style={[sg.mR20, sg.flexNull]}>
-          <Image
-            source={{ uri: item.image }}
-            resizeMode="cover"
-            style={styles.contentItemLargeImage}
-          />
-        </Left>
-        <Body>
-          <Grid>
-            <Row>
-              <Text style={[sg.fontMedium, sg.fS14, sg.colorGray12]}>{item.subhead}</Text>
-            </Row>
-            <Row>
-              <Text style={[sg.fS16, sg.fontMedium]}>{item.headline}</Text>
-            </Row>
-            <Row style={[sg.aIEnd]}>
-              <Text style={[sg.fontMedium, sg.fS14, sg.colorGray12]}>Read more</Text>
-            </Row>
-          </Grid>
-        </Body>
-      </CardItem>
-    );
-  }
-
-  renderContentItem = ({ item }) => {
-    const { cardType } = item;
-    let cardItem = null;
-
-    if (cardType === cardTypeConst.SMALL) {
-      cardItem = this.renderContentItemSmall(item);
-    } else {
-      cardItem = this.renderContentItemLarge(item);
-    }
-    // return <Card>{cardItem}</Card>;
-    return <ArticleCard {...item} onPressOpen={(i) => console.log(i)} />;
-  };
+  renderContentItem = ({ item }) => <ArticleCard {...item} onPressOpen={(i) => this.openArticle(i)} key={item.id} />;
 
   renderChart() {
     const { screenProps } = this.props;
@@ -279,7 +184,7 @@ class TabHome extends Component {
   }
 
   renderBalance() {
-    const { user, selectedAccount, screenProps } = this.props;
+    const { user, selectedAccount } = this.props;
 
     if (selectedAccount) {
       const balance = {};
