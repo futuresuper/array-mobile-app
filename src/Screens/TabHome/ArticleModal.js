@@ -35,7 +35,7 @@ class ArticleModal extends Component {
       return null;
     }
 
-    const { article } = item;
+    const { article, updateType, url } = item;
 
     return (
       <View>
@@ -55,7 +55,18 @@ class ArticleModal extends Component {
           {item.headline}
         </H3>
 
-        {article.map((artItem, index) => {
+        {updateType === 'video' && (
+        <View style={[sg.contentMarginH2, sg.mT15]}>
+          <Video
+            source={{ uri: url }}
+            style={styles.video}
+            controls
+            muted
+          />
+        </View>
+        )}
+
+        {article && article.map((artItem, index) => {
           let res = null;
           const {
             contentType, content, description, url,
