@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -27,7 +28,11 @@ import { formatAmountDollar, formatAmountDollarCent } from 'src/Common/Helpers';
 
 import { LineChart } from 'src/Components/ChartKit';
 import {
-  impactStatsSelector, updatesSelector, accountsSelector, userSelector,
+  impactStatsSelector,
+  updatesSelector,
+  accountsSelector,
+  userSelector,
+  updateArticlieLike,
 } from 'src/Redux/AppContent';
 import {
   accountSelector,
@@ -58,6 +63,14 @@ class TabHome extends Component {
     };
   }
 
+  likeArticle(form) {
+    const { screenProps, toggleArticleLike } = this.props;
+    screenProps.Api.post('/like', form, () => {
+      toggleArticleLike(form);
+    }, () => {
+      screenProps.toastDanger('Error. Try Again');
+    });
+  }
 
   openArticle(item) {
     const { screenProps } = this.props;
@@ -103,7 +116,7 @@ class TabHome extends Component {
 
   renderGlow = () => <SunGlow utcOffset={600} style={styles.circleDay} {...this.props} />;
 
-  renderContentItem = ({ item }) => <ArticleCard {...item} onPressOpen={(i) => this.openArticle(i)} key={item.id} />;
+  renderContentItem = ({ item }) => <ArticleCard {...item} onPressLike={(l) => this.likeArticle(l)} onPressOpen={(i) => this.openArticle(i)} key={item.id} />;
 
   renderChart() {
     const { screenProps } = this.props;
@@ -320,6 +333,7 @@ TabHome.propTypes = {
   accounts: PropTypes.array.isRequired,
   selectedAccount: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  toggleArticleLike: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -338,4 +352,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(TabHome);
+const mapDispatchToProps = {
+  toggleArticleLike: updateArticlieLike,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabHome);

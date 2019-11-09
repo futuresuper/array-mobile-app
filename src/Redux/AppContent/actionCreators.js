@@ -24,3 +24,10 @@ export function appContentSave(dataInp) {
     payload: data,
   };
 }
+
+export function updateArticlieLike(data) {
+  return {
+    type: types.APP_CONTENT_UPDATE_LIKE_TOGGLE,
+    payload: data,
+  };
+}

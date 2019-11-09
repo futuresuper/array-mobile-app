@@ -16,6 +16,22 @@ const ACTION_HANDLERS = {
       ...payload,
     };
   },
+  [types.APP_CONTENT_UPDATE_LIKE_TOGGLE]: (state, action) => {
+    const { payload } = action;
+    console.log(payload)
+    return {
+      ...state,
+      updates: state.updates.map((update) => {
+        if (update.id === payload.id) {
+          return {
+            ...update,
+            userLiked: payload.like,
+          };
+        }
+        return update;
+      }),
+    };
+  },
 };
 
 ACTION_HANDLERS[USER_UPDATE_AVATAR] = (state, action) => {

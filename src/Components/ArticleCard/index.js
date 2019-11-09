@@ -19,7 +19,7 @@ import styles from './styles';
 
 const ArticleCard = (props) => {
   const {
-    image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked,
+    image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked, onPressLike, id,
   } = props;
   return (
     <Card>
@@ -72,14 +72,14 @@ const ArticleCard = (props) => {
       <CardItem>
         <Left>
           {userLiked ? (
-            <Button transparent small>
+            <Button transparent small onPress={() => onPressLike({ id, like: false })}>
               <Icon type="FontAwesome" style={{ color: 'red' }} name="heart" />
               <Text style={{ color: 'black', fontSize: 10 }}>
                 {`You and ${otherLikes} liked this`}
               </Text>
             </Button>
           ) : (
-            <Button transparent small>
+            <Button transparent small onPress={() => onPressLike({ id, like: true })}>
               <Icon type="FontAwesome" style={{ color: 'red' }} name="heart-o" />
               <Text style={{ color: 'black', fontSize: 10 }}>
                 {`${otherLikes} people like this`}
@@ -94,11 +94,13 @@ const ArticleCard = (props) => {
 
 
 ArticleCard.propTypes = {
+  id: PropTypes.string,
   image: PropTypes.string,
   textAtTop: PropTypes.string,
   headline: PropTypes.string,
   subhead: PropTypes.string,
   onPressOpen: PropTypes.func.isRequired,
+  onPressLike: PropTypes.func.isRequired,
   otherLikes: PropTypes.number,
   userLiked: PropTypes.bool,
 };
