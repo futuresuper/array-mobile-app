@@ -18,7 +18,6 @@ const ACTION_HANDLERS = {
   },
   [types.APP_CONTENT_UPDATE_LIKE_TOGGLE]: (state, action) => {
     const { payload } = action;
-    console.log(payload)
     return {
       ...state,
       updates: state.updates.map((update) => {

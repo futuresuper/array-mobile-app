@@ -81,31 +81,11 @@ class AppLanding extends Component {
           <Animated.Image
             onLoad={this.onLoad}
             source={appLanding}
-            style={[{
-              opacity,
-              transform: [
-                {
-                  scale: opacity.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0.85, 1],
-                  }),
-                },
-              ],
-            }, styles.image]}
+            style={[{ opacity }, styles.image]}
           />
 
           <Animated.View
-            style={[styles.topBl, { height: screenHeight * 0.9 }, {
-              opacity,
-              transform: [
-                {
-                  scale: opacity.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0.85, 1],
-                  }),
-                },
-              ],
-            }]}
+            style={[styles.topBl, { height: screenHeight * 0.9 }, { opacity }]}
             onLayout={this.handleLayout}
           >
 

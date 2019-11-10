@@ -50,6 +50,7 @@ import {
   navigateTo,
   routeBack,
 } from 'src/Redux/Nav';
+import { sc } from './Styles';
 
 class AppIndex extends Component {
   constructor(props, context) {
@@ -246,9 +247,10 @@ class AppIndex extends Component {
               ref={(c) => {
                 this.Spinner = c;
               }}
+              color="blue"
               textStyle={{ color: '#FFF' }}
-              overlayColor="rgba(0,0,0,0.5)"
-              size="large"
+              overlayColor={sc.color.containerBgColor}
+              size={50}
             />
             <Alert
               ref={(c) => {
