@@ -12,7 +12,7 @@ import BackButton from 'src/Components/BackButton';
 
 import { sg } from 'src/Styles';
 
-import Brigalow from 'src/assets/images/farms/Brigalow.png';
+import Brigalow from 'src/assets/images/farms/BrigalowText.png';
 import Chinchilla from 'src/assets/images/farms/Chinchilla.png';
 import SwanHill from 'src/assets/images/farms/SwanHill.png';
 // import SwanHill2 from 'src/assets/images/farms/SwanHill2.png';
