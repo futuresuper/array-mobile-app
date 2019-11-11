@@ -20,10 +20,13 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
-  // Text,
   Modal,
   ActivityIndicator,
 } from 'react-native';
+
+import {
+  MaterialIndicator,
+} from 'react-native-indicators';
 
 import {
   Button,
@@ -70,7 +73,6 @@ const styles = StyleSheet.create({
 });
 
 const ANIMATION = ['none', 'slide', 'fade'];
-const SIZES = ['small', 'normal', 'large'];
 
 export default class Spinner extends React.Component {
   constructor(props) {
@@ -130,7 +132,7 @@ export default class Spinner extends React.Component {
 
     return (
       <View style={styles.background}>
-        <ActivityIndicator
+        <MaterialIndicator
           color={color}
           size={size}
           style={{ flex: 1 }}
@@ -226,7 +228,7 @@ Spinner.propTypes = {
   onStop: PropTypes.func,
   animation: PropTypes.oneOf(ANIMATION),
   color: PropTypes.string,
-  size: PropTypes.oneOf(SIZES),
+  size: PropTypes.number,
   overlayColor: PropTypes.string,
   textStyle: PropTypes.object,
 };

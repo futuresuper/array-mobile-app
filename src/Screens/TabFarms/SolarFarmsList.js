@@ -22,6 +22,7 @@ class SolarFarmsList extends Component {
   renderFarmCard({ item }) {
     const { screenProps } = this.props;
 
+    console.log(item);
     return (
       <TouchableOpacity
         onPress={() => {
@@ -51,7 +52,7 @@ class SolarFarmsList extends Component {
                 size={20}
               />
               <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15]}>
-                {'Being built right now\nDue for completion in December'}
+                {`${item.statusDescription1}\n${item.statusDescription2}`}
               </Text>
             </View>
           )}

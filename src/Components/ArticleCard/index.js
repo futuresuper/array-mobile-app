@@ -4,51 +4,105 @@ import PropTypes from 'prop-types';
 
 import {
   Card,
-  Image,
   CardItem,
   Body,
+  Icon,
   Left,
   Text,
+  Button,
   H3,
 } from 'native-base';
 
+import { ImageBackground, View } from 'react-native';
+
+import styles from './styles';
+
 const ArticleCard = (props) => {
   const {
-    image, onPressOpen, subhead, textAtTop,
+    image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked, onPressLike, id,
   } = props;
-  console.log(props);
   return (
     <Card>
       <CardItem
+        button
         onPress={() => {
           onPressOpen(props);
         }}
       >
+        <Body>
+          <H3 style={styles.subheadText}>{subhead}</H3>
+          <Text style={styles.textAtTop}>{textAtTop}</Text>
+        </Body>
+      </CardItem>
+      {image && (
+        <CardItem
+          cardBody
+          button
+          onPress={() => {
+            onPressOpen(props);
+          }}
+        >
+          <ImageBackground
+            source={{ uri: image }}
+            resizeMode="cover"
+            style={styles.image}
+          >
+            {headline && (
+              <View style={styles.imageOverlayContainer}>
+                <Text style={styles.imageOverlayContainerText}>
+                  {headline}
+                </Text>
+                <View style={styles.imageOverlayContainerButton}>
+                  <Button
+                    small
+                    onPress={() => {
+                      onPressOpen(props);
+                    }}
+                  >
+                    <Text style={{ fontSize: 10 }}>
+                    View
+                    </Text>
+                  </Button>
+                </View>
+              </View>
+            )}
+          </ImageBackground>
+        </CardItem>
+      )}
+      <CardItem>
         <Left>
-          <Body>
-            <H3>{subhead}</H3>
-            <Text>{textAtTop}</Text>
-          </Body>
+          {userLiked ? (
+            <Button transparent small onPress={() => onPressLike({ id, like: false })}>
+              <Icon type="FontAwesome" style={{ color: 'red' }} name="heart" />
+              <Text style={{ color: 'black', fontSize: 10 }}>
+                {`You and ${otherLikes} liked this`}
+              </Text>
+            </Button>
+          ) : (
+            <Button transparent small onPress={() => onPressLike({ id, like: true })}>
+              <Icon type="FontAwesome" style={{ color: 'red' }} name="heart-o" />
+              <Text style={{ color: 'black', fontSize: 10 }}>
+                {`${otherLikes} people like this`}
+              </Text>
+            </Button>
+          )}
         </Left>
       </CardItem>
-
-      {/* <CardItem
-        cardBody
-        onPress={() => {
-          onPressOpen(props);
-        }}
-      >
-        {image && <Image source={{ uri: image }} style={{ height: 200, width: null, flex: 1 }} />}
-      </CardItem> */}
     </Card>
   );
 };
 
+
 ArticleCard.propTypes = {
+  id: PropTypes.string,
   image: PropTypes.string,
   textAtTop: PropTypes.string,
+  headline: PropTypes.string,
   subhead: PropTypes.string,
   onPressOpen: PropTypes.func.isRequired,
+  onPressLike: PropTypes.func.isRequired,
+  otherLikes: PropTypes.number,
+  userLiked: PropTypes.bool,
 };
 
 export default ArticleCard;
