@@ -21,13 +21,14 @@ class Root extends Component {
   rootedCheck() {
     if (JailMonkey.isJailBroken()) {
       this.setState({ rooted: true });
-      Alert.alert(
-        'Rooted Device',
-        'This app cannot run on rooted device.',
-        [
-          { text: 'OK', onPress: () => BackAndroid.exitApp() },
-        ],
-      );
+      console.log("JAIL BROKEN");
+      // Alert.alert(
+      //   'Rooted Device',
+      //   'This app cannot run on rooted device.',
+      //   [
+      //     { text: 'OK', onPress: () => BackAndroid.exitApp() },
+      //   ],
+      // );
     }
   }
 

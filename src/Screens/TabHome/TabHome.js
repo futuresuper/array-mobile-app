@@ -67,9 +67,7 @@ class TabHome extends Component {
     const { screenProps, toggleArticleLike } = this.props;
     screenProps.Api.post('/like', form, () => {
       toggleArticleLike(form);
-    }, () => {
-      screenProps.toastDanger('Error. Try Again');
-    });
+    },null, false);
   }
 
   openArticle(item) {

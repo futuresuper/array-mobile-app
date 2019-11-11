@@ -1,6 +1,7 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
 import PropTypes from 'prop-types';
+import Video from 'react-native-video';
 
 import {
   Card,
@@ -19,22 +20,32 @@ import styles from './styles';
 
 const ArticleCard = (props) => {
   const {
-    image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked, onPressLike, id,
+    image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked, onPressLike, id, updateType, url
   } = props;
   return (
     <Card>
-      <CardItem
-        button
-        onPress={() => {
-          onPressOpen(props);
-        }}
-      >
+      <CardItem>
         <Body>
           <H3 style={styles.subheadText}>{subhead}</H3>
           <Text style={styles.textAtTop}>{textAtTop}</Text>
         </Body>
       </CardItem>
-      {image && (
+      {updateType === "video" && image && (
+        <CardItem
+          cardBody
+        >
+          <Video
+            source={{ uri: url }}
+            style={styles.video}
+            controls
+            muted
+            repeat
+            resizeMode="contain"
+            poster={ image }
+          />
+        </CardItem>
+      )}
+      {updateType === "article" && image && (
         <CardItem
           cardBody
           button
@@ -59,7 +70,7 @@ const ArticleCard = (props) => {
                       onPressOpen(props);
                     }}
                   >
-                    <Text style={{ fontSize: 10 }}>
+                    <Text style={{ fontSize: 12 }}>
                     View
                     </Text>
                   </Button>
@@ -73,15 +84,15 @@ const ArticleCard = (props) => {
         <Left>
           {userLiked ? (
             <Button transparent small onPress={() => onPressLike({ id, like: false })}>
-              <Icon type="FontAwesome" style={{ color: 'red' }} name="heart" />
-              <Text style={{ color: 'black', fontSize: 10 }}>
-                {`You and ${otherLikes} liked this`}
+              <Icon type="FontAwesome" style={{ color: '#FF615C' }} name="heart" />
+              <Text style={styles.likeText}>
+                {`You and ${otherLikes} others like this`}
               </Text>
             </Button>
           ) : (
             <Button transparent small onPress={() => onPressLike({ id, like: true })}>
-              <Icon type="FontAwesome" style={{ color: 'red' }} name="heart-o" />
-              <Text style={{ color: 'black', fontSize: 10 }}>
+              <Icon type="FontAwesome" style={{ color: '#FF615C' }} name="heart-o" />
+              <Text style={styles.likeText}>
                 {`${otherLikes} people like this`}
               </Text>
             </Button>
