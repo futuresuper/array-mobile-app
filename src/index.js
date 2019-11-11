@@ -53,12 +53,9 @@ class Root extends Component {
     const { rooted } = this.state;
     const myStore = getStore();
     const myPersistor = getPersistor();
-
     if (rooted) {
       return null;
     }
-
-
     return (
       <Provider store={myStore}>
         {/* potential add splash screen here instead of blank(null) one */}
