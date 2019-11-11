@@ -28,4 +28,10 @@ export default StyleSheet.create({
   imageOverlayContainerButton: {
     flex: 0.2,
   },
+  video: {
+    height: 200,
+    width: null,
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
 });

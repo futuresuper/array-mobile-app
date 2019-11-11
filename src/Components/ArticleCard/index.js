@@ -1,6 +1,7 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
 import PropTypes from 'prop-types';
+import Video from 'react-native-video';
 
 import {
   Card,
@@ -19,7 +20,7 @@ import styles from './styles';
 
 const ArticleCard = (props) => {
   const {
-    image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked, onPressLike, id,
+    image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked, onPressLike, id, updateType, url
   } = props;
   return (
     <Card>
@@ -34,7 +35,19 @@ const ArticleCard = (props) => {
           <Text style={styles.textAtTop}>{textAtTop}</Text>
         </Body>
       </CardItem>
-      {image && (
+      {updateType === "video" && image && (
+        <CardItem
+          cardBody
+        >
+          <Video
+            source={{ uri: url }}
+            style={styles.video}
+            controls
+            muted
+          />
+        </CardItem>
+      )}
+      {updateType === "article" && image && (
         <CardItem
           cardBody
           button

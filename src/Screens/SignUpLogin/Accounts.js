@@ -137,10 +137,7 @@ class Accounts extends React.Component {
               >
                 <Text>Start new application</Text>
               </Button>
-              { user.experiments
-              && user.experiments.EXPERIMENT_REVERSE_ONBOARDING
-              && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'A_REVERSE_ONBOARDED'
-              && !user.personalDetailsLocked // exclude users that have already submitted an application
+              { !user.personalDetailsLocked // exclude users that have already submitted an application
               && (
                 <Button
                   onPress={() => {
