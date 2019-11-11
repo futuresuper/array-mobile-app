@@ -72,7 +72,7 @@ const ArticleCard = (props) => {
                       onPressOpen(props);
                     }}
                   >
-                    <Text style={{ fontSize: 10 }}>
+                    <Text style={{ fontSize: 12 }}>
                     View
                     </Text>
                   </Button>
@@ -86,15 +86,15 @@ const ArticleCard = (props) => {
         <Left>
           {userLiked ? (
             <Button transparent small onPress={() => onPressLike({ id, like: false })}>
-              <Icon type="FontAwesome" style={{ color: 'red' }} name="heart" />
-              <Text style={{ color: 'black', fontSize: 10 }}>
+              <Icon type="FontAwesome" style={{ color: '#FF615C' }} name="heart" />
+              <Text style={styles.likeText}>
                 {`You and ${otherLikes} liked this`}
               </Text>
             </Button>
           ) : (
             <Button transparent small onPress={() => onPressLike({ id, like: true })}>
-              <Icon type="FontAwesome" style={{ color: 'red' }} name="heart-o" />
-              <Text style={{ color: 'black', fontSize: 10 }}>
+              <Icon type="FontAwesome" style={{ color: '#FF615C' }} name="heart-o" />
+              <Text style={styles.likeText}>
                 {`${otherLikes} people like this`}
               </Text>
             </Button>
