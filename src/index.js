@@ -4,6 +4,7 @@ import { AppRegistry } from 'react-native';
 import amplitude from 'amplitude-js';
 import JailMonkey from 'jail-monkey';
 import { Provider } from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
 import { name as appName } from '../app.json';
 import { getStore, getPersistor } from './Redux/store';
 import AppIndex from './AppIndex';
@@ -14,20 +15,23 @@ class Root extends Component {
   }
 
   componentDidMount() {
+    SplashScreen.hide();
     this.initAnalytics();
     // this.rootedCheck();
   }
 
   rootedCheck() {
-    if (JailMonkey.isJailBroken()) {
-      this.setState({ rooted: true });
-      Alert.alert(
-        'Rooted Device',
-        'This app cannot run on rooted device.',
-        [
-          { text: 'OK', onPress: () => BackAndroid.exitApp() },
-        ],
-      );
+    if (!__DEV__) {
+      if (JailMonkey.isJailBroken()) {
+        this.setState({ rooted: true });
+        Alert.alert(
+          'Rooted Device',
+          'This app cannot run on rooted device.',
+          [
+            { text: 'OK', onPress: () => BackAndroid.exitApp() },
+          ],
+        );
+      }
     }
   }
 
