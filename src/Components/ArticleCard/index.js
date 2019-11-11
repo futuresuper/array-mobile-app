@@ -39,6 +39,8 @@ const ArticleCard = (props) => {
             style={styles.video}
             controls
             muted
+            resizeMode="cover"
+            poster={ image }
           />
         </CardItem>
       )}
