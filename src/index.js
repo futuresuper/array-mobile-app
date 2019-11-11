@@ -1,4 +1,6 @@
-import React, { Component, BackAndroid, Alert } from 'react';
+import React, {
+  Component, BackAndroid, Alert, View,
+} from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 import { AppRegistry } from 'react-native';
 import amplitude from 'amplitude-js';
@@ -56,10 +58,14 @@ class Root extends Component {
       return null;
     }
 
+
     return (
       <Provider store={myStore}>
         {/* potential add splash screen here instead of blank(null) one */}
-        <PersistGate loading={null} persistor={myPersistor}>
+        <PersistGate
+          loading={null}
+          persistor={myPersistor}
+        >
           <AppIndex />
         </PersistGate>
       </Provider>
