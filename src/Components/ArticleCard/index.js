@@ -24,12 +24,7 @@ const ArticleCard = (props) => {
   } = props;
   return (
     <Card>
-      <CardItem
-        button
-        onPress={() => {
-          onPressOpen(props);
-        }}
-      >
+      <CardItem>
         <Body>
           <H3 style={styles.subheadText}>{subhead}</H3>
           <Text style={styles.textAtTop}>{textAtTop}</Text>
@@ -88,7 +83,7 @@ const ArticleCard = (props) => {
             <Button transparent small onPress={() => onPressLike({ id, like: false })}>
               <Icon type="FontAwesome" style={{ color: '#FF615C' }} name="heart" />
               <Text style={styles.likeText}>
-                {`You and ${otherLikes} liked this`}
+                {`You and ${otherLikes} others like this`}
               </Text>
             </Button>
           ) : (
