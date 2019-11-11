@@ -17,7 +17,6 @@ class Root extends Component {
   }
 
   componentDidMount() {
-    SplashScreen.hide();
     this.initAnalytics();
     // this.rootedCheck();
   }
@@ -49,6 +48,10 @@ class Root extends Component {
     }
   }
 
+  onBeforeLift() {
+    SplashScreen.hide();
+  }
+
   render() {
     const { rooted } = this.state;
     const myStore = getStore();
@@ -62,6 +65,7 @@ class Root extends Component {
         <PersistGate
           loading={null}
           persistor={myPersistor}
+          onBeforeLift={this.onBeforeLift()}
         >
           <AppIndex />
         </PersistGate>
