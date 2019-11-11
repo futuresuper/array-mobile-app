@@ -39,7 +39,8 @@ const ArticleCard = (props) => {
             style={styles.video}
             controls
             muted
-            resizeMode="cover"
+            repeat
+            resizeMode="contain"
             poster={ image }
           />
         </CardItem>
