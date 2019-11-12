@@ -21,8 +21,6 @@ import { farmsList as styles } from './styles';
 class SolarFarmsList extends Component {
   renderFarmCard({ item }) {
     const { screenProps } = this.props;
-
-    console.log(item);
     return (
       <TouchableOpacity
         onPress={() => {
