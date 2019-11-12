@@ -216,7 +216,7 @@ class TabHome extends Component {
       }
 
       return (
-        <View style={[sg.aICenter, sg.mT50, sg.mB25]}>
+        <View style={[sg.aICenter, sg.mT25, sg.mB25]}>
 
           <Button
             transparent
