@@ -76,6 +76,10 @@ class TabProfile extends Component {
         //   name: 'Manage accounts',
         //   screen: routeNames.MANAGE_ACCOUNTS,
         // },
+        {
+          name: 'Switch accounts',
+          screen: routeNames.ACCOUNTS,
+        },
         // {
         //   name: 'Personal details',
         //   screen: routeNames.PERSONAL_DETAILS,
