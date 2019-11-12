@@ -21,12 +21,9 @@ import {
   ListItem,
 } from 'native-base';
 
-// import Intercom from 'react-native-intercom';
 import ImagePicker from 'react-native-image-picker';
 
 import { routeNames } from 'src/Navigation';
-
-import moment from 'src/Common/moment';
 
 import { userSelector } from 'src/Redux/AppContent';
 
