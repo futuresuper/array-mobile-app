@@ -8,6 +8,11 @@ export default StyleSheet.create({
   textAtTop: {
     fontSize: 13,
   },
+  likeText: {
+    fontSize: 13,
+    color: '#11133D',
+    fontWeight: '400',
+  },
   image: {
     height: 200,
     width: null,
@@ -16,7 +21,7 @@ export default StyleSheet.create({
   },
   imageOverlayContainer: {
     padding: 10,
-    backgroundColor: 'black',
+    backgroundColor: '#11133D',
     flexDirection: 'row',
   },
   imageOverlayContainerText: {
@@ -27,5 +32,11 @@ export default StyleSheet.create({
   },
   imageOverlayContainerButton: {
     flex: 0.2,
+  },
+  video: {
+    height: 200,
+    width: null,
+    flex: 1,
+    justifyContent: 'flex-end',
   },
 });

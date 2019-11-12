@@ -247,7 +247,7 @@ class AppIndex extends Component {
               ref={(c) => {
                 this.Spinner = c;
               }}
-              color="blue"
+              color="#11133D"
               textStyle={{ color: '#FFF' }}
               overlayColor={sc.color.containerBgColor}
               size={50}
