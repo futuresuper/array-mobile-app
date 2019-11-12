@@ -60,8 +60,10 @@ class ArticleModal extends Component {
           <Video
             source={{ uri: url }}
             style={styles.video}
-            controls
-            fullscreen
+            controls={true}
+            repeat
+            resizeMode="contain"
+            fullscreen={false}
           />
         </View>
         )}
