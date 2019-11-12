@@ -61,7 +61,7 @@ class ArticleModal extends Component {
             source={{ uri: url }}
             style={styles.video}
             controls
-            muted
+            fullscreen
           />
         </View>
         )}

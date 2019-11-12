@@ -36,10 +36,10 @@ class Email extends React.Component {
     }
 
 
-    setAmplitudeTestGroup(group) {
-      const identify = new amplitude.Identify().set('EXPERIMENT_REVERSE_ONBOARDING', group);
-      amplitude.getInstance().identify(identify);
-    }
+    // setAmplitudeTestGroup(group) {
+    //   const identify = new amplitude.Identify().set('EXPERIMENT_REVERSE_ONBOARDING', group);
+    //   amplitude.getInstance().identify(identify);
+    // }
 
     getAppContent(callback) {
       const { screenProps } = this.props;
@@ -62,16 +62,17 @@ class Email extends React.Component {
             const { user } = appContent;
             userDataSaveConnect(user);
             appContentSaveConnect(appContent);
-            if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'A_REVERSE_ONBOARDED') {
-              this.setAmplitudeTestGroup('A_REVERSE_ONBOARDED');
-              screenProps.toastSuccess('Welcome to Array, ' + user.firstName + '!');
-              screenProps.navigateTo(routeNames.TAB_HOME);
-            } else {
-              if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'B_NORMAL_ONBOARDING') {
-                this.setAmplitudeTestGroup('B_NORMAL_ONBOARDING');
-              }
-              screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-            }
+            screenProps.navigateTo(routeNames.TAB_HOME);
+            // if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'A_REVERSE_ONBOARDED') {
+            //   this.setAmplitudeTestGroup('A_REVERSE_ONBOARDED');
+            //   screenProps.toastSuccess('Welcome to Array, ' + user.firstName + '!');
+            //   screenProps.navigateTo(routeNames.TAB_HOME);
+            // } else {
+            //   if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'B_NORMAL_ONBOARDING') {
+            //     this.setAmplitudeTestGroup('B_NORMAL_ONBOARDING');
+            //   }
+            //   screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+            // }
           });
         }, () => {
           screenProps.toastDanger('Error. Try again.');

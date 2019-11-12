@@ -27,9 +27,11 @@ class ProtectedRoutes extends React.Component {
     const { accountId: prevAccountId } = prevProps;
     const currentRoute = navGetCurrentScreen(navState);
     if (accountId !== prevAccountId) {
+      console.log("ACCOUNT REDIRECT");
       this.accountRedirects(account);
     }
     if (currentRoute.params.protected) {
+      console.log("VALIDATING PROTECTED ROUTE");
       this.validateProtectedRoute(currentRoute);
     }
   }

@@ -88,9 +88,9 @@ class SmsCode extends Component {
           }, () => {
             this.getAppContent((appContent) => {
               const { user } = appContent;
-              userDataSaveConnect(user);
-              appContentSaveConnect(appContent);
-              this.nextScreen(appContent.accounts.length);
+              // userDataSaveConnect(user);
+              // appContentSaveConnect(appContent);
+              this.nextScreen(user.firstName && user.lastName && user.email);
               amplitude.getInstance().setUserId(user.id);
               amplitude.getInstance().logEvent('Entered SMS Code - Success', {});
             });
@@ -110,14 +110,16 @@ class SmsCode extends Component {
       return true;
     }
 
-    nextScreen(numAccounts) {
+    nextScreen(gotBasicDetails) {
       const { screenProps } = this.props;
       const { navigateTo } = screenProps;
-      if (numAccounts > 0) {
-        navigateTo(routeNames.ACCOUNTS);
-      } else {
-        navigateTo(routeNames.NAME);
-      }
+      console.log("Have basic details: " + gotBasicDetails)
+      // if (gotBasicDetails) {
+      //   navigateTo(routeNames.ACCOUNTS);
+      // } else {
+      //   navigateTo(routeNames.NAME);
+      // }
+      navigateTo(routeNames.NAME);
     }
 
     render() {
