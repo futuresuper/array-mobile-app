@@ -88,9 +88,11 @@ class SmsCode extends Component {
           }, () => {
             this.getAppContent((appContent) => {
               const { user } = appContent;
-              // userDataSaveConnect(user);
-              // appContentSaveConnect(appContent);
-              this.nextScreen(user.firstName && user.lastName && user.email);
+              userDataSaveConnect(user);
+              appContentSaveConnect(appContent);
+              const gotBasicDetails = (user.firstName !== undefined && user.lastName  !== undefined && user.email  !== undefined);
+              console.log("gotBasicDetails: " + gotBasicDetails);
+              this.nextScreen(gotBasicDetails);
               amplitude.getInstance().setUserId(user.id);
               amplitude.getInstance().logEvent('Entered SMS Code - Success', {});
             });
@@ -114,12 +116,11 @@ class SmsCode extends Component {
       const { screenProps } = this.props;
       const { navigateTo } = screenProps;
       console.log("Have basic details: " + gotBasicDetails)
-      // if (gotBasicDetails) {
-      //   navigateTo(routeNames.ACCOUNTS);
-      // } else {
-      //   navigateTo(routeNames.NAME);
-      // }
-      navigateTo(routeNames.NAME);
+      if (gotBasicDetails) {
+        navigateTo(routeNames.ACCOUNTS);
+      } else {
+        navigateTo(routeNames.NAME);
+      }
     }
 
     render() {
