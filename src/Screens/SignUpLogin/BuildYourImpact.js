@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { View, Image, FlatList } from 'react-native';
+import {
+  View, Image, FlatList, ImageBackground,
+} from 'react-native';
 
-import { Content, Text, Button } from 'native-base';
+import {
+  Content, Text, Button, Icon,
+} from 'native-base';
 
 import { routeNames } from 'src/Navigation';
 
 import SafeAreaView from 'src/Components/SafeAreaView';
-import BackButton from 'src/Components/BackButton';
 
-import { sg } from 'src/Styles';
+import { sg, sc } from 'src/Styles';
 
-import Brigalow from 'src/assets/images/farms/BrigalowText.png';
+import Brigalow from 'src/assets/images/farms/Brigalow.png';
 import Chinchilla from 'src/assets/images/farms/Chinchilla.png';
 import SwanHill from 'src/assets/images/farms/SwanHill.png';
 // import SwanHill2 from 'src/assets/images/farms/SwanHill2.png';
@@ -26,11 +29,45 @@ class BuildYourImpact extends Component {
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={[Brigalow, Chinchilla, SwanHill]}
-        renderItem={({ item }) => (
-          <View style={[sg.farmImageShadow, sg.mR15]}>
-            <Image source={item} style={[sg.farmImage, { height: 240 * 0.8, width: 316 * 0.8 }]} />
-          </View>
-        )}
+        renderItem={(item) => {
+          console.log(item);
+          if (item.index === 0) {
+            return (
+              <View style={[sg.farmImageShadow, sg.mR15]}>
+                <ImageBackground
+                  source={item.item}
+                  style={[sg.farmImage, {
+                    justifyContent: 'space-between',
+                    padding: 8,
+                    height: 240 * 0.8,
+                    width: 316 * 0.8,
+                  }]}
+                >
+                  <View>
+                    <Text style={[sg.fS18, sg.colorDark2, sg.textBold]}>Brigalow</Text>
+                    <Text style={[sg.fS15, sg.colorDark3, sg.mT5]}>Queensland</Text>
+                  </View>
+                  <View style={[sg.row, sg.aICenter]}>
+                    <Icon
+                      type="FontAwesome5"
+                      name="wrench"
+                      style={{ color: sc.color.primary }}
+                      size={15}
+                    />
+                    <Text style={[sg.colorWhite, sg.fS12, sg.fontMedium, sg.mL15]}>
+                      {'Being built right now\nDue for completion in December'}
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </View>
+            );
+          }
+          return (
+            <View style={[sg.farmImageShadow, sg.mR15]}>
+              <Image source={item.item} style={[sg.farmImage, { height: 240 * 0.8, width: 316 * 0.8 }]} />
+            </View>
+          );
+        }}
         horizontal
         showsHorizontalScrollIndicator={false}
         style={[sg.flexGrowNull, sg.mT20]}
