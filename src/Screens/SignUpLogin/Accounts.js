@@ -28,8 +28,8 @@ class Accounts extends React.Component {
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       // dev purpose
-      // const { screenProps } = this.props;
-      // screenProps.navigateTo(routeNames.TAX_NUMBERS);
+      const { screenProps } = this.props;
+      screenProps.navigateTo(routeNames.BANK_ACCOUNT);
     });
   }
 

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   View,
+  Linking,
 } from 'react-native';
 import {
   Content,
@@ -91,6 +92,10 @@ class BankAccount extends React.Component {
     }
   }
 
+  clickOnLink() {
+    Linking.openURL('https://static.ezidebit.com.au/ServiceAgreement/AU/DDR_Service_Agreement.html');
+  }
+
   render() {
     const { hocs } = this.props;
     const { form } = hocs;
@@ -137,7 +142,8 @@ class BankAccount extends React.Component {
                 <Text style={[sg.fS10, sg.mT10]}>
                   I authorise Ezidebit Pty Ltd ACN 096 902 813 (User ID No 165969, 303909, 301203, 234040, 234072, 428198)
                   to debit my account at the Financial Institution identified above through the Bulk Electronic Clearing System (BECS),
-                  in accordance with this Direct Debit Request and as per the Ezidebit DDR Service Agreement.
+                  in accordance with this Direct Debit Request and as per the&nbsp;
+                  <Text onPress={() => this.clickOnLink()} style={[sg.fS10, sg.textUnderline]}>Ezidebit DDR Service Agreement</Text>.
                   I authorise these payments to be debited at intervals and amounts as directed by Future Super for the Future Renewables Fund,
                   as per the Terms and Conditions of the Future Super agreement and subsequent agreements.
                 </Text>
