@@ -84,10 +84,10 @@ class TabProfile extends Component {
         //   name: 'Refer a friend',
         //   screen: routeNames.REFER_FRIEND,
         // },
-        // {
-        //   name: 'Talk to us',
-        //   screen: routeNames.CONTACT_US,
-        // },
+        {
+          name: 'Talk to us',
+          screen: routeNames.TALK_US,
+        },
         // {
         //   name: 'Talk to us',
         //   function: () => this.displayIntercom(props),
@@ -206,7 +206,6 @@ class TabProfile extends Component {
     if (!user.dateJoined) {
       user.dateJoined = '2019-03-15';
     }
-    const theme = screenProps.getTheme();
 
     return (
       <Content contentContainerStyle={[sg.pB30]}>

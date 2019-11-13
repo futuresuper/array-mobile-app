@@ -282,6 +282,14 @@ const tabBarModalRootRoutes = {
       // routeReset: true,
     },
   },
+  [routeNames.TALK_US]: {
+    screen: screens.TalkUs,
+    params: {
+      noHeader: true,
+      // routeReset: true,
+    },
+    ...tabCardOptions,
+  },
 };
 
 const tabRoutes = {
@@ -358,13 +366,6 @@ const tabCardRoutes = {
     screen: screens.ReferFriend,
     params: {
       title: 'Refer a friend',
-      routeReset: true,
-    },
-    ...tabCardOptions,
-  },
-  [routeNames.TALK_US]: {
-    screen: screens.TalkUs,
-    params: {
       routeReset: true,
     },
     ...tabCardOptions,
