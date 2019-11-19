@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {
   View,
+  Clipboard,
 } from 'react-native';
 import {
   Text,
@@ -211,6 +212,12 @@ class Deposit extends Component {
     });
     screenProps.navigateTo(routeNames.TAB_HOME);
   }
+
+  writeToClipboard = async (text) => {
+    const { screenProps } = this.props;
+    await Clipboard.setString(text);
+    screenProps.toastSuccess('Copied to Clipboard!');
+  };
 
   renderCopyContainer(key, value) {
     return (

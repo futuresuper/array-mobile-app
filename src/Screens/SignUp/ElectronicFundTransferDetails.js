@@ -33,7 +33,7 @@ import {
 class ElectronicFundTransferDetails extends React.Component {
     state={
       accountName: 'ONE REGISTRY SERVICES PTY LIMITED APPLICATIONS ACCOUNT 12',
-      bsb: '332 127',
+      bsb: '332 027',
       accNo: '555 250 206',
       reference: '',
     }
