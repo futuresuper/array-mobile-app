@@ -213,15 +213,19 @@ class Deposit extends Component {
     screenProps.navigateTo(routeNames.TAB_HOME);
   }
 
-  writeToClipboard = async (text) => {
+  writeToClipboard = async (text, removeSpaces) => {
     const { screenProps } = this.props;
+    text = removeSpaces ? text.replace(/\s+/g, '') : text;
     await Clipboard.setString(text);
     screenProps.toastSuccess('Copied to Clipboard!');
   };
 
   renderCopyContainer(key, value) {
     return (
-      <Grid style={[sg.mT20, sg.bGWhite, sg.pV10, sg.pH10]} onPress={() => this.writeToClipboard(value)}>
+      <Grid
+        style={[sg.mT20, sg.bGWhite, sg.pV10, sg.pH10]}
+        onPress={() => (key === "BSB" || key === "Acc No.") ? this.writeToClipboard(value,true) : this.writeToClipboard(value)}
+      >
         <Col>
           <Text style={[sg.colorGray, sg.fS14, sg.mB10]}>{key}</Text>
           <Text style={[sg.textBold, sg.fS14]}>
