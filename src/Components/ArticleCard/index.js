@@ -14,7 +14,7 @@ import {
   H3,
 } from 'native-base';
 
-import { ImageBackground, View, TouchableOpacity } from 'react-native';
+import { ImageBackground, View } from 'react-native';
 
 import styles from './styles';
 
@@ -27,30 +27,17 @@ class ArticleCard extends Component {
       video: {
         controls: false,
         muted: true,
-        resizeMode: "cover",
-      }
+        resizeMode: 'cover',
+      },
     };
-  };
+  }
 
   render() {
     const {
-      image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked, onPressLike, id, updateType, url
+      image, onPressOpen, subhead, textAtTop, otherLikes, headline, userLiked, onPressLike, id, updateType, url,
     } = this.props;
 
     const { video } = this.state;
-
-    // fullscreenSettings = () => {
-    //   console.log("changing to full screen");
-    //   const video = {
-    //     controls: true,
-    //     muted: false,
-    //     resizeMode: "contain",
-    //     fullscreen: true,
-    //   }
-    //   this.setState({
-    //     video
-    //   })
-    // }
 
     return (
       <Card>
@@ -60,7 +47,7 @@ class ArticleCard extends Component {
             <Text style={styles.textAtTop}>{textAtTop}</Text>
           </Body>
         </CardItem>
-        {updateType === "video" && image && (
+        {updateType === 'video' && image && (
           <CardItem
             cardBody
             button
@@ -68,19 +55,19 @@ class ArticleCard extends Component {
               onPressOpen(this.props);
             }}
           >
-              <Video
-                source={{ uri: url }}
-                style={styles.video}
-                controls={video.controls}
-                muted={video.muted}
-                repeat
-                resizeMode={video.resizeMode}
-                poster={image}
-                fullscreen={video.fullscreen}
-              />
+            <Video
+              source={{ uri: url }}
+              style={styles.video}
+              controls={video.controls}
+              muted={video.muted}
+              repeat
+              resizeMode={video.resizeMode}
+              poster={image}
+              fullscreen={video.fullscreen}
+            />
           </CardItem>
         )}
-        {updateType === "article" && image && (
+        {updateType === 'article' && image && (
           <CardItem
             cardBody
             button
@@ -102,7 +89,7 @@ class ArticleCard extends Component {
                     <Button
                       small
                       onPress={() => {
-                        onPressOpen(props);
+                        onPressOpen(this.props);
                       }}
                     >
                       <Text style={{ fontSize: 12 }}>
@@ -137,8 +124,7 @@ class ArticleCard extends Component {
       </Card>
     );
   }
-
-};
+}
 
 
 ArticleCard.propTypes = {

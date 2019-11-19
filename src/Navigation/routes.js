@@ -282,6 +282,21 @@ const tabBarModalRootRoutes = {
       // routeReset: true,
     },
   },
+  [routeNames.DEPOSIT_WITHDRAW]: {
+    screen: screens.DepositWithdraw,
+  },
+  [routeNames.DEPOSIT_WITHDRAW_DONE]: {
+    screen: screens.DepositWithdrawDone,
+    params: {
+      backButton: true,
+    },
+  },
+  [routeNames.WITHDRAW]: {
+    screen: screens.Withdraw,
+    params: {
+      title: 'Withdraw',
+    },
+  },
 };
 
 const tabRoutes = {
@@ -300,20 +315,8 @@ const tabRoutes = {
 };
 
 const tabBarModalRoutes = {
-  [routeNames.DEPOSIT_WITHDRAW]: {
-    screen: screens.DepositWithdraw,
-  },
-  [routeNames.DEPOSIT_WITHDRAW_DONE]: {
-    screen: screens.DepositWithdrawDone,
-    params: {
-      backButton: true,
-    },
-  },
-  [routeNames.WITHDRAW]: {
-    screen: screens.Withdraw,
-    params: {
-      title: 'Withdraw',
-    },
+  example: {
+    screen: screens.Example,
   },
 };
 

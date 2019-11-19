@@ -40,6 +40,7 @@ import Api from 'src/Common/Api';
 import ProtectedRoutes from 'src/Common/ProtectedRoutes';
 
 import Spinner from 'src/Components/Spinner';
+// import Spinner from 'react-native-loading-spinner-overlay';
 import Alert from 'src/Components/Alert';
 import { AppWithNavigationState } from 'src/Navigation/AppNavigator';
 import { accountSelector } from 'src/Redux/Account/selectors';
