@@ -313,7 +313,7 @@ const tabRoutes = {
     screen: screens.TabImpact,
   },
   [routeNames.TAB_PROFILE]: {
-    screen: screens.TabImpact,
+    screen: screens.TabProfile,
   },
 };
 

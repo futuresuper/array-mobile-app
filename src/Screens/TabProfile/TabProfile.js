@@ -203,8 +203,6 @@ class TabProfile extends Component {
     if (!user.dateJoined) {
       user.dateJoined = '2019-03-15';
     }
-    const theme = screenProps.getTheme();
-
     return (
       <Content contentContainerStyle={[sg.pB30]}>
         <Grid style={[sg.mT20]}>
