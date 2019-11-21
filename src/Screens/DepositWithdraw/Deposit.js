@@ -102,7 +102,7 @@ class Deposit extends Component {
         });
       } else {
         if (account.amountAwaitingDirectDebit) {
-          account.amountAwaitingDirectDebit = parseInt(account.amountAwaitingDirectDebit) + parseInt(body.amount);
+          account.amountAwaitingDirectDebit = parseInt(account.amountAwaitingDirectDebit, 10) + parseInt(body.amount, 10);
         }
         screenProps.toast(`${formatAmountDollar(body.amount)} will be debited from your bank account in the next few days`, {
           iconType: 'MaterialCommunityIcons',

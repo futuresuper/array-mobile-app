@@ -106,7 +106,7 @@ class TabFarms extends Component {
   }
 
   activateFarm = (item) => {
-    const zoomFactor = 40;
+    const zoomFactor = 5000;
     const deltaVal = 0.00522;
     const latitudeDelta = deltaVal * zoomFactor;
     const longitudeDelta = deltaVal * DeviceUtils.screenAspectRatio() * zoomFactor;

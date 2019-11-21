@@ -282,24 +282,6 @@ const tabBarModalRootRoutes = {
       // routeReset: true,
     },
   },
-};
-
-const tabRoutes = {
-  [routeNames.TAB_HOME]: {
-    screen: screens.TabHome,
-  },
-  [routeNames.TAB_ACTIVITY]: {
-    screen: screens.TabActivity,
-  },
-  [routeNames.SOLAR_FARMS_LIST]: {
-    screen: screens.SolarFarmsList,
-  },
-  [routeNames.TAB_PROFILE]: {
-    screen: screens.TabProfile,
-  },
-};
-
-const tabBarModalRoutes = {
   [routeNames.DEPOSIT_WITHDRAW]: {
     screen: screens.DepositWithdraw,
   },
@@ -314,6 +296,30 @@ const tabBarModalRoutes = {
     params: {
       title: 'Withdraw',
     },
+  },
+};
+
+const tabRoutes = {
+  [routeNames.TAB_HOME]: {
+    screen: screens.TabHome,
+  },
+  [routeNames.TAB_ACTIVITY]: {
+    screen: screens.TabActivity,
+  },
+  [routeNames.SOLAR_FARMS_LIST]: {
+    screen: screens.SolarFarmsList,
+  },
+  [routeNames.TAB_IMPACT]: {
+    screen: screens.TabImpact,
+  },
+  [routeNames.TAB_PROFILE]: {
+    screen: screens.TabProfile,
+  },
+};
+
+const tabBarModalRoutes = {
+  example: {
+    screen: screens.Example,
   },
 };
 

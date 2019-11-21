@@ -21,12 +21,9 @@ import {
   ListItem,
 } from 'native-base';
 
-// import Intercom from 'react-native-intercom';
 import ImagePicker from 'react-native-image-picker';
 
 import { routeNames } from 'src/Navigation';
-
-import moment from 'src/Common/moment';
 
 import { userSelector } from 'src/Redux/AppContent';
 
@@ -210,8 +207,6 @@ class TabProfile extends Component {
     if (!user.dateJoined) {
       user.dateJoined = '2019-03-15';
     }
-    const theme = screenProps.getTheme();
-
     return (
       <Content contentContainerStyle={[sg.pB30]}>
         <Grid style={[sg.mT20]}>

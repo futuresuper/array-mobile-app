@@ -21,12 +21,12 @@ import { sg } from 'src/Styles';
 class Accounts extends React.Component {
   componentDidMount() {
     console.log("ON ACCOUNTS");
-    // console.log(PushNotification);
-    const { userDataSaveConnect, appContentSaveConnect } = this.props;
+    const { userDataSaveConnect, appContentSaveConnect, screenProps } = this.props;
     this.getAppContent((appContent) => {
       const { user } = appContent;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
+      screenProps.spinnerHide();
       // dev purpose
       // const { screenProps } = this.props;
       // screenProps.navigateTo(routeNames.BANK_ACCOUNT);
@@ -45,7 +45,6 @@ class Accounts extends React.Component {
     const { screenProps } = this.props;
     screenProps.Api.get('/appcontent', {}, callback, () => {
       screenProps.navigateTo(routeNames.APP_LANDING);
-      // screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
     });
   }
 
