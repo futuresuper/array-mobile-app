@@ -309,6 +309,9 @@ const tabRoutes = {
   [routeNames.SOLAR_FARMS_LIST]: {
     screen: screens.SolarFarmsList,
   },
+  [routeNames.TAB_IMPACT]: {
+    screen: screens.TabImpact,
+  },
   [routeNames.TAB_PROFILE]: {
     screen: screens.TabProfile,
   },

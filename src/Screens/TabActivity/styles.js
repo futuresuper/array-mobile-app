@@ -20,7 +20,7 @@ export default {
   activityTabTitleTextActive: {
     paddingLeft: 0,
     paddingRight: 0,
-    fontSize: 20,
+    fontSize: 12,
     fontFamily: sc.font.bold,
   },
   activityRow: {
