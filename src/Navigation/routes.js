@@ -282,13 +282,6 @@ const tabBarModalRootRoutes = {
       // routeReset: true,
     },
   },
-  [routeNames.TALK_US]: {
-    screen: screens.TalkUs,
-    params: {
-      noHeader: true,
-      // routeReset: true,
-    },
-  },
   [routeNames.DEPOSIT_WITHDRAW]: {
     screen: screens.DepositWithdraw,
   },
@@ -302,6 +295,13 @@ const tabBarModalRootRoutes = {
     screen: screens.Withdraw,
     params: {
       title: 'Withdraw',
+    },
+  },
+  [routeNames.TALK_US]: {
+    screen: screens.TalkUs,
+    params: {
+      noHeader: true,
+      // routeReset: true,
     },
   },
 };
