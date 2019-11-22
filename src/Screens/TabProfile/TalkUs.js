@@ -106,19 +106,34 @@ export default class TalkUs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        {
-          id: 1, type: 'in', message: "Hello I'd like some help",
-        },
-        {
-          id: 2, type: 'out', message: 'Hey there. No worries, my name is James. What can I do for you?',
-        },
-      ],
+      message: '',
+      messages: [],
     };
   }
 
+  componentDidMount() {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/messages', {}, (res) => {
+      this.setState({ messages: res });
+    });
+  }
+
+  sendMessage() {
+    const { screenProps } = this.props;
+    const { message } = this.state;
+    screenProps.Api.post('/message', { message }, (res) => {
+      const msg = {
+        message,
+        date: new Date(),
+        from: 'user',
+      };
+      this.setState((prevState) => ({ message: '', messages: [...prevState.messages, msg] }));
+      console.log(res);
+    }, null, false);
+  }
+
   render() {
-    const { data } = this.state;
+    const { messages, message } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -141,11 +156,11 @@ export default class TalkUs extends Component {
         </View>
         <FlatList
           style={styles.list}
-          data={data}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={(message) => {
-            const { item } = message;
-            const inMessage = item.type === 'in';
+          data={messages}
+          keyExtractor={(item) => String(item.date)}
+          renderItem={(msg) => {
+            const { item } = msg;
+            const inMessage = item.from === 'admin';
             const itemStyle = inMessage ? styles.itemIn : styles.itemOut;
             return (
               <View style={[styles.item, itemStyle]}>
@@ -161,12 +176,13 @@ export default class TalkUs extends Component {
             <TextInput
               style={styles.inputs}
               placeholder="Write a message"
+              value={message}
               underlineColorAndroid="transparent"
-              onChangeText={(name_address) => this.setState({ name_address })}
+              onChangeText={(value) => this.setState({ message: value })}
             />
           </View>
 
-          <TouchableOpacity style={styles.btnSend}>
+          <TouchableOpacity style={styles.btnSend} onPress={() => this.sendMessage()}>
             <Icon type="Ionicons" name="md-send" style={styles.iconSend} />
           </TouchableOpacity>
         </View>
