@@ -27,9 +27,11 @@ class Splash extends Component {
     const userInfo = getUserInfo();
     const isAuth = (userInfo && !isEmpty(userInfo));
 
-    if (isAuth) {
+    if (isAuth && userInfo.email && userInfo.firstName && userInfo.lastName) {
+      console.log("IS AUTH -> ACCOUNTS");
       navigateTo(routeNames.ACCOUNTS);
     } else {
+      console.log("NOT AUTH -> LANDING");
       navigateTo(routeNames.APP_LANDING);
     }
   }

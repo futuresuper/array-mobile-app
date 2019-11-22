@@ -74,13 +74,17 @@ class Api extends React.Component {
     return signin;
   }
 
-  static async answerCustomChallenge(answer) {
-    this.ApiInstance.spinnerShow();
+  static async answerCustomChallenge(answer, spinner = true) {
+    if (spinner) {
+      this.ApiInstance.spinnerShow();
+    }
 
     return new Promise((resolve, reject) => {
       AwsAmplify.answerCustomChallenge(answer).then(resolve).catch(reject)
         .finally(() => {
-          this.ApiInstance.spinnerHide();
+          if (spinner) {
+            this.ApiInstance.spinnerHide();
+          }
         });
     });
   }
@@ -101,13 +105,6 @@ class Api extends React.Component {
     }
   }
 
-  // static fetch(...args) {
-  //   return this.ApiInstance.fetchProc(...args);
-  // }
-
-  // static put(urlInp, params, onSuccess = null, onError = null, spinner = true) {
-  //   return this.ApiInstance.fetchProc(urlInp, params, onSuccess, onError, spinner, 'PUT');
-  // }
 
   static get(path, query, onSuccess = null, onError = null, spinner = true) {
     return this.ApiInstance.proc(path, query, onSuccess, onError, 'get', spinner);
@@ -183,13 +180,16 @@ class Api extends React.Component {
     }
 
     API[method](apiName, path, options).then((res) => {
-      this.spinnerHide();
-
+      if (spinner) {
+        this.spinnerHide();
+      }
       if (onSuccess) {
         onSuccess(res);
       }
     }).catch((err) => {
-      this.spinnerHide();
+      if (spinner) {
+        this.spinnerHide();
+      }
 
       try {
         // eslint-disable-next-line no-underscore-dangle

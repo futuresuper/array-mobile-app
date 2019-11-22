@@ -50,7 +50,7 @@ class SmsCode extends Component {
     getAppContent(callback) {
       const { screenProps } = this.props;
       screenProps.Api.get('/appcontent', {},
-        callback,
+        callback, null, false,
         () => {
           screenProps.toast('Unknown error (appcontent)');
         });
@@ -80,7 +80,8 @@ class SmsCode extends Component {
         return true;
       }
 
-      Api.answerCustomChallenge(smsCode).then((userData) => {
+      screenProps.spinnerShow();
+      Api.answerCustomChallenge(smsCode, false).then((userData) => {
         if (userData) {
           Api.post('/user', {
             mobile,
@@ -90,14 +91,16 @@ class SmsCode extends Component {
               const { user } = appContent;
               userDataSaveConnect(user);
               appContentSaveConnect(appContent);
-              this.nextScreen(appContent.accounts.length);
+              const gotBasicDetails = (user.firstName !== undefined && user.lastName !== undefined && user.email !== undefined);
+              console.log(`gotBasicDetails: ${gotBasicDetails}`);
+              this.nextScreen(gotBasicDetails);
               amplitude.getInstance().setUserId(user.id);
               amplitude.getInstance().logEvent('Entered SMS Code - Success', {});
             });
           }, () => {
             screenProps.toast('Unknown error');
             amplitude.getInstance().logEvent('Entered SMS Code - Failed', {});
-          });
+          }, false);
         } else {
           screenProps.toast('Please enter the correct code');
         }
@@ -110,10 +113,11 @@ class SmsCode extends Component {
       return true;
     }
 
-    nextScreen(numAccounts) {
+    nextScreen(gotBasicDetails) {
       const { screenProps } = this.props;
       const { navigateTo } = screenProps;
-      if (numAccounts > 0) {
+      console.log(`Have basic details: ${gotBasicDetails}`);
+      if (gotBasicDetails) {
         navigateTo(routeNames.ACCOUNTS);
       } else {
         navigateTo(routeNames.NAME);

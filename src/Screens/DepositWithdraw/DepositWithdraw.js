@@ -86,7 +86,7 @@ class DepositWithdraw extends Component {
           </Button>
         </KeyboardAvoidingView>
       </View>
-    )
+    );
   }
 
   render() {
@@ -96,12 +96,14 @@ class DepositWithdraw extends Component {
     return (
       <Content padder contentContainerStyle={[sg.flexGrow]}>
 
-        {account.id && <Deposit
+        {account.id && (
+        <Deposit
           ref={(ref) => {
             if (ref) this.Deposit = ref;
           }}
           {...this.props}
-        />}
+        />
+        )}
 
         {!account.id && this.renderContinueApp()}
 
