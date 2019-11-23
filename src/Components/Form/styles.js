@@ -10,7 +10,7 @@ export const input = {
     alignSelf: 'stretch',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 15,
+    marginTop: 5,
   },
   label: {
     paddingTop: 0,

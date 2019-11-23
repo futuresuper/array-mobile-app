@@ -99,10 +99,6 @@ class BankAccount extends React.Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View style={sg.mB20}>
-            <Text style={sg.formHeading}>
-              Link bank account
-            </Text>
-
             <Input
               formData={form}
               formKey="bsb"

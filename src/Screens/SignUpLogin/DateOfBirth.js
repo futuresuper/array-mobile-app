@@ -73,7 +73,7 @@ class DateOfBirth extends React.Component {
     }
 
     if (!year.match(/^\d+$/)) {
-      //console.log(year.match(/^\d+$/));
+      // console.log(year.match(/^\d+$/));
       return false;
     }
 
@@ -96,18 +96,17 @@ class DateOfBirth extends React.Component {
     const birthday = hocs.form.birthDate.value;
 
     if (formIsValid) {
-
       if (birthday.length !== 10) {
         screenProps.toastDanger('Please enter your date of birth in the format DD/MM/YYYY');
         return;
       }
 
-      if (!this.isDayValid(birthday.slice(0,2))) {
+      if (!this.isDayValid(birthday.slice(0, 2))) {
         screenProps.toastDanger('Please enter your date of birth in the format DD/MM/YYYY');
         return;
       }
 
-      if (!this.isMonthValid(birthday.slice(3,5))) {
+      if (!this.isMonthValid(birthday.slice(3, 5))) {
         screenProps.toastDanger('Please enter your date of birth in the format DD/MM/YYYY');
         return;
       }
@@ -143,7 +142,6 @@ class DateOfBirth extends React.Component {
       <Content padder contentContainerStyle={styleGlobal.flexGrow}>
         <View style={styleGlobal.spaceBetween}>
           <View>
-            <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>Date of birth</Text>
             <Input
               formData={form}
               formKey="birthDate"

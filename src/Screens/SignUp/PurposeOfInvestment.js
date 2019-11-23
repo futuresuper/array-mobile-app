@@ -51,8 +51,6 @@ class PurposeOfInvestment extends React.Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View>
-            <Text style={sg.formHeading}>Investment Purpose</Text>
-
             <Text style={[sg.formHeadingDescription]}>Which of these best describes the purpose of your investment?</Text>
           </View>
 
