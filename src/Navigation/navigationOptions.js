@@ -22,7 +22,8 @@ export const signOptions = (props) => {
   const title = params.title || '';
   const headerStyle = navigation.getParam('headerStyle', {});
   const showBackButton = navigation.getParam('showBackButton', true);
-  const backgroundColor = params.backgroundColor || screenProps.getTheme().containerBgColor;
+  const theme = screenProps.getTheme();
+  const backgroundColor = params.backgroundColor || theme.containerBgColor;
 
   const backButton = (
     <BackButton
@@ -33,7 +34,14 @@ export const signOptions = (props) => {
   );
 
   return {
+    title,
     headerLeft: showBackButton ? backButton : null,
+    headerTitleStyle: {
+      color: theme.textColor2,
+      fontFamily: sc.font.bold,
+      fontWeight: null,
+      fontSize: 24,
+    },
     headerStyle: {
       backgroundColor,
       borderBottomWidth: 0,
