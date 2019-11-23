@@ -19,7 +19,7 @@ import {
 import SafeAreaView from 'src/Components/SafeAreaView';
 
 import {
-  styleGlobal,
+  styleGlobal, sg,
 } from 'src/Styles';
 
 import {
@@ -29,6 +29,22 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 // import ListLinks from 'src/Components/ListLinks';
 
 class SignUpLogin extends Component {
+    static navigationOptions = () => ({
+      headerTitle: (
+        <View style={{
+          flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: -42,
+        }}
+        >
+          <Text style={sg.fS10}>
+            Step 1 of 4
+          </Text>
+          <Text style={[sg.fS17, sg.textBold]}>
+            Mobile Number
+          </Text>
+        </View>
+      ),
+    })
+
     state = {
       mobile: '',
       errors: '',
@@ -109,9 +125,6 @@ class SignUpLogin extends Component {
             <View style={styleGlobal.spaceBetween}>
 
               <View>
-                <Text style={styleGlobal.formHeading}>
-                  Mobile Number
-                </Text>
 
                 <Input
                   helper="Your mobile number"

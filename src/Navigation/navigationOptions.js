@@ -33,7 +33,6 @@ export const signOptions = (props) => {
   );
 
   return {
-    title,
     headerLeft: showBackButton ? backButton : null,
     headerStyle: {
       backgroundColor,
