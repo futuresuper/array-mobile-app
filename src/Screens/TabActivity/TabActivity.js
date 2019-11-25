@@ -367,7 +367,7 @@ class TabActivity extends Component {
         {segment.isPerfomance && (
           <View>
             <Text style={[sg.fontMedium, sg.contentMarginH]}>
-              The Target Return of the Fund is 5.2%pa after fees and expenses and including
+              The Target Return of the Fund is 5.2% per annum after fees and expenses and including
               distributions.
             </Text>
             {this.renderChart()}
@@ -380,7 +380,7 @@ class TabActivity extends Component {
             {this.renderActivityItem()}
             {activity ? activity.map((item, index) => this.renderActivityItem(item, index)) : (
               <View>
-                <Text style={[sg.mT20, sg.mB20]}>
+                <Text style={[sg.mV40, sg.mH20, sg.textCenter]}>
                   Transactions will appear here once you start an account.
                 </Text>
                 <Button
