@@ -92,7 +92,7 @@ class SmsCode extends Component {
               userDataSaveConnect(user);
               appContentSaveConnect(appContent);
               const gotBasicDetails = (user.firstName !== undefined && user.lastName !== undefined && user.email !== undefined);
-              console.log(`gotBasicDetails: ${gotBasicDetails}`);
+              // console.log(`gotBasicDetails: ${gotBasicDetails}`);
               this.nextScreen(gotBasicDetails);
               amplitude.getInstance().setUserId(user.id);
               amplitude.getInstance().logEvent('Entered SMS Code - Success', {});

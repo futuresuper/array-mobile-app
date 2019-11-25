@@ -20,7 +20,6 @@ import { sg } from 'src/Styles';
 
 class Accounts extends React.Component {
   componentDidMount() {
-    console.log("ON ACCOUNTS");
     const { userDataSaveConnect, appContentSaveConnect, screenProps } = this.props;
     this.getAppContent((appContent) => {
       const { user } = appContent;
