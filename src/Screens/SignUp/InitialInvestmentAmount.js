@@ -90,8 +90,6 @@ class InitialInvestmentAmount extends React.Component {
         <Content padder contentContainerStyle={sg.flexGrow}>
           <View style={[sg.spaceBetween]}>
             <View>
-              <Text style={sg.formHeading}>Initial Investment</Text>
-
               <Text style={sg.formHeadingDescription}>
               How much would you like to get started with?
               </Text>

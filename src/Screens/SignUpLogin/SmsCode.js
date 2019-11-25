@@ -36,13 +36,30 @@ import {
 } from 'src/Navigation';
 
 import {
-  styleGlobal,
+  styleGlobal, sg,
 } from 'src/Styles';
 
 import SafeAreaView from 'src/Components/SafeAreaView';
 
 
 class SmsCode extends Component {
+
+  static navigationOptions = () => ({
+    headerTitle: (
+      <View style={{
+        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: -42,
+      }}
+      >
+        <Text style={sg.fS10}>
+          Step 2 of 4
+        </Text>
+        <Text style={[sg.fS17, sg.textBold]}>
+          Verify
+        </Text>
+      </View>
+    ),
+  })
+
     state = {
       smsCode: '',
     };
@@ -142,10 +159,6 @@ class SmsCode extends Component {
           <Content padder contentContainerStyle={styleGlobal.flexGrow}>
             <View style={styleGlobal.spaceBetween}>
               <View>
-                <Text style={styleGlobal.formHeading}>
-                  Verify
-                </Text>
-
                 <Text style={styleGlobal.mB30}>
                   We&apos;ve just texted you a code to
                   {'\n'}

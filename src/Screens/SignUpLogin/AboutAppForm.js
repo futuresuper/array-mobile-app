@@ -29,8 +29,6 @@ class AboutAppForm extends Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View>
-            <Text style={[sg.formHeading, sg.mB30]}>About this application form</Text>
-
             <Text style={styles.description}>
               This Application Form accompanies the &nbsp;
               <Text onPress={() => this.clickOnLink()} style={styles.descriptionUnderline}>

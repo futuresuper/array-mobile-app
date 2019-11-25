@@ -97,9 +97,6 @@ class JoinFutureForm extends React.Component {
       <View style={sg.spaceBetween}>
         <View>
           <View>
-            <Text style={sg.formHeading}>
-              {'Join Future Super'}
-            </Text>
             <Text>
               {'We only need a few extra things for your Future Super application.'}
             </Text>

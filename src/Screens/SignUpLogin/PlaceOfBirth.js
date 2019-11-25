@@ -279,9 +279,6 @@ class PlaceOfBirth extends Component {
         <Content padder contentContainerStyle={sg.flexGrow}>
           <View style={[sg.spaceBetween]}>
             <View>
-              <Text style={sg.formHeading}>
-              Place of Birth
-              </Text>
               <Input
                 formData={form}
                 helper="City / Town"

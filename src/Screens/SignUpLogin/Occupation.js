@@ -66,61 +66,52 @@ class Occupation extends Component {
       return (
         <Content padder contentContainerStyle={sg.flexGrow}>
           <View style={[sg.spaceBetween]}>
-          <View>
-            <Text style={sg.formHeading}>
-              Occupation
-            </Text>
-
-            <Input
-              formData={form}
-              formKey="occupation"
-              helper="Occupation"
-              onChangeText={hocs.handleInput}
-            />
+            <View>
+              <Input
+                formData={form}
+                formKey="occupation"
+                helper="Occupation"
+                onChangeText={hocs.handleInput}
+              />
+            </View>
+            <View>
+              <Button
+                onPress={() => this.onNext('Not currently employed')}
+                bordered
+                dark
+                block
+                marginVert
+              >
+                <Text>Not currently employed</Text>
+              </Button>
+              <Button
+                onPress={() => this.onNext('Student')}
+                bordered
+                dark
+                block
+                marginVert
+              >
+                <Text>Student</Text>
+              </Button>
+              <Button
+                onPress={() => this.onNext('Retired')}
+                bordered
+                dark
+                block
+                marginVert
+              >
+                <Text>Retired</Text>
+              </Button>
+              <Button
+                onPress={() => this.onNext()}
+                block
+                marginVert
+                style={sg.mB0}
+              >
+                <Text>Next</Text>
+              </Button>
+            </View>
           </View>
-
-
-          <View>
-            <Button
-              onPress={() => this.onNext('Not currently employed')}
-              bordered
-              dark
-              block
-              marginVert
-            >
-              <Text>Not currently employed</Text>
-            </Button>
-
-            <Button
-              onPress={() => this.onNext('Student')}
-              bordered
-              dark
-              block
-              marginVert
-            >
-              <Text>Student</Text>
-            </Button>
-
-            <Button
-              onPress={() => this.onNext('Retired')}
-              bordered
-              dark
-              block
-              marginVert
-            >
-              <Text>Retired</Text>
-            </Button>
-
-            <Button
-              onPress={() => this.onNext()}
-              block
-              marginVert
-              style={sg.mB0}
-            >
-              <Text>Next</Text>
-            </Button>
-          </View>
-        </View>
         </Content>
       );
     }
