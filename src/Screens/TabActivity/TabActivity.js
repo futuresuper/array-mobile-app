@@ -36,7 +36,7 @@ import SunGlow from 'src/Components/SunGlow';
 // } from 'react-native-chart-kit';
 import { LineChart } from 'src/Components/ChartKit';
 
-import GraphExample2 from 'src/assets/images/GraphExample2.png';
+import GraphExample2 from 'src/assets/images/GraphUpdatedOct.png';
 
 import { sg } from 'src/Styles';
 import styles from './styles';
@@ -101,6 +101,7 @@ class TabActivity extends Component {
       <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
           <Image source={GraphExample2} style={styles.activityGraph} />
+
           {/* <LineChart
             data={{
               labels: ['March', 'April', 'May', 'June'],
@@ -205,7 +206,7 @@ class TabActivity extends Component {
             Mar
           </Text>
           <Text style={[sg.fS14, sg.fontMedium]} color3>
-            Jun
+            Oct
           </Text>
         </View>
       </View>
