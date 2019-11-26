@@ -47,12 +47,14 @@ class SmsCode extends Component {
   static navigationOptions = () => ({
     headerTitle: (
       <View style={{
-        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: -42,
+        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: 0,
       }}
       >
-        <Text style={sg.fS10}>
+        {/*
+        <Text style={[sg.fS10, sg.mB5, sg.mT5]}>
           Step 2 of 4
         </Text>
+        */}
         <Text style={[sg.fS17, sg.textBold]}>
           Verify
         </Text>
@@ -109,7 +111,7 @@ class SmsCode extends Component {
               userDataSaveConnect(user);
               appContentSaveConnect(appContent);
               const gotBasicDetails = (user.firstName !== undefined && user.lastName !== undefined && user.email !== undefined);
-              console.log(`gotBasicDetails: ${gotBasicDetails}`);
+              // console.log(`gotBasicDetails: ${gotBasicDetails}`);
               this.nextScreen(gotBasicDetails);
               amplitude.getInstance().setUserId(user.id);
               amplitude.getInstance().logEvent('Entered SMS Code - Success', {});

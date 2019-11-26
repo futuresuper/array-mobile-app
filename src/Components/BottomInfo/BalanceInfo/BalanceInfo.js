@@ -68,7 +68,7 @@ class BalanceInfo extends Component {
             <Text style={[styles.text, sg.mT15]}>
               While every effort is made to ensure that the information in your member portal is correct,
               you should consider obtaining advice before acting on any of the information contained within and seek updated information where relevant.
-              We the right to correct any error or omission.
+              We reserve the right to correct any error or omission.
             </Text>
           </TouchableOpacity>
         </ScrollView>
