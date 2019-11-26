@@ -72,7 +72,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.ABOUT_APP_FORM]: {
     screen: screens.AboutAppForm,
     params: {
-      title: 'About this application form',
+      title: 'About',
     },
   },
   [routeNames.NAME]: {
@@ -214,7 +214,7 @@ const signDataRoutes = formatRoutes({
     screen: screens.IdCheckAustralianPassport,
     params: {
       title: 'Your ID Check - Australian Passport',
-    },    
+    },
     ...tabCardOptions,
   },
   [routeNames.ID_CHECK_MEDICARE_CARD]: {
