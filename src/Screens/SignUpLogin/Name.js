@@ -27,10 +27,10 @@ class Name extends React.Component {
   static navigationOptions = () => ({
     headerTitle: (
       <View style={{
-        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: -42,
+        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: 0,
       }}
       >
-        <Text style={sg.fS10}>
+        <Text style={[sg.fS10, sg.mB5, sg.mT5]}>
           Step 3 of 4
         </Text>
         <Text style={[sg.fS17, sg.textBold]}>
