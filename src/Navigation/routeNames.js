@@ -21,6 +21,7 @@ export default {
   NOTIFICATIONS: 'Notifications',
   THANKS_SHARE: 'ThanksShare',
   ARTIST_NAME: 'ArtistName',
+  WHATS_NEXT: 'WhatsNext',
   TAB_HOME: 'TabHome',
   TAB_ACTIVITY: 'TabActivity',
   TAB_PROFILE: 'TabProfile',

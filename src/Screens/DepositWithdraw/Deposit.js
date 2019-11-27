@@ -137,7 +137,7 @@ class Deposit extends Component {
       <View style={[sg.spaceBetween]}>
         <View>
           <Text style={[sg.formHeading]}>
-          Make a deposit
+            Make a deposit
           </Text>
           <View>
             <Input
