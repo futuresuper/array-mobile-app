@@ -21,6 +21,7 @@ import Pep from './Pep';
 import PepDescription from './PepDescription';
 import TaxNumbers from './TaxNumbers';
 import PersonalDetailsAlreadySubmitted from './PersonalDetailsAlreadySubmitted';
+import WhatsNext from './WhatsNext';
 
 
 export {
@@ -46,4 +47,5 @@ export {
   PepDescription,
   TaxNumbers,
   PersonalDetailsAlreadySubmitted,
+  WhatsNext,
 };

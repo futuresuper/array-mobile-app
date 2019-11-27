@@ -57,7 +57,7 @@ class IdCheckMedicareCard extends Component {
         console.log(res);
         idCheckSaveConnect(res);
         if (res.idCheckComplete) {
-          screenProps.navigateTo(routeNames.TAB_HOME);
+          screenProps.navigateTo(routeNames.WHATS_NEXT);
           screenProps.toastSuccess('ID verification Succeeded');
         } else {
           screenProps.navigateTo(routeNames.ID_CHECK);

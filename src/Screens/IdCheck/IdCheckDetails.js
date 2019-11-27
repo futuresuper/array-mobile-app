@@ -70,7 +70,7 @@ class IdCheckDetails extends Component {
 
     if (formIsValid) {
       if (dummyRes.idCheckComplete) {
-        screenProps.navigateTo(routeNames.TAB_HOME);
+        screenProps.navigateTo(routeNames.WHATS_NEXT);
         screenProps.toastSuccess('ID verification complete');
       } else {
         screenProps.navigateTo(routeNames.ID_CHECK);
