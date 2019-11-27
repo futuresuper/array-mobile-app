@@ -86,7 +86,6 @@ const TabBar = (props) => {
         >
           <Image source={iconFarms} style={[iconFarmsStyle]} />
         </Button>
-        {/*
         <Button
           onPress={() => {
             screenProps.navigateTo(routeNames.TAB_IMPACT);
@@ -94,7 +93,6 @@ const TabBar = (props) => {
         >
           <Image source={iconImpact} style={[iconImpactStyle]} />
         </Button>
-        */}
         <Button
           onPress={() => {
             screenProps.navigateTo(routeNames.TAB_PROFILE);
