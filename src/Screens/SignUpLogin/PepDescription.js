@@ -67,19 +67,15 @@ class PepDescription extends Component {
       return (
         <Content padder contentContainerStyle={sg.flexGrow}>
           <View style={[sg.spaceBetween]}>
-          <View>
-            <Text style={sg.formHeading}>
-              PEP Description
-            </Text>
+            <View>
+              <Input
+                formData={form}
+                formKey="description"
+                helper="PEP Description"
+                onChangeText={hocs.handleInput}
+              />
 
-            <Input
-              formData={form}
-              formKey="description"
-              helper="PEP Description"
-              onChangeText={hocs.handleInput}
-            />
-
-            <Text style={[sg.fS10, sg.mT30]}>
+              <Text style={[sg.fS10, sg.mT30]}>
               A Politically Exposed Person (PEP) is an individual who holds a prominent public position or function in a government body
               or an international organisation in Australia or overseas, such as a Head of State, or Head of a Country or Government,
               or a Government Minister, or equivalent senior politician.
@@ -87,19 +83,19 @@ class PepDescription extends Component {
               and a child’s spouse or a parent. A close associate of a PEP,
               i.e. any individual who is known to have joint beneficial ownership of a legal arrangement or entity is also considered to be a PEP.
               Where you identify as, or have an association with, a PEP, we may request additional information from you.
-            </Text>
+              </Text>
+            </View>
+
+
+            <KeyboardAvoidingView keyboardVerticalOffset={100}>
+              <Button
+                onPress={() => this.onNext()}
+                block
+              >
+                <Text>Next</Text>
+              </Button>
+            </KeyboardAvoidingView>
           </View>
-
-
-          <KeyboardAvoidingView keyboardVerticalOffset={100}>
-            <Button
-              onPress={() => this.onNext()}
-              block
-            >
-              <Text>Next</Text>
-            </Button>
-          </KeyboardAvoidingView>
-        </View>
         </Content>
       );
     }

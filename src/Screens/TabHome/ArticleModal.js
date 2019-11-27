@@ -3,17 +3,26 @@ import PropTypes from 'prop-types';
 import {
   View, Image, Modal, ScrollView,
 } from 'react-native';
+import amplitude from 'amplitude-js';
 import { H3, Text } from 'native-base';
 import Video from 'react-native-video';
 import SafeAreaView from 'src/Components/SafeAreaView';
 import CloseButton from 'src/Components/CloseButton';
 import { sg } from 'src/Styles';
 
-import CloseCircle from 'src/assets/images/CloseCircle.png';
-
 import { article as styles } from './styles';
 
 class ArticleModal extends Component {
+  componentDidUpdate(prevProps) {
+    const { item } = this.props;
+    if (prevProps.item !== item && !prevProps.item) {
+      const { headline } = item;
+      if (headline) {
+        amplitude.getInstance().logEvent(`Viewed Article: ${headline}`, {});
+      }
+    }
+  }
+
   onRequestClose() {
     const { onRequestClose } = this.props;
     onRequestClose();
@@ -26,7 +35,7 @@ class ArticleModal extends Component {
       return null;
     }
 
-    const { article } = item;
+    const { article, updateType, url } = item;
 
     return (
       <View>
@@ -46,9 +55,24 @@ class ArticleModal extends Component {
           {item.headline}
         </H3>
 
-        {article.map((artItem, index) => {
+        {updateType === 'video' && (
+        <View style={[sg.contentMarginH2, sg.mT15]}>
+          <Video
+            source={{ uri: url }}
+            style={styles.video}
+            controls={true}
+            repeat
+            resizeMode="contain"
+            fullscreen={false}
+          />
+        </View>
+        )}
+
+        {article && article.map((artItem, index) => {
           let res = null;
-          const { contentType, content, description, url } = artItem;
+          const {
+            contentType, content, description, url,
+          } = artItem;
           switch (contentType) {
             case 'paragraph':
               res = (
@@ -71,10 +95,14 @@ class ArticleModal extends Component {
               break;
             case 'video':
               res = (
-                <Video
-                  source={{ uri: url }} // Test with real response
-                  style={sg.width100p}
-                />
+                <View style={[sg.contentMarginH2, sg.mT15]}>
+                  <Video
+                    source={{ uri: url }}
+                    style={styles.video}
+                    controls
+                    muted
+                  />
+                </View>
               );
               break;
             case 'heading':
@@ -108,15 +136,15 @@ class ArticleModal extends Component {
   }
 
   render() {
-    const { visible, theme } = this.props;
+    const { visible, themeMode } = this.props;
 
     return (
       <Modal animated visible={visible} onRequestClose={() => this.onRequestClose()} transparent>
-        <SafeAreaView theme={theme}>
+        <SafeAreaView themeMode={themeMode}>
           <ScrollView>
             <View style={[sg.contentMarginV2]}>
               <View style={[sg.aIEnd]}>
-                <CloseButton white onPress={() => this.onRequestClose()} />
+                <CloseButton themeMode={themeMode} white onPress={() => this.onRequestClose()} />
               </View>
               {this.renderContent()}
             </View>
@@ -137,7 +165,7 @@ ArticleModal.propTypes = {
   item: PropTypes.object,
   visible: PropTypes.bool,
   onRequestClose: PropTypes.func,
-  theme: PropTypes.object.isRequired,
+  themeMode: PropTypes.string.isRequired,
 };
 
 export default ArticleModal;

@@ -10,10 +10,26 @@ import { Input } from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave } from 'src/Redux/AppContent';
-import { styleGlobal } from 'src/Styles';
+import { styleGlobal, sg } from 'src/Styles';
 import amplitude from 'amplitude-js';
 
 class Email extends React.Component {
+  static navigationOptions = () => ({
+    headerTitle: (
+      <View style={{
+        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: -42,
+      }}
+      >
+        <Text style={sg.fS10}>
+          Step 4 of 4
+        </Text>
+        <Text style={[sg.fS17, sg.textBold]}>
+          Name
+        </Text>
+      </View>
+    ),
+  })
+
     state = {
       form: {
         emailAddress: {
@@ -36,10 +52,10 @@ class Email extends React.Component {
     }
 
 
-    setAmplitudeTestGroup(group) {
-      const identify = new amplitude.Identify().set('EXPERIMENT_REVERSE_ONBOARDING', group);
-      amplitude.getInstance().identify(identify);
-    }
+    // setAmplitudeTestGroup(group) {
+    //   const identify = new amplitude.Identify().set('EXPERIMENT_REVERSE_ONBOARDING', group);
+    //   amplitude.getInstance().identify(identify);
+    // }
 
     getAppContent(callback) {
       const { screenProps } = this.props;
@@ -62,15 +78,17 @@ class Email extends React.Component {
             const { user } = appContent;
             userDataSaveConnect(user);
             appContentSaveConnect(appContent);
-            if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'A_REVERSE_ONBOARDED') {
-              this.setAmplitudeTestGroup('A_REVERSE_ONBOARDED');
-              screenProps.navigateTo(routeNames.TAB_HOME);
-            } else {
-              if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'B_NORMAL_ONBOARDING') {
-                this.setAmplitudeTestGroup('B_NORMAL_ONBOARDING');
-              }
-              screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-            }
+            screenProps.navigateTo(routeNames.TAB_HOME);
+            // if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'A_REVERSE_ONBOARDED') {
+            //   this.setAmplitudeTestGroup('A_REVERSE_ONBOARDED');
+            //   screenProps.toastSuccess('Welcome to Array, ' + user.firstName + '!');
+            //   screenProps.navigateTo(routeNames.TAB_HOME);
+            // } else {
+            //   if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'B_NORMAL_ONBOARDING') {
+            //     this.setAmplitudeTestGroup('B_NORMAL_ONBOARDING');
+            //   }
+            //   screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
+            // }
           });
         }, () => {
           screenProps.toastDanger('Error. Try again.');
@@ -86,10 +104,6 @@ class Email extends React.Component {
         <Content padder contentContainerStyle={styleGlobal.flexGrow}>
           <View style={styleGlobal.spaceBetween}>
             <View>
-              <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>
-              Your email
-              </Text>
-
               <Input
                 formData={form}
                 formKey="emailAddress"
@@ -99,7 +113,6 @@ class Email extends React.Component {
                 onChangeText={hocs.handleInput}
               />
             </View>
-
             <KeyboardAvoidingView keyboardVerticalOffset={100}>
               <Button
                 onPress={() => this.handlePress()}

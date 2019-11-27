@@ -5,6 +5,7 @@ export default {
     zIndex: 2,
   },
   activityTabTitleBl: {
+    justifyContent: 'center',
     paddingBottom: 0,
     paddingHorizontal: 1,
   },
@@ -19,7 +20,7 @@ export default {
   activityTabTitleTextActive: {
     paddingLeft: 0,
     paddingRight: 0,
-    fontSize: 20,
+    fontSize: 12,
     fontFamily: sc.font.bold,
   },
   activityRow: {

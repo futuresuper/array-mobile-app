@@ -33,7 +33,7 @@ const signRoutes = formatRoutes({
   [routeNames.APP_LANDING]: {
     screen: screens.AppLanding,
     params: {
-      noHeader: true,
+      showBackButton: false,
     },
   },
   [routeNames.BUILD_YOUR_SAVING]: {
@@ -41,15 +41,9 @@ const signRoutes = formatRoutes({
   },
   [routeNames.BUILD_YOUR_IMPACT]: {
     screen: screens.BuildYourImpact,
-    params: {
-      noHeader: true,
-    },
   },
   [routeNames.BUILD_MOVEMENT]: {
     screen: screens.BuildMovement,
-    params: {
-      noHeader: true,
-    },
   },
   [routeNames.SIGN_UP_LOGIN]: {
     screen: screens.SignUpLogin,
@@ -71,9 +65,15 @@ const signDataRoutes = formatRoutes({
   },
   [routeNames.ACCOUNT_TYPE]: {
     screen: screens.AccountType,
+    params: {
+      title: 'Account type',
+    },
   },
   [routeNames.ABOUT_APP_FORM]: {
     screen: screens.AboutAppForm,
+    params: {
+      title: 'About this application form',
+    },
   },
   [routeNames.NAME]: {
     screen: screens.Name,
@@ -83,57 +83,111 @@ const signDataRoutes = formatRoutes({
   },
   [routeNames.DATE_OF_BIRTH]: {
     screen: screens.DateOfBirth,
+    params: {
+      title: 'Date of birth',
+    },
   },
   [routeNames.HOME_ADDRESS]: {
     screen: screens.HomeAddress,
+    params: {
+      title: 'Home address',
+    },
   },
   [routeNames.PLACE_OF_BIRTH]: {
     screen: screens.PlaceOfBirth,
+    params: {
+      title: 'Place of Birth',
+    },
   },
   [routeNames.INITIAL_INVESTMENT_AMOUNT]: {
     screen: screens.InitialInvestmentAmount,
+    params: {
+      title: 'Initial Investment',
+    },
   },
   [routeNames.ELECTRONIC_FUND_TRANSFER_INFO]: {
     screen: screens.ElectronicFundTransferInfo,
+    params: {
+      title: 'Depositing your investment amount',
+    },
   },
   [routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS]: {
     screen: screens.ElectronicFundTransferDetails,
+    params: {
+      title: 'Transfer Details',
+    },
   },
   [routeNames.BANK_ACCOUNT]: {
     screen: screens.BankAccount,
+    params: {
+      title: 'Link bank account',
+    },
   },
   [routeNames.ID_CHECK_ONLINE]: {
     screen: screens.IdCheckOnline,
+    params: {
+      title: 'Online ID Check',
+    },
   },
   [routeNames.SOURCE_OF_FUNDS]: {
     screen: screens.SourceOfFunds,
+    params: {
+      title: 'Funds source',
+    },
   },
   [routeNames.PURPOSE_OF_INVESTMENT]: {
     screen: screens.PurposeOfInvestment,
+    params: {
+      title: 'Investment Purpose',
+    },
   },
   [routeNames.OCCUPATION]: {
     screen: screens.Occupation,
+    params: {
+      title: 'Occupation',
+    },
   },
   [routeNames.PEP]: {
     screen: screens.Pep,
+    params: {
+      title: 'Are you a Politically Exposed Person?',
+    },
   },
   [routeNames.PEP_DESCRIPTION]: {
     screen: screens.PepDescription,
+    params: {
+      title: 'PEP Description',
+    },
   },
   [routeNames.TAX_NUMBERS]: {
     screen: screens.TaxNumbers,
+    params: {
+      title: 'Tax Numbers',
+    },
   },
   [routeNames.FINAL_CONFIRMATION]: {
     screen: screens.FinalConfirmation,
+    params: {
+      title: 'Final confirmation',
+    },
   },
   [routeNames.NOTIFICATIONS]: {
     screen: screens.Notifications,
+    params: {
+      title: 'Notifications',
+    },
   },
   [routeNames.THANKS_SHARE]: {
     screen: screens.ThanksShare,
+    params: {
+      title: 'Share',
+    },
   },
   [routeNames.ARTIST_NAME]: {
     screen: screens.ArtistName,
+    params: {
+      title: 'Artist / Industry Participant Name',
+    },
   },
   [routeNames.ID_CHECK]: {
     screen: screens.IdCheck,
@@ -143,33 +197,49 @@ const signDataRoutes = formatRoutes({
   },
   [routeNames.ID_CHECK_DETAILS]: {
     screen: screens.IdCheckDetails,
-    params: {},
+    params: {
+      title: 'Your ID Check Details',
+    },
     ...tabCardOptions,
   },
   [routeNames.ID_CHECK_DRIVERS_LICENCE]: {
     screen: screens.IdCheckDriversLicence,
-    params: {},
+    params: {
+      title: 'Your ID Check - Drivers Licence',
+    },
     ...tabCardOptions,
   },
   [routeNames.ID_CHECK_AUSTRALIAN_PASSPORT]: {
     screen: screens.IdCheckAustralianPassport,
-    params: {},
+    params: {
+      title: 'Your ID Check - Australian Passport',
+    },
     ...tabCardOptions,
   },
   [routeNames.ID_CHECK_MEDICARE_CARD]: {
     screen: screens.IdCheckMedicareCard,
-    params: {},
+    params: {
+      title: 'Your ID Check - Medicare Licence',
+    },
     ...tabCardOptions,
   },
   [routeNames.POST_US_CERTIFIED_ID]: {
     screen: screens.PostUsCertifiedId,
+    params: {
+      title: 'Post us Certified ID',
+    },
   },
   [routeNames.JOIN_FUTURE]: {
     screen: screens.JoinFuture,
+    params: {
+      title: 'Join Future Super',
+    },
   },
   [routeNames.JOIN_FUTURE_FORM]: {
     screen: screens.JoinFutureForm,
-    params: {},
+    params: {
+      title: 'Join Future Super',
+    },
   },
 });
 
@@ -288,24 +358,6 @@ const tabBarModalRootRoutes = {
       // routeReset: true,
     },
   },
-};
-
-const tabRoutes = {
-  [routeNames.TAB_HOME]: {
-    screen: screens.TabHome,
-  },
-  [routeNames.TAB_ACTIVITY]: {
-    screen: screens.TabActivity,
-  },
-  [routeNames.SOLAR_FARMS_LIST]: {
-    screen: screens.SolarFarmsList,
-  },
-  [routeNames.TAB_PROFILE]: {
-    screen: screens.TabProfile,
-  },
-};
-
-const tabBarModalRoutes = {
   [routeNames.DEPOSIT_WITHDRAW]: {
     screen: screens.DepositWithdraw,
   },
@@ -320,6 +372,37 @@ const tabBarModalRoutes = {
     params: {
       title: 'Withdraw',
     },
+  },
+  [routeNames.TALK_US]: {
+    screen: screens.TalkUs,
+    params: {
+      noHeader: true,
+      // routeReset: true,
+    },
+  },
+};
+
+const tabRoutes = {
+  [routeNames.TAB_HOME]: {
+    screen: screens.TabHome,
+  },
+  [routeNames.TAB_ACTIVITY]: {
+    screen: screens.TabActivity,
+  },
+  [routeNames.SOLAR_FARMS_LIST]: {
+    screen: screens.SolarFarmsList,
+  },
+  [routeNames.TAB_IMPACT]: {
+    screen: screens.TabImpact,
+  },
+  [routeNames.TAB_PROFILE]: {
+    screen: screens.TabProfile,
+  },
+};
+
+const tabBarModalRoutes = {
+  example: {
+    screen: screens.Example,
   },
 };
 
@@ -364,13 +447,6 @@ const tabCardRoutes = {
     screen: screens.ReferFriend,
     params: {
       title: 'Refer a friend',
-      routeReset: true,
-    },
-    ...tabCardOptions,
-  },
-  [routeNames.TALK_US]: {
-    screen: screens.TalkUs,
-    params: {
       routeReset: true,
     },
     ...tabCardOptions,

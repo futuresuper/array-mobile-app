@@ -1,9 +1,10 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  View, Image, FlatList, TouchableOpacity,
+  View, FlatList, TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -16,11 +17,6 @@ import {
   Grid,
   Col,
   Row,
-  Card,
-  CardItem,
-  Body,
-  Left,
-  Right,
   View as ViewNB,
 } from 'native-base';
 
@@ -32,7 +28,11 @@ import { formatAmountDollar, formatAmountDollarCent } from 'src/Common/Helpers';
 
 import { LineChart } from 'src/Components/ChartKit';
 import {
-  impactStatsSelector, latestSelector, accountsSelector, userSelector,
+  impactStatsSelector,
+  updatesSelector,
+  accountsSelector,
+  userSelector,
+  updateArticlieLike,
 } from 'src/Redux/AppContent';
 import {
   accountSelector,
@@ -40,13 +40,10 @@ import {
 
 import { sg } from 'src/Styles';
 
+import ArticleCard from 'src/Components/ArticleCard';
 import ArticleModal from './ArticleModal';
 import styles from './styles';
 
-const cardTypeConst = {
-  SMALL: 'small',
-  LARGE: 'large',
-};
 
 const actionToPageConst = {
   desposit: 'Deposit',
@@ -66,6 +63,12 @@ class TabHome extends Component {
     };
   }
 
+  likeArticle(form) {
+    const { screenProps, toggleArticleLike } = this.props;
+    screenProps.Api.post('/like', form, () => {
+      toggleArticleLike(form);
+    }, null, false);
+  }
 
   openArticle(item) {
     const { screenProps } = this.props;
@@ -109,97 +112,9 @@ class TabHome extends Component {
     );
   }
 
-  renderGlow() {
-    return <SunGlow utcOffset={600} style={styles.circleDay} {...this.props} />;
-  }
+  renderGlow = () => <SunGlow utcOffset={600} style={styles.circleDay} {...this.props} />;
 
-  renderContentItemSmall(item) {
-    const { timeAgo, actionToPage, image } = item;
-
-    return (
-      <CardItem
-        button={!!actionToPage}
-        onPress={() => {
-          this.openArticle(item);
-        }}
-        style={[actionToPage ? sg.m5 : {}]}
-      >
-        {image && (
-          <Left style={[sg.mR10, sg.flexNull]}>
-            <Image
-              source={{ uri: item.image }}
-              resizeMode="cover"
-              style={styles.contentItemSmallImage}
-            />
-          </Left>
-        )}
-        <Body style={[sg.mL0]}>
-          <Row style={[sg.aICenter]}>
-            <Col>
-              <Text style={[sg.fS16, sg.fontMedium, actionToPage ? sg.textCenter : {}]}>
-                {item.headline}
-              </Text>
-            </Col>
-            {timeAgo && (
-              <Col style={[sg.aIRight, sg.flex08]}>
-                <Text style={[sg.fontMedium, sg.fS14, sg.colorGray12]}>{item.timeAgo}</Text>
-              </Col>
-            )}
-          </Row>
-        </Body>
-        {actionToPage && (
-          <Right style={[sg.width30, sg.flexNull]}>
-            <Icon name="md-arrow-forward" style={[sg.colorPrimary, sg.fS24]} />
-          </Right>
-        )}
-      </CardItem>
-    );
-  }
-
-  renderContentItemLarge(item) {
-    return (
-      <CardItem
-        button
-        onPress={() => {
-          this.openArticle(item);
-        }}
-      >
-        <Left style={[sg.mR20, sg.flexNull]}>
-          <Image
-            source={{ uri: item.image }}
-            resizeMode="cover"
-            style={styles.contentItemLargeImage}
-          />
-        </Left>
-        <Body>
-          <Grid>
-            <Row>
-              <Text style={[sg.fontMedium, sg.fS14, sg.colorGray12]}>{item.subhead}</Text>
-            </Row>
-            <Row>
-              <Text style={[sg.fS16, sg.fontMedium]}>{item.headline}</Text>
-            </Row>
-            <Row style={[sg.aIEnd]}>
-              <Text style={[sg.fontMedium, sg.fS14, sg.colorGray12]}>Read more</Text>
-            </Row>
-          </Grid>
-        </Body>
-      </CardItem>
-    );
-  }
-
-  renderContentItem = ({ item }) => {
-    const { cardType } = item;
-    let cardItem = null;
-
-    if (cardType === cardTypeConst.SMALL) {
-      cardItem = this.renderContentItemSmall(item);
-    } else {
-      cardItem = this.renderContentItemLarge(item);
-    }
-
-    return <Card>{cardItem}</Card>;
-  };
+  renderContentItem = ({ item }) => <ArticleCard {...item} onPressLike={(l) => this.likeArticle(l)} onPressOpen={(i) => this.openArticle(i)} key={item.id} />;
 
   renderChart() {
     const { screenProps } = this.props;
@@ -212,7 +127,6 @@ class TabHome extends Component {
           if (c) this.LineChart = c;
         }}
         data={{
-          // labels: ['Mar 31', 'Apr 30', 'May 31', 'Jun 30'],
           datasets: [
             {
               data: [10, 12, 14, 15],
@@ -279,7 +193,7 @@ class TabHome extends Component {
   }
 
   renderBalance() {
-    const { user, selectedAccount, screenProps } = this.props;
+    const { user, selectedAccount } = this.props;
 
     if (selectedAccount) {
       const balance = {};
@@ -330,7 +244,7 @@ class TabHome extends Component {
   }
 
   render() {
-    const { screenProps, latest } = this.props;
+    const { screenProps, updates } = this.props;
     const { article } = this.state;
 
     return (
@@ -381,20 +295,20 @@ class TabHome extends Component {
         </View>
 
         <ViewNB style={styles.contentBl}>
-          <H2 style={[sg.headingS, sg.colorGray11, sg.aSCenter]}>Impact</H2>
+          <H2 style={[sg.headingS, sg.colorGray11, sg.aSCenter, sg.mB20]}>Updates</H2>
 
-          <View style={[sg.pT15, sg.pB30]}>{this.renderImpactItem()}</View>
+          {/* <View style={[sg.pT15, sg.pB30]}>{this.renderImpactItem()}</View> */}
 
           <FlatList
-            extraData={screenProps.theme}
-            data={latest}
+            extraData={screenProps.themeMode}
+            data={updates}
             keyExtractor={(item, index) => index.toString()}
             renderItem={this.renderContentItem}
           />
         </ViewNB>
 
         <ArticleModal
-          theme={screenProps.getTheme()}
+          themeMode={screenProps.themeMode}
           visible={article.visible}
           item={article.item}
           onRequestClose={() => {
@@ -413,26 +327,32 @@ class TabHome extends Component {
 
 TabHome.propTypes = {
   impactStats: PropTypes.array.isRequired,
-  latest: PropTypes.array.isRequired,
+  updates: PropTypes.array.isRequired,
   accounts: PropTypes.array.isRequired,
   selectedAccount: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  toggleArticleLike: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const impactStats = impactStatsSelector(state);
-  const latest = latestSelector(state);
+  const updates = updatesSelector(state);
   const accounts = accountsSelector(state);
   const selectedAccount = accountSelector(state);
   const user = userSelector(state);
 
   return {
     impactStats,
-    latest,
     accounts,
     selectedAccount,
+    updates,
     user,
   };
 };
 
-export default connect(mapStateToProps)(TabHome);
+const mapDispatchToProps = {
+  toggleArticleLike: updateArticlieLike,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabHome);

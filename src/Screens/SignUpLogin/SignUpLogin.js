@@ -16,8 +16,10 @@ import {
   Input,
 } from 'src/Components/Form';
 
+import SafeAreaView from 'src/Components/SafeAreaView';
+
 import {
-  styleGlobal,
+  styleGlobal, sg,
 } from 'src/Styles';
 
 import {
@@ -27,6 +29,22 @@ import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 // import ListLinks from 'src/Components/ListLinks';
 
 class SignUpLogin extends Component {
+    static navigationOptions = () => ({
+      headerTitle: (
+        <View style={{
+          flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: -42,
+        }}
+        >
+          <Text style={sg.fS10}>
+            Step 1 of 4
+          </Text>
+          <Text style={[sg.fS17, sg.textBold]}>
+            Mobile Number
+          </Text>
+        </View>
+      ),
+    })
+
     state = {
       mobile: '',
       errors: '',
@@ -101,39 +119,38 @@ class SignUpLogin extends Component {
       const { errors, mobile } = this.state;
 
       return (
-        <Content padder contentContainerStyle={[styleGlobal.flexGrow]}>
-          <View style={styleGlobal.spaceBetween}>
+        <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
 
-          <View>
-            <Text style={styleGlobal.formHeading}>
-              Mobile Number
-            </Text>
+          <Content padder contentContainerStyle={[styleGlobal.flexGrow]}>
+            <View style={styleGlobal.spaceBetween}>
 
-            <Input
-              helper="Your mobile number"
-              returnKeyType="next"
-              keyboardType="numeric"
-              value={mobile}
-              onChangeText={(e) => { this.handleChange(e); }}
-            />
+              <View>
 
-            <Text style={styleGlobal.formError}>
-              {errors}
-            </Text>
-          </View>
+                <Input
+                  helper="Your mobile number"
+                  returnKeyType="next"
+                  keyboardType="numeric"
+                  value={mobile}
+                  onChangeText={(e) => { this.handleChange(e); }}
+                />
 
-          <KeyboardAvoidingView keyboardVerticalOffset={100}>
-            <Button
-              onPress={() => this.getSms()}
-              block
-            >
-              <Text>Next</Text>
-            </Button>
-          </KeyboardAvoidingView>
+                <Text style={styleGlobal.formError}>
+                  {errors}
+                </Text>
+              </View>
 
-        </View>
+              <KeyboardAvoidingView keyboardVerticalOffset={100}>
+                <Button
+                  onPress={() => this.getSms()}
+                  block
+                >
+                  <Text>Next</Text>
+                </Button>
+              </KeyboardAvoidingView>
 
-          {/* <ListLinks
+            </View>
+
+            {/* <ListLinks
           absolute
           navigateTo={screenProps.navigateTo}
           data={[
@@ -144,7 +161,8 @@ class SignUpLogin extends Component {
           ]}
         /> */}
 
-        </Content>
+          </Content>
+        </SafeAreaView>
       );
     }
 }

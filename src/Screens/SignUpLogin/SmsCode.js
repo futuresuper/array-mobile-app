@@ -6,6 +6,7 @@ import amplitude from 'amplitude-js';
 
 import {
   View,
+  Keyboard,
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -35,10 +36,30 @@ import {
 } from 'src/Navigation';
 
 import {
-  styleGlobal,
+  styleGlobal, sg,
 } from 'src/Styles';
 
+import SafeAreaView from 'src/Components/SafeAreaView';
+
+
 class SmsCode extends Component {
+
+  static navigationOptions = () => ({
+    headerTitle: (
+      <View style={{
+        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: -42,
+      }}
+      >
+        <Text style={sg.fS10}>
+          Step 2 of 4
+        </Text>
+        <Text style={[sg.fS17, sg.textBold]}>
+          Verify
+        </Text>
+      </View>
+    ),
+  })
+
     state = {
       smsCode: '',
     };
@@ -46,7 +67,7 @@ class SmsCode extends Component {
     getAppContent(callback) {
       const { screenProps } = this.props;
       screenProps.Api.get('/appcontent', {},
-        callback,
+        callback, null, false,
         () => {
           screenProps.toast('Unknown error (appcontent)');
         });
@@ -62,6 +83,7 @@ class SmsCode extends Component {
       const { Api, toast } = screenProps;
       const { smsCode } = this.state;
 
+      Keyboard.dismiss();
 
       if (!smsCode) {
         toast('Specify SMS code');
@@ -75,7 +97,8 @@ class SmsCode extends Component {
         return true;
       }
 
-      Api.answerCustomChallenge(smsCode).then((userData) => {
+      screenProps.spinnerShow();
+      Api.answerCustomChallenge(smsCode, false).then((userData) => {
         if (userData) {
           Api.post('/user', {
             mobile,
@@ -85,16 +108,16 @@ class SmsCode extends Component {
               const { user } = appContent;
               userDataSaveConnect(user);
               appContentSaveConnect(appContent);
-              // console.log("user: " + JSON.stringify(user));
-              // console.log("appContent: " + JSON.stringify(appContent));
-              this.nextScreen(appContent.accounts.length);
+              const gotBasicDetails = (user.firstName !== undefined && user.lastName !== undefined && user.email !== undefined);
+              console.log(`gotBasicDetails: ${gotBasicDetails}`);
+              this.nextScreen(gotBasicDetails);
               amplitude.getInstance().setUserId(user.id);
               amplitude.getInstance().logEvent('Entered SMS Code - Success', {});
             });
           }, () => {
             screenProps.toast('Unknown error');
             amplitude.getInstance().logEvent('Entered SMS Code - Failed', {});
-          });
+          }, false);
         } else {
           screenProps.toast('Please enter the correct code');
         }
@@ -107,10 +130,11 @@ class SmsCode extends Component {
       return true;
     }
 
-    nextScreen(numAccounts) {
+    nextScreen(gotBasicDetails) {
       const { screenProps } = this.props;
       const { navigateTo } = screenProps;
-      if (numAccounts > 0) {
+      console.log(`Have basic details: ${gotBasicDetails}`);
+      if (gotBasicDetails) {
         navigateTo(routeNames.ACCOUNTS);
       } else {
         navigateTo(routeNames.NAME);
@@ -119,6 +143,7 @@ class SmsCode extends Component {
 
     render() {
       let { mobile } = this.props;
+      const { screenProps } = this.props;
       const { smsCode } = this.state;
 
       if (mobile) {
@@ -130,41 +155,39 @@ class SmsCode extends Component {
       }
 
       return (
-        <Content padder contentContainerStyle={styleGlobal.flexGrow}>
-          <View style={styleGlobal.spaceBetween}>
-            <View>
-              <Text style={styleGlobal.formHeading}>
-              Verify
-              </Text>
+        <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
+          <Content padder contentContainerStyle={styleGlobal.flexGrow}>
+            <View style={styleGlobal.spaceBetween}>
+              <View>
+                <Text style={styleGlobal.mB30}>
+                  We&apos;ve just texted you a code to
+                  {'\n'}
+                  <Text style={styleGlobal.textBold}>{mobile}</Text>
+                    &nbsp;to verify your number
+                </Text>
 
-              <Text style={styleGlobal.mB30}>
-              We&apos;ve just texted you a code to
-                {'\n'}
-                <Text style={styleGlobal.textBold}>{mobile}</Text>
-              &nbsp;to verify your number
-              </Text>
+                <Input
+                  helper="Code"
+                  returnKeyType="next"
+                  keyboardType="numeric"
+                  value={smsCode}
+                  onChangeText={(e) => { this.setState({ smsCode: e }); }}
+                />
 
-              <Input
-                helper="Code"
-                returnKeyType="next"
-                keyboardType="numeric"
-                value={smsCode}
-                onChangeText={(e) => { this.setState({ smsCode: e }); }}
-              />
+              </View>
 
+              <KeyboardAvoidingView keyboardVerticalOffset={100}>
+                <Button
+                  onPress={() => this.handlePress()}
+                  block
+                >
+                  <Text>Next</Text>
+                </Button>
+              </KeyboardAvoidingView>
             </View>
 
-            <KeyboardAvoidingView keyboardVerticalOffset={100}>
-              <Button
-                onPress={() => this.handlePress()}
-                block
-              >
-                <Text>Next</Text>
-              </Button>
-            </KeyboardAvoidingView>
-          </View>
-
-        </Content>
+          </Content>
+        </SafeAreaView>
       );
     }
 }

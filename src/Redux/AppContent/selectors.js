@@ -6,6 +6,8 @@ export const investmentsSelector = (state) => state.appContent.investments || []
 
 export const latestSelector = (state) => state.appContent.latest || [];
 
+export const updatesSelector = (state) => state.appContent.updates || [];
+
 export const solarFarmsSelector = (state) => state.appContent.solarFarms || [];
 
 export const unitPricesSelector = (state) => state.appContent.unitPrices || [];

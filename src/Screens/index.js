@@ -4,6 +4,7 @@ export * from './Feed';
 export * from './SignUp';
 export * from './Settings';
 export * from './TabHome';
+export * from './TabImpact';
 export * from './TabActivity';
 export * from './TabFarms';
 export * from './DepositWithdraw';

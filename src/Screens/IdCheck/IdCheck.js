@@ -49,8 +49,7 @@ class IdCheck extends Component {
                 {'Add Drivers Licence'}
               </Text>
             </Button>
-            )
-          }
+            )}
         {(!user.idCheck.australianPassport || user.idCheck.australianPassport === 'notAttempted')
             && (
             <Button
@@ -65,8 +64,7 @@ class IdCheck extends Component {
                 {'Add Australian Passport'}
               </Text>
             </Button>
-            )
-          }
+            )}
         {/* NEED TO IMPROVE MEDICARE CARD SCREEN AND TEST BEFORE WE TURN THIS ON
 
             (!user.idCheck.medicareCard || user.idCheck.medicareCard === "notAttempted")
@@ -120,8 +118,7 @@ class IdCheck extends Component {
                       {user.idCheck.driversLicenceState}
                     </Text>
                   </View>
-                )
-                  }
+                )}
 
                 {matchFailed && docType === 'Passport' && (
                   <View>
@@ -131,8 +128,7 @@ class IdCheck extends Component {
                       {user.idCheck.passportNumber}
                     </Text>
                   </View>
-                )
-                  }
+                )}
 
               </Col>
               <Col style={sg.width20}>

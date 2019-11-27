@@ -24,6 +24,7 @@ export default {
   TAB_HOME: 'TabHome',
   TAB_ACTIVITY: 'TabActivity',
   TAB_PROFILE: 'TabProfile',
+  TAB_IMPACT: 'TabImpact',
   DEPOSIT_WITHDRAW: 'DepositWithdraw',
   DEPOSIT_WITHDRAW_DONE: 'DepositWithdrawDone',
   WITHDRAW: 'Withdraw',

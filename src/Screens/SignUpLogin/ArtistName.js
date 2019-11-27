@@ -68,41 +68,39 @@ class ArtistName extends React.Component {
       return (
         <Content padder contentContainerStyle={[sg.flexGrow]} bounces={false}>
           <View style={[sg.spaceBetween]}>
-          <View>
-            <Text style={sg.formHeading}>Artist / Industry Participant Name</Text>
+            <View>
+              <Input
+                formData={form}
+                formKey="name"
+                helper="Artist / Band /  Industry name"
+                onChangeText={hocs.handleInput}
+              />
 
-            <Input
-              formData={form}
-              formKey="name"
-              helper="Artist / Band /  Industry name"
-              onChangeText={hocs.handleInput}
-            />
-
-            <Grid style={[sg.mT60, sg.mB10]}>
-              <Col style={[sg.flexNull, sg.mR20]}>
-                <View style={styles.checkmarkContainer}>
-                  <BadgeCheckmark
-                    style={styles.checkmark}
-                    styleTick={styles.checkmarkTick}
-                  />
-                </View>
-              </Col>
-              <Col>
-                <Text style={[sg.textBold, sg.fS14, sg.colorGray11]}>Help promote FEAT & Array</Text>
-                <Text style={[sg.fontMedium, sg.fS14, sg.colorGray11]}>
+              <Grid style={[sg.mT60, sg.mB10]}>
+                <Col style={[sg.flexNull, sg.mR20]}>
+                  <View style={styles.checkmarkContainer}>
+                    <BadgeCheckmark
+                      style={styles.checkmark}
+                      styleTick={styles.checkmarkTick}
+                    />
+                  </View>
+                </Col>
+                <Col>
+                  <Text style={[sg.textBold, sg.fS14, sg.colorGray11]}>Help promote FEAT & Array</Text>
+                  <Text style={[sg.fontMedium, sg.fS14, sg.colorGray11]}>
                   It’s okay to list our artist name as one of the FEAT artists in launch communications
-                </Text>
-              </Col>
-            </Grid>
-          </View>
+                  </Text>
+                </Col>
+              </Grid>
+            </View>
 
-          <Button
-            block
-            onPress={() => this.handlePress()}
-          >
-            <Text>Next</Text>
-          </Button>
-        </View>
+            <Button
+              block
+              onPress={() => this.handlePress()}
+            >
+              <Text>Next</Text>
+            </Button>
+          </View>
         </Content>
       );
     }

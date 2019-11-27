@@ -14,6 +14,8 @@ PODS:
     - glog
   - glog (0.3.5)
   - Intercom (5.5.1)
+  - jail-monkey (2.3.0):
+    - React
   - JKBigInteger2 (0.0.5)
   - React (0.60.5):
     - React-Core (= 0.60.5)
@@ -75,9 +77,11 @@ PODS:
   - react-native-intercom (13.1.0):
     - Intercom (~> 5.0)
     - React
-  - react-native-maps (0.25.0):
+  - react-native-maps (0.26.1):
     - React
   - react-native-orientation-locker (1.1.6):
+    - React
+  - react-native-splash-screen (3.2.0):
     - React
   - react-native-video (5.0.2):
     - React
@@ -114,7 +118,7 @@ PODS:
     - React
   - RNGestureHandler (1.4.1):
     - React
-  - RNReanimated (1.2.0):
+  - RNReanimated (1.3.0):
     - React
   - RNSVG (9.9.4):
     - React
@@ -125,6 +129,7 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - jail-monkey (from `../node_modules/jail-monkey`)
   - React (from `../node_modules/react-native/`)
   - React-Core (from `../node_modules/react-native/React`)
   - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
@@ -138,6 +143,7 @@ DEPENDENCIES:
   - react-native-intercom (from `../node_modules/react-native-intercom`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-video (from `../node_modules/react-native-video`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -157,7 +163,7 @@ DEPENDENCIES:
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - boost-for-react-native
     - Intercom
     - JKBigInteger2
@@ -171,6 +177,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  jail-monkey:
+    :path: "../node_modules/jail-monkey"
   React:
     :path: "../node_modules/react-native/"
   React-Core:
@@ -197,6 +205,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-orientation-locker:
     :path: "../node_modules/react-native-orientation-locker"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-video:
     :path: "../node_modules/react-native-video"
   React-RCTActionSheet:
@@ -239,6 +249,7 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   Intercom: a9dac939be35ba163304fbbdc101817a47992992
+  jail-monkey: 0830c18bb6f085938a4c8529d554f9b29230a5a4
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
   React-Core: ba421f6b4f4cbe2fb17c0b6fc675f87622e78a64
@@ -251,8 +262,9 @@ SPEC CHECKSUMS:
   react-native-fingerprint-scanner: 0fb8ebd1f1328f6e6d9af1542298fd2a8e08ec26
   react-native-image-picker: 7a85cf7b0a53845f03ae52fb4592a2748ded069b
   react-native-intercom: da0c625fe87597a7df94bc872df5a343cec9bfa1
-  react-native-maps: 190c02ca533fddac5bb49cf17bdece3644612107
+  react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   react-native-orientation-locker: 23918c400376a7043e752c639c122fcf6bce8f1c
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-video: d01ed7ff1e38fa7dcc6c15c94cf505e661b7bfd0
   React-RCTActionSheet: b0f1ea83f4bf75fb966eae9bfc47b78c8d3efd90
   React-RCTAnimation: 359ba1b5690b1e87cc173558a78e82d35919333e
@@ -267,10 +279,10 @@ SPEC CHECKSUMS:
   RNAWSCognito: b0b908817ce6547cdddaa7842bc166b4c5e7c128
   RNCPushNotificationIOS: 0b8d06ff190d84627dd17501bfb96652375970e4
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
-  RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
+  RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
   RNSVG: 435cda60cd9e1ea6188eb0e21c12fc0f85def8e8
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
 PODFILE CHECKSUM: 12512a3d5db0a8991eabaa507833cad4217909c5
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.3

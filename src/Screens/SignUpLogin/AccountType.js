@@ -87,9 +87,6 @@ class AccountType extends React.Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View>
-            <Text style={sg.formHeading}>
-              Account type
-            </Text>
 
             <Text style={sg.formHeadingDescription}>
               What sort of account would you like to start?

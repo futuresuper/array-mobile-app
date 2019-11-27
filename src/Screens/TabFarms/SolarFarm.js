@@ -3,16 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  View, FlatList, Image, ImageBackground,
+  View, FlatList, Image, Modal, ImageBackground, ScrollView,
 } from 'react-native';
 
 import {
-  Content, Text, H1, Grid, Col, Card, CardItem, Body,
+  Text, H1, Grid, Col, Card, CardItem, Body,
 } from 'native-base';
 
 import CloseButton from 'src/Components/CloseButton';
 import WeatherWidget from 'src/Components/WeatherWidget';
 import { TabBarWrapper } from 'src/Components/TabBar';
+import SafeAreaView from 'src/Components/SafeAreaView';
 
 import deviceUtils from 'src/Common/device';
 
@@ -51,7 +52,7 @@ class SolarFarm extends Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, screenProps } = this.props;
 
     if (!item) {
       return null;
@@ -61,52 +62,58 @@ class SolarFarm extends Component {
     const photos = item.otherImages;
 
     return (
-      <Content contentContainerStyle={[sg.mT0]} bounces>
-        <ImageBackground
-          source={{ uri: imageUrl }}
-          resizeMode="stretch"
-          style={[{ height: deviceUtils.screenHeight() - sc.footerHeight - 54 }]}
-        >
-          <View style={[sg.aIEnd, sg.mT40]}>
-            <CloseButton white {...this.props} />
-          </View>
+      <Modal transparent>
+        <SafeAreaView forceInset={{ top: 'never' }} themeMode={screenProps.themeMode}>
+          <ScrollView>
 
-          <View style={[sg.aICenter, sg.spaceBetween]}>
-            <View>
-              <WeatherWidget coordinate={item.coordinate} style={styles.solarFarmWeatherWidget} />
+            <ImageBackground
+              source={{ uri: imageUrl }}
+              resizeMode="stretch"
+              style={[{ height: deviceUtils.screenHeight() - sc.footerHeight - 54 }]}
+            >
+              <View style={[sg.aIEnd, sg.mT40]}>
+                <CloseButton white themeMode="light" {...this.props} />
+              </View>
 
-              <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.name}</H1>
-              <Text style={styles.solarFarmItemDescription}>{item.location}</Text>
-            </View>
+              <View style={[sg.aICenter, sg.spaceBetween]}>
+                <View>
+                  <WeatherWidget coordinate={item.coordinate} style={styles.solarFarmWeatherWidget} />
 
-            <View style={sg.aICenter}>
-              {item.completionDate && (
-                <Text
-                  style={[styles.solarFarmFinishDate, sg.mB50]}
-                >
-                  {`Projected finish date: ${item.completionDate}`}
+                  <H1 style={[sg.fS35, sg.mT30, sg.mB5, sg.colorDark3]}>{item.name}</H1>
+                  <Text style={styles.solarFarmItemDescription}>{item.location}</Text>
+                </View>
 
-                </Text>
-              )}
-              {this.renderStats()}
-            </View>
-          </View>
-        </ImageBackground>
+                <View style={sg.aICenter}>
+                  {item.completionDate && (
+                  <Text
+                    style={[styles.solarFarmFinishDate, sg.mB50]}
+                  >
+                    {`Projected finish date: ${item.completionDate}`}
 
-        <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>
+                  </Text>
+                  )}
+                  {this.renderStats()}
+                </View>
+              </View>
+            </ImageBackground>
+
+            <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>
           About
-        </Text>
-        <Text style={[sg.contentMarginH, sg.mT20, sg.mB30, sg.lH26]}>{item.about}</Text>
+            </Text>
+            <Text style={[sg.contentMarginH, sg.mT20, sg.mB30, sg.lH26]}>{item.about}</Text>
 
-        <FlatList
-          data={photos}
-          keyExtractor={(i, index) => index.toString()}
-          renderItem={(...args) => this.renderPhotoItem(...args)}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={sg.mB30}
-        />
-      </Content>
+            <FlatList
+              data={photos}
+              keyExtractor={(i, index) => index.toString()}
+              renderItem={(...args) => this.renderPhotoItem(...args)}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={sg.mB30}
+            />
+          </ScrollView>
+
+        </SafeAreaView>
+      </Modal>
     );
   }
 }

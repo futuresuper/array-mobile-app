@@ -74,13 +74,12 @@ class TaxNumbers extends Component {
     const formIsValid = hocs.formIsValid();
 
     if (formIsValid) {
-      console.log(form);
       const body = {
         taxFileNumber: form.tfn.value,
         usPerson: form.usPerson.value !== '',
         usTin: form.usTin.value,
-        osTaxResident: form.resident.value !== '',
-        tins: form.tins ? form.tins.map(t => ({
+        osTaxResident: form.resident.value,
+        tins: form.resident.value ? form.tins.map((t) => ({
           country: t.country.value,
           tin: t.tin.value,
           unavailableReason: t.reasonDoesntExist.value,
@@ -273,10 +272,6 @@ class TaxNumbers extends Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View>
-            <Text style={sg.formHeading}>
-              Tax Numbers
-            </Text>
-
             <Input
               formData={form}
               formKey="tfn"

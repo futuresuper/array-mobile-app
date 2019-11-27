@@ -1,15 +1,39 @@
-import React, { Component } from 'react';
+import React, {
+  Component, BackAndroid, Alert, View,
+} from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 import { AppRegistry } from 'react-native';
 import amplitude from 'amplitude-js';
+import JailMonkey from 'jail-monkey';
 import { Provider } from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
 import { name as appName } from '../app.json';
 import { getStore, getPersistor } from './Redux/store';
 import AppIndex from './AppIndex';
 
 class Root extends Component {
+  state = {
+    rooted: false,
+  }
+
   componentDidMount() {
     this.initAnalytics();
+    // this.rootedCheck();
+  }
+
+  rootedCheck() {
+    if (!__DEV__) {
+      if (JailMonkey.isJailBroken()) {
+        this.setState({ rooted: true });
+        Alert.alert(
+          'Rooted Device',
+          'This app cannot run on rooted device.',
+          [
+            { text: 'OK', onPress: () => BackAndroid.exitApp() },
+          ],
+        );
+      }
+    }
   }
 
   initAnalytics() {
@@ -24,14 +48,25 @@ class Root extends Component {
     }
   }
 
+  onBeforeLift() {
+    SplashScreen.hide();
+  }
+
   render() {
+    const { rooted } = this.state;
     const myStore = getStore();
     const myPersistor = getPersistor();
-
+    if (rooted) {
+      return null;
+    }
     return (
       <Provider store={myStore}>
         {/* potential add splash screen here instead of blank(null) one */}
-        <PersistGate loading={null} persistor={myPersistor}>
+        <PersistGate
+          loading={null}
+          persistor={myPersistor}
+          onBeforeLift={this.onBeforeLift()}
+        >
           <AppIndex />
         </PersistGate>
       </Provider>

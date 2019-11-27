@@ -24,6 +24,7 @@ import { clearThemeCache } from 'native-base-shoutem-theme';
 import Toast from 'src/Components/Toast';
 import BottomInfoModal from 'src/Components/BottomInfo';
 
+
 import {
   getTheme,
   themeLight,
@@ -33,12 +34,14 @@ import {
 import {
   navGetParam,
 } from 'src/Common/Helpers';
+
 import moment from 'src/Common/moment';
 
 import Api from 'src/Common/Api';
 import ProtectedRoutes from 'src/Common/ProtectedRoutes';
 
 import Spinner from 'src/Components/Spinner';
+// import Spinner from 'react-native-loading-spinner-overlay';
 import Alert from 'src/Components/Alert';
 import { AppWithNavigationState } from 'src/Navigation/AppNavigator';
 import { accountSelector } from 'src/Redux/Account/selectors';
@@ -49,6 +52,8 @@ import {
   navigateTo,
   routeBack,
 } from 'src/Redux/Nav';
+import NotifService from './NotifService';
+import { sc } from './Styles';
 
 class AppIndex extends Component {
   constructor(props, context) {
@@ -57,6 +62,7 @@ class AppIndex extends Component {
     this.navigateTo = this.navigateTo.bind(this);
     this.spinnerShow = this.spinnerShow.bind(this);
     this.spinnerHide = this.spinnerHide.bind(this);
+    this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
   }
 
   componentDidMount() {
@@ -64,6 +70,7 @@ class AppIndex extends Component {
       this.routeBack();
       return true;
     });
+    this.initializeFcm();
     this.setAnalyticsUser();
     this.initializeTheme();
   }
@@ -75,6 +82,28 @@ class AppIndex extends Component {
       amplitude.getInstance().setUserId(id);
     }
   }
+
+  // eslint-disable-next-line react/sort-comp
+  initializeFcm() {
+    const { auth } = this.props;
+    console.log('initializng')
+    if (auth.user) {
+      this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
+    }
+  }
+
+  // eslint-disable-next-line react/sort-comp
+  onNotif(notif) {
+    console.log(notif);
+    Alert.alert(notif.title, notif.message);
+  }
+
+  onRegister(token) {
+    console.log('notif')
+
+    Alert.alert('Registered !', JSON.stringify(token));
+  }
+
 
   getUserInfo = () => {
     const { auth } = this.props;
@@ -107,13 +136,14 @@ class AppIndex extends Component {
 
   enableTheme = () => {
     /* uncoment to make dark/light auto swiching on */
-    // const currentTime = moment();
-    // const format = 'hh:mm A';
-    // if (currentTime.isBetween(moment('06:00 AM', format), moment('07:00 PM', format))) {
-    //   this.setLightTheme();
-    // } else {
-    //   this.setDarkTheme();
-    // }
+    const currentTime = moment();
+    // console.log("currentTime: " + currentTime);
+    const format = 'hh:mm A';
+    if (currentTime.isBetween(moment('06:00 AM', format), moment('07:00 PM', format))) {
+      this.setLightTheme();
+    } else {
+      this.setDarkTheme();
+    }
     this.setLightTheme();
   }
 
@@ -227,6 +257,7 @@ class AppIndex extends Component {
       toogleTheme: this.toogleTheme,
       getTheme: this.getTheme,
       isDarkTheme: this.isDarkTheme,
+      themeMode,
       Api,
     };
 
@@ -243,9 +274,10 @@ class AppIndex extends Component {
               ref={(c) => {
                 this.Spinner = c;
               }}
+              color="#11133D"
               textStyle={{ color: '#FFF' }}
-              overlayColor="rgba(0,0,0,0.5)"
-              size="large"
+              overlayColor={sc.color.containerBgColor}
+              size={50}
             />
             <Alert
               ref={(c) => {

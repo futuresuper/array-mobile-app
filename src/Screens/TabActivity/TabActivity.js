@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { View, Image, Dimensions } from 'react-native';
+import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
 
-import { Button, Text, Content } from 'native-base';
+import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 
-import { accountsSelector } from 'src/Redux/AppContent';
+import _ from 'lodash';
+
+import { routeNames } from 'src/Navigation';
+
+import {
+  Button, Text, Content, Icon, H1, Grid, Row, Col,
+} from 'native-base';
+
+import { accountsSelector, userSelector } from 'src/Redux/AppContent';
+
+import {
+  accountSelector,
+} from 'src/Redux/Account';
+
 
 import Br from 'src/Components/Br';
 import BottomInfo from 'src/Components/BottomInfo';
@@ -36,10 +51,31 @@ class TabActivity extends Component {
     this.state = {
       segment: {
         isPerfomance: true,
+        isTransactions: false,
         isInvestment: false,
       },
       activeDot: 'Mar 8',
       activeBalance: 0,
+      activity: [
+        {
+          type: 'Deposit',
+          date: '29 Fed',
+          status: 1,
+          amount: '+$20.00',
+        },
+        {
+          type: 'Deposit',
+          date: '19 Fed',
+          status: 2,
+          amount: '+$20.00',
+        },
+        {
+          type: 'Deposit',
+          date: '09 Fed',
+          status: 3,
+          amount: '+$0.50',
+        },
+      ],
     };
   }
 
@@ -48,6 +84,7 @@ class TabActivity extends Component {
       segment: {
         isPerfomance: true,
         isInvestment: false,
+        isTransactions: false,
       },
     });
   };
@@ -55,11 +92,22 @@ class TabActivity extends Component {
   setInvestmentSegment = () => {
     this.setState({
       segment: {
-        isPerfomance: false,
         isInvestment: true,
+        isPerfomance: false,
+        isTransactions: false,
       },
     });
   };
+
+  setTransactionsSegment = () => {
+    this.setState({
+      segment: {
+        isPerfomance: false,
+        isInvestment: false,
+        isTransactions: true,
+      },
+    });
+  }
 
   renderGlow() {
     return <SunGlow utcOffset={600} style={styles.activityCircleDay} {...this.props} />;
@@ -183,80 +231,105 @@ class TabActivity extends Component {
     );
   }
 
-  /*
-  renderBalance() {
 
-    const { accounts, navigation } = this.props;
-
-    const accountIdActive = navigation.getParam('accountId', 'NO-ID');
-
-    console.log("Accounts: " + JSON.stringify(accounts));
-    console.log("Account ID Selected: " + JSON.stringify(accountIdActive));
-
-    return accounts.map((account) => {
-
-      if (account.id === accountIdActive) {
-
-        const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
-        const balanceDollars = rawBalance.substring(0, rawBalance.length - 3);
-        const balanceCents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
-
-        return (
-          <View
-            style={[sg.aICenter, sg.mT50, sg.mB25]}
-            key={account.id}
-          >
-            <Button
-              transparent
-              iconRight
-              style={sg.aSCenter}
-              onPress={() => {
-                BottomInfo.showAccounts();
-              }}
-            >
-              <Text style={styles.title}>{account.nickName}</Text>
-              <Icon name="ios-arrow-down" style={styles.titleIcon} />
-            </Button>
-
-            <View style={sg.row}>
-              <H1 style={styles.mainAmount}>{balanceDollars}</H1>
-              <Text style={styles.mainAmountCent}>.{balanceCents}</Text>
-            </View>
-          </View>
-        )
-      }
-
-    });
-
-
+  renderAwaitingDirectDebit = (data) => {
+    if (data) {
+      return (
+        <Text style={styles.awaitingDebit}>
+          {`${formatAmountDollar(data)} awaiting direct debit`}
+        </Text>
+      );
+    }
+    return null;
   }
-  */
+
+  renderActivityItem(item = {}, index = -1) {
+    const { screenProps } = this.props;
+    const theme = screenProps.getTheme();
+    const isHeader = _.isEmpty(item);
+    let status;
+
+    if (item.status === 'awaitingMoney' && item.paymentMethod === 'dd') {
+      status = 'Requested';
+    } else if (item.status === 'pending') {
+      status = 'Pending';
+    } else if (item.status === 'processed') {
+      status = 'Processed';
+    } else if (item.status === undefined) {
+      status = 'Status';
+    }
+
+    const amount = item.amountInDollars ? formatAmountDollarCent(item.amountInDollars) : 'Amount';
+    const date = item.date ? item.date : 'Date';
+
+    let type;
+    if (item.type && item.type === 'deposit') {
+      type = 'Deposit';
+    } else if (item.type && item.type === 'withdrawal') {
+      type = 'Withdrawal';
+    } else {
+      type = 'Type';
+    }
+
+    const styleText = isHeader ? sg.colorGray11 : {};
+
+    return (
+      <Row
+        key={index.toString()}
+        style={[
+          styles.activityRow,
+          isHeader ? styles.activityRowHeader : {},
+          sg.borderColor(theme.borderColorList),
+        ]}
+      >
+        <Col style={[styles.activityCol]}>
+          <Text style={[styles.activityColText, styleText]}>{type}</Text>
+        </Col>
+        <Col style={[styles.activityCol]}>
+          <Text style={[styles.activityColText, styleText]}>{date}</Text>
+        </Col>
+        <Col style={[styles.activityCol]}>
+          {status === 'Processed' ? (
+            <BadgeCheckmark inverted />
+          ) : (
+            <Text style={[styles.activityColText, sg.colorGray11, styleText]}>{status}</Text>
+          )}
+        </Col>
+        <Col style={[styles.activityCol, sg.right]}>
+          <Text style={[styles.activityColText, styleText]}>{amount}</Text>
+        </Col>
+      </Row>
+    );
+  }
 
   render() {
     const { segment } = this.state;
+    const { selectedAccount, user, screenProps } = this.props;
+    const activity = selectedAccount.transactions;
 
     return (
       <Content>
-        {/*
+
         <Balance
+          account={selectedAccount}
+          user={user}
           onPress={() => {
             BottomInfo.showAccounts({
               superAccount: false,
             });
           }}
         />
-        */}
 
-        <View style={[sg.contentMarginH2, sg.mT30, sg.mB30]}>
+        <View style={[sg.mT30, sg.mB30]}>
           <Br style={[sg.footerBl]} />
-          <View style={[sg.mH20, sg.row]}>
+          <View style={[sg.mH20, sg.row, sg.flex]}>
             <Button
               transparent
               onPress={this.setPerfomanceSegment}
               style={[
                 styles.activityTabTitleBl,
+                sg.flex05,
                 segment.isPerfomance ? styles.activityTabTitleBlActive : {},
-                sg.mR70,
               ]}
             >
               <Text
@@ -265,7 +338,26 @@ class TabActivity extends Component {
                   !segment.isPerfomance ? styles.activityTabTitleText : {},
                 ]}
               >
-                Perfomance
+                Performance
+              </Text>
+            </Button>
+            <Button
+              transparent
+              onPress={this.setTransactionsSegment}
+              style={[
+                styles.activityTabTitleBl,
+                sg.flex05,
+                segment.isTransactions ? styles.activityTabTitleBlActive : {},
+              ]}
+            >
+              <Text
+                style={[
+                  styles.activityTabTitleTextActive,
+                  sg.textCenter,
+                  !segment.isTransactions ? styles.activityTabTitleText : {},
+                ]}
+              >
+                Transactions
               </Text>
             </Button>
             <Button
@@ -273,22 +365,24 @@ class TabActivity extends Component {
               onPress={this.setInvestmentSegment}
               style={[
                 styles.activityTabTitleBl,
+                sg.flex05,
                 segment.isInvestment ? styles.activityTabTitleBlActive : {},
               ]}
             >
               <Text
                 style={[
                   styles.activityTabTitleTextActive,
+                  sg.textCenter,
                   !segment.isInvestment ? styles.activityTabTitleText : {},
                 ]}
               >
-                Investment
+                Investments
               </Text>
             </Button>
           </View>
         </View>
 
-        {segment.isPerfomance ? (
+        {segment.isPerfomance && (
           <View>
             <Text style={[sg.fontMedium, sg.contentMarginH]}>
               The Target Return of the Fund is 5.2%pa after fees and expenses and including
@@ -296,20 +390,52 @@ class TabActivity extends Component {
             </Text>
             {this.renderChart()}
           </View>
-        ) : (
-          <Investment {...this.props} />
         )}
+        {segment.isInvestment && <Investment {...this.props} />}
+        {segment.isTransactions && (
+        <View style={[sg.contentMarginH2, sg.mT10]}>
+          <Grid>
+            {this.renderActivityItem()}
+            {activity ? activity.map((item, index) => this.renderActivityItem(item, index)) : (
+              <View>
+                <Text style={[sg.mT20, sg.mB20]}>
+                  Transactions will appear here once you start an account.
+                </Text>
+                <Button
+                  onPress={() => screenProps.navigateTo(routeNames.ABOUT_APP_FORM)}
+                  block
+                  style={[sg.mB40]}
+                >
+                  <Text>Start an account</Text>
+                </Button>
+              </View>
+            )}
+          </Grid>
+        </View>
+        )}
+
       </Content>
     );
   }
 }
 
+TabActivity.propTypes = {
+  accounts: PropTypes.array.isRequired,
+  selectedAccount: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+
+};
+
+
 const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
-
+  const selectedAccount = accountSelector(state);
+  const user = userSelector(state);
   return {
     accounts,
+    selectedAccount,
+    user,
   };
 };
 
-export default connect()(TabActivity);
+export default connect(mapStateToProps)(TabActivity);
