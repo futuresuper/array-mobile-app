@@ -189,11 +189,13 @@ const signDataRoutes = formatRoutes({
       title: 'Artist / Industry Participant Name',
     },
   },
+  [routeNames.WHATS_NEXT]: {
+    screen: screens.WhatsNext,
+  },
   [routeNames.ID_CHECK]: {
     screen: screens.IdCheck,
     params: {
-      protected: false,
-      title: 'Your ID check',
+      protected: true,
     },
   },
   [routeNames.ID_CHECK_DETAILS]: {
