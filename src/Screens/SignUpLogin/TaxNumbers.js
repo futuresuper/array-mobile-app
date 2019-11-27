@@ -42,7 +42,7 @@ class TaxNumbers extends Component {
     this.state = {
       form: {
         tfn: {
-          validations: ['required'],
+          validations: [[this.tfnValidator, 'Invalid TFN']],
         },
         usPerson: {
         },
@@ -95,6 +95,36 @@ class TaxNumbers extends Component {
     }
   }
 
+  tfnValidator(value) {
+    let tfn = value.replace(/\s+/g, '');
+    tfn = tfn.replace(/[-]/g, '');
+
+    const isNumber = /^[0-9]+$/.test(tfn);
+    if (!isNumber) {
+      return true;
+    }
+    const { length } = tfn;
+    if (length !== 9) {
+      return true;
+    }
+    const digits = tfn.split('');
+    const sum = (digits[0] * 1)
+        + (digits[1] * 4)
+        + (digits[2] * 3)
+        + (digits[3] * 7)
+        + (digits[4] * 5)
+        + (digits[5] * 8)
+        + (digits[6] * 6)
+        + (digits[7] * 9)
+        + (digits[8] * 10);
+
+    const remainder = sum % 11;
+
+    if (remainder === 0) {
+      return false;
+    }
+    return true;
+  }
 
   // reason validator unreasonably complicated
   reasonValidator(value, key) {
@@ -156,7 +186,7 @@ class TaxNumbers extends Component {
         pure
         formData={form}
         formKey={formKey}
-        onPress={e => this.handleResidentSwich(e)}
+        onPress={(e) => this.handleResidentSwich(e)}
         ios_backgroundColor={sc.color.gray12}
         trackColor={{
           false: sc.color.gray12,
