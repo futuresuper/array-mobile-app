@@ -52,7 +52,6 @@ import {
   navigateTo,
   routeBack,
 } from 'src/Redux/Nav';
-import NotifService from './NotifService';
 import { sc } from './Styles';
 
 class AppIndex extends Component {
@@ -62,7 +61,6 @@ class AppIndex extends Component {
     this.navigateTo = this.navigateTo.bind(this);
     this.spinnerShow = this.spinnerShow.bind(this);
     this.spinnerHide = this.spinnerHide.bind(this);
-    this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
   }
 
   componentDidMount() {
@@ -70,7 +68,6 @@ class AppIndex extends Component {
       this.routeBack();
       return true;
     });
-    this.initializeFcm();
     this.setAnalyticsUser();
     this.initializeTheme();
   }
@@ -81,27 +78,6 @@ class AppIndex extends Component {
       const { id } = auth.user;
       amplitude.getInstance().setUserId(id);
     }
-  }
-
-  // eslint-disable-next-line react/sort-comp
-  initializeFcm() {
-    const { auth } = this.props;
-    console.log('initializng')
-    if (auth.user) {
-      this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
-    }
-  }
-
-  // eslint-disable-next-line react/sort-comp
-  onNotif(notif) {
-    console.log(notif);
-    Alert.alert(notif.title, notif.message);
-  }
-
-  onRegister(token) {
-    console.log('notif')
-
-    Alert.alert('Registered !', JSON.stringify(token));
   }
 
 

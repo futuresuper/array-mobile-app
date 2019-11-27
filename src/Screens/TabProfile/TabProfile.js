@@ -31,6 +31,7 @@ import { userUpdateAvatar } from 'src/Redux/Auth';
 
 import Camera from 'src/Components/Camera';
 import { sg } from 'src/Styles';
+import NotifService from 'src/NotifService';
 import ImageUploadModal from './ImageUploadModal';
 
 
@@ -39,6 +40,8 @@ import styles from './styles';
 class TabProfile extends Component {
   constructor(props) {
     super(props);
+
+    this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
 
     this.state = {
       cameraVisible: false,
@@ -55,20 +58,12 @@ class TabProfile extends Component {
         //     props.screenProps.toogleTheme();
         //   },
         // },
-        // {
-        //   name: 'Allow Push Notifications',
-        //   function: () => {
-        //     Alert.alert(
-        //       'Subscribe to Push Notifications',
-        //       'Subscribe to recieve Push Notifications in the future.',
-        //       [
-        //         { text: 'Cancel', onPress: () => console.log('Cancel pressed') },
-        //         { text: 'Subscribe', onPress: () => console.log('Subscribe Pressed') },
-        //       ],
-        //       { cancelable: false },
-        //     );
-        //   },
-        // },
+        {
+          name: 'Allow Push Notifications',
+          function: () => {
+            this.initializeFcm();
+          },
+        },
         // {
         //   name: 'Manage accounts',
         //   screen: routeNames.MANAGE_ACCOUNTS,
@@ -114,10 +109,27 @@ class TabProfile extends Component {
     this.toggleImageUploadModal();
   };
 
+  // eslint-disable-next-line react/sort-comp
   navigateTo = (screen) => {
     const { screenProps } = this.props;
     screenProps.navigateTo(screen);
   };
+
+  initializeFcm() {
+    this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
+  }
+
+  // eslint-disable-next-line react/sort-comp
+  onNotif(notif) {
+    console.log(notif);
+    Alert.alert(notif.title, notif.message);
+  }
+
+  onRegister(token) {
+    console.log('notif');
+
+    Alert.alert('Registered !', JSON.stringify(token));
+  }
 
   logOut = () => {
     const { screenProps } = this.props;
