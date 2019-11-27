@@ -20,7 +20,7 @@ class Email extends React.Component {
         flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: Platform.OS === 'ios' ? 0 : -42,
       }}
       >
-        <Text style={sg.fS10}>
+        <Text style={[sg.fS10, sg.mB5, sg.mT5]}>
           Step 4 of 4
         </Text>
         <Text style={[sg.fS17, sg.textBold]}>
