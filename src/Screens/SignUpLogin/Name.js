@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   View,
+  Platform,
 } from 'react-native';
 
 import {
@@ -27,7 +28,7 @@ class Name extends React.Component {
   static navigationOptions = () => ({
     headerTitle: (
       <View style={{
-        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: 0,
+        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: Platform.OS === 'ios' ? 0 : -42,
       }}
       >
         <Text style={[sg.fS10, sg.mB5, sg.mT5]}>
@@ -38,6 +39,9 @@ class Name extends React.Component {
         </Text>
       </View>
     ),
+    headerLeftContainerStyle: {
+      paddingTop: 9,
+    },
   })
 
     state = {

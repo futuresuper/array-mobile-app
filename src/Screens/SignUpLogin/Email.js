@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import { Content, Button, Text } from 'native-base';
 import { routeNames } from 'src/Navigation';
@@ -17,7 +17,7 @@ class Email extends React.Component {
   static navigationOptions = () => ({
     headerTitle: (
       <View style={{
-        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: 0,
+        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: Platform.OS === 'ios' ? 0 : -42,
       }}
       >
         <Text style={[sg.fS10, sg.mB5, sg.mT5]}>
@@ -28,6 +28,9 @@ class Email extends React.Component {
         </Text>
       </View>
     ),
+    headerLeftContainerStyle: {
+      paddingTop: 9,
+    },
   })
 
     state = {
