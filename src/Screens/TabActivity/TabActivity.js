@@ -12,7 +12,7 @@ import _ from 'lodash';
 import { routeNames } from 'src/Navigation';
 
 import {
-  Button, Text, Content, Icon, H1, Grid, Row, Col
+  Button, Text, Content, Icon, H1, Grid, Row, Col,
 } from 'native-base';
 
 import { accountsSelector, userSelector } from 'src/Redux/AppContent';
@@ -36,7 +36,7 @@ import SunGlow from 'src/Components/SunGlow';
 // } from 'react-native-chart-kit';
 import { LineChart } from 'src/Components/ChartKit';
 
-import GraphExample2 from 'src/assets/images/GraphExample2.png';
+import GraphExample2 from 'src/assets/images/GraphUpdatedOct.png';
 
 import { sg } from 'src/Styles';
 import styles from './styles';
@@ -51,30 +51,12 @@ class TabActivity extends Component {
     this.state = {
       segment: {
         isPerfomance: true,
+        isTransactions: false,
         isInvestment: false,
       },
       activeDot: 'Mar 8',
       activeBalance: 0,
-      activity: [
-        {
-          type: 'Deposit',
-          date: '29 Fed',
-          status: 1,
-          amount: '+$20.00',
-        },
-        {
-          type: 'Deposit',
-          date: '19 Fed',
-          status: 2,
-          amount: '+$20.00',
-        },
-        {
-          type: 'Deposit',
-          date: '09 Fed',
-          status: 3,
-          amount: '+$0.50',
-        },
-      ],
+      activity: [],
     };
   }
 
@@ -83,6 +65,7 @@ class TabActivity extends Component {
       segment: {
         isPerfomance: true,
         isInvestment: false,
+        isTransactions: false,
       },
     });
   };
@@ -90,11 +73,22 @@ class TabActivity extends Component {
   setInvestmentSegment = () => {
     this.setState({
       segment: {
-        isPerfomance: false,
         isInvestment: true,
+        isPerfomance: false,
+        isTransactions: false,
       },
     });
   };
+
+  setTransactionsSegment = () => {
+    this.setState({
+      segment: {
+        isPerfomance: false,
+        isInvestment: false,
+        isTransactions: true,
+      },
+    });
+  }
 
   renderGlow() {
     return <SunGlow utcOffset={600} style={styles.activityCircleDay} {...this.props} />;
@@ -107,6 +101,7 @@ class TabActivity extends Component {
       <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
           <Image source={GraphExample2} style={styles.activityGraph} />
+
           {/* <LineChart
             data={{
               labels: ['March', 'April', 'May', 'June'],
@@ -211,7 +206,7 @@ class TabActivity extends Component {
             Mar
           </Text>
           <Text style={[sg.fS14, sg.fontMedium]} color3>
-            Jun
+            Oct
           </Text>
         </View>
       </View>
@@ -236,26 +231,26 @@ class TabActivity extends Component {
     const isHeader = _.isEmpty(item);
     let status;
 
-    if (item.status === "awaitingMoney" && item.paymentMethod === "dd") {
+    if (item.status === 'awaitingMoney' && item.paymentMethod === 'dd') {
       status = 'Requested';
-    } else if (item.status === "pending") {
+    } else if (item.status === 'pending') {
       status = 'Pending';
-    } else if (item.status === "processed") {
+    } else if (item.status === 'processed') {
       status = 'Processed';
     } else if (item.status === undefined) {
       status = 'Status';
     }
 
-    const amount = item.amountInDollars ? formatAmountDollarCent(item.amountInDollars) : "Amount";
-    const date = item.date ? item.date : "Date";
+    const amount = item.amountInDollars ? formatAmountDollarCent(item.amountInDollars) : 'Amount';
+    const date = item.date ? item.date : 'Date';
 
     let type;
-    if (item.type && item.type === "deposit") {
-      type = "Deposit";
-    } else if (item.type && item.type === "withdrawal") {
-      type = "Withdrawal";
+    if (item.type && item.type === 'deposit') {
+      type = 'Deposit';
+    } else if (item.type && item.type === 'withdrawal') {
+      type = 'Withdrawal';
     } else {
-      type = "Type";
+      type = 'Type';
     }
 
     const styleText = isHeader ? sg.colorGray11 : {};
@@ -276,7 +271,7 @@ class TabActivity extends Component {
           <Text style={[styles.activityColText, styleText]}>{date}</Text>
         </Col>
         <Col style={[styles.activityCol]}>
-          {status === "Processed" ? (
+          {status === 'Processed' ? (
             <BadgeCheckmark inverted />
           ) : (
             <Text style={[styles.activityColText, sg.colorGray11, styleText]}>{status}</Text>
@@ -330,6 +325,25 @@ class TabActivity extends Component {
             </Button>
             <Button
               transparent
+              onPress={this.setTransactionsSegment}
+              style={[
+                styles.activityTabTitleBl,
+                sg.flex05,
+                segment.isTransactions ? styles.activityTabTitleBlActive : {},
+              ]}
+            >
+              <Text
+                style={[
+                  styles.activityTabTitleTextActive,
+                  sg.textCenter,
+                  !segment.isTransactions ? styles.activityTabTitleText : {},
+                ]}
+              >
+                Transactions
+              </Text>
+            </Button>
+            <Button
+              transparent
               onPress={this.setInvestmentSegment}
               style={[
                 styles.activityTabTitleBl,
@@ -350,42 +364,38 @@ class TabActivity extends Component {
           </View>
         </View>
 
-        {segment.isPerfomance ? (
+        {segment.isPerfomance && (
           <View>
             <Text style={[sg.fontMedium, sg.contentMarginH]}>
-              The Target Return of the Fund is 5.2%pa after fees and expenses and including
+              The Target Return of the Fund is 5.2% per annum after fees and expenses and including
               distributions.
             </Text>
             {this.renderChart()}
-
-            <View style={[sg.contentMarginH2, sg.mT50]}>
-              <H1 style={[sg.fS24, sg.textCenter, sg.mB30]}>Activity</H1>
-              <Grid>
-                {this.renderActivityItem()}
-                {activity ? activity.map((item, index) => this.renderActivityItem(item, index)) : (
-                  <View>
-                    <Text style={[sg.mT20, sg.mB20]}>
-                      Transactions will appear here once you start an account.
-                    </Text>
-                    <Button
-                      onPress={() => {
-                        screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                      }}
-                      block
-                      style={[sg.mB40]}
-                    >
-                      <Text>Start an account</Text>
-                    </Button>
-                  </View>
-
-                )}
-              </Grid>
-            </View>
-
           </View>
-        ) : (
-          <Investment {...this.props} />
         )}
+        {segment.isInvestment && <Investment {...this.props} />}
+        {segment.isTransactions && (
+        <View style={[sg.contentMarginH2, sg.mT10]}>
+          <Grid>
+            {this.renderActivityItem()}
+            {activity ? activity.map((item, index) => this.renderActivityItem(item, index)) : (
+              <View>
+                <Text style={[sg.mV40, sg.mH20, sg.textCenter]}>
+                  Transactions will appear here once you start an account.
+                </Text>
+                <Button
+                  onPress={() => screenProps.navigateTo(routeNames.ABOUT_APP_FORM)}
+                  block
+                  style={[sg.mB40]}
+                >
+                  <Text>Start an account</Text>
+                </Button>
+              </View>
+            )}
+          </Grid>
+        </View>
+        )}
+
       </Content>
     );
   }

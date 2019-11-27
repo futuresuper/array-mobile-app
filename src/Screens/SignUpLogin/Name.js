@@ -8,7 +8,6 @@ import {
   Content,
   Button,
   Text,
-  Icon,
 } from 'native-base';
 
 import {
@@ -17,7 +16,6 @@ import {
 import composeHoc from 'src/Common/Hocs';
 import {
   Input,
-  Picker,
 } from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 
@@ -26,6 +24,22 @@ import {
 } from 'src/Styles';
 
 class Name extends React.Component {
+  static navigationOptions = () => ({
+    headerTitle: (
+      <View style={{
+        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: 0,
+      }}
+      >
+        <Text style={[sg.fS10, sg.mB5, sg.mT5]}>
+          Step 3 of 4
+        </Text>
+        <Text style={[sg.fS17, sg.textBold]}>
+          Name
+        </Text>
+      </View>
+    ),
+  })
+
     state = {
       form: {
         /*
@@ -119,9 +133,6 @@ class Name extends React.Component {
         <Content padder contentContainerStyle={sg.flexGrow}>
           <View style={sg.spaceBetween}>
             <View>
-              <Text style={[sg.formHeading]}>
-              Your name
-              </Text>
 
               {/*
             <Picker

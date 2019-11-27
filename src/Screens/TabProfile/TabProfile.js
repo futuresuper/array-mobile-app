@@ -73,6 +73,10 @@ class TabProfile extends Component {
         //   name: 'Manage accounts',
         //   screen: routeNames.MANAGE_ACCOUNTS,
         // },
+        {
+          name: 'Switch accounts',
+          screen: routeNames.ACCOUNTS,
+        },
         // {
         //   name: 'Personal details',
         //   screen: routeNames.PERSONAL_DETAILS,
@@ -83,7 +87,7 @@ class TabProfile extends Component {
         // },
         // {
         //   name: 'Talk to us',
-        //   screen: routeNames.CONTACT_US,
+        //   screen: routeNames.TALK_US,
         // },
         // {
         //   name: 'Talk to us',
@@ -203,8 +207,6 @@ class TabProfile extends Component {
     if (!user.dateJoined) {
       user.dateJoined = '2019-03-15';
     }
-    const theme = screenProps.getTheme();
-
     return (
       <Content contentContainerStyle={[sg.pB30]}>
         <Grid style={[sg.mT20]}>

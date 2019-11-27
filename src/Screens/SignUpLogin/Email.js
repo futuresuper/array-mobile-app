@@ -10,10 +10,26 @@ import { Input } from 'src/Components/Form';
 import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
 import { userDataSave } from 'src/Redux/Auth';
 import { appContentSave } from 'src/Redux/AppContent';
-import { styleGlobal } from 'src/Styles';
+import { styleGlobal, sg } from 'src/Styles';
 import amplitude from 'amplitude-js';
 
 class Email extends React.Component {
+  static navigationOptions = () => ({
+    headerTitle: (
+      <View style={{
+        flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: 0,
+      }}
+      >
+        <Text style={[sg.fS10, sg.mB5, sg.mT5]}>
+          Step 4 of 4
+        </Text>
+        <Text style={[sg.fS17, sg.textBold]}>
+          Name
+        </Text>
+      </View>
+    ),
+  })
+
     state = {
       form: {
         emailAddress: {
@@ -88,10 +104,6 @@ class Email extends React.Component {
         <Content padder contentContainerStyle={styleGlobal.flexGrow}>
           <View style={styleGlobal.spaceBetween}>
             <View>
-              <Text style={[styleGlobal.formHeading, styleGlobal.mB50]}>
-              Your email
-              </Text>
-
               <Input
                 formData={form}
                 formKey="emailAddress"
@@ -101,7 +113,6 @@ class Email extends React.Component {
                 onChangeText={hocs.handleInput}
               />
             </View>
-
             <KeyboardAvoidingView keyboardVerticalOffset={100}>
               <Button
                 onPress={() => this.handlePress()}

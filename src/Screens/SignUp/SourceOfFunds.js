@@ -48,10 +48,6 @@ class SourceOfFunds extends React.Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View>
-            <Text style={sg.formHeading}>
-              Funds source
-            </Text>
-
             <Text style={[sg.formHeadingDescription]}>
               Which of these best describes the source of your investment funds?
             </Text>

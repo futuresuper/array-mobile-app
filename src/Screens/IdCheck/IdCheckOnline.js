@@ -89,10 +89,6 @@ class IdCheckOnline extends Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View style={sg.mB20}>
-            <Text style={sg.formHeading}>
-              Online ID Check
-            </Text>
-
             <Grid style={sg.mT20}>
               <Col style={sg.width50}>
                 <CheckBox

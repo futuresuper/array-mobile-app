@@ -190,7 +190,6 @@ class HomeAddress extends React.Component {
       <Content padder bounces={false} contentContainerStyle={sg.flexGrow}>
         <View style={sg.spaceBetween}>
           <View style={sg.zIndex10}>
-            <Text style={[sg.formHeading, sg.mB50]}>Home address</Text>
             {showManualForm ? (
               <View>
                 <Input

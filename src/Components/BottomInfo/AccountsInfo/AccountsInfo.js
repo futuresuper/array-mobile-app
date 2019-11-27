@@ -120,6 +120,22 @@ class AccountsInfo extends Component {
     return null;
   }
 
+  renderNoAccounts() {
+      return (
+        <View style={sg.pH20}>
+            <Text style={[sg.textCenter, sg.textBold]}>
+                YOUR ACCOUNTS
+            </Text>
+            <Text style={[sg.textCenter,sg.pT10]}>
+                Your accounts will show up here once you've set them up.
+            </Text>
+            <Text style={[sg.textCenter,sg.pT10]}>
+                With Array, you can have multiple accounts if you want to.
+            </Text>
+        </View>
+      )
+  }
+
   render() {
     const { superAccount, screenProps, accounts } = this.props;
     const { list } = this.state;
@@ -128,6 +144,7 @@ class AccountsInfo extends Component {
       <View style={sg.mH5}>
         <List>
           {accounts.map((account) => this.renderAccount(account))}
+          {accounts.length === 0 && this.renderNoAccounts()}
         </List>
 
         <View style={[sg.mT30, sg.mH10]}>

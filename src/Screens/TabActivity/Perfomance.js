@@ -20,26 +20,7 @@ class Perfomance extends Component {
     this.state = {
       confirmDepositAmount: 0,
       plusMinusValue: 0,
-      activity: [
-        {
-          type: 'Deposit',
-          date: '29 Fed',
-          status: 1,
-          amount: '+$20.00',
-        },
-        {
-          type: 'Deposit',
-          date: '19 Fed',
-          status: 2,
-          amount: '+$20.00',
-        },
-        {
-          type: 'Deposit',
-          date: '09 Fed',
-          status: 3,
-          amount: '+$0.50',
-        },
-      ],
+      activity: [],
     };
   }
 

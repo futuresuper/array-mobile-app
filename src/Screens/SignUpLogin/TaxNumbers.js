@@ -302,10 +302,6 @@ class TaxNumbers extends Component {
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>
           <View>
-            <Text style={sg.formHeading}>
-              Tax Numbers
-            </Text>
-
             <Input
               formData={form}
               formKey="tfn"

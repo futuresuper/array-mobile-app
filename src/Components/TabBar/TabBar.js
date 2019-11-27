@@ -12,6 +12,8 @@ import SunActive from './images/SunActive.png';
 import SunInactive from './images/SunInactive.png';
 import ChelActive from './images/ChelActive.png';
 import ChelInactive from './images/ChelInactive.png';
+import LeafActive from './images/LeafActive.png';
+import LeafInactive from './images/LeafInactive.png';
 
 import styles from './styles';
 
@@ -52,6 +54,13 @@ const TabBar = (props) => {
     iconProfileStyle = {};
   }
 
+  let iconImpact = LeafInactive;
+  let iconImpactStyle = iconStyle;
+  if (routeName === routeNames.TAB_IMPACT) {
+    iconImpact = LeafActive;
+    iconImpactStyle = {};
+  }
+
   return (
     <Footer>
       <FooterTab>
@@ -77,6 +86,15 @@ const TabBar = (props) => {
         >
           <Image source={iconFarms} style={[iconFarmsStyle]} />
         </Button>
+        {/*
+        <Button
+          onPress={() => {
+            screenProps.navigateTo(routeNames.TAB_IMPACT);
+          }}
+        >
+          <Image source={iconImpact} style={[iconImpactStyle]} />
+        </Button>
+        */}
         <Button
           onPress={() => {
             screenProps.navigateTo(routeNames.TAB_PROFILE);

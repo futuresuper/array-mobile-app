@@ -92,21 +92,21 @@ class ThanksShare extends React.Component {
         >
           <View style={styles.opacityBl}>
             <View style={[styles.thanksBl]}>
-            <BadgeCheckmark
-              style={styles.checkmark}
-              styleTick={styles.checkmarkTick}
-            />
+              <BadgeCheckmark
+                style={styles.checkmark}
+                styleTick={styles.checkmarkTick}
+              />
 
-            <Text style={[sg.formHeading, sg.aSCenter, sg.mT20, sg.mB20]}>Thanks!</Text>
-            <Text style={[sg.textCenter, sg.fontMedium]}>
+              <Text style={[sg.formHeading, sg.aSCenter, sg.mT20, sg.mB20]}>Thanks!</Text>
+              <Text style={[sg.textCenter, sg.fontMedium]}>
               Your spot in the&nbsp;
-              <Text style={sg.textBold}>August</Text>
+                <Text style={sg.textBold}>August</Text>
               &nbsp;group
-              {'\n'}
+                {'\n'}
               is&nbsp;
-              <Text style={sg.textBold}>confirmed.</Text>
-            </Text>
-          </View>
+                <Text style={sg.textBold}>confirmed.</Text>
+              </Text>
+            </View>
           </View>
         </Modal>
       );
@@ -196,17 +196,17 @@ class ThanksShare extends React.Component {
         <View>
           <View>
             <View style={[sg.mT20, sg.mB30]}>
-            <ListItem style={[sg.mL0, styles.borderListItem]} />
-            {this.renderListItem('Artist VIP early\n access group', userInfo.waitlistAccessGroup)}
-          </View>
+              <ListItem style={[sg.mL0, styles.borderListItem]} />
+              {this.renderListItem('Artist VIP early\n access group', userInfo.waitlistAccessGroup)}
+            </View>
 
             <View>
-            <Text>
+              <Text>
               If you have any questions feel free to get in touch with Heidi at&nbsp;
-              <TextLink email="heidi@feat.ldt">heidi@feat.ldt</TextLink>
-            </Text>
+                <TextLink email="heidi@feat.ldt">heidi@feat.ldt</TextLink>
+              </Text>
 
-          </View>
+            </View>
           </View>
 
         </View>
@@ -229,26 +229,26 @@ class ThanksShare extends React.Component {
           {this.renderOpacity()}
           <View style={[sg.spaceBetween, sg.pB60]}>
             <View>
-            <View style={styles.profileBadge}>
-              <Text style={styles.profileBadgeText}>{fullName ? fullName.charAt(0) : ''}</Text>
-            </View>
-            <Text style={[sg.aSCenter, sg.mT10, sg.fS35, sg.textBold]}>
-              {fullName}
-            </Text>
-            <Button
-              small
-              onPress={() => {
+              <View style={styles.profileBadge}>
+                <Text style={styles.profileBadgeText}>{fullName ? fullName.charAt(0) : ''}</Text>
+              </View>
+              <Text style={[sg.aSCenter, sg.mT10, sg.fS35, sg.textBold]}>
+                {fullName}
+              </Text>
+              <Button
+                small
+                onPress={() => {
                 // eslint-disable-next-line react/destructuring-assignment
-                this.props.screenProps.navigateTo(routeNames.TAB_HOME);
-              }}
-            >
-              <Text>next</Text>
-            </Button>
+                  this.props.screenProps.navigateTo(routeNames.TAB_HOME);
+                }}
+              >
+                <Text>next</Text>
+              </Button>
 
-            {this.renderIndividual()}
-            {this.renderFeat()}
+              {this.renderIndividual()}
+              {this.renderFeat()}
 
-          </View>
+            </View>
 
             {this.renderFeatBottom()}
           </View>
