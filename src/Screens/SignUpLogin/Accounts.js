@@ -22,14 +22,12 @@ class Accounts extends React.Component {
   componentDidMount() {
     console.log("ON ACCOUNTS");
     const { userDataSaveConnect, appContentSaveConnect, screenProps } = this.props;
+    // screenProps.navigateTo(routeNames.WHATS_NEXT); // dev purpose
     this.getAppContent((appContent) => {
       const { user } = appContent;
       userDataSaveConnect(user);
       appContentSaveConnect(appContent);
       screenProps.spinnerHide();
-      // dev purpose
-      // const { screenProps } = this.props;
-      // screenProps.navigateTo(routeNames.WHATS_NEXT);
     });
   }
 
