@@ -29,17 +29,49 @@ class TaxFileNumber extends React.Component {
     this.state = {
       form: {
         field: {
-          validations: ['required'],
+          validations: ['required', [this.tfnValidator, 'This field is required']],
         },
       },
     };
   }
+
 
   componentDidMount() {
     const { hocs } = this.props;
     const { form } = this.state;
 
     hocs.setForm(form);
+  }
+
+  tfnValidator(value) {
+    let tfn = value.replace(/\s+/g, '');
+    tfn = tfn.replace(/[-]/g, '');
+
+    const isNumber = /^[0-9]+$/.test(tfn);
+    if (!isNumber) {
+      return false;
+    }
+    const { length } = tfn;
+    if (length !== 9) {
+      return false;
+    }
+    const digits = tfn.split('');
+    const sum = (digits[0] * 1)
+        + (digits[1] * 4)
+        + (digits[2] * 3)
+        + (digits[3] * 7)
+        + (digits[4] * 5)
+        + (digits[5] * 8)
+        + (digits[6] * 6)
+        + (digits[7] * 9)
+        + (digits[8] * 10);
+
+    const remainder = sum % 11;
+
+    if (remainder === 0) {
+      return true;
+    }
+    return false;
   }
 
   handlePress() {

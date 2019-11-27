@@ -28,7 +28,7 @@ class Accounts extends React.Component {
       screenProps.spinnerHide();
       // dev purpose
       // const { screenProps } = this.props;
-      // screenProps.navigateTo(routeNames.NAME);
+      screenProps.navigateTo(routeNames.TAX_NUMBERS);
     });
   }
 

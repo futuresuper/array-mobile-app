@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import {
   View,
+  Platform,
 } from 'react-native';
 
 import {
@@ -32,7 +33,7 @@ class SignUpLogin extends Component {
     static navigationOptions = () => ({
       headerTitle: (
         <View style={{
-          flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: 0,
+          flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginLeft: Platform.OS === 'ios' ? 0 : -42,
         }}
         >
           {/*
@@ -42,11 +43,14 @@ class SignUpLogin extends Component {
 
           </Text>
           */}
-          <Text style={[sg.fS17, sg.textBold]}>
+          <Text style={[sg.fS22, sg.textBold]}>
             Mobile Number
           </Text>
         </View>
       ),
+      headerLeftContainerStyle: {
+        paddingTop: 9,
+      },
     })
 
     state = {
