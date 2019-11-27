@@ -44,6 +44,9 @@ class SignUpLogin extends Component {
           </Text>
         </View>
       ),
+      headerLeftContainerStyle: {
+        paddingTop: 7,
+      },
     })
 
     state = {
