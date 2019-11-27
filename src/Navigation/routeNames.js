@@ -49,6 +49,7 @@ export default {
   PEP: 'Pep',
   PEP_DESCRIPTION: 'PepDescription',
   TAX_NUMBERS: 'TaxNumbers',
+  TAX_FILE_NUMBER: 'TaxFileNumber',
   FINAL_CONFIRMATION: 'FinalConfirmation',
   ID_CHECK_FINISH: 'IdCheckFinish',
   ID_CHECK_DETAILS: 'IdCheckDetails',
