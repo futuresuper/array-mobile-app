@@ -28,6 +28,9 @@ class Email extends React.Component {
         </Text>
       </View>
     ),
+    headerLeftContainerStyle: {
+      paddingTop: 9,
+    },
   })
 
     state = {

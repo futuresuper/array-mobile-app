@@ -45,7 +45,7 @@ class SignUpLogin extends Component {
         </View>
       ),
       headerLeftContainerStyle: {
-        paddingTop: 7,
+        paddingTop: 9,
       },
     })
 
