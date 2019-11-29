@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -28,10 +28,12 @@ import {
 import { allInvestments as styles } from './styles';
 
 
-class AllInvestments extends Component {
+class AllInvestments extends PureComponent {
   render() {
     const { screenProps, investments } = this.props;
     const theme = screenProps.getTheme();
+
+    console.log(investments)
 
     return (
       <Content padder contentContainerStyle={sg.contentPadding2}>
