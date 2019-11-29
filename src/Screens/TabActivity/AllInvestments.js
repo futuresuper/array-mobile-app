@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -28,22 +28,95 @@ import {
 import { allInvestments as styles } from './styles';
 
 
-class AllInvestments extends Component {
+const DATA = [
+  {
+    category: 'renewables',
+    name: 'Brigalow',
+    subCategory: 'Solar Farm',
+    solarFarmId: '1',
+  },
+  {
+    category: 'renewables',
+    name: 'Chinchilla',
+    subCategory: 'Solar Farm',
+    solarFarmId: '2',
+  },
+  {
+    category: 'renewables',
+    name: 'Swan Hill',
+    subCategory: 'Solar Farm',
+    solarFarmId: '3',
+  },
+  {
+    category: 'ethical',
+    name: 'Juice Capital Energy',
+    subCategory: 'Renewables Lending',
+  },
+  {
+    category: 'ethical',
+    name: 'RateSetter (National Clean Energy Market)',
+    subCategory: 'Renewables Lending',
+  },
+  {
+    category: 'ethical',
+    name: 'NextDC Floating Rate Note',
+    subCategory: 'Fixed Interest',
+  },
+  {
+    category: 'ethical',
+    name: 'Bendigo and Adelaide Bank Floating Rate Note',
+    subCategory: 'Fixed Interest',
+  },
+  {
+    category: 'ethical',
+    name: 'Insurance Australia Group Floating Rate Note',
+    subCategory: 'Fixed Interest',
+  },
+  {
+    category: 'ethical',
+    name: 'Bank of Queensland Floating Rate Note',
+    subCategory: 'Fixed Interest',
+  },
+  {
+    category: 'ethical',
+    name: 'Centuria Funds Management Floating Rate Note',
+    subCategory: 'Fixed Interest',
+  },
+  {
+    category: 'ethical',
+    name: 'Challenger Floating Rate Note',
+    subCategory: 'Fixed Interest',
+  },
+  {
+    category: 'ethical',
+    name: 'BNY Custodian Omni Bank Account',
+    subCategory: 'Cash',
+  },
+  {
+    category: 'ethical',
+    name: 'St George Bank (Investment Account)',
+    subCategory: 'Cash',
+  },
+];
+
+class AllInvestments extends PureComponent {
   render() {
     const { screenProps, investments } = this.props;
     const theme = screenProps.getTheme();
 
+    // console.log(investments);
+
     return (
       <Content padder contentContainerStyle={sg.contentPadding2}>
         <FlatList
-          data={investments}
+          data={DATA}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => {
             const {
               name,
               subCategory,
             } = item;
-            const isSunIcon = (subCategory === 'Solar Farm');
+            const isSunIcon = (subCategory === 'Solar Farm' || subCategory === 'Renewables Lending');
             const icon = {
               source: isSunIcon ? SunDark : HeartDark,
               style: isSunIcon ? styles.iconSun : styles.iconHeart,
