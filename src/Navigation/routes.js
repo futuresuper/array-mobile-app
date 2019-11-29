@@ -75,6 +75,12 @@ const signDataRoutes = formatRoutes({
       title: 'About',
     },
   },
+  [routeNames.IMPORTANT_INFO]: {
+    screen: screens.ImportantInfo,
+    params: {
+      title: 'Important Info',
+    },
+  },
   [routeNames.NAME]: {
     screen: screens.Name,
   },
