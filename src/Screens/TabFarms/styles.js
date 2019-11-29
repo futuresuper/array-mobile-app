@@ -148,4 +148,23 @@ export const farmsList = {
     justifyContent: 'space-between',
     marginRight: isIOS() ? null : 15,
   },
+  activityTabTitleBl: {
+    justifyContent: 'center',
+    paddingBottom: 0,
+    paddingHorizontal: 1,
+  },
+  activityTabTitleBlActive: {
+    borderBottomWidth: 2,
+    borderRadius: 0,
+  },
+  activityTabTitleTextActive: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    fontSize: 12,
+    fontFamily: sc.font.bold,
+  },
+  activityTabTitleText: {
+    color: sc.color.gray12,
+    fontFamily: sc.font.regular,
+  },
 };
