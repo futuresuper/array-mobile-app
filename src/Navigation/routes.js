@@ -75,6 +75,12 @@ const signDataRoutes = formatRoutes({
       title: 'About',
     },
   },
+  [routeNames.IMPORTANT_INFO]: {
+    screen: screens.ImportantInfo,
+    params: {
+      title: 'Important Info',
+    },
+  },
   [routeNames.NAME]: {
     screen: screens.Name,
   },
@@ -383,6 +389,17 @@ const tabBarModalRootRoutes = {
       // routeReset: true,
     },
   },
+  [routeNames.ALL_INVESTMENTS]: {
+    screen: screens.AllInvestments,
+    params: {
+      routeReset: true,
+      title: 'All investments',
+      headerTitleStyle: {
+        fontSize: 24,
+      },
+    },
+    ...tabCardOptions,
+  },
 };
 
 const tabRoutes = {
@@ -460,17 +477,6 @@ const tabCardRoutes = {
       title: 'Join Future Super',
       routeReset: true,
       headerTitleStyle: sg.tabProfileTitle,
-    },
-    ...tabCardOptions,
-  },
-  [routeNames.ALL_INVESTMENTS]: {
-    screen: screens.AllInvestments,
-    params: {
-      routeReset: true,
-      title: 'All investments',
-      headerTitleStyle: {
-        fontSize: 24,
-      },
     },
     ...tabCardOptions,
   },
