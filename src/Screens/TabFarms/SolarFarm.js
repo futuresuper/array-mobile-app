@@ -98,7 +98,7 @@ class SolarFarm extends Component {
             </ImageBackground>
 
             <Text style={[sg.fS24, sg.textBold, sg.aSCenter, sg.mT30]} color2>
-          About
+              About
             </Text>
             <Text style={[sg.contentMarginH, sg.mT20, sg.mB30, sg.lH26]}>{item.about}</Text>
 

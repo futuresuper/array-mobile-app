@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import {
   View, Image, FlatList, ImageBackground, TouchableOpacity,
 } from 'react-native';
-import { Content, Text, Icon } from 'native-base';
+import {
+  Content, Text, Icon, Button,
+} from 'native-base';
 
 import WeatherWidget from 'src/Components/WeatherWidget';
 import { CircularProgress } from 'react-native-circular-progress';
@@ -15,10 +17,36 @@ import { solarFarmsSelector } from 'src/Redux/AppContent';
 import { sg, sc } from 'src/Styles';
 
 import MarkerActive from 'src/assets/images/MarkerActive.png';
+import SolarFarmsMap from './SolarFarmsMap';
 
 import { farmsList as styles } from './styles';
 
 class SolarFarmsList extends Component {
+  state = {
+    preview: {
+      isList: true,
+      isMap: false,
+    },
+  }
+
+  setMapPreview() {
+    this.setState({
+      preview: {
+        isList: false,
+        isMap: true,
+      },
+    });
+  }
+
+  setListPreview() {
+    this.setState({
+      preview: {
+        isList: true,
+        isMap: false,
+      },
+    });
+  }
+
   renderFarmCard({ item }) {
     const { screenProps } = this.props;
     return (
@@ -77,30 +105,71 @@ class SolarFarmsList extends Component {
   }
 
   render() {
-    const { screenProps, farms } = this.props;
+    const { farms } = this.props;
+    const { preview } = this.state;
     console.log('----------farms', farms);
     return (
       <Content padder>
         <View style={[sg.aICenter, sg.mB20]}>
           <Text style={[sg.fS24, sg.textBold]} color2>
-            {'Explore your\n Solar Farms'}
+            {'Your Solar Farms'}
           </Text>
-
-          <TouchableOpacity
-            style={styles.markerImageContainer}
-            onPress={() => {
-              screenProps.navigateTo(routeNames.SOLAR_FARMS_MAP);
-            }}
-          >
-            <Image source={MarkerActive} style={styles.markerImage} />
-          </TouchableOpacity>
         </View>
 
-        <FlatList
-          data={farms}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={(...args) => this.renderFarmCard(...args)}
-        />
+        <View style={[sg.mH20, sg.row]}>
+          <Button
+            transparent
+            onPress={() => this.setListPreview()}
+            style={[
+              styles.activityTabTitleBl,
+              sg.flex05,
+              preview.isList ? styles.activityTabTitleBlActive : {},
+            ]}
+          >
+            <Text
+              style={[
+                styles.activityTabTitleTextActive,
+                !preview.isList ? styles.activityTabTitleText : {},
+              ]}
+            >
+              List
+            </Text>
+          </Button>
+          <Button
+            transparent
+            onPress={() => this.setMapPreview()}
+            style={[
+              styles.activityTabTitleBl,
+              sg.flex05,
+              preview.isMap ? styles.activityTabTitleBlActive : {},
+            ]}
+          >
+            <Image source={MarkerActive} style={styles.markerImage} />
+            <Text
+              style={[
+                styles.activityTabTitleTextActive,
+                sg.textCenter,
+                !preview.isMap ? styles.activityTabTitleText : {},
+              ]}
+            >
+              {' Map'}
+            </Text>
+          </Button>
+        </View>
+        <View>
+          {preview.isList && (
+          <FlatList
+            data={farms}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={(...args) => this.renderFarmCard(...args)}
+          />
+          )}
+          {preview.isMap && (
+          <View style={{ height: 450, marginHorizontal: -30 }}>
+            <SolarFarmsMap />
+          </View>
+          )}
+        </View>
       </Content>
     );
   }
