@@ -233,16 +233,6 @@ class TabFarms extends Component {
             </MapView.Marker>
           ))}
         </MapView>
-
-        <View style={[sg.postitionAbsolute, sg.center, sg.contentPadding]}>
-          <BackButton
-            header={false}
-            style={sg.pL0}
-            iconStyle={sg.mL0}
-            {...this.props}
-          />
-        </View>
-
         <View style={styles.farmCardsBl}>
           <FlatList
             ref={(c) => {

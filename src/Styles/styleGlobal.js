@@ -577,6 +577,9 @@ export default {
   flex: {
     flex: 1,
   },
+  flex01: {
+    flex: 0.1,
+  },
   flex03: {
     flex: 0.3,
   },

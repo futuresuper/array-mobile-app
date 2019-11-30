@@ -131,8 +131,8 @@ export const farmsList = {
     right: 0,
   },
   markerImage: {
-    width: 31.2,
-    height: 38.4,
+    width: 15,
+    height: 19,
   },
   farmContainer: {},
   farmImage: {
@@ -160,7 +160,7 @@ export const farmsList = {
   activityTabTitleTextActive: {
     paddingLeft: 0,
     paddingRight: 0,
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: sc.font.bold,
   },
   activityTabTitleText: {

@@ -105,7 +105,7 @@ class SolarFarmsList extends Component {
   }
 
   render() {
-    const { screenProps, farms } = this.props;
+    const { farms } = this.props;
     const { preview } = this.state;
     console.log('----------farms', farms);
     return (
@@ -114,19 +114,9 @@ class SolarFarmsList extends Component {
           <Text style={[sg.fS24, sg.textBold]} color2>
             {'Your Solar Farms'}
           </Text>
-
-          <TouchableOpacity
-            style={styles.markerImageContainer}
-            onPress={() => {
-              screenProps.navigateTo(routeNames.SOLAR_FARMS_MAP);
-            }}
-          >
-            <Image source={MarkerActive} style={styles.markerImage} />
-          </TouchableOpacity>
         </View>
 
-
-        <View style={[sg.mH20, sg.row, sg.flex]}>
+        <View style={[sg.mH20, sg.row]}>
           <Button
             transparent
             onPress={() => this.setListPreview()}
@@ -154,6 +144,7 @@ class SolarFarmsList extends Component {
               preview.isMap ? styles.activityTabTitleBlActive : {},
             ]}
           >
+            <Image source={MarkerActive} style={styles.markerImage} />
             <Text
               style={[
                 styles.activityTabTitleTextActive,
@@ -161,25 +152,24 @@ class SolarFarmsList extends Component {
                 !preview.isMap ? styles.activityTabTitleText : {},
               ]}
             >
-                Map
+              {' Map'}
             </Text>
           </Button>
         </View>
-
-        {preview.isList && (
+        <View>
+          {preview.isList && (
           <FlatList
             data={farms}
             keyExtractor={(item) => item.id.toString()}
             renderItem={(...args) => this.renderFarmCard(...args)}
           />
-        )}
-
-        {preview.isMap && (
-          <View>
+          )}
+          {preview.isMap && (
+          <View style={{ height: 450, marginHorizontal: -30 }}>
             <SolarFarmsMap />
           </View>
-        )}
-
+          )}
+        </View>
       </Content>
     );
   }
