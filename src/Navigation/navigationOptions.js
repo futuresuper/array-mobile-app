@@ -35,6 +35,7 @@ export const signOptions = (props) => {
 
   return {
     title,
+    gesturesEnabled: showBackButton,
     headerLeft: showBackButton ? backButton : null,
     headerTitleStyle: {
       color: theme.textColor2,
