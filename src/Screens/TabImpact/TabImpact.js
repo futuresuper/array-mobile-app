@@ -7,7 +7,11 @@ import { View } from 'react-native';
 import { Content, Text } from 'native-base';
 import { sg } from 'src/Styles';
 import ImpactCard from './ImpactCard';
-import ArrayGif from '../../assets/images/Array-Solar-Farm.gif';
+import Solar from '../../assets/images/impactGifs/Solar.gif';
+import Health from '../../assets/images/impactGifs/Health.gif';
+import Car from '../../assets/images/impactGifs/Car.gif';
+import Water from '../../assets/images/impactGifs/Water.gif';
+import Employment from '../../assets/images/impactGifs/Employment.gif';
 
 class TabHome extends Component {
   constructor(props) {
@@ -29,7 +33,7 @@ class TabHome extends Component {
               </Text>
             </View>
             <ImpactCard
-              image={ArrayGif}
+              image={Solar}
               header="CLEANER ENERGY"
               headerColor="#73C9AC"
               impactNumber="1,446"
@@ -37,12 +41,36 @@ class TabHome extends Component {
               impactNote="That's enough to charge 5.6 million iPhones"
             />
             <ImpactCard
-              image={ArrayGif}
+              image={Health}
               header="HEALTH AND WELLBEING"
               headerColor="#EE6B62"
               impactNumber="420"
               impactTitle="illnesses avoided per year"
               impactNote="Based on research on pollution related diseases"
+            />
+            <ImpactCard
+              image={Car}
+              header="GREENHOUSE GAS REDUCTION"
+              headerColor="#FFAD3A"
+              impactNumber="1,378"
+              impactTitle="tons of CO2e emissions avoided"
+              impactNote="That’s like taking 324 cars off the road"
+            />
+            <ImpactCard
+              image={Water}
+              header="WATER SAVING"
+              headerColor="#2F2353"
+              impactNumber="15"
+              impactTitle="thousand litres of water saved compared to equivalent power from grid"
+              impactNote="That’s 746 backyard swimming pools of water"
+            />
+            <ImpactCard
+              image={Employment}
+              header="EMPLOYMENT"
+              headerColor="#EE6B62"
+              impactNumber="2"
+              impactTitle="full time construction jobs created"
+              impactNote="During the construction of the farms"
             />
           </View>
         </View>

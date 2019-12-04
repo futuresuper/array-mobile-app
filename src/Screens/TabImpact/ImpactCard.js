@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   impactNumberContainer: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   impactNumberText: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   impactNoteContainer: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: 10,
   },
@@ -61,7 +61,9 @@ const ImpactCard = ({
       <Image source={image} style={{ height: 200, width: null, flex: 1 }} />
     </CardItem>
     <CardItem>
-      <Left style={{ flex: 0.4 }}>
+      <Left style={{
+        flex: 0.4
+      }}>
         <Body style={styles.impactNumberContainer}>
           <Text style={styles.impactNumberText}>
             {impactNumber}
@@ -78,7 +80,7 @@ const ImpactCard = ({
     </CardItem>
     <CardItem>
       <Body style={styles.impactNoteContainer}>
-        <Text style={styles.impactNoteText}>
+        <Text style={[styles.impactNoteText]}>
           {impactNote}
         </Text>
       </Body>
