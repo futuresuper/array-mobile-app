@@ -77,7 +77,7 @@ class SolarFarmsList extends Component {
                 style={{ color: sc.color.primary }}
                 size={20}
               />
-              <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15]}>
+              <Text style={[sg.colorWhite, sg.fS14, sg.fontMedium, sg.mL15, { flex: 0.8, flexWrap: 'wrap' }]}>
                 {`${item.statusDescription1}\n${item.statusDescription2}`}
               </Text>
             </View>
