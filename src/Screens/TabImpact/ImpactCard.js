@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import {
   Card, CardItem, Body, Text, Left, Right,
 } from 'native-base';
@@ -17,19 +17,22 @@ const styles = StyleSheet.create({
   },
   impactNumberContainer: {
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingLeft: 8,
   },
   impactNumberText: {
     fontSize: 32,
     fontWeight: 'bold',
   },
   impactTitleContainer: {
-    paddingLeft: 8,
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingLeft: 12,
+    paddingRight: 10,
   },
   impactTitleText: {
     fontSize: 11,
+    flexWrap: 'wrap',
+    textAlign: 'left',
   },
   impactNoteContainer: {
     justifyContent: 'center',
@@ -60,21 +63,17 @@ const ImpactCard = ({
     <CardItem cardBody>
       <Image source={image} style={{ height: 200, width: null, flex: 1 }} />
     </CardItem>
-    <CardItem>
-      <Left style={{ flex: 0.4 }}>
-        <Body style={styles.impactNumberContainer}>
-          <Text style={styles.impactNumberText}>
-            {impactNumber}
-          </Text>
-        </Body>
-      </Left>
-      <Right>
-        <Body style={[styles.impactTitleContainer]}>
-          <Text style={styles.impactTitleText}>
-            {impactTitle}
-          </Text>
-        </Body>
-      </Right>
+    <CardItem style={{ flexDirection: 'row', flex: 1 }}>
+      <View style={styles.impactNumberContainer}>
+        <Text style={styles.impactNumberText}>
+          {impactNumber}
+        </Text>
+      </View>
+      <View style={styles.impactTitleContainer}>
+        <Text style={styles.impactTitleText}>
+          {impactTitle}
+        </Text>
+      </View>
     </CardItem>
     <CardItem>
       <Body style={styles.impactNoteContainer}>
