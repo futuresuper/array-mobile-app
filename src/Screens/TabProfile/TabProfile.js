@@ -216,9 +216,6 @@ class TabProfile extends Component {
     const { themeMode } = screenProps;
     const { listMenu, cameraVisible, imageUploadModalIsVisible } = this.state;
 
-    if (!user.dateJoined) {
-      user.dateJoined = '2019-03-15';
-    }
     return (
       <Content contentContainerStyle={[sg.pB30]}>
         <Grid style={[sg.mT20]}>
@@ -237,6 +234,11 @@ class TabProfile extends Component {
                   <H2 color2>{user.lastName || ''}</H2>
                 </View>
               )}
+            </View>
+            <View>
+              <Text style={[sg.fS12]}>
+                {`Member since ${user.memberSince}` }
+              </Text>
             </View>
           </Col>
         </Grid>
