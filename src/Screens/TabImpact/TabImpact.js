@@ -38,7 +38,7 @@ class TabHome extends Component {
               headerColor="#73C9AC"
               impactNumber="1,446"
               impactTitle="MWh of renewable energy generated per year"
-              impactNote="That's enough to charge 5.6 million iPhones"
+              impactNote="That's enough to charge 534,700 iPhones"
             />
             <ImpactCard
               image={Health}
@@ -54,7 +54,7 @@ class TabHome extends Component {
               headerColor="#FFAD3A"
               impactNumber="1,378"
               impactTitle="tons of CO2e emissions avoided"
-              impactNote="That’s like taking 324 cars off the road"
+              impactNote="That’s like taking 565 cars off the road"
             />
             <ImpactCard
               image={Water}
@@ -62,7 +62,7 @@ class TabHome extends Component {
               headerColor="#2F2353"
               impactNumber="15"
               impactTitle="thousand litres of water saved compared to equivalent power from grid"
-              impactNote="That’s 746 backyard swimming pools of water"
+              impactNote="That’s 2,148 backyard swimming pools of water"
             />
             <ImpactCard
               image={Employment}

@@ -32,7 +32,7 @@ class ProtectedRoutes extends React.Component {
     }
     if (currentRoute.params.protected) {
       console.log("VALIDATING PROTECTED ROUTE");
-      this.validateProtectedRoute(currentRoute);
+      // this.validateProtectedRoute(currentRoute);
     }
   }
 

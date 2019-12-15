@@ -24,7 +24,7 @@ class Email extends React.Component {
           Step 4 of 4
         </Text>
         <Text style={[sg.fS17, sg.textBold]}>
-          Name
+          Email
         </Text>
       </View>
     ),
