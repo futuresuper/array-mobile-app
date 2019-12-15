@@ -131,8 +131,8 @@ export const farmsList = {
     right: 0,
   },
   markerImage: {
-    width: 31.2,
-    height: 38.4,
+    width: 15,
+    height: 19,
   },
   farmContainer: {},
   farmImage: {
@@ -147,5 +147,24 @@ export const farmsList = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginRight: isIOS() ? null : 15,
+  },
+  activityTabTitleBl: {
+    justifyContent: 'center',
+    paddingBottom: 0,
+    paddingHorizontal: 1,
+  },
+  activityTabTitleBlActive: {
+    borderBottomWidth: 2,
+    borderRadius: 0,
+  },
+  activityTabTitleTextActive: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    fontSize: 14,
+    fontFamily: sc.font.bold,
+  },
+  activityTabTitleText: {
+    color: sc.color.gray12,
+    fontFamily: sc.font.regular,
   },
 };

@@ -13,7 +13,6 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - Intercom (5.5.1)
   - jail-monkey (2.3.0):
     - React
   - JKBigInteger2 (0.0.5)
@@ -73,9 +72,6 @@ PODS:
   - react-native-fingerprint-scanner (3.0.0):
     - React
   - react-native-image-picker (1.1.0):
-    - React
-  - react-native-intercom (13.1.0):
-    - Intercom (~> 5.0)
     - React
   - react-native-maps (0.26.1):
     - React
@@ -140,7 +136,6 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-fingerprint-scanner (from `../node_modules/react-native-fingerprint-scanner`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
-  - react-native-intercom (from `../node_modules/react-native-intercom`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -163,9 +158,8 @@ DEPENDENCIES:
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/cocoapods/specs.git:
     - boost-for-react-native
-    - Intercom
     - JKBigInteger2
 
 EXTERNAL SOURCES:
@@ -199,8 +193,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fingerprint-scanner"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
-  react-native-intercom:
-    :path: "../node_modules/react-native-intercom"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
   react-native-orientation-locker:
@@ -248,7 +240,6 @@ SPEC CHECKSUMS:
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  Intercom: a9dac939be35ba163304fbbdc101817a47992992
   jail-monkey: 0830c18bb6f085938a4c8529d554f9b29230a5a4
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
@@ -261,7 +252,6 @@ SPEC CHECKSUMS:
   react-native-camera: f4f2144140ae1e808cad97cc7caf013767c11f1b
   react-native-fingerprint-scanner: 0fb8ebd1f1328f6e6d9af1542298fd2a8e08ec26
   react-native-image-picker: 7a85cf7b0a53845f03ae52fb4592a2748ded069b
-  react-native-intercom: da0c625fe87597a7df94bc872df5a343cec9bfa1
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   react-native-orientation-locker: 23918c400376a7043e752c639c122fcf6bce8f1c
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
@@ -285,4 +275,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 12512a3d5db0a8991eabaa507833cad4217909c5
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.7.5

@@ -50,7 +50,7 @@ class TabActivity extends Component {
 
     this.state = {
       segment: {
-        isPerfomance: true,
+        isPerformance: true,
         isTransactions: false,
         isInvestment: false,
       },
@@ -63,7 +63,7 @@ class TabActivity extends Component {
   setPerfomanceSegment = () => {
     this.setState({
       segment: {
-        isPerfomance: true,
+        isPerformance: true,
         isInvestment: false,
         isTransactions: false,
       },
@@ -74,7 +74,7 @@ class TabActivity extends Component {
     this.setState({
       segment: {
         isInvestment: true,
-        isPerfomance: false,
+        isPerformance: false,
         isTransactions: false,
       },
     });
@@ -83,7 +83,7 @@ class TabActivity extends Component {
   setTransactionsSegment = () => {
     this.setState({
       segment: {
-        isPerfomance: false,
+        isPerformance: false,
         isInvestment: false,
         isTransactions: true,
       },
@@ -311,13 +311,13 @@ class TabActivity extends Component {
               style={[
                 styles.activityTabTitleBl,
                 sg.flex05,
-                segment.isPerfomance ? styles.activityTabTitleBlActive : {},
+                segment.isPerformance ? styles.activityTabTitleBlActive : {},
               ]}
             >
               <Text
                 style={[
                   styles.activityTabTitleTextActive,
-                  !segment.isPerfomance ? styles.activityTabTitleText : {},
+                  !segment.isPerformance ? styles.activityTabTitleText : {},
                 ]}
               >
                 Performance
@@ -364,7 +364,7 @@ class TabActivity extends Component {
           </View>
         </View>
 
-        {segment.isPerfomance && (
+        {segment.isPerformance && (
           <View>
             <Text style={[sg.fontMedium, sg.contentMarginH]}>
               The Target Return of the Fund is 5.2% per annum after fees and expenses and including
