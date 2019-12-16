@@ -64,14 +64,6 @@ class TabHome extends Component {
               impactTitle="thousand litres of water saved compared to equivalent power from grid"
               impactNote="That’s 2,148 backyard swimming pools of water"
             />
-            <ImpactCard
-              image={Employment}
-              header="EMPLOYMENT"
-              headerColor="#EE6B62"
-              impactNumber="2"
-              impactTitle="full time construction jobs created"
-              impactNote="During the construction of the farms"
-            />
           </View>
         </View>
       </Content>

@@ -66,9 +66,9 @@ class BalanceInfo extends Component {
             </Text>
 
             <Text style={[styles.text, sg.mT15]}>
-              While every effort is made to ensure that the information in your member portal is correct,
-              you should consider obtaining advice before acting on any of the information contained within and seek updated information where relevant.
-              We reserve the right to correct any error or omission.
+              While every effort is made that this information is correct,
+              you should check that it is consistent with your own records.
+              We have the right to correct any error or omission.
             </Text>
           </TouchableOpacity>
         </ScrollView>
