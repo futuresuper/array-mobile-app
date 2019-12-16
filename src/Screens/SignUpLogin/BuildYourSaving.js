@@ -49,7 +49,9 @@ class BuildYourSaving extends Component {
               </Text>
 
               <Text style={[sg.colorDark2, sg.textCenter]}>
-                {'With a target return of 5.2%^, you can\nwatch your money grow'}
+                {'The Fund has a target return\nof '}
+                <Text style={[sg.textBold]}>{'5.2%'}</Text>
+                {' per annum^'}
               </Text>
 
             </View>
