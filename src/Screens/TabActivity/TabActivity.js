@@ -173,10 +173,15 @@ class TabActivity extends Component {
           {status === 'Processed' ? (
             <BadgeCheckmark inverted />
           ) : (
-            <Text style={[styles.activityColText, sg.colorGray11, styleText]}>{status}</Text>
+            <Text style={[styles.activityColText, styleText]} onPress={() => BottomInfo.showStatusInfo()}>
+              {`${status} `}
+              {isHeader && (
+              <Icon name="ios-help-circle-outline" style={{ fontSize: 15 }} />
+              )}
+            </Text>
           )}
         </Col>
-        <Col style={[styles.activityCol, sg.right]}>
+        <Col style={[styles.activityCol]}>
           <Text style={[styles.activityColText, styleText]}>{amount}</Text>
         </Col>
       </Row>
