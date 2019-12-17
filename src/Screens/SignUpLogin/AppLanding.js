@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Animated,
+  Linking,
 } from 'react-native';
 
 import {
@@ -46,12 +47,24 @@ class AppLanding extends Component {
     }).start();
   }
 
-
   handleLayout = () => {
     this.setState({
       screenHeight: Device.screenHeight(),
     });
   }
+
+  handlePDSPress() {
+    Linking.openURL('https://www.futurerenewablesfund.com.au/pds').catch((err) => console.error("Couldn't load page", err));
+  }
+
+  handleFinancialServicesPress() {
+    Linking.openURL('https://www.futurerenewablesfund.com.au/pds').catch((err) => console.error("Couldn't load page", err));
+  }
+
+  handlePrivacyPolicyPress() {
+    Linking.openURL('https://www.arrayapp.co/privacy').catch((err) => console.error("Couldn't load page", err));
+  }
+
 
   renderPoweredBy() {
     const { screenProps } = this.props;
@@ -121,8 +134,16 @@ class AppLanding extends Component {
             and when we use words on this website like &apos;we&apos;, &apos;us&apos; or &apos;our&apos; it means Future Super.
             We recommend you seek professional financial advice when considering
             if financial products mentioned on this website are appropriate to your own objectives or financial needs.
-            You can also view our privacy policy and&nbsp;
-              <Text style={sg.disclaimerUnderline}>Financial Services Guide</Text>
+            You can also view our
+              {' '}
+              <Text style={sg.disclaimerUnderline} onPress={this.handlePrivacyPolicyPress}>
+              privacy policy
+              </Text>
+              {' '}
+            and&nbsp;
+              <Text style={sg.disclaimerUnderline} onPress={this.handleFinancialServicesPress}>
+                Financial Services Guide
+              </Text>
             .
             </Text>
 
@@ -137,9 +158,10 @@ class AppLanding extends Component {
               <Text style={sg.disclaimerBold}>OMIFL</Text>
             ).
             The Responsible Entity is the issuer of the Fund&apos;s&nbsp;
-              <Text style={sg.disclaimerUnderline}>Product Disclosure Statement</Text>
-            dated 8 March 2019 (
-              <Text style={sg.disclaimerBold}>PDS</Text>
+              <Text style={sg.disclaimerUnderline} onPress={this.handlePDSPress}>Product Disclosure Statement</Text>
+              {' '}
+             dated 8 March 2019 (
+              <Text style={sg.disclaimerBold} onPress={this.handlePDSPress}>PDS</Text>
             ). The fund manager of the Fund is Future Super Services Pty Ltd (ABN 34 619 076 023,
             AFS Representative No. 001255665), which is a Corporate Authorised Representative of Future Super Asset Management Limited (ABN 81 002 558 956, AFSL 238184) (
               <Text style={sg.disclaimerBold}>Fund Manager</Text>
@@ -150,11 +172,23 @@ class AppLanding extends Component {
             This website should be regarded as general information only and not financial advice.
             Any one reading this website must obtain and rely upon their own independent advice and inquiries,
             both OMIFL and the Fund Manager do not guarantee the performance of the Fund or the repayment of any investor’s capital.
-            Investors should consider the PDS before making any decision regarding the Fund.
-            The
-              <Text style={sg.disclaimerUnderline}> PDS </Text>
+            Investors should consider the
+              {' '}
+              <Text style={sg.disclaimerUnderline} onPress={this.handlePDSPress}>
+                PDS
+              </Text>
+              {' '}
+                before making any decision regarding the Fund. The
+              {' '}
+              <Text style={sg.disclaimerUnderline} onPress={this.handlePDSPress}>PDS</Text>
+              {' '}
             contains important information about investing in the Fund and it is important investors obtain and read a copy of the
-            PDS before making a decision about whether to acquire,
+              {' '}
+              <Text style={sg.disclaimerUnderline} onPress={this.handlePDSPress}>
+                PDS
+              </Text>
+              {' '}
+            before making a decision about whether to acquire,
             continue to hold or dispose of units in the Fund.
             </Text>
 
