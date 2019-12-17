@@ -6,6 +6,7 @@ import AccountsInfo from './AccountsInfo/AccountsInfo';
 import FutureSuperAccountInfo from './FutureSuperAccountInfo/FutureSuperAccountInfo';
 import WithdrawInfo from './WithdrawInfo/WithdrawInfo';
 import BalanceInfo from './BalanceInfo/BalanceInfo';
+import AboutReturn from './AboutReturn/AboutReturn';
 
 class BottomInfoModal extends Component {
   static show(...args) {
@@ -26,6 +27,10 @@ class BottomInfoModal extends Component {
 
   static showBalance() {
     BottomInfoModal.show(BalanceInfo);
+  }
+
+  static showAboutReturn() {
+    BottomInfoModal.show(AboutReturn);
   }
 
   static hide() {

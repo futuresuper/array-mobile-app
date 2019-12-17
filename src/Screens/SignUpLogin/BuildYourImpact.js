@@ -24,21 +24,26 @@ import buildYourImpact from './images/buildYourImpact.png';
 import styles from './styles';
 
 class BuildYourImpact extends Component {
+  // static navigationOptions = () => ({
+  //   cardStyle: { backgroundColor: 'transparent', shadowColor: 'transparent' },
+  //   transparentCard: true,
+  // })
+
   renderFarms() {
     return (
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         data={[Brigalow, Chinchilla, SwanHill]}
         renderItem={(item) => {
-          console.log(item);
           if (item.index === 0) {
             return (
-              <View style={[sg.farmImageShadow, sg.mR15]}>
+              <View style={[sg.farmImageShadow, sg.m15]}>
                 <ImageBackground
                   source={item.item}
+                  imageStyle={{ borderRadius: 10 }}
                   style={[sg.farmImage, {
                     justifyContent: 'space-between',
-                    padding: 8,
+                    padding: 14,
                     height: 240 * 0.8,
                     width: 316 * 0.8,
                   }]}
@@ -51,8 +56,7 @@ class BuildYourImpact extends Component {
                     <Icon
                       type="FontAwesome5"
                       name="wrench"
-                      style={{ color: sc.color.primary }}
-                      size={15}
+                      style={{ color: sc.color.primary, fontSize: 22 }}
                     />
                     <Text style={[sg.colorWhite, sg.fS12, sg.fontMedium, sg.mL15]}>
                       {'Being built right now\nDue for completion in December'}
@@ -81,8 +85,8 @@ class BuildYourImpact extends Component {
     return (
       <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
         <Content contentContainerStyle={[sg.flexGrow]} bounces={false}>
-          <Image source={buildYourImpact} style={[sg.postitionAbsolute, sg.aSCenter]} />
 
+          <Image source={buildYourImpact} style={[sg.postitionAbsolute, sg.aSCenter]} />
           <SafeAreaView forceInset={{ bottom: 'never' }} themeMode={screenProps.themeMode}>
             <View style={[sg.spaceBetween, sg.contentPaddingH]}>
               <View>

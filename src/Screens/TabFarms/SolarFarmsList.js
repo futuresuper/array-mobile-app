@@ -105,7 +105,7 @@ class SolarFarmsList extends Component {
   }
 
   render() {
-    const { farms } = this.props;
+    const { farms, screenProps } = this.props;
     const { preview } = this.state;
     console.log('----------farms', farms);
     return (
@@ -166,7 +166,7 @@ class SolarFarmsList extends Component {
           )}
           {preview.isMap && (
           <View style={{ height: 450, marginHorizontal: -30 }}>
-            <SolarFarmsMap />
+            <SolarFarmsMap screenProps={screenProps} />
           </View>
           )}
         </View>

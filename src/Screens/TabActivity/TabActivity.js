@@ -101,6 +101,12 @@ class TabActivity extends Component {
       <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
           <Image source={GraphExample2} style={styles.activityGraph} />
+          <Text style={[sg.fS11, sg.textBold, sg.textCenter, {
+            paddingTop: 30, paddingHorizontal: 15, zIndex: 999,
+          }]}
+          >
+            Past performance is not an indicator of future performance.
+          </Text>
 
           {/* <LineChart
             data={{
@@ -369,7 +375,10 @@ class TabActivity extends Component {
             <Text style={[sg.fontMedium, sg.contentMarginH]}>
               The Target Return of the Fund is 5.2% per annum after fees and expenses and including
               distributions.
+              {' '}
+              <Icon name="ios-help-circle-outline" style={{ fontSize: 20 }} onPress={() => BottomInfo.showAboutReturn()} />
             </Text>
+
             {this.renderChart()}
           </View>
         )}
