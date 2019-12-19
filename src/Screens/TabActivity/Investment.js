@@ -17,9 +17,9 @@ import Oval from './images/Graph.png';
 import styles from './styles';
 
 class Investment extends Component {
-  renderInvTitle(image, title, theme) {
+  renderInvTitle(image, title) {
     return (
-      <Grid  style={[sg.pV10]}>
+      <Grid style={[sg.pV10]}>
         <Row style={[sg.aICenter, sg.pL30]}>
           <Image source={image} color2 />
           <Text style={[sg.headingS, sg.mL15]} color2>
@@ -61,7 +61,7 @@ class Investment extends Component {
 
           <List>
             <ListItem>
-              { this.renderInvTitle(SunDark, 'Renewables', theme) }
+              { this.renderInvTitle(SunDark, 'Renewables') }
             </ListItem>
             <ListItem>
               {this.renderInvBody(
@@ -70,7 +70,7 @@ class Investment extends Component {
               )}
             </ListItem>
             <ListItem>
-              {this.renderInvTitle(HeartDark, 'Ethical', theme)}
+              {this.renderInvTitle(HeartDark, 'Ethical')}
             </ListItem>
             <ListItem>
               {this.renderInvBody(
@@ -79,19 +79,6 @@ class Investment extends Component {
               )}
             </ListItem>
           </List>
-          {/* {this.renderInvTitle(SunDark, 'Renewables', theme)}
-          {this.renderInvBody(
-            '60%',
-            'The portfolio contains investments in renewables such as solar and wind farms',
-          )}
-
-          <View style={sg.mT40} />
-
-          {this.renderInvTitle(HeartDark, 'Ethical', theme)}
-          {this.renderInvBody(
-            '40%',
-            'Fixed Interest and Cash investments such as ‘corporate bonds’ issued by companies that pass our strict ethical screens',
-          )} */}
         </View>
         <TouchableOpacity
           style={[styles.allInvestHeader, sg.borderColor(theme.borderColorList)]}
