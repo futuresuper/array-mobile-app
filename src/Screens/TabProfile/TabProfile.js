@@ -171,7 +171,7 @@ class TabProfile extends Component {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
-        alert('Please try one more time!');
+        alert(response.error);
       } else {
         const source = response.uri;
         // You can also display the image using data:
