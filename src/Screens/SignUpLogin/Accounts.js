@@ -21,7 +21,7 @@ import { sg } from 'src/Styles';
 class Accounts extends React.Component {
   componentDidMount() {
     const { userDataSaveConnect, appContentSaveConnect, screenProps } = this.props;
-    // screenProps.navigateTo(routeNames.ABOUT_APP_FORM); // dev purpose
+    // screenProps.navigateTo(routeNames.NAME); // dev purpose
     this.getAppContent((appContent) => {
       const { user } = appContent;
       userDataSaveConnect(user);
