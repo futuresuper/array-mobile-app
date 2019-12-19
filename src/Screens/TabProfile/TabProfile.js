@@ -165,27 +165,67 @@ class TabProfile extends Component {
         path: 'images',
       },
     };
-    ImagePicker.launchImageLibrary(options, (response) => {
-      // console.log('Response = ', response);
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
-        alert(response.error);
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = response.uri;
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        this.setState({
-          filePath: source,
-          imageUploadModalIsVisible: false,
-        });
-        console.log('----------data from library', source);
-
+        const source = { uri: response.uri };
         userUpdateAvatarConnect(source);
       }
     });
+    // ImagePicker.launchImageLibrary(options, (response) => {
+    //   // console.log('Response = ', response);
+
+    //   if (response.didCancel) {
+    //     console.log('User cancelled image picker');
+    //   } else if (response.error) {
+    //     alert(response.error);
+    //   } else {
+    //     const source = response.uri;
+    //     // You can also display the image using data:
+    //     // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+    //     this.setState({
+    //       filePath: source,
+    //       imageUploadModalIsVisible: false,
+    //     });
+    //     console.log('----------data from library', source);
+
+    //     userUpdateAvatarConnect(source);
+    //   }
+    // });
   };
+
+  handleAvatarChange() {
+    const { userUpdateAvatarConnect } = this.props;
+    const options = {
+      title: 'Select Image',
+      customButtons: [],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = response.uri;
+        userUpdateAvatarConnect(source);
+      }
+    });
+  }
 
   renderAvatar() {
     const { user } = this.props;
@@ -235,7 +275,7 @@ class TabProfile extends Component {
     }
 
     const res = (
-      <TouchableOpacity onPress={this.toggleImageUploadModal}>{childEl}</TouchableOpacity>
+      <TouchableOpacity onPress={() => this.handleAvatarChange()}>{childEl}</TouchableOpacity>
     );
 
     return res;
