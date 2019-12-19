@@ -192,7 +192,24 @@ class TabProfile extends Component {
     let childEl;
 
     if (user.profileImage) {
-      childEl = <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />;
+      childEl = (
+        <View>
+          <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />
+          <View style={{
+            position: 'absolute', top: 45, left: 40, backgroundColor: 'black', padding: 6, borderRadius: 45,
+          }}
+          >
+            <Icon
+              type="FontAwesome"
+              name="camera"
+              style={{
+                fontSize: 14,
+                color: 'white',
+              }}
+            />
+          </View>
+        </View>
+      );
     } else {
       childEl = (
         <View style={styles.profileAvatarBl}>
@@ -200,6 +217,19 @@ class TabProfile extends Component {
             {user.firstName ? user.firstName.charAt(0) : ''}
             {user.lastName ? user.lastName.charAt(0) : ''}
           </Text>
+          <View style={{
+            position: 'absolute', top: 45, left: 40, backgroundColor: 'black', padding: 6, borderRadius: 45,
+          }}
+          >
+            <Icon
+              type="FontAwesome"
+              name="camera"
+              style={{
+                fontSize: 14,
+                color: 'white',
+              }}
+            />
+          </View>
         </View>
       );
     }
