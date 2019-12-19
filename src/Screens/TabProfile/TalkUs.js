@@ -137,7 +137,11 @@ export default class TalkUs extends Component {
   render() {
     const { messages, message } = this.state;
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior="padding"
+        enabled={Platform.OS === 'ios'}
+      >
         <View style={styles.header}>
           <View style={styles.headerNav}>
             <BackButton
