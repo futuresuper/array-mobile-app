@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { View, Text, Icon, Grid, Row, Col } from 'native-base';
+import {
+  View, Text, Icon, Grid, Row, Col, List, ListItem,
+} from 'native-base';
 
 import Image from 'src/Components/Image';
 
@@ -17,8 +19,8 @@ import styles from './styles';
 class Investment extends Component {
   renderInvTitle(image, title, theme) {
     return (
-      <Grid style={[styles.activityInvTitle, sg.borderColor(theme.borderColorList)]}>
-        <Row style={[sg.aICenter]}>
+      <Grid  style={[sg.pV10]}>
+        <Row style={[sg.aICenter, sg.pL30]}>
           <Image source={image} color2 />
           <Text style={[sg.headingS, sg.mL15]} color2>
             {title}
@@ -30,7 +32,7 @@ class Investment extends Component {
 
   renderInvBody(value, description) {
     return (
-      <Grid style={sg.contentMarginH}>
+      <Grid>
         <Col style={sg.width110}>
           <Text style={[sg.headingS]} color2>
             {value}
@@ -57,7 +59,27 @@ class Investment extends Component {
 
           <Image source={Oval} style={[sg.aSCenter, sg.mT20, sg.mB30, styles.investGraph]} />
 
-          {this.renderInvTitle(SunDark, 'Renewables', theme)}
+          <List>
+            <ListItem>
+              { this.renderInvTitle(SunDark, 'Renewables', theme) }
+            </ListItem>
+            <ListItem>
+              {this.renderInvBody(
+                '60%',
+                'The portfolio contains investments in renewables such as solar and wind farms',
+              )}
+            </ListItem>
+            <ListItem>
+              {this.renderInvTitle(HeartDark, 'Ethical', theme)}
+            </ListItem>
+            <ListItem>
+              {this.renderInvBody(
+                '40%',
+                'Fixed Interest and Cash investments such as ‘corporate bonds’ issued by companies that pass our strict ethical screens',
+              )}
+            </ListItem>
+          </List>
+          {/* {this.renderInvTitle(SunDark, 'Renewables', theme)}
           {this.renderInvBody(
             '60%',
             'The portfolio contains investments in renewables such as solar and wind farms',
@@ -69,7 +91,7 @@ class Investment extends Component {
           {this.renderInvBody(
             '40%',
             'Fixed Interest and Cash investments such as ‘corporate bonds’ issued by companies that pass our strict ethical screens',
-          )}
+          )} */}
         </View>
         <TouchableOpacity
           style={[styles.allInvestHeader, sg.borderColor(theme.borderColorList)]}

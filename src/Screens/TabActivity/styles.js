@@ -53,11 +53,8 @@ export default {
     height: 290,
   },
   activityInvTitle: {
-    borderBottomWidth: 1,
     paddingLeft: 15,
-    paddingBottom: 10,
     marginHorizontal: sc.contentPadding2,
-    marginBottom: 20,
   },
   plusMinusBl: {
     flexDirection: 'row',
