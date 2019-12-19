@@ -64,10 +64,10 @@ class TabProfile extends Component {
             this.initializeFcm();
           },
         },
-        // {
-        //   name: 'Manage accounts',
-        //   screen: routeNames.MANAGE_ACCOUNTS,
-        // },
+        {
+          name: 'Manage accounts',
+          screen: routeNames.MANAGE_ACCOUNTS,
+        },
         {
           name: 'Switch accounts',
           screen: routeNames.ACCOUNTS,

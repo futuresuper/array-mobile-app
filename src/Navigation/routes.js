@@ -389,16 +389,21 @@ const tabBarModalRootRoutes = {
       // routeReset: true,
     },
   },
+  [routeNames.MANAGE_ACCOUNTS]: {
+    screen: screens.ManageAccounts,
+    params: {
+      title: 'Manage Accounts',
+      headerTitleStyle: sg.tabProfileTitle,
+    },
+  },
   [routeNames.ALL_INVESTMENTS]: {
     screen: screens.AllInvestments,
     params: {
-      routeReset: true,
       title: 'All investments',
       headerTitleStyle: {
         fontSize: 24,
       },
     },
-    ...tabCardOptions,
   },
 };
 
@@ -438,15 +443,7 @@ const tabCardRoutes = {
       header: null,
     },
   },
-  [routeNames.MANAGE_ACCOUNTS]: {
-    screen: screens.ManageAccounts,
-    params: {
-      routeReset: true,
-      title: 'Manage Accounts',
-      headerTitleStyle: sg.tabProfileTitle,
-    },
-    ...tabCardOptions,
-  },
+
   [routeNames.MANAGE_ACCOUNT_DETAILS]: {
     screen: screens.ManageAccountDetails,
     params: {
