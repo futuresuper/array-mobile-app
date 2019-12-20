@@ -139,6 +139,8 @@ class TabProfile extends Component {
       storageOptions: {
         skipBackup: true,
         path: 'images',
+        cameraRoll: true,
+        waitUntilSaved: true,
       },
     };
     ImagePicker.showImagePicker(options, (response) => {
