@@ -42,8 +42,6 @@ class TabProfile extends Component {
     this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
 
     this.state = {
-      cameraVisible: false,
-      imageUploadModalIsVisible: false,
       listMenu: [
         // {
         //   name: 'ID Check',
@@ -69,10 +67,10 @@ class TabProfile extends Component {
           name: 'Switch accounts',
           screen: routeNames.ACCOUNTS,
         },
-        // {
-        //   name: 'Personal details',
-        //   screen: routeNames.PERSONAL_DETAILS,
-        // },
+        {
+          name: 'Personal details',
+          screen: routeNames.PERSONAL_DETAILS,
+        },
         // {
         //   name: 'Refer a friend',
         //   screen: routeNames.REFER_FRIEND,

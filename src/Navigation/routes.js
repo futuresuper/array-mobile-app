@@ -405,6 +405,13 @@ const tabBarModalRootRoutes = {
       },
     },
   },
+  [routeNames.PERSONAL_DETAILS]: {
+    screen: screens.PersonalDetails,
+    params: {
+      title: 'Personal details',
+      headerTitleStyle: sg.tabProfileTitle,
+    },
+  },
 };
 
 const tabRoutes = {
@@ -447,15 +454,6 @@ const tabCardRoutes = {
   [routeNames.MANAGE_ACCOUNT_DETAILS]: {
     screen: screens.ManageAccountDetails,
     params: {
-      headerTitleStyle: sg.tabProfileTitle,
-    },
-    ...tabCardOptions,
-  },
-  [routeNames.PERSONAL_DETAILS]: {
-    screen: screens.PersonalDetails,
-    params: {
-      title: 'Personal details',
-      routeReset: true,
       headerTitleStyle: sg.tabProfileTitle,
     },
     ...tabCardOptions,
