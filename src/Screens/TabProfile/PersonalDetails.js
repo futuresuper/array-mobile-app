@@ -22,9 +22,8 @@ import Br from 'src/Components/Br';
 import EditButton from 'src/Components/EditButton';
 
 
-import { userSelector } from 'src/Redux/AppContent';
+import { authUserSelector, userDataUpdate } from 'src/Redux/Auth';
 
-import { userDataUpdate } from 'src/Redux/Auth';
 
 import {
   sg,
@@ -56,8 +55,6 @@ class PersonalDetails extends Component {
     }
 
     const details = hocs.getFormAsObject();
-
-    console.log(details);
 
     screenProps.Api.post('/user', details, (res) => {
       console.log('res', res);
@@ -273,7 +270,7 @@ PersonalDetails.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const user = userSelector(state);
+  const user = authUserSelector(state);
 
   return {
     user,
