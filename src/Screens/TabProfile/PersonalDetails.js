@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   View,
@@ -20,6 +21,11 @@ import {
 import Br from 'src/Components/Br';
 import EditButton from 'src/Components/EditButton';
 
+
+import { userSelector } from 'src/Redux/AppContent';
+
+import { userDataUpdate } from 'src/Redux/Auth';
+
 import {
   sg,
 } from 'src/Styles';
@@ -37,12 +43,11 @@ class PersonalDetails extends Component {
     this.state = {
       isEmailEdit: false,
       isAddressEdit: false,
-      details: props.screenProps.getUserInfo(),
     };
   }
 
   onSave() {
-    const { hocs } = this.props;
+    const { hocs, screenProps, userUpdate } = this.props;
 
     const formIsValid = hocs.formIsValid();
 
@@ -52,17 +57,23 @@ class PersonalDetails extends Component {
 
     const details = hocs.getFormAsObject();
 
-    this.setState({
-      details,
-    });
+    console.log(details);
 
-    this.readMode();
+    screenProps.Api.post('/user', details, (res) => {
+      console.log('res', res);
+      userUpdate(details);
+      screenProps.toastSuccess('Information Updated');
+      this.readMode();
+    }, () => {
+      screenProps.toastDanger('Error. Try again.');
+    });
   }
 
   setEmailForm() {
-    const { hocs } = this.props;
+    const { hocs, user } = this.props;
     const emailForm = {
       email: {
+        value: user.email,
         validations: [
           'required',
           'email',
@@ -76,13 +87,13 @@ class PersonalDetails extends Component {
   }
 
   setAddressForm() {
-    const { hocs } = this.props;
+    const { hocs, user } = this.props;
 
     const addressForm = {
       address: {
+        value: user.address,
         validations: [
           'required',
-          'email',
         ],
       },
     };
@@ -100,16 +111,16 @@ class PersonalDetails extends Component {
 
 
   renderReadForm() {
-    const { details } = this.state;
+    const { user } = this.props;
 
-    console.log(details);
+    console.log(user);
 
     return (
       <View>
         <Input
           disabled
           label="Name"
-          value={`${details.firstName} ${details.lastName}`}
+          value={`${user.firstName} ${user.lastName}`}
           style={styles.input}
           containerStyle={styles.inputContainer}
           color2
@@ -118,7 +129,7 @@ class PersonalDetails extends Component {
         <Input
           disabled
           label="Email"
-          value={details.email}
+          value={user.email}
           style={styles.input}
           containerStyle={styles.inputContainer}
           color2
@@ -134,7 +145,7 @@ class PersonalDetails extends Component {
         <Input
           disabled
           label="Address"
-          value={details.address}
+          value={user.address}
           style={styles.input}
           containerStyle={styles.inputContainer}
           color2
@@ -150,7 +161,7 @@ class PersonalDetails extends Component {
         <Input
           disabled
           label="Mobile"
-          value={details.mobile.number}
+          value={user.mobile.number}
           style={styles.input}
           containerStyle={styles.inputContainer}
           color2
@@ -256,8 +267,26 @@ class PersonalDetails extends Component {
   }
 }
 
+PersonalDetails.propTypes = {
+  user: PropTypes.object.isRequired,
+  userUpdate: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const user = userSelector(state);
+
+  return {
+    user,
+  };
+};
+
+const mapDispatchToProps = {
+  userUpdate: userDataUpdate,
+};
+
 const res = composeHoc([
   hocNames.FORM,
 ])(PersonalDetails);
 
-export default connect()(res);
+export default connect(mapStateToProps,
+  mapDispatchToProps)(res);

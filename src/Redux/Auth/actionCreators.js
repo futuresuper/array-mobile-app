@@ -20,6 +20,13 @@ export function userDataSave(data) {
   };
 }
 
+export function userDataUpdate(data) {
+  return {
+    type: types.USER_DATA_UPDATE,
+    payload: data,
+  };
+}
+
 export function authReset() {
   return {
     type: types.AUTH_RESET,
