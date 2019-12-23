@@ -215,7 +215,6 @@ class TaxNumbers extends Component {
 
 
   renderInternationalResidentTin() {
-    // Commented out until working.
     const { hocs } = this.props;
     const { form } = hocs;
 
