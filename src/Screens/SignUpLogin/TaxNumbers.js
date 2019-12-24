@@ -141,6 +141,9 @@ class TaxNumbers extends Component {
       || tinForm.reasonOther.value) {
         return false;
       }
+      if (tinForm.country.value && tinForm.tin.value) {
+        return false;
+      }
       return true;
     }
     return false;
@@ -150,8 +153,8 @@ class TaxNumbers extends Component {
     const { hocs } = this.props;
 
     const intResObjSkeleton = {
-      country: { validations: ['required'] },
-      tin: { validations: [] },
+      country: { validations: [this.reasonValidator] },
+      tin: { validations: [this.reasonValidator] },
       reasonDoesntIssue: { validations: [this.reasonValidator] },
       reasonDoesntExist: { validations: [this.reasonValidator] },
       reasonOther: { validations: [this.reasonValidator] },
@@ -177,23 +180,23 @@ class TaxNumbers extends Component {
     }
   }
 
-  renderSwitch(formKey) {
+  handleResidentReason(e, k) {
+    console.log(e);
     const { hocs } = this.props;
-    const { form } = hocs;
-
-    return (
-      <Switch
-        pure
-        formData={form}
-        formKey={formKey}
-        onPress={(e) => this.handleResidentSwich(e)}
-        ios_backgroundColor={sc.color.gray12}
-        trackColor={{
-          false: sc.color.gray12,
-        }}
-        style={sg.mT0}
-      />
-    );
+    const currentFormState = hocs.form;
+    console.log(currentFormState);
+    if (e === `tins.${k}.reasonDoesntIssue`) {
+      if (currentFormState.tins[k].reasonDoesntExist.value) {
+        hocs.handleCheckBox(`tins.${k}.reasonDoesntExist`);
+      }
+      hocs.handleCheckBox(e);
+    }
+    if (e === `tins.${k}.reasonDoesntExist`) {
+      if (currentFormState.tins[k].reasonDoesntIssue.value) {
+        hocs.handleCheckBox(`tins.${k}.reasonDoesntIssue`);
+      }
+      hocs.handleCheckBox(e);
+    }
   }
 
 
@@ -213,6 +216,25 @@ class TaxNumbers extends Component {
     return null;
   }
 
+
+  renderSwitch(formKey) {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
+    return (
+      <Switch
+        pure
+        formData={form}
+        formKey={formKey}
+        onPress={(e) => this.handleResidentSwich(e)}
+        ios_backgroundColor={sc.color.gray12}
+        trackColor={{
+          false: sc.color.gray12,
+        }}
+        style={sg.mT0}
+      />
+    );
+  }
 
   renderInternationalResidentTin() {
     const { hocs } = this.props;
@@ -247,21 +269,23 @@ class TaxNumbers extends Component {
             </Row>
             <Row style={[sg.mT20]}>
               <CheckBox
+                radial
                 formData={form}
                 formKey={`tins.${k}.reasonDoesntIssue`}
-                onPress={hocs.handleCheckBox}
+                onPress={(e) => this.handleResidentReason(e, k)}
               />
-              <Text style={[sg.colorGray11, sg.fontMedium, sg.fS14, sg.pL10, sg.pR20]}>
+              <Text style={[sg.colorGray11, sg.fontMedium, sg.fS12, sg.pL10, sg.pR20]}>
                 {"THE COUNTRY WHERE THE ACCOUNT HOLDER IS LIABLE TO PAY TAX DOES NOT ISSUE TINS TO IT'S RESIDENTS."}
               </Text>
             </Row>
             <Row style={[sg.mT20]}>
               <CheckBox
+                radial
                 formData={form}
                 formKey={`tins.${k}.reasonDoesntExist`}
-                onPress={hocs.handleCheckBox}
+                onPress={(e) => this.handleResidentReason(e, k)}
               />
-              <Text style={[sg.colorGray11, sg.fontMedium, sg.fS14, sg.pL10, sg.pR20]}>
+              <Text style={[sg.colorGray11, sg.fontMedium, sg.fS12, sg.pL10, sg.pR20]}>
                 {'NO TIN IS REQUIRED.(NOTE: ONLY SELECT THIS REASON IF THE DOMESTIC LAW OF THE RELEVANT '}
                 {'JURISDICTION DOES NOT REQUIRE THE COLLECTION OF THE TIN ISSUED BY SUCH JURISDICTION'}
               </Text>
@@ -295,7 +319,6 @@ class TaxNumbers extends Component {
   render() {
     const { hocs } = this.props;
     const { form } = hocs;
-
 
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>

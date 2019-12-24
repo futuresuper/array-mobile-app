@@ -10,10 +10,13 @@ import {
 
 import styles from './styles';
 
-const CheckBox = ({ onPress, checked, error }) => (
+const CheckBox = ({
+  onPress, checked, error, radial,
+}) => (
   <TouchableOpacity
     style={[
       styles.container,
+      (radial && { borderRadius: 45 }),
       (error && styles.containerError),
       (checked && styles.containerChecked),
     ]}
@@ -33,9 +36,11 @@ CheckBox.defaultProps = {
   onPress: () => null,
   checked: false,
   error: false,
+  radial: false,
 };
 
 CheckBox.propTypes = {
+  radial: PropTypes.bool,
   onPress: PropTypes.func,
   checked: PropTypes.bool,
   error: PropTypes.bool,

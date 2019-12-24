@@ -382,7 +382,6 @@ export default function FormHoc(WrappedComponent) {
             setFormFromObject: this.setFormFromObject,
             setFormValue: this.setFormValue,
             getFormAsObject: this.getFormAsObject,
-            formGetVal: this.formGetVal,
             formIsValid: this.formIsValid,
             addFormItem: this.addFormItem,
             addOrUpdateFormField: this.addOrUpdateFormField,
