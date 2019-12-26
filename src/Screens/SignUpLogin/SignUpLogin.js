@@ -131,22 +131,19 @@ class SignUpLogin extends Component {
 
           <Content padder contentContainerStyle={[styleGlobal.flexGrow]}>
             <View style={styleGlobal.spaceBetween}>
-
               <View>
-
                 <Input
                   helper="Your mobile number"
+                  autoFocus
                   returnKeyType="next"
                   keyboardType="numeric"
                   value={mobile}
                   onChangeText={(e) => { this.handleChange(e); }}
                 />
-
                 <Text style={styleGlobal.formError}>
                   {errors}
                 </Text>
               </View>
-
               <KeyboardAvoidingView keyboardVerticalOffset={100}>
                 <Button
                   onPress={() => this.getSms()}

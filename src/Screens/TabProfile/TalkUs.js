@@ -5,6 +5,8 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Platform,
+  KeyboardAvoidingView,
   FlatList,
 } from 'react-native';
 
@@ -19,6 +21,7 @@ const styles = StyleSheet.create({
     backgroundColor: sc.color.containerBgColor,
   },
   header: {
+    paddingTop: Platform.OS === 'ios' ? 30 : 0,
     flex: 0.35,
   },
   headerNav: {
@@ -28,7 +31,6 @@ const styles = StyleSheet.create({
   headerMessage: {
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   list: {
     flex: 0.65,
@@ -135,7 +137,11 @@ export default class TalkUs extends Component {
   render() {
     const { messages, message } = this.state;
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior="padding"
+        enabled={Platform.OS === 'ios'}
+      >
         <View style={styles.header}>
           <View style={styles.headerNav}>
             <BackButton
@@ -186,7 +192,7 @@ export default class TalkUs extends Component {
             <Icon type="Ionicons" name="md-send" style={styles.iconSend} />
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

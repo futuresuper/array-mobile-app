@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   View,
@@ -10,17 +11,19 @@ import {
   Button,
 } from 'native-base';
 
-import { mapValues, set } from 'lodash';
 import {
   composeHoc,
   hocNames,
 } from 'src/Common/Hocs';
 import {
   Input,
-  Switch,
 } from 'src/Components/Form';
 import Br from 'src/Components/Br';
 import EditButton from 'src/Components/EditButton';
+
+
+import { authUserSelector, userDataUpdate } from 'src/Redux/Auth';
+
 
 import {
   sg,
@@ -37,18 +40,13 @@ class PersonalDetails extends Component {
     super(props);
 
     this.state = {
-      isEdit: false,
-      details: props.screenProps.getUserInfo(),
+      isEmailEdit: false,
+      isAddressEdit: false,
     };
   }
 
-  componentDidMount() {
-    this.setForm();
-    this.displayHeaderRight();
-  }
-
   onSave() {
-    const { hocs } = this.props;
+    const { hocs, screenProps, userUpdate } = this.props;
 
     const formIsValid = hocs.formIsValid();
 
@@ -58,93 +56,68 @@ class PersonalDetails extends Component {
 
     const details = hocs.getFormAsObject();
 
-    this.setState({
-      details,
+    screenProps.Api.post('/user', details, (res) => {
+      console.log('res', res);
+      userUpdate(details);
+      screenProps.toastSuccess('Information Updated');
+      this.readMode();
+    }, () => {
+      screenProps.toastDanger('Error. Try again.');
     });
-
-    this.readMode();
   }
 
-  setForm() {
-    const { hocs } = this.props;
-    const { details } = this.state;
+  setEmailForm() {
+    const { hocs, user } = this.props;
+    const emailForm = {
+      email: {
+        value: user.email,
+        validations: [
+          'required',
+          'email',
+        ],
+      },
 
-    const detailsForm = mapValues(details, detail => ({
-      value: detail,
-    }));
+    };
+    hocs.setForm(emailForm).then(() => {
+      this.setState({ isEmailEdit: true });
+    });
+  }
 
-    set(detailsForm, 'address.value', details.residenitalAddressStreet);
-    set(detailsForm, 'address.validations', ['required']);
-    set(detailsForm, 'tfn.value', 'Supplied');
-    set(detailsForm, 'touchFaceId.value', true);
-    set(detailsForm, 'pin.value', 123);
-    set(detailsForm, 'firstName.value', details.firstName || '');
-    set(detailsForm, 'email.value', details.email || '');
-    set(detailsForm, 'email.validations', ['required', 'email']);
+  setAddressForm() {
+    const { hocs, user } = this.props;
 
-    hocs.setForm(detailsForm);
+    const addressForm = {
+      address: {
+        value: user.address,
+        validations: [
+          'required',
+        ],
+      },
+    };
+    hocs.setForm(addressForm).then(() => {
+      this.setState({ isAddressEdit: true });
+    });
   }
 
   readMode() {
     this.setState({
-      isEdit: false,
-    }, () => {
-      this.displayHeaderRight();
+      isEmailEdit: false,
+      isAddressEdit: false,
     });
   }
 
-  editMode() {
-    const { navigation } = this.props;
-
-    this.setState({
-      isEdit: true,
-    });
-
-    navigation.setParams({
-      headerRight: undefined,
-    });
-
-    this.setForm();
-  }
-
-  displayHeaderRight() {
-    const { navigation } = this.props;
-    const { isEdit } = this.state;
-
-    if (isEdit) {
-      return;
-    }
-
-    const headerRight = (
-      {/*
-      <EditButton
-        onPress={() => {
-          this.editMode();
-        }}
-      />
-      */}
-    );
-
-    navigation.setParams({
-      headerRight,
-    });
-  }
 
   renderReadForm() {
-    const { hocs } = this.props;
-    const { form } = hocs;
-    const { details } = this.state;
+    const { user } = this.props;
 
-    if (!form) {
-      return null;
-    }
+    console.log(user);
 
     return (
       <View>
         <Input
           disabled
           label="Name"
-          value={`${form.firstName.value} ${details.lastName}`}
+          value={`${user.firstName} ${user.lastName}`}
           style={styles.input}
           containerStyle={styles.inputContainer}
           color2
@@ -153,69 +126,53 @@ class PersonalDetails extends Component {
         <Input
           disabled
           label="Email"
-          value={details.email}
+          value={user.email}
           style={styles.input}
           containerStyle={styles.inputContainer}
           color2
+          componentRight={(
+            <EditButton
+              onPress={() => {
+                this.setEmailForm();
+              }}
+            />
+          )}
         />
 
-        {/*
         <Input
           disabled
           label="Address"
-          value={details.address}
+          value={user.address}
           style={styles.input}
           containerStyle={styles.inputContainer}
           color2
+          componentRight={(
+            <EditButton
+              onPress={() => {
+                this.setAddressForm();
+              }}
+            />
+          )}
         />
 
         <Input
           disabled
-          label="TFN"
-          value={details.tfn}
+          label="Mobile"
+          value={user.mobile.number}
           style={styles.input}
           containerStyle={styles.inputContainer}
           color2
         />
-
-        <Input
-          disabled
-          label="Touch / Face ID"
-          value={details.touchFaceId ? 'On' : 'Off'}
-          style={styles.input}
-          containerStyle={styles.inputContainer}
-          color2
-        />
-
-        <Input
-          disabled
-          label="Pin"
-          value={details.pin}
-          secureTextEntry
-          style={styles.input}
-          containerStyle={styles.inputContainer}
-          color2
-        />
-
-        */}
       </View>
     );
   }
 
-  renderEditForm() {
+  renderEditEmailForm() {
     const { hocs } = this.props;
     const { form } = hocs;
 
     return (
       <View>
-        <Input
-          disabled
-          label="Name"
-          value={`${form.firstName.value} ${form.lastName.value}`}
-          containerStyle={styles.inputContainer}
-          color5
-        />
-
         <Input
           formData={form}
           formKey="email"
@@ -225,45 +182,45 @@ class PersonalDetails extends Component {
           onChangeText={hocs.handleInput}
           color2
         />
+        <Button
+          block
+          style={[sg.mT30, sg.mB10]}
+          onPress={() => {
+            this.onSave();
+          }}
+        >
+          <Text>Save</Text>
+        </Button>
 
+        <Button
+          transparent
+          block
+          onPress={() => {
+            this.readMode();
+          }}
+          style={sg.mB20}
+        >
+          <Text>Cancel</Text>
+        </Button>
+      </View>
+    );
+  }
+
+  renderEditAddressForm() {
+    const { hocs } = this.props;
+    const { form } = hocs;
+
+    return (
+      <View>
         <Input
           formData={form}
           formKey="address"
-          label="Adddress"
-          labelGray
+          label="Address"
           style={styles.input}
           containerStyle={styles.inputContainer}
           onChangeText={hocs.handleInput}
           color2
         />
-
-        <Input
-          disabled
-          label="TFN"
-          value={form.tfn.value}
-          containerStyle={styles.inputContainer}
-          color5
-        />
-
-        <Switch
-          formData={form}
-          formKey="touchFaceId"
-          label="Touch / Face ID"
-          title={form.touchFaceId.value ? 'On' : 'Off'}
-          onPress={hocs.handleCheckBox}
-          titleStyle={sg.colorDark2}
-        />
-
-        <Input
-          key={123}
-          formData={form}
-          formKey="pin"
-          label="Pin"
-          style={[styles.input, sg.colorDark3]}
-          onChangeText={hocs.handleInput}
-          secureTextEntry
-        />
-
         <Button
           block
           style={[sg.mT30, sg.mB10]}
@@ -290,7 +247,7 @@ class PersonalDetails extends Component {
 
 
   render() {
-    const { isEdit } = this.state;
+    const { isEmailEdit, isAddressEdit } = this.state;
 
     return (
       <Content bounces={false}>
@@ -298,18 +255,35 @@ class PersonalDetails extends Component {
         <Br style={[sg.mT20, sg.mB15, sg.contentMarginH2]} brList width={1} />
 
         <View style={sg.contentMarginH2}>
-          {isEdit
-            ? this.renderEditForm()
-            : this.renderReadForm()
-          }
+          {isEmailEdit && this.renderEditEmailForm()}
+          {isAddressEdit && this.renderEditAddressForm()}
+          {!isEmailEdit && !isAddressEdit && this.renderReadForm()}
         </View>
       </Content>
     );
   }
 }
 
+PersonalDetails.propTypes = {
+  user: PropTypes.object.isRequired,
+  userUpdate: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const user = authUserSelector(state);
+
+  return {
+    user,
+  };
+};
+
+const mapDispatchToProps = {
+  userUpdate: userDataUpdate,
+};
+
 const res = composeHoc([
   hocNames.FORM,
 ])(PersonalDetails);
 
-export default connect()(res);
+export default connect(mapStateToProps,
+  mapDispatchToProps)(res);

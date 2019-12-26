@@ -19,15 +19,15 @@ import Brigalow from 'src/assets/images/farms/Brigalow.png';
 import Chinchilla from 'src/assets/images/farms/Chinchilla.png';
 import SwanHill from 'src/assets/images/farms/SwanHill.png';
 // import SwanHill2 from 'src/assets/images/farms/SwanHill2.png';
+import BackButton from 'src/Components/BackButton';
 
 import buildYourImpact from './images/buildYourImpact.png';
 import styles from './styles';
 
 class BuildYourImpact extends Component {
-  // static navigationOptions = () => ({
-  //   cardStyle: { backgroundColor: 'transparent', shadowColor: 'transparent' },
-  //   transparentCard: true,
-  // })
+  static navigationOptions = () => ({
+    header: null,
+  })
 
   renderFarms() {
     return (
@@ -84,9 +84,16 @@ class BuildYourImpact extends Component {
 
     return (
       <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
+        <Image source={buildYourImpact} />
+        <BackButton
+          signup
+          header={false}
+          style={{ ...sg.pL20, ...sg.pT20, ...sg.postitionAbsolute }}
+          iconStyle={sg.mL0}
+          {...this.props}
+        />
         <Content contentContainerStyle={[sg.flexGrow]} bounces={false}>
 
-          <Image source={buildYourImpact} style={[sg.postitionAbsolute, sg.aSCenter]} />
           <SafeAreaView forceInset={{ bottom: 'never' }} themeMode={screenProps.themeMode}>
             <View style={[sg.spaceBetween, sg.contentPaddingH]}>
               <View>

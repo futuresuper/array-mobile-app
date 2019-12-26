@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { View, Text, Icon, Grid, Row, Col } from 'native-base';
+import {
+  View, Text, Icon, Grid, Row, Col, List, ListItem,
+} from 'native-base';
 
 import Image from 'src/Components/Image';
 
@@ -15,10 +17,10 @@ import Oval from './images/Graph.png';
 import styles from './styles';
 
 class Investment extends Component {
-  renderInvTitle(image, title, theme) {
+  renderInvTitle(image, title) {
     return (
-      <Grid style={[styles.activityInvTitle, sg.borderColor(theme.borderColorList)]}>
-        <Row style={[sg.aICenter]}>
+      <Grid style={[sg.pV10]}>
+        <Row style={[sg.aICenter, sg.pL30]}>
           <Image source={image} color2 />
           <Text style={[sg.headingS, sg.mL15]} color2>
             {title}
@@ -30,7 +32,7 @@ class Investment extends Component {
 
   renderInvBody(value, description) {
     return (
-      <Grid style={sg.contentMarginH}>
+      <Grid>
         <Col style={sg.width110}>
           <Text style={[sg.headingS]} color2>
             {value}
@@ -57,19 +59,26 @@ class Investment extends Component {
 
           <Image source={Oval} style={[sg.aSCenter, sg.mT20, sg.mB30, styles.investGraph]} />
 
-          {this.renderInvTitle(SunDark, 'Renewables', theme)}
-          {this.renderInvBody(
-            '60%',
-            'The portfolio contains investments in renewables such as solar and wind farms',
-          )}
-
-          <View style={sg.mT40} />
-
-          {this.renderInvTitle(HeartDark, 'Ethical', theme)}
-          {this.renderInvBody(
-            '40%',
-            'Fixed Interest and Cash investments such as ‘corporate bonds’ issued by companies that pass our strict ethical screens',
-          )}
+          <List>
+            <ListItem>
+              { this.renderInvTitle(SunDark, 'Renewables') }
+            </ListItem>
+            <ListItem>
+              {this.renderInvBody(
+                '60%',
+                'The portfolio contains investments in renewables such as solar and wind farms',
+              )}
+            </ListItem>
+            <ListItem>
+              {this.renderInvTitle(HeartDark, 'Ethical')}
+            </ListItem>
+            <ListItem>
+              {this.renderInvBody(
+                '40%',
+                'Fixed Interest and Cash investments such as ‘corporate bonds’ issued by companies that pass our strict ethical screens',
+              )}
+            </ListItem>
+          </List>
         </View>
         <TouchableOpacity
           style={[styles.allInvestHeader, sg.borderColor(theme.borderColorList)]}

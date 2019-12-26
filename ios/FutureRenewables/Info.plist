@@ -39,7 +39,13 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to use your camera to take picture</string>
-	<key>NSFaceIDUsageDescription</key>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>$(PRODUCT_NAME) would like access to your photo gallery</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>$(PRODUCT_NAME) would like to use your microphone (for videos)</string>
+  <key>NSFaceIDUsageDescription</key>
 	<string>We require FaceID access to allow you quick and secure access.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We need access to your location information</string>
