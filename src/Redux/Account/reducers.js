@@ -1,3 +1,6 @@
+
+import _ from 'lodash';
+
 import * as types from './actionTypes';
 
 const initialState = {
@@ -9,13 +12,28 @@ const ACTION_HANDLERS = {
     ...state,
     selectedAccount: action.payload,
   }),
-  [types.ACCOUNT_UPDATE]: (state, action) => ({
-    ...state,
-    selectedAccount: {
-      ...state.selectedAccount,
-      ...action.payload,
-    },
-  }),
+  [types.ACCOUNT_UPDATE]: (state, { payload }) => {
+    const { selectedAccount } = state;
+    const { id } = payload;
+
+    if (
+      !_.isNil(id)
+    ) {
+      if (selectedAccount.id !== id) {
+        return {
+          ...state,
+        };
+      }
+    }
+
+    return {
+      ...state,
+      selectedAccount: {
+        ...state.selectedAccount,
+        ...payload,
+      },
+    };
+  },
 };
 
 const AccountReducer = (state = initialState, action) => {

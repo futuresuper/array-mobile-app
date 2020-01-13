@@ -35,6 +35,7 @@ export default {
   SOLAR_FARMS_MAP: 'SolarFarmsMap',
   MANAGE_ACCOUNTS: 'ManageAccounts',
   MANAGE_ACCOUNT_DETAILS: 'ManageAccountDetails',
+  MANAGE_ACCOUNT_DETAILS_EDIT: 'ManageAccountDetailsEdit',
   PERSONAL_DETAILS: 'PersonalDetails',
   REFER_FRIEND: 'ReferFriend',
   TALK_US: 'TalkUs',

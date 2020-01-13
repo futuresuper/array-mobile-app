@@ -2,6 +2,7 @@
 import TabProfile from './TabProfile';
 import ManageAccounts from './ManageAccounts';
 import ManageAccountDetails from './ManageAccountDetails';
+import ManageAccountDetailsEdit from './ManageAccountDetailsEdit';
 import PersonalDetails from './PersonalDetails';
 import ReferFriend from './ReferFriend';
 import TalkUs from './TalkUs';
@@ -11,6 +12,7 @@ export {
   TabProfile,
   ManageAccounts,
   ManageAccountDetails,
+  ManageAccountDetailsEdit,
   PersonalDetails,
   ReferFriend,
   TalkUs,

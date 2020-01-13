@@ -136,7 +136,7 @@ export const tabCardOptions = {
         borderBottomWidth: 0,
         elevation: 0,
         paddingTop: isIOSv ? undefined : 30,
-        marginTop: 15,
+        marginTop: isIOSv ? 15 : undefined,
       },
       headerTitleStyle: {
         color: theme.textColor,

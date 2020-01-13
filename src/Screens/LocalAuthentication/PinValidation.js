@@ -66,6 +66,7 @@ class PinValidation extends React.Component {
           if (res.matched) {
             localAuthValidateConnect();
             screenProps.navigateTo(navigation.getParam('next', 'TAB_HOME'));
+            return;
           }
           if (res.tooManyAttempts) {
             screenProps.toastDanger('Too many incorrect attempts - please login with your phone instead');
