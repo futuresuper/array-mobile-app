@@ -42,18 +42,26 @@ class ManageAccountDetails extends Component {
       accountUpdateSaveConnect,
     } = this.props;
     const data = {
-      id,
       [key]: value,
     };
 
-    appContentUpdateAccountConnect(data);
-    accountUpdateSaveConnect(data);
+    screenProps.Api.post('/account', {
+      accountId: id,
+      ...data,
+    }, () => {
+      const dataStore = {
+        id,
+        ...data,
+      };
 
-    // screenProps.Api.post(`/accounts/${id}`, {}, (res) => {
-    //   console.log('!!!', { res });
-    // }, (err) => {
-    //   console.log('!!!', { err });
-    // });
+      appContentUpdateAccountConnect(dataStore);
+      accountUpdateSaveConnect(dataStore);
+
+      screenProps.toastSuccessIcon('asdasd');
+      screenProps.routeBack();
+    }, () => {
+      screenProps.toastDanger('Error');
+    });
   }
 
   renderDetails() {

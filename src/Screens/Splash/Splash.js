@@ -29,7 +29,6 @@ class Splash extends Component {
 
     if (isAuth && userInfo.email && userInfo.firstName && userInfo.lastName) {
       navigateTo(routeNames.ACCOUNTS);
-      // navigateTo(routeNames.TAB_HOME);
     } else {
       navigateTo(routeNames.APP_LANDING);
     }
