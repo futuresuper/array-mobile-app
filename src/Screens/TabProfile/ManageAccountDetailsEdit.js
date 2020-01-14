@@ -17,6 +17,8 @@ import {
   Input,
 } from 'src/Components/Form';
 
+import KeyboardAvoidingView from 'src/Components/KeyboardAvoidingView';
+
 import {
   composeHoc,
   hocNames,
@@ -73,7 +75,7 @@ class ManageAccountDetailsEdit extends Component {
             />
           </View>
 
-          <View style={[]}>
+          <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={100}>
             <Button
               block
               style={sg.mV10}
@@ -81,7 +83,7 @@ class ManageAccountDetailsEdit extends Component {
             >
               <Text>Update</Text>
             </Button>
-          </View>
+          </KeyboardAvoidingView>
         </View>
       </Content>
     );
