@@ -49,7 +49,12 @@ const TabBar = (props) => {
 
   let iconProfile = ChelInactive;
   let iconProfileStyle = iconStyle;
-  if (routeName === routeNames.TAB_PROFILE) {
+  if (
+    (routeName === routeNames.TAB_PROFILE)
+    || (routeName === routeNames.MANAGE_ACCOUNTS)
+    || (routeName === routeNames.MANAGE_ACCOUNT_DETAILS)
+    || (routeName === routeNames.MANAGE_ACCOUNT_DETAILS_EDIT)
+  ) {
     iconProfile = ChelActive;
     iconProfileStyle = {};
   }

@@ -28,10 +28,8 @@ class Splash extends Component {
     const isAuth = (userInfo && !isEmpty(userInfo));
 
     if (isAuth && userInfo.email && userInfo.firstName && userInfo.lastName) {
-      console.log("IS AUTH -> ACCOUNTS");
       navigateTo(routeNames.ACCOUNTS);
     } else {
-      console.log("NOT AUTH -> LANDING");
       navigateTo(routeNames.APP_LANDING);
     }
   }
@@ -43,7 +41,7 @@ class Splash extends Component {
 
     return (
       <View style={{ position: 'absolute', overflow: 'hidden' }}>
-        {[...Array(15).keys()].map(item => <Text key={item} style={{ position: 'absolute' }}>{item}</Text>)}
+        {[...Array(15).keys()].map((item) => <Text key={item} style={{ position: 'absolute' }}>{item}</Text>)}
       </View>
     );
   }

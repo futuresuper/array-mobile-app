@@ -202,6 +202,13 @@ class AppIndex extends Component {
     });
   }
 
+  toastSuccessIcon(text) {
+    this.toast(text, {
+      iconType: 'MaterialCommunityIcons',
+      iconName: 'check-circle',
+    });
+  }
+
   render() {
     const { navigation, account, theme: themeMode } = this.props;
     let barStyle;
@@ -219,6 +226,7 @@ class AppIndex extends Component {
       toast: this.toast,
       toastDanger: this.toastDanger,
       toastSuccess: this.toastSuccess,
+      toastSuccessIcon: this.toastSuccessIcon,
       routeBack: this.routeBack,
       navigateTo: this.navigateTo,
       spinnerShow: this.spinnerShow,

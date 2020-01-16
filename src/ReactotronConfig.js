@@ -29,3 +29,5 @@ console.log = (...args) => {
     preview: args.length > 0 && typeof args[0] === 'string' ? args[0] : null,
   });
 };
+
+Reactotron.clear();

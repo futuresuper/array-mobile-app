@@ -31,6 +31,27 @@ const ACTION_HANDLERS = {
       }),
     };
   },
+
+  [types.APP_CONTENT_UPDATE_ACCOUNT]: (state, { payload }) => {
+    const { accounts } = state;
+
+    const accountsNew = accounts.map((itemInp) => {
+      let item = itemInp;
+      if (item.id === payload.id) {
+        item = {
+          ...itemInp,
+          ...payload,
+        };
+      }
+
+      return item;
+    });
+
+    return {
+      ...state,
+      accounts: accountsNew,
+    };
+  },
 };
 
 ACTION_HANDLERS[USER_UPDATE_AVATAR] = (state, action) => {

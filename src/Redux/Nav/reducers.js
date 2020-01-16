@@ -18,6 +18,7 @@ export default function (state, action) {
         actions: [
           NavigationActions.navigate({ routeName: action.route_name, params: action.params }),
         ],
+        key: action.key,
       }), state);
 
       return res;
