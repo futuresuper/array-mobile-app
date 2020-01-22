@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { View, Image, Dimensions } from 'react-native';
+import { View, Image } from 'react-native';
 import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
 
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
@@ -12,7 +12,7 @@ import _ from 'lodash';
 import { routeNames } from 'src/Navigation';
 
 import {
-  Button, Text, Content, Icon, H1, Grid, Row, Col,
+  Button, Text, Content, Icon, Grid, Row, Col,
 } from 'native-base';
 
 import { accountsSelector, userSelector } from 'src/Redux/AppContent';
@@ -21,185 +21,37 @@ import {
   accountSelector,
 } from 'src/Redux/Account';
 
+import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 
-import Br from 'src/Components/Br';
+
 import BottomInfo from 'src/Components/BottomInfo';
 import Balance from 'src/Components/Balance';
 import SunGlow from 'src/Components/SunGlow';
-// import {
-//   LineChart,
-//   BarChart,
-//   PieChart,
-//   ProgressChart,
-//   ContributionGraph,
-//   StackedBarChart,
-// } from 'react-native-chart-kit';
-import { LineChart } from 'src/Components/ChartKit';
 
 import GraphExample2 from 'src/assets/images/GraphUpdatedOct.png';
 
-import { sg } from 'src/Styles';
+import { sg, sc } from 'src/Styles';
 import styles from './styles';
 
-import Perfomance from './Perfomance';
 import Investment from './Investment';
 
 class TabActivity extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      segment: {
-        isPerformance: true,
-        isTransactions: false,
-        isInvestment: false,
-      },
-      activeDot: 'Mar 8',
-      activeBalance: 0,
-      activity: [],
-    };
-  }
-
-  setPerfomanceSegment = () => {
-    this.setState({
-      segment: {
-        isPerformance: true,
-        isInvestment: false,
-        isTransactions: false,
-      },
-    });
-  };
-
-  setInvestmentSegment = () => {
-    this.setState({
-      segment: {
-        isInvestment: true,
-        isPerformance: false,
-        isTransactions: false,
-      },
-    });
-  };
-
-  setTransactionsSegment = () => {
-    this.setState({
-      segment: {
-        isPerformance: false,
-        isInvestment: false,
-        isTransactions: true,
-      },
-    });
-  }
-
   renderGlow() {
     return <SunGlow utcOffset={600} style={styles.activityCircleDay} {...this.props} />;
   }
 
   renderChart() {
-    const { screenProps } = this.props;
-    const { activeDot } = this.state;
     return (
       <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
           <Image source={GraphExample2} style={styles.activityGraph} />
-
-          {/* <LineChart
-            data={{
-              labels: ['March', 'April', 'May', 'June'],
-              datasets: [
-                {
-                  data: [
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                  ],
-                },
-              ],
-            }}
-            width={Dimensions.get('window').width} // from react-native
-            height={220}
-            yAxisLabel={'$'}
-            chartConfig={{
-              backgroundColor: '#e26a00',
-              backgroundGradientFrom: '#fb8c00',
-              backgroundGradientTo: '#ffa726',
-              decimalPlaces: 2, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              style: {
-                borderRadius: 16,
-              },
-            }}
-            bezier
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-            }}
-          /> */}
+          <Text style={[sg.fS11, sg.textBold, sg.textCenter, {
+            paddingTop: 30, paddingHorizontal: 15, zIndex: 999,
+          }]}
+          >
+            Past performance is not an indicator of future performance.
+          </Text>
           {this.renderGlow()}
-          {/* <LineChart
-            ref={c => {
-              if (c) this.LineChart = c;
-            }}
-            data={{
-              labels: ['Mar 31', 'Apr 30', 'May 31', 'Jun 30'],
-              datasets: [
-                {
-                  data: [10, 12, 14, 15],
-                  stroke: 'green',
-                  strokeWidth: '2',
-                },
-              ],
-            }}
-            height={125}
-            chartConfig={{
-              graphBackgroundColor: 'transparent',
-              label: {
-                color: 'gren',
-                colorDot: 'red',
-              },
-              color: 'gren',
-              colorDot: 'red',
-              stroke: 'green',
-              strokeWidth: '2',
-              // paddingRight2: 0,
-              // graphBackgroundColor: 'red',
-            }}
-            // chartConfig={{
-            //   graphBackgroundColor: 'green',
-            //   // backgroundColor: 'red',
-            //   // backgroundGradientFrom: 'red',
-            //   // backgroundGradientTo: 'green',
-            //   // decimalPlaces: 1, // optional, defaults to 2dp
-            //   // color: () => 'red',
-            //   // colorDot: 'green',
-            // }}
-            bezier
-            withDots
-            fillSides
-            fillBottom
-            activeDot={activeDot}
-            style={{
-              width: '100%',
-            }}
-            onLeftSwipeDot={() => {
-              const prevDot = this.LineChart.getPreviousDot();
-              if (prevDot) {
-                this.setState({
-                  activeDot: prevDot.label,
-                  activeBalance: prevDot.data,
-                });
-              }
-            }}
-            onRightSwipeDot={() => {
-              const nextDot = this.LineChart.getNextDot();
-              if (nextDot) {
-                this.setState({
-                  activeDot: nextDot.label,
-                  activeBalance: nextDot.data,
-                });
-              }
-            }}
-          /> */}
         </View>
         <View style={[sg.row, sg.spaceBetween, sg.contentMarginH2]}>
           <Text style={[sg.fS14, sg.fontMedium]} color3>
@@ -224,6 +76,53 @@ class TabActivity extends Component {
     }
     return null;
   }
+
+  renderTransactionsTab = () => {
+    const { selectedAccount, screenProps } = this.props;
+    const activity = selectedAccount.transactions;
+
+    return (
+      <View style={[sg.contentMarginH2, sg.mT10]}>
+        <Grid>
+          {this.renderActivityItem()}
+          {activity ? activity.map((item, index) => this.renderActivityItem(item, index)) : (
+            <View>
+              <Text style={[sg.mV40, sg.mH20, sg.textCenter]}>
+              Transactions will appear here once you start an account.
+              </Text>
+              <Button
+                onPress={() => screenProps.navigateTo(routeNames.ABOUT_APP_FORM)}
+                block
+                style={[sg.mB40]}
+              >
+                <Text>Start an account</Text>
+              </Button>
+            </View>
+          )}
+        </Grid>
+      </View>
+    );
+  }
+
+  renderPerformaceTab = () => (
+    <View>
+      <Text style={[sg.fontMedium, sg.contentMarginH]}>
+        The Target Return of the Fund is 5.2% per annum after fees and expenses and including
+        distributions.
+        {' '}
+        <Icon name="ios-help-circle-outline" style={{ fontSize: 20 }} onPress={() => BottomInfo.showAboutReturn()} />
+      </Text>
+      {this.renderChart()}
+    </View>
+  )
+
+  renderWithdrawlTab = () => (
+    <View>
+      <Text style={[sg.textCenter, sg.fS12, sg.textBold]}>
+        There is no current open ‘Withdrawal Offer’.
+      </Text>
+    </View>
+  )
 
   renderActivityItem(item = {}, index = -1) {
     const { screenProps } = this.props;
@@ -274,10 +173,15 @@ class TabActivity extends Component {
           {status === 'Processed' ? (
             <BadgeCheckmark inverted />
           ) : (
-            <Text style={[styles.activityColText, sg.colorGray11, styleText]}>{status}</Text>
+            <Text style={[styles.activityColText, styleText]} onPress={() => BottomInfo.showStatusInfo()}>
+              {`${status} `}
+              {isHeader && (
+              <Icon name="ios-help-circle-outline" style={{ fontSize: 15 }} />
+              )}
+            </Text>
           )}
         </Col>
-        <Col style={[styles.activityCol, sg.right]}>
+        <Col style={[styles.activityCol]}>
           <Text style={[styles.activityColText, styleText]}>{amount}</Text>
         </Col>
       </Row>
@@ -285,9 +189,7 @@ class TabActivity extends Component {
   }
 
   render() {
-    const { segment } = this.state;
-    const { selectedAccount, user, screenProps } = this.props;
-    const activity = selectedAccount.transactions;
+    const { selectedAccount, user } = this.props;
 
     return (
       <Content>
@@ -302,100 +204,28 @@ class TabActivity extends Component {
           }}
         />
 
-        <View style={[sg.mT30, sg.mB30]}>
-          <Br style={[sg.footerBl]} />
-          <View style={[sg.mH20, sg.row, sg.flex]}>
-            <Button
-              transparent
-              onPress={this.setPerfomanceSegment}
-              style={[
-                styles.activityTabTitleBl,
-                sg.flex05,
-                segment.isPerformance ? styles.activityTabTitleBlActive : {},
-              ]}
-            >
-              <Text
-                style={[
-                  styles.activityTabTitleTextActive,
-                  !segment.isPerformance ? styles.activityTabTitleText : {},
-                ]}
-              >
-                Performance
-              </Text>
-            </Button>
-            <Button
-              transparent
-              onPress={this.setTransactionsSegment}
-              style={[
-                styles.activityTabTitleBl,
-                sg.flex05,
-                segment.isTransactions ? styles.activityTabTitleBlActive : {},
-              ]}
-            >
-              <Text
-                style={[
-                  styles.activityTabTitleTextActive,
-                  sg.textCenter,
-                  !segment.isTransactions ? styles.activityTabTitleText : {},
-                ]}
-              >
-                Transactions
-              </Text>
-            </Button>
-            <Button
-              transparent
-              onPress={this.setInvestmentSegment}
-              style={[
-                styles.activityTabTitleBl,
-                sg.flex05,
-                segment.isInvestment ? styles.activityTabTitleBlActive : {},
-              ]}
-            >
-              <Text
-                style={[
-                  styles.activityTabTitleTextActive,
-                  sg.textCenter,
-                  !segment.isInvestment ? styles.activityTabTitleText : {},
-                ]}
-              >
-                Investments
-              </Text>
-            </Button>
+        <ScrollableTabView
+          style={{ marginTop: 20, height: 1000 }}
+          tabBarUnderlineStyle={{ backgroundColor: sc.color.primary }}
+          tabBarTextStyle={{
+            fontSize: 12,
+            fontFamily: sc.font.bold,
+          }}
+          renderTabBar={() => <ScrollableTabBar />}
+        >
+          <View tabLabel="Performace" style={{ paddingTop: 20 }}>
+            {this.renderPerformaceTab()}
           </View>
-        </View>
-
-        {segment.isPerformance && (
-          <View>
-            <Text style={[sg.fontMedium, sg.contentMarginH]}>
-              The Target Return of the Fund is 5.2% per annum after fees and expenses and including
-              distributions.
-            </Text>
-            {this.renderChart()}
+          <View tabLabel="Transactions" style={{ paddingTop: 20 }}>
+            {this.renderTransactionsTab()}
           </View>
-        )}
-        {segment.isInvestment && <Investment {...this.props} />}
-        {segment.isTransactions && (
-        <View style={[sg.contentMarginH2, sg.mT10]}>
-          <Grid>
-            {this.renderActivityItem()}
-            {activity ? activity.map((item, index) => this.renderActivityItem(item, index)) : (
-              <View>
-                <Text style={[sg.mV40, sg.mH20, sg.textCenter]}>
-                  Transactions will appear here once you start an account.
-                </Text>
-                <Button
-                  onPress={() => screenProps.navigateTo(routeNames.ABOUT_APP_FORM)}
-                  block
-                  style={[sg.mB40]}
-                >
-                  <Text>Start an account</Text>
-                </Button>
-              </View>
-            )}
-          </Grid>
-        </View>
-        )}
-
+          <View tabLabel="Investments" style={{ paddingTop: 20 }}>
+            <Investment {...this.props} />
+          </View>
+          <View tabLabel="Withdrawals" style={{ paddingTop: 20 }}>
+            {this.renderWithdrawlTab()}
+          </View>
+        </ScrollableTabView>
       </Content>
     );
   }

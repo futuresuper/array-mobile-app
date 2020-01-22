@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   View,
   Clipboard,
+  Linking,
 } from 'react-native';
 import {
   Text,
@@ -131,6 +132,11 @@ class Deposit extends Component {
   }
 
 
+  handlePDSPress() {
+    Linking.openURL('https://www.futurerenewablesfund.com.au/pds').catch((err) => console.error("Couldn't load page", err));
+  }
+
+
   renderStep1 = () => {
     const { hocs } = this.props;
     const { form } = hocs;
@@ -192,7 +198,12 @@ class Deposit extends Component {
         </View>
         <View>
           <Text style={[sg.mB30, sg.fS11]}>
-            {'Additional investments are made on the basis of the PDS and any updates to the PDS, on the same terms and conditions as in your original Application Form. We’ll send you notification of any updates when they happen.'}
+            {'Additional investments are made on the basis of the '}
+            <Text style={[sg.textUnderline, sg.fS11]} onPress={this.handlePDSPress}>
+              PDS
+            </Text>
+            {' and any updates to the PDS, on the same terms and conditions as in your original Application Form. '}
+            {'We’ll send you notification of any updates when they happen.'}
           </Text>
           <KeyboardAvoidingView>
             <Button block onPress={() => this.onConfirm()}>
@@ -224,7 +235,7 @@ class Deposit extends Component {
     return (
       <Grid
         style={[sg.mT20, sg.bGWhite, sg.pV10, sg.pH10]}
-        onPress={() => (key === "BSB" || key === "Acc No.") ? this.writeToClipboard(value,true) : this.writeToClipboard(value)}
+        onPress={() => ((key === 'BSB' || key === 'Acc No.') ? this.writeToClipboard(value, true) : this.writeToClipboard(value))}
       >
         <Col>
           <Text style={[sg.colorGray, sg.fS14, sg.mB10]}>{key}</Text>

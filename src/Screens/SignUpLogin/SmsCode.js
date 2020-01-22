@@ -44,7 +44,6 @@ import SafeAreaView from 'src/Components/SafeAreaView';
 
 
 class SmsCode extends Component {
-
   static navigationOptions = () => ({
     headerTitle: (
       <View style={{
@@ -174,6 +173,7 @@ class SmsCode extends Component {
 
                 <Input
                   helper="Code"
+                  autoFocus
                   returnKeyType="next"
                   keyboardType="numeric"
                   value={smsCode}

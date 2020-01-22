@@ -27,7 +27,7 @@ const ACTION_HANDLERS = {
       },
     };
   },
-  [types.AUTH_RESET]: state => ({
+  [types.AUTH_RESET]: (state) => ({
     ...state,
     ...initialState,
   }),
@@ -35,6 +35,17 @@ const ACTION_HANDLERS = {
     ...state,
     user: action.payload,
   }),
+  [types.USER_DATA_UPDATE]: (state, action) => {
+    console.log('action!', action);
+    console.log('state', state);
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        ...action.payload,
+      },
+    };
+  },
   [types.USER_UPDATE_AVATAR]: (state, action) => {
     const { payload } = action;
     const { user } = state;
@@ -75,7 +86,7 @@ const ACTION_HANDLERS = {
       biometrics: action.payload,
     },
   }),
-  [types.LOCAL_AUTH_VALIDATE]: state => ({
+  [types.LOCAL_AUTH_VALIDATE]: (state) => ({
     ...state,
     localAuth: {
       ...state.localAuth,

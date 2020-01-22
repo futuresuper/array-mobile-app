@@ -114,6 +114,11 @@ class Api extends React.Component {
     return this.ApiInstance.proc(path, body, onSuccess, onError, 'post', spinner);
   }
 
+
+  static put(path, body, onSuccess = null, onError = null, spinner = true) {
+    return this.ApiInstance.proc(path, body, onSuccess, onError, 'put', spinner);
+  }
+
   UNSAFE_componentWillMount() {
     const { ownProps } = this.props;
     ownProps.setRef(this);
@@ -164,10 +169,10 @@ class Api extends React.Component {
     let errorResponseMessage = null;
 
     if (bodyQuery && !isEmpty(bodyQuery)) {
-      if (method === 'post') {
-        options.body = bodyQuery;
-      } else {
+      if (method === 'get') {
         options.queryStringParameters = bodyQuery;
+      } else {
+        options.body = bodyQuery;
       }
     }
 

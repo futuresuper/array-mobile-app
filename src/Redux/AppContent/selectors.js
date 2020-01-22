@@ -36,3 +36,16 @@ export const featuredSolarFarmSelector = (state) => {
 
   return res;
 };
+
+export const getAccountByIdSelector = (state, id) => {
+  const { accounts } = state.appContent;
+  let res = null;
+
+  if (!accounts || !Array.isArray(accounts)) {
+    return res;
+  }
+
+  res = accounts.find((item) => item.id === id);
+
+  return res;
+};

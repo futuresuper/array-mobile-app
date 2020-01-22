@@ -23,11 +23,12 @@ export function routeBack(back_screen = null, params = null) {
   };
 }
 
-export function routeReset(route, params = {}) {
+export function routeReset(route, params = {}, key) {
   return {
     type: 'ROUTE_RESET',
     route_name: route,
     params,
+    key,
   };
 }
 

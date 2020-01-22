@@ -392,13 +392,18 @@ const tabBarModalRootRoutes = {
   [routeNames.ALL_INVESTMENTS]: {
     screen: screens.AllInvestments,
     params: {
-      routeReset: true,
       title: 'All investments',
       headerTitleStyle: {
         fontSize: 24,
       },
     },
-    ...tabCardOptions,
+  },
+  [routeNames.PERSONAL_DETAILS]: {
+    screen: screens.PersonalDetails,
+    params: {
+      title: 'Personal details',
+      headerTitleStyle: sg.tabProfileTitle,
+    },
   },
 };
 
@@ -438,31 +443,7 @@ const tabCardRoutes = {
       header: null,
     },
   },
-  [routeNames.MANAGE_ACCOUNTS]: {
-    screen: screens.ManageAccounts,
-    params: {
-      routeReset: true,
-      title: 'Manage Accounts',
-      headerTitleStyle: sg.tabProfileTitle,
-    },
-    ...tabCardOptions,
-  },
-  [routeNames.MANAGE_ACCOUNT_DETAILS]: {
-    screen: screens.ManageAccountDetails,
-    params: {
-      headerTitleStyle: sg.tabProfileTitle,
-    },
-    ...tabCardOptions,
-  },
-  [routeNames.PERSONAL_DETAILS]: {
-    screen: screens.PersonalDetails,
-    params: {
-      title: 'Personal details',
-      routeReset: true,
-      headerTitleStyle: sg.tabProfileTitle,
-    },
-    ...tabCardOptions,
-  },
+
   [routeNames.REFER_FRIEND]: {
     screen: screens.ReferFriend,
     params: {
@@ -487,6 +468,29 @@ const tabCardRoutes = {
     },
     ...tabCardOptions,
   },
+  [routeNames.MANAGE_ACCOUNTS]: {
+    screen: screens.ManageAccounts,
+    params: {
+      routeReset: true,
+      title: 'Manage Accounts',
+      headerTitleStyle: sg.tabProfileTitle,
+    },
+    ...tabCardOptions,
+  },
+  [routeNames.MANAGE_ACCOUNT_DETAILS]: {
+    screen: screens.ManageAccountDetails,
+    params: {
+      headerTitleStyle: sg.tabProfileTitle,
+    },
+    ...tabCardOptions,
+  },
+  [routeNames.MANAGE_ACCOUNT_DETAILS_EDIT]: {
+    screen: screens.ManageAccountDetailsEdit,
+    params: {
+      headerTitleStyle: sg.tabProfileTitle,
+    },
+    ...tabCardOptions,
+  },
 };
 
 const tmpRoutes = {
@@ -506,12 +510,12 @@ const routes = {
 };
 
 const getRouteInfo = (findScreenKey) => {
-  // eslint-disable-next-line no-restricted-syntax
+  // eslint-disable-next-line no-restricted-syntax, no-unused-vars
   for (const keyRoute in routes) {
     if ({}.hasOwnProperty.call(routes, keyRoute)) {
       const routeInfo = routes[keyRoute];
 
-      // eslint-disable-next-line no-restricted-syntax
+      // eslint-disable-next-line no-restricted-syntax, no-unused-vars
       for (const keyScreen in routeInfo) {
         if ({}.hasOwnProperty.call(routeInfo, keyScreen)) {
           let screenInfo = routeInfo[keyScreen];

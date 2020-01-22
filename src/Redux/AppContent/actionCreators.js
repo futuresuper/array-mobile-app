@@ -31,3 +31,10 @@ export function updateArticlieLike(data) {
     payload: data,
   };
 }
+
+export function appContentUpdateAccount(data) {
+  return {
+    type: types.APP_CONTENT_UPDATE_ACCOUNT,
+    payload: data,
+  };
+}

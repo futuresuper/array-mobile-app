@@ -110,6 +110,7 @@ class Email extends React.Component {
               <Input
                 formData={form}
                 formKey="emailAddress"
+                autoFocus
                 helper="Email address"
                 autoCapitalize="none"
                 keyboardType="email-address"
