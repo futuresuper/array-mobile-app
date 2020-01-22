@@ -29,10 +29,8 @@ import { userSelector } from 'src/Redux/AppContent';
 
 import { userUpdateAvatar } from 'src/Redux/Auth';
 
-import Camera from 'src/Components/Camera';
 import { sg } from 'src/Styles';
 import NotifService from 'src/NotifService';
-import ImageUploadModal from './ImageUploadModal';
 
 
 import styles from './styles';
@@ -44,10 +42,11 @@ class TabProfile extends Component {
     this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
 
     this.state = {
-      cameraVisible: false,
-      filePath: {},
-      imageUploadModalIsVisible: false,
       listMenu: [
+        // {
+        //   name: 'ID Check',
+        //   screen: routeNames.ID_CHECK_FINISH,
+        // },
         // {
         //   name: 'Change Theme',
         //   function: () => {
@@ -81,6 +80,10 @@ class TabProfile extends Component {
           screen: routeNames.TALK_US,
         },
         // {
+        //   name: 'Talk to us',
+        //   function: () => this.displayIntercom(props),
+        // },
+        // {
         //   name: 'Withdraw',
         //   screen: routeNames.TAB_PROFILE,
         // },
@@ -88,18 +91,13 @@ class TabProfile extends Component {
         //   name: 'Join Future Super',
         //   screen: routeNames.JOIN_FUTURE_SUPER,
         // },
+        // {
+        //   name: 'Onboarding & Sign Up',
+        //   screen: routeNames.SCREENS_LIST,
+        // },
       ],
     };
   }
-
-  onTakePhoto = (data) => {
-    const { userUpdateAvatarConnect } = this.props;
-    const { uri } = data;
-    console.log('----------data from camera', data);
-    userUpdateAvatarConnect(uri);
-    this.toggleCamera();
-    this.toggleImageUploadModal();
-  };
 
   // eslint-disable-next-line react/sort-comp
   navigateTo = (screen) => {
@@ -107,9 +105,6 @@ class TabProfile extends Component {
     screenProps.navigateTo(screen);
   };
 
-  initializeFcm() {
-    this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
-  }
 
   // eslint-disable-next-line react/sort-comp
   onNotif(notif) {
@@ -130,20 +125,11 @@ class TabProfile extends Component {
     screenProps.Api.logOut();
   };
 
-  toggleCamera = () => {
-    this.setState((prev) => ({
-      imageUploadModalIsVisible: !prev.imageUploadModalIsVisible,
-      cameraVisible: !prev.cameraVisible,
-    }));
-  };
+  initializeFcm() {
+    this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
+  }
 
-  toggleImageUploadModal = () => {
-    this.setState((prev) => ({
-      imageUploadModalIsVisible: !prev.imageUploadModalIsVisible,
-    }));
-  };
-
-  chooseFile = () => {
+  handleAvatarChange() {
     const { userUpdateAvatarConnect } = this.props;
     const options = {
       title: 'Select Image',
@@ -151,36 +137,50 @@ class TabProfile extends Component {
       storageOptions: {
         skipBackup: true,
         path: 'images',
+        cameraRoll: true,
+        waitUntilSaved: true,
       },
     };
-    ImagePicker.launchImageLibrary(options, (response) => {
-      // console.log('Response = ', response);
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
-        alert('Please try one more time!');
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = response.uri;
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        this.setState({
-          filePath: source,
-          imageUploadModalIsVisible: false,
-        });
-        console.log('----------data from library', source);
-
+        console.log('source!!!!', source);
         userUpdateAvatarConnect(source);
       }
     });
-  };
+  }
 
   renderAvatar() {
     const { user } = this.props;
     let childEl;
 
     if (user.profileImage) {
-      childEl = <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />;
+      childEl = (
+        <View>
+          <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />
+          <View style={{
+            position: 'absolute', top: 45, left: 40, backgroundColor: 'black', padding: 6, borderRadius: 45,
+          }}
+          >
+            <Icon
+              type="FontAwesome"
+              name="camera"
+              style={{
+                fontSize: 14,
+                color: 'white',
+              }}
+            />
+          </View>
+        </View>
+      );
     } else {
       childEl = (
         <View style={styles.profileAvatarBl}>
@@ -188,12 +188,25 @@ class TabProfile extends Component {
             {user.firstName ? user.firstName.charAt(0) : ''}
             {user.lastName ? user.lastName.charAt(0) : ''}
           </Text>
+          <View style={{
+            position: 'absolute', top: 45, left: 40, backgroundColor: 'black', padding: 6, borderRadius: 45,
+          }}
+          >
+            <Icon
+              type="FontAwesome"
+              name="camera"
+              style={{
+                fontSize: 14,
+                color: 'white',
+              }}
+            />
+          </View>
         </View>
       );
     }
 
     const res = (
-      <TouchableOpacity onPress={this.toggleImageUploadModal}>{childEl}</TouchableOpacity>
+      <TouchableOpacity onPress={() => this.handleAvatarChange()}>{childEl}</TouchableOpacity>
     );
 
     return res;
@@ -202,7 +215,7 @@ class TabProfile extends Component {
   render() {
     const { user, screenProps } = this.props;
     const { themeMode } = screenProps;
-    const { listMenu, cameraVisible, imageUploadModalIsVisible } = this.state;
+    const { listMenu } = this.state;
 
     return (
       <Content contentContainerStyle={[sg.pB30]}>
@@ -264,22 +277,6 @@ class TabProfile extends Component {
             <Text>Log out</Text>
           </Button>
         </View>
-        <Camera
-          visible={cameraVisible}
-          onRequestClose={this.toggleCamera}
-          onTakePhoto={this.onTakePhoto}
-        />
-        <ImageUploadModal
-          visible={imageUploadModalIsVisible}
-          toggleCamera={this.toggleCamera}
-          toggleLibrary={this.chooseFile}
-          onRequestClose={() => {
-            this.setState({
-              imageUploadModalIsVisible: false,
-            });
-          }}
-          {...this.props}
-        />
       </Content>
     );
   }
