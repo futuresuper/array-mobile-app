@@ -6,7 +6,10 @@ import {
 } from 'react-native';
 
 import {
-  Content, Text, Button, Icon,
+  Text,
+  Button,
+  Icon,
+  View as ViewNB,
 } from 'native-base';
 
 import { routeNames } from 'src/Navigation';
@@ -83,42 +86,38 @@ class BuildYourImpact extends Component {
     const { screenProps } = this.props;
 
     return (
-      <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
-        <Image source={buildYourImpact} />
+      <SafeAreaView themeMode={screenProps.themeMode}>
+        <Image source={buildYourImpact} style={[sg.postitionAbsolute]} />
         <BackButton
           signup
           header={false}
-          style={{ ...sg.pL20, ...sg.pT20, ...sg.postitionAbsolute }}
+          style={sg.pL30}
           iconStyle={sg.mL0}
           {...this.props}
         />
-        <Content contentContainerStyle={[sg.flexGrow]} bounces={false}>
 
-          <SafeAreaView forceInset={{ bottom: 'never' }} themeMode={screenProps.themeMode}>
-            <View style={[sg.spaceBetween, sg.contentPaddingH]}>
-              <View>
-                <Text style={[styles.header, sg.mB10]}>
-                  {'Build your\nimpact'}
-                </Text>
-                <Text style={sg.textCenter}>
-                  {'Put your savings to work building &\nsupporting real solar farms, like these'}
-                </Text>
-              </View>
+        <ViewNB style={[sg.spaceBetween, sg.contentPaddingH]}>
+          <View style={sg.mT50}>
+            <Text style={[styles.header, sg.mB10]}>
+              {'Build your\nimpact'}
+            </Text>
+            <Text style={sg.textCenter}>
+              {'Put your savings to work building &\nsupporting real solar farms, like these'}
+            </Text>
+          </View>
 
-              {this.renderFarms()}
+          {this.renderFarms()}
 
-              <Button
-                style={[sg.mH0, sg.contentMarginV]}
-                block
-                onPress={() => {
-                  screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
-                }}
-              >
-                <Text>Next</Text>
-              </Button>
-            </View>
-          </SafeAreaView>
-        </Content>
+          <Button
+            style={[sg.mH0, sg.contentMarginV]}
+            block
+            onPress={() => {
+              screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
+            }}
+          >
+            <Text>Next</Text>
+          </Button>
+        </ViewNB>
       </SafeAreaView>
     );
   }
