@@ -75,6 +75,9 @@ const signDataRoutes = formatRoutes({
       title: 'About',
     },
   },
+  [routeNames.APPLICATIONS_CLOSED]: {
+    screen: screens.ApplicationsClosed,
+  },
   [routeNames.IMPORTANT_INFO]: {
     screen: screens.ImportantInfo,
     params: {

@@ -4,7 +4,7 @@ import { sc } from 'src/Styles';
 
 const isIOSv = isIOS();
 
-export default {
+const defaultStyle = {
   header: {
     color: sc.color.dark2,
     fontSize: 35,
@@ -12,6 +12,8 @@ export default {
     textAlign: 'center',
   },
 };
+
+export default defaultStyle;
 
 export const appLanding = {
   image: {
@@ -125,6 +127,14 @@ export const aboutAppForm = {
       marginTop: 20,
     };
   },
+};
+
+export const applicationsClosed = {
+  header: {
+    ...defaultStyle.header,
+    textAlign: 'left',
+  },
+  descriptionP: aboutAppForm.descriptionP,
 };
 
 export const taxNumbers = {

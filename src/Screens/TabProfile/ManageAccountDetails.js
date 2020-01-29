@@ -40,7 +40,9 @@ class ManageAccountDetails extends Component {
       id,
       appContentUpdateAccountConnect,
       accountUpdateSaveConnect,
+      item,
     } = this.props;
+    const { nickName } = item;
     const data = {
       [key]: value,
     };
@@ -57,7 +59,7 @@ class ManageAccountDetails extends Component {
       appContentUpdateAccountConnect(dataStore);
       accountUpdateSaveConnect(dataStore);
 
-      screenProps.toastSuccessIcon('asdasd');
+      screenProps.toastSuccessIcon(`Account ${nickName} updated`);
       screenProps.routeBack();
     }, () => {
       screenProps.toastDanger('Error');

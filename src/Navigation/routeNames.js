@@ -9,6 +9,7 @@ export default {
   SIGN_UP_LOGIN: 'SignUpLogin',
   SMS_CODE: 'SmsCode',
   ABOUT_APP_FORM: 'AboutAppForm',
+  APPLICATIONS_CLOSED: 'ApplicationsClosed',
   IMPORTANT_INFO: 'ImportantInfo',
   PERSONAL_DETAILS_ALREADY_SUBMITTED: 'PersonalDetailsAlreadySubmitted',
   ACCOUNT_TYPE: 'AccountType',

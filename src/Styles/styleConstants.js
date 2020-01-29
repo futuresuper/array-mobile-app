@@ -1,4 +1,6 @@
 
+import { Header } from 'react-navigation-stack';
+
 export default Object.freeze({
   mainColor: 'green',
   contentPadding: 30,
@@ -101,6 +103,7 @@ export default Object.freeze({
   input: {
     backgroundColor: 'white',
   },
+  headerHeight: Header.HEIGHT,
   keyboardAvoidingHeight: 100,
   inputHeightBase: 50,
   footerHeight: 55,

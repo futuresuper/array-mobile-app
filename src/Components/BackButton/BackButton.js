@@ -8,7 +8,6 @@ import {
 
 import {
   sc,
-  sg,
 } from 'src/Styles';
 
 import styles from './styles';
