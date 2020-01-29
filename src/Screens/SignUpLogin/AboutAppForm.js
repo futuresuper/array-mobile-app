@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { View, Linking } from 'react-native';
 
@@ -13,9 +14,13 @@ import { aboutAppForm as styles } from './styles';
 
 class AboutAppForm extends Component {
   onNext() {
-    console.log('11111111')
-    const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.IMPORTANT_INFO);
+    const { screenProps, applicationsOpen } = this.props;
+
+    if (applicationsOpen) {
+      screenProps.navigateTo(routeNames.IMPORTANT_INFO);
+    } else {
+      screenProps.navigateTo(routeNames.APPLICATIONS_CLOSED);
+    }
   }
 
   clickOnLink() {
@@ -97,7 +102,12 @@ class AboutAppForm extends Component {
   }
 }
 
+AboutAppForm.propTypes = {
+  applicationsOpen: PropTypes.bool.isRequired,
+};
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  applicationsOpen: state.appContent.applicationsOpen,
+});
 
 export default connect(mapStateToProps)(AboutAppForm);

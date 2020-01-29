@@ -15,6 +15,7 @@ import Notifications from './Notifications';
 import ThanksShare from './ThanksShare';
 import ArtistName from './ArtistName';
 import AboutAppForm from './AboutAppForm';
+import ApplicationsClosed from './ApplicationsClosed';
 import ImportantInfo from './ImportantInfo';
 import PlaceOfBirth from './PlaceOfBirth';
 import Occupation from './Occupation';
@@ -42,6 +43,7 @@ export {
   ThanksShare,
   ArtistName,
   AboutAppForm,
+  ApplicationsClosed,
   PlaceOfBirth,
   Occupation,
   Pep,
