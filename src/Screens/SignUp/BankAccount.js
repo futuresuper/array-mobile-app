@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import {
   View,
   Linking,
@@ -68,10 +69,12 @@ class BankAccount extends React.Component {
     hocs.setForm(form);
   }
 
-  accountNameValidator(value) {
-    if (!value) {
+  accountNameValidator(valueInp) {
+    if (!valueInp) {
       return true;
     }
+
+    const value = _.trim(valueInp);
 
     if ([
       'commbank',
@@ -113,24 +116,28 @@ class BankAccount extends React.Component {
 
     const formIsValid = hocs.formIsValid();
     if (formIsValid) {
-      const body = {
-        accountId,
-        bankAccountName: hocs.form.accountName.value,
-        bankAccountBsb: `${hocs.form.bsb.value}`,
-        bankAccountNumber: `${hocs.form.accountNumber.value}`,
-      };
-      screenProps.Api.post('/account', body, (res) => {
-        accountUpdateSaveConnect(res);
-        screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
-        /*
-        screenProps.toast('All done!', {
-          iconType: 'MaterialCommunityIcons',
-          iconName: 'check-circle',
+      screenProps.Api.get('/bsbdetails', { bsb: `${hocs.form.bsb.value}` }, () => {
+        const body = {
+          accountId,
+          bankAccountName: hocs.form.accountName.value,
+          bankAccountBsb: `${hocs.form.bsb.value}`,
+          bankAccountNumber: `${hocs.form.accountNumber.value}`,
+        };
+        screenProps.Api.post('/account', body, (res) => {
+          accountUpdateSaveConnect(res);
+          screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
+          /*
+          screenProps.toast('All done!', {
+            iconType: 'MaterialCommunityIcons',
+            iconName: 'check-circle',
+          });
+          screenProps.navigateTo(routeNames.TAB_HOME);
+          */
+        }, () => {
+          screenProps.toastDanger('Error. Try Again');
         });
-        screenProps.navigateTo(routeNames.TAB_HOME);
-        */
       }, () => {
-        screenProps.toastDanger('Error. Try Again');
+        screenProps.toastDanger('Wrong BSB');
       });
     }
   }
