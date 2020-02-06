@@ -32,6 +32,12 @@ import {
   routeNames,
 } from 'src/Navigation';
 
+import {
+  formatBSB,
+  normalizeBSB,
+  validatorBSB,
+} from 'src/Common/Helpers';
+
 class BankAccount extends React.Component {
   constructor(props) {
     super(props);
@@ -41,7 +47,9 @@ class BankAccount extends React.Component {
           validations: [[this.accountNameValidator, 'Bank account must be in your own name']],
         },
         bsb: {
-          validations: ['required'],
+          validations: [[validatorBSB, 'Please enter a valid BSB']],
+          normalize: normalizeBSB,
+          format: formatBSB,
         },
         accountNumber: {
           validations: ['required'],
@@ -144,6 +152,7 @@ class BankAccount extends React.Component {
               formKey="bsb"
               helper="BSB"
               onChangeText={hocs.handleInput}
+              keyboardType="numeric"
             />
 
             <Input
