@@ -79,12 +79,29 @@ class TaxNumbers extends Component {
         usPerson: form.usPerson.value !== '',
         usTin: form.usTin.value,
         osTaxResident: form.resident.value,
-        tins: form.resident.value ? form.tins.map((t) => ({
-          country: t.country.value,
-          tin: t.tin.value,
-          unavailableReason: t.reasonDoesntExist.value,
-          unavailableReasonOther: t.reasonOther.value,
-        })) : '',
+        tins: form.resident.value ? form.tins.map((t) => {
+          const res = {
+            country: t.country.value,
+          };
+
+          if (t.tin.value) {
+            res.tin = t.tin.value;
+          }
+
+          if (t.reasonDoesntExist.value) {
+            res.unavailableReason = t.reasonDoesntExist.value;
+          }
+
+          if (t.reasonDoesntIssue.value) {
+            res.unavailableReason = t.reasonDoesntIssue.value;
+          }
+
+          if (t.reasonOther.value) {
+            res.unavailableReasonOther = t.reasonOther.value;
+          }
+
+          return res;
+        }) : '',
         certifiedAllTaxResidenciesProvided: form.check.value,
       };
       screenProps.Api.post('/user', body, () => {
@@ -130,21 +147,30 @@ class TaxNumbers extends Component {
   reasonValidator(value, key) {
     const { hocs } = this.props;
     const { form } = hocs;
-    const arrayTarget = key.split('.').slice(0, -1);
+    const keyArray = key.split('.');
+    const arrayTarget = keyArray.slice(0, -1);
     const tinForm = get(form, arrayTarget);
+
     if (!form.resident.value) {
       return false;
     }
+
     if (tinForm) {
-      if (tinForm.reasonDoesntIssue.value
-      || tinForm.reasonDoesntExist.value
-      || tinForm.reasonOther.value) {
-        return false;
+      const tinFormKey = keyArray[2];
+
+      if (tinFormKey === 'tin') {
+        if (
+          tinForm.reasonDoesntExist.value
+          || tinForm.reasonDoesntIssue.value
+          || tinForm.reasonOther.value
+        ) {
+          return false;
+        }
+
+        return !tinForm.tin.value;
+      } if (tinFormKey === 'country') {
+        return !tinForm.country.value;
       }
-      if (tinForm.country.value && tinForm.tin.value) {
-        return false;
-      }
-      return true;
     }
     return false;
   }
@@ -155,8 +181,8 @@ class TaxNumbers extends Component {
     const intResObjSkeleton = {
       country: { validations: [this.reasonValidator] },
       tin: { validations: [this.reasonValidator] },
-      reasonDoesntIssue: { validations: [this.reasonValidator] },
-      reasonDoesntExist: { validations: [this.reasonValidator] },
+      reasonDoesntIssue: { },
+      reasonDoesntExist: { },
       reasonOther: { validations: [this.reasonValidator] },
     };
     hocs.addOrUpdateFormField(intResObjSkeleton, `tins.${key}`, 'collection');
@@ -181,10 +207,9 @@ class TaxNumbers extends Component {
   }
 
   handleResidentReason(e, k) {
-    console.log(e);
     const { hocs } = this.props;
     const currentFormState = hocs.form;
-    console.log(currentFormState);
+
     if (e === `tins.${k}.reasonDoesntIssue`) {
       if (currentFormState.tins[k].reasonDoesntExist.value) {
         hocs.handleCheckBox(`tins.${k}.reasonDoesntExist`);
@@ -197,6 +222,21 @@ class TaxNumbers extends Component {
       }
       hocs.handleCheckBox(e);
     }
+
+    // set value to force validation checking
+    const tinValue = currentFormState.tins[k].tin.value;
+    hocs.handleInput(tinValue, `tins.${k}.tin`);
+  }
+
+  handleResidentReasonInput(e, k) {
+    const { hocs } = this.props;
+    const currentFormState = hocs.form;
+
+    hocs.handleInput(e, `tins.${k}.reasonOther`);
+
+    // set value to force validation checking
+    const tinValue = currentFormState.tins[k].tin.value;
+    hocs.handleInput(tinValue, `tins.${k}.tin`);
   }
 
 
@@ -296,7 +336,7 @@ class TaxNumbers extends Component {
                 formData={form}
                 formKey={`tins.${k}.reasonOther`}
                 helper="OTHER"
-                onChangeText={hocs.handleInput}
+                onChangeText={(e) => this.handleResidentReasonInput(e, k)}
               />
             </Row>
           </Grid>,

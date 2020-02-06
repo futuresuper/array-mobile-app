@@ -1,7 +1,7 @@
 /* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
 import {
-  mapValues, isNil, get, set,
+  mapValues, isNil, get,
 } from 'lodash';
 
 import {
@@ -73,7 +73,7 @@ export default function FormHoc(WrappedComponent) {
       const form = mapValues(obj, (i) => {
         // added nested array forms functionality
         if (Array.isArray(i)) {
-          const arrayElement = i.map(element => mapValues(element, ei => this.attachFormKeys(ei)));
+          const arrayElement = i.map((element) => mapValues(element, (ei) => this.attachFormKeys(ei)));
           return arrayElement;
         }
         let formItem = this.attachFormKeys(i);
@@ -90,7 +90,7 @@ export default function FormHoc(WrappedComponent) {
     }
 
 
-    attachFormKeys = obj => (
+    attachFormKeys = (obj) => (
       { ...fromKeys, ...obj }
     )
 
@@ -165,7 +165,7 @@ export default function FormHoc(WrappedComponent) {
       }
 
       inputItem = this.applyNormalizeFormat(inputItem, value);
-
+      inputItem = this.validateField(inputItem, formKey);
 
       formClone[targetArray] = {
         ...inputItem,
@@ -238,7 +238,7 @@ export default function FormHoc(WrappedComponent) {
         pathArray = formKey.split('.');
       }
       if (format === 'collection') {
-        completeData = mapValues(data, value => this.attachFormKeys(value));
+        completeData = mapValues(data, (value) => this.attachFormKeys(value));
       } else {
         completeData = this.attachFormKeys(data);
       }
