@@ -19,9 +19,6 @@ import {
 } from 'src/Styles';
 
 import {
-  userSelector,
-} from 'src/Redux/AppContent';
-import {
   accountIdSelector, accountUpdateSave,
 } from 'src/Redux/Account';
 
@@ -41,7 +38,7 @@ class BankAccount extends React.Component {
     this.state = {
       form: {
         accountName: {
-          validations: ['required'],
+          validations: [[this.accountNameValidator, 'Bank account must be in your own name']],
         },
         bsb: {
           validations: ['required'],
@@ -63,9 +60,47 @@ class BankAccount extends React.Component {
     hocs.setForm(form);
   }
 
+  accountNameValidator(value) {
+    if (!value) {
+      return true;
+    }
+
+    if ([
+      'commbank',
+      'savings',
+    ].find((item) => value.toLowerCase().includes(item))) {
+      return true;
+    }
+
+    const valueArr = value.split(' ');
+    const valueArrLength = valueArr.length;
+
+    if (valueArrLength < 2) {
+      return true;
+    }
+
+    const valueFirstLength = valueArr[0].length;
+    const valueFirstSecond = valueArr[1].length;
+
+    if (
+      (
+        (valueFirstLength === 1)
+        && (valueFirstSecond === 1)
+      )
+      || (
+        (valueFirstLength > 1)
+        && (valueFirstSecond === 1)
+      )
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
   handlePress() {
     const {
-      screenProps, hocs, user, accountId, accountUpdateSaveConnect,
+      screenProps, hocs, accountId, accountUpdateSaveConnect,
     } = this.props;
 
     const formIsValid = hocs.formIsValid();
@@ -139,7 +174,8 @@ class BankAccount extends React.Component {
                   I authorise Ezidebit Pty Ltd ACN 096 902 813 (User ID No 165969, 303909, 301203, 234040, 234072, 428198)
                   to debit my account at the Financial Institution identified above through the Bulk Electronic Clearing System (BECS),
                   in accordance with this Direct Debit Request and as per the&nbsp;
-                  <Text onPress={() => this.clickOnLink()} style={[sg.fS10, sg.textUnderline]}>Ezidebit DDR Service Agreement</Text>.
+                  <Text onPress={() => this.clickOnLink()} style={[sg.fS10, sg.textUnderline]}>Ezidebit DDR Service Agreement</Text>
+                  .
                   I authorise these payments to be debited at intervals and amounts as directed by Future Super for the Future Renewables Fund,
                   as per the Terms and Conditions of the Future Super agreement and subsequent agreements.
                 </Text>
@@ -161,17 +197,14 @@ class BankAccount extends React.Component {
 }
 
 BankAccount.propTypes = {
-  user: PropTypes.object.isRequired,
   accountId: PropTypes.string.isRequired,
   accountUpdateSaveConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const user = userSelector(state);
   const accountId = accountIdSelector(state);
 
   return {
-    user,
     accountId,
   };
 };
