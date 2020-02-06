@@ -130,6 +130,41 @@ export const normalizeFullDate = (valueInp) => {
   return value;
 };
 
+export const normalizeBSB = (valueInp) => {
+  let value = valueInp;
+
+  if (value) {
+    value = value.replace(/[^0-9]/g, '');
+  }
+
+  if (value.length > 6) {
+    value = value.slice(0, -1);
+  }
+
+  return value;
+};
+
+export const formatBSB = (inputInp) => {
+  let input = inputInp;
+
+  if (typeof input !== 'string') {
+    input = input.toString();
+  }
+
+  if (input.length > 6) {
+    input = input.slice(0, -1);
+  }
+
+  if (input.length > 3) {
+    const inputArr = input.match(/.{1,3}/g);
+    input = inputArr.join('-');
+  }
+
+  return input;
+};
+
+export const validatorBSB = (value) => (value.length < 6);
+
 export const formatAmountDollar = (inputInp, decimalCountInp = 0) => {
   let input = inputInp;
 
