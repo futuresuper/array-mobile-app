@@ -222,9 +222,11 @@ class TabActivity extends Component {
           <View tabLabel="Investments" style={{ paddingTop: 20 }}>
             <Investment {...this.props} />
           </View>
+          {/*
           <View tabLabel="Withdrawals" style={{ paddingTop: 20 }}>
             {this.renderWithdrawlTab()}
           </View>
+          */}
         </ScrollableTabView>
       </Content>
     );
