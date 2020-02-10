@@ -147,7 +147,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.PURPOSE_OF_INVESTMENT]: {
     screen: screens.PurposeOfInvestment,
     params: {
-      title: 'Investment Purpose',
+      title: 'Purpose',
     },
   },
   [routeNames.OCCUPATION]: {
