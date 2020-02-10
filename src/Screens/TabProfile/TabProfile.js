@@ -53,32 +53,32 @@ class TabProfile extends Component {
         //     props.screenProps.toogleTheme();
         //   },
         // },
-        {
-          name: 'Allow Push Notifications',
-          function: () => {
-            this.initializeFcm();
-          },
-        },
-        {
-          name: 'Manage accounts',
-          screen: routeNames.MANAGE_ACCOUNTS,
-        },
+        // {
+        //   name: 'Allow Push Notifications',
+        //   function: () => {
+        //     this.initializeFcm();
+        //   },
+        // },
+        // {
+        //   name: 'Manage accounts',
+        //   screen: routeNames.MANAGE_ACCOUNTS,
+        // },
         {
           name: 'Switch accounts',
           screen: routeNames.ACCOUNTS,
         },
-        {
-          name: 'Personal details',
-          screen: routeNames.PERSONAL_DETAILS,
-        },
+        // {
+        //   name: 'Personal details',
+        //   screen: routeNames.PERSONAL_DETAILS,
+        // },
         // {
         //   name: 'Refer a friend',
         //   screen: routeNames.REFER_FRIEND,
         // },
-        {
-          name: 'Talk to us',
-          screen: routeNames.TALK_US,
-        },
+        // {
+        //   name: 'Talk to us',
+        //   screen: routeNames.TALK_US,
+        // },
         // {
         //   name: 'Talk to us',
         //   function: () => this.displayIntercom(props),
