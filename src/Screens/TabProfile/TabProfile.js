@@ -126,7 +126,7 @@ class TabProfile extends Component {
   };
 
   initializeFcm() {
-    this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
+    // this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
   }
 
   handleAvatarChange() {
