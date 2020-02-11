@@ -166,10 +166,12 @@ class TabProfile extends Component {
       childEl = (
         <View>
           <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />
+          {/*
           <View style={{
             position: 'absolute', top: 45, left: 40, backgroundColor: 'black', padding: 6, borderRadius: 45,
           }}
           >
+
             <Icon
               type="FontAwesome"
               name="camera"
@@ -178,7 +180,9 @@ class TabProfile extends Component {
                 color: 'white',
               }}
             />
+
           </View>
+          */}
         </View>
       );
     } else {
@@ -188,10 +192,12 @@ class TabProfile extends Component {
             {user.firstName ? user.firstName.charAt(0) : ''}
             {user.lastName ? user.lastName.charAt(0) : ''}
           </Text>
+          {/*
           <View style={{
             position: 'absolute', top: 45, left: 40, backgroundColor: 'black', padding: 6, borderRadius: 45,
           }}
           >
+
             <Icon
               type="FontAwesome"
               name="camera"
@@ -200,7 +206,9 @@ class TabProfile extends Component {
                 color: 'white',
               }}
             />
+
           </View>
+          */}
         </View>
       );
     }
