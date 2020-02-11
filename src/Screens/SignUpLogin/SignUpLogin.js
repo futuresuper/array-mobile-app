@@ -80,6 +80,15 @@ class SignUpLogin extends Component {
 
     formatAndValidateMobile(strPre) {
       const str = strPre.replace(/[^0-9]+/g, '');
+
+      // test user
+      if (
+        __DEV__
+        && (str === '12345678901')
+      ) {
+        return `${str}`;
+      }
+
       if (
         (str[0] === '7' && str.length === 10)
       || (str[0] === '6' && str.length === 10)
