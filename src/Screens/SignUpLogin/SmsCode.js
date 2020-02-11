@@ -124,9 +124,11 @@ class SmsCode extends Component {
             amplitude.getInstance().logEvent('Entered SMS Code - Failed', {});
           }, false);
         } else {
+          screenProps.spinnerHide();
           screenProps.toast('Please enter the correct code');
         }
       }).catch(() => {
+        screenProps.spinnerHide();
         screenProps.toast('Code timed out - Please try again');
         amplitude.getInstance().logEvent('Entered SMS Code - TimedOut', {});
         screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
