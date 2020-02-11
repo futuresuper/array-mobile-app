@@ -45,7 +45,7 @@ class BankAccount extends React.Component {
     this.state = {
       form: {
         accountName: {
-          validations: [[this.accountNameValidator, 'Bank account must be in your own name']],
+          // validations: [[this.accountNameValidator, 'Bank account must be in your own name']],
         },
         bsb: {
           validations: [[validatorBSB, 'Please enter a valid BSB']],

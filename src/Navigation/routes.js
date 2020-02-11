@@ -66,7 +66,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.ACCOUNT_TYPE]: {
     screen: screens.AccountType,
     params: {
-      title: 'Account type',
+      title: 'Account Type',
     },
   },
   [routeNames.ABOUT_APP_FORM]: {
@@ -93,19 +93,19 @@ const signDataRoutes = formatRoutes({
   [routeNames.DATE_OF_BIRTH]: {
     screen: screens.DateOfBirth,
     params: {
-      title: 'Date of birth',
+      title: 'Birth Date',
     },
   },
   [routeNames.HOME_ADDRESS]: {
     screen: screens.HomeAddress,
     params: {
-      title: 'Home address',
+      title: 'Home Address',
     },
   },
   [routeNames.PLACE_OF_BIRTH]: {
     screen: screens.PlaceOfBirth,
     params: {
-      title: 'Place of Birth',
+      title: 'Birth Place',
     },
   },
   [routeNames.INITIAL_INVESTMENT_AMOUNT]: {
@@ -117,7 +117,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.ELECTRONIC_FUND_TRANSFER_INFO]: {
     screen: screens.ElectronicFundTransferInfo,
     params: {
-      title: 'Depositing your investment amount',
+      title: 'Deposit Details',
     },
   },
   [routeNames.ELECTRONIC_FUND_TRANSFER_DETAILS]: {
@@ -129,13 +129,13 @@ const signDataRoutes = formatRoutes({
   [routeNames.BANK_ACCOUNT]: {
     screen: screens.BankAccount,
     params: {
-      title: 'Link bank account',
+      title: 'Bank Account',
     },
   },
   [routeNames.ID_CHECK_ONLINE]: {
     screen: screens.IdCheckOnline,
     params: {
-      title: 'Online ID Check',
+      title: 'ID Check',
     },
   },
   [routeNames.SOURCE_OF_FUNDS]: {
@@ -147,7 +147,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.PURPOSE_OF_INVESTMENT]: {
     screen: screens.PurposeOfInvestment,
     params: {
-      title: 'Investment Purpose',
+      title: 'Purpose',
     },
   },
   [routeNames.OCCUPATION]: {
@@ -159,7 +159,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.PEP]: {
     screen: screens.Pep,
     params: {
-      title: 'Are you a Politically Exposed Person?',
+      title: 'PEP Status',
     },
   },
   [routeNames.PEP_DESCRIPTION]: {
@@ -177,7 +177,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.FINAL_CONFIRMATION]: {
     screen: screens.FinalConfirmation,
     params: {
-      title: 'Final confirmation',
+      title: 'Confirmation',
     },
   },
   [routeNames.NOTIFICATIONS]: {
@@ -210,35 +210,35 @@ const signDataRoutes = formatRoutes({
   [routeNames.ID_CHECK_DETAILS]: {
     screen: screens.IdCheckDetails,
     params: {
-      title: 'Your ID Check Details',
+      title: 'ID Check',
     },
     ...tabCardOptions,
   },
   [routeNames.ID_CHECK_DRIVERS_LICENCE]: {
     screen: screens.IdCheckDriversLicence,
     params: {
-      title: 'Your ID Check - Drivers Licence',
+      title: 'Drivers Licence',
     },
     ...tabCardOptions,
   },
   [routeNames.ID_CHECK_AUSTRALIAN_PASSPORT]: {
     screen: screens.IdCheckAustralianPassport,
     params: {
-      title: 'Your ID Check - Australian Passport',
+      title: 'Australian Passport',
     },
     ...tabCardOptions,
   },
   [routeNames.ID_CHECK_MEDICARE_CARD]: {
     screen: screens.IdCheckMedicareCard,
     params: {
-      title: 'Your ID Check - Medicare Licence',
+      title: 'Medicare Card',
     },
     ...tabCardOptions,
   },
   [routeNames.POST_US_CERTIFIED_ID]: {
     screen: screens.PostUsCertifiedId,
     params: {
-      title: 'Post us Certified ID',
+      title: 'Certified ID',
     },
   },
   [routeNames.JOIN_FUTURE]: {

@@ -46,7 +46,7 @@ class ElectronicFundTransferDetails extends React.Component {
       const reference = `${lname}${accountRef}`;
       this.setState({ reference });
     }
-    
+
     writeToClipboard = async (text, removeSpaces) => {
       const { screenProps } = this.props;
       text = removeSpaces ? text.replace(/\s+/g, '') : text;
@@ -117,7 +117,7 @@ class ElectronicFundTransferDetails extends React.Component {
             </View>
             {this.renderCopyContainer('ACCOUNT NAME', accountName)}
             <Text style={[sg.pV10, sg.fS12, sg.pH10]}>
-              {"It's not issue if the full name doesn't quiet fit"}
+              {"It's not issue if the full name doesn't fit"}
             </Text>
             {this.renderCopyContainer('BSB', bsb)}
             {this.renderCopyContainer('Acc No.', accNo)}

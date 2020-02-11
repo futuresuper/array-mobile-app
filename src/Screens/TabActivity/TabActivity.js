@@ -44,7 +44,7 @@ class TabActivity extends Component {
     return (
       <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
-          <Image source={GraphExample2} style={styles.activityGraph} />
+          {/*<Image source={GraphExample2} style={styles.activityGraph} />*/}
           <Text style={[sg.fS11, sg.textBold, sg.textCenter, {
             paddingTop: 30, paddingHorizontal: 15, zIndex: 999,
           }]}
@@ -213,7 +213,7 @@ class TabActivity extends Component {
           }}
           renderTabBar={() => <ScrollableTabBar />}
         >
-          <View tabLabel="Performace" style={{ paddingTop: 20 }}>
+          <View tabLabel="Returns" style={{ paddingTop: 20 }}>
             {this.renderPerformaceTab()}
           </View>
           <View tabLabel="Transactions" style={{ paddingTop: 20 }}>
@@ -222,9 +222,11 @@ class TabActivity extends Component {
           <View tabLabel="Investments" style={{ paddingTop: 20 }}>
             <Investment {...this.props} />
           </View>
+          {/*
           <View tabLabel="Withdrawals" style={{ paddingTop: 20 }}>
             {this.renderWithdrawlTab()}
           </View>
+          */}
         </ScrollableTabView>
       </Content>
     );
