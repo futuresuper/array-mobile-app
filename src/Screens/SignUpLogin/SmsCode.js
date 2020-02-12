@@ -31,6 +31,7 @@ import {
 import {
   Config,
 } from 'src/Common/config';
+import generalUtils from 'src/Common/general';
 
 import {
   routeNames,
@@ -69,26 +70,79 @@ class SmsCode extends Component {
       smsCode: '',
     };
 
+    componentDidMount() {
+      const {
+        mobile,
+      } = this.props;
+
+      // autologin if it's a test user
+      const testUser = generalUtils.isTestNumber(mobile);
+      if (testUser) {
+        this.setState({
+          smsCode: testUser.password,
+        });
+      }
+    }
+
     getAppContent(callback) {
       const { screenProps } = this.props;
       screenProps.Api.get('/appcontent', {},
-        callback, null, false,
+        callback,
         () => {
+          screenProps.spinnerHide();
           screenProps.toast('Unknown error (appcontent)');
-        });
+        },
+        false);
     }
 
-    handlePress() {
+    authProc(spinner = false) {
       const {
         screenProps,
         userDataSaveConnect,
         appContentSaveConnect,
         mobile,
       } = this.props;
+      const { Api } = screenProps;
+
+      if (spinner) {
+        screenProps.spinnerShow();
+      }
+
+      Api.post('/user', {
+        mobile,
+        mobileVerified: true,
+      }, () => {
+        this.getAppContent((appContent) => {
+          const { user } = appContent;
+          userDataSaveConnect(user);
+          appContentSaveConnect(appContent);
+          const gotBasicDetails = (user.firstName !== undefined && user.lastName !== undefined && user.email !== undefined);
+
+          this.nextScreen(gotBasicDetails);
+          amplitude.getInstance().setUserId(user.id);
+          amplitude.getInstance().logEvent('Entered SMS Code - Success', {});
+        });
+      }, () => {
+        screenProps.spinnerHide();
+        screenProps.toast('Unknown error');
+        amplitude.getInstance().logEvent('Entered SMS Code - Failed', {});
+      }, false);
+    }
+
+    handlePress() {
+      const {
+        screenProps,
+        mobile,
+      } = this.props;
       const { Api, toast } = screenProps;
       const { smsCode } = this.state;
 
       Keyboard.dismiss();
+
+      if (generalUtils.isTestNumber(mobile)) {
+        this.authProc(true);
+        return true;
+      }
 
       if (!smsCode) {
         toast('Specify SMS code');
@@ -105,24 +159,7 @@ class SmsCode extends Component {
       screenProps.spinnerShow();
       Api.answerCustomChallenge(smsCode, false).then((userData) => {
         if (userData) {
-          Api.post('/user', {
-            mobile,
-            mobileVerified: true,
-          }, () => {
-            this.getAppContent((appContent) => {
-              const { user } = appContent;
-              userDataSaveConnect(user);
-              appContentSaveConnect(appContent);
-              const gotBasicDetails = (user.firstName !== undefined && user.lastName !== undefined && user.email !== undefined);
-              // console.log(`gotBasicDetails: ${gotBasicDetails}`);
-              this.nextScreen(gotBasicDetails);
-              amplitude.getInstance().setUserId(user.id);
-              amplitude.getInstance().logEvent('Entered SMS Code - Success', {});
-            });
-          }, () => {
-            screenProps.toast('Unknown error');
-            amplitude.getInstance().logEvent('Entered SMS Code - Failed', {});
-          }, false);
+          this.authProc();
         } else {
           screenProps.spinnerHide();
           screenProps.toast('Please enter the correct code');
@@ -140,7 +177,7 @@ class SmsCode extends Component {
     nextScreen(gotBasicDetails) {
       const { screenProps } = this.props;
       const { navigateTo } = screenProps;
-      console.log(`Have basic details: ${gotBasicDetails}`);
+
       if (gotBasicDetails) {
         navigateTo(routeNames.ACCOUNTS);
       } else {
@@ -180,6 +217,7 @@ class SmsCode extends Component {
                   keyboardType="numeric"
                   value={smsCode}
                   onChangeText={(e) => { this.setState({ smsCode: e }); }}
+                  onSubmitEditing={() => this.handlePress()}
                 />
 
               </View>

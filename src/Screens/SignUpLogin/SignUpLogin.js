@@ -18,6 +18,8 @@ import {
 } from 'src/Components/Form';
 
 import SafeAreaView from 'src/Components/SafeAreaView';
+import generalUtils from 'src/Common/general';
+import { Config } from 'src/Common/config';
 
 import {
   styleGlobal, sg,
@@ -81,11 +83,8 @@ class SignUpLogin extends Component {
     formatAndValidateMobile(strPre) {
       const str = strPre.replace(/[^0-9]+/g, '');
 
-      // test user
-      if (
-        __DEV__
-        && (str === '12345678901')
-      ) {
+      // no validation if it's a test number
+      if (generalUtils.isTestNumber(str)) {
         return `${str}`;
       }
 
@@ -131,6 +130,31 @@ class SignUpLogin extends Component {
       this.setState({ mobile });
     }
 
+    renderTesUserButton() {
+      const { testUser } = Config.get();
+      if (!__DEV__) {
+        return null;
+      }
+
+      if (!testUser) {
+        return null;
+      }
+
+      return (
+        <Button
+          onPress={() => {
+            this.setState({
+              mobile: testUser.phoneNumber,
+            });
+          }}
+          block
+          info
+        >
+          <Text>Paste the test user&apos;s number</Text>
+        </Button>
+      );
+    }
+
     render() {
       const { screenProps } = this.props;
       const { errors, mobile } = this.state;
@@ -148,10 +172,12 @@ class SignUpLogin extends Component {
                   keyboardType="numeric"
                   value={mobile}
                   onChangeText={(e) => { this.handleChange(e); }}
+                  onSubmitEditing={() => this.getSms()}
                 />
                 <Text style={styleGlobal.formError}>
                   {errors}
                 </Text>
+                {this.renderTesUserButton()}
               </View>
               <KeyboardAvoidingView keyboardVerticalOffset={100}>
                 <Button

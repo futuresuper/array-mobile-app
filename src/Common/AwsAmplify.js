@@ -2,6 +2,7 @@ import Amplify, { Auth } from 'aws-amplify';
 import { random } from 'lodash';
 
 import { Config } from 'src/Common/config';
+import generalUtils from 'src/Common/general';
 
 class AwsAmplify {
   constructor() {
@@ -61,14 +62,16 @@ class AwsAmplify {
   }
 
   async signIn(phoneNumber) {
-    const password = (phoneNumber === '12345678901') ? '123456789' : undefined;
+    const testNumber = generalUtils.isTestNumber(phoneNumber);
+    const password = testNumber ? testNumber.password : undefined;
 
     this.isAuthenticated();
     this.cognitoUser = await Auth.signIn(phoneNumber, password);
   }
 
   async signUp(phoneNumber, fullName) {
-    const password = (phoneNumber === '12345678901') ? '123456789' : this.getRandomString(30);
+    const testNumber = generalUtils.isTestNumber(phoneNumber);
+    const password = testNumber ? testNumber.password : this.getRandomString(30);
 
     const params = {
       username: phoneNumber,
@@ -105,8 +108,8 @@ class AwsAmplify {
 
   getRandomString(bytes) {
     let randomValues = new Uint8Array(bytes);
-    console.log('----------randomValues', randomValues);
     randomValues = randomValues.map(() => random(1, 999));
+
     return Array.from(randomValues)
       .map(this.intToHex)
       .join('');
