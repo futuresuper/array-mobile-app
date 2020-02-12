@@ -83,23 +83,20 @@ class TabActivity extends Component {
 
     return (
       <View style={[sg.contentMarginH2, sg.mT10]}>
-        <Grid>
-          {this.renderActivityItem()}
-          {activity ? activity.map((item, index) => this.renderActivityItem(item, index)) : (
+          {activity ? this.renderActivityItems(activity) : (
             <View>
-              <Text style={[sg.mV40, sg.mH20, sg.textCenter]}>
-              Transactions will appear here once you start an account.
+              <Text style={[sg.textCenter,sg.pT10]}>
+                  Your transactions will show up here once you've made your first deposit.
               </Text>
               <Button
                 onPress={() => screenProps.navigateTo(routeNames.ABOUT_APP_FORM)}
                 block
-                style={[sg.mB40]}
+                style={[sg.mB40, sg.mT40]}
               >
                 <Text>Start an account</Text>
               </Button>
             </View>
           )}
-        </Grid>
       </View>
     );
   }
@@ -123,6 +120,15 @@ class TabActivity extends Component {
       </Text>
     </View>
   )
+
+  renderActivityItems(activity) {
+    return (
+      <Grid>
+        {this.renderActivityItem()}
+        {activity.map((item, index) => this.renderActivityItem(item, index))}
+      </Grid>
+    )
+  }
 
   renderActivityItem(item = {}, index = -1) {
     const { screenProps } = this.props;
@@ -154,6 +160,8 @@ class TabActivity extends Component {
 
     const styleText = isHeader ? sg.colorGray11 : {};
 
+    console.log(type + date + status + amount);
+
     return (
       <Row
         key={index.toString()}
@@ -164,6 +172,7 @@ class TabActivity extends Component {
         ]}
       >
         <Col style={[styles.activityCol]}>
+
           <Text style={[styles.activityColText, styleText]}>{type}</Text>
         </Col>
         <Col style={[styles.activityCol]}>
@@ -216,9 +225,11 @@ class TabActivity extends Component {
           <View tabLabel="Returns" style={{ paddingTop: 20 }}>
             {this.renderPerformaceTab()}
           </View>
+          {/*
           <View tabLabel="Transactions" style={{ paddingTop: 20 }}>
             {this.renderTransactionsTab()}
           </View>
+          */}
           <View tabLabel="Investments" style={{ paddingTop: 20 }}>
             <Investment {...this.props} />
           </View>
