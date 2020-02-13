@@ -45,6 +45,7 @@ export default Object.freeze({
     lightGreen: '#6FCE1C',
     brightGreen: '#51ccaa',
     lightPurple: '#a09bb1',
+    lightPurple2: '#B19CD9',
     brightYellow: '#ffad3a',
     backgroundDark: '#11133d',
     get errorBorder() {
