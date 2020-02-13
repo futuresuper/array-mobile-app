@@ -8,6 +8,8 @@ import { isNil } from 'lodash';
 
 import moment from './moment';
 
+const isIOSv = (Platform.OS === 'ios');
+
 export async function storeItem(key, data) {
   const response = await AsyncStorage.setItem(key, JSON.stringify(data));
   return response;
@@ -34,7 +36,7 @@ export function isObjectEmpty(obj) {
 }
 
 export function isIOS() {
-  return (Platform.OS === 'ios');
+  return isIOSv;
 }
 
 export function navGetCurrentScreen(nav_state) {

@@ -1,4 +1,7 @@
 import { sc } from 'src/Styles';
+import {
+  isIOS,
+} from 'src/Common/Helpers';
 
 export default {
   activityGraph: {
@@ -26,11 +29,14 @@ export default {
   activityRow: {
     borderBottomWidth: 1,
     paddingHorizontal: 0,
-    paddingVertical: 20,
+    paddingTop: 20,
+    paddingBottom: isIOS() ? 20 : 30,
   },
   activityRowHeader: {
     paddingTop: 0,
-    paddingBottom: 15,
+    paddingBottom: isIOS() ? 15 : 25,
+  },
+  activityCol: {
   },
   activityColText: {
     fontSize: 14,

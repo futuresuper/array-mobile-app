@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { View, Image } from 'react-native';
-import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
+import {
+  View,
+  Image,
+} from 'react-native';
+import { formatAmountDollarCent, formatAmountDollar, isIOS } from 'src/Common/Helpers';
 
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 
@@ -12,7 +15,13 @@ import _ from 'lodash';
 import { routeNames } from 'src/Navigation';
 
 import {
-  Button, Text, Content, Icon, Grid, Row, Col,
+  Button,
+  Text,
+  Content,
+  Icon,
+  Grid,
+  Row,
+  Col,
 } from 'native-base';
 
 import { accountsSelector, userSelector } from 'src/Redux/AppContent';
@@ -22,7 +31,6 @@ import {
 } from 'src/Redux/Account';
 
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
-
 
 import BottomInfo from 'src/Components/BottomInfo';
 import Balance from 'src/Components/Balance';
@@ -44,7 +52,7 @@ class TabActivity extends Component {
     return (
       <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
-          {/*<Image source={GraphExample2} style={styles.activityGraph} />*/}
+          <Image source={GraphExample2} style={styles.activityGraph} />
           <Text style={[sg.fS11, sg.textBold, sg.textCenter, {
             paddingTop: 30, paddingHorizontal: 15, zIndex: 999,
           }]}
@@ -77,7 +85,7 @@ class TabActivity extends Component {
     return null;
   }
 
-  renderTransactionsTab = () => {
+  renderTransactionsTab() {
     const { selectedAccount, screenProps } = this.props;
     const activity = selectedAccount.transactions;
 
@@ -101,17 +109,74 @@ class TabActivity extends Component {
     );
   }
 
-  renderPerformaceTab = () => (
-    <View>
-      <Text style={[sg.fontMedium, sg.contentMarginH]}>
-        The Target Return of the Fund is 5.2% per annum after fees and expenses and including
-        distributions.
-        {' '}
-        <Icon name="ios-help-circle-outline" style={{ fontSize: 20 }} onPress={() => BottomInfo.showAboutReturn()} />
-      </Text>
-      {this.renderChart()}
-    </View>
-  )
+
+  renderPerformaceTabTable(item = {}) {
+    const { screenProps } = this.props;
+    const theme = screenProps.getTheme();
+    const isHeader = _.isEmpty(item);
+    let styleText = {};
+    let textOne = 'Period';
+    let textTwo = 'Return';
+
+    if (isHeader) {
+      styleText = sg.colorGray11;
+    } else {
+      ({ period: textOne, return: textTwo } = item);
+    }
+
+    return (
+      <Row
+        style={[
+          styles.activityRow,
+          isHeader ? styles.activityRowHeader : {},
+          sg.borderColor(theme.borderColorList),
+        ]}
+      >
+        <Col style={[styles.activityCol]}>
+          <Text style={[styles.activityColText, styleText]}>{textOne}</Text>
+        </Col>
+        <Col style={[styles.activityCol]}>
+          <Text style={[styles.activityColText, styleText]}>{textTwo}</Text>
+        </Col>
+      </Row>
+    );
+  }
+
+  renderPerformaceTab() {
+    return (
+      <View style={[]}>
+        <Text style={[sg.fontMedium, sg.contentMarginH]}>
+          The Target Return of the Fund is 5.2% per annum after fees and expenses and including
+          distributions.
+          {' '}
+          <Icon name="ios-help-circle-outline" style={{ fontSize: 20 }} onPress={() => BottomInfo.showAboutReturn()} />
+        </Text>
+        {/* {this.renderChart()} */}
+
+        <View style={[sg.contentMarginH, sg.mT10]}>
+
+          <View style={sg.row}>
+            <Text style={[sg.fontMedium, sg.mB20]}>Returns - 31 December 2019.</Text>
+          </View>
+
+          <View style={sg.row}>
+            <Grid>
+              {this.renderPerformaceTabTable()}
+              {this.renderPerformaceTabTable({ period: '1 month', return: '0.107%' })}
+              {this.renderPerformaceTabTable({ period: '3 months', return: '0.438%' })}
+              {this.renderPerformaceTabTable({ period: '6 months', return: '1.486%' })}
+              {this.renderPerformaceTabTable({ period: 'Since inception', return: '3.327%' })}
+            </Grid>
+          </View>
+
+          <View style={sg.row}>
+            <Text style={[sg.fontMedium, sg.mT20]}>Inception date is 01/03/2019. Past performance is not a reliable indicator of future performance.</Text>
+          </View>
+        </View>
+
+      </View>
+    );
+  }
 
   renderWithdrawlTab = () => (
     <View>
@@ -214,13 +279,13 @@ class TabActivity extends Component {
         />
 
         <ScrollableTabView
-          style={{ marginTop: 20, height: 1000 }}
+          style={{ marginTop: 20, height: (isIOS() ? undefined : 1000) }}
           tabBarUnderlineStyle={{ backgroundColor: sc.color.primary }}
           tabBarTextStyle={{
             fontSize: 12,
             fontFamily: sc.font.bold,
           }}
-          renderTabBar={() => <ScrollableTabBar />}
+          renderTabBar={() => <ScrollableTabBar inactiveTextColor={sc.color.lightPurple2} />}
         >
           <View tabLabel="Returns" style={{ paddingTop: 20 }}>
             {this.renderPerformaceTab()}
