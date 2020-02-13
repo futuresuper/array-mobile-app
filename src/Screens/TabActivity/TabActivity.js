@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { View, Image } from 'react-native';
-import { formatAmountDollarCent, formatAmountDollar } from 'src/Common/Helpers';
+import {
+  View,
+  // Image,
+} from 'react-native';
+import { formatAmountDollarCent, formatAmountDollar, isIOS } from 'src/Common/Helpers';
 
 import BadgeCheckmark from 'src/Components/BadgeCheckmark';
 
@@ -12,7 +15,13 @@ import _ from 'lodash';
 import { routeNames } from 'src/Navigation';
 
 import {
-  Button, Text, Content, Icon, Grid, Row, Col,
+  Button,
+  Text,
+  Content,
+  Icon,
+  Grid,
+  Row,
+  Col,
 } from 'native-base';
 
 import { accountsSelector, userSelector } from 'src/Redux/AppContent';
@@ -23,12 +32,11 @@ import {
 
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 
-
 import BottomInfo from 'src/Components/BottomInfo';
 import Balance from 'src/Components/Balance';
 import SunGlow from 'src/Components/SunGlow';
 
-import GraphExample2 from 'src/assets/images/GraphUpdatedOct.png';
+// import GraphExample2 from 'src/assets/images/GraphUpdatedOct.png';
 
 import { sg, sc } from 'src/Styles';
 import styles from './styles';
@@ -44,7 +52,7 @@ class TabActivity extends Component {
     return (
       <View>
         <View style={[styles.activityChartBl, sg.aICenter]}>
-          {/*<Image source={GraphExample2} style={styles.activityGraph} />*/}
+          {/* <Image source={GraphExample2} style={styles.activityGraph} /> */}
           <Text style={[sg.fS11, sg.textBold, sg.textCenter, {
             paddingTop: 30, paddingHorizontal: 15, zIndex: 999,
           }]}
@@ -77,7 +85,7 @@ class TabActivity extends Component {
     return null;
   }
 
-  renderTransactionsTab = () => {
+  renderTransactionsTab() {
     const { selectedAccount, screenProps } = this.props;
     const activity = selectedAccount.transactions;
 
@@ -205,7 +213,7 @@ class TabActivity extends Component {
         />
 
         <ScrollableTabView
-          style={{ marginTop: 20, height: 1000 }}
+          style={{ marginTop: 20, height: (isIOS() ? undefined : 1000) }}
           tabBarUnderlineStyle={{ backgroundColor: sc.color.primary }}
           tabBarTextStyle={{
             fontSize: 12,
