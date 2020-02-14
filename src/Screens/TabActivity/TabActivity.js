@@ -213,15 +213,8 @@ class TabActivity extends Component {
 
     const amount = item.amountInDollars ? formatAmountDollarCent(item.amountInDollars) : 'Amount';
     const date = item.date ? item.date : 'Date';
+    const type = item.type ? item.type : 'Type';
 
-    let type;
-    if (item.type && item.type === 'deposit') {
-      type = 'Deposit';
-    } else if (item.type && item.type === 'withdrawal') {
-      type = 'Withdrawal';
-    } else {
-      type = 'Type';
-    }
 
     const styleText = isHeader ? sg.colorGray11 : {};
 
