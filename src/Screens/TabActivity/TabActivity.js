@@ -290,11 +290,9 @@ class TabActivity extends Component {
           <View tabLabel="Returns" style={{ paddingTop: 20 }}>
             {this.renderPerformaceTab()}
           </View>
-          {/*
           <View tabLabel="Transactions" style={{ paddingTop: 20 }}>
             {this.renderTransactionsTab()}
           </View>
-          */}
           <View tabLabel="Investments" style={{ paddingTop: 20 }}>
             <Investment {...this.props} />
           </View>

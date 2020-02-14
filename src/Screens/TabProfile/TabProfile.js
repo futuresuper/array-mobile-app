@@ -30,7 +30,7 @@ import { userSelector } from 'src/Redux/AppContent';
 import { userUpdateAvatar } from 'src/Redux/Auth';
 
 import { sg } from 'src/Styles';
-import NotifService from 'src/NotifService';
+// import NotifService from 'src/NotifService';
 
 
 import styles from './styles';
@@ -39,7 +39,7 @@ class TabProfile extends Component {
   constructor(props) {
     super(props);
 
-    this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
+    // this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
 
     this.state = {
       listMenu: [
@@ -107,16 +107,16 @@ class TabProfile extends Component {
 
 
   // eslint-disable-next-line react/sort-comp
-  onNotif(notif) {
-    console.log(notif);
-    Alert.alert(notif.title, notif.message);
-  }
-
-  onRegister(token) {
-    console.log('notif');
-
-    Alert.alert('Registered !', JSON.stringify(token));
-  }
+  // onNotif(notif) {
+  //   console.log(notif);
+  //   Alert.alert(notif.title, notif.message);
+  // }
+  //
+  // onRegister(token) {
+  //   console.log('notif');
+  //
+  //   Alert.alert('Registered !', JSON.stringify(token));
+  // }
 
   logOut = () => {
     const { screenProps } = this.props;
@@ -126,7 +126,7 @@ class TabProfile extends Component {
   };
 
   initializeFcm() {
-    // this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
+    this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
   }
 
   handleAvatarChange() {
