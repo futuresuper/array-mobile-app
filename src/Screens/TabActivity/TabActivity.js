@@ -156,10 +156,10 @@ class TabActivity extends Component {
         <View style={[sg.contentMarginH, sg.mT10]}>
 
           <View style={sg.row}>
-            <Text style={[sg.fontMedium, sg.mB20]}>Returns - 31 December 2019.</Text>
+            <Text style={[sg.headingXS, sg.mT20]}>Returns to 31 Dec 2019</Text>
           </View>
 
-          <View style={sg.row}>
+          <View style={[sg.row, sg.mT30]}>
             <Grid>
               {this.renderPerformaceTabTable()}
               {this.renderPerformaceTabTable({ period: '1 month', return: '0.107%' })}
@@ -170,7 +170,7 @@ class TabActivity extends Component {
           </View>
 
           <View style={sg.row}>
-            <Text style={[sg.fontMedium, sg.mT20]}>Inception date is 01/03/2019. Past performance is not a reliable indicator of future performance.</Text>
+            <Text style={[sg.fS12, sg.mT20]}>Fund inception date is 01/03/2019. Past performance is not a reliable indicator of future performance.</Text>
           </View>
         </View>
 
