@@ -27,8 +27,8 @@ class BottomInfoModal extends Component {
     BottomInfoModal.show(<WithdrawInfo />);
   }
 
-  static showBalance() {
-    BottomInfoModal.show(BalanceInfo);
+  static showBalance(...props) {
+    BottomInfoModal.show(BalanceInfo, ...props);
   }
 
   static showAboutReturn() {
