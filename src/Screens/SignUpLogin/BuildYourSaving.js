@@ -49,7 +49,9 @@ class BuildYourSaving extends Component {
               </Text>
 
               <Text style={[sg.colorDark2, sg.textCenter]}>
-                {'With a target return of 5.2%^, you can\nwatch your money grow'}
+                {'The Fund has a target return\nof '}
+                <Text style={[sg.textBold]}>{'5.2%'}</Text>
+                {' per annum^'}
               </Text>
 
             </View>
@@ -60,14 +62,16 @@ class BuildYourSaving extends Component {
             ^ Target Return is after fees and expenses and including distributions. The Fund Manager has a reasonable basis for setting the target return,
             however it is a ‘target’ only.  It is not intended as a projection of likely future returns and is not a guarantee.
             The value of your investment can rise and fall. Please refer to the
+              {' '}
               <Text
                 onPress={() => this.handlePDSPress()}
                 style={[
                   { textDecorationLine: 'underline', textDecorationStyle: 'solid' },
                   sg.fS11, sg.colorDark3alpha]}
               >
-                {' PDS '}
+                {'PDS'}
               </Text>
+              {' '}
               for further information.
             </Text>
             <Button

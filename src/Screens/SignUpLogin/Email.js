@@ -23,8 +23,8 @@ class Email extends React.Component {
         <Text style={[sg.fS10, sg.mB5, sg.mT5]}>
           Step 4 of 4
         </Text>
-        <Text style={[sg.fS17, sg.textBold]}>
-          Name
+        <Text style={[sg.fS22, sg.textBold]}>
+          Email
         </Text>
       </View>
     ),

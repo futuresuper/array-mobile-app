@@ -34,7 +34,7 @@ class Name extends React.Component {
         <Text style={[sg.fS10, sg.mB5, sg.mT5]}>
           Step 3 of 4
         </Text>
-        <Text style={[sg.fS17, sg.textBold]}>
+        <Text style={[sg.fS22, sg.textBold]}>
           Name
         </Text>
       </View>

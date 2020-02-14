@@ -53,32 +53,32 @@ class TabProfile extends Component {
         //     props.screenProps.toogleTheme();
         //   },
         // },
-        {
-          name: 'Allow Push Notifications',
-          function: () => {
-            this.initializeFcm();
-          },
-        },
-        {
-          name: 'Manage accounts',
-          screen: routeNames.MANAGE_ACCOUNTS,
-        },
+        // {
+        //   name: 'Allow Push Notifications',
+        //   function: () => {
+        //     this.initializeFcm();
+        //   },
+        // },
+        // {
+        //   name: 'Manage accounts',
+        //   screen: routeNames.MANAGE_ACCOUNTS,
+        // },
         {
           name: 'Switch accounts',
           screen: routeNames.ACCOUNTS,
         },
-        {
-          name: 'Personal details',
-          screen: routeNames.PERSONAL_DETAILS,
-        },
+        // {
+        //   name: 'Personal details',
+        //   screen: routeNames.PERSONAL_DETAILS,
+        // },
         // {
         //   name: 'Refer a friend',
         //   screen: routeNames.REFER_FRIEND,
         // },
-        {
-          name: 'Talk to us',
-          screen: routeNames.TALK_US,
-        },
+        // {
+        //   name: 'Talk to us',
+        //   screen: routeNames.TALK_US,
+        // },
         // {
         //   name: 'Talk to us',
         //   function: () => this.displayIntercom(props),
@@ -126,7 +126,7 @@ class TabProfile extends Component {
   };
 
   initializeFcm() {
-    this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
+    // this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
   }
 
   handleAvatarChange() {
@@ -166,10 +166,12 @@ class TabProfile extends Component {
       childEl = (
         <View>
           <Thumbnail source={{ uri: user.profileImage }} style={styles.profileImage} />
+          {/*
           <View style={{
             position: 'absolute', top: 45, left: 40, backgroundColor: 'black', padding: 6, borderRadius: 45,
           }}
           >
+
             <Icon
               type="FontAwesome"
               name="camera"
@@ -178,7 +180,9 @@ class TabProfile extends Component {
                 color: 'white',
               }}
             />
+
           </View>
+          */}
         </View>
       );
     } else {
@@ -188,10 +192,12 @@ class TabProfile extends Component {
             {user.firstName ? user.firstName.charAt(0) : ''}
             {user.lastName ? user.lastName.charAt(0) : ''}
           </Text>
+          {/*
           <View style={{
             position: 'absolute', top: 45, left: 40, backgroundColor: 'black', padding: 6, borderRadius: 45,
           }}
           >
+
             <Icon
               type="FontAwesome"
               name="camera"
@@ -200,7 +206,9 @@ class TabProfile extends Component {
                 color: 'white',
               }}
             />
+
           </View>
+          */}
         </View>
       );
     }

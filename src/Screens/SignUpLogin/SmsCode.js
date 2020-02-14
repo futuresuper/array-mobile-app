@@ -56,7 +56,7 @@ class SmsCode extends Component {
           Step 2 of 4
         </Text>
         */}
-        <Text style={[sg.fS17, sg.textBold]}>
+        <Text style={[sg.fS22, sg.textBold]}>
           Verify
         </Text>
       </View>
