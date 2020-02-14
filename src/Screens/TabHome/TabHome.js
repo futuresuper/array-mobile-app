@@ -31,6 +31,7 @@ import {
   impactStatsSelector,
   updatesSelector,
   accountsSelector,
+  unitPricesSelector,
   userSelector,
   updateArticlieLike,
 } from 'src/Redux/AppContent';
@@ -193,7 +194,7 @@ class TabHome extends Component {
   }
 
   renderBalance() {
-    const { user, selectedAccount } = this.props;
+    const { user, selectedAccount, unitPrices } = this.props;
 
     if (selectedAccount) {
       const balance = {};
@@ -232,7 +233,7 @@ class TabHome extends Component {
           </Button>
 
           <View style={sg.row}>
-            <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance()} />
+            <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance({ selectedAccount, unitPrices })} />
             <H1 style={styles.mainAmount}>{balance.dollars}</H1>
             <Text style={styles.mainAmountCent}>{`.${balance.cents}`}</Text>
           </View>
@@ -332,6 +333,7 @@ TabHome.propTypes = {
   selectedAccount: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   toggleArticleLike: PropTypes.func.isRequired,
+  unitPrices: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -339,12 +341,14 @@ const mapStateToProps = (state) => {
   const updates = updatesSelector(state);
   const accounts = accountsSelector(state);
   const selectedAccount = accountSelector(state);
+  const unitPrices = unitPricesSelector(state);
   const user = userSelector(state);
 
   return {
     impactStats,
     accounts,
     selectedAccount,
+    unitPrices,
     updates,
     user,
   };
