@@ -1,5 +1,7 @@
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {
   View,
   ScrollView,
@@ -11,6 +13,8 @@ import {
   Grid,
   Row,
 } from 'native-base';
+
+import moment from 'src/Common/moment';
 
 import {
   sg,
@@ -28,6 +32,39 @@ class BalanceInfo extends Component {
         </Text>
         <Text style={styles.text}>{textRight}</Text>
       </Row>
+    );
+  }
+
+  renderAccountInfo() {
+    const { selectedAccount, unitPrices } = this.props;
+
+    if (
+      !selectedAccount
+      || _.isEmpty(selectedAccount)
+    ) {
+      return null;
+    }
+
+    const {
+      registryAccountNumber,
+      balanceInUnits,
+      balanceExcludingPendingInDollars,
+      pendingTransactionsInDollars,
+    } = selectedAccount;
+    let unitPrice = null;
+
+    if (unitPrices.length > 0) {
+      ([unitPrice] = unitPrices);
+    }
+
+    return (
+      <Grid style={sg.mT15}>
+        {this.renderInfoRow('Account', registryAccountNumber)}
+        {this.renderInfoRow('Unit Balance', balanceInUnits)}
+        {unitPrice && this.renderInfoRow('Unit Price', `${unitPrice.price} at ${moment(unitPrice.date).format('DD MMM YYYY')}`)}
+        {this.renderInfoRow('Account Balance', `$${balanceExcludingPendingInDollars}`)}
+        {this.renderInfoRow('Pending Transactions', `$${pendingTransactionsInDollars}`)}
+      </Grid>
     );
   }
 
@@ -50,15 +87,7 @@ class BalanceInfo extends Component {
               &nbsp;for your currently selected account in the Future Renewables Fund.
             </Text>
 
-            {/*
-            <Grid style={sg.mT15}>
-              {this.renderInfoRow('Account', 'Grace Palos - 10001-FRF-001')}
-              {this.renderInfoRow('Unit Balance', '1,000')}
-              {this.renderInfoRow('Unit Price', '1.078 at 31 May 2019')}
-              {this.renderInfoRow('Account Balance', '$1,078')}
-              {this.renderInfoRow('Pending Transactions', '$200')}
-            </Grid>
-            */}
+            {this.renderAccountInfo()}
 
             <Text style={[styles.text, sg.mT15]}>
               Pending Transactions are your application monies that have been received by us,
@@ -76,5 +105,15 @@ class BalanceInfo extends Component {
     );
   }
 }
+
+BalanceInfo.defaultProps = {
+  selectedAccount: null,
+  unitPrices: [],
+};
+
+BalanceInfo.propTypes = {
+  selectedAccount: PropTypes.object,
+  unitPrices: PropTypes.array,
+};
 
 export default BalanceInfo;
