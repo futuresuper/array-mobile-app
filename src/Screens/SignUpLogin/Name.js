@@ -98,7 +98,7 @@ class Name extends React.Component {
     componentDidMount() {
       const { hocs, screenProps } = this.props;
       const { form } = this.state;
-      const { firstName = '', middleNames = 's', lastName = '' } = screenProps.getUserInfo();
+      const { firstName = '', middleNames = '', lastName = '' } = screenProps.getUserInfo();
 
 
       const formNew = {
