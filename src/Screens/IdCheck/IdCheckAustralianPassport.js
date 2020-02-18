@@ -89,10 +89,9 @@ class IdCheckAustralianPassport extends Component {
     const { form } = hocs;
 
     return (
-      <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
+      <Content padder contentContainerStyle={[sg.flexGrow, sg.pT40]}>
         <View style={sg.spaceBetween}>
           <View>
-            <Text style={[sg.formHeading32]}>Australian Passport</Text>
             <Input
               formData={form}
               formKey="passportFirstName"
