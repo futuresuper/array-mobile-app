@@ -159,7 +159,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.PEP]: {
     screen: screens.Pep,
     params: {
-      title: 'PEP Status',
+      title: '',
     },
   },
   [routeNames.PEP_DESCRIPTION]: {
