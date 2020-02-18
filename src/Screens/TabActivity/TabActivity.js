@@ -201,12 +201,14 @@ class TabActivity extends Component {
     const isHeader = _.isEmpty(item);
     let status;
 
-    if (item.status === 'awaitingMoney' && item.paymentMethod === 'dd') {
+    if (item.status === 'requested') {
       status = 'Requested';
-    } else if (item.status === 'pending') {
-      status = 'Pending';
     } else if (item.status === 'processed') {
       status = 'Processed';
+    } else if (item.status === 'cancelled') {
+      status = 'Cancelled';
+    } else if (item.status === 'failed') {
+      status = 'Failed';
     } else if (item.status === undefined) {
       status = 'Status';
     }
