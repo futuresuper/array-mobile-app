@@ -76,18 +76,8 @@ class FinalConfirmation extends React.Component {
     return (
       <View style={[sg.flex, sg.backgroundDefault]}>
         <View style={[sg.contentPadding, sg.pB10]}>
-          <Text style={[sg.formHeading]}>Final confirmation</Text>
 
-          <Text>
-            Once you click ‘Agree & Submit Application’, we will debit your&nbsp;
-            <Text>
-            bank account
-
-            </Text>
-            &nbsp;for your initial investment amount&nbsp;
-          </Text>
-
-          <Text style={[sg.fS10, sg.textBold, sg.mT20]}>I make the following declarations:</Text>
+          <Text>I make the following declarations:</Text>
         </View>
 
         <View style={styles.scrollContainer}>
