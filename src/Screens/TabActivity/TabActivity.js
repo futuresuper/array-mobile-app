@@ -153,6 +153,7 @@ class TabActivity extends Component {
         </Text>
         {/* {this.renderChart()} */}
 
+        {/* 
         <View style={[sg.contentMarginH, sg.mT10]}>
 
           <View style={sg.row}>
@@ -173,7 +174,7 @@ class TabActivity extends Component {
             <Text style={[sg.fS12, sg.mT20]}>Fund inception date is 01/03/2019. Past performance is not a reliable indicator of future performance.</Text>
           </View>
         </View>
-
+        */}
       </View>
     );
   }
