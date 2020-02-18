@@ -156,10 +156,10 @@ class TabActivity extends Component {
         <View style={[sg.contentMarginH, sg.mT10]}>
 
           <View style={sg.row}>
-            <Text style={[sg.fontMedium, sg.mB20]}>Returns - 31 December 2019.</Text>
+            <Text style={[sg.headingXS, sg.mT20]}>Returns to 31 Dec 2019</Text>
           </View>
 
-          <View style={sg.row}>
+          <View style={[sg.row, sg.mT30]}>
             <Grid>
               {this.renderPerformaceTabTable()}
               {this.renderPerformaceTabTable({ period: '1 month', return: '0.107%' })}
@@ -170,7 +170,7 @@ class TabActivity extends Component {
           </View>
 
           <View style={sg.row}>
-            <Text style={[sg.fontMedium, sg.mT20]}>Inception date is 01/03/2019. Past performance is not a reliable indicator of future performance.</Text>
+            <Text style={[sg.fS12, sg.mT20]}>Fund inception date is 01/03/2019. Past performance is not a reliable indicator of future performance.</Text>
           </View>
         </View>
 
@@ -201,27 +201,22 @@ class TabActivity extends Component {
     const isHeader = _.isEmpty(item);
     let status;
 
-    if (item.status === 'awaitingMoney' && item.paymentMethod === 'dd') {
+    if (item.status === 'requested') {
       status = 'Requested';
-    } else if (item.status === 'pending') {
-      status = 'Pending';
     } else if (item.status === 'processed') {
       status = 'Processed';
+    } else if (item.status === 'cancelled') {
+      status = 'Cancelled';
+    } else if (item.status === 'failed') {
+      status = 'Failed';
     } else if (item.status === undefined) {
       status = 'Status';
     }
 
     const amount = item.amountInDollars ? formatAmountDollarCent(item.amountInDollars) : 'Amount';
     const date = item.date ? item.date : 'Date';
+    const type = item.type ? item.type : 'Type';
 
-    let type;
-    if (item.type && item.type === 'deposit') {
-      type = 'Deposit';
-    } else if (item.type && item.type === 'withdrawal') {
-      type = 'Withdrawal';
-    } else {
-      type = 'Type';
-    }
 
     const styleText = isHeader ? sg.colorGray11 : {};
 
@@ -290,11 +285,9 @@ class TabActivity extends Component {
           <View tabLabel="Returns" style={{ paddingTop: 20 }}>
             {this.renderPerformaceTab()}
           </View>
-          {/*
           <View tabLabel="Transactions" style={{ paddingTop: 20 }}>
             {this.renderTransactionsTab()}
           </View>
-          */}
           <View tabLabel="Investments" style={{ paddingTop: 20 }}>
             <Investment {...this.props} />
           </View>

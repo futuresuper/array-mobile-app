@@ -98,13 +98,26 @@ class Name extends React.Component {
     componentDidMount() {
       const { hocs, screenProps } = this.props;
       const { form } = this.state;
+      const { firstName = '', middleNames = '', lastName = '' } = screenProps.getUserInfo();
 
-      hocs.setForm(form).then(() => {
-        const userDetails = screenProps.getUserInfo();
-        hocs.handleInput(userDetails.firstName || '', 'firstName');
-        hocs.handleInput(userDetails.lastName || '', 'lastName');
-        hocs.handleInput(userDetails.middleNames || '', 'middleNames');
-      });
+
+      const formNew = {
+        ...form,
+        firstName: {
+          ...form.firstName,
+          value: firstName,
+        },
+        middleNames: {
+          ...form.middleName,
+          value: middleNames,
+        },
+        lastName: {
+          ...form.lastName,
+          value: lastName,
+        },
+      };
+
+      hocs.setForm(formNew);
     }
 
     handlePress() {
