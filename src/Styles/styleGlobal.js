@@ -542,6 +542,18 @@ export default {
   width150: {
     width: 150,
   },
+  width160: {
+    width: 160,
+  },
+  width170: {
+    width: 170,
+  },
+  width180: {
+    width: 180,
+  },
+  width190: {
+    width: 190,
+  },
   width290: {
     width: 290,
   },
@@ -702,6 +714,9 @@ export default {
   },
   fontRegularItalic: {
     fontFamily: styleConstants.font.regularItalic,
+  },
+  fontWeightNull: {
+    fontWeight: null,
   },
   backgroundDefault: {
     backgroundColor: styleConstants.color.containerBgColor,
@@ -885,5 +900,11 @@ export default {
   },
   borderColorDark3: {
     borderColor: styleConstants.color.dark3,
+  },
+  shadowNo: {
+    shadowColor: null,
+    shadowOffset: null,
+    shadowOpacity: null,
+    shadowRadius: null,
   },
 };

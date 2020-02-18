@@ -68,18 +68,21 @@ class SmsCode extends Component {
 
     state = {
       smsCode: '',
+      isInputDisabled: false,
     };
 
     componentDidMount() {
       const {
         mobile,
+        screenProps: { isTestMode },
       } = this.props;
 
       // autologin if it's a test user
       const testUser = generalUtils.isTestNumber(mobile);
-      if (testUser) {
+      if (isTestMode() && testUser) {
         this.setState({
           smsCode: testUser.password,
+          isInputDisabled: true,
         });
       }
     }
@@ -188,7 +191,7 @@ class SmsCode extends Component {
     render() {
       let { mobile } = this.props;
       const { screenProps } = this.props;
-      const { smsCode } = this.state;
+      const { smsCode, isInputDisabled } = this.state;
 
       if (mobile) {
       // If it's an Australian number, change to pretty display format, otherwise leave as is
@@ -218,6 +221,8 @@ class SmsCode extends Component {
                   value={smsCode}
                   onChangeText={(e) => { this.setState({ smsCode: e }); }}
                   onSubmitEditing={() => this.handlePress()}
+                  disabled={isInputDisabled}
+                  disabledBordered={isInputDisabled}
                 />
 
               </View>

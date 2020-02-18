@@ -59,7 +59,21 @@ class SignUpLogin extends Component {
       mobile: '',
       errors: '',
       submitted: false,
+      isInputDisabled: false,
     };
+
+    componentDidMount() {
+      const { screenProps: { isTestMode } } = this.props;
+      const { testUser } = Config.get();
+
+      const setTestMobile = !!(isTestMode() && testUser);
+      if (setTestMobile) {
+        this.setState({
+          mobile: testUser.phoneNumber,
+          isInputDisabled: true,
+        });
+      }
+    }
 
     getSms() {
       const { screenProps } = this.props;
@@ -81,10 +95,11 @@ class SignUpLogin extends Component {
     }
 
     formatAndValidateMobile(strPre) {
+      const { screenProps: { isTestMode } } = this.props;
       const str = strPre.replace(/[^0-9]+/g, '');
 
       // no validation if it's a test number
-      if (generalUtils.isTestNumber(str)) {
+      if (isTestMode() && generalUtils.isTestNumber(str)) {
         return `${str}`;
       }
 
@@ -130,34 +145,10 @@ class SignUpLogin extends Component {
       this.setState({ mobile });
     }
 
-    renderTesUserButton() {
-      const { testUser } = Config.get();
-      if (!__DEV__) {
-        return null;
-      }
-
-      if (!testUser) {
-        return null;
-      }
-
-      return (
-        <Button
-          onPress={() => {
-            this.setState({
-              mobile: testUser.phoneNumber,
-            });
-          }}
-          block
-          info
-        >
-          <Text>Paste the test user&apos;s number</Text>
-        </Button>
-      );
-    }
-
     render() {
       const { screenProps } = this.props;
-      const { errors, mobile } = this.state;
+      const { errors, mobile, isInputDisabled } = this.state;
+      const inputHelper = isInputDisabled ? 'Test mobile number' : 'Your mobile number';
 
       return (
         <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
@@ -166,18 +157,19 @@ class SignUpLogin extends Component {
             <View style={styleGlobal.spaceBetween}>
               <View>
                 <Input
-                  helper="Your mobile number"
+                  helper={inputHelper}
                   autoFocus
                   returnKeyType="next"
                   keyboardType="numeric"
                   value={mobile}
                   onChangeText={(e) => { this.handleChange(e); }}
                   onSubmitEditing={() => this.getSms()}
+                  disabled={isInputDisabled}
+                  disabledBordered={isInputDisabled}
                 />
                 <Text style={styleGlobal.formError}>
                   {errors}
                 </Text>
-                {this.renderTesUserButton()}
               </View>
               <KeyboardAvoidingView keyboardVerticalOffset={100}>
                 <Button
