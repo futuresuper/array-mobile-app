@@ -105,11 +105,9 @@ class IdCheckDriversLicence extends Component {
     const { states } = this.state;
 
     return (
-      <Content padder contentContainerStyle={[sg.flexGrow, sg.pT0]}>
+      <Content padder contentContainerStyle={[sg.flexGrow, sg.pT40]}>
         <View style={sg.spaceBetween}>
           <View>
-            <Text style={[sg.formHeading32]}>Drivers Licence</Text>
-
             <Input
               formData={form}
               formKey="driversLicenceNumber"
