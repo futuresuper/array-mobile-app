@@ -193,6 +193,7 @@ class TabProfile extends Component {
             {user.lastName ? user.lastName.charAt(0) : ''}
           </Text>
 
+          {/*
           <View style={{
             position: 'absolute', top: 45, left: 40, backgroundColor: 'black', padding: 6, borderRadius: 45,
           }}
@@ -208,6 +209,7 @@ class TabProfile extends Component {
             />
 
           </View>
+          */}
         </View>
       );
     }
