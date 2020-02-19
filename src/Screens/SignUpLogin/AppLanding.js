@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   View,
@@ -14,12 +15,21 @@ import {
   Content,
   Text,
   Button,
+  Picker,
+  Icon,
 } from 'native-base';
 
 import {
   routeNames,
 } from 'src/Navigation';
 import Device from 'src/Common/device';
+
+import settingsUtils from 'src/Common/settings';
+
+import {
+  settingsSetNormalMode,
+  settingsSetTestMode,
+} from 'src/Redux/Settings';
 
 import {
   sg,
@@ -45,6 +55,11 @@ class AppLanding extends Component {
       duration: 500,
       useNativeDriver: true,
     }).start();
+  }
+
+  onNext() {
+    const { screenProps } = this.props;
+    screenProps.navigateTo(routeNames.BUILD_YOUR_SAVING);
   }
 
   handleLayout = () => {
@@ -83,6 +98,35 @@ class AppLanding extends Component {
     return res;
   }
 
+  renderAppModePicker() {
+    if (!__DEV__) {
+      return null;
+    }
+
+    const { appMode, settingsSetNormalModeConnect, settingsSetTestModeConnect } = this.props;
+
+    return (
+      <Picker
+        selectedValue={appMode}
+        iosIcon={<Icon name="md-arrow-dropdown" />}
+        headerBackButtonText={<Icon name="md-arrow-back" style={sg.colorGray11} />}
+        headerTitleStyle={[sg.colorDark, sg.fontRegular, sg.fontWeightNull]}
+        headerStyle={[sg.backgroundDefault, sg.shadowNo, sg.noBorder]}
+        style={sg.width170}
+        onValueChange={(itemValue) => {
+          if (itemValue === settingsUtils.APP_MODE.TEST) {
+            settingsSetTestModeConnect();
+          } else {
+            settingsSetNormalModeConnect();
+          }
+        }}
+      >
+        <Picker.Item label="Normal mode" value={settingsUtils.APP_MODE.NORMAL} />
+        <Picker.Item label="Test mode" value={settingsUtils.APP_MODE.TEST} />
+      </Picker>
+    );
+  }
+
   render() {
     const { screenProps } = this.props;
     const { screenHeight } = this.state;
@@ -108,11 +152,11 @@ class AppLanding extends Component {
 
             <View style={[sg.width100p, sg.pH30, sg.aICenter]}>
 
+              {this.renderAppModePicker()}
+
               <Button
                 block
-                onPress={() => {
-                  screenProps.navigateTo(routeNames.BUILD_YOUR_SAVING);
-                }}
+                onPress={() => this.onNext()}
               >
                 <Text>Next</Text>
               </Button>
@@ -208,4 +252,19 @@ class AppLanding extends Component {
   }
 }
 
-export default connect()(AppLanding);
+AppLanding.propTypes = {
+  appMode: PropTypes.string.isRequired,
+  settingsSetNormalModeConnect: PropTypes.func.isRequired,
+  settingsSetTestModeConnect: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  appMode: state.settings.appMode,
+});
+
+const mapDispatchToProps = {
+  settingsSetNormalModeConnect: settingsSetNormalMode,
+  settingsSetTestModeConnect: settingsSetTestMode,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppLanding);
