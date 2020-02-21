@@ -47,11 +47,17 @@ class Email extends React.Component {
     componentDidMount() {
       const { hocs, screenProps } = this.props;
       const { form } = this.state;
+      const { email = '' } = screenProps.getUserInfo();
 
-      hocs.setForm(form).then(() => {
-        const userDetails = screenProps.getUserInfo();
-        hocs.handleInput(userDetails.email || '', 'emailAddress');
-      });
+      const formNew = {
+        ...form,
+        emailAddress: {
+          ...form.emailAddress,
+          value: email,
+        },
+      };
+
+      hocs.setForm(formNew);
     }
 
 
