@@ -91,20 +91,20 @@ class TabActivity extends Component {
 
     return (
       <View style={[sg.contentMarginH2, sg.mT10]}>
-          {activity ? this.renderActivityItems(activity) : (
-            <View>
-              <Text style={[sg.textCenter,sg.pT10]}>
-                  Your transactions will show up here once you've made your first deposit.
-              </Text>
-              <Button
-                onPress={() => screenProps.navigateTo(routeNames.ABOUT_APP_FORM)}
-                block
-                style={[sg.mB40, sg.mT40]}
-              >
-                <Text>Start an account</Text>
-              </Button>
-            </View>
-          )}
+        {activity ? this.renderActivityItems(activity) : (
+          <View>
+            <Text style={[sg.textCenter, sg.pT10]}>
+                Your transactions will show up here once you&apos;ve made your first deposit.
+            </Text>
+            <Button
+              onPress={() => screenProps.navigateTo(routeNames.ABOUT_APP_FORM)}
+              block
+              style={[sg.mB40, sg.mT40]}
+            >
+              <Text>Start an account</Text>
+            </Button>
+          </View>
+        )}
       </View>
     );
   }
@@ -153,7 +153,7 @@ class TabActivity extends Component {
         </Text>
         {/* {this.renderChart()} */}
 
-        {/* 
+        {/*
         <View style={[sg.contentMarginH, sg.mT10]}>
 
           <View style={sg.row}>
@@ -193,7 +193,7 @@ class TabActivity extends Component {
         {this.renderActivityItem()}
         {activity.map((item, index) => this.renderActivityItem(item, index))}
       </Grid>
-    )
+    );
   }
 
   renderActivityItem(item = {}, index = -1) {

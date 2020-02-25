@@ -57,7 +57,7 @@ class AbstractChart extends Component {
     let res = -1;
 
     if (activeDot) {
-      res = labels.findIndex(item => item === activeDot);
+      res = labels.findIndex((item) => item === activeDot);
     }
 
     return res;
@@ -146,6 +146,7 @@ class AbstractChart extends Component {
     } else if (min < 0 && max <= 0) {
       return 0;
     } else if (min < 0 && max > 0) {
+      // eslint-disable-next-line no-mixed-operators
       return height * max / this.calcScaler(data);
     }
 
@@ -458,7 +459,10 @@ AbstractChart.propTypes = {
   onRightSwipeDot: PropTypes.func,
   onLeftSwipeDot: PropTypes.func,
   onDataPointClick: PropTypes.func,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]).isRequired,
   // eslint-disable-next-line react/no-unused-prop-types
   fillSides: PropTypes.bool,
   // eslint-disable-next-line react/no-unused-prop-types
