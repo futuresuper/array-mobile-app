@@ -62,18 +62,54 @@ class BuildYourImpact extends Component {
                       style={{ color: sc.color.primary, fontSize: 22 }}
                     />
                     <Text style={[sg.colorWhite, sg.fS12, sg.fontMedium, sg.mL15]}>
-                      {'Being built right now\nDue for completion in December'}
+                      {'Build complete - Finalising connection to grid'}
                     </Text>
                   </View>
                 </ImageBackground>
               </View>
             );
+          } else if (item.index === 1) {
+            return (
+              <View style={[sg.farmImageShadow, sg.m15]}>
+                <ImageBackground
+                  source={item.item}
+                  imageStyle={{ borderRadius: 10 }}
+                  style={[sg.farmImage, {
+                    justifyContent: 'space-between',
+                    padding: 14,
+                    height: 240 * 0.8,
+                    width: 316 * 0.8,
+                  }]}
+                >
+                  <View>
+                    <Text style={[sg.fS18, sg.colorDark2, sg.textBold]}>Chinchilla</Text>
+                    <Text style={[sg.fS15, sg.colorDark3, sg.mT5]}>Queensland</Text>
+                  </View>
+                </ImageBackground>
+              </View>
+            );
+          } else if (item.index === 2) {
+            return (
+              <View style={[sg.farmImageShadow, sg.m15]}>
+                <ImageBackground
+                  source={item.item}
+                  imageStyle={{ borderRadius: 10 }}
+                  style={[sg.farmImage, {
+                    justifyContent: 'space-between',
+                    padding: 14,
+                    height: 240 * 0.8,
+                    width: 316 * 0.8,
+                  }]}
+                >
+                  <View>
+                    <Text style={[sg.fS18, sg.colorDark2, sg.textBold]}>Swan Hill</Text>
+                    <Text style={[sg.fS15, sg.colorDark3, sg.mT5]}>Victoria</Text>
+                  </View>
+                </ImageBackground>
+              </View>
+            );
           }
-          return (
-            <View style={[sg.farmImageShadow, sg.mR15]}>
-              <Image source={item.item} style={[sg.farmImage, { height: 240 * 0.8, width: 316 * 0.8 }]} />
-            </View>
-          );
+
         }}
         horizontal
         showsHorizontalScrollIndicator={false}

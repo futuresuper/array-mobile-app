@@ -1,6 +1,9 @@
 // @flow
 
-import variable from './../variables/platform';
+import variable from 'src/Theme/variables/material';
+import {
+  sc,
+} from 'src/Styles';
 
 export default (variables /*: * */ = variable) => {
   const inputTheme = {
@@ -16,6 +19,12 @@ export default (variables /*: * */ = variable) => {
     '.color5': {
       color: variables.textColor5,
     },
+    '.disabledBordered': {
+      borderBottomWidth: 1,
+      borderColor: variables.inputBorderColor,
+      color: sc.color.gray14,
+    },
+
     height: variables.inputHeightBase,
     color: variables.inputColor,
     paddingLeft: 0,

@@ -11,8 +11,9 @@ const createStore = reduxCreateStore;
 const persistConfig = {
   key: 'primary',
   storage: AsyncStorage,
-  whitelist: ['auth'],
+  whitelist: ['auth', 'settings'],
 };
+
 const persistReducers = persistCombineReducers(persistConfig, reducers);
 const middleware = applyMiddleware(thunk, navReduxMiddleware);
 const enhancer = [middleware];

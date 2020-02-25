@@ -18,6 +18,8 @@ import {
 } from 'src/Components/Form';
 
 import SafeAreaView from 'src/Components/SafeAreaView';
+import generalUtils from 'src/Common/general';
+import { Config } from 'src/Common/config';
 
 import {
   styleGlobal, sg,
@@ -57,7 +59,21 @@ class SignUpLogin extends Component {
       mobile: '',
       errors: '',
       submitted: false,
+      isInputDisabled: false,
     };
+
+    componentDidMount() {
+      const { screenProps: { isTestMode } } = this.props;
+      const { testUser } = Config.get();
+
+      const setTestMobile = !!(isTestMode() && testUser);
+      if (setTestMobile) {
+        this.setState({
+          mobile: testUser.phoneNumber,
+          isInputDisabled: true,
+        });
+      }
+    }
 
     getSms() {
       const { screenProps } = this.props;
@@ -79,7 +95,14 @@ class SignUpLogin extends Component {
     }
 
     formatAndValidateMobile(strPre) {
+      const { screenProps: { isTestMode } } = this.props;
       const str = strPre.replace(/[^0-9]+/g, '');
+
+      // no validation if it's a test number
+      if (isTestMode() && generalUtils.isTestNumber(str)) {
+        return `${str}`;
+      }
+
       if (
         (str[0] === '7' && str.length === 10)
       || (str[0] === '6' && str.length === 10)
@@ -124,7 +147,8 @@ class SignUpLogin extends Component {
 
     render() {
       const { screenProps } = this.props;
-      const { errors, mobile } = this.state;
+      const { errors, mobile, isInputDisabled } = this.state;
+      const inputHelper = isInputDisabled ? 'Test mobile number' : 'Your mobile number';
 
       return (
         <SafeAreaView themeMode={screenProps.themeMode} forceInset={{ top: 'never' }}>
@@ -133,12 +157,15 @@ class SignUpLogin extends Component {
             <View style={styleGlobal.spaceBetween}>
               <View>
                 <Input
-                  helper="Your mobile number"
+                  helper={inputHelper}
                   autoFocus
                   returnKeyType="next"
                   keyboardType="numeric"
                   value={mobile}
                   onChangeText={(e) => { this.handleChange(e); }}
+                  onSubmitEditing={() => this.getSms()}
+                  disabled={isInputDisabled}
+                  disabledBordered={isInputDisabled}
                 />
                 <Text style={styleGlobal.formError}>
                   {errors}

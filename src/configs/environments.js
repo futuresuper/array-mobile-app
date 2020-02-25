@@ -19,6 +19,10 @@ export const APP_ENV = {
       APP_CLIENT_ID: '5tn3n4qidu50o0jahbarqdp9cd',
       IDENTITY_POOL_ID: 'ap-southeast-2:abef2658-6b7a-4ef9-aec9-f15ab2c21dca',
     },
+    testUser: {
+      phoneNumber: '12345678901',
+      password: '123456789',
+    },
   },
   production: {
     env: 'production',

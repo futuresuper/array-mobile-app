@@ -52,6 +52,10 @@ import {
   navigateTo,
   routeBack,
 } from 'src/Redux/Nav';
+import {
+  settingsIsTestModeSelector,
+} from 'src/Redux/Settings';
+
 import { sc } from './Styles';
 
 class AppIndex extends Component {
@@ -140,13 +144,17 @@ class AppIndex extends Component {
     return theme === 'dark';
   }
 
+  isTestMode = () => {
+    const { isTestMode } = this.props;
+    return isTestMode;
+  }
+
   initializeTheme() {
     const { auth } = this.props;
     if (auth.user) {
       this.enableTheme();
     }
   }
-
 
   // /////////////////////////////////////////////////////////////
 
@@ -241,6 +249,7 @@ class AppIndex extends Component {
       toogleTheme: this.toogleTheme,
       getTheme: this.getTheme,
       isDarkTheme: this.isDarkTheme,
+      isTestMode: this.isTestMode,
       themeMode,
       Api,
     };
@@ -315,6 +324,7 @@ AppIndex.propTypes = {
   setLightThemeConnect: PropTypes.func.isRequired,
   setDarkThemeConnect: PropTypes.func.isRequired,
   toggleThemeConnect: PropTypes.func.isRequired,
+  isTestMode: PropTypes.bool.isRequired,
 };
 
 function bindAction(dispatch) {
@@ -332,6 +342,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   account: accountSelector(state),
   theme: themeSelector(state),
+  isTestMode: settingsIsTestModeSelector(state),
 });
 
 export default connect(mapStateToProps, bindAction)(AppIndex);
