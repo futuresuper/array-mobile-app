@@ -64,11 +64,11 @@ class SourceOfFunds extends React.Component {
             </Button>
 
             <Button
-              onPress={() => this.handlePress('inheritenceGift')}
+              onPress={() => this.handlePress('inheritanceGift')}
               block
               marginVert
             >
-              <Text>Inheritence / Gift</Text>
+              <Text>Inheritance / Gift</Text>
             </Button>
 
             <Button
