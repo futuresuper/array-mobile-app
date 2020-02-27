@@ -35,23 +35,33 @@ class Investment extends Component {
   }
 
   renderActiveChartSlice() {
+    const { investmentsChart } = this.props;
     const { selectedChartSlice } = this.state;
 
     if (!selectedChartSlice) {
       return null;
     }
 
+    const data = investmentsChart.find((item) => (item.PK2 === selectedChartSlice));
+
+    const {
+      name,
+      subName,
+      description,
+      value,
+    } = data.itemData;
+
     return (
       <View style={[sg.row, sg.contentPadding]}>
         <Grid>
           <Col>
-            <Text style={[sg.fS20, sg.textBold]}>Ratesseter</Text>
-            <Text style={[sg.textBold]}>(Ratesseter)</Text>
+            <Text style={[sg.fS20, sg.textBold]}>{name}</Text>
+            {subName && <Text style={[sg.textBold, sg.mT5]}>{`(${subName})`}</Text>}
 
-            <Text style={[sg.fS15, sg.textBold, sg.mT10]}>asdasdasdasd</Text>
+            {description && <Text style={[sg.fS15, sg.textBold, sg.mT10]}>{description}</Text>}
           </Col>
           <Col style={sg.flexNull}>
-            <Text style={[sg.fS20, sg.textBold]}>12%</Text>
+            <Text style={[sg.fS20, sg.textBold]}>{`${value}%`}</Text>
           </Col>
         </Grid>
       </View>
@@ -107,20 +117,34 @@ class Investment extends Component {
     return (
       <View style={[sg.aICenter]}>
         {image}
-        <Text style={[sg.textBold, sg.fS25, sg.mT5, sg.mB5]}>{number}</Text>
+        <Text style={[sg.textBold, sg.fS25, sg.mT5, sg.mB5]}>{`${number}%`}</Text>
         <Text style={[sg.textBold, sg.fS15]}>{text}</Text>
       </View>
     );
   }
 
   renderTitle() {
+    const { investmentsChart } = this.props;
+    let renewables = 0;
+    let ethical = 0;
+
+    investmentsChart.forEach(({ itemData }) => {
+      const { isRenewable, isEthical, value } = itemData;
+
+      if (isRenewable) {
+        renewables += parseInt(value, 10);
+      } else if (isEthical) {
+        ethical += parseInt(value, 10);
+      }
+    });
+
     return (
       <View style={[sg.row, sg.mB10]}>
         <Grid>
           <Col style={[sg.aIEnd]}>
             {this.renderTitleCol(
               <Image source={SunDark} style={sg.tintColorOrange} />,
-              '58%',
+              renewables,
               'Renewables',
             )}
           </Col>
@@ -128,7 +152,7 @@ class Investment extends Component {
           <Col style={sg.aIStart}>
             {this.renderTitleCol(
               <Image source={HeartDark} style={sg.tintColorPrimary} />,
-              '42%',
+              ethical,
               'Ethical',
             )}
           </Col>
@@ -156,31 +180,51 @@ class Investment extends Component {
           renderItem={({ item: { itemData }, index }) => {
             const {
               name,
-              subCategory,
               value,
+              isRenewable,
+              isEthical,
+              subList = [],
             } = itemData;
-            const isSunIcon = (subCategory === 'Solar Farm' || subCategory === 'Renewables Lending');
             const icon = {
-              source: isSunIcon ? SunDark : HeartDark,
+              source: null,
               style: [sg.height16, sg.tintColorGray11],
             };
             const calcValue = balanceIncludingPendingInDollars * parseInt(value, 10);
 
+            if (isRenewable) {
+              icon.source = SunDark;
+            } else if (isEthical) {
+              icon.source = HeartDark;
+            }
+
             return (
-              <Grid style={[sg.borderColor(theme.borderColorList), sg.borderBottom, (index === 0 ? sg.borderTop : {})]}>
-                <Row style={[sg.pV20, sg.pL10]}>
+              <Grid style={[sg.borderColor(theme.borderColorList), sg.borderBottom, (index === 0 ? sg.borderTop : {}), sg.pV20]}>
+                <Row style={[sg.pL10]}>
                   <Col style={[sg.aICenter, sg.flexNull, sg.width30]}>
                     <Image source={icon.source} style={icon.style} resizeMode="contain" />
                   </Col>
                   <Col style={[sg.mL20, sg.mR20]}>
                     <Text style={[sg.fS14, sg.textBold]}>{name}</Text>
-                    <Text style={[sg.fS14, sg.mT10]}>{name}</Text>
                   </Col>
                   <Col style={[sg.flexNull]}>
                     <Text style={[sg.fS14, sg.fontMedium, sg.colorGray11]}>{`${value}%`}</Text>
                   </Col>
                   <Col style={[sg.mL10, sg.flexNull, sg.aIRight, sg.width80]}>
                     <Text style={[sg.fS14, sg.fontMedium, sg.colorGray11]}>{`$${calcValue}`}</Text>
+                  </Col>
+                </Row>
+                <Row style={[sg.pL10]}>
+                  <Col style={[sg.aICenter, sg.flexNull, sg.width30]} />
+
+                  <Col style={[sg.mL20]}>
+                    {subList.map((itemSubList, indexSubList) => (
+                      <Text
+                        key={indexSubList.toString()}
+                        style={[sg.fS14, sg.mT10]}
+                      >
+                        {itemSubList}
+                      </Text>
+                    ))}
                   </Col>
                 </Row>
               </Grid>
@@ -192,6 +236,12 @@ class Investment extends Component {
   }
 
   render() {
+    const { investmentsChart } = this.props;
+
+    if (!investmentsChart) {
+      return null;
+    }
+
     return (
       <View style={sg.mB20}>
         <View style={[sg.mH0, sg.mT15]}>
