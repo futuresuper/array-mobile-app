@@ -24,7 +24,11 @@ import {
   Col,
 } from 'native-base';
 
-import { accountsSelector, userSelector } from 'src/Redux/AppContent';
+import {
+  accountsSelector,
+  userSelector,
+  accountInvestmentsChartSelector,
+} from 'src/Redux/AppContent';
 
 import {
   accountSelector,
@@ -303,6 +307,7 @@ class TabActivity extends Component {
   }
 }
 
+
 TabActivity.propTypes = {
   accounts: PropTypes.array.isRequired,
   selectedAccount: PropTypes.object.isRequired,
@@ -315,10 +320,13 @@ const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
   const selectedAccount = accountSelector(state);
   const user = userSelector(state);
+  const investmentsChart = accountInvestmentsChartSelector(state);
+
   return {
     accounts,
     selectedAccount,
     user,
+    investmentsChart,
   };
 };
 

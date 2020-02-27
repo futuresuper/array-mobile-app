@@ -14,6 +14,8 @@ export const unitPricesSelector = (state) => state.appContent.unitPrices || [];
 
 export const userSelector = (state) => state.appContent.user || {};
 
+export const accountInvestmentsChartSelector = (state) => state.appContent.investmentsChart || [];
+
 export const featuredSolarFarmSelector = (state) => {
   const { featuredSolarFarm } = state.appContent;
 

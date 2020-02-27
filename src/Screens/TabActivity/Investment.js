@@ -59,43 +59,20 @@ class Investment extends Component {
   }
 
   renderChart() {
-    const data = [
-      {
-        name: "Seoul",
-        population: 21500000,
-        color: "green",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
+    const { investmentsChart } = this.props;
+    const { selectedChartSlice } = this.state;
+
+    const data = investmentsChart.map(({
+      itemData: {
+        name, value, color,
       },
-      {
-        name: "Toronto",
-        population: 2800000,
-        color: "yellow",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
-      },
-      {
-        name: "Beijing",
-        population: 527612,
-        color: "red",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
-      },
-      {
-        name: "New York",
-        population: 8538000,
-        color: "#ffffff",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
-      },
-      {
-        name: "Moscow",
-        population: 11920000,
-        color: "rgb(0, 0, 255)",
-        legendFontColor: "#7F7F7F",
-        legendFontSize: 15
-      },
-    ];
+      PK2,
+    }) => ({
+      name,
+      population: parseInt(value, 10),
+      color,
+      PK2,
+    }));
 
     return (
       <View style={sg.mT20}>
@@ -113,12 +90,12 @@ class Investment extends Component {
           paddingLeft={0}
           absolute
           hasLegend={false}
-          onPress={(item) => {
+          onPress={({ PK2 }) => {
             this.setState({
-              selectedChartSlice: item,
+              selectedChartSlice: PK2,
             });
           }}
-          activeSlice={({ name }) => name === 'Toronto'}
+          activeSlice={({ PK2 }) => PK2 === selectedChartSlice}
         />
 
         {this.renderActiveChartSlice()}
@@ -164,42 +141,30 @@ class Investment extends Component {
     const {
       screenProps,
       selectedAccount: { balanceIncludingPendingInDollars },
+      investmentsChart,
     } = this.props;
     const theme = screenProps.getTheme();
-
-    const data = [
-      {
-        name: 123,
-        subCategory: 'Solar Farm',
-        percent: 28,
-      },
-      {
-        name: 123,
-        subCategory: 'asd',
-        percent: 12,
-      },
-    ];
 
     return (
       <View style={[sg.contentPadding2]}>
         <Text style={[sg.textCenter, sg.fS23, sg.textBold, sg.mB20]}>Breakdown</Text>
 
         <FlatList
-          data={data}
+          data={investmentsChart}
           keyExtractor={(item, index) => index.toString()}
           scrollEnabled={false}
-          renderItem={({ item, index }) => {
+          renderItem={({ item: { itemData }, index }) => {
             const {
               name,
               subCategory,
-              percent,
-            } = item;
+              value,
+            } = itemData;
             const isSunIcon = (subCategory === 'Solar Farm' || subCategory === 'Renewables Lending');
             const icon = {
               source: isSunIcon ? SunDark : HeartDark,
               style: [sg.height16, sg.tintColorGray11],
             };
-            const calcValue = balanceIncludingPendingInDollars * percent;
+            const calcValue = balanceIncludingPendingInDollars * parseInt(value, 10);
 
             return (
               <Grid style={[sg.borderColor(theme.borderColorList), sg.borderBottom, (index === 0 ? sg.borderTop : {})]}>
@@ -212,7 +177,7 @@ class Investment extends Component {
                     <Text style={[sg.fS14, sg.mT10]}>{name}</Text>
                   </Col>
                   <Col style={[sg.flexNull]}>
-                    <Text style={[sg.fS14, sg.fontMedium, sg.colorGray11]}>{`${percent}%`}</Text>
+                    <Text style={[sg.fS14, sg.fontMedium, sg.colorGray11]}>{`${value}%`}</Text>
                   </Col>
                   <Col style={[sg.mL10, sg.flexNull, sg.aIRight, sg.width80]}>
                     <Text style={[sg.fS14, sg.fontMedium, sg.colorGray11]}>{`$${calcValue}`}</Text>
@@ -250,6 +215,7 @@ class Investment extends Component {
 
 Investment.propTypes = {
   selectedAccount: PropTypes.object.isRequired,
+  investmentsChart: PropTypes.array.isRequired,
 };
 
 export default Investment;
