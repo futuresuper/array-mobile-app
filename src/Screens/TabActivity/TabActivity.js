@@ -24,7 +24,11 @@ import {
   Col,
 } from 'native-base';
 
-import { accountsSelector, userSelector } from 'src/Redux/AppContent';
+import {
+  accountsSelector,
+  userSelector,
+  accountInvestmentsChartSelector,
+} from 'src/Redux/AppContent';
 
 import {
   accountSelector,
@@ -91,20 +95,20 @@ class TabActivity extends Component {
 
     return (
       <View style={[sg.contentMarginH2, sg.mT10]}>
-          {activity ? this.renderActivityItems(activity) : (
-            <View>
-              <Text style={[sg.textCenter,sg.pT10]}>
-                  Your transactions will show up here once you've made your first deposit.
-              </Text>
-              <Button
-                onPress={() => screenProps.navigateTo(routeNames.ABOUT_APP_FORM)}
-                block
-                style={[sg.mB40, sg.mT40]}
-              >
-                <Text>Start an account</Text>
-              </Button>
-            </View>
-          )}
+        {activity ? this.renderActivityItems(activity) : (
+          <View>
+            <Text style={[sg.textCenter, sg.pT10]}>
+                Your transactions will show up here once you&apos;ve made your first deposit.
+            </Text>
+            <Button
+              onPress={() => screenProps.navigateTo(routeNames.ABOUT_APP_FORM)}
+              block
+              style={[sg.mB40, sg.mT40]}
+            >
+              <Text>Start an account</Text>
+            </Button>
+          </View>
+        )}
       </View>
     );
   }
@@ -153,7 +157,7 @@ class TabActivity extends Component {
         </Text>
         {/* {this.renderChart()} */}
 
-        {/* 
+        {/*
         <View style={[sg.contentMarginH, sg.mT10]}>
 
           <View style={sg.row}>
@@ -193,7 +197,7 @@ class TabActivity extends Component {
         {this.renderActivityItem()}
         {activity.map((item, index) => this.renderActivityItem(item, index))}
       </Grid>
-    )
+    );
   }
 
   renderActivityItem(item = {}, index = -1) {
@@ -303,6 +307,7 @@ class TabActivity extends Component {
   }
 }
 
+
 TabActivity.propTypes = {
   accounts: PropTypes.array.isRequired,
   selectedAccount: PropTypes.object.isRequired,
@@ -315,10 +320,13 @@ const mapStateToProps = (state) => {
   const accounts = accountsSelector(state);
   const selectedAccount = accountSelector(state);
   const user = userSelector(state);
+  const investmentsChart = accountInvestmentsChartSelector(state);
+
   return {
     accounts,
     selectedAccount,
     user,
+    investmentsChart,
   };
 };
 

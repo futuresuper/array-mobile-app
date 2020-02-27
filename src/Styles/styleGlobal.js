@@ -560,6 +560,9 @@ export default {
   width300: {
     width: 300,
   },
+  height16: {
+    height: 16,
+  },
   heightNull: {
     height: null,
   },
@@ -574,6 +577,9 @@ export default {
   },
   borderRight: {
     borderRightWidth: 1,
+  },
+  borderTop: {
+    borderTopWidth: 1,
   },
   borderBottom: {
     borderBottomWidth: 1,
@@ -892,6 +898,12 @@ export default {
   tintColor(tintColor) {
     return { tintColor };
   },
+  tintColorOrange: {
+    tintColor: styleConstants.color.orange,
+  },
+  tintColorPrimary: {
+    tintColor: styleConstants.color.primary,
+  },
   borderColor(borderColor) {
     return { borderColor };
   },
@@ -900,6 +912,9 @@ export default {
   },
   borderColorDark3: {
     borderColor: styleConstants.color.dark3,
+  },
+  borderColorGray: {
+    borderColor: styleConstants.color.gray,
   },
   shadowNo: {
     shadowColor: null,
