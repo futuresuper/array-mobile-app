@@ -137,7 +137,7 @@ class BankAccount extends React.Component {
           screenProps.toastDanger('Error. Try Again');
         });
       }, () => {
-        screenProps.toastDanger('Wrong BSB');
+        screenProps.toastDanger('Please enter a valid BSB');
       });
     }
   }
