@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  View, FlatList, TouchableOpacity, Alert,
+  View,
+  FlatList,
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -75,10 +77,10 @@ class TabProfile extends Component {
         //   name: 'Refer a friend',
         //   screen: routeNames.REFER_FRIEND,
         // },
-        // {
-        //   name: 'Talk to us',
-        //   screen: routeNames.TALK_US,
-        // },
+        {
+          name: 'Talk to us',
+          screen: routeNames.TALK_US,
+        },
         // {
         //   name: 'Talk to us',
         //   function: () => this.displayIntercom(props),
