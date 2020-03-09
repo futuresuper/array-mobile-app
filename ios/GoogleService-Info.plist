@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>174709168336-843o4ejvi67pij9o4pd6f12pe5qe2lag.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.174709168336-843o4ejvi67pij9o4pd6f12pe5qe2lag</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAAHZCWoo3NcuVnjpJRsgLTocW2e-Pc7Bc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>174709168336</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.FutureRenewablesTest</string>
+	<key>PROJECT_ID</key>
+	<string>array-push</string>
+	<key>STORAGE_BUCKET</key>
+	<string>array-push.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:174709168336:ios:635c3a4d5042c99c3a66d5</string>
+	<key>DATABASE_URL</key>
+	<string>https://array-push.firebaseio.com</string>
+</dict>
+</plist>

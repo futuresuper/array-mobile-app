@@ -43,6 +43,9 @@ import ProtectedRoutes from 'src/Common/ProtectedRoutes';
 import Spinner from 'src/Components/Spinner';
 // import Spinner from 'react-native-loading-spinner-overlay';
 import Alert from 'src/Components/Alert';
+import ServicesManager from 'src/Services';
+
+
 import { AppWithNavigationState } from 'src/Navigation/AppNavigator';
 import { accountSelector } from 'src/Redux/Account/selectors';
 import {
@@ -263,6 +266,9 @@ class AppIndex extends Component {
         <StyleProvider style={getTheme(theme)}>
           <Container>
             <StatusBar backgroundColor={theme.containerBgColor} barStyle={barStyle} />
+
+            <ServicesManager />
+
             <Spinner
               ref={(c) => {
                 this.Spinner = c;

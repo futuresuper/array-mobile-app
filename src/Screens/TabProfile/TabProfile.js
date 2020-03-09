@@ -32,7 +32,7 @@ import { userSelector } from 'src/Redux/AppContent';
 import { userUpdateAvatar } from 'src/Redux/Auth';
 
 import { sg } from 'src/Styles';
-import NotifService from 'src/NotifService';
+// import NotifService from 'src/NotifService';
 
 
 import styles from './styles';
@@ -41,7 +41,7 @@ class TabProfile extends Component {
   constructor(props) {
     super(props);
 
-    this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
+    // this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
 
     this.state = {
       listMenu: [
@@ -127,7 +127,7 @@ class TabProfile extends Component {
   };
 
   initializeFcm() {
-    this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
+    // this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
   }
 
   handleAvatarChange() {

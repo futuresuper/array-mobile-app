@@ -8,7 +8,7 @@ const config = {
   name: 'Future Renewables',
 };
 if (!isIOS()) {
-  config.host = 'localhost';
+  config.host = '192.168.0.8';
 }
 
 export default Reactotron
