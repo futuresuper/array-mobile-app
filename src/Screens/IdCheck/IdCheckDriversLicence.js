@@ -40,9 +40,7 @@ class IdCheckDriversLicence extends Component {
   }
 
   onSubmit() {
-    const {
-      hocs, idCheckSaveConnect, userDataSaveConnect, appContentSaveConnect, screenProps,
-    } = this.props;
+    const { hocs, screenProps } = this.props;
     const isValid = hocs.formIsValid();
     if (isValid) {
       const driversLicenceState = hocs.form.driversLicenceState.value;
@@ -51,43 +49,18 @@ class IdCheckDriversLicence extends Component {
       const driversLicenceMiddleNames = hocs.form.driversLicenceMiddleNames.value;
       const driversLicenceLastName = hocs.form.driversLicenceLastName.value;
 
-      screenProps.Api.post('/idcheck', {
+      screenProps.Api.post('/user', {
         driversLicenceState,
         driversLicenceNumber,
         driversLicenceFirstName,
         driversLicenceMiddleNames,
         driversLicenceLastName,
-        idType: 'driversLicence',
-      }, (res) => {
-        idCheckSaveConnect(res);
-        if (res.idCheckComplete) {
-          this.getAppContent((appContent) => {
-            const { user } = appContent;
-            userDataSaveConnect(user);
-            appContentSaveConnect(appContent);
-            screenProps.toastSuccess("ID verification Succeeded - you're all done!");
-            screenProps.navigateTo(routeNames.ACCOUNTS);
-          });
-        } else {
-          screenProps.navigateTo(routeNames.ID_CHECK);
-        }
       }, () => {
-        screenProps.toastDanger('Something went wrong. Please try again, or contact us: hello@arrayapp.co');
+        screenProps.navigateTo(routeNames.OCCUPATION);
+      }, () => {
+        screenProps.toastDanger('Error. Try Again');
       });
     }
-  }
-
-  getAppContent(callback) {
-    const { screenProps } = this.props;
-    screenProps.Api.get('/appcontent', {}, callback, () => {
-      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
-    });
-  }
-
-
-  goToAccountHome() {
-    const { accountSelectSaveConnect, accounts } = this.props;
-    accountSelectSaveConnect(accounts[0]);
   }
 
   initializeForm(form) {
@@ -131,6 +104,7 @@ class IdCheckDriversLicence extends Component {
                 hocs.addOrUpdateFormField({ title: item.name, value: item.name }, formKey);
               }}
             />
+            {/*
             <Input
               formData={form}
               formKey="driversLicenceFirstName"
@@ -152,7 +126,7 @@ class IdCheckDriversLicence extends Component {
               onChangeText={hocs.handleInput}
               color2
             />
-
+            */}
 
           </View>
 

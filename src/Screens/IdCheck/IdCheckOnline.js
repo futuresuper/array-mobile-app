@@ -52,7 +52,7 @@ class IdCheckOnline extends Component {
     hocs.setForm(form);
   }
 
-  onNext() {
+  onNext(idType) {
     const { screenProps, hocs } = this.props;
 
     if (hocs.form.check.value) {
@@ -60,7 +60,9 @@ class IdCheckOnline extends Component {
         onlineIdConsent: true,
       };
       screenProps.Api.post('/user', body, () => {
-        screenProps.navigateTo(routeNames.SOURCE_OF_FUNDS);
+        idType === "driversLicence" ?
+        screenProps.navigateTo(routeNames.ID_CHECK_DRIVERS_LICENCE)
+        : screenProps.navigateTo(routeNames.ID_CHECK_AUSTRALIAN_PASSPORT);
       }, () => {
         screenProps.toastDanger('Error. Try Again');
       });
@@ -115,14 +117,22 @@ class IdCheckOnline extends Component {
               </Col>
             </Grid>
           </View>
-
-
-          <Button
-            onPress={() => this.onNext()}
-            block
-          >
-            <Text>Next</Text>
-          </Button>
+          <View>
+            <Button
+              onPress={() => this.onNext("driversLicence")}
+              block
+              marginVert
+            >
+              <Text>Add Drivers Licence</Text>
+            </Button>
+            <Button
+              onPress={() => this.onNext("passport")}
+              block
+              marginVert
+            >
+              <Text>Add Passport</Text>
+            </Button>
+          </View>
         </View>
       </Content>
     );

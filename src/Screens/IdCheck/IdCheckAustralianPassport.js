@@ -92,6 +92,7 @@ class IdCheckAustralianPassport extends Component {
       <Content padder contentContainerStyle={[sg.flexGrow, sg.pT40]}>
         <View style={sg.spaceBetween}>
           <View>
+          {/*
             <Input
               formData={form}
               formKey="passportFirstName"
@@ -113,10 +114,11 @@ class IdCheckAustralianPassport extends Component {
               onChangeText={hocs.handleInput}
               color2
             />
+            */}
             <Input
               formData={form}
               formKey="passportNumber"
-              helper="Passport number"
+              helper="Australian Passport Number"
               onChangeText={hocs.handleInput}
               color2
             />

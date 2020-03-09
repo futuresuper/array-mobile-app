@@ -224,7 +224,7 @@ const signDataRoutes = formatRoutes({
   [routeNames.ID_CHECK_AUSTRALIAN_PASSPORT]: {
     screen: screens.IdCheckAustralianPassport,
     params: {
-      title: 'Australian Passport',
+      title: 'Passport',
     },
     ...tabCardOptions,
   },
