@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import {
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
@@ -12,97 +12,9 @@ import {
 
 import { Icon } from 'native-base';
 import BackButton from 'src/Components/BackButton';
-import { sg, sc } from 'src/Styles';
+import { sg } from 'src/Styles';
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: sc.color.containerBgColor,
-  },
-  header: {
-    paddingTop: Platform.OS === 'ios' ? 30 : 0,
-    flex: 0.35,
-  },
-  headerNav: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  headerMessage: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  list: {
-    flex: 0.65,
-    paddingHorizontal: 17,
-  },
-  footer: {
-    flexDirection: 'row',
-    height: 60,
-    backgroundColor: '#CDC8CC',
-    paddingHorizontal: 10,
-    padding: 5,
-  },
-  btnSend: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  iconSend: {
-    width: 30,
-    height: 30,
-    color: sc.color.primary,
-  },
-  inputContainer: {
-    borderBottomColor: '#CDC8CC',
-    backgroundColor: '#CDC8CC',
-    borderRadius: 30,
-    borderBottomWidth: 1,
-    height: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    marginRight: 10,
-  },
-  inputs: {
-    height: 40,
-    marginLeft: 16,
-    borderBottomColor: '#CDC8CC',
-    flex: 1,
-  },
-  balloon: {
-    maxWidth: 250,
-    padding: 8,
-    borderRadius: 20,
-  },
-  baloonText: {
-    color: '#FFFF',
-  },
-  itemIn: {
-    alignSelf: 'flex-start',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 5,
-    backgroundColor: '#6A608C',
-  },
-  itemOut: {
-    alignSelf: 'flex-end',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 20,
-    backgroundColor: '#292049',
-  },
-  item: {
-    marginVertical: 14,
-    flex: 1,
-    flexDirection: 'row',
-    padding: 5,
-  },
-});
-
+import { talkUs as styles } from './styles';
 
 export default class TalkUs extends Component {
   constructor(props) {
@@ -111,27 +23,90 @@ export default class TalkUs extends Component {
       message: '',
       messages: [],
     };
+
+    this.isAutoLoadingMessages = false;
   }
 
-  componentDidMount() {
-    const { screenProps } = this.props;
-    screenProps.Api.get('/messages', {}, (res) => {
-      this.setState({ messages: res });
+  async componentDidMount() {
+    try {
+      const messages = await this.getMessages();
+      this.setState({ messages });
+    } catch (e) {
+      // empty
+    }
+
+    this.startGetMessagesAuto();
+  }
+
+  componentWillUnmount() {
+    this.stopGetMessagesAuto();
+  }
+
+  getMessages(spinner = true) {
+    return new Promise((resolve, reject) => {
+      const { screenProps } = this.props;
+      screenProps.Api.get('/messages', {}, (resInp) => {
+        const res = _.orderBy(resInp, ['date'], ['desc']);
+
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      }, spinner);
     });
+  }
+
+  startGetMessagesAuto() {
+    this.stopGetMessagesAuto();
+
+    this.intervalMessages = setInterval(() => {
+      if (this.isAutoLoadingMessages) {
+        return;
+      }
+
+      this.isAutoLoadingMessages = true;
+
+      this.getMessages(false).then((messages) => {
+        this.setState({ messages });
+
+        this.isAutoLoadingMessages = false;
+      }).catch(() => {
+        this.isAutoLoadingMessages = false;
+      });
+    }, 7000);
+  }
+
+  stopGetMessagesAuto() {
+    if (this.intervalMessages) {
+      clearInterval(this.intervalMessages);
+    }
   }
 
   sendMessage() {
     const { screenProps } = this.props;
     const { message } = this.state;
-    screenProps.Api.post('/message', { message }, (res) => {
-      const msg = {
-        message,
-        date: new Date(),
-        from: 'user',
-      };
-      this.setState((prevState) => ({ message: '', messages: [...prevState.messages, msg] }));
-      console.log(res);
-    }, null, false);
+
+    const messageDate = new Date();
+    const msg = {
+      message,
+      date: messageDate,
+      from: 'user',
+    };
+
+    this.setState((prevState) => ({
+      message: '',
+      messages: [
+        msg,
+        ...prevState.messages,
+      ],
+    }));
+
+
+    screenProps.Api.post('/message', { message }, () => {
+    }, () => {
+      this.setState((prevState) => ({
+        messages: prevState.messages.filter(({ date }) => date !== messageDate),
+      }));
+    }, false);
   }
 
   render() {
@@ -161,6 +136,7 @@ export default class TalkUs extends Component {
           </View>
         </View>
         <FlatList
+          inverted
           style={styles.list}
           data={messages}
           keyExtractor={(item) => String(item.date)}
@@ -185,6 +161,7 @@ export default class TalkUs extends Component {
               value={message}
               underlineColorAndroid="transparent"
               onChangeText={(value) => this.setState({ message: value })}
+              onSubmitEditing={() => this.sendMessage()}
             />
           </View>
 
