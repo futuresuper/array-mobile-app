@@ -31,7 +31,7 @@ class Accounts extends React.Component {
       screenProps.spinnerHide();
     });
 
-    screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
+    // screenProps.navigateTo(routeNames.ID_CHECK_ONLINE);
   }
 
   onAccountSelect(account) {
