@@ -186,7 +186,7 @@ class TabHome extends Component {
     if (data) {
       return (
         <Text style={styles.awaitingDebit}>
-          {`${formatAmountDollar(data)} awaiting direct debit`}
+          {`Includes ${formatAmountDollar(data)} awaiting direct debit`}
         </Text>
       );
     }
@@ -198,8 +198,9 @@ class TabHome extends Component {
 
     if (selectedAccount) {
       const balance = {};
-      if (selectedAccount.balanceIncludingPendingInDollars > 1) {
-        const rawBalance = formatAmountDollarCent(selectedAccount.balanceIncludingPendingInDollars);
+      const displayAmount = parseFloat(selectedAccount.balanceIncludingPendingInDollars) + parseFloat(selectedAccount.amountAwaitingDirectDebit);
+      if ( displayAmount > 1) {
+        const rawBalance = formatAmountDollarCent(displayAmount);
         balance.dollars = rawBalance.substring(0, rawBalance.length - 3);
         balance.cents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
       } else {
