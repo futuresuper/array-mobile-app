@@ -78,7 +78,7 @@ class IdCheckDriversLicence extends Component {
                 appContentSaveConnect(appContent);
                 amplitude.getInstance().logEvent('Completed ID Check', {});
                 screenProps.toastSuccess("ID verification Succeeded - you're all done!");
-                screenProps.navigateTo(routeNames.ACCOUNTS);
+                screenProps.navigateTo(routeNames.WHATS_NEXT);
               });
             } else {
               amplitude.getInstance().logEvent('ID Check Completion Attempt Failed', {});
