@@ -13,6 +13,15 @@ export default {
   mainAmountCent: {
     color: sc.color.gray12,
     fontSize: 24,
+    marginTop: -3,
+    paddingTop: -3,
+    fontFamily: sc.font.bold,
+  },
+  awaitingDebit: {
+    color: sc.color.gray12,
+    fontSize: 14,
+    marginTop: 4,
+    marginBottom: 4,
     fontFamily: sc.font.bold,
   },
   title: {
@@ -23,5 +32,11 @@ export default {
     fontSize: 19,
     color: sc.color.gray13,
     marginTop: 4,
+  },
+  amountIcon: {
+    fontSize: 19,
+    color: sc.color.gray13,
+    marginTop: 4,
+    marginRight: 4,
   },
 };

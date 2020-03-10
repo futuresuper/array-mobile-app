@@ -263,14 +263,15 @@ class TabActivity extends Component {
   }
 
   render() {
-    const { selectedAccount, user } = this.props;
+    const { selectedAccount, user, unitPrices } = this.props;
 
     return (
       <Content>
 
         <Balance
-          account={selectedAccount}
+          selectedAccount={selectedAccount}
           user={user}
+          unitPrices={unitPrices}
           onPress={() => {
             BottomInfo.showAccounts({
               superAccount: false,

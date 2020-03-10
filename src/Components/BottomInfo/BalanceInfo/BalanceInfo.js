@@ -50,6 +50,7 @@ class BalanceInfo extends Component {
       balanceInUnits,
       balanceExcludingPendingInDollars,
       pendingTransactionsInDollars,
+      amountAwaitingDirectDebit
     } = selectedAccount;
     let unitPrice = null;
 
@@ -59,11 +60,12 @@ class BalanceInfo extends Component {
 
     return (
       <Grid style={sg.mT15}>
-        {this.renderInfoRow('Account', registryAccountNumber)}
-        {this.renderInfoRow('Unit Balance', balanceInUnits)}
+        {registryAccountNumber ? this.renderInfoRow('Account', registryAccountNumber) : null}
+        {balanceInUnits ? this.renderInfoRow('Unit Balance', balanceInUnits.toFixed(4)) :this.renderInfoRow('Unit Balance', 0) }
         {unitPrice && this.renderInfoRow('Unit Price', `${unitPrice.price} at ${moment(unitPrice.date).format('DD MMM YYYY')}`)}
-        {this.renderInfoRow('Account Balance', `$${balanceExcludingPendingInDollars}`)}
-        {this.renderInfoRow('Pending Transactions', `$${pendingTransactionsInDollars}`)}
+        {balanceExcludingPendingInDollars > 1 ? this.renderInfoRow('Account Balance', `$${balanceExcludingPendingInDollars.toFixed(2)}`) : this.renderInfoRow('Account Balance', `$0`)}
+        {pendingTransactionsInDollars ? this.renderInfoRow('Pending Transactions', `$${pendingTransactionsInDollars.toFixed(2)}`) : this.renderInfoRow('Pending Transactions', `$0`)}
+        {amountAwaitingDirectDebit ? this.renderInfoRow('Awaiting Direct Debit', `$${amountAwaitingDirectDebit.toFixed()}`) : null}
       </Grid>
     );
   }
@@ -80,14 +82,19 @@ class BalanceInfo extends Component {
             activeOpacity={1}
           >
             <Text style={[styles.text, sg.mT15]}>
-              This number show your&nbsp;
-              <Text style={[styles.textBold]}>Account Balance</Text>
-              &nbsp;plus any&nbsp;
-              <Text style={[styles.textBold]}>Pending Transactions</Text>
-              &nbsp;for your currently selected account in the Future Renewables Fund.
+              This number show your Account Balance plus any Pending Transactions and
+              amounts Awaiting Direct Debit for your currently selected account in the Future Renewables Fund.
+            </Text>
+
+            <Text style={[styles.text, sg.mT15]}>
+              Here is a full breakdown of your balance:
             </Text>
 
             {this.renderAccountInfo()}
+
+            <Text style={[styles.text, sg.mT15]}>
+              The Fund's Unit Price is updated monthly. 
+            </Text>
 
             <Text style={[styles.text, sg.mT15]}>
               Pending Transactions are your application monies that have been received by us,
