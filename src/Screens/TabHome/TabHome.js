@@ -198,7 +198,7 @@ class TabHome extends Component {
 
     if (selectedAccount) {
       const balance = {};
-      if (selectedAccount.balanceIncludingPendingInDollars) {
+      if (selectedAccount.balanceIncludingPendingInDollars > 1) {
         const rawBalance = formatAmountDollarCent(selectedAccount.balanceIncludingPendingInDollars);
         balance.dollars = rawBalance.substring(0, rawBalance.length - 3);
         balance.cents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
