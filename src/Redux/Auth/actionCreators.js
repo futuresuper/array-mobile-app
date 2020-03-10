@@ -66,3 +66,15 @@ export function localAuthValidate() {
     type: types.LOCAL_AUTH_VALIDATE,
   };
 }
+
+export function userAllowPushNotifications() {
+  return {
+    type: types.USER_ALLOW_PUSH_NOTIFICATIONS,
+  };
+}
+
+export function userDenyPushNotifications() {
+  return {
+    type: types.USER_DENY_PUSH_NOTIFICATIONS,
+  };
+}

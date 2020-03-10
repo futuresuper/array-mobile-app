@@ -53,6 +53,7 @@
 		4A9BCA2B233BA425005F008C /* BwGradual-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4A9BCA0A233BA425005F008C /* BwGradual-LightItalic.otf */; };
 		4CE3ADDA84683616CF928484 /* libPods-FutureRenewables-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE72EFA18490D7750648393F /* libPods-FutureRenewables-tvOS.a */; };
 		6F4D0E2A234BC96E00B2DA55 /* Font Awesome 5 Free-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6F4D0E29234BC96E00B2DA55 /* Font Awesome 5 Free-Solid-900.otf */; };
+		FA52A408241646B800FD28AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA52A407241646B800FD28AF /* GoogleService-Info.plist */; };
 		FD4C5444A6294EF8569D81B2 /* libPods-FutureRenewables-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E170ACC6B3FB1EAEF376996E /* libPods-FutureRenewables-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -136,6 +137,7 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EE44CDA02F9FEA2F5796FF88 /* Pods-FutureRenewables-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureRenewables-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-FutureRenewables-tvOSTests/Pods-FutureRenewables-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F4D4977B6D1952502554CD81 /* Pods-FutureRenewables.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutureRenewables.release.xcconfig"; path = "Target Support Files/Pods-FutureRenewables/Pods-FutureRenewables.release.xcconfig"; sourceTree = "<group>"; };
+		FA52A407241646B800FD28AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				FA52A407241646B800FD28AF /* GoogleService-Info.plist */,
 			);
 			name = FutureRenewables;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				4A9BCA15233BA425005F008C /* Roboto_medium.ttf in Resources */,
 				4A9BCA1D233BA425005F008C /* BwGradual-Regular.otf in Resources */,
 				4A9BCA27233BA425005F008C /* FontAwesome5_Solid.ttf in Resources */,
+				FA52A408241646B800FD28AF /* GoogleService-Info.plist in Resources */,
 				4A9BCA10233BA425005F008C /* BwGradual-BlackItalic.otf in Resources */,
 				4A9BCA20233BA425005F008C /* AntDesign.ttf in Resources */,
 				4A9BCA28233BA425005F008C /* Zocial.ttf in Resources */,
