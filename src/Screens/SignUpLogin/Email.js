@@ -87,6 +87,7 @@ class Email extends React.Component {
             const { user } = appContent;
             userDataSaveConnect(user);
             appContentSaveConnect(appContent);
+            amplitude.getInstance().logEvent('Joined Array via App', {});
             screenProps.navigateTo(routeNames.TAB_HOME);
             // if (user.experiments.EXPERIMENT_REVERSE_ONBOARDING && user.experiments.EXPERIMENT_REVERSE_ONBOARDING === 'A_REVERSE_ONBOARDED') {
             //   this.setAmplitudeTestGroup('A_REVERSE_ONBOARDED');
