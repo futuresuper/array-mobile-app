@@ -11,6 +11,7 @@ import { sg } from 'src/Styles';
 import { userSelector, accountsSelector, appContentSave } from 'src/Redux/AppContent';
 import { idCheckSave, userDataSave } from 'src/Redux/Auth';
 import { accountSelectSave } from 'src/Redux/Account';
+import amplitude from 'amplitude-js';
 
 class IdCheckDriversLicence extends Component {
   state = {
@@ -39,8 +40,15 @@ class IdCheckDriversLicence extends Component {
     this.initializeForm(form);
   }
 
+  getAppContent(callback) {
+    const { screenProps } = this.props;
+    screenProps.Api.get('/appcontent', {}, callback, () => {
+      screenProps.toast('Something went wrong. Please try refreshing your app, or contact us: hello@arrayapp.co');
+    });
+  }
+
   onSubmit() {
-    const { hocs, screenProps } = this.props;
+    const { hocs, screenProps, user, idCheckSaveConnect, userDataSaveConnect, appContentSaveConnect } = this.props;
     const isValid = hocs.formIsValid();
     if (isValid) {
       const driversLicenceState = hocs.form.driversLicenceState.value;
@@ -49,17 +57,50 @@ class IdCheckDriversLicence extends Component {
       const driversLicenceMiddleNames = hocs.form.driversLicenceMiddleNames.value;
       const driversLicenceLastName = hocs.form.driversLicenceLastName.value;
 
-      screenProps.Api.post('/user', {
-        driversLicenceState,
-        driversLicenceNumber,
-        driversLicenceFirstName,
-        driversLicenceMiddleNames,
-        driversLicenceLastName,
-      }, () => {
-        screenProps.navigateTo(routeNames.OCCUPATION);
-      }, () => {
-        screenProps.toastDanger('Error. Try Again');
-      });
+      // If user.personalDetailsLocked we know user has completed the application process
+      // and are now trying to complete ID check.
+      // Otherwise user must be in the application flow, in which case saving those ID check details
+      // triggers GreenID check to happen in the background.
+      if (user.personalDetailsLocked) {
+          screenProps.Api.post('/idcheck', {
+            driversLicenceState,
+            driversLicenceNumber,
+            driversLicenceFirstName,
+            driversLicenceMiddleNames,
+            driversLicenceLastName,
+            idType: 'driversLicence',
+          }, (res) => {
+            idCheckSaveConnect(res);
+            if (res.idCheckComplete) {
+              this.getAppContent((appContent) => {
+                const { user } = appContent;
+                userDataSaveConnect(user);
+                appContentSaveConnect(appContent);
+                amplitude.getInstance().logEvent('Completed ID Check', {});
+                screenProps.toastSuccess("ID verification Succeeded - you're all done!");
+                screenProps.navigateTo(routeNames.ACCOUNTS);
+              });
+            } else {
+              amplitude.getInstance().logEvent('ID Check Completion Attempt Failed', {});
+              screenProps.navigateTo(routeNames.ID_CHECK);
+            }
+          }, () => {
+            amplitude.getInstance().logEvent('ID Check Problem - Error Message Displayed', {});
+            screenProps.toastDanger('Something went wrong. Please try again, or contact us: hello@arrayapp.co');
+          });
+      } else {
+          screenProps.Api.post('/user', {
+            driversLicenceState,
+            driversLicenceNumber,
+            driversLicenceFirstName,
+            driversLicenceMiddleNames,
+            driversLicenceLastName,
+          }, () => {
+            screenProps.navigateTo(routeNames.OCCUPATION);
+          }, () => {
+            screenProps.toastDanger('Error. Try Again');
+          });
+        }
     }
   }
 

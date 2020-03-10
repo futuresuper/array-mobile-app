@@ -173,10 +173,10 @@ class IdCheck extends Component {
               && (
               <View>
                 <Text style={sg.formHeadingDescription}>
-                  Please provide your Drivers Licence or Passport Number
+                  We haven't been able to complete your verification yet. Please try another method or contact us on hello@arrayapp.co for assistance.
                 </Text>
               </View>
-              )}
+            )}
 
             {user.idCheck
                 && (user.idCheck.australianPassport === 'matchFailed' || user.idCheck.driversLicence === 'matchFailed')

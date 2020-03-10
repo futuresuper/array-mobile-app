@@ -24,7 +24,7 @@ CircleIcon.propTypes = {
 class WhatsNext extends Component {
   handleNext() {
     const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.TAB_HOME);
+    screenProps.navigateTo(routeNames.ACCOUNTS);
   }
 
   render() {
