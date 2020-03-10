@@ -63,7 +63,7 @@ const Balance = ({
     }
 
     return (
-      <View style={[sg.aICenter, sg.mT25, sg.mB25]}>
+      <View style={[sg.aICenter, sg.mT15, sg.mB25]}>
 
         <Button
           transparent
