@@ -93,6 +93,20 @@ const ACTION_HANDLERS = {
       expires_in: Math.floor(Date.now() / 1000) + 60, // sets expiery date to 30 minutes from now
     },
   }),
+  [types.USER_ALLOW_PUSH_NOTIFICATIONS]: (state) => ({
+    ...state,
+    user: {
+      ...state.user,
+      allowPushNotifications: true,
+    },
+  }),
+  [types.USER_DENY_PUSH_NOTIFICATIONS]: (state) => ({
+    ...state,
+    user: {
+      ...state.user,
+      allowPushNotifications: false,
+    },
+  }),
 };
 
 const AuthReducer = (state = initialState, action) => {

@@ -10,7 +10,13 @@ class ServicesManager extends PureComponent {
   render() {
     return (
       <View>
-        <PushNotificationService />
+        <PushNotificationService
+          setRef={(c) => {
+            if (c) {
+              PushNotificationService.PushNotificationServiceInstance = c;
+            }
+          }}
+        />
       </View>
     );
   }

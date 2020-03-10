@@ -21,6 +21,7 @@ import {
   Col,
   List,
   ListItem,
+  Switch,
 } from 'native-base';
 
 import ImagePicker from 'react-native-image-picker';
@@ -28,20 +29,26 @@ import ImagePicker from 'react-native-image-picker';
 import { routeNames } from 'src/Navigation';
 
 import { userSelector } from 'src/Redux/AppContent';
+import {
+  userUpdateAvatar,
+  userDenyPushNotifications,
+} from 'src/Redux/Auth';
 
-import { userUpdateAvatar } from 'src/Redux/Auth';
+import PushNotificationService from 'src/Services/PushNotificationService';
 
 import { sg } from 'src/Styles';
-// import NotifService from 'src/NotifService';
-
 
 import styles from './styles';
+
+const listMenuKeys = {
+  PUSH_NOTIFICATIONS: 'PUSH_NOTIFICATIONS',
+};
 
 class TabProfile extends Component {
   constructor(props) {
     super(props);
 
-    // this.notif = new NotifService(this.onRegister.bind(this), this.onNotif.bind(this));
+    const { userAuth: { allowPushNotifications = false } } = props;
 
     this.state = {
       listMenu: [
@@ -55,12 +62,6 @@ class TabProfile extends Component {
         //     props.screenProps.toogleTheme();
         //   },
         // },
-        {
-          name: 'Allow Push Notifications',
-          function: () => {
-            this.initializeFcm();
-          },
-        },
         // {
         //   name: 'Manage accounts',
         //   screen: routeNames.MANAGE_ACCOUNTS,
@@ -68,6 +69,15 @@ class TabProfile extends Component {
         {
           name: 'Switch accounts',
           screen: routeNames.ACCOUNTS,
+        },
+        {
+          key: listMenuKeys.PUSH_NOTIFICATIONS,
+          name: 'Get Push Notifications',
+          isSwitcher: true,
+          isSwitcherActive: allowPushNotifications,
+          function: () => {
+            this.initPushNotifications();
+          },
         },
         // {
         //   name: 'Personal details',
@@ -101,23 +111,21 @@ class TabProfile extends Component {
     };
   }
 
-  // eslint-disable-next-line react/sort-comp
+  componentDidUpdate(prevProps) {
+    const { userAuth: { allowPushNotifications } } = this.props;
+    const { userAuth: { allowPushNotifications: allowPushNotificationsPrev } } = prevProps;
+
+    if (
+      (allowPushNotifications !== allowPushNotificationsPrev)
+    ) {
+      this.updateListMenuSwitcher(listMenuKeys.PUSH_NOTIFICATIONS, allowPushNotifications);
+    }
+  }
+
   navigateTo = (screen) => {
     const { screenProps } = this.props;
     screenProps.navigateTo(screen);
   };
-
-
-  onNotif(notif) {
-    console.log('!!!', notif);
-    Alert.alert(notif.title, notif.message);
-  }
-
-  onRegister(token) {
-    console.log('!!! notif');
-
-    Alert.alert('Registered !', JSON.stringify(token));
-  }
 
   logOut = () => {
     const { screenProps } = this.props;
@@ -126,8 +134,36 @@ class TabProfile extends Component {
     screenProps.Api.logOut();
   };
 
-  initializeFcm() {
-    // this.notif.configure(this.onRegister.bind(this), this.onNotif.bind(this));
+  initPushNotifications() {
+    const {
+      userDenyPushNotificationsConnect,
+      userAuth: { allowPushNotifications = false },
+    } = this.props;
+
+    if (allowPushNotifications) {
+      userDenyPushNotificationsConnect();
+
+      this.updateListMenuSwitcher(listMenuKeys.PUSH_NOTIFICATIONS, false);
+    } else {
+      PushNotificationService.init();
+    }
+  }
+
+  updateListMenuSwitcher(keyUpdate, isSwitcherActive) {
+    const { listMenu } = this.state;
+
+    const listMenuNew = listMenu.map((itemInp) => {
+      const item = itemInp;
+      if (item.key === keyUpdate) {
+        item.isSwitcherActive = isSwitcherActive;
+      }
+
+      return item;
+    });
+
+    this.setState({
+      listMenu: listMenuNew,
+    });
   }
 
   handleAvatarChange() {
@@ -264,6 +300,10 @@ class TabProfile extends Component {
               renderItem={({ item }) => (
                 <ListItem
                   onPress={() => {
+                    if (item.isSwitcher) {
+                      return;
+                    }
+
                     if (item.function) {
                       item.function();
                     } else {
@@ -276,7 +316,18 @@ class TabProfile extends Component {
                     <Text style={[sg.fontMedium]}>{item.name}</Text>
                   </Left>
                   <Right>
-                    <Icon name="ios-arrow-forward" />
+                    {item.isSwitcher ? (
+                      <Switch
+                        value={item.isSwitcherActive}
+                        onValueChange={() => {
+                          if (item.function) {
+                            item.function();
+                          }
+                        }}
+                      />
+                    ) : (
+                      <Icon name="ios-arrow-forward" />
+                    )}
                   </Right>
                 </ListItem>
               )}
@@ -294,20 +345,23 @@ class TabProfile extends Component {
 
 TabProfile.propTypes = {
   user: PropTypes.object.isRequired,
+  userAuth: PropTypes.object.isRequired,
   userUpdateAvatarConnect: PropTypes.func.isRequired,
+  userDenyPushNotificationsConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const user = userSelector(state);
 
   return {
-    // user: state.auth.user,
     user,
+    userAuth: state.auth.user,
   };
 };
 
 const mapDispatchToProps = {
   userUpdateAvatarConnect: userUpdateAvatar,
+  userDenyPushNotificationsConnect: userDenyPushNotifications,
 };
 
 export default connect(
