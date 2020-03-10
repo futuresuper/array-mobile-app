@@ -50,7 +50,7 @@ class FinalConfirmation extends React.Component {
           //   screenProps.navigateTo(routeNames.JOIN_FUTURE, { showBackButton: false });
           // } else if (res.idCheckComplete) {
           if (user.idCheck.idCheckComplete) {
-            screenProps.navigateTo(routeNames.TAB_HOME);
+            screenProps.navigateTo(routeNames.WHATS_NEXT);
           } else {
             screenProps.navigateTo(routeNames.ID_CHECK, { showBackButton: false });
           }
