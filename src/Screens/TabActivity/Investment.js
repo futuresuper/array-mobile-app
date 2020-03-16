@@ -189,7 +189,7 @@ class Investment extends Component {
               source: null,
               style: [sg.height16, sg.tintColorGray11],
             };
-            const calcValue = balanceIncludingPendingInDollars * parseInt(value, 10);
+            const calcValue = balanceIncludingPendingInDollars * parseInt(value, 10) * 0.01;
 
             if (isRenewable) {
               icon.source = SunDark;
