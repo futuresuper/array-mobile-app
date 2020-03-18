@@ -74,7 +74,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.1):
     - GoogleUtilities/Logger
-  - jail-monkey (2.3.0):
+  - jail-monkey (2.3.2):
     - React
   - JKBigInteger2 (0.0.5)
   - nanopb (0.3.9011):
@@ -128,21 +128,21 @@ PODS:
     - React-cxxreact (= 0.60.5)
     - React-jsi (= 0.60.5)
   - React-jsinspector (0.60.5)
-  - react-native-camera (3.4.0):
+  - react-native-camera (3.19.2):
     - React
-    - react-native-camera/RCT (= 3.4.0)
-    - react-native-camera/RN (= 3.4.0)
-  - react-native-camera/RCT (3.4.0):
+    - react-native-camera/RCT (= 3.19.2)
+    - react-native-camera/RN (= 3.19.2)
+  - react-native-camera/RCT (3.19.2):
     - React
-  - react-native-camera/RN (3.4.0):
+  - react-native-camera/RN (3.19.2):
     - React
-  - react-native-fingerprint-scanner (3.0.0):
+  - react-native-fingerprint-scanner (3.0.2):
     - React
   - react-native-image-picker (1.0.1):
     - React
   - react-native-maps (0.26.1):
     - React
-  - react-native-orientation-locker (1.1.6):
+  - react-native-orientation-locker (1.1.8):
     - React
   - react-native-splash-screen (3.2.0):
     - React
@@ -176,10 +176,14 @@ PODS:
     - React-Core (= 0.60.5)
   - React-RCTWebSocket (0.60.5):
     - React-Core (= 0.60.5)
-  - RNAWSCognito (3.0.15):
+  - RNAWSCognito (3.2.5):
     - JKBigInteger2 (= 0.0.5)
     - React
-  - RNCPushNotificationIOS (1.0.2):
+  - RNCAsyncStorage (1.8.1):
+    - React
+  - RNCPushNotificationIOS (1.0.7):
+    - React
+  - RNDeviceInfo (5.5.3):
     - React
   - RNFirebase (5.6.0):
     - Firebase/Core
@@ -190,11 +194,13 @@ PODS:
     - Fabric
     - Firebase/Core
     - React
-  - RNGestureHandler (1.4.1):
+  - RNGestureHandler (1.6.0):
     - React
-  - RNReanimated (1.3.0):
+  - RNReanimated (1.7.0):
     - React
-  - RNSVG (9.9.4):
+  - RNScreens (2.3.0):
+    - React
+  - RNSVG (9.13.6):
     - React
   - yoga (0.60.5.React)
 
@@ -232,10 +238,13 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
   - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -319,14 +328,20 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/WebSocket"
   RNAWSCognito:
     :path: "../node_modules/amazon-cognito-identity-js"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
   RNCPushNotificationIOS:
     :path: "../node_modules/@react-native-community/push-notification-ios"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   yoga:
@@ -348,7 +363,7 @@ SPEC CHECKSUMS:
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   GoogleAppMeasurement: 51d8d9ea48f0ca44484d29cfbdef976fbd4fc336
   GoogleUtilities: 06eb53bb579efe7099152735900dd04bf09e7275
-  jail-monkey: 0830c18bb6f085938a4c8529d554f9b29230a5a4
+  jail-monkey: d7c5048b2336f22ee9c9e0efa145f1f917338ea9
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
@@ -359,14 +374,14 @@ SPEC CHECKSUMS:
   React-jsi: 4d8c9efb6312a9725b18d6fc818ffc103f60fec2
   React-jsiexecutor: 90ad2f9db09513fc763bc757fdc3c4ff8bde2a30
   React-jsinspector: e08662d1bf5b129a3d556eb9ea343a3f40353ae4
-  react-native-camera: f4f2144140ae1e808cad97cc7caf013767c11f1b
-  react-native-fingerprint-scanner: 0fb8ebd1f1328f6e6d9af1542298fd2a8e08ec26
-  react-native-image-picker: c9bddc819f4fd46b6f37f2861712497e920192d9
+  react-native-camera: 2b575b086c06caf89fd3d119d06bd977a9942103
+  react-native-fingerprint-scanner: 3e5e508bde8edd284a3f1b47b77a4355a5aa1493
+  react-native-image-picker: 4ffb12aa6e9a09ac5ada77a8deaf3a3f6495aa34
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
-  react-native-orientation-locker: 23918c400376a7043e752c639c122fcf6bce8f1c
+  react-native-orientation-locker: f0ca1a8e5031dab6b74bfb4ab33a17ed2c2fcb0d
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
-  react-native-video: d01ed7ff1e38fa7dcc6c15c94cf505e661b7bfd0
-  react-native-viewpager: a7b438ca32c57b2614ece2a123e7fe116f743131
+  react-native-video: 961749da457e73bf0b5565edfbaffc25abfb8974
+  react-native-viewpager: 118e65d8c65c56fe48d12a35cdcf1fe7e027a366
   React-RCTActionSheet: b0f1ea83f4bf75fb966eae9bfc47b78c8d3efd90
   React-RCTAnimation: 359ba1b5690b1e87cc173558a78e82d35919333e
   React-RCTBlob: 5e2b55f76e9a1c7ae52b826923502ddc3238df24
@@ -377,14 +392,17 @@ SPEC CHECKSUMS:
   React-RCTText: b074d89033583d4f2eb5faf7ea2db3a13c7553a2
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
-  RNAWSCognito: b0b908817ce6547cdddaa7842bc166b4c5e7c128
-  RNCPushNotificationIOS: 0b8d06ff190d84627dd17501bfb96652375970e4
+  RNAWSCognito: 75383d7eb6089e63662fcbbffd219d52cc5b47aa
+  RNCAsyncStorage: 00bdf63f7f1e0f11d3323533dba4f222e58bf092
+  RNCPushNotificationIOS: 107404643700c0a0db042fa6058e5e2a4c16bc6e
+  RNDeviceInfo: 67607dfe9cfbed105838144c40187a8392aa404d
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
-  RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
-  RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
-  RNSVG: 435cda60cd9e1ea6188eb0e21c12fc0f85def8e8
+  RNGestureHandler: dde546180bf24af0b5f737c8ad04b6f3fa51609a
+  RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
+  RNScreens: 03bf608b92ac0acf323f47d8f5b63a8f829340c8
+  RNSVG: 8ba35cbeb385a52fd960fd28db9d7d18b4c2974f
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: 44089f14c1e219e5538ad07fd77c02ec9835483d
+PODFILE CHECKSUM: 7aa8f62649bea5743b980a8931d0f1d98ce62f10
 
 COCOAPODS: 1.8.4
