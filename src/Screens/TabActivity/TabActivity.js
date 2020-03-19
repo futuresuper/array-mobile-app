@@ -263,14 +263,15 @@ class TabActivity extends Component {
   }
 
   render() {
-    const { selectedAccount, user } = this.props;
+    const { selectedAccount, user, unitPrices } = this.props;
 
     return (
       <Content>
 
         <Balance
-          account={selectedAccount}
+          selectedAccount={selectedAccount}
           user={user}
+          unitPrices={unitPrices}
           onPress={() => {
             BottomInfo.showAccounts({
               superAccount: false,
@@ -279,7 +280,7 @@ class TabActivity extends Component {
         />
 
         <ScrollableTabView
-          style={{ marginTop: 20, height: (isIOS() ? undefined : 1000) }}
+          style={{ marginTop: 10, height: (isIOS() ? undefined : 1000) }}
           tabBarUnderlineStyle={{ backgroundColor: sc.color.primary }}
           tabBarTextStyle={{
             fontSize: 12,

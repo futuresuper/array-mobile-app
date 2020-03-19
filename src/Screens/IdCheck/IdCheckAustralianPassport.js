@@ -70,6 +70,60 @@ class IdCheckAustralianPassport extends Component {
     }
   }
 
+  onSubmit() {
+    const { hocs, screenProps, user, idCheckSaveConnect, userDataSaveConnect, appContentSaveConnect } = this.props;
+    const isValid = hocs.formIsValid();
+    if (isValid) {
+      const passportFirstName = hocs.form.passportFirstName.value;
+      const passportMiddleNames = hocs.form.passportMiddleNames.value;
+      const passportLastName = hocs.form.passportLastName.value;
+      const passportNumber = hocs.form.passportNumber.value;
+
+      // If user.personalDetailsLocked we know user has completed the application process
+      // and are now trying to complete ID check.
+      // Otherwise user must be in the application flow, in which case saving those ID check details
+      // triggers GreenID check to happen in the background.
+      if (user.personalDetailsLocked) {
+          screenProps.Api.post('/idcheck', {
+            passportFirstName,
+            passportMiddleNames,
+            passportLastName,
+            passportNumber,
+            idType: 'australianPassport',
+          }, (res) => {
+            idCheckSaveConnect(res);
+            if (res.idCheckComplete) {
+              this.getAppContent((appContent) => {
+                const { user } = appContent;
+                userDataSaveConnect(user);
+                appContentSaveConnect(appContent);
+                amplitude.getInstance().logEvent('Completed ID Check', {});
+                screenProps.toastSuccess("ID verification Succeeded - you're all done!");
+                screenProps.navigateTo(routeNames.WHATS_NEXT);
+              });
+            } else {
+              amplitude.getInstance().logEvent('ID Check Completion Attempt Failed', {});
+              screenProps.navigateTo(routeNames.ID_CHECK);
+            }
+          }, () => {
+            amplitude.getInstance().logEvent('ID Check Problem - Error Message Displayed', {});
+            screenProps.toastDanger('Something went wrong. Please try again, or contact us: hello@arrayapp.co');
+          });
+      } else {
+          screenProps.Api.post('/user', {
+            passportFirstName,
+            passportMiddleNames,
+            passportLastName,
+            passportNumber,
+          }, () => {
+            screenProps.navigateTo(routeNames.OCCUPATION);
+          }, () => {
+            screenProps.toastDanger('Error. Try Again');
+          });
+        }
+    }
+  }
+
   goToAccountHome() {
     const { accountSelectSaveConnect, accounts } = this.props;
     accountSelectSaveConnect(accounts[0]);
@@ -92,6 +146,7 @@ class IdCheckAustralianPassport extends Component {
       <Content padder contentContainerStyle={[sg.flexGrow, sg.pT40]}>
         <View style={sg.spaceBetween}>
           <View>
+          {/*
             <Input
               formData={form}
               formKey="passportFirstName"
@@ -113,10 +168,11 @@ class IdCheckAustralianPassport extends Component {
               onChangeText={hocs.handleInput}
               color2
             />
+            */}
             <Input
               formData={form}
               formKey="passportNumber"
-              helper="Passport number"
+              helper="Australian Passport Number"
               onChangeText={hocs.handleInput}
               color2
             />

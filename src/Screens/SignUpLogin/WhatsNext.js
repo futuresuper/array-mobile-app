@@ -24,7 +24,7 @@ CircleIcon.propTypes = {
 class WhatsNext extends Component {
   handleNext() {
     const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.TAB_HOME);
+    screenProps.navigateTo(routeNames.ACCOUNTS);
   }
 
   render() {
@@ -33,7 +33,7 @@ class WhatsNext extends Component {
 
     const step3 = initialInvestmentAmount > 5000
       ? 'Once we’ve received your EFT payment you’ll see your updated balance in the Array app, and we’ll send you a confirmation email.'
-      : 'Once we’ve received your direct debit payment you’ll see your updated balance in the Array app, and we’ll send you a confirmation email.';
+      : 'We\'ll email you to let you know whether your direct debit payment was deducted successfully';
     return (
       <Content padder contentContainerStyle={sg.flexGrow}>
         <View style={[sg.spaceBetween]}>

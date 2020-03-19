@@ -43,6 +43,7 @@ import { sg } from 'src/Styles';
 
 import ArticleCard from 'src/Components/ArticleCard';
 import ArticleModal from './ArticleModal';
+import Balance from 'src/Components/Balance';
 import styles from './styles';
 
 
@@ -182,70 +183,8 @@ class TabHome extends Component {
     );
   }
 
-  renderAwaitingDirectDebit = (data) => {
-    if (data) {
-      return (
-        <Text style={styles.awaitingDebit}>
-          {`${formatAmountDollar(data)} awaiting direct debit`}
-        </Text>
-      );
-    }
-    return null;
-  }
-
-  renderBalance() {
-    const { user, selectedAccount, unitPrices } = this.props;
-
-    if (selectedAccount) {
-      const balance = {};
-      if (selectedAccount.balanceIncludingPendingInDollars) {
-        const rawBalance = formatAmountDollarCent(selectedAccount.balanceIncludingPendingInDollars);
-        balance.dollars = rawBalance.substring(0, rawBalance.length - 3);
-        balance.cents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
-      } else {
-        balance.dollars = '$0';
-        balance.cents = '00';
-      }
-
-      let nickName;
-      if (selectedAccount.nickName) {
-        nickName = selectedAccount.nickName;
-      } else if (user && user.firstName) {
-        nickName = user.firstName;
-      } else {
-        nickName = 'Accounts';
-      }
-
-      return (
-        <View style={[sg.aICenter, sg.mT25, sg.mB25]}>
-
-          <Button
-            transparent
-            iconRight
-            style={sg.aSCenter}
-            onPress={() => {
-              BottomInfo.showAccounts();
-              // screenProps.navigateTo(routeNames.ACCOUNTS); // CHANGE TO MODAL BOTTOM WHEN FIXED
-            }}
-          >
-            <Text style={styles.title}>{nickName}</Text>
-            <Icon name="ios-arrow-down" style={styles.titleIcon} />
-          </Button>
-
-          <View style={sg.row}>
-            <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance({ selectedAccount, unitPrices })} />
-            <H1 style={styles.mainAmount}>{balance.dollars}</H1>
-            <Text style={styles.mainAmountCent}>{`.${balance.cents}`}</Text>
-          </View>
-          {this.renderAwaitingDirectDebit(selectedAccount.amountAwaitingDirectDebit)}
-        </View>
-      );
-    }
-    return null;
-  }
-
   render() {
-    const { screenProps, updates } = this.props;
+    const { screenProps, updates, user, selectedAccount, unitPrices } = this.props;
     const { article } = this.state;
 
     return (
@@ -277,7 +216,16 @@ class TabHome extends Component {
                 </Row>
               </Grid>
             </View>
-            {this.renderBalance()}
+            <Balance
+              selectedAccount={selectedAccount}
+              user={user}
+              unitPrices={unitPrices}
+              onPress={() => {
+                BottomInfo.showAccounts({
+                  superAccount: false,
+                });
+              }}
+            />
             <Button
               rounded
               primary

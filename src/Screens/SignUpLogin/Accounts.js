@@ -30,6 +30,8 @@ class Accounts extends React.Component {
       appContentSaveConnect(appContent);
       screenProps.spinnerHide();
     });
+
+    // screenProps.navigateTo(routeNames.WHATS_NEXT);
   }
 
   onAccountSelect(account) {
