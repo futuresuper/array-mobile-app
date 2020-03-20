@@ -18,8 +18,15 @@ export default defaultStyle;
 export const appLanding = {
   image: {
     position: 'absolute',
-    top: 40,
+    top: 30,
     alignSelf: 'center',
+  },
+  logo: {
+    position: 'absolute',
+    top: 100,
+    alignSelf: 'center',
+    width: 64,
+    height: 83
   },
   topBl: {
     alignItems: 'center',
