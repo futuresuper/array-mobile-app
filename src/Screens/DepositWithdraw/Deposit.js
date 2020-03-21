@@ -100,11 +100,11 @@ class Deposit extends Component {
     const { account } = screenProps;
     const body = {
       amount: form.amount.value,
-      paymentMethod: (form.amount.value + debitsRequestedThisMonth) > 5000 ? 'eft' : 'dd',
+      paymentMethod: (+form.amount.value + debitsRequestedThisMonth) >= 5000 ? 'eft' : 'dd',
       accountId: account.id,
     };
     screenProps.Api.post('/transaction', body, () => {
-      if ((body.amount + debitsRequestedThisMonth) > 5000) {
+      if ((+body.amount + debitsRequestedThisMonth) >= 5000) {
         this.setState({
           step: 2,
         });
@@ -131,6 +131,7 @@ class Deposit extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line react/sort-comp
   withinMinMax(value) {
     if (value < 5 || value > 1000000) {
       return false;
@@ -188,19 +189,20 @@ class Deposit extends Component {
               <Text style={styles.doneTextBold}>
                 {`${formatAmountDollar(amount.value)}`}
               </Text>
-              {(amount.value + debitsRequestedThisMonth) < 5000 ? (
+              {(+amount.value + debitsRequestedThisMonth) < 5000 ? (
                 <Text>
                   <Text style={styles.doneText}>
                     {' from your linked bank account '}
                   </Text>
                 </Text>
-              ) : (
-                <Text>
-                  <Text style={styles.doneText}>
-                    {' which you will transfer via EFT '}
+              )
+                : (
+                  <Text>
+                    <Text style={styles.doneText}>
+                      {' which you will transfer via EFT '}
+                    </Text>
                   </Text>
-                </Text>
-              )}
+                )}
             </Text>
           </View>
         </View>
@@ -263,7 +265,7 @@ class Deposit extends Component {
     const { debitsRequestedThisMonth = 0 } = this.state;
     const { form } = hocs;
 
-    if (form && (form.amount.value + debitsRequestedThisMonth) > 5000) {
+    if (form && (+form.amount.value + debitsRequestedThisMonth) >= 5000) {
       return (
         <Text style={[sg.pV20]}>
           {'Investments over $5,000 can be made by EFT.\n\nWe’ll provide you with the bank details for the transfer by email after you confirm.'}
@@ -293,7 +295,7 @@ class Deposit extends Component {
             </Text>
             <Text>
               {'To make your additional investment of '}
-              { formatAmountDollar(amount.value) }
+              {formatAmountDollar(amount.value)}
               {' you’ll need to make an EFT. Tap to copy the below details to make the transfer.'}
             </Text>
           </View>
