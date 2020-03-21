@@ -30,6 +30,8 @@ target 'FutureRenewables' do
   pod 'Firebase/Core', '~> 6.2.0'
   pod 'Firebase/Messaging', '~> 6.2.0'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'FutureRenewablesTests' do
     inherit! :search_paths
     # Pods for testing
