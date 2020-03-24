@@ -82,7 +82,7 @@ class BalanceInfo extends Component {
             activeOpacity={1}
           >
             <Text style={[styles.text, sg.mT15]}>
-              This number show your Account Balance plus any Pending Transactions and
+              This number shows your Account Balance plus any Pending Transactions and
               amounts Awaiting Direct Debit for your currently selected account in the Future Renewables Fund.
             </Text>
 
