@@ -280,6 +280,7 @@ class TabActivity extends Component {
         />
 
         <ScrollableTabView
+          initialPage={2}
           style={{ marginTop: 10, height: (isIOS() ? undefined : 1000) }}
           tabBarUnderlineStyle={{ backgroundColor: sc.color.primary }}
           tabBarTextStyle={{

@@ -43,6 +43,7 @@ class Deposit extends Component {
     super();
 
     this.state = {
+      debitsRequestedThisMonth: 0,
       form: {
         amount: {
           validations: [
@@ -70,6 +71,11 @@ class Deposit extends Component {
     const accountRef = random(100, 999); // account.bankAccountNumber.slice(-3); when it becomes available from api
     const reference = `${lname}${accountRef}`;
     this.setState({ reference });
+
+    this.getAppContent((content) => {
+      const { debitsRequestedThisMonth = 0 } = content;
+      this.setState({ debitsRequestedThisMonth });
+    });
   }
 
   onNext = () => {
@@ -88,16 +94,17 @@ class Deposit extends Component {
 
 
   onConfirm() {
+    const { debitsRequestedThisMonth = 0 } = this.state;
     const { screenProps, hocs } = this.props;
     const { form } = hocs;
     const { account } = screenProps;
     const body = {
       amount: form.amount.value,
-      paymentMethod: form.amount.value > 5000 ? 'eft' : 'dd',
+      paymentMethod: (+form.amount.value + debitsRequestedThisMonth) >= 5000 ? 'eft' : 'dd',
       accountId: account.id,
     };
     screenProps.Api.post('/transaction', body, () => {
-      if (body.amount > 5000) {
+      if ((+body.amount + debitsRequestedThisMonth) >= 5000) {
         this.setState({
           step: 2,
         });
@@ -124,6 +131,7 @@ class Deposit extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line react/sort-comp
   withinMinMax(value) {
     if (value < 5 || value > 1000000) {
       return false;
@@ -169,6 +177,7 @@ class Deposit extends Component {
 
   renderStep2 = () => {
     const { hocs } = this.props;
+    const { debitsRequestedThisMonth = 0 } = this.state;
     const { form } = hocs;
     const { amount } = form;
     return (
@@ -180,19 +189,20 @@ class Deposit extends Component {
               <Text style={styles.doneTextBold}>
                 {`${formatAmountDollar(amount.value)}`}
               </Text>
-              {amount.value < 5000 ? (
+              {(+amount.value + debitsRequestedThisMonth) < 5000 ? (
                 <Text>
                   <Text style={styles.doneText}>
                     {' from your linked bank account '}
                   </Text>
                 </Text>
-              ) : (
-                <Text>
-                  <Text style={styles.doneText}>
-                    {' which you will transfer via EFT '}
+              )
+                : (
+                  <Text>
+                    <Text style={styles.doneText}>
+                      {' which you will transfer via EFT '}
+                    </Text>
                   </Text>
-                </Text>
-              )}
+                )}
             </Text>
           </View>
         </View>
@@ -252,9 +262,10 @@ class Deposit extends Component {
 
   renderAccountSource() {
     const { hocs } = this.props;
+    const { debitsRequestedThisMonth = 0 } = this.state;
     const { form } = hocs;
 
-    if (form && form.amount.value > 5000) {
+    if (form && (+form.amount.value + debitsRequestedThisMonth) >= 5000) {
       return (
         <Text style={[sg.pV20]}>
           {'Investments over $5,000 can be made by EFT.\n\nWe’ll provide you with the bank details for the transfer by email after you confirm.'}
@@ -284,7 +295,7 @@ class Deposit extends Component {
             </Text>
             <Text>
               {'To make your additional investment of '}
-              { formatAmountDollar(amount.value) }
+              {formatAmountDollar(amount.value)}
               {' you’ll need to make an EFT. Tap to copy the below details to make the transfer.'}
             </Text>
           </View>
