@@ -148,6 +148,7 @@ class AccountsInfo extends Component {
         </List>
 
         <View style={[sg.mT30, sg.mH10]}>
+          {/*
           <Button
             block
             iconRight
@@ -159,6 +160,7 @@ class AccountsInfo extends Component {
             <Text>Add account</Text>
             <Icon name="add" />
           </Button>
+          */}
 
           {
           //   superAccount && (
