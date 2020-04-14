@@ -60,7 +60,7 @@ class AppLanding extends Component {
 
   onNext() {
     const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.BUILD_YOUR_SAVING);
+    screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
   }
 
   handleLayout = () => {
