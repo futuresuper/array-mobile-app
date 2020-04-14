@@ -83,7 +83,6 @@ const Balance = ({
           <H1 style={styles.mainAmount}>{balance.dollars}</H1>
           <Text style={styles.mainAmountCent}>{`.${balance.cents}`}</Text>
         </View>
-        {renderAwaitingDirectDebit(selectedAccount.amountAwaitingDirectDebit)}
       </View>
     );
   }

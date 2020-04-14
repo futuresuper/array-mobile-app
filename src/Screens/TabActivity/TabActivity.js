@@ -288,20 +288,26 @@ class TabActivity extends Component {
           }}
           renderTabBar={() => <ScrollableTabBar inactiveTextColor={sc.color.lightPurple2} />}
         >
+          {/*
           <View tabLabel="Returns" style={{ paddingTop: 20 }}>
             {this.renderPerformaceTab()}
           </View>
+          */}
+
           <View tabLabel="Transactions" style={{ paddingTop: 20 }}>
             {this.renderTransactionsTab()}
           </View>
+
+          {/*
           <View tabLabel="Investments" style={{ paddingTop: 20 }}>
             <Investment {...this.props} />
           </View>
-          {/*
+          */}
+
           <View tabLabel="Withdrawals" style={{ paddingTop: 20 }}>
             {this.renderWithdrawlTab()}
           </View>
-          */}
+
         </ScrollableTabView>
       </Content>
     );

@@ -226,6 +226,7 @@ class TabHome extends Component {
                 });
               }}
             />
+            {/*
             <Button
               rounded
               primary
@@ -236,6 +237,7 @@ class TabHome extends Component {
             >
               <Icon name="add" style={styles.plusButtonIcon} />
             </Button>
+            */}
           </View>
           <View style={styles.graphBl}>
             {this.renderGlow()}
