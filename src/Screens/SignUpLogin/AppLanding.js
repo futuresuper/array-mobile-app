@@ -37,6 +37,7 @@ import {
 
 import SafeAreaView from 'src/Components/SafeAreaView';
 import appLanding from './images/appLanding.png';
+import logo from './images/arraylogoblue.png';
 import poweredBy from './images/poweredBy.png';
 
 import { appLanding as styles } from './styles';
@@ -59,7 +60,7 @@ class AppLanding extends Component {
 
   onNext() {
     const { screenProps } = this.props;
-    screenProps.navigateTo(routeNames.BUILD_YOUR_SAVING);
+    screenProps.navigateTo(routeNames.SIGN_UP_LOGIN);
   }
 
   handleLayout = () => {
@@ -141,8 +142,17 @@ class AppLanding extends Component {
             style={[{ opacity }, styles.image]}
           />
 
+          <Animated.Image
+            onLoad={this.onLoad}
+            source={logo}
+            style={[{ opacity }, styles.logo]}
+          />
+
           <Animated.View
-            style={[styles.topBl, { height: screenHeight * 0.9 }, { opacity }]}
+            style={[
+              styles.topBl,
+              { height: screenHeight * 0.87 },
+              { opacity }]}
             onLayout={this.handleLayout}
           >
 
@@ -152,7 +162,9 @@ class AppLanding extends Component {
 
             <View style={[sg.width100p, sg.pH30, sg.aICenter]}>
 
-              {this.renderAppModePicker()}
+              {
+                //this.renderAppModePicker()
+              }
 
               <Button
                 block

@@ -43,7 +43,7 @@ const Balance = ({
 
   if (selectedAccount) {
     const balance = {};
-    const displayAmount = parseFloat(selectedAccount.balanceIncludingPendingInDollars) + parseFloat(selectedAccount.amountAwaitingDirectDebit);
+    const displayAmount = parseFloat(selectedAccount.balanceExcludingPendingInDollars);
     if ( displayAmount > 1) {
       const rawBalance = formatAmountDollarCent(displayAmount);
       balance.dollars = rawBalance.substring(0, rawBalance.length - 3);
@@ -83,7 +83,6 @@ const Balance = ({
           <H1 style={styles.mainAmount}>{balance.dollars}</H1>
           <Text style={styles.mainAmountCent}>{`.${balance.cents}`}</Text>
         </View>
-        {renderAwaitingDirectDebit(selectedAccount.amountAwaitingDirectDebit)}
       </View>
     );
   }

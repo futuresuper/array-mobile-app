@@ -70,15 +70,15 @@ class TabProfile extends Component {
           name: 'Switch accounts',
           screen: routeNames.ACCOUNTS,
         },
-        {
-          key: listMenuKeys.PUSH_NOTIFICATIONS,
-          name: 'Get Push Notifications',
-          isSwitcher: true,
-          isSwitcherActive: allowPushNotifications,
-          function: () => {
-            this.initPushNotifications();
-          },
-        },
+        // {
+        //   key: listMenuKeys.PUSH_NOTIFICATIONS,
+        //   name: 'Get Push Notifications',
+        //   isSwitcher: true,
+        //   isSwitcherActive: allowPushNotifications,
+        //   function: () => {
+        //     this.initPushNotifications();
+        //   },
+        // },
         // {
         //   name: 'Personal details',
         //   screen: routeNames.PERSONAL_DETAILS,
@@ -87,10 +87,10 @@ class TabProfile extends Component {
         //   name: 'Refer a friend',
         //   screen: routeNames.REFER_FRIEND,
         // },
-        {
-          name: 'Talk to us',
-          screen: routeNames.TALK_US,
-        },
+        // {
+        //   name: 'Talk to us',
+        //   screen: routeNames.TALK_US,
+        // },
         // {
         //   name: 'Talk to us',
         //   function: () => this.displayIntercom(props),

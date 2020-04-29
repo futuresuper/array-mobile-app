@@ -64,8 +64,8 @@ class BalanceInfo extends Component {
         {balanceInUnits ? this.renderInfoRow('Unit Balance', balanceInUnits.toFixed(4)) :this.renderInfoRow('Unit Balance', 0) }
         {unitPrice && this.renderInfoRow('Unit Price', `${unitPrice.price} at ${moment(unitPrice.date).format('DD MMM YYYY')}`)}
         {balanceExcludingPendingInDollars > 1 ? this.renderInfoRow('Account Balance', `$${balanceExcludingPendingInDollars.toFixed(2)}`) : this.renderInfoRow('Account Balance', `$0`)}
-        {pendingTransactionsInDollars ? this.renderInfoRow('Pending Transactions', `$${pendingTransactionsInDollars.toFixed(2)}`) : this.renderInfoRow('Pending Transactions', `$0`)}
-        {amountAwaitingDirectDebit ? this.renderInfoRow('Awaiting Direct Debit', `$${amountAwaitingDirectDebit.toFixed()}`) : null}
+        { /* pendingTransactionsInDollars ? this.renderInfoRow('Pending Transactions', `$${pendingTransactionsInDollars.toFixed(2)}`) : this.renderInfoRow('Pending Transactions', `$0`) */}
+        { /* amountAwaitingDirectDebit ? this.renderInfoRow('Awaiting Direct Debit', `$${amountAwaitingDirectDebit.toFixed()}`) : null */}
       </Grid>
     );
   }
@@ -93,7 +93,7 @@ class BalanceInfo extends Component {
             {this.renderAccountInfo()}
 
             <Text style={[styles.text, sg.mT15]}>
-              The Fund's Unit Price is updated monthly. 
+              The Fund's Unit Price is updated monthly.
             </Text>
 
             <Text style={[styles.text, sg.mT15]}>

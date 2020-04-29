@@ -65,6 +65,7 @@ class Accounts extends React.Component {
               />
             </View>
             <View>
+              {/*
               <Button
                 onPress={() => {
                   screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
@@ -73,7 +74,8 @@ class Accounts extends React.Component {
               >
                 <Text>Start new application</Text>
               </Button>
-              { !user.personalDetailsLocked // exclude users that have already submitted an application
+            
+                !user.personalDetailsLocked // exclude users that have already submitted an application
               && (
                 <Button
                   onPress={() => {
@@ -86,7 +88,8 @@ class Accounts extends React.Component {
                 >
                   <Text>Explore Array</Text>
                 </Button>
-              )}
+              )
+              */}
             </View>
           </View>
         </Content>
