@@ -43,7 +43,7 @@ const Balance = ({
 
   if (selectedAccount) {
     const balance = {};
-    const displayAmount = parseFloat(selectedAccount.balanceIncludingPendingInDollars) + parseFloat(selectedAccount.amountAwaitingDirectDebit);
+    const displayAmount = parseFloat(selectedAccount.balanceExcludingPendingInDollars);
     if ( displayAmount > 1) {
       const rawBalance = formatAmountDollarCent(displayAmount);
       balance.dollars = rawBalance.substring(0, rawBalance.length - 3);

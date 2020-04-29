@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   View,
   Image,
+  Linking
 } from 'react-native';
 import { formatAmountDollarCent, formatAmountDollar, isIOS } from 'src/Common/Helpers';
 
@@ -23,6 +24,9 @@ import {
   Row,
   Col,
 } from 'native-base';
+
+import composeHoc from 'src/Common/Hocs';
+import CheckBox from 'src/Components/CheckBox';
 
 import {
   accountsSelector,
@@ -48,6 +52,15 @@ import styles from './styles';
 import Investment from './Investment';
 
 class TabActivity extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: false,
+      buttonDisabled: true,
+      requestMade: false
+    };
+  }
+
   renderGlow() {
     return <SunGlow utcOffset={600} style={styles.activityCircleDay} {...this.props} />;
   }
@@ -183,14 +196,6 @@ class TabActivity extends Component {
     );
   }
 
-  renderWithdrawlTab = () => (
-    <View>
-      <Text style={[sg.textCenter, sg.fS12, sg.textBold]}>
-        There is no current open ‘Withdrawal Offer’.
-      </Text>
-    </View>
-  )
-
   renderActivityItems(activity) {
     return (
       <Grid>
@@ -262,8 +267,118 @@ class TabActivity extends Component {
     );
   }
 
+  clickOnLink() {
+    Linking.openURL('https://www.futurerenewablesfund.com.au/pds');
+  }
+
+  onConfirm() {
+    const { screenProps, selectedAccount } = this.props;
+    const { id } = selectedAccount;
+    screenProps.Api.post('/redemption', { id }, () => {
+      // confirmRedemptionRequest();
+      this.setState({ requestMade: true })
+    }, null, false);
+  }
+
+  toggleChecked() {
+    const { checked } = this.state;
+    checked ? this.setState({checked: false, buttonDisabled: true}) : this.setState({checked: true, buttonDisabled: false});
+  }
+
+  renderNoOffer() {
+    return (
+      <View style={[sg.contentMarginH2]}>
+        <Text style={[sg.textCenter, sg.fS14, sg.textBold]}>
+          There is currently no Withdrawal Offer open.
+        </Text>
+      </View>
+    )
+  }
+
+  renderRedemptionRequestMade() {
+    return (
+      <View style={[sg.contentMarginH2]}>
+        <Text style={[sg.textCenter, sg.fS14, sg.textBold]}>
+          We have received your withdrawal request for this account.
+        </Text>
+      </View>
+    )
+  }
+
+  renderWithdrawlTab() {
+
+    const { selectedAccount, user } = this.props;
+    const { checked, buttonDisabled } = this.state;
+
+    return (
+      <View style={[sg.contentMarginH2]}>
+        <Text style={[sg.textCenter, sg.fS16, sg.textBold]}>
+          Redemption Request
+        </Text>
+        <Text style={[sg.fS12, sg.mT10]}>
+          In response to the
+          {' '}
+          <Text onPress={() => this.clickOnLink()} style={[sg.fS12, sg.textUnderline]}>
+            Future Renewables Fund Withdrawal Offer dated { selectedAccount.withdrawalOfferOpenDate }
+          </Text>
+          .
+        </Text>
+        <Text style={[sg.fS12, sg.mT10]}>
+        You can use this form, to make a
+          {' '}
+          <Text style={[sg.fS12, sg.textBold]}>full withdrawal</Text>
+        . Withdrawal proceeds will be paid  to
+        {' '}
+        <Text style={[sg.fS12, sg.textBold]}>your nominated account</Text>
+        . If you wish to make a partial withdrawal, or have the withdrawal proceeds paid to a different account, please use the
+        {' '}
+        <Text onPress={() => this.clickOnLink()} style={[sg.fS12, sg.textUnderline]}>
+          Redemption Request Form available on the Fund website instead
+        </Text>
+        .
+        </Text>
+        <Text style={[sg.fS12, sg.mT10]}>
+        Account Number: <Text style={[sg.fS12, sg.textBold]}>{ selectedAccount.registryAccountNumber }</Text>
+        </Text>
+        <Text style={[sg.fS12, sg.mT5]}>
+        Account Name: <Text style={[sg.fS12, sg.textBold]}>{user.firstName} {user.lastName}</Text>
+        </Text>
+        <Text style={[sg.fS12, sg.mT5]}>
+        Offer open date: <Text style={[sg.fS12, sg.textBold]}>{ selectedAccount.withdrawalOfferOpenDate }</Text>
+        </Text>
+        <Text style={[sg.fS12, sg.mT5]}>
+        Offer close date: <Text style={[sg.fS12, sg.textBold]}>{ selectedAccount.withdrawalOfferCloseDate }</Text>
+        </Text>
+        <Text style={[sg.fS12, sg.mT5]}>
+        Withdrawal Amount: <Text style={[sg.fS12, sg.textBold]}>Full Withdrawal</Text>
+        </Text>
+        <Text style={[sg.fS12, sg.mT5]}>
+        Payment to: <Text style={[sg.fS12, sg.textBold]}>Nominated Bank Account</Text>
+        </Text>
+
+        <Grid style={sg.mT20}>
+          <Col style={sg.width50}>
+            <CheckBox checked={checked} onPress={() => this.toggleChecked()} />
+          </Col>
+          <Col>
+            <Text style={[sg.fS12, sg.mB20]}>
+            I confirm that I am the security holder, and I request that I make a full withdrawal to be paid to my nominated bank account.
+            </Text>
+          </Col>
+        </Grid>
+        <View>
+          <Button onPress={() => this.onConfirm()} block disabled={buttonDisabled}>
+            <Text>Confirm Redemption Request</Text>
+          </Button>
+        </View>
+      </View>
+    )
+  }
+
   render() {
     const { selectedAccount, user, unitPrices } = this.props;
+    const { checked, buttonDisabled, requestMade } = this.state;
+    const redemptionRequestMade = selectedAccount.redemptionRequested || requestMade;
 
     return (
       <Content>
@@ -295,7 +410,7 @@ class TabActivity extends Component {
           */}
 
           <View tabLabel="Transactions" style={{ paddingTop: 20 }}>
-            {this.renderTransactionsTab()}
+            { this.renderTransactionsTab()}
           </View>
 
           {/*
@@ -305,7 +420,9 @@ class TabActivity extends Component {
           */}
 
           <View tabLabel="Withdrawals" style={{ paddingTop: 20 }}>
-            {this.renderWithdrawlTab()}
+            { !redemptionRequestMade && selectedAccount.withdrawalOfferOpen && this.renderWithdrawlTab() }
+            { !redemptionRequestMade && !selectedAccount.withdrawalOfferOpen && this.renderNoOffer() }
+            { redemptionRequestMade && this.renderRedemptionRequestMade() }
           </View>
 
         </ScrollableTabView>
