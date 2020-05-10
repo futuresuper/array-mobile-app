@@ -65,6 +65,7 @@ const Balance = ({
     return (
       <View style={[sg.aICenter, sg.mT15, sg.mB25]}>
 
+
         <Button
           transparent
           iconRight
@@ -79,7 +80,7 @@ const Balance = ({
         </Button>
 
         <View style={sg.row}>
-          <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance({ selectedAccount, unitPrices })} />
+          {/*<Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance({ selectedAccount, unitPrices })} />*/}
           <H1 style={styles.mainAmount}>{balance.dollars}</H1>
           <Text style={styles.mainAmountCent}>{`.${balance.cents}`}</Text>
         </View>
