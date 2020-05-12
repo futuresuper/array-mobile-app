@@ -198,8 +198,8 @@ class TabHome extends Component {
 
     if (selectedAccount) {
       const balance = {};
-      if (selectedAccount.balanceIncludingPendingInDollars) {
-        const rawBalance = formatAmountDollarCent(selectedAccount.balanceIncludingPendingInDollars);
+      if (selectedAccount.balanceExcludingPendingInDollars) {
+        const rawBalance = formatAmountDollarCent(selectedAccount.balanceExcludingPendingInDollars);
         balance.dollars = rawBalance.substring(0, rawBalance.length - 3);
         balance.cents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
       } else {
@@ -233,11 +233,10 @@ class TabHome extends Component {
           </Button>
 
           <View style={sg.row}>
-            <Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance({ selectedAccount, unitPrices })} />
+            {/*<Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance({ selectedAccount, unitPrices })} />*/}
             <H1 style={styles.mainAmount}>{balance.dollars}</H1>
             <Text style={styles.mainAmountCent}>{`.${balance.cents}`}</Text>
           </View>
-          {this.renderAwaitingDirectDebit(selectedAccount.amountAwaitingDirectDebit)}
         </View>
       );
     }
@@ -253,7 +252,9 @@ class TabHome extends Component {
         <View style={[sg.oFHidden]}>
           <View style={[sg.contentPadding2, sg.zIndex10]}>
             <View style={sg.mB40}>
+              {/*
               <Grid>
+
                 <Row>
                   <Col style={sg.aICenter}>
                     <Icon
@@ -271,13 +272,16 @@ class TabHome extends Component {
                     </TouchableOpacity>
                   </Col>
                 </Row>
+
                 <Row style={sg.jCCenter}>
                   <LiveClock style={styles.localTime} utcOffset={600} />
                   <Text style={styles.localTime}> local time</Text>
                 </Row>
               </Grid>
+              */}
             </View>
             {this.renderBalance()}
+            {/*
             <Button
               rounded
               primary
@@ -288,6 +292,7 @@ class TabHome extends Component {
             >
               <Icon name="add" style={styles.plusButtonIcon} />
             </Button>
+            */}
           </View>
           <View style={styles.graphBl}>
             {this.renderGlow()}

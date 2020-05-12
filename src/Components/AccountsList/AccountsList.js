@@ -63,17 +63,6 @@ class AccountsList extends Component {
                 <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
                   {account.nickName}
                 </Text>
-                {showBalance && (
-                  <Text style={[sg.mL0, sg.fS16]} color4>
-                      {formatAmountDollar(account.balanceInDollars)}
-                  </Text>
-                )}
-                {showAwaitingDebit && (
-                  <Text style={[sg.mL0, sg.fS16]} color4>
-                    {formatAmountDollar(account.amountAwaitingDirectDebit)}
-                    {' awaiting debit'}
-                  </Text>
-                )}
               </Col>
               <Col style={[sg.jCCenter, sg.aIEnd]}>
                 <Icon name="ios-arrow-forward" style={sg.fS20} />

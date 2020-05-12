@@ -13,8 +13,10 @@ import {
 } from 'native-base';
 
 import {
+  formatAmountDollar,
   formatAmountDollarCent,
 } from 'src/Common/Helpers';
+
 
 import BottomInfo from 'src/Components/BottomInfo';
 
@@ -24,13 +26,26 @@ import {
 
 import styles from './styles';
 
+const renderAwaitingDirectDebit = (data) => {
+  if (data) {
+    return (
+      <Text style={styles.awaitingDebit}>
+        {`Includes ${formatAmountDollar(data)} awaiting direct debit`}
+      </Text>
+    );
+  }
+  return null;
+}
+
 const Balance = ({
-  onPress, style, account, user,
+  onPress, style, selectedAccount, user, unitPrices
 }) => {
-  if (account) {
+
+  if (selectedAccount) {
     const balance = {};
-    if (account.balanceIncludingPendingInDollars) {
-      const rawBalance = formatAmountDollarCent(account.balanceIncludingPendingInDollars);
+    const displayAmount = parseFloat(selectedAccount.balanceExcludingPendingInDollars);
+    if ( displayAmount > 1) {
+      const rawBalance = formatAmountDollarCent(displayAmount);
       balance.dollars = rawBalance.substring(0, rawBalance.length - 3);
       balance.cents = rawBalance.substring(rawBalance.length - 2, rawBalance.length);
     } else {
@@ -39,8 +54,8 @@ const Balance = ({
     }
 
     let nickName;
-    if (account.nickName) {
-      nickName = account.nickName;
+    if (selectedAccount.nickName) {
+      nickName = selectedAccount.nickName;
     } else if (user && user.firstName) {
       nickName = user.firstName;
     } else {
@@ -48,26 +63,24 @@ const Balance = ({
     }
 
     return (
-      <View style={[sg.aICenter, sg.mT25, sg.mB10, style]}>
+      <View style={[sg.aICenter, sg.mT15, sg.mB25]}>
+
+
         <Button
           transparent
           iconRight
           style={sg.aSCenter}
-          onPress={onPress}
+          onPress={() => {
+            BottomInfo.showAccounts();
+            // screenProps.navigateTo(routeNames.ACCOUNTS); // CHANGE TO MODAL BOTTOM WHEN FIXED
+          }}
         >
           <Text style={styles.title}>{nickName}</Text>
           <Icon name="ios-arrow-down" style={styles.titleIcon} />
         </Button>
 
         <View style={sg.row}>
-          <TouchableOpacity
-            onPress={() => {
-              BottomInfo.showBalance();
-            }}
-          >
-            <Icon type="EvilIcons" name="question" style={[sg.colorGray11, sg.mR5]} />
-          </TouchableOpacity>
-
+          {/*<Icon name="ios-help-circle-outline" style={styles.amountIcon} onPress={() => BottomInfo.showBalance({ selectedAccount, unitPrices })} />*/}
           <H1 style={styles.mainAmount}>{balance.dollars}</H1>
           <Text style={styles.mainAmountCent}>{`.${balance.cents}`}</Text>
         </View>

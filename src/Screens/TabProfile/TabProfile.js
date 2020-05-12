@@ -245,11 +245,6 @@ class TabProfile extends Component {
                 </View>
               )}
             </View>
-            <View>
-              <Text style={[sg.fS12]}>
-                {`Member since ${user.memberSince}` }
-              </Text>
-            </View>
           </Col>
         </Grid>
 

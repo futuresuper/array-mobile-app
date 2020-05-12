@@ -77,41 +77,11 @@ class AccountsInfo extends Component {
                   <Text style={[sg.mL0, sg.mB10, sg.fS20, sg.textBold]} color2>
                     {account.nickName}
                   </Text>
-                  {showBalance && (
-                    <Text style={[sg.mL0, sg.fS16]} color4>
-                        {formatAmountDollar(account.balanceInDollars)}
-                    </Text>
-                  )}
-                  {showAwaitingDebit && (
-                    <Text style={[sg.mL0, sg.fS16]} color4>
-                        {formatAmountDollar(account.amountAwaitingDirectDebit)}
-                        {' '}
-                        awaiting debit
-                    </Text>
-                  )}
                 </Col>
                 <Col style={[sg.jCCenter, sg.aIEnd]}>
                   <Icon name="ios-arrow-forward" style={sg.fS20} />
                 </Col>
               </Row>
-              {awaitingIdCheck && (
-                <Row>
-                  <Col style={[sg.flexNull]}>
-                    <View style={[sg.incAppBl, sg.aSCenter]}>
-                      <Text style={[sg.incAppText]}>Complete ID Check</Text>
-                    </View>
-                  </Col>
-                </Row>
-              )}
-              {appIncomplete && (
-                <Row>
-                  <Col style={[sg.flexNull]}>
-                    <View style={[sg.incAppBl, sg.aSCenter]}>
-                      <Text style={[sg.incAppText]}>Incomplete application</Text>
-                    </View>
-                  </Col>
-                </Row>
-              )}
             </Grid>
           </Body>
         </ListItem>
@@ -125,12 +95,6 @@ class AccountsInfo extends Component {
         <View style={sg.pH20}>
             <Text style={[sg.textCenter, sg.textBold]}>
                 YOUR ACCOUNTS
-            </Text>
-            <Text style={[sg.textCenter,sg.pT10]}>
-                Your accounts will show up here once you've set them up.
-            </Text>
-            <Text style={[sg.textCenter,sg.pT10]}>
-                With Array, you can have multiple accounts if you want to.
             </Text>
         </View>
       )
@@ -146,43 +110,6 @@ class AccountsInfo extends Component {
           {accounts.map((account) => this.renderAccount(account))}
           {accounts.length === 0 && this.renderNoAccounts()}
         </List>
-
-        <View style={[sg.mT30, sg.mH10]}>
-          <Button
-            block
-            iconRight
-            onPress={() => {
-              screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-              BottomInfoModal.hide();
-            }}
-          >
-            <Text>Add account</Text>
-            <Icon name="add" />
-          </Button>
-
-          {
-          //   superAccount && (
-          //   <View>
-          //     <Button
-          //       transparent
-          //       bordered
-          //       dark
-          //       block
-          //       style={sg.mT15}
-          //       onPress={() => {
-          //         screenProps.navigateTo(routeNames.JOIN_FUTURE, {
-          //           showBackButton: false,
-          //         });
-          //         BottomInfoModal.hide();
-          //       }}
-          //     >
-          //       <Text>Add Future Super Account</Text>
-          //     </Button>
-          //     <TextUnderline style={[sg.mT25]}>What&apos;s a Future Super Account?</TextUnderline>
-          //   </View>
-          // )
-          }
-        </View>
       </View>
     );
   }

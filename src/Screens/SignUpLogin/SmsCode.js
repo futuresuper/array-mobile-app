@@ -142,7 +142,7 @@ class SmsCode extends Component {
       if (gotBasicDetails) {
         navigateTo(routeNames.ACCOUNTS);
       } else {
-        navigateTo(routeNames.NAME);
+        navigateTo(routeNames.ACCOUNTS);
       }
     }
 

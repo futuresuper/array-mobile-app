@@ -62,30 +62,6 @@ class Accounts extends React.Component {
                 onItemPress={(account) => this.onAccountSelect(account)}
               />
             </View>
-            <View>
-              <Button
-                onPress={() => {
-                  screenProps.navigateTo(routeNames.ABOUT_APP_FORM);
-                }}
-                block
-              >
-                <Text>Start new application</Text>
-              </Button>
-              { !user.personalDetailsLocked // exclude users that have already submitted an application
-              && (
-                <Button
-                  onPress={() => {
-                    screenProps.navigateTo(routeNames.TAB_HOME);
-                  }}
-                  bordered
-                  dark
-                  block
-                  marginVert
-                >
-                  <Text>Explore Array</Text>
-                </Button>
-              )}
-            </View>
           </View>
         </Content>
       </SafeAreaView>
