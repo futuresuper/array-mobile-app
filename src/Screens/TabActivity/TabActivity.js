@@ -55,8 +55,8 @@ class TabActivity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: false,
-      buttonDisabled: true,
+      checked: true,
+      buttonDisabled: false,
       requestMade: false
     };
   }
